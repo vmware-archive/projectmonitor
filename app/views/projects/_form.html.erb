@@ -1,0 +1,37 @@
+<%= error_messages_for :project %>
+
+<% form_for(@project) do |f| %>
+  <p>
+    <b>Name</b><br/>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Tags</b> (separate with commas)<br/>
+    <%= f.text_area :tag_list, :size => '50x5' %>
+  </p>
+
+  <p>
+    <b>Cruise Control RSS URL</b><br/>
+    <%= f.text_field :cc_rss_url, :size=>80 %>
+  </p>
+
+  <p>
+    <b>Cruise Control auth username</b><br/>
+    <%= f.text_field :auth_username, :size=>40 %>
+  </p>
+
+  <p>
+    <b>Cruise Control auth password</b><br/>
+    <%= f.text_field :auth_password, :size=>40 %>
+  </p>
+
+  <p>
+    <b>Enabled?</b><br/>
+    <%= f.check_box :enabled %>
+  </p>
+
+  <p>
+    <%= submit_tag @project.new_record? ? "Create" : "Update" %>
+  </p>
+<% end %>

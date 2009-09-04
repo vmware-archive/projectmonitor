@@ -1,0 +1,91 @@
+pivots_status:
+  id: 1
+  online: true
+  success: true
+  url: http://pivots-ci.flood.pivotallabs.com:3333/builds/pivots/61968.1
+  published_at: <%= 1.hour.ago.to_s(:db) %>
+  project: pivots
+
+socialitis_status_old_red_00:
+  id: 2
+  online: true
+  success: false
+  url: http://socialitis-ci.flood.pivotallabs.com:3333/builds/socialitis/42342.1
+  published_at: <%= 10.minutes.ago.to_s(:db) %>
+  project: socialitis
+
+socialitis_status_green_01:
+  id: 3
+  online: true
+  success: true
+  url: http://socialitis-ci.flood.pivotallabs.com:3333/builds/socialitis/42344
+  published_at: <%= 5.minutes.ago.to_s(:db) %>
+  project: socialitis
+
+socialitis_status_recent_red_02:
+  id: 4
+  online: true
+  success: false
+  url: http://socialitis-ci.flood.pivotallabs.com:3333/builds/socialitis/42347
+  published_at: <%= 1.minute.ago.to_s(:db) %>
+  project: socialitis
+
+never_green_status:
+  id: 5
+  online: true
+  success: false
+  url: http://lumos-ci/builds/lumos/7432
+  published_at: <%= 2.days.ago.to_s(:db) %>
+  project: never_green
+
+offline_status_oldest:
+  id: 6
+  online: true
+  success: true
+  url: http://gnip-ci/builds/gnip/4000
+  published_at: <%= 5.minutes.ago.to_s(:db) %>
+  project: offline
+
+offline_status_older:
+  id: 7
+  online: true
+  success: false
+  url: http://gnip-ci/builds/gnip/4001
+  published_at: <%= 4.minutes.ago.to_s(:db) %>
+  project: offline
+
+offline_status_old:
+  id: 8
+  online: true
+  success: true
+  url: http://gnip-ci/builds/gnip/4002
+  published_at: <%= 3.minutes.ago.to_s(:db) %>
+  project: offline
+
+offline_status:
+  id: 9
+  online: false
+  published_at: <%= 2.minutes.ago.to_s(:db) %>
+  project: offline
+
+red_currently_building_status:
+  id: 10
+  online: true
+  published_at: <%= 10.minutes.ago.to_s(:db) %>
+  project: red_currently_building
+
+green_currently_building_status:
+  id: 11
+  online: true
+  success: true
+  published_at: <%= 10.minutes.ago.to_s(:db) %>
+  project: green_currently_building
+
+<% (1..20).each do |i| %>
+online_status_<%= i %>:
+  id: <%= 11 + i %>
+  online: true
+  success: <%= i % 2 ? true : false %>
+  published_at: <%= (4 + i).minutes.ago.to_s(:db) %>
+  project: many_builds
+<% end %>

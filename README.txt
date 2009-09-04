@@ -1,0 +1,1 @@
+* Add cron job for 'rake pulse:fetch_statuses RAILS_ENV=env'

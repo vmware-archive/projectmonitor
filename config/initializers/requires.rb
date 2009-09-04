@@ -1,0 +1,5 @@
+require 'acts_as_taggable'
+require 'tag_list'
+require 'tag'
+require 'tagging'
+require 'tags_helper'

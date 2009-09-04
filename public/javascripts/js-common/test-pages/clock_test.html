@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script src="../include.js" type="text/javascript"></script>
+  <script src="common-includes.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="source">
+  </div>
+
+  <script type="text/javascript">
+  	var clockLand;
+  	var ticks;
+
+	function setUpPage() {
+		sourceHtml = $("source").innerHTML;
+		setUpPageStatus = 'complete';
+	}
+
+	function setUp() {
+		$("source").innerHTML = sourceHtml;
+		Clock.reset();
+    ticks = 0;
+  }
+	
+	function testSimpleClock() {
+		setTimeout(function() {clockLand = 'A';}, 1000);
+		setTimeout(function() {clockLand = 'B';}, 2000);
+		setTimeout(function() {clockLand = 'C';}, 3000);
+		Clock.tick(1000);
+		assertEquals('A', clockLand);
+		Clock.tick(1000);
+		assertEquals('B', clockLand);
+		Clock.tick(1000);
+		assertEquals('C', clockLand);
+	}
+	
+	function testClockOutOfOrder() {
+		setTimeout(function() {clockLand = 'A';}, 2000);
+		setTimeout(function() {clockLand = 'B';}, 1000);
+		setTimeout(function() {clockLand = 'C';}, 3000);
+		Clock.tick(1000);
+		assertEquals('B', clockLand);
+		Clock.tick(1000);
+		assertEquals('A', clockLand);
+		Clock.tick(1000);
+		assertEquals('C', clockLand);
+	}
+	
+	function testTimeoutsCanBeCleared() {
+		setTimeout(function() {clockLand = 'A';}, 1000);
+		var timeoutToClear = setTimeout(function() {clockLand = 'B';}, 2000);
+		setTimeout(function() {clockLand = 'C';}, 3000);
+		clearTimeout(timeoutToClear);
+		Clock.tick(1000);
+		assertEquals('A', clockLand);
+		Clock.tick(1000);
+		assertEquals('A', clockLand);
+		Clock.tick(1000);
+		assertEquals('C', clockLand);
+	}
+
+  function keepOnTicking() {
+    ticks++;
+    setTimeout(keepOnTicking, 10);
+  }
+
+  function testChainedTimeouts() {
+    keepOnTicking();
+    assertEquals(1, ticks);
+    Clock.tick(10);
+    assertEquals(2, ticks);
+    Clock.tick(100);
+    assertEquals(12, ticks);
+    Clock.tick(100);
+    assertEquals(22, ticks);
+  }
+
+  function testNow() {
+    assertEquals(0, Clock.now());
+    Clock.tick(10);
+    assertEquals(10, Clock.now());
+  }
+
+  function testRun() {
+    var calls = []
+    setTimeout(function() {calls.push('B');}, 2000);
+    setTimeout(function() {calls.push('A');}, 1000);
+    setTimeout(function() {
+      setTimeout(function() {calls.push('D')}, 1000);
+      calls.push('C');
+    }, 3000);
+    Clock.run();
+    assertArrayEquals(['A','B','C','D'], calls);
+  }
+
+  function testRunWithInterval() {
+    var loopCount = 3;
+    var calls = []
+    setTimeout(function() {calls.push('B');}, 2500);
+    var intervalId = setInterval(function() {
+      calls.push('A');
+      loopCount--;
+      if(loopCount == 0) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+    Clock.run();
+    assertArrayEquals(['A','A','B','A'], calls);
+  }
+
+  </script>
+	
+</body>
+</html>

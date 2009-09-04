@@ -1,0 +1,9 @@
+pivots_nyc:
+  tag: nyc
+  taggable: pivots (Project)
+socialitis_nyc:
+  tag: nyc
+  taggable: socialitis (Project)
+socialitis_public:
+  tag: public
+  taggable: socialitis (Project)

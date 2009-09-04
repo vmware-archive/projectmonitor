@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ENV=demo
+APP=pulse
+MONGREL_DIR=/u/apps/$APP/current/config/mongrel
+
+$MONGREL_DIR/mongrel_cluster $1 $MONGREL_DIR/$ENV

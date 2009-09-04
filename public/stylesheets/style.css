@@ -1,0 +1,229 @@
+body {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12px; 
+	background: white;
+  margin-top: 3px;
+}
+
+body, p, li { 
+	color: black; 
+}
+
+p {
+	font-size: 1em;
+	line-height: 1.6em;
+	font-weight: normal;
+	margin: 0 0 1.6em 0; 
+	padding: 0; 
+}
+
+/*
+=Headings
+*/
+h1 {
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+h1 {
+	padding: 0; 
+	line-height: 1em; 
+	margin: 0 0 5px;
+  letter-spacing: -2px;
+  font-weight: bold;
+}
+
+.page h1 {
+	font-size: 3.2em;
+}
+
+.error {
+  color: #000000;
+}
+
+.success {
+  color: #000000;
+}
+
+/*
+=Links
+*/
+
+a, 
+a:link {
+	color: black; 
+}
+
+a:hover {
+        color: #aa1224;
+}
+
+
+/*
+=Boxes
+*/
+
+.box {
+	position: relative;
+	height: 213px;
+	width: 213px;
+	padding: 15px;
+}
+
+#header {
+  margin: 0;
+  padding: .5em 1em .5em 1em;
+  background-color: #88C2E5;
+}
+
+#logo {
+  width: 90%;
+}
+
+#logo .company_logo {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+#logo a, #logo img {
+  border: 0
+}
+
+#logo a {
+  margin-left: 2em;
+}
+
+#title {
+  padding-top: 10px;
+  margin-left: 300px;
+  text-align: left; 
+}
+
+.project {
+  float:left;
+  margin-top:15px;
+  margin-left:10px;
+  margin-bottom:15px;
+  width:230px;
+  height:210px;
+}
+
+.project_visit {
+  float: right;
+  font-size: smaller;  
+}
+
+.project_name {
+  text-align: center;
+/*  white-space: nowrap;*/
+}
+
+.project_name a {
+  text-decoration: none;
+  color: black;
+}
+
+.project_status {
+  margin-top: 5px;
+  margin-bottom: 34px;
+  text-align: center;
+/*  vertical-align: baseline;*/
+  position: absolute;
+  bottom: 0;
+  width: 87%;
+}
+
+.project_published_at {
+  text-align: center;
+  font-size: 1em;  
+}
+
+.project_red_since {
+  text-align: center;
+  font-size: 0.9em;
+  margin-left: -0.2;
+  margin-right: -0.2;
+}
+
+.project_invalid {
+  text-align: center;
+  font-size: 1em;  
+}
+
+#top_right {
+  position: absolute;
+  top: 0.25em;
+  right: 2em;
+  margin-top: 0.5em;
+  width: 20em;
+}
+
+#advertisement {
+  font-size: smaller;
+}
+
+.status_image {
+  border: 0;
+}
+
+.page .status_image {
+}
+
+.logo_page {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.log_entry {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.log_entry_meta {
+  width: 50px;
+  font-size: 8pt;
+  vertical-align: top;
+}
+
+.log_entry_message {
+  margin-left: 5px;
+  font-size: 9pt;  
+  color: #555555; 
+  letter-spacing: -1px;
+  vertical-align: top;
+}
+
+.log_entries_error {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 20pt;  
+  color: #AAAAAA; 
+  letter-spacing: -1px;
+  font-weight: bold; 
+}
+
+#log_entries_right {
+  float: right;
+  height: 1200px;
+  overflow: hidden;
+  width: 300px;
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+#log_entries_title {
+  margin-left: 10px;
+  font-size: 15pt;  
+}
+
+#messages_right {
+  float: right;
+  overflow: hidden;
+}
+
+.message {  
+}
+
+.smaller_text {
+  font-size: smaller;
+}
+

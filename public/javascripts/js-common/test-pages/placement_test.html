@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script src="../include.js" type="text/javascript"></script>
+  <script src="common-includes.js" type="text/javascript"></script>
+  <script language="javascript">
+
+    function tearDown() {
+	   	detachElement('nearbyElementId');
+      detachElement('placedElementId');
+    }
+
+    function detachElement(elementId) {
+    	var element = $(elementId);
+    	if (element != null) {
+    		element.parentNode.removeChild(element);
+    	}
+    }
+
+    function testNotPositioned() {
+      var placement = Pivotal.Placement.DO_NOT_POSITION;
+      var placedElement = makePlacedElement(100, 50);
+      placement.placeElement(placedElement);
+    	assertNotCenteredInWindow(placedElement);
+    	assertEquals('', placedElement.style.left);
+    	assertEquals('', placedElement.style.top);
+    	assertEquals('', placedElement.style.position);
+    }
+
+    function testPositionedBelow() {
+      var nearbyElement = makeNearbyElement(10, 20);
+      var placement = Pivotal.Placement.belowElement('nearbyElementId', {spacingPixels: 5});
+      assertEquals(Pivotal.Placement.ALIGN_LEFT_EDGE, placement.options.align);
+      var placedElement = makePlacedElement(100, 50);
+      placement.placeElement(placedElement);
+    	assertArrayEquals([10, 20], Position.cumulativeOffset(nearbyElement));
+    	assertEquals(62, Utils.heightWithBorders(nearbyElement));
+    	assertArrayEquals([10, 20 + 62 + 5], Position.cumulativeOffset(placedElement));
+    }
+
+    function testPositionedToRightOf() {
+      var nearbyElement = makeNearbyElement(10, 20);
+      var placement = Pivotal.Placement.toRightOfElement('nearbyElementId', {spacingPixels: 5});
+      assertEquals(Pivotal.Placement.ALIGN_LEFT_EDGE, placement.options.align);
+      var placedElement = makePlacedElement(100, 50);
+      placement.placeElement(placedElement);
+    	assertArrayEquals([10, 20], Position.cumulativeOffset(nearbyElement));
+    	assertEquals(62, Utils.heightWithBorders(nearbyElement));
+    	assertArrayEquals([222, 20 + 5], Position.cumulativeOffset(placedElement));
+    }
+
+    function testPositionedToRightOfWithVerticalAdjustment() {
+      var nearbyElement = makeNearbyElement(10, 20);
+      var placement = Pivotal.Placement.toRightOfElement('nearbyElementId', {spacingPixels: 5, offsetVertical: -20 });
+      assertEquals(Pivotal.Placement.ALIGN_LEFT_EDGE, placement.options.align);
+      var placedElement = makePlacedElement(100, 50);
+      placement.placeElement(placedElement);
+    	assertArrayEquals([10, 20], Position.cumulativeOffset(nearbyElement));
+    	assertEquals(62, Utils.heightWithBorders(nearbyElement));
+    	assertArrayEquals([222, 20 + 5 - 20], Position.cumulativeOffset(placedElement));
+    }
+
+    function testPositionedBelowWhenAlignedRight() {
+      var nearbyElement = makeNearbyElement(400, 20);
+      var placement = Pivotal.Placement.belowElement('nearbyElementId', {spacingPixels: 5,
+        align: Pivotal.Placement.ALIGN_RIGHT_EDGE});
+      var placedElement = makePlacedElement(150, 50);
+      placement.placeElement(placedElement);
+      assertArrayEquals([400, 20], Position.cumulativeOffset(nearbyElement));
+      assertEquals(212, Utils.widthWithBorders(nearbyElement));
+      assertEquals(62, Utils.heightWithBorders(nearbyElement));
+      assertEquals(150, Utils.widthWithBorders(placedElement));
+      assertArrayEquals([400 + 212 - 150, 20 + 62 + 5], Position.cumulativeOffset(placedElement));
+    }
+
+    function testAlignRightEdgeAlignsLeftEdgeIfTooFarLeft() {
+      var nearbyElement = makeNearbyElement(0, 20);
+      var placement = Pivotal.Placement.belowElement('nearbyElementId', {spacingPixels: 5,
+        align: Pivotal.Placement.ALIGN_RIGHT_EDGE});
+      assertEquals(Pivotal.Placement.ALIGN_RIGHT_EDGE, placement.options.align);
+      assertEquals(212, Utils.widthWithBorders(nearbyElement));
+      var placedElement = makePlacedElement(250, 50);
+      placement.placeElement(placedElement);
+
+      var offset = Position.cumulativeOffset(placedElement);
+      assertFalse(offset[0] < 0);
+      assertArrayEquals([0, 20 + 62 + 5], Position.cumulativeOffset(placedElement));
+    }
+
+    function disabledtestAlignLeftEdgeAlignsRightEdgeIfTooFarRight() {
+      var towardsRightEdge = Utils.windowDimensions().width - 212;
+      var nearbyElement = makeNearbyElement(towardsRightEdge, 20);
+      var placement = Pivotal.Placement.belowElement('nearbyElementId', {spacingPixels: 5,
+        align: Pivotal.Placement.ALIGN_LEFT_EDGE});
+      assertEquals(212, Utils.widthWithBorders(nearbyElement));
+      var placedElement = makePlacedElement(250, 50);
+      placement.placeElement(placedElement);
+
+      var offset = Position.cumulativeOffset(placedElement)
+      assertFalse((offset[0] + 250) > Utils.windowDimensions().width);
+    }
+
+
+
+    function testPositionedBelowWhenOffsetSpecified() {
+      var nearbyElement = makeNearbyElement(400, 20);
+      var placement = Placement.belowElement('nearbyElementId',
+                                             {spacingPixels: 5,
+                                              align: Placement.ALIGN_RIGHT_EDGE,
+                                              offsetHorizontal: 10,
+                                              offsetVertical: 10
+                                              });
+      var placedElement = makePlacedElement(150, 50);
+      placement.placeElement(placedElement);
+      assertArrayEquals([400, 20], Position.cumulativeOffset(nearbyElement));
+      assertEquals(212, Utils.widthWithBorders(nearbyElement));
+      assertEquals(62, Utils.heightWithBorders(nearbyElement));
+      assertEquals(150, Utils.widthWithBorders(placedElement));
+      assertArrayEquals([400 + 212 - 150 + 10, 20 + 62 + 5 + 10], Position.cumulativeOffset(placedElement));
+    }
+
+    function makeNearbyElement(left, top) {
+    	var originalElement = document.createElement("div");
+		  document.body.appendChild(originalElement);
+    	originalElement.id = "nearbyElementId";
+    	originalElement.style.position = "absolute";
+    	originalElement.style.left = left + "px";
+    	originalElement.style.top = top + "px";
+    	originalElement.style.width = "200px";
+    	originalElement.style.height = "50px";
+    	originalElement.style.padding = "4px";
+    	originalElement.style.border = "2px solid red";
+    	assertArrayEquals([left, top], Position.cumulativeOffset(originalElement));
+    	assertEquals(212, Utils.widthWithBorders(originalElement));
+    	assertEquals(62, Utils.heightWithBorders(originalElement));
+    	return originalElement;
+    }
+
+    function makePlacedElement(width, height) {
+      var element = document.createElement("div");
+      document.body.appendChild(element);
+      element.style.width = width + "px";
+      element.style.height = height + "px";
+      return element;
+    }
+
+  </script>
+</head>
+<body>
+</body>
+</html>

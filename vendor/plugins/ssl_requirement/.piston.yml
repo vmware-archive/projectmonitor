@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 4504a9d59d3e38d02ac82af927bc20d57593eeea
+  branch: HEAD
+lock: 
+repository_url: git://github.com/desi/ssl_requirement.git
+repository_class: Piston::Git::Repository

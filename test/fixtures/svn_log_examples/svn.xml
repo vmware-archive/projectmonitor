@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<log>
+  <logentry
+      revision="107139">
+    <author>pivotal</author>
+    <date>2008-03-13T02:40:32.078404Z</date>
+    <msg>automated tagging</msg>
+  </logentry>
+  <logentry
+      revision="107138">
+    <author>pivotal</author>
+    <date>2008-03-13T02:40:31.316308Z</date>
+    <msg>branched and frozen</msg>
+  </logentry>
+  <logentry
+      revision="107137">
+    <author>pivotal</author>
+    <date>2008-03-13T02:40:26.273717Z</date>
+    <msg>Creating branch via rake task</msg>
+  </logentry>
+  <logentry
+      revision="107099">
+    <author>pivotal</author>
+    <date>2008-03-13T02:09:59.507743Z</date>
+    <msg>automated tagging</msg>
+  </logentry>
+  <logentry
+      revision="107098">
+    <author>pivotal</author>
+    <date>2008-03-13T02:09:58.194673Z</date>
+    <msg>branched and frozen</msg>
+  </logentry>
+  <logentry
+      revision="107097">
+    <author>pivotal</author>
+    <date>2008-03-13T02:09:50.336491Z</date>
+    <msg>Creating branch via rake task</msg>
+  </logentry>
+  <logentry
+      revision="107081">
+    <author>pivotal</author>
+    <date>2008-03-13T01:56:02.627626Z</date>
+    <msg>automated tagging</msg>
+  </logentry>
+  <logentry
+      revision="107080">
+    <author>pivotal</author>
+    <date>2008-03-13T01:56:01.716631Z</date>
+    <msg>branched and frozen</msg>
+  </logentry>
+  <logentry
+      revision="107079">
+    <author>pivotal</author>
+    <date>2008-03-13T01:55:56.609536Z</date>
+    <msg>Creating branch via rake task</msg>
+  </logentry>
+  <logentry
+      revision="107050">
+    <author>pivotal</author>
+    <date>2008-03-13T01:33:55.063985Z</date>
+    <msg>automated tagging</msg>
+  </logentry>
+</log>

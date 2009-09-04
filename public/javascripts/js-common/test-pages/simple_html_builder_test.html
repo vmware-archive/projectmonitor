@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
+  <script type="text/javascript" src="../simple_html_builder.js"></script> 
+
+  <script type="text/javascript">
+    function testBuilder() {
+      var builder = new SimpleHtmlBuilder();
+      builder.open("div", { id: "theId", className: "theClass" });
+      builder.html("Hi");
+      builder.close("div");
+
+      assertEquals('<div id="theId" class="theClass">Hi</div>', builder.toString());
+    }
+
+    function testBuilderWithoutAttributes() {
+      var builder = new SimpleHtmlBuilder();
+      builder.open("div");
+      builder.html("Hi");
+      builder.close("div");
+
+      assertEquals('<div>Hi</div>', builder.toString());
+    }
+
+    function testClassDefinedProperlyWithoutTheCrutchOfPrototypeLibrary() {
+      var a = new SimpleHtmlBuilder();
+      var b = new SimpleHtmlBuilder();
+
+      b.open("span");
+      a.open("div");
+      b.close("span");
+      a.close("div");
+
+      assertEquals("<div></div>", a.toString());
+      assertEquals("<span></span>", b.toString());
+    }
+
+  </script>
+
+</head>
+
+<body>
+</body>
+</html>

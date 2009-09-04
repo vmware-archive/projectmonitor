@@ -1,0 +1,14 @@
+<div>
+    The following projects have been red for over one day:
+    <ul>
+        <% @projects.each do |project| %>
+            <li>
+                <%= project.name %>
+                <%= link_to("View", project.status.url) if project.status.online? && project.status.url %>
+            </li>
+        <% end %>
+    </ul>
+</div>
+<div>
+    Please check it out.
+</div>

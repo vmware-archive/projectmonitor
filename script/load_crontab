@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+RAILS_ROOT = File.expand_path(File.dirname(__FILE__) + "/..")
+RAILS_ENV = ARGV[0] or raise "usage load_crontab <env>"
+require RAILS_ROOT + '/vendor/plugins/pivotal_core_bundle/lib/crontab/crontab_loader'
+
+CrontabLoader.new(:app_name => "pulse") do |cron|
+  cron << "0 6 * * * cd #{RAILS_ROOT} && #{`which rake`.strip} db:dump FILE=/u/apps/pulse/shared/backup/#{RAILS_ENV}_dump.sql RAILS_ENV=#{RAILS_ENV} >> /u/apps/pulse/shared/log/db_backup.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
+  cron << "*/3 * * * * cd #{RAILS_ROOT} && #{`which rake`.strip} pulse:fetch_statuses RAILS_ENV=#{RAILS_ENV} >> /u/apps/pulse/shared/log/fetch_statuses.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
+  cron << "30 8 * * 1-5 cd #{RAILS_ROOT} && #{`which rake`.strip} pulse:red_over_one_day_notification RAILS_ENV=#{RAILS_ENV} >> /u/apps/pulse/shared/log/red_notify.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
+end

@@ -1,0 +1,19 @@
+<h1>Listing messages</h1>
+
+<table>
+  <tr>
+    <th>Text</th>
+  </tr>
+
+<% for message in @messages %>
+  <tr>
+    <td><%=h message.text %></td>
+    <td><%= link_to 'Edit', edit_message_path(message) %></td>
+    <td><%= link_to 'Delete', message, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New message', new_message_path %>

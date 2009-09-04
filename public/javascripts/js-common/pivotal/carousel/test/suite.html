@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <!-- Test Framework -->
+    <script src="./screw-unit/jquery-1.2.3.js" type="text/javascript"></script>
+    <script src="./screw-unit/jquery.fn.js" type="text/javascript"></script>
+    <script src="./screw-unit/jquery.print.js" type="text/javascript"></script>
+    <script src="./screw-unit/screw.builder.js" type="text/javascript"></script>
+    <script src="./screw-unit/screw.matchers.js" type="text/javascript"></script>
+    <script src="./screw-unit/screw.events.js" type="text/javascript"></script>
+    <script src="./screw-unit/screw.behaviors.js" type="text/javascript"></script>
+    <script src="./screw-unit/screw.mock.js" type="text/javascript"></script>
+    
+    <!-- Support Code -->
+    <script src="../vendor/prototype.js" type="text/javascript"></script>
+    <script src="../vendor/effects.js" type="text/javascript"></script>
+    <script src="../vendor/transitions.js" type="text/javascript"></script>
+
+    <!-- Code to be tested -->
+    <script src="../src/carousel.js" type="text/javascript"></script>
+    
+    <script src="./spec_helper.js" type="text/javascript" charset="utf-8"></script>
+    
+    <!-- Tests -->
+    <script src="./carousel_spec.js" type="text/javascript" charset="utf-8"></script>
+    
+    <link rel="stylesheet" href="./screw-unit/screw.css" type="text/css" />
+    <style type="text/css" media="screen">
+      #test-elements { font-size: 12px; }
+      #horizontal-carousel { padding-left: 20px; padding-bottom: 20px; }
+      #horizontal-carousel .container {  }
+      #horizontal-carousel .container .wrapper > div { float: left; margin-right: 10px; width: 70px; height: 85px; background: #ddd; overflow: hidden; }
+      #horizontal-carousel .container div a div { height: 20px; overflow: hidden; }
+      #horizontal-carousel .container { width: 320px; overflow: hidden; height: 100px; background: #333; padding: 20px 10px 0; }
+      #horizontal-carousel .container .wrapper { width: 10000px; }
+      .disabled, .disabled:hover { color: #ccc; cursor: default; }
+    </style>
+
+  </head>
+  <body>
+    <div id="test-elements">
+      <div id="horizontal-carousel">
+        <div class="container">
+          <div class="wrapper">
+            <div>Number 1</div>
+            <div>Number 2</div>
+            <div>Number 3</div>
+            <div>Number 4</div>
+            <div>Number 5</div>
+            <div>Number 6</div>
+            <div>Number 7</div>
+            <div>Number 8</div>
+            <div>Number 9</div>
+            <div>Number 10</div>
+            <div>Number 11</div>
+            <div>Number 12</div>
+          </div>
+        </div>
+        <div class="carousel-buttons">
+          <a href="#previous">back</a>
+          <a href="#next">Next</a>
+        </div>
+      </div>
+      <h2><a href="#" onclick='createCarousel(); fnTest(this); return false;'>Click here to functional test this.</a></h2>
+    </div>
+    
+    <div id="dom_test" style="position: absolute; left: -9999"></div>
+  </body>
+</html>

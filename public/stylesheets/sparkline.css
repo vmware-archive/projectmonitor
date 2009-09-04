@@ -1,0 +1,52 @@
+.project_history{
+  margin-top: 5px;
+  margin-bottom: 74px;
+  text-align: center;
+  padding-bottom: 2px;
+  position: absolute;
+  bottom: 0;
+  width: 87%;
+}
+
+.sparkline{
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.sparkline .item{
+  display: block;
+  float: left;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.sparkline .item.success {
+  background-color: #9AFB69;
+  padding-right: 3px;
+  padding-left: 3px;
+}
+
+.sparkline .item.failure {
+  background-color: #BB2222;
+  padding-right: 3px;
+  padding-left: 3px;
+}
+
+.sparkline .item.offline {
+  background-color: #5CC8F9;
+  padding-right: 4px;
+  padding-left: 3px;
+}
+
+.sparkline span.item.no-background{
+  background: none;
+}
+.sparkline .status_list_start{
+  padding: 3px 1px 3px 0px;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

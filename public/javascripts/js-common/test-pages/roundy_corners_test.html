@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script src="../include.js" type="text/javascript"></script>
+  <script src="common-includes.js" type="text/javascript"></script>
+  <script language="javascript">
+
+    var optionsHash = {
+      topLeft: "/images/foo_top_left.png",
+      topRight: "/images/foo_top_right.png",
+      bottomLeft: "/images/foo_bottom_left.png",
+      bottomRight: "/images/foo_bottom_right.png",
+      className: "module",
+      color: "#FFFFFF",
+      expandToFit: false,
+      border: "1px solid #999"
+    };
+
+    function testWrapExistingElement() {
+      var parent = $('foo_content').parentNode;
+      assertEquals('foo_parent', parent.className);
+
+      var roundyCorners = Pivotal.RoundyCorners.wrapExistingElement("foo_content", optionsHash, true);
+
+      var wrapper = parent.childNodes[0];
+      assertEquals("TABLE", wrapper.tagName);
+      assertEquals("foo_content_roundy", wrapper.id);
+      assertEquals("module", wrapper.className);
+      assertEquals("foo_content", document.getElementsByClassName('foo_class', wrapper)[0].id);
+    }
+
+    function testRetainElementOrder() {
+      var parent = $('homer');
+      var roundyCorners = Pivotal.RoundyCorners.wrapExistingElement("bart", optionsHash, true);
+      var childCount = parent.childNodes.length;
+      var childIds = [];
+      for (var i=0; i<childCount; i++) {
+        var child = parent.childNodes[i];
+        childIds.push(child.id);
+      }
+      assertArrayEquals(["lisa", "bart_roundy", "maggie"], childIds);
+    }
+  </script>
+</head>
+<body>
+  <div class="foo_parent"><div class="foo_class" id='foo_content'></div></div>
+  <div id="homer"><div id="lisa"></div><div id="bart"></div><div id="maggie"></div></div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script src="../include.js" type="text/javascript"></script>
+  <script src="common-includes.js" type="text/javascript"></script>
+
+  <script language="javascript" type="text/javascript">
+    var form, iFrameName, iFrameContainerName;
+    function setUp() {
+      form = $('the_form');
+      iFrameName = "foobar";
+      iFrameContainerName = "foobar_container";
+    }
+
+    function tearDown() {
+      if($(iFrameContainerName)) Element.remove(iFrameContainerName);
+    }
+
+    function testSubmit_Callbacks() {
+      var onStartCalled = false;
+      var onCompleteCalled = true;
+      var callbacks = {
+        onStart: function() {
+          onStartCalled = true;
+        },
+        onComplete: function() {
+          onCompleteCalled = true;
+        }
+      };
+      AIM.submit(form, iFrameName, callbacks);
+
+      assertTrue(onStartCalled);
+      assertTrue(onCompleteCalled);
+    }
+
+    function testSubmit_CreatesIFrameAndSubmitsToIt() {
+      AIM.submit(form, iFrameName);
+
+      var div = $(iFrameContainerName);
+      var iFrame = $(iFrameName);
+
+      assertNotUndefined(div);
+      assertEquals(iFrame, div.childNodes[0]);
+
+      assertNotUndefined(iFrame);
+      assertEquals(iFrameName, form.target);
+      assertEquals(iFrameName, iFrame.id);
+      assertEquals(iFrameName, iFrame.name);
+    }
+
+    function testSubmit_ReusesIFrameContainerAndCreatesNewIFrame() {
+      var container = document.createElement('DIV');
+      container.id = iFrameContainerName;
+      document.body.appendChild(container);
+      container.innerHTML = "<iframe id='" + iFrameName + "'></iframe>";
+      document.body.appendChild(container);
+
+      var originalIFrame = $(iFrameName);
+
+      AIM.submit(form, iFrameName);
+
+      var iFrame = $(iFrameName);
+
+      assertEquals(container, $(iFrameContainerName));
+      assertNotEquals(originalIFrame, $(iFrameName));
+    }
+
+    function testFormatJavascript() {
+      var content = "<xmp><xmp>&lt;div&gt;Foobar&lt;\/div&gt;</xmp></xmp>";
+      var response = AIM.formatJavascript(content);
+
+      assertEquals("<div>Foobar</div>", response);
+    }
+  </script>
+
+</head>
+
+<body>
+  <form action="#" id="the_form"></form>
+</body>
+</html>

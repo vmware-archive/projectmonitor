@@ -1,0 +1,6 @@
+.idea/
+log/*.log
+tmp/
+*.iml
+*.ipr
+db/database.yml

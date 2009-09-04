@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!-- This is to force all links inside the auto-refresh frame to open outside the frame at the top level. -->
+    <!-- Otherwise, there is no way to escape the auto-refresh frame. -->
+    <base target="_top">
+
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+
+    <title><%= title %></title>
+    <%= stylesheet_link_tag 'style' %>
+	<%= stylesheet_link_tag 'sparkline' %>
+</head>
+<body>
+
+<% unless @no_header %>
+    <div id="header">
+      <div id="logo">
+        <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
+        <%= link_to(image_tag(logo), '/') %>
+      </div>
+    </div>
+
+    <div style="clear:both"> </div>
+<% end %>
+
+<%= yield %>
+
+<% if RAILS_ENV=='production'%>
+  <%javascript_tag do%>
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  <%end%>
+    <%javascript_tag do%>
+  try {
+    var pageTracker = _gat._getTracker("UA-1687866-10");
+    pageTracker._trackPageview();
+  } catch(err) {}
+  <% end %>
+<% end %>
+</body>
+</html>

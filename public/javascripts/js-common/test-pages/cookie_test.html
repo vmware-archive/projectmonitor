@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <script src="../include.js" type="text/javascript"></script>
+  <script src="common-includes.js" type="text/javascript"></script>
+</head>
+<body>
+	<style>
+		.c {
+			width:100px;
+			height: 80px;
+			border: 0;
+			padding: 0;
+		}
+
+		.d {
+			width:100px;
+			height: 80px;
+			border: 20px solid red;
+			padding: 10px;
+		}
+	</style>
+
+  <div id="fixture">
+    <div id="content"></div>
+  </div>
+
+  <script language="javascript" type="text/javascript">
+  var content;
+  function setUp() {
+    content = $('content');
+    Cookie.eraseAll();
+  }
+
+  function tearDown() {
+    Cookie.eraseAll();
+  }
+
+  function test_read() {
+    Cookie.set('foobar', 'baz', 365);
+    assertEquals('baz', Cookie.get('foobar'));
+  }
+
+  function test_write() {
+    Cookie.set('foobar', 'baz');
+    assertEquals("baz", Cookie.get('foobar'));
+  }
+
+  function test_erase() {
+    Cookie.set('foobar', 'baz');
+    Cookie.erase('foobar');
+    assertNull(Cookie.get('foobar'));
+  }
+
+  function test_eraseAll() {
+    Cookie.set('foobar', 'baz');
+    Cookie.set('another', 'cookie');
+
+    Cookie.eraseAll();
+
+    assertNull(Cookie.get('foobar'));
+    assertNull(Cookie.get('another'));
+  }
+
+  function test_exists_whenCookieIsSet() {
+    Cookie.set('foobar', 'hello')
+    assertTrue(Cookie.exists('foobar'));
+  }
+
+  function test_exists_whenCookieIsNotSet() {
+    assertFalse(Cookie.exists('foobar'));
+  }
+
+  function test_exists_whenCookieIsBlank() {
+    Cookie.set('foobar', '')
+    assertFalse(Cookie.exists('foobar'));
+  }
+
+  </script>
+
+</body>
+</html>
