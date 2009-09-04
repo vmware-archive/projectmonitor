@@ -4,17 +4,17 @@
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 require 'rake'
+
+module Rake
+  module TaskManager
+    def clean_task(name)
+      @tasks[name] = nil
+    end
+  end
+end
+
 require 'rake/testtask'
 require 'rake/rdoctask'
-
-def overriding_task(arg, &block)
-  task_name = arg.is_a?(Hash) ? arg.keys.first : arg
-  if Rake::Task.task_defined? task_name
-    Rake.application.task_hash["#{task_name}_for_common"] = Rake.application.task_hash["#{task_name}"]
-    Rake.application.task_hash["#{task_name}"] = nil
-  end
-  task(arg, &block)
-end
 
 require 'tasks/rails'
 

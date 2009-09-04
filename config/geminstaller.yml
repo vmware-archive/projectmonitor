@@ -15,6 +15,8 @@ gems:
   version: 2.3.2
   install_options: -y --source=http://gems.rubyonrails.org --source=http://gems.rubyforge.org
   <% end %>
+- name: rake
+  version: 0.8.7
 - name: gem_plugin
   version: 0.2.3
 - name: mime-types

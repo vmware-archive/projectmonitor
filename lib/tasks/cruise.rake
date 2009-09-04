@@ -1,10 +1,11 @@
 desc "The stuff that cruise will execute.  Modify this one to suit your project."
-overriding_task :cruise do
-  rake "db:setup"
-  rake "testspec"
-#  rake "jsunit:test" unless ENV['DISABLE_CI_JSUNIT']
-#  rake "selenium:local" unless ENV['DISABLE_CI_SELENIUM']
-  # DOn't run deploy tests, because the real internal server is on the CI box, and it screws up the cron jobs.
-  # run "cap local deploy:setup deploy -S head=true" unless ENV['DISABLE_CI_DEPLOY']
-  Rake::Task["cruise:cut"].invoke
+
+Rake.application.clean_task("cruise")
+
+task :cruise => :environment do
+  require 'geminstaller'
+  GemInstaller.install(['--sudo'])
+  Rake::Task["db:migrate"].invoke # TODO: remove :reset when migrations stabilize
+  Rake::Task["db:test:prepare"].invoke # TODO: remove :reset when migrations stabilize
+  Rake::Task["default"].invoke # rake db:test:prepare invokes db:bootstrap
 end
