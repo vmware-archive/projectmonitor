@@ -1,7 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead
-# Then, you can remove it from this and the units test.
 def action_name() end
 
 describe SessionsController do
@@ -72,7 +70,7 @@ describe SessionsController do
       @user.save!
     end    
     before do 
-      @user = User.find(:first); 
+      @user = users(:quentin) 
       set_remember_token 'hello!', 5.minutes.from_now
     end    
     it 'logs in with cookie' do

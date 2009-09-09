@@ -37,3 +37,5 @@ gems:
   <<: *github_options
 - name: acts_as_paranoid
   version: 0.3.1
+- name: acts_as_taggable
+  version: 
