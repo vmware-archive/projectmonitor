@@ -3,4 +3,4 @@ log/*.log
 tmp/
 *.iml
 *.ipr
-db/database.yml
+config/database.yml

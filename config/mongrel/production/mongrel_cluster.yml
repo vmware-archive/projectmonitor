@@ -1,9 +1,0 @@
----
-cwd: /u/apps/pulse/current
-port: "7990"
-environment: production
-address: 127.0.0.1
-pid_file: log/mongrel.pid
-servers: 1
-user: pivotal
-group: pivotal
