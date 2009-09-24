@@ -5,7 +5,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path(dir + "/../config/environment") unless defined?(RAILS_ROOT)
 require 'spec'
 require 'spec/rails'
-require 'lib/mock_clock'
+require 'mock_clock'
 require 'rspec_extensions/spec_helper_matchers'
 
 Spec::Runner.configure do |configuration|

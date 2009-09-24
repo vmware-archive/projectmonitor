@@ -4,3 +4,4 @@ tmp/
 *.iml
 *.ipr
 config/database.yml
+config/initializers/site_keys.rb
