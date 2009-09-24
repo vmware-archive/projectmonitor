@@ -1,20 +1,7 @@
 ---
-defaults:
-  install_options: --include-dependencies
-github_options: &github_options
-  install_options: --include-dependencies --source http://gems.github.com
 gems:
 - name: rails
-  <% if ENV['RAILS_GEM_VERSION'] %>
-  # To see more recent preview gems, run 'gem list rails --source=http://gems.rubyonrails.org --remote'
-  # To see which of these correspond to a tag, run 'svn log http://svn.rubyonrails.org/rails/tags'
-  version: <%= ENV['RAILS_GEM_VERSION'] %>
-  install_options: -y --source=http://gems.rubyonrails.org
-  <% else %>
-  # NOTE: this version should be kept in sync with the default socialitis/pivotal_core Rails version in geminstaller_rails.yml
   version: 2.3.2
-  install_options: -y --source=http://gems.rubyonrails.org --source=http://gems.rubyforge.org
-  <% end %>
 - name: rake
   version: 0.8.7
 - name: gem_plugin
@@ -34,7 +21,7 @@ gems:
   version: >= 1.1.11
 - name: jviney-acts_as_taggable_on_steroids
   version: 1.1
-  <<: *github_options
+  install_options: --source http://gems.github.com
 - name: acts_as_paranoid
   version: 0.3.1
 - name: acts_as_taggable
