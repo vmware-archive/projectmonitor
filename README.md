@@ -95,3 +95,9 @@ project's builds: the previous 9 are displayed underneath as green or red dots. 
 build.
 
 Pulse looks good on an iPhone, by the way :)
+
+### Notifications
+
+Pulse can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute
+`RAILS_ENV=production rake pulse:red_over_one_day_notification > red_over_one_day_notification.log 2>&1`
+
