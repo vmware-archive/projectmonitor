@@ -7,7 +7,7 @@ are highly visible/glanceable (a "Big Visible Chart"). Pulse currently only supp
 is to add support others (such as Integrity).
 
 We use Pulse internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
-instance of Pulse running at http://ci.pivotallabs.com that we use for displaying the status of the builds of various
+instance of Pulse running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the status of the builds of various
 open source projects - both of projects Pivotal Labs maintains (such as Refraction) and of non-Pivotal projects (such as
 Rails).
 
