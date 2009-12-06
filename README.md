@@ -90,7 +90,8 @@ left.
 Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
 fetched by the cron job. That is, a refresh doesn't cause the individual Cruise Builds to be polled.
 
-Under its name, Pulse shows a big green checkmark or a big red X to indicate a build's status. In addition, it shows the
-history of a project's builds: the previous 9 are displayed underneath. These are larger if they are more recent.
+Pulse shows a big green check or a big red X to indicate a build's status. In addition, it shows the history of a
+project's builds: the previous 9 are displayed underneath as green or red dots. The larger the dot, the more recent the
+build.
 
 Pulse looks good on an iPhone, by the way :)
