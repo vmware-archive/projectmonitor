@@ -8,7 +8,7 @@ is to add support others (such as Integrity).
 
 We use Pulse internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
 instance of Pulse running at http://ci.pivotallabs.com that we use for displaying the status of the builds of various
-open source projects - both of projects Pivotal Labs maintains (such as Desert) and of non-Pivotal projects (such as
+open source projects - both of projects Pivotal Labs maintains (such as Refraction) and of non-Pivotal projects (such as
 Rails).
 
 ## Installation
@@ -39,3 +39,43 @@ Add a cron job for `RAILS_ENV=production rake pulse:fetch_statuses > fetch_statu
 like. This is what goes out and hits the individual Cruise Control builds. We find that if you do this too frequently it
 can swamp the builds. On the other hand, you don't want Pulse displaying stale information. At Pivotal we set it up to
 run every 3 minutes.
+
+### Start the application
+
+Execute:
+
+    nohup RAILS_ENV=production script/server & > pulse.log 2> &1
+
+## Configuration
+
+Each build that you want Pulse to display is called a "project" in Pulse. You need to login to set up projects.
+
+### Create a user
+
+Pulse uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
+One way to create a user is to execute the following:
+
+    RAILS_ENV=production script/console
+    User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
+
+### Log in
+
+Open a browser on Pulse. Login by clicking on "Login" in the upper-right corner.
+
+### Add projects
+
+Click on "Projects" in the upper-right corner. Click on "New Project" and enter the details for a Cruise Control build
+you want to display on Pulse. The only required fields are "Name" and "Cruise Control RSS URL". If your Cruise URL is
+http://myhost.com:3333/projects/MyProject, then your RSS URL is probably http://myhost.com:3333/projects/MyProject.rss.
+
+Optionally, if your Cruise Build is behind Basic Authentication or Digest Authentication, you can enter the credentials.
+
+If you want to temporarily hide your build on Pulse, you can uncheck the "Enable" checkbox.
+
+Pulse's main display page is at `/`. You can always get back there by clicking on the "Pivotal Labs" logo at the upper
+left.
+
+### Display
+
+Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
+fetched by the cron job. That is, a refresh doesn't cause the individual Cruise Builds to be polled.

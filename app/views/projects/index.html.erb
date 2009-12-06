@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Tags</th>
     <th>Cruise Control RSS URL</th>
     <th>Enabled?</th>
     <th colspan="2">&nbsp;</th>
@@ -12,7 +11,6 @@
   <% for project in @projects %>
     <tr>
       <td><%= h project.name %></td>
-      <td><%= h project.tag_list %></td>
       <td><%= link_to h(project.cc_rss_url), project.cc_rss_url %>
         <% if !project.auth_username.blank? || !project.auth_password.blank? %>(under auth)
         <% end %>
