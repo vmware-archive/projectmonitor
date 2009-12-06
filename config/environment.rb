@@ -64,5 +64,4 @@ POST_LOAD_BLOCKS.each { |proc| proc.call }
 
 ::RED_NOTIFICATION_EMAILS = ["notfiy@example.com"]
 
-# You should log into this site ONLY inside the Pivotal firewall.
 SslRequirement.disable_ssl_check = true

@@ -1,10 +1,10 @@
 pivots:
   name: Pivots
-  cc_rss_url: http://pivots-ci.flood.pivotallabs.com:3333/projects/pivots.rss
+  cc_rss_url: http://ci.pivotallabs.com:3333/projects/pivots.rss
   enabled: true
 socialitis:
   name: Socialitis
-  cc_rss_url: http://socialitis-ci.flood.pivotallabs.com:3333/projects/socialitis.rss
+  cc_rss_url: http://ci.pivotallabs.com:3333/projects/socialitis.rss
   enabled: true
 never_green:
   name: Lumos

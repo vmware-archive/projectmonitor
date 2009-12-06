@@ -173,48 +173,6 @@ a:hover {
   text-align: center;
 }
 
-.log_entry {
-  margin-left: 5px;
-  margin-top: 5px;
-}
-
-.log_entry_meta {
-  width: 50px;
-  font-size: 8pt;
-  vertical-align: top;
-}
-
-.log_entry_message {
-  margin-left: 5px;
-  font-size: 9pt;  
-  color: #555555; 
-  letter-spacing: -1px;
-  vertical-align: top;
-}
-
-.log_entries_error {
-  margin-left: 20px;
-  margin-top: 20px;
-  font-size: 20pt;  
-  color: #AAAAAA; 
-  letter-spacing: -1px;
-  font-weight: bold; 
-}
-
-#log_entries_right {
-  float: right;
-  height: 1200px;
-  overflow: hidden;
-  width: 300px;
-  border-left-style: solid;
-  border-left-width: 1px;
-}
-
-#log_entries_title {
-  margin-left: 10px;
-  font-size: 15pt;  
-}
-
 #messages_right {
   float: right;
   overflow: hidden;

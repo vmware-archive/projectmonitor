@@ -1,8 +1,4 @@
-<% unless current_user.nil? || @log_entries.nil? %>
-  <div id="log_entries_right">
-    <div id="log_entries_title">Recent checkins (<%= Time.now.strftime('%Z') %>)</div>
-    <%= render :partial => 'log_entries' %>
-  </div>
+<% unless current_user.nil? %>
 <% end %>
 
 <% unless @messages.empty? %>
@@ -20,12 +16,7 @@
         | <%= link_to "Log in", login_path %>
       <% end %>
     </div>
-    <% if current_user.nil? %>
-      <% if RAILS_ENV=='production' %>
-        <br>
-        <strong><%= link_to  "What is all this?", "http://pivotallabs.com/users/edward/blog/articles/752-ci-dot-pivotal-labs-dot-com" %></strong>
-      <% end %>
-    <% else %>
+    <% if !current_user.nil? %>
       <div class="smaller_text">
         <%= link_to "Projects", projects_path %> |
         <%= link_to "Log out", logout_path %>

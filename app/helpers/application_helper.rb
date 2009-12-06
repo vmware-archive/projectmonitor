@@ -1,10 +1,10 @@
 module ApplicationHelper
   def logo
-    internal? ? 'pulse-logo.png' : 'ci-logo.png'
+    'ci-logo.png'
   end
 
   def title
-    internal? ? "Pivotal Pulse" : "Pivotal Labs CI"
+    "Pivotal Labs CI"
   end
 
   def historical_status_list(project)
