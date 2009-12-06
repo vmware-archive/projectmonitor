@@ -22,6 +22,16 @@ Pulse is a Rails application. To get the code, execute the following:
     git submodule init
     git submodule update
 
+### Install gem dependencies
+
+If you don't have geminstaller installed, then execute:
+
+    sudo gem install geminstaller
+
+Then execute:
+
+    sudo geminstaller
+
 ### Set up the database
 
 You'll need a database (MySQL works). Create it with whatever name you want. Copy `config/database.yml.example` to
