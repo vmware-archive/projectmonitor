@@ -1,0 +1,41 @@
+Description
+===========
+
+Pulse is a CI display aggregator. It displays the status of multiple Continuous Integration builds on a single web page.
+The intent is that you display the page on a big screen monitor or TV so that the status of all your projects' builds
+are highly visible/glanceable (a "Big Visible Chart"). Pulse currently only supports Cruise Control builds, but the plan
+is to add support others (such as Integrity).
+
+We use Pulse internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
+instance of Pulse running at http://ci.pivotallabs.com that we use for displaying the status of the builds of various
+open source projects - both of projects Pivotal Labs maintains (such as Desert) and of non-Pivotal projects (such as
+Rails).
+
+## Installation
+
+### Get the code
+
+Pulse is a Rails application. To get the code, execute the following:
+
+    git clone git://github.com/pivotal/pulse.git pivotal_pulse
+    cd pivotal_pulse
+    git submodule init
+    git submodule update
+
+### Set up the database
+
+You'll need a database (MySQL works). Create it with whatever name you want. Copy `config/database.yml.example` to
+`database.yml` and edit the production environment configuration so it's right for your database. Then execute:
+
+    RAILS_ENV=production rake db:migrate
+
+### Set up the site keys
+
+Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUTH_SITE_KEY` to something secret.
+
+### Set up cron
+
+Add a cron job for `RAILS_ENV=production rake pulse:fetch_statuses > fetch_statuses.log 2>&1` at whatever frequency you
+like. This is what goes out and hits the individual Cruise Control builds. We find that if you do this too frequently it
+can swamp the builds. On the other hand, you don't want Pulse displaying stale information. At Pivotal we set it up to
+run every 3 minutes.
