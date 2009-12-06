@@ -85,7 +85,7 @@ If you want to temporarily hide your build on Pulse, you can uncheck the "Enable
 Pulse's main display page is at `/`. You can always get back there by clicking on the "Pivotal Labs" logo at the upper
 left.
 
-### Display
+## Display
 
 Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
 fetched by the cron job. That is, a refresh doesn't cause the individual Cruise Builds to be polled.
@@ -96,7 +96,7 @@ build.
 
 Pulse looks good on an iPhone, by the way :)
 
-### Notifications
+## Notifications
 
 Pulse can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute
 `RAILS_ENV=production rake pulse:red_over_one_day_notification > red_over_one_day_notification.log 2>&1`
