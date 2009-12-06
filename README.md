@@ -89,3 +89,5 @@ left.
 
 Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
 fetched by the cron job. That is, a refresh doesn't cause the individual Cruise Builds to be polled.
+
+Pulse looks good on an iPhone, by the way :)
