@@ -12,6 +12,7 @@ development: &development
 test:
   <<: *development
   database: pulse_test
+  password: password
 
 production:
   <<: *development
