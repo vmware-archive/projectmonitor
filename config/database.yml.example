@@ -2,7 +2,7 @@ development: &development
   adapter: mysql
   database: pulse_development
   username: root
-  password: 
+  password: password
   host: localhost
   socket: /tmp/mysql.sock
 
