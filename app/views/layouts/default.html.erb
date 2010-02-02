@@ -7,14 +7,19 @@
     <title><%= title %></title>
 
     <script type="text/javascript">
-        var refreshTimeInSeconds = 30;
+        var refreshTimeInSeconds = 2;
 
         function scheduleRefresh() {
           setTimeout("refresh();", refreshTimeInSeconds * 1000);
         }
 
         function refresh() {
-          window.frames[0].location = "/pulse"
+          var pulseUrl = "/pulse";
+          <% if @tags %>
+          pulseUrl += '?tags=<%=@tags%>';
+          <% end %>
+          if (document.location)
+            window.frames[0].location = pulseUrl;
           <% if REFRESH_PAGE %>
           scheduleRefresh();
           <% end %>
