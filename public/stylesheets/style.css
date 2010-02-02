@@ -185,3 +185,18 @@ a:hover {
   font-size: smaller;
 }
 
+#flash_error {
+  color: red;
+  font-weight: bold;
+  background-color: lightgray;
+  padding: 5px;
+  margin: 5px;
+}
+
+#flash_notice {
+  color: blue;
+  font-weight: bold;
+  background-color: lightgray;
+  padding: 5px;
+  margin: 5px;
+}

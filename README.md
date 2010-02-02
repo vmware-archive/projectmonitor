@@ -63,10 +63,12 @@ Each build that you want Pulse to display is called a "project" in Pulse. You ne
 ### Create a user
 
 Pulse uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
-One way to create a user is to execute the following:
+Your first user must be created at the command line.
 
     RAILS_ENV=production script/console
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
+
+After that, you can login to Pulse and use the "New User" link to create new users.
 
 ### Log in
 

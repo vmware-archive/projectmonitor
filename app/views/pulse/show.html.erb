@@ -1,38 +1,15 @@
-<% unless current_user.nil? %>
-<% end %>
-
 <% unless @messages.empty? %>
-  <div id="messages_right" style="width:20%">
-    <%= render :partial => 'messages' %>
-  </div>
+    <div id="messages_right" style="width:20%">
+      <%= render :partial => 'messages' %>
+    </div>
 <% end %>
 
-<div class="page">
-
-  <div id="top_right">
-    <div class="smaller_text">
-      <i>As of <%= Time.now.strftime('%I:%M%p %Z %m/%d/%Y') %></i>
-      <% if current_user.nil? %>
-        | <%= link_to "Log in", login_path %>
-      <% end %>
-    </div>
-    <% if !current_user.nil? %>
-      <div class="smaller_text">
-        <%= link_to "Projects", projects_path %> |
-        <%= link_to "Log out", logout_path %>
-      </div>
-    <% end %>
-
-  </div>
-
-  <div class="projects"
-       <% unless @messages.empty? %>style="width:80%"
-  <% end %> >
-    <% for project in @projects %>
+<div class="projects"
+     <% unless @messages.empty? %>style="width:80%"
+     <% end %> >
+  <% for project in @projects %>
       <div class="project">
         <%= render :partial => 'project', :locals => {:project => project} %>
       </div>
-    <% end %>
-  </div>
-
+  <% end %>
 </div>
