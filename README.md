@@ -107,3 +107,8 @@ Pulse can inform you of builds that have been red for more than 24 hours. Set up
 
 You can enter tags for a project (separated by commas) on the project edit page.  You can then have Pulse display
 only projects that match a set of tags by going to /?tags=tag1,tag2
+
+## CI
+
+CI for Pulse is at http://ci.pivotallabs.com:3333/builds/Pulse, and it's aggregated at http://ci.pivotallabs.com
+(that's an instance of Pulse, of course).
