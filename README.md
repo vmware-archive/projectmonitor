@@ -103,3 +103,7 @@ Pulse looks good on an iPhone, by the way :)
 Pulse can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute
 `RAILS_ENV=production rake pulse:red_over_one_day_notification > red_over_one_day_notification.log 2>&1`
 
+## Tags
+
+You can enter tags for a project (separated by commas) on the project edit page.  You can then have Pulse display
+only projects that match a set of tags by going to /?tags=tag1,tag2
