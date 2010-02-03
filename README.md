@@ -112,3 +112,7 @@ only projects that match a set of tags by going to /?tags=tag1,tag2
 
 CI for Pulse is at http://ci.pivotallabs.com:3333/builds/Pulse, and it's aggregated at http://ci.pivotallabs.com
 (that's an instance of Pulse, of course).
+
+## Pivotal Tracker
+
+The public Tracker project for Pulse is here: http://www.pivotaltracker.com/projects/2872
