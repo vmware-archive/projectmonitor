@@ -110,9 +110,9 @@ only projects that match a set of tags by going to /?tags=tag1,tag2
 
 ## CI
 
-CI for Pulse is at http://ci.pivotallabs.com:3333/builds/Pulse, and it's aggregated at http://ci.pivotallabs.com
+CI for Pulse is [here]http://ci.pivotallabs.com:3333/builds/Pulse, and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
 (that's an instance of Pulse, of course).
 
 ## Pivotal Tracker
 
-The public Tracker project for Pulse is here: http://www.pivotaltracker.com/projects/2872
+The public Tracker project for Pulse is [here](http://www.pivotaltracker.com/projects/2872).
