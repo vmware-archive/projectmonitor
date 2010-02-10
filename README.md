@@ -63,10 +63,12 @@ Each build that you want Pulse to display is called a "project" in Pulse. You ne
 ### Create a user
 
 Pulse uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
-One way to create a user is to execute the following:
+Your first user must be created at the command line.
 
     RAILS_ENV=production script/console
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
+
+After that, you can login to Pulse and use the "New User" link to create new users.
 
 ### Log in
 
@@ -101,3 +103,16 @@ Pulse looks good on an iPhone, by the way :)
 Pulse can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute
 `RAILS_ENV=production rake pulse:red_over_one_day_notification > red_over_one_day_notification.log 2>&1`
 
+## Tags
+
+You can enter tags for a project (separated by commas) on the project edit page.  You can then have Pulse display
+only projects that match a set of tags by going to /?tags=tag1,tag2
+
+## CI
+
+CI for Pulse is [here](http://ci.pivotallabs.com:3333/builds/Pulse), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
+(that's an instance of Pulse, of course).
+
+## Pivotal Tracker
+
+The public Tracker project for Pulse is [here](http://www.pivotaltracker.com/projects/2872).

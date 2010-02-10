@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Cruise Control RSS URL</th>
     <th>Enabled?</th>
+    <th>Tags</th>
     <th colspan="2">&nbsp;</th>
   </tr>
 
@@ -16,6 +17,7 @@
         <% end %>
       </td>
       <td><%= project.enabled? ? "Yes" : "No" %></td>
+      <td><%= project.tag_list %></td>
       <td><%= link_to 'Edit', edit_project_path(project) %></td>
       <td><%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
