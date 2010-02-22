@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
-  has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC"
-  
+  RECENT_STATUS_COUNT = 10
+  has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT
+
   acts_as_taggable
 
   validates_presence_of :name
@@ -51,7 +52,7 @@ class Project < ActiveRecord::Base
     name
   end
   
-  def recent_online_statuses(count = 10)
+  def recent_online_statuses(count = RECENT_STATUS_COUNT)
     statuses.reject{|s| !s.online}.reverse.last(count)
   end
 

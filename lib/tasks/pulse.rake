@@ -1,13 +1,11 @@
-require File.join(File.dirname(__FILE__), "../../config/environment")
-
 namespace :pulse do
   desc "Update the status for each active project"
-  task :fetch_statuses do
+  task :fetch_statuses => :environment do
     StatusFetcher.new.fetch_all
   end
 
   desc "Send an email notification including any projects that have been red for over one day"
-  task :red_over_one_day_notification do
+  task :red_over_one_day_notification => :environment  do
     PulseNotifier.send_red_over_one_day_notifications
   end
 end

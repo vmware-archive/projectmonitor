@@ -3,7 +3,9 @@ defaults:
   install_options: --no-ri --no-rdoc
 gems:
 - name: rails
-  version: 2.3.2
+  version: 2.3.5
+- name: rack
+  version: 1.0.1
 - name: rake
   version: 0.8.7
 - name: gem_plugin
