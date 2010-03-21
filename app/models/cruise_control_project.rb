@@ -7,10 +7,10 @@ class CruiseControlProject < Project
   end
 
   def building_parser(content)
-    CruseControlStatusParser.building(content, self)
+    CruiseControlStatusParser.building(content, self)
   end
 
   def status_parser(content)
-    CruseControlStatusParser.status(content)
+    CruiseControlStatusParser.status(content)
   end
 end

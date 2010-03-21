@@ -1,5 +1,5 @@
 require 'xml/libxml'
-class CruseControlStatusParser
+class CruiseControlStatusParser
   attr_accessor :success, :building, :url, :published_at
 
   def self.building(content, project)
