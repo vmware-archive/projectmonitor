@@ -11,7 +11,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :pulse, :controller => :pulse
   map.resources :projects
-  map.resources :cruise_control_projects
   map.resources :messages
 
   map.root :controller => 'default', :action => 'show'
