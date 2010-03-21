@@ -1,38 +1,47 @@
 pivots:
   name: Pivots
-  cc_rss_url: http://ci.pivotallabs.com:3333/projects/pivots.rss
+  type: CruiseControlProject
+  feed_url: http://ci.pivotallabs.com:3333/projects/pivots.rss
   enabled: true
 socialitis:
   name: Socialitis
-  cc_rss_url: http://ci.pivotallabs.com:3333/projects/socialitis.rss
+  type: CruiseControlProject
+  feed_url: http://ci.pivotallabs.com:3333/projects/socialitis.rss
   enabled: true
 never_green:
   name: Lumos
-  cc_rss_url: http://lumos-ci:3333/projects/lumos.rss
+  type: CruiseControlProject
+  feed_url: http://lumos-ci:3333/projects/lumos.rss
   enabled: true
 offline:
   name: Offline
-  cc_rss_url: http://gnip-ci:3333/projects/gnip.rss
+  type: CruiseControlProject
+  feed_url: http://gnip-ci:3333/projects/gnip.rss
   enabled: true
 disabled:
   name: Core Bundle
-  cc_rss_url: http://core_bundle-ci:3333/projects/core_bundle.rss
+  type: CruiseControlProject
+  feed_url: http://core_bundle-ci:3333/projects/core_bundle.rss
   enabled: false
 many_builds:
   name: Many Builds
-  cc_rss_url: http://many_builds-ci:3333/projects/many_builds.rss
+  type: CruiseControlProject
+  feed_url: http://many_builds-ci:3333/projects/many_builds.rss
   enabled: true
 red_currently_building:
   name: Red Currently Building
-  cc_rss_url: http://red_currently_building-ci:3333/projects/red_currently_building.rss
+  type: CruiseControlProject
+  feed_url: http://red_currently_building-ci:3333/projects/red_currently_building.rss
   enabled: true
   building: true
 green_currently_building:
   name: Green Currently Building
-  cc_rss_url: http://green_currently_building-ci:3333/projects/green_currently_building.rss
+  type: CruiseControlProject
+  feed_url: http://green_currently_building-ci:3333/projects/green_currently_building.rss
   enabled: true
   building: true
 never_built:
   name: Never built
-  cc_rss_url: http://never-ci:3333/projects/never.rss
+  type: CruiseControlProject
+  feed_url: http://never-ci:3333/projects/never.rss
   enabled: true

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>All last builds only</title>
+  <link type="text/html" rel="alternate" href="http://localhost:8080/"></link>
+  <updated>2010-02-28T21:57:56Z</updated>
+  <author>
+    <name>Hudson Server</name>
+  </author>
+  <id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id>
+  <entry>
+    <title>40withegg #7 (SUCCESS)</title>
+    <link type="text/html" rel="alternate" href="http://localhost:8080/job/40withegg/7/"></link>
+    <id>tag:hudson.dev.java.net,2008:http://localhost:8080/job/40withegg/</id>
+    <published>2010-02-28T21:57:56Z</published>
+    <updated>2010-02-28T21:57:56Z</updated>
+  </entry>
+  <entry>
+    <title>Pulse #2 (null)</title>
+    <link type="text/html" rel="alternate" href="http://localhost:8080/job/Pulse/2/"></link>
+    <id>tag:hudson.dev.java.net,2008:http://localhost:8080/job/Pulse/</id>
+    <published>2010-02-22T00:42:12Z</published>
+    <updated>2010-02-22T00:42:12Z</updated>
+  </entry>
+</feed>
