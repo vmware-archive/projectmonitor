@@ -5,14 +5,12 @@ class HudsonStatusParser < StatusParser
     def building(content, project)
       building_parser = self.new
       document = Nokogiri::XML.parse(content.downcase)
-      document.css("entry title").each do |title|
-        if title.content.downcase =~ /#{project.project_name.downcase}/
-          building_parser.building = title.content.downcase.include?('null')
-        end
-      end
+      p_element = document.xpath("//project[@name=\"#{project.project_name.downcase}\"]")
+      return building_parser if p_element.empty?
+      building_parser.building = p_element.attribute('activity').value == 'building'
       building_parser
     end
-
+ 
     def status(content)
       status_parser = self.new
       begin
