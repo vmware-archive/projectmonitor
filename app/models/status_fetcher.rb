@@ -1,4 +1,3 @@
-require 'xml/libxml'
 
 class StatusFetcher
   def initialize(url_retriever = UrlRetriever.new)
@@ -41,12 +40,11 @@ class StatusFetcher
   def retrieve_status_for(project)
     status = {:online => false, :success => false}
     status[:error] = http_errors_for(project) do
-      content = @url_retriever.retrieve_content_at(project.cc_rss_url, project.auth_username, project.auth_password)
-      document = XML::Parser.string(content).parse
-      status[:success] = !!(find(document, 'title') =~ /success/)
-      status[:url] = find(document, 'link')
-      pub_date = Time.parse(find(document, 'pubDate'))
-      status[:published_at] = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+      content = @url_retriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
+      status_parser = project.status_parser(content)
+      status[:success] = status_parser.success?
+      status[:url] = status_parser.url
+      status[:published_at] = status_parser.published_at
       status[:online] = true
     end
     status
@@ -56,9 +54,8 @@ class StatusFetcher
     status = { :building => false }
     status[:error] = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
-      document = XML::Parser.string(content.downcase).parse
-      project_element = document.find_first("/projects/project[@name='#{project.cc_project_name.downcase}']")
-      status[:building] = project_element && project_element.attributes['activity'] == "building"
+      building_parser = project.building_parser(content)
+      status[:building] = building_parser.building?
     end
     status
   end
@@ -74,9 +71,5 @@ class StatusFetcher
     "HTTP Error retrieving status for project '#{project}': #{e.message}"
   rescue Exception => e
     "Retrieve Status failed for project '#{project}'.  Exception: '#{e.class}: #{e.message}'\n#{e.backtrace.join("\n")}"
-  end
-
-  def find(document, path)
-    document.find_first("/rss/channel/item[1]/#{path}").content
   end
 end

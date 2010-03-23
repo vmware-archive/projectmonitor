@@ -3,7 +3,7 @@ Description
 
 Pulse is a CI display aggregator. It displays the status of multiple Continuous Integration builds on a single web page.
 The intent is that you display the page on a big screen monitor or TV so that the status of all your projects' builds
-are highly visible/glanceable (a "Big Visible Chart"). Pulse currently only supports Cruise Control builds, but the plan
+are highly visible/glanceable (a "Big Visible Chart"). Pulse currently supports Cruise Control and Hudson builds, but the plan
 is to add support others (such as Integrity).
 
 We use Pulse internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
@@ -46,7 +46,7 @@ Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUT
 ### Set up cron
 
 Add a cron job for `RAILS_ENV=production rake pulse:fetch_statuses > fetch_statuses.log 2>&1` at whatever frequency you
-like. This is what goes out and hits the individual Cruise Control builds. We find that if you do this too frequently it
+like. This is what goes out and hits the individual builds. We find that if you do this too frequently it
 can swamp the builds. On the other hand, you don't want Pulse displaying stale information. At Pivotal we set it up to
 run every 3 minutes.
 
@@ -76,11 +76,11 @@ Open a browser on Pulse. Login by clicking on "Login" in the upper-right corner.
 
 ### Add projects
 
-Click on "Projects" in the upper-right corner. Click on "New Project" and enter the details for a Cruise Control build
-you want to display on Pulse. The only required fields are "Name" and "Cruise Control RSS URL". If your Cruise URL is
+Click on "Projects" in the upper-right corner. Click on "New Project" and enter the details for a build
+you want to display on Pulse. The "Name", "Project Type", and "Feed URL" are required. If your Feed URL is
 http://myhost.com:3333/projects/MyProject, then your RSS URL is probably http://myhost.com:3333/projects/MyProject.rss.
 
-Optionally, if your Cruise Build is behind Basic Authentication or Digest Authentication, you can enter the credentials.
+Optionally, if your Build system is behind Basic Authentication or Digest Authentication, you can enter the credentials.
 
 If you want to temporarily hide your build on Pulse, you can uncheck the "Enable" checkbox.
 
@@ -90,7 +90,7 @@ left.
 ## Display
 
 Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
-fetched by the cron job. That is, a refresh doesn't cause the individual Cruise Builds to be polled.
+fetched by the cron job. That is, a refresh doesn't cause the individual Builds to be polled.
 
 Pulse shows a big green check or a big red X to indicate a build's status. In addition, it shows the history of a
 project's builds: the previous 9 are displayed underneath as green or red dots. The larger the dot, the more recent the

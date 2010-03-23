@@ -26,14 +26,10 @@ describe ProjectsController do
       response.should be_success
     end
 
-    it "should respond to create" do
-      old_count = Project.count
-      post :create, :project => {}
-      Project.count.should == old_count
-
-      post :create, :project => {:name=>'name', :cc_rss_url=>'http://www.example.com/foo.rss'}
-      Project.count.should == old_count + 1
-
+    it "should create projects by type" do
+      lambda do
+        post :create, :project => {:name=>'name', :feed_url=>'http://www.example.com/job/example/rssAll', :type => HudsonProject.name}
+      end.should change(HudsonProject, :count).by(1)
       response.should redirect_to(projects_path)
     end
 

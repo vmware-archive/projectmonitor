@@ -1,37 +1,39 @@
-<%= error_messages_for :project %>
+<p>
+  <b>Name</b><br/>
+  <%= f.text_field :name %>
+</p>
 
-<% form_for(@project) do |f| %>
-  <p>
-    <b>Name</b><br/>
-    <%= f.text_field :name %>
-  </p>
+<p>
+  <b>Feed URL</b><br/>
+  <%= f.text_field :feed_url, :size=>80 %>
+</p>
 
-  <p>
-    <b>Cruise Control RSS URL</b><br/>
-    <%= f.text_field :cc_rss_url, :size=>80 %>
-  </p>
+<p>
+  <b>Project Type</b><br/>
+  <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name ],
+                       [HudsonProject.name.titleize, HudsonProject.name ]] %>
+</p>
 
-  <p>
-    <b>Cruise Control auth username</b><br/>
-    <%= f.text_field :auth_username, :size=>40 %>
-  </p>
+<p>
+  <b>Auth username</b><br/>
+  <%= f.text_field :auth_username, :size=>40 %>
+</p>
 
-  <p>
-    <b>Cruise Control auth password</b><br/>
-    <%= f.text_field :auth_password, :size=>40 %>
-  </p>
+<p>
+  <b>Auth password</b><br/>
+  <%= f.text_field :auth_password, :size=>40 %>
+</p>
 
-  <p>
-    <b>Enabled?</b><br/>
-    <%= f.check_box :enabled %>
-  </p>
+<p>
+  <b>Enabled?</b><br/>
+  <%= f.check_box :enabled %>
+</p>
 
-  <p>
-    <b>Tags</b> (separate with commas)<br/>
-    <%= f.text_field :tag_list, :size=>40 %>
-  </p>
+<p>
+  <b>Tags</b> (separate with commas)<br/>
+  <%= f.text_field :tag_list, :size=>40 %>
+</p>
 
-  <p>
-    <%= submit_tag @project.new_record? ? "Create" : "Update" %>
-  </p>
-<% end %>
+<p>
+  <%= submit_tag @project.new_record? ? "Create" : "Update" %>
+</p>

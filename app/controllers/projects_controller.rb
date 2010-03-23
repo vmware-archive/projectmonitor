@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :login_required
   before_filter :load_project, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_project_type, :only => [:create]
 
   def index
     @projects = Project.find(:all, :order => 'name')
@@ -11,7 +12,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(params[:project])
+    @project = @project_type.new(params[:project])
     if @project.save
       flash[:notice] = 'Project was successfully created.'
       redirect_to projects_url
@@ -40,5 +41,9 @@ class ProjectsController < ApplicationController
 
   def load_project
     @project = Project.find(params[:id])
+  end
+
+  def load_project_type
+    @project_type = params[:project][:type].nil? ? Project : params[:project][:type].constantize 
   end
 end

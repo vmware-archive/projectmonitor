@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100210170048) do
+ActiveRecord::Schema.define(:version => 20100222010621) do
 
   create_table "messages", :force => true do |t|
     t.string   "text"
@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(:version => 20100210170048) do
 
   create_table "projects", :force => true do |t|
     t.string  "name"
-    t.string  "cc_rss_url"
+    t.string  "feed_url"
     t.string  "auth_username"
     t.string  "auth_password"
     t.boolean "enabled",       :default => true
-    t.boolean "building",      :default => false, :null => false
+    t.boolean "building",      :default => false,                  :null => false
+    t.string  "type",          :default => "CruiseControlProject"
   end
 
   create_table "sessions", :force => true do |t|

@@ -153,7 +153,7 @@ describe StatusFetcher do
     context "with a RSS url with different capitalization than CC project name" do
       before(:each) do
         @response_xml = BUILDING_XML.downcase
-        @project.cc_rss_url = @project.cc_rss_url.upcase
+        @project.feed_url = @project.feed_url.upcase
         fetch_building_status_with_xml_response(@response_xml)
       end
 
@@ -213,7 +213,7 @@ describe StatusFetcher do
   private
 
   def fetch_build_history_with_xml_response(xml)
-    fetcher_with_mocked_url_retriever(@project.cc_rss_url, xml).fetch_build_history(@project)[:success].should_not be_nil
+    fetcher_with_mocked_url_retriever(@project.feed_url, xml).fetch_build_history(@project)[:success].should_not be_nil
     @project.reload
   end
 

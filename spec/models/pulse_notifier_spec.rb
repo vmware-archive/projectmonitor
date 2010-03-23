@@ -8,21 +8,21 @@ describe PulseNotifier do
   describe "#send_red_over_one_day_notifications" do
     describe "with projects that have been red for over one day" do
       before(:each) do
-        @long_red_project = Project.create!(:name => "Long red", :cc_rss_url => "http://long/red.rss")
+        @long_red_project = Project.create!(:name => "Long red", :feed_url => "http://long/red.rss")
         @long_red_project.statuses.create!(:online => true, :success => false, :published_at => Clock.now)
 
-        @long_red_disabled_project = Project.create!(:enabled => false, :name => "Long red disabled", :cc_rss_url => "http://long_disabled/red.rss")
+        @long_red_disabled_project = Project.create!(:enabled => false, :name => "Long red disabled", :feed_url => "http://long_disabled/red.rss")
         @long_red_disabled_project.statuses.create!(:online => true, :success => false, :published_at => Clock.now)
 
         Clock.tick 2.days
 
-        @short_red_project = Project.create!(:name => "Short red", :cc_rss_url => "http://short/red.rss")
+        @short_red_project = Project.create!(:name => "Short red", :feed_url => "http://short/red.rss")
         @short_red_project.statuses.create!(:online => true, :success => false, :published_at => Clock.now)
 
-        @green_project = Project.create!(:name => "Green", :cc_rss_url => "http://green.rss")
+        @green_project = Project.create!(:name => "Green", :feed_url => "http://green.rss")
         @green_project.statuses.create!(:online => true, :success => true, :published_at => Clock.now)
 
-        @offline_project = Project.create!(:name => "Offline", :cc_rss_url => "http://off/line.rss")
+        @offline_project = Project.create!(:name => "Offline", :feed_url => "http://off/line.rss")
         @offline_project.statuses.create!(:online => false, :published_at => Clock.now)
 
         PulseNotifier.send_red_over_one_day_notifications
