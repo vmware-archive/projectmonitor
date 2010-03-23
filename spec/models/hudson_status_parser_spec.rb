@@ -53,40 +53,41 @@ describe HudsonStatusParser do
       @status_parser = HudsonStatusParser.status(HUDSON_HISTORY_INVALID_XML)
     end
   end
+
+  describe "building" do
+    HUDSON_BUILDING_XML = File.read('test/fixtures/building_status_examples/hudson_pulse_building.atom')
+    HUDSON_NOT_BUILDING_XML = File.read('test/fixtures/building_status_examples/hudson_pulse_not_building.atom')
+    HUDSON_BUILDING_INVALID_XML = "<foo><bar>baz</bar></foo>"
+
+    context "with a valid response that the project is building" do
+      before(:each) do
+        @status_parser = HudsonStatusParser.building(HUDSON_BUILDING_XML, stub("a project", :project_name => 'Pulse'))
+      end
+
+      it "should set the building flag on the project to true" do
+        @status_parser.should be_building
+      end
+    end
+
+    context "with a valid response that the project is not building" do
+      before(:each) do
+        @status_parser = HudsonStatusParser.building(HUDSON_NOT_BUILDING_XML, stub("a project", :project_name => 'Pulse'))
+      end
+
+      it "should set the building flag on the project to false" do
+        @status_parser.should_not be_building
+      end
+    end
+
+    context "with an invalid response" do
+      before(:each) do
+        @status_parser = HudsonStatusParser.building(HUDSON_BUILDING_INVALID_XML, stub("a project", :project_name => 'Socialitis'))
+      end
+
+      it "should set the building flag on the project to false" do
+        @status_parser.should_not be_building
+      end
+    end
+  end
 end
 
-describe "building" do
-  HUDSON_BUILDING_XML = File.read('test/fixtures/building_status_examples/hudson_pulse_building.atom')
-  HUDSON_NOT_BUILDING_XML = File.read('test/fixtures/building_status_examples/hudson_pulse_not_building.atom')
-  HUDSON_BUILDING_INVALID_XML = "<foo><bar>baz</bar></foo>"
-
-  context "with a valid response that the project is building" do
-    before(:each) do
-      @status_parser = HudsonStatusParser.building(HUDSON_BUILDING_XML, stub("a project", :project_name => 'Pulse'))
-    end
-
-    it "should set the building flag on the project to true" do
-      @status_parser.should be_building
-    end
-  end
-
-  context "with a valid response that the project is not building" do
-    before(:each) do
-      @status_parser = HudsonStatusParser.building(HUDSON_NOT_BUILDING_XML, stub("a project", :project_name => 'Pulse'))
-    end
-
-    it "should set the building flag on the project to false" do
-      @status_parser.should_not be_building
-    end
-  end
-
-  context "with an invalid response" do
-    before(:each) do
-      @status_parser = HudsonStatusParser.building(HUDSON_BUILDING_INVALID_XML, stub("a project", :project_name => 'Socialitis'))
-    end
-
-    it "should set the building flag on the project to false" do
-      @status_parser.should_not be_building
-    end
-  end
-end
