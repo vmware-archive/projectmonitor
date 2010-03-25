@@ -37,7 +37,7 @@ module Rails
   class Boot
     def run
       load_initializer
-      extend_environment
+      extend_environment if ENV['dependency_tool'] == :bundler
       Rails::Initializer.run(:set_load_path)
     end
 

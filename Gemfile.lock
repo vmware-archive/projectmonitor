@@ -1,33 +1,29 @@
 --- 
 dependencies: 
-  libxml-ruby: 
-    group: 
-    - :default
-    version: = 1.1.2
-  mongrel: 
-    group: 
-    - :default
-    version: ">= 1.1.5"
   rails: 
     group: 
     - :default
     version: = 2.3.5
+  mongrel: 
+    group: 
+    - :default
+    version: ">= 1.1.5"
+  libxml-ruby: 
+    group: 
+    - :default
+    version: = 1.1.2
   mysql: 
     group: 
     - :default
     version: ">= 0"
-  acts_as_paranoid: 
-    group: 
-    - :default
-    version: = 0.3.1
-  rake: 
-    group: 
-    - :default
-    version: = 0.8.7
   jviney-acts_as_taggable_on_steroids: 
     group: 
     - :default
     version: = 1.1
+  rake: 
+    group: 
+    - :default
+    version: = 0.8.7
   acts_as_taggable: 
     group: 
     - :default
@@ -36,30 +32,30 @@ dependencies:
     group: 
     - :default
     version: = 1.15
-  rspec-rails: 
-    group: 
-    - :default
-    version: ">= 1.1.11"
-  gem_plugin: 
-    group: 
-    - :default
-    version: = 0.2.3
   rack: 
     group: 
     - :default
     version: = 1.0.1
+  gem_plugin: 
+    group: 
+    - :default
+    version: = 0.2.3
+  rspec-rails: 
+    group: 
+    - :default
+    version: ">= 1.1.11"
   mongrel_cluster: 
     group: 
     - :default
     version: = 1.0.5
-  httpauth: 
-    group: 
-    - :default
-    version: = 0.1
   hpricot: 
     group: 
     - :default
     version: "> 0.0.0"
+  httpauth: 
+    group: 
+    - :default
+    version: = 0.1
   nokogiri: 
     group: 
     - :default
@@ -79,8 +75,6 @@ specs:
     version: 2.3.5
 - activeresource: 
     version: 2.3.5
-- acts_as_paranoid: 
-    version: 0.3.1
 - acts_as_taggable: 
     version: 2.0.2
 - cgi_multipart_eof_fix: 
@@ -115,7 +109,7 @@ specs:
     version: 1.3.0
 - rspec-rails: 
     version: 1.3.2
-hash: ff33b0c0b9af3268ad11af463fc10bfe0706e135
+hash: cdaa710f78078fb603050912e360861f7991e448
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
