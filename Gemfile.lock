@@ -1,0 +1,121 @@
+--- 
+dependencies: 
+  libxml-ruby: 
+    group: 
+    - :default
+    version: = 1.1.2
+  mongrel: 
+    group: 
+    - :default
+    version: ">= 1.1.5"
+  rails: 
+    group: 
+    - :default
+    version: = 2.3.5
+  mysql: 
+    group: 
+    - :default
+    version: ">= 0"
+  acts_as_paranoid: 
+    group: 
+    - :default
+    version: = 0.3.1
+  rake: 
+    group: 
+    - :default
+    version: = 0.8.7
+  jviney-acts_as_taggable_on_steroids: 
+    group: 
+    - :default
+    version: = 1.1
+  acts_as_taggable: 
+    group: 
+    - :default
+    version: ~> 2.0.2
+  mime-types: 
+    group: 
+    - :default
+    version: = 1.15
+  rspec-rails: 
+    group: 
+    - :default
+    version: ">= 1.1.11"
+  gem_plugin: 
+    group: 
+    - :default
+    version: = 0.2.3
+  rack: 
+    group: 
+    - :default
+    version: = 1.0.1
+  mongrel_cluster: 
+    group: 
+    - :default
+    version: = 1.0.5
+  httpauth: 
+    group: 
+    - :default
+    version: = 0.1
+  hpricot: 
+    group: 
+    - :default
+    version: "> 0.0.0"
+  nokogiri: 
+    group: 
+    - :default
+    version: = 1.4.1
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.5
+- rack: 
+    version: 1.0.1
+- actionpack: 
+    version: 2.3.5
+- actionmailer: 
+    version: 2.3.5
+- activerecord: 
+    version: 2.3.5
+- activeresource: 
+    version: 2.3.5
+- acts_as_paranoid: 
+    version: 0.3.1
+- acts_as_taggable: 
+    version: 2.0.2
+- cgi_multipart_eof_fix: 
+    version: 2.5.0
+- daemons: 
+    version: 1.0.10
+- fastthread: 
+    version: 1.0.7
+- gem_plugin: 
+    version: 0.2.3
+- hpricot: 
+    version: 0.8.2
+- httpauth: 
+    version: "0.1"
+- jviney-acts_as_taggable_on_steroids: 
+    version: "1.1"
+- libxml-ruby: 
+    version: 1.1.2
+- mime-types: 
+    version: "1.15"
+- mongrel: 
+    version: 1.1.5
+- mongrel_cluster: 
+    version: 1.0.5
+- mysql: 
+    version: 2.8.1
+- nokogiri: 
+    version: 1.4.1
+- rails: 
+    version: 2.3.5
+- rspec: 
+    version: 1.3.0
+- rspec-rails: 
+    version: 1.3.2
+hash: ff33b0c0b9af3268ad11af463fc10bfe0706e135
+sources: 
+- Rubygems: 
+    uri: http://gemcutter.org

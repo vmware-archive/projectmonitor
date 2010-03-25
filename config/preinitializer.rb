@@ -1,10 +1,23 @@
-############# GemInstaller preinitializer - see http://geminstaller.rubyforge.org
+DEPENDENCY_TOOL = ENV['dependency_tool'] ? ENV['dependency_tool'].to_sym : :bundler
 
-require "rubygems"
-require "geminstaller"
-
-# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
-# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem("--exceptions --config #{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml")
-
-
+if DEPENDENCY_TOOL == :geminstaller
+  require 'rubygems'
+  require 'geminstaller'
+  require 'geminstaller_rails_preinitializer'
+elsif DEPENDENCY_TOOL == :bundler
+  begin
+    # Require the preresolved locked set of gems.
+    require File.expand_path('../../.bundle/environment', __FILE__)
+  rescue LoadError
+    # Fallback on doing the resolve at runtime.
+    require "rubygems"
+    require "bundler"
+    if Gem::Version.new(Bundler::VERSION) <= Gem::Version.new("0.9.5")
+      raise RuntimeError, "Bundler incompatible.\n" +
+        "Your bundler version is incompatible with Rails 2.3 and an unlocked bundle.\n" +
+        "Run `gem install bundler` to upgrade or `bundle lock` to lock."
+    else
+      Bundler.setup
+    end
+  end
+end
