@@ -5,3 +5,4 @@ tmp/
 *.ipr
 config/database.yml
 config/initializers/site_keys.rb
+.bundle
