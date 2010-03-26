@@ -1,6 +1,9 @@
 Rake.application.clean_task("cruise")
 
 task :cruise => :environment do
+  # NOTE: This probably won't actually work, because the Rails environment will fail anyway if gems have not
+  # yet been installed.  There needs to be a hook in preinitializer.rb for bundle install to run
+  # but only in the CI environment (so it doesn't have to be done on every app/test startup).
   if DEPENDENCY_TOOL == :geminstaller
     require 'geminstaller'
     GemInstaller.install(['--sudo'])
