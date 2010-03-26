@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20100222010621) do
     t.string  "auth_password"
     t.boolean "enabled",       :default => true
     t.boolean "building",      :default => false,                  :null => false
-    t.string  "type",          :default => "CruiseControlProject"
+    t.string  "type",          :default => "CruiseControlProject", :null => false
   end
 
   create_table "sessions", :force => true do |t|
