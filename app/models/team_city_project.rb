@@ -1,11 +1,6 @@
 class TeamCityProject < Project
   validates_format_of :feed_url, :with =>  /http:\/\/.*feed.html\?.*buildTypeId.*$/
 
-#  def project_name
-#    return nil if feed_url.nil?
-#    URI.parse(feed_url).path.scan(/^.*job\/(.*)/i)[0][0].split('/').first
-#  end
-
   def build_status_url
     return nil if feed_url.nil?
 
