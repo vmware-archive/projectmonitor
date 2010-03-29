@@ -46,6 +46,19 @@ describe TeamCityStatusParser do
     end
   end
 
+  describe "with only failures" do
+    before(:all) do
+      @response_doc = Nokogiri::XML.parse(TEAMCITY_HISTORY_NEVER_GREEN_XML)
+      @status_parser = TeamCityStatusParser.status(TEAMCITY_HISTORY_NEVER_GREEN_XML)
+    end
+
+    it_should_behave_like "teamcity status for a valid build history xml response"
+
+    it "should report failure" do
+      @status_parser.should_not be_success
+    end
+  end
+
   describe "with invalid xml" do
     before(:all) do
       @parser = Nokogiri::XML.parse(@response_xml = TEAMCITY_HISTORY_INVALID_XML)
