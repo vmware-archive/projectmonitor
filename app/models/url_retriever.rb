@@ -21,7 +21,7 @@ class UrlRetriever
     http.read_timeout = 30
     http.open_timeout = 30
 
-    get = Net::HTTP::Get.new(uri.path)
+    get = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
 
     yield(get) if block_given?
 
