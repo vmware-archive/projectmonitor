@@ -1,3 +1,4 @@
+
 DEPENDENCY_TOOL = ENV['dependency_tool'] ? ENV['dependency_tool'].to_sym : :bundler
 
 if DEPENDENCY_TOOL == :geminstaller
@@ -5,7 +6,7 @@ if DEPENDENCY_TOOL == :geminstaller
   require 'geminstaller'
   require 'geminstaller_rails_preinitializer'
   # This is to automatically install dependencies on CI boxes
-  GemInstaller.install(['--sudo'])  
+  GemInstaller.install(['--sudo'])
 elsif DEPENDENCY_TOOL == :bundler
   # This is to automatically install dependencies on CI boxes
   # Requires that you have bundler already installed

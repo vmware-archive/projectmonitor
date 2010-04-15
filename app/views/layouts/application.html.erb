@@ -10,6 +10,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
   <title><%= title %></title>
+  <script type="text/javascript" src="/javascripts/refresh.js"></script>
   <%= stylesheet_link_tag 'style' %>
   <%= stylesheet_link_tag 'sparkline' %>
 </head>
@@ -33,6 +34,16 @@
       <i>As of <%= Time.now.strftime('%I:%M%p %Z %m/%d/%Y') %></i>
       <% if current_user.nil? %>
           | <%= link_to "Log in", login_path %>
+      <% end %>
+      <br/>
+      <% if params[:controller] == "pulse" %>
+        <%= link_to_function "refresh rate", "document.getElementById('refreshInterval').style.display='inline'; this.style.display='none'" %>
+        <%= select_tag "refreshInterval",
+                           options_for_select([["15 seconds", "15"], ["30 seconds", "30"], ["60 seconds", "60"], ["5 minutes", "300"], ["Never", "0"]]),
+                           :onchange => "onChangeRefreshTimeoutDropdown()", :style => "display: none" %>
+        <% javascript_tag do %>
+        setRefreshIntervalDropdown();
+      <% end %>
       <% end %>
     </div>
     <% if !current_user.nil? %>
