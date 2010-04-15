@@ -10,11 +10,11 @@ describe Project do
   it "should be valid" do
     @project.should be_valid
   end
-  
+
   it "should have name as to_s" do
     @project.to_s.should == (@project.name)
   end
-  
+
   describe "validation" do
     it "should require a name" do
       @project.name = ""
@@ -48,7 +48,7 @@ describe Project do
   describe "#status" do
     before(:each) do
       @project = projects(:socialitis)
-    end    
+    end
 
     it "should return the most recent status" do
       @project.status.should == @project.statuses.find(:first)
@@ -98,7 +98,7 @@ describe Project do
       project.statuses.delete_all
       online_status = project.statuses.create!(:success => false, :online => true)
       offline_status = project.statuses.create!(:success => false, :online => false)
-      
+
       project.recent_online_statuses.should include(online_status)
       project.recent_online_statuses.should_not include(offline_status)
     end
@@ -235,7 +235,7 @@ describe Project do
       @project.build_status_url.should be_nil
     end
   end
-  
+
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       @project.feed_url = nil
@@ -244,6 +244,43 @@ describe Project do
 
     it "should just use the feed URL" do
       @project.project_name.should == @project.feed_url
+    end
+  end
+
+  describe "#needs_poll?" do
+    it "should return true if current time >= next_poll_at" do
+      @project.next_poll_at = 5.minutes.ago
+      @project.needs_poll?.should be_true
+    end
+
+    it "should return false when current time < next_poll_at" do
+      @project.next_poll_at = 5.minutes.from_now
+      @project.needs_poll?.should be_false
+    end
+
+    it "should return true if next_poll_at is null" do
+      @project.needs_poll?.should be_true
+    end
+  end
+
+  describe "#set_next_poll!" do
+    epsilon = 2
+    context "with a project poll interval set" do
+      before do
+        @project.polling_interval = 25
+      end
+
+      it "should set the next_poll_at to Time.now + the project poll interval" do
+        @project.set_next_poll!
+        (@project.reload.next_poll_at - (Time.now + @project.polling_interval)).abs.should <= epsilon
+      end
+    end
+
+    context "without a project poll interval set" do
+      it "should set the next_poll_at to Time.now + the system default interval" do
+        @project.set_next_poll!
+        (@project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
+      end
     end
   end
 end

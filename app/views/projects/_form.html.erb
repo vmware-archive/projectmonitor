@@ -35,5 +35,11 @@
 </p>
 
 <p>
+  <b>Polling Interval (seconds)</b> if blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %>s<br/>
+  <%= f.text_field :polling_interval, :size=>3 %><br/>
+  <em>Will poll next <%= @project.next_poll_at ? time_ago_in_words(@project.next_poll_at) + " from now" : "ASAP" %></em>
+</p>
+
+<p>
   <%= submit_tag @project.new_record? ? "Create" : "Update" %>
 </p>

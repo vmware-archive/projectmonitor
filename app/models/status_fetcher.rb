@@ -1,4 +1,3 @@
-
 class StatusFetcher
   def initialize(url_retriever = UrlRetriever.new)
     @url_retriever = url_retriever
@@ -7,12 +6,14 @@ class StatusFetcher
   def fetch_all
     errors = []
     projects = Project.find(:all)
+    projects.reject! {|project| !project.needs_poll?}
     projects.each do |project|
       status = fetch_build_history(project)
       errors << status[:error] if status[:error]
 
       # Ignoring errors fetching building status at the moment.  Do we care?
       fetch_building_status(project)
+      project.set_next_poll!
     end
 
     unless errors.empty?

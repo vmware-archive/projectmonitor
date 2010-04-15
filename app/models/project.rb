@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   RECENT_STATUS_COUNT = 10
+  DEFAULT_POLLING_INTERVAL = 120
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT
 
   acts_as_taggable
@@ -49,9 +50,18 @@ class Project < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   def recent_online_statuses(count = RECENT_STATUS_COUNT)
     statuses.reject{|s| !s.online}.reverse.last(count)
+  end
+
+  def set_next_poll!
+    self.next_poll_at = Time.now + (self.polling_interval || Project::DEFAULT_POLLING_INTERVAL)
+    self.save!
+  end
+
+  def needs_poll?
+    self.next_poll_at.nil? || self.next_poll_at <= Time.now
   end
 
   private

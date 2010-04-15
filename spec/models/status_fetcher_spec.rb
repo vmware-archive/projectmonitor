@@ -48,7 +48,7 @@ describe StatusFetcher do
       end
 
       before(:each) do
-         fetch_build_history_with_xml_response(@response_xml)
+        fetch_build_history_with_xml_response(@response_xml)
       end
 
       it "should return current time" do
@@ -186,26 +186,32 @@ describe StatusFetcher do
   end
 
   describe "#fetch_all" do
-    describe "with exception while parsing all xml" do
-      before(:each)do
+    context "with exception while parsing all xml" do
+      before(:each) do
         retriever = mock("mock retriever")
         retriever.should_receive(:retrieve_content_at).any_number_of_times.and_raise(Exception.new('bad error'))
 
         @fetcher = StatusFetcher.new(retriever)
       end
-      
-      it "should fetch build history and building status for all projects" do
+
+      it "should fetch build history and building status for all projects needing build" do
         project_count = Project.count
-        @fetcher.should_receive(:fetch_build_history).exactly(project_count).times.and_return({:success => true})
-        @fetcher.should_receive(:fetch_building_status).exactly(project_count).times.and_return({:building => false})
+        project_count.should > 1
+        Project.all.each {|project| project.needs_poll?.should be_true }
+        Project.first.update_attribute(:next_poll_at, 5.minutes.from_now)  # make 1 project not ready to poll
+
+        @fetcher.should_receive(:fetch_build_history).exactly(project_count - 1).times.and_return({:success => true})
+        @fetcher.should_receive(:fetch_building_status).exactly(project_count - 1).times.and_return({:building => false})
+        @fetcher.should_not_receive(:fetch_build_history).with(Project.first)
 
         @fetcher.fetch_all
+
+        Project.last.next_poll_at.should > Time.now
       end
-      
+
       it "should raise an exception" do
-        Project.find(:all).each do |project|
-          lambda {@fetcher.fetch_all}.should raise_error(/ALL projects had errors fetching status/)
-        end
+        Project.all.each {|project| project.needs_poll?.should be_true }        
+        lambda {@fetcher.fetch_all}.should raise_error(/ALL projects had errors fetching status/)
       end
     end
   end
