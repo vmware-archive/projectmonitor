@@ -1,6 +1,6 @@
 development: &development
   adapter: mysql
-  database: pulse_development
+  database: cimonitor_development
   username: root
   password: password
   host: localhost
@@ -11,9 +11,9 @@ development: &development
 # Do not set this db to the same as development or production.
 test:
   <<: *development
-  database: pulse_test
+  database: cimonitor_test
   password: password
 
 production:
   <<: *development
-  database: pulse_production
+  database: cimonitor_production

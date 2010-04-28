@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe PulseNotifier do
+describe CiMonitorNotifier do
   before(:each) do
     ActionMailer::Base.deliveries = []
   end
@@ -25,7 +25,7 @@ describe PulseNotifier do
         @offline_project = Project.create!(:name => "Offline", :feed_url => "http://off/line.rss")
         @offline_project.statuses.create!(:online => false, :published_at => Clock.now)
 
-        PulseNotifier.send_red_over_one_day_notifications
+        CiMonitorNotifier.send_red_over_one_day_notifications
       end
 
       it "should send one email" do
@@ -56,7 +56,7 @@ describe PulseNotifier do
         Project.find(:all).each do |project|
           project.statuses.create!(:online => true, :success => true, :published_at => Clock.now)
         end
-        PulseNotifier.send_red_over_one_day_notifications
+        CiMonitorNotifier.send_red_over_one_day_notifications
       end
 
       it "should not send an email" do

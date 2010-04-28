@@ -12,10 +12,10 @@ function scheduleRefresh() {
 }
 
 function refresh() {
-  var pulseUrl = "/pulse";
+  var cimonitorUrl = "/cimonitor";
   if (document.location) {
-    pulseUrl += document.location.search;// copy all the ?params and add them to the pulse URL
-    window.frames[0].location = pulseUrl;
+    cimonitorUrl += document.location.search;// copy all the ?params and add them to the cimonitor URL
+    window.frames[0].location = cimonitorUrl;
   }
 
   scheduleRefresh();

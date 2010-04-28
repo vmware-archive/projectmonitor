@@ -6,7 +6,7 @@ class SvnSheller
   end
 end
 
-describe PulseController do
+describe CiMonitorController do
   integrate_views
 
   describe "#show" do

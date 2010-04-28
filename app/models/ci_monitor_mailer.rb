@@ -1,7 +1,7 @@
-class PulseMailer < ActionMailer::Base
+class CiMonitorMailer < ActionMailer::Base
 
   def red_over_one_day_notification(projects, options = {})
-    from("Pivotal Pulse <pivotal-pulse@example.com>")
+    from("Pivotal CiMonitor <pivotal-cimonitor@example.com>")
     recipients(RED_NOTIFICATION_EMAILS)
     subject("Projects RED for over one day!")
     multipart("red_over_one_day_notification", :projects => projects)

@@ -27,7 +27,7 @@
     <div class="project_invalid">Could not retrieve status</div>
   <% end %>
   <div class="project_history">
-    <%= render :partial=>'pulse/history', :locals=>{:project=>project} %>
+    <%= render :partial=>'ci_monitor/history', :locals=>{:project=>project} %>
   </div>
 
   <div class="project_status">
