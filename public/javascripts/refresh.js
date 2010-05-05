@@ -6,7 +6,6 @@ function scheduleRefresh() {
   var refreshTimeInSeconds = cookieValue ? parseInt(cookieValue) : defaultRefreshTimeout;
   clearTimeout(currentTimeout);
   if (cookieValue != "0") {
-    console.debug("scheduleRefresh", refreshTimeInSeconds);
     currentTimeout = setTimeout("refresh();", refreshTimeInSeconds * 1000);
   }
 }
