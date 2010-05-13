@@ -36,7 +36,7 @@
           | <%= link_to "Log in", login_path %>
       <% end %>
       <br/>
-      <% if params[:controller] == "cimonitor" %>
+      <% if params[:controller] == "ci_monitor" %>
         <%= link_to_function "refresh rate", "document.getElementById('refreshInterval').style.display='inline'; this.style.display='none'" %>
         <%= select_tag "refreshInterval",
                            options_for_select([["15 seconds", "15"], ["30 seconds", "30"], ["60 seconds", "60"], ["5 minutes", "300"], ["Never", "0"]]),
