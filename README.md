@@ -48,7 +48,8 @@ Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUT
 Add a cron job for `RAILS_ENV=production rake cimonitor:fetch_statuses > fetch_statuses.log 2>&1` at whatever frequency you
 like. This is what goes out and hits the individual builds. We find that if you do this too frequently it
 can swamp the builds. On the other hand, you don't want CiMonitor displaying stale information. At Pivotal we set it up to
-run every 3 minutes.
+run every 3 minutes.  Also, make sure that you set your PATH correctly in crontab to include the 'bundle' executable
+if you run 'bundle install' in config/preinitializer.rb.
 
 ### Start the application
 
