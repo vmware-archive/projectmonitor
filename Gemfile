@@ -7,12 +7,13 @@ gem "mime-types", "1.15"
 gem "fastthread", "1.0.7"
 gem "mongrel", ">= 1.1.5"
 gem "mongrel_cluster", "1.0.5"
-gem "libxml-ruby", "1.1.2"
 gem "nokogiri", "1.4.1"
 gem "httpauth", "0.1"
-gem "hpricot", "> 0.0.0"
-gem "rspec-rails", ">= 1.1.11"
 gem "jviney-acts_as_taggable_on_steroids", "1.1"
-gem "acts_as_taggable", "~> 2.0.2"
 gem "mysql"
-gem "jasmine", "0.10.3.1"
+
+group :test do
+  gem "libxml-ruby", "1.1.2"
+  gem "rspec-rails", ">= 1.1.11"
+  gem "jasmine", "0.10.3.1"
+end
