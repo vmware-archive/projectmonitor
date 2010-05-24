@@ -2,7 +2,7 @@
 dependencies: 
   libxml-ruby: 
     group: 
-    - :default
+    - :test
     version: = 1.1.2
   mongrel: 
     group: 
@@ -16,18 +16,14 @@ dependencies:
     group: 
     - :default
     version: = 1.0.7
-  acts_as_taggable: 
-    group: 
-    - :default
-    version: ~> 2.0.2
-  rake: 
-    group: 
-    - :default
-    version: = 0.8.7
   jviney-acts_as_taggable_on_steroids: 
     group: 
     - :default
     version: = 1.1
+  rake: 
+    group: 
+    - :default
+    version: = 0.8.7
   mysql: 
     group: 
     - :default
@@ -36,10 +32,6 @@ dependencies:
     group: 
     - :default
     version: = 1.15
-  rspec-rails: 
-    group: 
-    - :default
-    version: ">= 1.1.11"
   rack: 
     group: 
     - :default
@@ -48,9 +40,13 @@ dependencies:
     group: 
     - :default
     version: = 0.2.3
+  rspec-rails: 
+    group: 
+    - :test
+    version: ">= 1.1.11"
   jasmine: 
     group: 
-    - :default
+    - :test
     version: = 0.10.3.1
   mongrel_cluster: 
     group: 
@@ -60,10 +56,6 @@ dependencies:
     group: 
     - :default
     version: = 0.1
-  hpricot: 
-    group: 
-    - :default
-    version: "> 0.0.0"
   nokogiri: 
     group: 
     - :default
@@ -83,8 +75,6 @@ specs:
     version: 2.3.5
 - activeresource: 
     version: 2.3.5
-- acts_as_taggable: 
-    version: 2.0.2
 - cgi_multipart_eof_fix: 
     version: 2.5.0
 - daemons: 
@@ -95,12 +85,10 @@ specs:
     version: 1.0.7
 - gem_plugin: 
     version: 0.2.3
-- hpricot: 
-    version: 0.8.2
 - httpauth: 
     version: "0.1"
 - json: 
-    version: 1.2.4
+    version: 1.4.3
 - rspec: 
     version: 1.3.0
 - selenium-client: 
@@ -129,7 +117,7 @@ specs:
     version: 2.3.5
 - rspec-rails: 
     version: 1.3.2
-hash: 4b670f5a2539532e1810b1ffcf772589ba88bc00
+hash: ffdabf77d4a20a62949203a185b70a5ae723ed38
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

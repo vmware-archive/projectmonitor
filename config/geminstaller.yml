@@ -22,13 +22,10 @@ gems:
   version: 1.4.1
 - name: httpauth
   version: 0.1
-- name: hpricot
 - name: rspec-rails
   version: >= 1.1.11
 - name: jviney-acts_as_taggable_on_steroids
   version: 1.1
   install_options: --source http://gems.github.com
-- name: acts_as_taggable
-  version: ~> 2.0.2
 - name: jasmine
   version: 0.10.3.1
