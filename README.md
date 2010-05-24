@@ -3,8 +3,13 @@ Description
 
 CiMonitor is a CI display aggregator. It displays the status of multiple Continuous Integration builds on a single web page.
 The intent is that you display the page on a big screen monitor or TV so that the status of all your projects' builds
-are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently supports Cruise Control and Hudson builds, but the plan
-is to add support others (such as Integrity).
+are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently supports:
+
+  * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
+  * [Hudson](http://hudson-ci.org/)
+  * [Team City](http://www.jetbrains.com/teamcity/)
+
+NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server. You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
 
 We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
 instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the status of the builds of various
@@ -19,37 +24,35 @@ CiMonitor is a Rails application. To get the code, execute the following:
 
     git clone git://github.com/pivotal/cimonitor.git pivotal_cimonitor
     cd pivotal_cimonitor
-    git submodule init
-    git submodule update
-
-### Install gem dependencies
-
-If you don't have geminstaller installed, then execute:
-
-    sudo gem install geminstaller
-
-Then execute:
-
-    sudo geminstaller
+    git submodule update --init
+    bundle install
 
 ### Set up the database
 
-You'll need a database (MySQL works). Create it with whatever name you want. Copy `config/database.yml.example` to
-`database.yml` and edit the production environment configuration so it's right for your database. Then execute:
+You'll need a database. Create it with whatever name you want. Copy `config/database.yml.example` to
+`database.yml` and edit the production environment configuration so it's right for your database:
 
+    cp config/database.yml.example config/database.yml
+    <edit database.yml>
+    RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
 ### Set up the site keys
 
 Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUTH_SITE_KEY` to something secret.
 
+    cp config/site_keys.rb.example config/site_keys.rb
+    <edit site_keys.rb>
+
 ### Set up cron
 
-Add a cron job for `RAILS_ENV=production rake cimonitor:fetch_statuses > fetch_statuses.log 2>&1` at whatever frequency you
-like. This is what goes out and hits the individual builds. We find that if you do this too frequently it
+Add a cron job at whatever frequency you like for the following command:
+
+    RAILS_ENV=production rake cimonitor:fetch_statuses > fetch_statuses.log 2>&1
+
+This is what goes out and hits the individual builds. We find that if you do this too frequently it
 can swamp the builds. On the other hand, you don't want CiMonitor displaying stale information. At Pivotal we set it up to
-run every 3 minutes.  Also, make sure that you set your PATH correctly in crontab to include the 'bundle' executable
-if you run 'bundle install' in config/preinitializer.rb.
+run every 3 minutes.  Also, make sure that you set your PATH correctly in crontab to include the 'bundle' executable.
 
 ### Start the application
 
@@ -69,7 +72,7 @@ Your first user must be created at the command line.
     RAILS_ENV=production script/console
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
 
-After that, you can login to CiMonitor and use the "New User" link to create new users.
+After that, you can login with the "login" as the username to CiMonitor and use the "New User" link to create new users.
 
 ### Log in
 
@@ -101,8 +104,9 @@ CiMonitor looks good on an iPhone, by the way :)
 
 ## Notifications
 
-CiMonitor can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute
-`RAILS_ENV=production rake cimonitor:red_over_one_day_notification > red_over_one_day_notification.log 2>&1`
+CiMonitor can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute:
+
+    RAILS_ENV=production rake cimonitor:red_over_one_day_notification > red_over_one_day_notification.log 2>&1
 
 ## Tags
 
@@ -114,6 +118,12 @@ only projects that match a set of tags by going to /?tags=tag1,tag2
 CI for CiMonitor is [here](http://ci.pivotallabs.com:3333/builds/CiMonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
 (that's an instance of CiMonitor, of course).
 
-## Pivotal Tracker
+## Development
 
 The public Tracker project for CiMonitor is [here](http://www.pivotaltracker.com/projects/2872).
+
+To run tests, run:
+
+    rake spec
+
+
