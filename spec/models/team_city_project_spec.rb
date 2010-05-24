@@ -36,7 +36,6 @@ describe TeamCityProject do
     end
     
     it "should be for TeamCity" do
-      puts @project.status_parser('xml').inspect
       @project.status_parser('xml').should be_a(TeamCityStatusParser)
       @project.building_parser('xml').should be_a(TeamCityStatusParser)
     end
