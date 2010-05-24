@@ -4,18 +4,8 @@
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 require 'rake'
-
-module Rake
-  module TaskManager
-    def clean_task(name)
-      @tasks[name] = nil
-    end
-  end
-end
-
 require 'rake/testtask'
 require 'rake/rdoctask'
-
 require 'tasks/rails'
 
 Rake.application.options.trace = true
