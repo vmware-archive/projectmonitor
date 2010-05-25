@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
-
-# Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
-# Then, you can remove it from this and the functional test.
-include AuthenticatedTestHelper
 
 describe User do
   fixtures :users
@@ -22,10 +17,6 @@ describe User do
     end
   end
 
-  #
-  # Validations
-  #
-
   it 'requires login' do
     lambda do
       u = create_user(:login => nil)
@@ -39,7 +30,7 @@ describe User do
       it "'#{login_str}'" do
         lambda do
           u = create_user(:login => login_str)
-          u.errors.on(:login).should     be_nil
+          u.errors.on(:login).should be_nil
         end.should change(User, :count).by(1)
       end
     end
@@ -87,7 +78,7 @@ describe User do
       it "'#{email_str}'" do
         lambda do
           u = create_user(:email => email_str)
-          u.errors.on(:email).should     be_nil
+          u.errors.on(:email).should be_nil
         end.should change(User, :count).by(1)
       end
     end
@@ -115,7 +106,7 @@ describe User do
       it "'#{name_str}'" do
         lambda do
           u = create_user(:name => name_str)
-          u.errors.on(:name).should     be_nil
+          u.errors.on(:name).should be_nil
         end.should change(User, :count).by(1)
       end
     end
@@ -123,7 +114,7 @@ describe User do
   describe "disallows illegitimate names" do
     ["tab\t", "newline\n",
      '1234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_234567890_',
-     ].each do |name_str|
+    ].each do |name_str|
       it "'#{name_str}'" do
         lambda do
           u = create_user(:name => name_str)
@@ -138,90 +129,30 @@ describe User do
     User.authenticate('quentin', 'new password').should == users(:quentin)
   end
 
-  # TODO: dependent on specific REST_AUTH_SITE_KEY?
-  # it 'does not rehash password' do
-  #   users(:quentin).update_attributes(:login => 'quentin2')
-  #   debugger
-  #   User.authenticate('quentin2', 'monkey').should == users(:quentin)
-  # end
-
-  #
-  # Authentication
-  #
-
-  # TODO: dependent on specific REST_AUTH_SITE_KEY?
-  # it 'authenticates user' do
-  #   User.authenticate('quentin', 'monkey').should == users(:quentin)
-  # end
-
   it "doesn't authenticate user with bad password" do
     User.authenticate('quentin', 'invalid_password').should be_nil
   end
 
- if REST_AUTH_SITE_KEY.blank?
-   # old-school passwords
-   it "authenticates a user against a hard-coded old-style password" do
-     User.authenticate('old_password_holder', 'test').should == users(:old_password_holder)
-   end
- else
-   it "doesn't authenticate a user against a hard-coded old-style password" do
-     User.authenticate('old_password_holder', 'test').should be_nil
-   end
+  if REST_AUTH_SITE_KEY.blank?
+    it "authenticates a user against a hard-coded old-style password" do
+      User.authenticate('old_password_holder', 'test').should == users(:old_password_holder)
+    end
+  else
+    it "doesn't authenticate a user against a hard-coded old-style password" do
+      User.authenticate('old_password_holder', 'test').should be_nil
+    end
 
-   # New installs should bump this up and set REST_AUTH_DIGEST_STRETCHES to give a 10ms encrypt time or so
-   desired_encryption_expensiveness_ms = 0.1
-   it "takes longer than #{desired_encryption_expensiveness_ms}ms to encrypt a password" do
-     test_reps = 100
-     start_time = Time.now; test_reps.times{ User.authenticate('quentin', 'monkey'+rand.to_s) }; end_time   = Time.now
-     auth_time_ms = 1000 * (end_time - start_time)/test_reps
-     auth_time_ms.should > desired_encryption_expensiveness_ms
-   end
- end
-
-  #
-  # Authentication
-  #
-
-  it 'sets remember token' do
-    users(:quentin).remember_me
-    users(:quentin).remember_token.should_not be_nil
-    users(:quentin).remember_token_expires_at.should_not be_nil
+    desired_encryption_expensiveness_ms = 0.1
+    it "takes longer than #{desired_encryption_expensiveness_ms}ms to encrypt a password" do
+      test_reps = 100
+      start_time = Time.now; test_reps.times{ User.authenticate('quentin', 'monkey'+rand.to_s) }; end_time = Time.now
+      auth_time_ms = 1000 * (end_time - start_time)/test_reps
+      auth_time_ms.should > desired_encryption_expensiveness_ms
+    end
   end
 
-  it 'unsets remember token' do
-    users(:quentin).remember_me
-    users(:quentin).remember_token.should_not be_nil
-    users(:quentin).forget_me
-    users(:quentin).remember_token.should be_nil
-  end
+  protected
 
-  it 'remembers me for one week' do
-    before = 1.week.from_now.utc
-    users(:quentin).remember_me_for 1.week
-    after = 1.week.from_now.utc
-    users(:quentin).remember_token.should_not be_nil
-    users(:quentin).remember_token_expires_at.should_not be_nil
-    users(:quentin).remember_token_expires_at.between?(before, after).should be_true
-  end
-
-  it 'remembers me until one week' do
-    time = 1.week.from_now.utc
-    users(:quentin).remember_me_until time
-    users(:quentin).remember_token.should_not be_nil
-    users(:quentin).remember_token_expires_at.should_not be_nil
-    users(:quentin).remember_token_expires_at.should == time
-  end
-
-  it 'remembers me default two weeks' do
-    before = 2.weeks.from_now.utc
-    users(:quentin).remember_me
-    after = 2.weeks.from_now.utc
-    users(:quentin).remember_token.should_not be_nil
-    users(:quentin).remember_token_expires_at.should_not be_nil
-    users(:quentin).remember_token_expires_at.between?(before, after).should be_true
-  end
-
-protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
     record.save

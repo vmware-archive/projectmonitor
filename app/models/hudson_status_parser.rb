@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 class HudsonStatusParser < StatusParser
   class << self
     def building(content, project)
@@ -10,7 +8,7 @@ class HudsonStatusParser < StatusParser
       building_parser.building = p_element.attribute('activity').value == 'building'
       building_parser
     end
- 
+
     def status(content)
       status_parser = self.new
       begin

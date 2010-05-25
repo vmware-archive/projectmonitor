@@ -1,4 +1,3 @@
-require 'xml/libxml'
 class CruiseControlStatusParser < StatusParser
   class << self
     def building(content, project)
