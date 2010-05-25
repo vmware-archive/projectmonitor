@@ -1,7 +1,0 @@
-Wapcaplet: Keep your functional tests functional
-
-HTTP doesn't send integers, Dates, or ActiveRecords as parameters, it sends strings.  This little plugin will simply
-throw a friendly exception if you pass a parameter with an improper value to a functional test.  It will accept strings,
-TestUploadedFile objects, and nil for all parameters.  For route parameters (used to generate the path) it will also
-accept ActiveRecord objects.
-
