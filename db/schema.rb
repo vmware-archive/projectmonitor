@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100415175104) do
+ActiveRecord::Schema.define(:version => 20100525144035) do
 
   create_table "messages", :force => true do |t|
     t.string   "text"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20100415175104) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "error"
+    t.text     "error"
   end
 
   add_index "project_statuses", ["project_id"], :name => "index_project_statuses_on_project_id"

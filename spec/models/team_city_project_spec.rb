@@ -43,7 +43,7 @@ describe TeamCityProject do
 
   describe "#build_status_url" do
     it "should use cc.xml" do
-      @project.build_status_url.should == "http://foo.bar.com:3434/cc.xml"
+      @project.build_status_url.should == "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9"
     end
   end
 end

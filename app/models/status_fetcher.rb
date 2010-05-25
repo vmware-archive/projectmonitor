@@ -56,7 +56,7 @@ class StatusFetcher
     status[:error] = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
       building_parser = project.building_parser(content)
-      status[:building] = building_parser.building?
+      status[:building] = !!building_parser.building?
     end
     status
   end
