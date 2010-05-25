@@ -11,7 +11,6 @@ gem "nokogiri", "1.4.2"
 gem "httpauth", "0.1"
 gem "jviney-acts_as_taggable_on_steroids", "1.1"
 gem "mysql"
-gem "pg"
 
 group :test do
   gem "libxml-ruby", "1.1.2"
