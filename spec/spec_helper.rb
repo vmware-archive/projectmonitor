@@ -7,6 +7,7 @@ require 'spec'
 require 'spec/rails'
 require 'mock_clock'
 require 'rspec_extensions/spec_helper_matchers'
+require 'xml/libxml'
 
 Spec::Runner.configure do |configuration|
   # If you're not using ActiveRecord you should remove these

@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'xml/libxml'
 
 shared_examples_for "all build history fetches" do
   it "should not create a new status entry if the status has not changed since the previous fetch" do
@@ -210,7 +209,7 @@ describe StatusFetcher do
       end
 
       it "should raise an exception" do
-        Project.all.each {|project| project.needs_poll?.should be_true }        
+        Project.all.each {|project| project.needs_poll?.should be_true }
         lambda {@fetcher.fetch_all}.should raise_error(/ALL projects had errors fetching status/)
       end
     end

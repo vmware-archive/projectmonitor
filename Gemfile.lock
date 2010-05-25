@@ -4,42 +4,46 @@ dependencies:
     group: 
     - :test
     version: = 1.1.2
-  mongrel: 
-    group: 
-    - :default
-    version: ">= 1.1.5"
-  rails: 
-    group: 
-    - :default
-    version: = 2.3.5
   fastthread: 
     group: 
     - :default
     version: = 1.0.7
-  jviney-acts_as_taggable_on_steroids: 
+  rails: 
     group: 
     - :default
-    version: = 1.1
-  rake: 
+    version: = 2.3.5
+  mongrel: 
     group: 
     - :default
-    version: = 0.8.7
+    version: ">= 1.1.5"
+  pg: 
+    group: 
+    - :default
+    version: ">= 0"
   mysql: 
     group: 
     - :default
     version: ">= 0"
+  rake: 
+    group: 
+    - :default
+    version: = 0.8.7
+  jviney-acts_as_taggable_on_steroids: 
+    group: 
+    - :default
+    version: = 1.1
   mime-types: 
     group: 
     - :default
     version: = 1.15
-  rack: 
-    group: 
-    - :default
-    version: = 1.0.1
   gem_plugin: 
     group: 
     - :default
     version: = 0.2.3
+  rack: 
+    group: 
+    - :default
+    version: = 1.0.1
   rspec-rails: 
     group: 
     - :test
@@ -59,7 +63,7 @@ dependencies:
   nokogiri: 
     group: 
     - :default
-    version: = 1.4.1
+    version: = 1.4.2
 specs: 
 - rake: 
     version: 0.8.7
@@ -75,8 +79,6 @@ specs:
     version: 2.3.5
 - activeresource: 
     version: 2.3.5
-- cgi_multipart_eof_fix: 
-    version: 2.5.0
 - daemons: 
     version: 1.0.10
 - eventmachine: 
@@ -106,18 +108,20 @@ specs:
 - mime-types: 
     version: "1.15"
 - mongrel: 
-    version: 1.1.5
+    version: 1.1.5.1
 - mongrel_cluster: 
     version: 1.0.5
 - mysql: 
     version: 2.8.1
 - nokogiri: 
-    version: 1.4.1
+    version: 1.4.2
+- pg: 
+    version: 0.9.0
 - rails: 
     version: 2.3.5
 - rspec-rails: 
     version: 1.3.2
-hash: ffdabf77d4a20a62949203a185b70a5ae723ed38
+hash: bc8dd367d8b09f0279b6948591e17b7be808d6b1
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
