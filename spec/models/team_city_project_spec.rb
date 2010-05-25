@@ -2,9 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TeamCityProject do
   before(:each) do
-    @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/feed.html?buildTypeId=bt2&itemsType=builds")
+    @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9")
   end
-  
+
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       @project.feed_url = nil
@@ -34,7 +34,7 @@ describe TeamCityProject do
       @project.status_parser('asdfa').should_not be_nil
       @project.building_parser('asdfas').should_not be_nil
     end
-    
+
     it "should be for TeamCity" do
       @project.status_parser('xml').should be_a(TeamCityStatusParser)
       @project.building_parser('xml').should be_a(TeamCityStatusParser)
