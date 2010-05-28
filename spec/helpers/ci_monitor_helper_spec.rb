@@ -40,7 +40,7 @@ describe CiMonitorHelper do
       end
     end
 
-    context "when the project is offline" do
+    context "when the project is inaccessible" do
       before do
         @project.stub!(:online?).and_return(false)
       end

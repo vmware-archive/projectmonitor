@@ -9,7 +9,7 @@ xml.rss do
         xml.item do
           xml.title project.name 
           xml.link project.status.url
-          xml.description project.name
+          xml.description status_messages_for(project).map(&:last).join(". ") + "."
           xml.pubDate project.status.published_at
         end
     end
