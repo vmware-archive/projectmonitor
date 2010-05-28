@@ -1,40 +1,35 @@
 <%
    if project.red?
-     background = 'redbox'
-     status_image = project.building? ? 'build-loader-red.gif' : 'exclamation.png'
+       background = 'redbox'
+       status_image = project.building? ? 'build-loader-red.gif' : 'exclamation.png'
    elsif project.green?
-     background = 'greenbox'
-     status_image = project.building? ? 'build-loader-green.gif' : 'checkmark.png'
+       background = 'greenbox'
+       status_image = project.building? ? 'build-loader-green.gif' : 'checkmark.png'
    else
-     background = 'bluebox'
+       background = 'bluebox'
    end
 %>
 
 <div class="box" project_id="<%= project.id %>" style="background: url('/images/<%= background %>.png') no-repeat top left">
   <div class="project_name <%= project.green? ? 'success' : 'error' %>">
     <h1><%= link_to(h(project.name), project.status.url) %></h1>
-  </div>  
-  <% if project.online? %>
-    <div class="project_published_at">
-      Last built <%= time_ago_in_words(project.status.published_at) %> ago
-    </div>
-    <% if project.red? %>
-      <div class="project_red_since">
-        Red since <%= time_ago_in_words(project.red_since) %> ago <%= build_count_text_for(project) %>
+  </div>
+
+  <% status_messages_for(project).each do |css_class, message| %>
+      <div class="<%= css_class %>">
+        <%= message %>
       </div>
-    <% end %>
-  <% else %>
-    <div class="project_invalid">Could not retrieve status</div>
   <% end %>
+
   <div class="project_history">
     <%= render :partial=>'ci_monitor/history', :locals=>{:project=>project} %>
   </div>
 
   <div class="project_status">
     <% if project.online? %>
-      <%= link_to(image_tag(status_image, {:class => 'status_image'}), project.status.url) %>
+        <%= link_to(image_tag(status_image, {:class => 'status_image'}), project.status.url) %>
     <% else %>
-      <%= image_tag("questionmark.png", {:class => 'status_image'}) %>
+        <%= image_tag("questionmark.png", {:class => 'status_image'}) %>
     <% end %>
   </div>
 </div>
