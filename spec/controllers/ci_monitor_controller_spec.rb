@@ -113,16 +113,59 @@ describe CiMonitorController do
       end
 
       describe "items" do
+        before do
+          @all_projects = Project.find(:all, :conditions => {:enabled => true})
+          @all_projects.should_not be_empty
+        end
+
         it "should have a valid item for each project" do
-          all_projects = Project.find(:all, :conditions => {:enabled => true})
-          all_projects.should_not be_empty
-          all_projects.each do |project|
+          @all_projects.each do |project|
             response.should have_tag('rss channel item') do
              with_tag("title", project.name)
              with_tag("link", project.status.url)
-             with_tag("description", project.name)
+             with_tag("description")
              with_tag("pubDate", project.status.published_at.to_s)
            end
+          end
+        end
+
+        context "when the project is green" do
+          before do
+            @project = @all_projects.find(&:green?)
+          end
+
+          it "should include the last built date in the description" do
+            response.should have_tag("rss channel item") do
+              with_tag("title", @project.name)
+              with_tag("description", /Last built/)
+            end
+          end
+        end
+
+        context "when the project is red" do
+          before do
+            @project = @all_projects.find(&:red?)
+          end
+
+          it "should include the last built date and the oldest failure date in the description" do
+            response.should have_tag("rss channel item") do
+              with_tag("title", @project.name)
+              with_tag("description", /Last built/)
+              with_tag("description", /Red since/)
+            end
+          end
+        end
+
+        context "when the project is blue" do
+          before do
+            @project = @all_projects.reject(&:online?).last
+          end
+
+          it "should indicate that it's inaccessible in the description" do
+            response.should have_tag("rss channel item") do
+              with_tag("title", @project.name)
+              with_tag("description", 'Could not retrieve status.')
+            end
           end
         end
       end
