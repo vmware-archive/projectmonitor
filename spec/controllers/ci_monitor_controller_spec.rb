@@ -93,5 +93,39 @@ describe CiMonitorController do
         end
       end
     end
+
+    context "when the format is rss" do
+      before do
+        get :show, :format => :rss
+        response.should be_success
+      end
+
+      it "should respond with valid rss" do
+        response.body.should include('<?xml version="1.0" encoding="UTF-8"?>')
+        response.should have_tag('rss') do
+          with_tag("channel") do
+            with_tag("title", "Pivotal Labs CI")
+            with_tag("link", "http://test.host/")
+            with_tag("description", "Most recent builds and their status")
+            with_tag("item")
+          end
+        end
+      end
+
+      describe "items" do
+        it "should have a valid item for each project" do
+          all_projects = Project.find(:all, :conditions => {:enabled => true})
+          all_projects.should_not be_empty
+          all_projects.each do |project|
+            response.should have_tag('rss channel item') do
+             with_tag("title", project.name)
+             with_tag("link", project.status.url)
+             with_tag("description", project.name)
+             with_tag("pubDate", project.status.published_at.to_s)
+           end
+          end
+        end
+      end
+    end
   end
 end
