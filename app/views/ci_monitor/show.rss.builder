@@ -1,5 +1,5 @@
 xml.instruct!
-xml.rss do
+xml.rss :version => '2.0' do
   xml.channel do
     xml.title title
     xml.link root_url
