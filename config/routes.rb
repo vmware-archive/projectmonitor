@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.home_page '', :controller => "default", :action => "show"
 
   map.resource :cimonitor, :controller => :ci_monitor
+  map.resource :builds, :controller => :ci_monitor
+
   map.resources :projects
   map.resources :messages
 

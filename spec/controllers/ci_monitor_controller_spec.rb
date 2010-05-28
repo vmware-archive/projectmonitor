@@ -9,6 +9,21 @@ end
 describe CiMonitorController do
   integrate_views
 
+  describe "routes" do
+
+    it "should map /cimontor to #show" do
+      params_from(:get, "/cimonitor").should == {:controller => "ci_monitor", :action => "show"}
+    end
+
+    it "should map /builds to #show" do
+      params_from(:get, "/builds").should == {:controller => "ci_monitor", :action => "show"}
+    end
+
+    it "should map #show to /cimonitor by default" do
+      route_for(:controller => "ci_monitor", :action => "show").should == "/cimonitor"
+    end
+  end
+
   describe "#show" do
     it "should succeed" do
       get :show
