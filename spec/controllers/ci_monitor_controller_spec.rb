@@ -10,7 +10,6 @@ describe CiMonitorController do
   integrate_views
 
   describe "routes" do
-
     it "should map /cimontor to #show" do
       params_from(:get, "/cimonitor").should == {:controller => "ci_monitor", :action => "show"}
     end
@@ -91,6 +90,13 @@ describe CiMonitorController do
         response.should have_tag("div.box[project_id='#{project.id}']") do |box|
           box.should have_tag("img", :src => "exclamation.png")
         end
+      end
+    end
+
+    it "should include an alternate rss link" do
+      get :show
+      response.should have_tag("head") do
+        with_tag('link[href=http://test.host/builds.rss][rel=alternate][title=RSS][type=application/rss+xml]')
       end
     end
 

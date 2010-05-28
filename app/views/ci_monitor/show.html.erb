@@ -1,3 +1,7 @@
+<% content_for(:head) do %>
+    <%= auto_discovery_link_tag(:rss, builds_url(:format => :rss)) %>
+<% end %>
+
 <% unless @messages.empty? %>
     <div id="messages_right" style="width:20%">
       <%= render :partial => 'messages' %>
