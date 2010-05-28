@@ -102,7 +102,7 @@ describe CiMonitorController do
 
       it "should respond with valid rss" do
         response.body.should include('<?xml version="1.0" encoding="UTF-8"?>')
-        response.should have_tag('rss') do
+        response.should have_tag('rss[version="2.0"]') do
           with_tag("channel") do
             with_tag("title", "Pivotal Labs CI")
             with_tag("link", "http://test.host/")
