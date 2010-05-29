@@ -127,7 +127,7 @@ describe CiMonitorController do
         it "should have a valid item for each project" do
           @all_projects.each do |project|
             response.should have_tag('rss channel item') do
-             with_tag("title", project.name)
+             with_tag("title", /#{project.name}/)
              with_tag("link", project.status.url)
              with_tag("description")
              with_tag("pubDate", project.status.published_at.to_s)
@@ -142,7 +142,7 @@ describe CiMonitorController do
 
           it "should include the last built date in the description" do
             response.should have_tag("rss channel item") do
-              with_tag("title", @project.name)
+              with_tag("title", "#{@project.name} success")
               with_tag("description", /Last built/)
             end
           end
@@ -155,7 +155,7 @@ describe CiMonitorController do
 
           it "should include the last built date and the oldest failure date in the description" do
             response.should have_tag("rss channel item") do
-              with_tag("title", @project.name)
+              with_tag("title", "#{@project.name} failure")
               with_tag("description", /Last built/)
               with_tag("description", /Red since/)
             end
@@ -169,7 +169,7 @@ describe CiMonitorController do
 
           it "should indicate that it's inaccessible in the description" do
             response.should have_tag("rss channel item") do
-              with_tag("title", @project.name)
+              with_tag("title", "#{@project.name} offline")
               with_tag("description", 'Could not retrieve status.')
             end
           end
