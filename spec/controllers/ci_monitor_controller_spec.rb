@@ -93,7 +93,12 @@ describe CiMonitorController do
       end
     end
 
-    it "should include an alternate rss link" do
+    it "should not include an auto dicovery rss link until it has stabilized" do
+      get :show
+      response.should_not have_tag("head link[rel=alternate][type=application/rss+xml]")
+    end
+
+    xit "should include an auto dicovery rss link" do
       get :show
       response.should have_tag("head") do
         with_tag('link[href=http://test.host/builds.rss][rel=alternate][title=RSS][type=application/rss+xml]')
