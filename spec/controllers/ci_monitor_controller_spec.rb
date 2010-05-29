@@ -134,6 +134,7 @@ describe CiMonitorController do
             response.should have_tag('rss channel item') do
              with_tag("title", /#{project.name}/)
              with_tag("link", project.status.url)
+             with_tag("guid", project.status.url)
              with_tag("description")
              with_tag("pubDate", project.status.published_at.to_s)
            end
