@@ -5,7 +5,7 @@ module CiMonitorHelper
     "(#{count} #{count == 1 ? "build" : "builds"})"
   end
 
-  def status_messages_for(project)
+  def relative_status_messages_for(project)
     messages = []
     if project.online?
       messages << ['project_published_at', "Last built #{time_ago_in_words(project.status.published_at)} ago"]
@@ -14,6 +14,19 @@ module CiMonitorHelper
       end
     else
       messages << ['project_invalid', "Could not retrieve status"]
+    end
+    messages
+  end
+
+  def static_status_messages_for(project)
+    messages = []
+    if project.online?
+      messages << "Last built #{project.status.published_at}"
+      if project.red?
+        messages << "Red since #{project.red_since} #{build_count_text_for(project)}"
+      end
+    else
+      messages << "Could not retrieve status"
     end
     messages
   end

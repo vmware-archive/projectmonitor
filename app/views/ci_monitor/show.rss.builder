@@ -9,7 +9,7 @@ xml.rss :version => '2.0' do
         xml.item do
           xml.title "#{project.name} #{project.status.in_words}"
           xml.link project.status.url
-          xml.description status_messages_for(project).map(&:last).join(". ") + "."
+          xml.description static_status_messages_for(project).join(". ") + "."
           xml.pubDate project.status.published_at
         end
     end
