@@ -135,6 +135,11 @@ describe CiMonitorController do
           end
         end
 
+        it "should use static dates in the description so it doesn't keep changing all the time" do
+          response.should_not have_tag('rss channel item description', /ago/)
+        end
+
+
         context "when the project is green" do
           before do
             @project = @all_projects.find(&:green?)
