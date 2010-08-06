@@ -6,6 +6,7 @@ def run(cmd)
 end
 
 run "bundle install --relock"
+run "rake db:create || true"
 run "rake db:migrate"
 run "rake db:schema:load RAILS_ENV=test"
 run "rake default"
