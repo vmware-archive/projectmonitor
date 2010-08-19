@@ -7,7 +7,6 @@ end
 
 run "bundle install --relock"
 run "RAILS_ENV=test rake db:create || true"
-run "RAILS_ENV=development rake db:create || true"
 run "rake db:migrate"
 run "rake db:schema:load RAILS_ENV=test"
 run "rake default"
