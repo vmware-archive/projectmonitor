@@ -74,15 +74,16 @@ describe CiMonitorHelper do
           messages = helper.static_status_messages_for(@project)
           messages.should have(1).message
           last_built_message = messages.first
-          last_built_message.should == "Last built Fri May 28 17:27:11 -0700 2010"
+          last_built_message.should == "Last built #{publish_time.to_s}"
         end
       end
 
       context "when the project is red" do
         before do
+          @red_since_time = @status.published_at - 2.days
           @project.stub!(:red?).and_return(true)
           @project.stub!(:red_build_count).and_return(20)
-          @project.stub!(:red_since).and_return(@status.published_at - 2.days)
+          @project.stub!(:red_since).and_return(@red_since_time)
         end
 
         it "should include the oldest continuous failure date" do
@@ -90,7 +91,7 @@ describe CiMonitorHelper do
           messages.should have(2).messages
 
           failure_message = messages.last
-          failure_message.should == 'Red since Wed May 26 17:27:11 -0700 2010 (20 builds)'
+          failure_message.should == "Red since #{@red_since_time.to_s} (20 builds)"
         end
       end
     end
