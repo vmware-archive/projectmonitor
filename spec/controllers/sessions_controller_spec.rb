@@ -33,7 +33,6 @@ describe SessionsController do
               @ccookies.stub!(:[]=)
               @user.stub!(:remember_me)
               @user.stub!(:refresh_token)
-              @user.stub!(:forget_me)
               @user.stub!(:remember_token).and_return(token_value)
               @user.stub!(:remember_token_expires_at).and_return(token_expiry)
               @user.stub!(:remember_token?).and_return(has_request_token == :valid)
@@ -94,9 +93,6 @@ describe SessionsController do
                 end
                 it 'does not refresh token'  do
                   @user.should_not_receive(:refresh_token); do_create
-                end
-                it 'kills user token'        do
-                  @user.should_receive(:forget_me);         do_create
                 end
               end
             end
