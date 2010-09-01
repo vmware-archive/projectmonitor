@@ -11,7 +11,7 @@ gem "nokogiri", "1.4.2"
 gem "httpauth", "0.1"
 gem "jviney-acts_as_taggable_on_steroids", "1.1"
 gem "mysql"
-gem "libxml-ruby", "1.1.2"
+gem "libxml-ruby", "1.1.2", :require => 'xml/libxml'
 
 group :test do
   gem "rspec-rails", ">= 1.1.11"
