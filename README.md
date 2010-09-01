@@ -24,7 +24,6 @@ CiMonitor is a Rails application. To get the code, execute the following:
 
     git clone git://github.com/pivotal/cimonitor.git pivotal_cimonitor
     cd pivotal_cimonitor
-    git submodule update --init
     bundle install
 
 ### Set up the database
@@ -41,7 +40,7 @@ You'll need a database. Create it with whatever name you want. Copy `config/data
 
 Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUTH_SITE_KEY` to something secret.
 
-    cp config/site_keys.rb.example config/site_keys.rb
+    cp config/initializers/site_keys.rb.example config/initializers/site_keys.rb
     <edit site_keys.rb>
 
 ### Set up cron
@@ -58,7 +57,7 @@ run every 3 minutes.  Also, make sure that you set your PATH correctly in cronta
 
 Execute:
 
-    nohup RAILS_ENV=production script/server & > cimonitor.log 2> &1
+    nohup script/server -e production & > cimonitor.log 2> &1
 
 ## Configuration
 

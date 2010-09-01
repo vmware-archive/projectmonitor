@@ -1,121 +1,77 @@
---- 
-dependencies: 
-  libxml-ruby: 
-    group: 
-    - :default
-    version: = 1.1.2
-  mongrel: 
-    group: 
-    - :default
-    version: ">= 1.1.5"
-  rails: 
-    group: 
-    - :default
-    version: = 2.3.5
-  fastthread: 
-    group: 
-    - :default
-    version: = 1.0.7
-  jviney-acts_as_taggable_on_steroids: 
-    group: 
-    - :default
-    version: = 1.1
-  rake: 
-    group: 
-    - :default
-    version: = 0.8.7
-  mysql: 
-    group: 
-    - :default
-    version: ">= 0"
-  mime-types: 
-    group: 
-    - :default
-    version: = 1.15
-  rack: 
-    group: 
-    - :default
-    version: = 1.0.1
-  gem_plugin: 
-    group: 
-    - :default
-    version: = 0.2.3
-  rspec-rails: 
-    group: 
-    - :test
-    version: ">= 1.1.11"
-  jasmine: 
-    group: 
-    - :test
-    version: = 0.10.3.1
-  mongrel_cluster: 
-    group: 
-    - :default
-    version: = 1.0.5
-  httpauth: 
-    group: 
-    - :default
-    version: = 0.1
-  nokogiri: 
-    group: 
-    - :default
-    version: = 1.4.2
-specs: 
-- rake: 
-    version: 0.8.7
-- activesupport: 
-    version: 2.3.5
-- rack: 
-    version: 1.0.1
-- actionpack: 
-    version: 2.3.5
-- actionmailer: 
-    version: 2.3.5
-- activerecord: 
-    version: 2.3.5
-- activeresource: 
-    version: 2.3.5
-- daemons: 
-    version: 1.0.10
-- eventmachine: 
-    version: 0.12.10
-- fastthread: 
-    version: 1.0.7
-- gem_plugin: 
-    version: 0.2.3
-- httpauth: 
-    version: "0.1"
-- json: 
-    version: 1.4.3
-- rspec: 
-    version: 1.3.0
-- selenium-client: 
-    version: 1.2.18
-- selenium-rc: 
-    version: 2.2.1
-- thin: 
-    version: 1.2.7
-- jasmine: 
-    version: 0.10.3.1
-- jviney-acts_as_taggable_on_steroids: 
-    version: "1.1"
-- libxml-ruby: 
-    version: 1.1.2
-- mime-types: 
-    version: "1.15"
-- mongrel: 
-    version: 1.1.5.1
-- mongrel_cluster: 
-    version: 1.0.5
-- mysql: 
-    version: 2.8.1
-- nokogiri: 
-    version: 1.4.2
-- rails: 
-    version: 2.3.5
-- rspec-rails: 
-    version: 1.3.2
-hash: e9f6b0ebf059d9b99304c3d25a83fef88f210989
-sources: 
-- Rubygems: 
-    uri: http://gemcutter.org
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionmailer (2.3.5)
+      actionpack (= 2.3.5)
+    actionpack (2.3.5)
+      activesupport (= 2.3.5)
+      rack (~> 1.0.0)
+    activerecord (2.3.5)
+      activesupport (= 2.3.5)
+    activeresource (2.3.5)
+      activesupport (= 2.3.5)
+    activesupport (2.3.5)
+    daemons (1.1.0)
+    eventmachine (0.12.10)
+    fastthread (1.0.7)
+    gem_plugin (0.2.3)
+    httpauth (0.1)
+    jasmine (0.10.3.1)
+      json (>= 1.1.9)
+      rack (>= 1.0.0)
+      rspec (>= 1.1.5)
+      selenium-client (>= 1.2.17)
+      selenium-rc (>= 2.1.0)
+      thin (>= 1.2.4)
+    json (1.4.6)
+    jviney-acts_as_taggable_on_steroids (1.1)
+    libxml-ruby (1.1.2)
+    mime-types (1.15)
+    mongrel (1.1.5.1)
+      daemons (>= 1.0.3)
+      gem_plugin (>= 0.2.3)
+    mongrel_cluster (1.0.5)
+      gem_plugin (>= 0.2.3)
+      mongrel (>= 1.0.2)
+    mysql (2.8.1)
+    nokogiri (1.4.2)
+    rack (1.0.1)
+    rails (2.3.5)
+      actionmailer (= 2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
+      activeresource (= 2.3.5)
+      activesupport (= 2.3.5)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    rspec (1.3.0)
+    rspec-rails (1.3.2)
+      rack (>= 1.0.0)
+      rspec (>= 1.3.0)
+    selenium-client (1.2.18)
+    selenium-rc (2.2.4)
+      selenium-client (>= 1.2.18)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fastthread (= 1.0.7)
+  gem_plugin (= 0.2.3)
+  httpauth (= 0.1)
+  jasmine (= 0.10.3.1)
+  jviney-acts_as_taggable_on_steroids (= 1.1)
+  libxml-ruby (= 1.1.2)
+  mime-types (= 1.15)
+  mongrel (>= 1.1.5)
+  mongrel_cluster (= 1.0.5)
+  mysql
+  nokogiri (= 1.4.2)
+  rack (= 1.0.1)
+  rails (= 2.3.5)
+  rake (= 0.8.7)
+  rspec-rails (>= 1.1.11)

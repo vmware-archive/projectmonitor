@@ -5,7 +5,6 @@ require 'spec'
 require 'spec/rails'
 require 'mock_clock'
 require 'rspec_extensions/spec_helper_matchers'
-require 'xml/libxml'
 
 Spec::Runner.configure do |configuration|
   configuration.use_transactional_fixtures = true

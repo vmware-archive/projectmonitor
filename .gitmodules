@@ -1,9 +1,0 @@
-[submodule "vendor/plugins/custom-err-msg"]
-	path = vendor/plugins/custom-err-msg
-	url = git://github.com/gumayunov/custom-err-msg.git
-[submodule "vendor/plugins/acts_as_list"]
-	path = vendor/plugins/acts_as_list
-	url = git://github.com/rails/acts_as_list.git
-[submodule "vendor/plugins/restful-authentication"]
-	path = vendor/plugins/restful-authentication
-	url = git://github.com/technoweenie/restful-authentication.git
