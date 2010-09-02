@@ -1,7 +1,7 @@
 body {
 	font-family: Verdana, Arial, sans-serif;
 	font-size: 12px; 
-	background: white;
+	background: #000;
   margin-top: 3px;
 }
 
@@ -72,16 +72,31 @@ a:hover {
 #header {
   margin: 0;
   padding: .5em 1em .5em 1em;
-  background-color: #88C2E5;
 }
 
 #logo {
-  width: 90%;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+
+@-webkit-keyframes pulse {
+ 0% {
+   -webkit-transform: scale(0.9);
+ }
+ 50% {
+   -webkit-transform: scale(1.1);
+ }
+ 100% {
+   -webkit-transform: scale(0.9);
+ }
 }
 
 #logo .company_logo {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
+  text-align: center;
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 #logo a, #logo img {

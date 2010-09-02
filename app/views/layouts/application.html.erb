@@ -10,9 +10,12 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
   <title><%= title %></title>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js"></script>
   <script type="text/javascript" src="/javascripts/refresh.js"></script>
+  <script type="text/javascript" src="/javascripts/digiclock.js"></script>
   <%= stylesheet_link_tag 'style' %>
   <%= stylesheet_link_tag 'sparkline' %>
+  <%= stylesheet_link_tag 'digiclock' %>
   <%= yield :head %>
 </head>
 <body>
@@ -21,7 +24,6 @@
     <div id="header">
       <div id="logo">
         <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
-        <%= link_to(image_tag(logo), '/') %>
       </div>
     </div>
 
