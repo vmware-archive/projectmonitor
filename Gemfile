@@ -19,6 +19,10 @@ group :development do
   gem "sqlite3-ruby"
 end
 
+group :development do
+  gem "sqlite3-ruby"
+end
+
 group :test do
   gem "rspec-rails", ">= 1.1.11"
   gem "jasmine", "0.10.3.1"
