@@ -12,6 +12,8 @@ gem "httpauth", "0.1"
 gem "jviney-acts_as_taggable_on_steroids", "1.1"
 gem "mysql"
 gem "libxml-ruby", "1.1.2", :require => 'xml/libxml'
+gem "oauth", "0.4.3"
+gem "xml-simple", "1.0.12"
 
 group :test do
   gem "rspec-rails", ">= 1.1.11"

@@ -35,6 +35,7 @@ GEM
       mongrel (>= 1.0.2)
     mysql (2.8.1)
     nokogiri (1.4.2)
+    oauth (0.4.3)
     rack (1.0.1)
     rails (2.3.5)
       actionmailer (= 2.3.5)
@@ -55,6 +56,7 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
+    xml-simple (1.0.12)
 
 PLATFORMS
   ruby
@@ -71,7 +73,9 @@ DEPENDENCIES
   mongrel_cluster (= 1.0.5)
   mysql
   nokogiri (= 1.4.2)
+  oauth (= 0.4.3)
   rack (= 1.0.1)
   rails (= 2.3.5)
   rake (= 0.8.7)
   rspec-rails (>= 1.1.11)
+  xml-simple
