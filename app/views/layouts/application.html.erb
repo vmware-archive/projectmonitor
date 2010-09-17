@@ -53,7 +53,7 @@
           <br>
           <%= link_to "Projects", projects_path %> |
           <%= link_to "New user", new_user_path %> |
-          <%= link_to "Log out", logout_path %>
+          <%= link_to "Log out", session_path, :method => :delete %>
         </div>
     <% end %>
 

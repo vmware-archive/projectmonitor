@@ -1,7 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-  # Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead
-# Then, you can remove it from this and the units test.
-include AuthenticatedTestHelper
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 
 #
 # A test controller with and without access controls
@@ -72,7 +69,7 @@ describe AccessControlTestController do
           elsif (login_reqd_status == :login_is_required && logged_in_status == :i_am_not_logged_in)
             if ['html', ''].include? format
               it "redirects me to the log in page" do
-                response.should redirect_to(new_login_path)
+                response.should redirect_to(login_path)
               end
             else
               it "returns 'Access denied' and a 406 (Access Denied) status code" do
