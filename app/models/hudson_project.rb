@@ -16,26 +16,26 @@ class HudsonProject < Project
     end
   end
 
-  def building_parser(content)
-    building_parser = StatusParser.new
+  def parse_building_status(content)
+    status = BuildingStatus.new
     document = Nokogiri::XML.parse(content.downcase)
     p_element = document.xpath("//project[@name=\"#{project_name.downcase}\"]")
-    return building_parser if p_element.empty?
-    building_parser.building = p_element.attribute('activity').value == 'building'
-    building_parser
+    return status if p_element.empty?
+    status.building = p_element.attribute('activity').value == 'building'
+    status
   end
 
-  def status_parser(content)
-    status_parser = StatusParser.new
+  def parse_extruded_status(content)
+    status = ExtrudedStatus.new
     begin
       latest_build = Nokogiri::XML.parse(content.downcase).css('feed entry:first').first
-      status_parser.success = !!(find(latest_build, 'title').first.content =~ /success/)
-      status_parser.url = find(latest_build, 'link').first.attribute('href').value
+      status.success = !!(find(latest_build, 'title').first.content =~ /success/)
+      status.url = find(latest_build, 'link').first.attribute('href').value
       pub_date = Time.parse(find(latest_build, 'published').first.content)
-      status_parser.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
     rescue
     end
-    status_parser
+    status
   end
 
   def find(document, path)

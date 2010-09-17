@@ -6,25 +6,25 @@ class TeamCityProject < Project
     feed_url
   end
 
-  def building_parser(content)
-    building_parser = StatusParser.new
+  def parse_building_status(content)
+    status = BuildingStatus.new
     document = Nokogiri::XML.parse(content)
     p_element = document.css("Build")
-    return building_parser if p_element.empty?
-    building_parser.building = p_element.attribute('activity').value == 'Building'
-    building_parser
+    return status if p_element.empty?
+    status.building = p_element.attribute('activity').value == 'Building'
+    status
   end
 
-  def status_parser(content)
-    status_parser = StatusParser.new
+  def parse_extruded_status(content)
+    status = ExtrudedStatus.new
     begin
       latest_build = Nokogiri::XML.parse(content).css('Build').first
-      status_parser.success = latest_build.attribute('lastBuildStatus').value == "NORMAL"
-      status_parser.url = latest_build.attribute('webUrl').value
+      status.success = latest_build.attribute('lastBuildStatus').value == "NORMAL"
+      status.url = latest_build.attribute('webUrl').value
       pub_date = Time.parse(latest_build.attribute('lastBuildTime').value)
-      status_parser.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
     rescue
     end
-    status_parser
+    status
   end
 end

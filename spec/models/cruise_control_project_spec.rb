@@ -46,7 +46,7 @@ describe Project do
   describe "status_parser" do
     describe "with reported success" do
       before(:each) do
-        @status_parser = @project.status_parser(CCRssExample.new("success.rss").read)
+        @status_parser = @project.parse_extruded_status(CCRssExample.new("success.rss").read)
       end
 
       it "should return the link to the checkin" do
@@ -65,7 +65,7 @@ describe Project do
 
     describe "with reported failure" do
       before(:each) do
-        @status_parser = @project.status_parser(CCRssExample.new("failure.rss").read)
+        @status_parser = @project.parse_extruded_status(CCRssExample.new("failure.rss").read)
       end
 
       it "should return the link to the checkin" do
@@ -102,7 +102,7 @@ describe Project do
     
     context "with a valid response that the project is building" do
       before(:each) do
-        @status_parser = @project.building_parser(BuildingStatusExample.new("socialitis_building.xml").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_building.xml").read)
       end
 
       it "should set the building flag on the project to true" do
@@ -112,7 +112,7 @@ describe Project do
 
     context "with a valid response that the project is not building" do
       before(:each) do
-        @status_parser = @project.building_parser(BuildingStatusExample.new("socialitis_not_building.xml").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_not_building.xml").read)
       end
 
       it "should set the building flag on the project to false" do
@@ -122,7 +122,7 @@ describe Project do
 
     context "with an invalid response" do
       before(:each) do
-        @status_parser = @project.building_parser("<foo><bar>baz</bar></foo>")
+        @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
       end
 
       it "should set the building flag on the project to false" do

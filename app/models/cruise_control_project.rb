@@ -6,22 +6,22 @@ class CruiseControlProject < Project
     URI.parse(feed_url).path.scan(/^.*\/(.*)\.rss/i)[0][0]
   end
 
-  def building_parser(content)
-    building_parser = StatusParser.new
+  def parse_building_status(content)
+    status = BuildingStatus.new
     document = XML::Parser.string(content.downcase).parse
     project_element = document.find_first("/projects/project[@name='#{project_name.downcase}']")
-    building_parser.building = project_element && project_element.attributes['activity'] == "building"
-    building_parser
+    status.building = project_element && project_element.attributes['activity'] == "building"
+    status
   end
 
-  def status_parser(content)
-    status_parser = StatusParser.new
+  def parse_extruded_status(content)
+    status = ExtrudedStatus.new
     document = XML::Parser.string(content).parse
-    status_parser.success = !!(find(document, 'title') =~ /success/)
-    status_parser.url = find(document, 'link')
+    status.success = !!(find(document, 'title') =~ /success/)
+    status.url = find(document, 'link')
     pub_date = Time.parse(find(document, 'pubDate'))
-    status_parser.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
-    status_parser
+    status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+    status
   end
 
   def find(document, path)

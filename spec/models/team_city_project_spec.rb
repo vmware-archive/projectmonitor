@@ -39,7 +39,7 @@ describe TeamCityProject do
 
     describe "with reported success" do
       before(:each) do
-        @status_parser = @project.status_parser(TeamcityCradiatorXmlExample.new("success.xml").read)
+        @status_parser = @project.parse_extruded_status(TeamcityCradiatorXmlExample.new("success.xml").read)
       end
 
       it "should return the link to the checkin" do
@@ -57,7 +57,7 @@ describe TeamCityProject do
 
     describe "with reported failure" do
       before(:each) do
-        @status_parser = @project.status_parser(TeamcityCradiatorXmlExample.new("failure.xml").read)
+        @status_parser = @project.parse_extruded_status(TeamcityCradiatorXmlExample.new("failure.xml").read)
       end
 
       it "should return the link to the checkin" do
@@ -77,7 +77,7 @@ describe TeamCityProject do
       before(:each) do
         @parser = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
         @response_doc = @parser.parse
-        @status_parser = @project.status_parser("<foo><bar>baz</bar></foo>")
+        @status_parser = @project.parse_extruded_status("<foo><bar>baz</bar></foo>")
       end
     end
   end
@@ -89,7 +89,7 @@ describe TeamCityProject do
 
     context "with a valid response that the project is building" do
       before(:each) do
-        @status_parser = @project.building_parser(BuildingStatusExample.new("team_city_building.xml").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_building.xml").read)
       end
 
       it "should set the building flag on the project to true" do
@@ -99,7 +99,7 @@ describe TeamCityProject do
 
     context "with a valid response that the project is not building" do
       before(:each) do
-        @status_parser = @project.building_parser(BuildingStatusExample.new("team_city_not_building.xml").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_not_building.xml").read)
       end
 
       it "should set the building flag on the project to false" do
@@ -109,7 +109,7 @@ describe TeamCityProject do
 
     context "with an invalid response" do
       before(:each) do
-        @status_parser = @project.building_parser("<foo><bar>baz</bar></foo>")
+        @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
       end
 
       it "should set the building flag on the project to false" do
