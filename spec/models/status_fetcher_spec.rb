@@ -37,7 +37,7 @@ describe StatusFetcher do
   describe "#fetch_build_history" do
     describe "with pubDate set with epoch" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("never_green.rss"))
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("never_green.rss").read)
         @response_doc = @parser.parse
       end
 
@@ -52,7 +52,7 @@ describe StatusFetcher do
 
     describe "with reported success" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("success.rss"))
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("success.rss").read)
         @response_doc = @parser.parse
       end
 
@@ -70,7 +70,7 @@ describe StatusFetcher do
 
     describe "with reported failure" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("failure.rss"))
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("failure.rss").read)
         @response_doc = @parser.parse
       end
 
@@ -119,7 +119,7 @@ describe StatusFetcher do
   describe "#fetch_building_status" do
     context "with a valid response that the project is building" do
       before(:each) do
-        @response_xml = BuildingStatusExample.new("socialitis_building.xml")
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml").read
         fetch_building_status_with_xml_response(@response_xml)
       end
 
@@ -130,7 +130,7 @@ describe StatusFetcher do
 
     context "with a project name different than CC project name" do
       before(:each) do
-        @response_xml = BuildingStatusExample.new("socialitis_building.xml")
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml").read
         @project.name = "Socialitis with different name than CC project name"
         fetch_building_status_with_xml_response(@response_xml)
       end
@@ -142,7 +142,7 @@ describe StatusFetcher do
 
     context "with a RSS url with different capitalization than CC project name" do
       before(:each) do
-        @response_xml = BuildingStatusExample.new("socialitis_building.xml").downcase
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml").read.downcase
         @project.feed_url = @project.feed_url.upcase
         fetch_building_status_with_xml_response(@response_xml)
       end
@@ -154,7 +154,7 @@ describe StatusFetcher do
 
     context "with a valid response that the project is not building" do
       before(:each) do
-        @response_xml = BuildingStatusExample.new("socialitis_not_building.xml")
+        @response_xml = BuildingStatusExample.new("socialitis_not_building.xml").read
         fetch_building_status_with_xml_response(@response_xml)
       end
 

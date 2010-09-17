@@ -3,6 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environ
 require 'spec'
 require 'spec/autorun'
 require 'spec/rails'
+require 'nokogiri'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
