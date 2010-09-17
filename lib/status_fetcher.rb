@@ -42,10 +42,10 @@ class StatusFetcher
     status = {:online => false, :success => false}
     status[:error] = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
-      status_parser = project.status_parser(content)
-      status[:success] = status_parser.success?
-      status[:url] = status_parser.url
-      status[:published_at] = status_parser.published_at
+      extruded_status = project.parse_extruded_status(content)
+      status[:success] = extruded_status.success?
+      status[:url] = extruded_status.url
+      status[:published_at] = extruded_status.published_at
       status[:online] = true
     end
     status
@@ -55,8 +55,8 @@ class StatusFetcher
     status = { :building => false }
     status[:error] = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
-      building_parser = project.building_parser(content)
-      status[:building] = !!building_parser.building?
+      building_status = project.parse_building_status(content)
+      status[:building] = !!building_status.building?
     end
     status
   end
