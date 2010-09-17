@@ -1,3 +1,5 @@
+require 'xmlsimple'
+
 class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
@@ -29,5 +31,18 @@ class User < ActiveRecord::Base
 
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
+  end
+
+  def self.find_or_create_from_google_access_token(access_token)
+    oauth_secret = access_token.secret
+    xml_string = access_token.get("https://www.google.com/m8/feeds/contacts/default/full/").body
+    xml = XmlSimple.xml_in(xml_string)
+    email = xml["author"].first["email"].first
+    user = User.find_by_email(email) || User.new(:email => email)
+    user.login = xml["author"].first["name"].first
+    user.password = oauth_secret
+    user.password_confirmation = oauth_secret
+    user.save!
+    user
   end
 end
