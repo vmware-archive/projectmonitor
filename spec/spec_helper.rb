@@ -1,10 +1,12 @@
-ENV["RAILS_ENV"] = "test"
-dir = File.dirname(__FILE__)
-require File.expand_path(dir + "/../config/environment") unless defined?(RAILS_ROOT)
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
 require 'spec'
+require 'spec/autorun'
 require 'spec/rails'
-require 'mock_clock'
-require 'rspec_extensions/spec_helper_matchers'
+
+# Requires supporting files with custom matchers and macros, etc,
+# in ./support/ and its subdirectories.
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
 Spec::Runner.configure do |configuration|
   configuration.use_transactional_fixtures = true
@@ -12,16 +14,10 @@ Spec::Runner.configure do |configuration|
   configuration.fixture_path = RAILS_ROOT + '/spec/fixtures/'
   configuration.global_fixtures = :all
   configuration.include AuthenticatedTestHelper
-end
-
-Spec::Runner.configuration.before(:all, :behaviour_type => :controller) do
-  @integrate_views = true
-end
-
-Spec::Runner.configuration.before(:each, :behaviour_type => :controller) do
-  self.class.module_eval do
-    def log_in(user)
-      controller.send("current_user=", user)
-    end
+  configuration.include(ControllerTestHelper, :type => :controller)
+  configuration.include(ObjectMother)
+  configuration.before(:all, :type => :controller) do
+    @integrate_views = true
   end
 end
+

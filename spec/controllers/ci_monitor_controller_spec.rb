@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 
 class SvnSheller
   def retrieve
@@ -10,12 +10,8 @@ describe CiMonitorController do
   integrate_views
 
   describe "routes" do
-    it "should map /cimontor to #show" do
+    it "should map /cimonitor to #show" do
       params_from(:get, "/cimonitor").should == {:controller => "ci_monitor", :action => "show"}
-    end
-
-    it "should map /builds to #show" do
-      params_from(:get, "/builds").should == {:controller => "ci_monitor", :action => "show"}
     end
 
     it "should map #show to /cimonitor by default" do
@@ -96,13 +92,6 @@ describe CiMonitorController do
     it "should not include an auto dicovery rss link until it has stabilized" do
       get :show
       response.should_not have_tag("head link[rel=alternate][type=application/rss+xml]")
-    end
-
-    xit "should include an auto dicovery rss link" do
-      get :show
-      response.should have_tag("head") do
-        with_tag('link[href=http://test.host/builds.rss][rel=alternate][title=RSS][type=application/rss+xml]')
-      end
     end
 
     context "when the format is rss" do

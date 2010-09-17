@@ -54,7 +54,7 @@ module AuthenticatedSystem
   end
 
   def not_logged_in_url
-    return new_login_path
+    return login_path
   end
 
   # Redirect as appropriate when an access request fails.

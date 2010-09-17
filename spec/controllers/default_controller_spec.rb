@@ -1,12 +1,9 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 
 describe DefaultController do
-  integrate_views
-
-  describe "#show" do
-    it "should extract tags" do
-      get :show, :tags => 'foo,bar'
-      assigns[:tags].should == 'foo,bar'
-    end
+  it "should extract tags on show" do
+    get :show, :tags => 'foo,bar'
+    response.should be_success
+    assigns[:tags].should == 'foo,bar'
   end
 end
