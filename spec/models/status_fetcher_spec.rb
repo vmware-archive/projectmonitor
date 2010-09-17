@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 
 shared_examples_for "all build history fetches" do
   it "should not create a new status entry if the status has not changed since the previous fetch" do
@@ -30,11 +30,6 @@ end
 
 describe StatusFetcher do
 
-  HISTORY_SUCCESS_XML = File.read('test/fixtures/cc_rss_examples/success.rss')
-  HISTORY_NEVER_GREEN_XML = File.read('test/fixtures/cc_rss_examples/never_green.rss')
-  HISTORY_FAILURE_XML = File.read('test/fixtures/cc_rss_examples/failure.rss')
-  HISTORY_INVALID_XML = "<foo><bar>baz</bar></foo>"
-
   before(:each) do
     @project = projects(:socialitis)
   end
@@ -42,7 +37,7 @@ describe StatusFetcher do
   describe "#fetch_build_history" do
     describe "with pubDate set with epoch" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = HISTORY_NEVER_GREEN_XML)
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("never_green.rss"))
         @response_doc = @parser.parse
       end
 
@@ -57,7 +52,7 @@ describe StatusFetcher do
 
     describe "with reported success" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = HISTORY_SUCCESS_XML)
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("success.rss"))
         @response_doc = @parser.parse
       end
 
@@ -75,7 +70,7 @@ describe StatusFetcher do
 
     describe "with reported failure" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = HISTORY_FAILURE_XML)
+        @parser = XML::Parser.string(@response_xml = CCRssExample.new("failure.rss"))
         @response_doc = @parser.parse
       end
 
@@ -92,7 +87,7 @@ describe StatusFetcher do
 
     describe "with invalid xml" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = HISTORY_INVALID_XML)
+        @parser = XML::Parser.string(@response_xml = "<foo><bar>baz</bar></foo>")
         @response_doc = @parser.parse
       end
 
@@ -122,13 +117,9 @@ describe StatusFetcher do
   end
 
   describe "#fetch_building_status" do
-    BUILDING_XML = File.read('test/fixtures/building_status_examples/socialitis_building.xml')
-    NOT_BUILDING_XML = File.read('test/fixtures/building_status_examples/socialitis_not_building.xml')
-    BUILDING_INVALID_XML = "<foo><bar>baz</bar></foo>"
-
     context "with a valid response that the project is building" do
       before(:each) do
-        @response_xml = BUILDING_XML
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml")
         fetch_building_status_with_xml_response(@response_xml)
       end
 
@@ -139,7 +130,7 @@ describe StatusFetcher do
 
     context "with a project name different than CC project name" do
       before(:each) do
-        @response_xml = BUILDING_XML
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml")
         @project.name = "Socialitis with different name than CC project name"
         fetch_building_status_with_xml_response(@response_xml)
       end
@@ -151,7 +142,7 @@ describe StatusFetcher do
 
     context "with a RSS url with different capitalization than CC project name" do
       before(:each) do
-        @response_xml = BUILDING_XML.downcase
+        @response_xml = BuildingStatusExample.new("socialitis_building.xml").downcase
         @project.feed_url = @project.feed_url.upcase
         fetch_building_status_with_xml_response(@response_xml)
       end
@@ -163,7 +154,7 @@ describe StatusFetcher do
 
     context "with a valid response that the project is not building" do
       before(:each) do
-        @response_xml = NOT_BUILDING_XML
+        @response_xml = BuildingStatusExample.new("socialitis_not_building.xml")
         fetch_building_status_with_xml_response(@response_xml)
       end
 
@@ -174,7 +165,7 @@ describe StatusFetcher do
 
     context "with an invalid response" do
       before(:each) do
-        @response_xml = BUILDING_INVALID_XML
+        @response_xml = "<foo><bar>baz</bar></foo>"
         fetch_building_status_with_xml_response(@response_xml)
       end
 
