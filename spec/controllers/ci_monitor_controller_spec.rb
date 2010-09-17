@@ -1,11 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 
-class SvnSheller
-  def retrieve
-    File.read('test/fixtures/svn_log_examples/svn.xml')
-  end
-end
-
 describe CiMonitorController do
   integrate_views
 

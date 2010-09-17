@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
 require 'xml/libxml'
 
 shared_examples_for "cc status for a valid build history xml response" do
@@ -17,16 +17,11 @@ end
 
 describe CruiseControlStatusParser do
 
-  CC_HISTORY_SUCCESS_XML = File.read('test/fixtures/cc_rss_examples/success.rss')
-  CC_HISTORY_NEVER_GREEN_XML = File.read('test/fixtures/cc_rss_examples/never_green.rss')
-  CC_HISTORY_FAILURE_XML = File.read('test/fixtures/cc_rss_examples/failure.rss')
-  CC_HISTORY_INVALID_XML = "<foo><bar>baz</bar></foo>"
-
   describe "with reported success" do
     before(:all) do
-      @parser = XML::Parser.string(@response_xml = CC_HISTORY_SUCCESS_XML)
+      @parser = XML::Parser.string(@response_xml = CCRssExample.new("success.rss"))
       @response_doc = @parser.parse
-      @status_parser = CruiseControlStatusParser.status(CC_HISTORY_SUCCESS_XML)
+      @status_parser = CruiseControlStatusParser.status(CCRssExample.new("success.rss"))
     end
 
     it_should_behave_like "cc status for a valid build history xml response"
@@ -38,9 +33,9 @@ describe CruiseControlStatusParser do
 
   describe "with reported failure" do
     before(:all) do
-      @parser = XML::Parser.string(@response_xml = CC_HISTORY_FAILURE_XML)
+      @parser = XML::Parser.string(@response_xml = CCRssExample.new("failure.rss"))
       @response_doc = @parser.parse
-      @status_parser = CruiseControlStatusParser.status(CC_HISTORY_FAILURE_XML)
+      @status_parser = CruiseControlStatusParser.status(CCRssExample.new("failure.rss"))
     end
 
     it_should_behave_like "cc status for a valid build history xml response"
@@ -50,23 +45,23 @@ describe CruiseControlStatusParser do
     end
   end
 
-  describe "with invalid xml" do
-    before(:all) do
-      @parser = XML::Parser.string(@response_xml = CC_HISTORY_INVALID_XML)
-      @response_doc = @parser.parse
-      @status_parser = CruiseControlStatusParser.status(CC_HISTORY_INVALID_XML)
-    end
-  end
+#  describe "with invalid xml" do
+#    before(:all) do
+#      @parser = XML::Parser.string(@response_xml =  "<foo><bar>baz</bar></foo>")
+#      @response_doc = @parser.parse
+#      @status_parser = CruiseControlStatusParser.status( "<foo><bar>baz</bar></foo>")
+#    end
+#
+#    it "should report failure" do
+#      @status_parser.should_not be_success
+#    end
+#  end
 end
 
 describe "building" do
-  CC_BUILDING_XML = File.read('test/fixtures/building_status_examples/socialitis_building.xml')
-  CC_NOT_BUILDING_XML = File.read('test/fixtures/building_status_examples/socialitis_not_building.xml')
-  CC_BUILDING_INVALID_XML = "<foo><bar>baz</bar></foo>"
-
   context "with a valid response that the project is building" do
     before(:each) do
-      @status_parser = CruiseControlStatusParser.building(CC_BUILDING_XML, stub("a project", :project_name => 'Socialitis'))
+      @status_parser = CruiseControlStatusParser.building(BuildingStatusExample.new("socialitis_building.xml"), stub("a project", :project_name => 'Socialitis'))
     end
 
     it "should set the building flag on the project to true" do
@@ -76,7 +71,7 @@ describe "building" do
 
   context "with a valid response that the project is not building" do
     before(:each) do
-      @status_parser = CruiseControlStatusParser.building(CC_NOT_BUILDING_XML, stub("a project", :project_name => 'Socialitis'))
+      @status_parser = CruiseControlStatusParser.building(BuildingStatusExample.new("socialitis_not_building.xml"), stub("a project", :project_name => 'Socialitis'))
     end
 
     it "should set the building flag on the project to false" do
@@ -86,7 +81,7 @@ describe "building" do
 
   context "with an invalid response" do
     before(:each) do
-      @status_parser = CruiseControlStatusParser.building(CC_BUILDING_INVALID_XML, stub("a project", :project_name => 'Socialitis'))
+      @status_parser = CruiseControlStatusParser.building("<foo><bar>baz</bar></foo>", stub("a project", :project_name => 'Socialitis'))
     end
 
     it "should set the building flag on the project to false" do
