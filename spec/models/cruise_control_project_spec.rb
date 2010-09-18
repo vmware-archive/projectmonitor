@@ -46,7 +46,7 @@ describe Project do
   describe "status_parser" do
     describe "with reported success" do
       before(:each) do
-        @status_parser = @project.parse_extruded_status(CCRssExample.new("success.rss").read)
+        @status_parser = @project.parse_project_status(CCRssExample.new("success.rss").read)
       end
 
       it "should return the link to the checkin" do
@@ -65,7 +65,7 @@ describe Project do
 
     describe "with reported failure" do
       before(:each) do
-        @status_parser = @project.parse_extruded_status(CCRssExample.new("failure.rss").read)
+        @status_parser = @project.parse_project_status(CCRssExample.new("failure.rss").read)
       end
 
       it "should return the link to the checkin" do

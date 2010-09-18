@@ -29,45 +29,33 @@ describe ProjectStatus do
 
   describe "#match?" do
     describe "for an offline status" do
-      it "should return true for a hash with :online => false" do
-        @project_status.match?(:online => false).should be_true
-      end
-
-      it "should return false for a hash with :online => true" do
-        @project_status.match?(:online => true).should be_false
+      it "should be true as long as the status is online false, regardless of other characteristics" do
+        ProjectStatus.new(:error => "error1", :online => false).match?(
+            ProjectStatus.new(:error => "error2", :online => false)).should be_true
       end
     end
 
     describe "for an online status" do
-      before(:each) do
-        @success = true
-        @url = "http://foo/bar.rss"
-        @published_at = Time.now
-
-        @project_status.attributes = online_status_hash
-      end
-
       it "should return false for a hash with :online => false" do
-        @project_status.match?(online_status_hash(:online => false)).should be_false
+        ProjectStatus.new(online_status_hash).match?(ProjectStatus.new(online_status_hash(:online => false))).should be_false
       end
 
       it "should return true for a hash that with the same value as self for success, published_at, and url" do
-        @project_status.match?(online_status_hash).should be_true
+        ProjectStatus.new(online_status_hash).match?(ProjectStatus.new(online_status_hash)).should be_true
       end
 
       it "should return false for a hash with a different value for success" do
-        (different_success = false).should_not == @success
-        @project_status.match?(online_status_hash.merge(:success => different_success)).should be_false
+        ProjectStatus.new(online_status_hash).match?(ProjectStatus.new(:success => false)).should be_false
       end
 
       it "should return false for a hash with a different value for published_at" do
-        (different_published_at = Time.now - 10.minutes).should_not == @published_at
-        @project_status.match?(online_status_hash.merge(:published_at => different_published_at)).should be_false
+        different_published_at = Time.now - 10.minutes
+        ProjectStatus.new(online_status_hash).match?(ProjectStatus.new(:published_at => different_published_at)).should be_false
       end
 
       it "should return false for a hash with a different value for url" do
-        (different_url = "http://your/mother.rss").should_not == @url
-        @project_status.match?(online_status_hash.merge(:url => different_url)).should be_false
+        different_url = "http://your/mother.rss"
+        ProjectStatus.new(online_status_hash).match?(ProjectStatus.new(:url => different_url)).should be_false
       end
 
       private
@@ -75,9 +63,9 @@ describe ProjectStatus do
       def online_status_hash(options = {})
         {
           :online => true,
-          :success => @success,
-          :url => @url,
-          :published_at => @published_at
+          :success => true,
+          :url => "http://foo/bar.rss",
+          :published_at => Time.utc(2007, 1, 4)
         }.merge(options)
       end
     end

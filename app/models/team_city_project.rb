@@ -7,7 +7,7 @@ class TeamCityProject < Project
   end
 
   def parse_building_status(content)
-    status = BuildingStatus.new
+    status = super(content)
     document = Nokogiri::XML.parse(content)
     p_element = document.css("Build")
     return status if p_element.empty?
@@ -15,8 +15,8 @@ class TeamCityProject < Project
     status
   end
 
-  def parse_extruded_status(content)
-    status = ExtrudedStatus.new
+  def parse_project_status(content)
+    status = super(content)
     begin
       latest_build = Nokogiri::XML.parse(content).css('Build').first
       status.success = latest_build.attribute('lastBuildStatus').value == "NORMAL"

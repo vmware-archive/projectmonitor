@@ -190,8 +190,8 @@ describe StatusFetcher do
         Project.all.each {|project| project.needs_poll?.should be_true }
         Project.first.update_attribute(:next_poll_at, 5.minutes.from_now)  # make 1 project not ready to poll
 
-        @fetcher.should_receive(:fetch_build_history).exactly(project_count - 1).times.and_return({:success => true})
-        @fetcher.should_receive(:fetch_building_status).exactly(project_count - 1).times.and_return({:building => false})
+        @fetcher.should_receive(:fetch_build_history).exactly(project_count - 1).times.and_return(ProjectStatus.new(:success => true))
+        @fetcher.should_receive(:fetch_building_status).exactly(project_count - 1).times.and_return(BuildingStatus.new(false))
         @fetcher.should_not_receive(:fetch_build_history).with(Project.first)
 
         @fetcher.fetch_all
@@ -209,12 +209,12 @@ describe StatusFetcher do
   private
 
   def fetch_build_history_with_xml_response(xml)
-    fetcher_with_mocked_url_retriever(@project.feed_url, xml).fetch_build_history(@project)[:success].should_not be_nil
+    fetcher_with_mocked_url_retriever(@project.feed_url, xml).fetch_build_history(@project).success.should_not be_nil
     @project.reload
   end
 
   def fetch_building_status_with_xml_response(xml)
-    fetcher_with_mocked_url_retriever(@project.build_status_url, xml).fetch_building_status(@project)[:error].should be_nil
+    fetcher_with_mocked_url_retriever(@project.build_status_url, xml).fetch_building_status(@project).error.should be_nil
     @project.reload
   end
 
