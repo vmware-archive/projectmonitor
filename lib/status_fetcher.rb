@@ -9,7 +9,7 @@ class StatusFetcher
     projects.reject! {|project| !project.needs_poll?}
     projects.each do |project|
       status = fetch_build_history(project)
-      errors << status[:error] if status[:error]
+      errors << status.error if status.error
 
       # Ignoring errors fetching building status at the moment.  Do we care?
       fetch_building_status(project)
@@ -26,37 +26,33 @@ class StatusFetcher
 
   def fetch_build_history(project)
     returning(retrieve_status_for(project)) do |current_status|
-      project.statuses.build(current_status).save unless project.status.match?(current_status)
+      project.statuses.build(current_status.attributes).save unless project.status.match?(current_status)
     end
   end
 
   def fetch_building_status(project)
     returning(retrieve_building_status_for(project)) do |building_status|
-      project.update_attribute(:building, building_status[:building])
+      project.update_attribute(:building, building_status.building?)
     end
   end
 
   private
 
   def retrieve_status_for(project)
-    status = {:online => false, :success => false}
-    status[:error] = http_errors_for(project) do
+    status = ProjectStatus.new(:online => false, :success => false)
+    status.error = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
-      extruded_status = project.parse_extruded_status(content)
-      status[:success] = extruded_status.success?
-      status[:url] = extruded_status.url
-      status[:published_at] = extruded_status.published_at
-      status[:online] = true
+      status = project.parse_project_status(content)
+      status.online = true
     end
     status
   end
 
   def retrieve_building_status_for(project)
-    status = { :building => false }
-    status[:error] = http_errors_for(project) do
+    status = BuildingStatus.new(false)
+    status.error = http_errors_for(project) do
       content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
-      building_status = project.parse_building_status(content)
-      status[:building] = !!building_status.building?
+      status = project.parse_building_status(content)
     end
     status
   end

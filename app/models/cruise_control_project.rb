@@ -7,15 +7,15 @@ class CruiseControlProject < Project
   end
 
   def parse_building_status(content)
-    status = BuildingStatus.new
+    status = super(content)
     document = XML::Parser.string(content.downcase).parse
     project_element = document.find_first("/projects/project[@name='#{project_name.downcase}']")
     status.building = project_element && project_element.attributes['activity'] == "building"
     status
   end
 
-  def parse_extruded_status(content)
-    status = ExtrudedStatus.new
+  def parse_project_status(content)
+    status = super(content)
     document = XML::Parser.string(content).parse
     status.success = !!(find(document, 'title') =~ /success/)
     status.url = find(document, 'link')

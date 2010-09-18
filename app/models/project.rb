@@ -64,6 +64,14 @@ class Project < ActiveRecord::Base
     self.next_poll_at.nil? || self.next_poll_at <= Time.now
   end
 
+  def parse_project_status(content)
+    ProjectStatus.new(:online => false, :success => false)
+  end
+
+  def parse_building_status(content)
+    BuildingStatus.new(false)
+  end
+
   private
 
   def last_green

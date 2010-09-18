@@ -1,6 +1,10 @@
 class BuildingStatus
-  attr_accessor :building
+  def initialize(building)
+    @building = building
+  end
+  
+  attr_accessor :building, :error
   def building?
-    @building
+    !!@building
   end
 end

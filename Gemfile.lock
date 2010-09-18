@@ -78,4 +78,4 @@ DEPENDENCIES
   rails (= 2.3.5)
   rake (= 0.8.7)
   rspec-rails (>= 1.1.11)
-  xml-simple
+  xml-simple (= 1.0.12)

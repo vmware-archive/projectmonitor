@@ -17,7 +17,7 @@ class HudsonProject < Project
   end
 
   def parse_building_status(content)
-    status = BuildingStatus.new
+    status = super(content)
     document = Nokogiri::XML.parse(content.downcase)
     p_element = document.xpath("//project[@name=\"#{project_name.downcase}\"]")
     return status if p_element.empty?
@@ -25,8 +25,8 @@ class HudsonProject < Project
     status
   end
 
-  def parse_extruded_status(content)
-    status = ExtrudedStatus.new
+  def parse_project_status(content)
+    status = super(content)
     begin
       latest_build = Nokogiri::XML.parse(content.downcase).css('feed entry:first').first
       status.success = !!(find(latest_build, 'title').first.content =~ /success/)
