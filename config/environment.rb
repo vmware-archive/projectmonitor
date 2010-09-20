@@ -55,6 +55,14 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
+
+  config.to_prepare do
+    config = YAML.load_file("#{Rails.root}/config/oauth.yml") || {}
+    oauth_config = {}
+    oauth_config.update(config[ENV['RAILS_ENV']] || {})
+    GoogleOAuthConfig = OpenStruct.new(oauth_config)
+  end
+
 end
 
 POST_LOAD_BLOCKS.each { |proc| proc.call }
