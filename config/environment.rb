@@ -57,10 +57,11 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
 
   config.to_prepare do
-    config = YAML.load_file("#{Rails.root}/config/oauth.yml") || {}
-    oauth_config = {}
-    oauth_config.update(config[ENV['RAILS_ENV']] || {})
-    GoogleOAuthConfig = OpenStruct.new(oauth_config)
+    config = YAML.load_file("#{Rails.root}/config/auth.yml") || {}
+    auth_config = {}
+    auth_config.update(config[ENV['RAILS_ENV']] || {})
+    oauth = OpenStruct.new(auth_config['oauth'])
+    AuthConfig = OpenStruct.new(:oauth => oauth, :auth_required => auth_config['auth_required'])
   end
 
 end

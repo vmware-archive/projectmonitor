@@ -186,12 +186,20 @@ describe SessionsController do
 end
 
 describe SessionsController do
+  before(:each) do
+    AuthConfig.auth_required = true
+  end
+
+  after(:each) do
+    AuthConfig.auth_required = false
+  end
+
   describe "#new" do
     it "should render an OAuth login link" do
       get :new
       response.should have_tag("div.page") do |page|
         page.should have_tag('a', 'Login with Google OAuth')
-      end      
+      end
     end
   end
 
@@ -210,8 +218,9 @@ describe SessionsController do
       controller.send(:current_user).name.should == 'John Doe'
     end
   end
-
+  
   it "should redirect to root after logout" do
+    login_as :quentin
     delete :destroy
     response.should redirect_to(root_path)
   end

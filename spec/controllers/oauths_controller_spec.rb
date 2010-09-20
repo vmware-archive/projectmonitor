@@ -1,8 +1,16 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 require "oauth/consumer"
 require 'oauth/signature/rsa/sha1'
 
 describe OauthsController do
+  before(:each) do
+    AuthConfig.auth_required = true
+  end
+
+  after(:each) do
+    AuthConfig.auth_required = false
+  end
+
   it "should route" do
     {:get => '/oauth/new'}.should route_to(:controller => "oauths", :action => "new")
     {:get => '/oauth/success'}.should route_to(:controller => "oauths", :action => "success")

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   before_filter :adjust_format_for_iphone
+  before_filter :auth_required?
 
   protected
 
@@ -16,4 +17,9 @@ class ApplicationController < ActionController::Base
     request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
   end
 
+  def auth_required?
+    unless logged_in?
+      redirect_to login_path if AuthConfig.auth_required
+    end
+  end
 end
