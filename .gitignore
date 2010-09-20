@@ -4,6 +4,7 @@ tmp/
 *.iml
 *.ipr
 config/database.yml
+config/oauth.yml
 config/initializers/site_keys.rb
 .bundle
 .rvmrc

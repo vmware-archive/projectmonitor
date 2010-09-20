@@ -63,6 +63,11 @@ Execute:
 
 Each build that you want CiMonitor to display is called a "project" in CiMonitor. You need to login to set up projects.
 
+
+### OAuth support
+
+todo...
+
 ### Create a user
 
 CiMonitor uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
