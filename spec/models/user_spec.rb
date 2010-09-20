@@ -156,7 +156,7 @@ describe User do
       @typical_xml = <<-eos
 <?xml version='1.0' encoding='UTF-8'?>
 <feed>
-  <author><name>name</name><email>email@example.com</email></author>
+  <author><name>Wilma Flintstone</name><email>wilma@example.com</email></author>
 </feed>
       eos
       @access_token = mock(:get => mock(:body => @typical_xml), :secret => "asecret")
@@ -165,8 +165,9 @@ describe User do
     it "should generate name/email from the response doc" do
       lambda {
         user = User.find_or_create_from_google_access_token(@access_token)
-        user.login.should == "name"
-        user.email.should == "email@example.com"
+        user.login.should == "wilma"
+        user.name.should == "Wilma Flintstone"
+        user.email.should == "wilma@example.com"
         user.should be_valid
       }.should change(User, :count).by(1)
     end

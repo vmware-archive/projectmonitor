@@ -11,7 +11,7 @@ describe UsersController do
       log_in(create_user)
     end
 
-    it "shows a signup page" do
+    it "shows a login page" do
       get :new
       response.should be_success
       assigns(:user).should be_new_record
