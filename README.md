@@ -66,7 +66,16 @@ Each build that you want CiMonitor to display is called a "project" in CiMonitor
 
 ### OAuth support
 
-todo...
+CiMonitor includes support for Goolge OAuth. You'll need to copy the oauth.yml.example to oauth.yml and then add your
+consumer key and consumer secret. See http://code.google.com/apis/accounts/docs/OAuth.html for more information.
+
+    consumer_key: <your_consumer_key>
+    consumer_secret: <your_consumer_secret>
+
+Please note, in order to get the spec suite to pass you'll need to copy the oauth.yml.example to oauth.yml
+
+    cp config/oauth.yml.example config/oauth.yml
+
 
 ### Create a user
 

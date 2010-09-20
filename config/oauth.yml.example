@@ -1,7 +1,7 @@
 # This is Google OAuth for Web Applications.  See http://code.google.com/apis/accounts/docs/OAuth.html
 development: &development
-  consumer_key:
-  consumer_secret:
+  consumer_key: <your_consumer_key>
+  consumer_secret: <your_consumer_secret>
   site: "https://www.google.com"
   request_token_path: "/accounts/OAuthGetRequestToken"
   access_token_path: "/accounts/OAuthGetAccessToken"
