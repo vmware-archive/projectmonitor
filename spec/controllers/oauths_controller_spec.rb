@@ -36,7 +36,7 @@ describe OauthsController do
       sample_user_response = <<-eos
 <?xml version='1.0' encoding='UTF-8'?>
 <feed>
-  <author><name>name</name><email>email@example.com</email></author>
+  <author><name>First Last</name><email>email@example.com</email></author>
 </feed>
       eos
       access_token = mock(:token => "accesstoken", :secret => "accesssecret", :get => mock(:body => sample_user_response))
@@ -48,7 +48,8 @@ describe OauthsController do
       get :success, :oauth_token => "oauth_token"
 
       response.should redirect_to(root_path)
-      current_user.login.should == "name"
+      current_user.name.should == "First Last"
+      current_user.login.should == "email"
       current_user.email.should == "email@example.com"
     end
   end

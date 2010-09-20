@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
     xml = XmlSimple.xml_in(xml_string)
     email = xml["author"].first["email"].first
     user = User.find_by_email(email) || User.new(:email => email)
-    user.login = xml["author"].first["name"].first
+    user.name = xml["author"].first["name"].first
+    user.login = email.split('@').first
     user.password = oauth_secret
     user.password_confirmation = oauth_secret
     user.save!
