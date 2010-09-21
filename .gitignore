@@ -9,3 +9,4 @@ config/initializers/site_keys.rb
 .bundle
 .rvmrc
 .pairs
+db/*sqlite
