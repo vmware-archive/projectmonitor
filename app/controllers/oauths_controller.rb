@@ -18,8 +18,13 @@ class OauthsController < ApplicationController
     access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
     user = User.find_or_create_from_google_access_token(access_token)
     self.current_user = user
-    redirect_to root_path
-    flash[:notice] = "Logged in successfully"
+    if user.errors.count > 0
+      flash[:notice] = user.errors.full_messages
+      redirect_to login_path
+    else
+      flash[:notice] = "Logged in successfully"
+      redirect_to root_path
+    end
   end
 
   private

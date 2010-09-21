@@ -102,6 +102,13 @@ Edit config/auth.yml to configure the following:
 	    consumer_key: <your_consumer_key>
 	    consumer_secret: <your_consumer_secret>
 	    ...
+You'll also need to modify the authorized_domains list in the config/auth.yml file. The current CiMonitor oauth implementation
+will only authorize user accounts within the list of authorized domains.
+
+    authorized_domains: [ "example.com", "anotherexample.com" ]
+
+(This is work in progress)
+
 
 ### Create a user
 

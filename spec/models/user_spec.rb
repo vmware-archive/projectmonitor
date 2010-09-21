@@ -153,18 +153,27 @@ describe User do
 
   describe "find_or_create_from_google_access_token" do
     before(:each) do
-      @typical_xml = <<-eos
+
+      @authorized_domain_contacts_xml = <<-eos
 <?xml version='1.0' encoding='UTF-8'?>
 <feed>
   <author><name>Wilma Flintstone</name><email>wilma@example.com</email></author>
 </feed>
       eos
-      @access_token = mock(:get => mock(:body => @typical_xml), :secret => "asecret")
+
+      @unauthorized_domain_contacts_xml = <<-eos
+<?xml version='1.0' encoding='UTF-8'?>
+<feed>
+  <author><name>Fred Flintstone</name><email>wilma@unauthorized.com</email></author>
+</feed>
+      eos
+
     end
 
     it "should generate name/email from the response doc" do
+      access_token = mock(:get => mock(:body => @authorized_domain_contacts_xml), :secret => "asecret")
       lambda {
-        user = User.find_or_create_from_google_access_token(@access_token)
+        user = User.find_or_create_from_google_access_token(access_token)
         user.login.should == "wilma"
         user.name.should == "Wilma Flintstone"
         user.email.should == "wilma@example.com"
@@ -173,10 +182,19 @@ describe User do
     end
 
     it "should retrieve a user if they already exist" do
+      access_token = mock(:get => mock(:body => @authorized_domain_contacts_xml), :secret => "asecret")
       lambda {
-        User.find_or_create_from_google_access_token(@access_token)
-        User.find_or_create_from_google_access_token(@access_token)
+        User.find_or_create_from_google_access_token(access_token)
+        User.find_or_create_from_google_access_token(access_token)
       }.should change(User, :count).by(1)
+    end
+
+    it "should only authorize authorized domains" do
+      lambda {
+        access_token = mock(:get => mock(:body => @unauthorized_domain_contacts_xml), :secret => "asecret")
+        user = User.find_or_create_from_google_access_token(access_token)
+        user.errors.count.should == 1
+      }.should change(User, :count).by(0)
     end
   end
 

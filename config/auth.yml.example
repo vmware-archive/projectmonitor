@@ -10,6 +10,7 @@ development: &development
     authorize_path: "/accounts/OAuthAuthorizeToken"
     signature_method: "HMAC-SHA1"
     scope: "https://www.google.com/m8/feeds/"
+    authorized_domains: [ "example.com", "anotherexample.com" ]
 
 test:
   <<: *development
