@@ -4,11 +4,7 @@ require 'oauth/signature/rsa/sha1'
 
 describe OauthsController do
   before(:each) do
-    AuthConfig.auth_required = true
-  end
-
-  after(:each) do
-    AuthConfig.auth_required = false
+    AuthConfig.stub(:auth_required).and_return(true)
   end
 
   it "should route" do

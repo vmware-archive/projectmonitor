@@ -15,11 +15,7 @@ describe CiMonitorController do
 
   describe "#show with site wide authentication required" do
     before(:each) do
-      AuthConfig.auth_required = true
-    end
-
-    after(:each) do
-      AuthConfig.auth_required = false
+      AuthConfig.stub(:auth_required).and_return(true)
     end
 
     it "should redirect to login page when not logged in" do

@@ -187,11 +187,7 @@ end
 
 describe SessionsController do
   before(:each) do
-    AuthConfig.auth_required = true
-  end
-
-  after(:each) do
-    AuthConfig.auth_required = false
+    AuthConfig.stub(:auth_required).and_return(true)
   end
 
   describe "#new" do
