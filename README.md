@@ -9,11 +9,13 @@ are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently suppo
   * [Hudson](http://hudson-ci.org/)
   * [Team City](http://www.jetbrains.com/teamcity/)
 
-NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server. You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
+NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server.
+You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
 
-We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
-instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the status of the builds of various
-open source projects - both of projects Pivotal Labs maintains (such as Refraction) and of non-Pivotal projects (such as
+We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also
+have an instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the
+status of the builds of various open source projects - both of projects Pivotal Labs maintains (such as Refraction)
+and of non-Pivotal projects (such as
 Rails).
 
 ## Installation
@@ -26,19 +28,43 @@ CiMonitor is a Rails application. To get the code, execute the following:
     cd pivotal_cimonitor
     bundle install
 
+### Initial Setup
+
+We have provided example files for `database.yml`, `auth.yml`, and `site_keys.rb`.  Run the following to automatically
+generate these files for you:
+
+    rake setup
+
+You likely need to edit the generated files.  See below.
+
 ### Set up the database
 
-You'll need a database. Create it with whatever name you want. Copy `config/database.yml.example` to
-`database.yml` and edit the production environment configuration so it's right for your database:
+You'll need a database. Create it with whatever name you want.  If you have not run `rake setup`,
+copy `database.yml.example` to `database.yml`.  Edit the production environment configuration so it's right
+for your database:
 
     cp config/database.yml.example config/database.yml
     <edit database.yml>
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
+### Auth support
+
+If you have not run `rake setup`, copy `auth.yml.example` to `auth.yml`.
+
+    cp config/auth.yml.example config/auth.yml
+
+By default, anyone can view the CIMonitor home screen.  To require authorized users, set `auth_required: true`
+
+    # config/auth.yml
+    production: 
+	  auth_required: true
+	...
+
 ### Set up the site keys
 
-Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUTH_SITE_KEY` to something secret.
+If you have not run `rake setup`, copy `site_keys.rb.example` to `site_keys.rb`.  Change `REST_AUTH_SITE_KEY` to
+something secret.
 
     cp config/initializers/site_keys.rb.example config/initializers/site_keys.rb
     <edit site_keys.rb>
@@ -63,25 +89,19 @@ Execute:
 
 Each build that you want CiMonitor to display is called a "project" in CiMonitor. You need to login to set up projects.
 
-
-### Auth support
-
-Please note, in order to run the application and get the spec suite to pass you'll need to copy the config/auth.yml.example to config/auth.yml
-
-    cp config/auth.yml.example config/auth.yml
-
-Currently, global authentication is not required by default
-
-
 ### OAuth support
 
-CiMonitor includes support Google OAuth. See http://code.google.com/apis/accounts/docs/OAuth.html for more information.
+CiMonitor includes support Google OAuth. See [OAuth for Web Applications
+](http://code.google.com/apis/accounts/docs/OAuth.html "OAuth for Web Applications - Authentication and Authorization for Google APIs - Google Code") for more information.
 
 Edit config/auth.yml to configure the following:
-
-    consumer_key: <your_consumer_key>
-    consumer_secret: <your_consumer_secret>
-
+    
+    # config/auth.yml
+	production:
+	  oauth:
+	    consumer_key: <your_consumer_key>
+	    consumer_secret: <your_consumer_secret>
+	    ...
 
 ### Create a user
 
