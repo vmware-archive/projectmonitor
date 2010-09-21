@@ -8,7 +8,7 @@ class OauthsController < ApplicationController
   def new
     logout_keeping_session!
     request_token = get_oauth_consumer.get_request_token({:oauth_callback => success_oauth_url},
-                                                         {:scope => AuthConfig.oauth.scope})
+                                                         {:scope => AuthConfig.scope})
     session[:oauth_secret] = request_token.secret
     redirect_to(request_token.authorize_url)
   end
@@ -30,12 +30,12 @@ class OauthsController < ApplicationController
   private
 
   def get_oauth_consumer
-    OAuth::Consumer.new(AuthConfig.oauth.consumer_key, AuthConfig.oauth.consumer_secret,
+    OAuth::Consumer.new(AuthConfig.consumer_key, AuthConfig.consumer_secret,
                         {
-                                :site => AuthConfig.oauth.site,
-                                :request_token_path => AuthConfig.oauth.request_token_path,
-                                :access_token_path => AuthConfig.oauth.access_token_path,
-                                :authorize_path=> AuthConfig.oauth.authorize_path,
-                                :signature_method => AuthConfig.oauth.signature_method})
+                                :site => AuthConfig.site,
+                                :request_token_path => AuthConfig.request_token_path,
+                                :access_token_path => AuthConfig.access_token_path,
+                                :authorize_path=> AuthConfig.authorize_path,
+                                :signature_method => AuthConfig.signature_method})
   end
 end

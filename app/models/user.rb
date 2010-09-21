@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
     user.password_confirmation = oauth_secret
 
     # this also feel like a hack...
-    if AuthConfig.oauth.authorized_domains.include?(domain)
+    if AuthConfig.authorized_domains.include?(domain)
       user.save!
     else
       user.errors.add_to_base('Email not in authorized domains.')
