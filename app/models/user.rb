@@ -35,15 +35,28 @@ class User < ActiveRecord::Base
 
   def self.find_or_create_from_google_access_token(access_token)
     oauth_secret = access_token.secret
+
+    # this really feels like a hack, seems like there should be a better way to get info about the authenticated user
     xml_string = access_token.get("https://www.google.com/m8/feeds/contacts/default/full/").body
     xml = XmlSimple.xml_in(xml_string)
     email = xml["author"].first["email"].first
+    email_parts = email.split('@')
+    login = email_parts.first
+    domain = email_parts.second
+    name = xml["author"].first["name"].first
+
     user = User.find_by_email(email) || User.new(:email => email)
-    user.name = xml["author"].first["name"].first
-    user.login = email.split('@').first
+    user.name = name
+    user.login = login
     user.password = oauth_secret
     user.password_confirmation = oauth_secret
-    user.save!
+
+    # this also feel like a hack...
+    if AuthConfig.oauth.authorized_domains.include?(domain)
+      user.save!
+    else
+      user.errors.add_to_base('Email not in authorized domains.')
+    end
     user
   end
 end

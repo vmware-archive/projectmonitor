@@ -33,4 +33,8 @@ describe AuthConfig do
   it "should have a signature_method" do
     AuthConfig.oauth.signature_method.should == "HMAC-SHA1"
   end
+
+  it "should have authorized domains" do
+    AuthConfig.oauth.authorized_domains.should == ["example.com", "anotherexample.com"]
+  end
 end
