@@ -16,13 +16,13 @@ shared_examples_for "status for a valid build history xml response" do
   end
 
   it "should return the link to the checkin" do
-    link_elements = @response_doc.find("/rss/channel/item/link")
+    link_elements = @response_doc.xpath("/rss/channel/item/link")
     link_elements.size.should == 1
     @project.status.url.should == link_elements.first.content
   end
 
   it "should return the published date of the checkin" do
-    date_elements = @response_doc.find("/rss/channel/item/pubDate")
+    date_elements = @response_doc.xpath("/rss/channel/item/pubDate")
     date_elements.size.should == 1
     @project.status.published_at.should == Time.parse(date_elements.first.content)
   end
@@ -37,8 +37,7 @@ describe StatusFetcher do
   describe "#fetch_build_history" do
     describe "with pubDate set with epoch" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("never_green.rss").read)
-        @response_doc = @parser.parse
+        @response_doc = Nokogiri::XML(@response_xml = CCRssExample.new("never_green.rss").read)
       end
 
       before(:each) do
@@ -52,8 +51,7 @@ describe StatusFetcher do
 
     describe "with reported success" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("success.rss").read)
-        @response_doc = @parser.parse
+        @response_doc = Nokogiri::XML(@response_xml = CCRssExample.new("success.rss").read)
       end
 
       before(:each) do
@@ -70,8 +68,7 @@ describe StatusFetcher do
 
     describe "with reported failure" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = CCRssExample.new("failure.rss").read)
-        @response_doc = @parser.parse
+        @response_doc = Nokogiri::XML(@response_xml = CCRssExample.new("failure.rss").read)
       end
 
       before(:each) do
@@ -87,8 +84,7 @@ describe StatusFetcher do
 
     describe "with invalid xml" do
       before(:all) do
-        @parser = XML::Parser.string(@response_xml = "<foo><bar>baz</bar></foo>")
-        @response_doc = @parser.parse
+        @response_doc = Nokogiri::XML(@response_xml = "<foo><bar>baz</bar></foo>")
       end
 
       before(:each) do

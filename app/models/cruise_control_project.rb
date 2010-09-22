@@ -8,15 +8,15 @@ class CruiseControlProject < Project
 
   def parse_building_status(content)
     status = super(content)
-    document = XML::Parser.string(content.downcase).parse
-    project_element = document.find_first("/projects/project[@name='#{project_name.downcase}']")
-    status.building = project_element && project_element.attributes['activity'] == "building"
+    document = Nokogiri::XML(content.downcase)
+    project_element = document.at_xpath("/projects/project[@name='#{project_name.downcase}']")
+    status.building = project_element && project_element['activity'] == "building"
     status
   end
 
   def parse_project_status(content)
     status = super(content)
-    document = XML::Parser.string(content).parse
+    document = Nokogiri::XML(content)
     status.success = !!(find(document, 'title') =~ /success/)
     status.url = find(document, 'link')
     pub_date = Time.parse(find(document, 'pubDate'))
@@ -25,6 +25,6 @@ class CruiseControlProject < Project
   end
 
   def find(document, path)
-    document.find_first("/rss/channel/item[1]/#{path}").content
+    document.at_xpath("/rss/channel/item[1]/#{path}").content
   end
 end

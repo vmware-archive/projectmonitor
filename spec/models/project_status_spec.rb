@@ -1,5 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
-require 'xml/libxml'
 
 describe ProjectStatus do
   before(:each) do

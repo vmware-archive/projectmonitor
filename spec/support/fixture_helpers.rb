@@ -8,7 +8,7 @@ class FixtureFile
   end
 
   def as_xml
-    XML::Parser.string(@content).parse
+    Nokogiri::XML(@content)
   end
 end
 
@@ -24,7 +24,7 @@ class CCRssExample < FixtureFile
   end
 
   def xpath_content(xpath)
-    as_xml.find(xpath).first.content
+    as_xml.at_xpath(xpath).content
   end
 end
 
@@ -38,7 +38,7 @@ class HudsonAtomExample < FixtureFile
   end
 
   def first_css(selector)
-    as_xml.css(selector).first
+    as_xml.at_css(selector)
   end
 end
 
@@ -58,6 +58,6 @@ class TeamcityCradiatorXmlExample < FixtureFile
   end
 
   def first_css(selector)
-    as_xml.css(selector).first
+    as_xml.at_css(selector)
   end
 end
