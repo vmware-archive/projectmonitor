@@ -1,6 +1,8 @@
 if ENV['IS_CI_BOX']
-  puts "IS_CI_BOX is set, running `bundle install`..."
-  system('bundle install') || raise("'bundle install' command failed. Install bundler with `gem install bundler`.")
+  unless system('bundle check')
+    puts "IS_CI_BOX is set, running `bundle install`..."
+    system('bundle install') || raise("'bundle install' command failed. Install bundler with `gem install bundler`.")
+  end
 end
 
 begin

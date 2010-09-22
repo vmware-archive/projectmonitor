@@ -1,4 +1,6 @@
 source :gemcutter
+gem "bundler", "0.9.26"
+
 gem "rails", "2.3.5"
 gem "rack", "1.0.1"
 gem "rake", "0.8.7"
@@ -13,7 +15,6 @@ gem "acts_as_taggable_on_steroids", "1.1"
 gem "mysql"
 gem "oauth", "0.4.3"
 gem "xml-simple", "1.0.12"
-gem "haml"
 
 group :development do
   gem "sqlite3-ruby"
