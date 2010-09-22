@@ -1,139 +1,81 @@
---- 
-dependencies: 
-  mongrel: 
-    group: 
-    - :default
-    version: ">= 1.1.5"
-  rails: 
-    group: 
-    - :default
-    version: = 2.3.5
-  fastthread: 
-    group: 
-    - :default
-    version: = 1.0.7
-  sqlite3-ruby: 
-    group: 
-    - :development
-    version: ">= 0"
-  rake: 
-    group: 
-    - :default
-    version: = 0.8.7
-  mysql: 
-    group: 
-    - :default
-    version: ">= 0"
-  oauth: 
-    group: 
-    - :default
-    version: = 0.4.3
-  mime-types: 
-    group: 
-    - :default
-    version: = 1.15
-  rack: 
-    group: 
-    - :default
-    version: = 1.0.1
-  gem_plugin: 
-    group: 
-    - :default
-    version: = 0.2.3
-  rspec-rails: 
-    group: 
-    - :test
-    version: ">= 1.1.11"
-  jasmine: 
-    group: 
-    - :test
-    version: = 0.10.3.1
-  acts_as_taggable_on_steroids: 
-    group: 
-    - :default
-    version: = 1.1
-  bundler: 
-    group: 
-    - :default
-    version: = 0.9.26
-  mongrel_cluster: 
-    group: 
-    - :default
-    version: = 1.0.5
-  httpauth: 
-    group: 
-    - :default
-    version: = 0.1
-  nokogiri: 
-    group: 
-    - :default
-    version: = 1.4.2
-  xml-simple: 
-    group: 
-    - :default
-    version: = 1.0.12
-specs: 
-- rake: 
-    version: 0.8.7
-- activesupport: 
-    version: 2.3.5
-- rack: 
-    version: 1.0.1
-- actionpack: 
-    version: 2.3.5
-- actionmailer: 
-    version: 2.3.5
-- activerecord: 
-    version: 2.3.5
-- activeresource: 
-    version: 2.3.5
-- acts_as_taggable_on_steroids: 
-    version: "1.1"
-- bundler: 
-    version: 0.9.26
-- daemons: 
-    version: 1.1.0
-- eventmachine: 
-    version: 0.12.10
-- fastthread: 
-    version: 1.0.7
-- gem_plugin: 
-    version: 0.2.3
-- httpauth: 
-    version: "0.1"
-- json: 
-    version: 1.4.6
-- rspec: 
-    version: 1.3.0
-- selenium-client: 
-    version: 1.2.18
-- selenium-rc: 
-    version: 2.2.4
-- thin: 
-    version: 1.2.7
-- jasmine: 
-    version: 0.10.3.1
-- mime-types: 
-    version: "1.15"
-- mongrel: 
-    version: 1.1.5.1
-- mongrel_cluster: 
-    version: 1.0.5
-- mysql: 
-    version: 2.8.1
-- nokogiri: 
-    version: 1.4.2
-- oauth: 
-    version: 0.4.3
-- rails: 
-    version: 2.3.5
-- rspec-rails: 
-    version: 1.3.2
-- sqlite3-ruby: 
-    version: 1.3.1
-- xml-simple: 
-    version: 1.0.12
-hash: d602709a0aaefc7b85575f4da7253ba8d3cc57a4
-sources: 
-- Rubygems: 
-    uri: http://gemcutter.org
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionmailer (2.3.5)
+      actionpack (= 2.3.5)
+    actionpack (2.3.5)
+      activesupport (= 2.3.5)
+      rack (~> 1.0.0)
+    activerecord (2.3.5)
+      activesupport (= 2.3.5)
+    activeresource (2.3.5)
+      activesupport (= 2.3.5)
+    activesupport (2.3.5)
+    acts_as_taggable_on_steroids (1.1)
+    daemons (1.1.0)
+    eventmachine (0.12.10)
+    fastthread (1.0.7)
+    gem_plugin (0.2.3)
+    httpauth (0.1)
+    jasmine (0.10.3.1)
+      json (>= 1.1.9)
+      rack (>= 1.0.0)
+      rspec (>= 1.1.5)
+      selenium-client (>= 1.2.17)
+      selenium-rc (>= 2.1.0)
+      thin (>= 1.2.4)
+    json (1.4.6)
+    mime-types (1.15)
+    mongrel (1.1.5.1)
+      daemons (>= 1.0.3)
+      gem_plugin (>= 0.2.3)
+    mongrel_cluster (1.0.5)
+      gem_plugin (>= 0.2.3)
+      mongrel (>= 1.0.2)
+    mysql (2.8.1)
+    nokogiri (1.4.2)
+    oauth (0.4.3)
+    rack (1.0.1)
+    rails (2.3.5)
+      actionmailer (= 2.3.5)
+      actionpack (= 2.3.5)
+      activerecord (= 2.3.5)
+      activeresource (= 2.3.5)
+      activesupport (= 2.3.5)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    rspec (1.3.0)
+    rspec-rails (1.3.2)
+      rack (>= 1.0.0)
+      rspec (>= 1.3.0)
+    selenium-client (1.2.18)
+    selenium-rc (2.2.4)
+      selenium-client (>= 1.2.18)
+    sqlite3-ruby (1.3.1)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    xml-simple (1.0.12)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  acts_as_taggable_on_steroids (= 1.1)
+  fastthread (= 1.0.7)
+  gem_plugin (= 0.2.3)
+  httpauth (= 0.1)
+  jasmine (= 0.10.3.1)
+  mime-types (= 1.15)
+  mongrel (>= 1.1.5)
+  mongrel_cluster (= 1.0.5)
+  mysql
+  nokogiri (= 1.4.2)
+  oauth (= 0.4.3)
+  rack (= 1.0.1)
+  rails (= 2.3.5)
+  rake (= 0.8.7)
+  rspec-rails (>= 1.1.11)
+  sqlite3-ruby
+  xml-simple (= 1.0.12)

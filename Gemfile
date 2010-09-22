@@ -1,5 +1,5 @@
 source :gemcutter
-gem "bundler", "0.9.26"
+#gem "bundler", "0.9.26"
 
 gem "rails", "2.3.5"
 gem "rack", "1.0.1"
