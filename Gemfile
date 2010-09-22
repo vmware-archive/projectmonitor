@@ -14,6 +14,7 @@ gem "mysql"
 gem "libxml-ruby", "1.1.2", :require => 'xml/libxml'
 gem "oauth", "0.4.3"
 gem "xml-simple", "1.0.12"
+gem "haml"
 
 group :development do
   gem "sqlite3-ruby"
