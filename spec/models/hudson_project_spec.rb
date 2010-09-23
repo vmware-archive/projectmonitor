@@ -1,10 +1,10 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 
 describe HudsonProject do
   before(:each) do
     @project = HudsonProject.new(:name => "my_hudson_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll")
   end
-  
+
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       @project.feed_url = nil
@@ -38,22 +38,38 @@ describe HudsonProject do
   end
 
   describe "#status_parser" do
-    describe "with reported success" do
+    shared_examples_for "successful build" do
       before(:each) do
-        @status_parser = @project.parse_project_status(HudsonAtomExample.new("success.atom").read)
+        @status_parser = @project.parse_project_status(HudsonAtomExample.new(@feed_file).read)
       end
 
       it "should return the link to the checkin" do
-        @status_parser.url.should == HudsonAtomExample.new("success.atom").first_css("entry:first link").attribute('href').value
+        @status_parser.url.should == HudsonAtomExample.new(@feed_file).first_css("entry:first link").attribute('href').value
       end
 
       it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(HudsonAtomExample.new("success.atom").first_css("entry:first published").content)
+        @status_parser.published_at.should == Time.parse(HudsonAtomExample.new(@feed_file).first_css("entry:first published").content)
       end
 
       it "should report success" do
         @status_parser.should be_success
       end
+    end
+    
+    describe "with reported 'success'" do
+      before(:each) do
+        @feed_file = "success.atom"
+      end
+
+      it_should_behave_like "successful build"
+    end
+
+    describe "with reported 'stable'" do
+      before(:each) do
+        @feed_file = "stable.atom"
+      end
+
+      it_should_behave_like "successful build"
     end
 
     describe "with reported failure" do
@@ -82,7 +98,7 @@ describe HudsonProject do
       end
     end
   end
-  
+
   describe "#building_parser" do
     before(:each) do
       @project = HudsonProject.new(:name => "CiMonitor", :feed_url => "http://foo.bar.com:3434/job/CiMonitor/rssAll")
