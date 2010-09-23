@@ -29,7 +29,7 @@ class HudsonProject < Project
     status = super(content)
     begin
       latest_build = Nokogiri::XML.parse(content.downcase).css('feed entry:first').first
-      status.success = !!(find(latest_build, 'title').first.content =~ /success/)
+      status.success = !!(find(latest_build, 'title').first.content =~ /success|stable/)
       status.url = find(latest_build, 'link').first.attribute('href').value
       pub_date = Time.parse(find(latest_build, 'published').first.content)
       status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
