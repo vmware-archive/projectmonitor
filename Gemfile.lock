@@ -1,73 +1,77 @@
 --- 
 dependencies: 
-  mongrel: 
-    group: 
-    - :default
-    version: ">= 1.1.5"
-  rails: 
-    group: 
-    - :default
-    version: = 2.3.5
   fastthread: 
     group: 
     - :default
     version: = 1.0.7
-  sqlite3-ruby: 
+  rails: 
     group: 
-    - :development
+    - :default
+    version: = 2.3.5
+  mongrel: 
+    group: 
+    - :default
+    version: ">= 1.1.5"
+  mysql: 
+    group: 
+    - :default
     version: ">= 0"
   rake: 
     group: 
     - :default
     version: = 0.8.7
-  mysql: 
+  sqlite3-ruby: 
     group: 
-    - :default
+    - :development
     version: ">= 0"
   oauth: 
     group: 
     - :default
     version: = 0.4.3
+  rspec: 
+    group: 
+    - :test
+    version: = 1.3.0
   mime-types: 
     group: 
     - :default
     version: = 1.15
-  rack: 
-    group: 
-    - :default
-    version: = 1.0.1
   gem_plugin: 
     group: 
     - :default
     version: = 0.2.3
+  rack: 
+    group: 
+    - :default
+    version: = 1.0.1
   rspec-rails: 
     group: 
     - :test
-    version: ">= 1.1.11"
+    version: = 1.3.2
   jasmine: 
     group: 
     - :test
     version: = 0.10.3.1
-  acts_as_taggable_on_steroids: 
-    group: 
-    - :default
-    version: = 1.1
   mongrel_cluster: 
     group: 
     - :default
     version: = 1.0.5
+  acts_as_taggable_on_steroids: 
+    group: 
+    - :default
+    version: = 1.1
   httpauth: 
     group: 
     - :default
     version: = 0.1
-  nokogiri: 
-    group: 
-    - :default
-    version: = 1.4.2
   xml-simple: 
     group: 
     - :default
     version: = 1.0.12
+  nokogiri: 
+    group: 
+    - :default
+    version: = 1.4.2
 specs: 
 - rake: 
     version: 0.8.7
@@ -127,7 +131,7 @@ specs:
     version: 1.3.1
 - xml-simple: 
     version: 1.0.12
-hash: 8a7f7e41aabea9498ddc99ebb88ae70320a6b30d
+hash: 73d400cdc5f3a7f223f557e8741c834dfe3123ac
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
