@@ -21,6 +21,7 @@ group :development do
 end
 
 group :test do
-  gem "rspec-rails", ">= 1.1.11"
+  gem "rspec", "1.3.0"
+  gem "rspec-rails", "1.3.2"
   gem "jasmine", "0.10.3.1"
 end
