@@ -42,6 +42,18 @@ describe AuthConfig do
     it "should have authorized domains" do
       AuthConfig.authorized_domains.should == ["example.com", "anotherexample.com"]
     end
+
+    it "should have an openid identifier" do
+      AuthConfig.openid_identifier.should == "example.com"
+    end
+
+    it "should have an openid realm" do
+      AuthConfig.openid_realm.should == "http://example.com"
+    end
+
+    it "should have an openid return_to" do
+      AuthConfig.openid_return_to.should == "http://example.com/openid/success"
+    end
   end
 end
 

@@ -10,6 +10,9 @@ development: &development
   signature_method: "HMAC-SHA1"
   scope: "https://www.google.com/m8/feeds/"
   authorized_domains: [ "example.com", "anotherexample.com" ]
+  openid_identifier: "example.com"
+  openid_realm: "http://example.com"
+  openid_return_to: "http://example.com/openid/success"
 
 test:
   <<: *development

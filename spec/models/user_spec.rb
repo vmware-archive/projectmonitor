@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 
 describe User do
   fixtures :users
@@ -145,13 +145,13 @@ describe User do
     desired_encryption_expensiveness_ms = 0.1
     it "takes longer than #{desired_encryption_expensiveness_ms}ms to encrypt a password" do
       test_reps = 100
-      start_time = Time.now; test_reps.times{ User.authenticate('quentin', 'monkey'+rand.to_s) }; end_time = Time.now
+      start_time = Time.now; test_reps.times { User.authenticate('quentin', 'monkey'+rand.to_s) }; end_time = Time.now
       auth_time_ms = 1000 * (end_time - start_time)/test_reps
       auth_time_ms.should > desired_encryption_expensiveness_ms
     end
   end
 
-  describe "find_or_create_from_google_access_token" do
+  describe "find or create from google access token" do
     before(:each) do
 
       @authorized_domain_contacts_xml = <<-eos
@@ -198,10 +198,41 @@ describe User do
     end
   end
 
+  describe "find or create from google openid fetch response" do
+
+    it "should generate name/email from the fetch response" do
+      fetch_response = mock()
+      fetch_response.should_receive(:get_single).once.with('http://axschema.org/contact/email').and_return("wilma@example.com")
+      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/first').and_return("Wilma")
+      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/last').and_return("Flintstone")
+
+      lambda {
+        user = User.find_or_create_from_google_openid(fetch_response)
+        user.login.should == "wilma"
+        user.name.should == "Wilma Flintstone"
+        user.email.should == "wilma@example.com"
+        user.should be_valid
+      }.should change(User, :count).by(1)
+    end
+
+    it "should retrieve a user if they already exist" do
+      fetch_response = mock()
+      fetch_response.should_receive(:get_single).twice.with('http://axschema.org/contact/email').and_return("wilma@example.com")
+      fetch_response.should_receive(:get_single).twice.with('http://axschema.org/namePerson/first').and_return("Wilma")
+      fetch_response.should_receive(:get_single).twice.with('http://axschema.org/namePerson/last').and_return("Flintstone")
+
+      lambda {
+        User.find_or_create_from_google_openid(fetch_response)
+        User.find_or_create_from_google_openid(fetch_response)
+      }.should change(User, :count).by(1)
+    end
+
+  end
+
   protected
 
   def create_user(options = {})
-    record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
+    record = User.new({:login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69'}.merge(options))
     record.save
     record
   end
