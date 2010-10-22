@@ -200,3 +200,8 @@ a:hover {
   padding: 5px;
   margin: 5px;
 }
+
+#openid_url {
+  background: url(/images/login-bg.gif) no-repeat #FFF 5px;
+  padding-left: 25px;
+}

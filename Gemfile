@@ -15,6 +15,8 @@ gem "acts_as_taggable_on_steroids", "1.1"
 gem "mysql"
 gem "oauth", "0.4.3"
 gem "xml-simple", "1.0.12"
+gem "ruby-openid", "2.1.8"
+gem "ruby-openid-apps-discovery", "1.2.0"
 
 group :development do
   gem "sqlite3-ruby"
