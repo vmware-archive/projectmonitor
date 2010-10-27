@@ -151,53 +151,6 @@ describe User do
     end
   end
 
-  describe "find or create from google access token" do
-    before(:each) do
-
-      @authorized_domain_contacts_xml = <<-eos
-<?xml version='1.0' encoding='UTF-8'?>
-<feed>
-  <author><name>Wilma Flintstone</name><email>wilma@example.com</email></author>
-</feed>
-      eos
-
-      @unauthorized_domain_contacts_xml = <<-eos
-<?xml version='1.0' encoding='UTF-8'?>
-<feed>
-  <author><name>Fred Flintstone</name><email>wilma@unauthorized.com</email></author>
-</feed>
-      eos
-
-    end
-
-    it "should generate name/email from the response doc" do
-      access_token = mock(:get => mock(:body => @authorized_domain_contacts_xml), :secret => "asecret")
-      lambda {
-        user = User.find_or_create_from_google_access_token(access_token)
-        user.login.should == "wilma"
-        user.name.should == "Wilma Flintstone"
-        user.email.should == "wilma@example.com"
-        user.should be_valid
-      }.should change(User, :count).by(1)
-    end
-
-    it "should retrieve a user if they already exist" do
-      access_token = mock(:get => mock(:body => @authorized_domain_contacts_xml), :secret => "asecret")
-      lambda {
-        User.find_or_create_from_google_access_token(access_token)
-        User.find_or_create_from_google_access_token(access_token)
-      }.should change(User, :count).by(1)
-    end
-
-    it "should only authorize authorized domains" do
-      lambda {
-        access_token = mock(:get => mock(:body => @unauthorized_domain_contacts_xml), :secret => "asecret")
-        user = User.find_or_create_from_google_access_token(access_token)
-        user.errors.count.should == 1
-      }.should change(User, :count).by(0)
-    end
-  end
-
   describe "find or create from google openid fetch response" do
 
     it "should generate name/email from the fetch response" do

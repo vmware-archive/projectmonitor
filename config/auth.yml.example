@@ -1,15 +1,5 @@
-# This is Google OAuth for Web Applications.  See http://code.google.com/apis/accounts/docs/OAuth.html
 development: &development
-  auth_required: false
-  consumer_key: <your_consumer_key>
-  consumer_secret: <your_consumer_secret>
-  site: "https://www.google.com"
-  request_token_path: "/accounts/OAuthGetRequestToken"
-  access_token_path: "/accounts/OAuthGetAccessToken"
-  authorize_path: "/accounts/OAuthAuthorizeToken"
-  signature_method: "HMAC-SHA1"
-  scope: "https://www.google.com/m8/feeds/"
-  authorized_domains: [ "example.com", "anotherexample.com" ]
+  auth_required: false  
   openid_identifier: "example.com"
   openid_realm: "http://example.com"
   openid_return_to: "http://example.com/openid/success"

@@ -191,10 +191,10 @@ describe SessionsController do
   end
 
   describe "#new" do
-    it "should render an OAuth login link" do
+    it "should render an openid login link" do
       get :new
       response.should have_tag("div.page") do |page|
-        page.should have_tag('a', 'Login with Google OAuth')
+        page.should have_tag('a', 'Login with Google OpenID')
       end
     end
   end

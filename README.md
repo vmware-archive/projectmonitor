@@ -89,26 +89,6 @@ Execute:
 
 Each build that you want CiMonitor to display is called a "project" in CiMonitor. You need to login to set up projects.
 
-### OAuth support
-
-CiMonitor includes support Google OAuth. See [OAuth for Web Applications
-](http://code.google.com/apis/accounts/docs/OAuth.html "OAuth for Web Applications - Authentication and Authorization for Google APIs - Google Code") for more information.
-
-Edit config/auth.yml to configure the following:
-    
-    # config/auth.yml
-	production:
-	  oauth:
-	    consumer_key: <your_consumer_key>
-	    consumer_secret: <your_consumer_secret>
-	    ...
-You'll also need to modify the authorized_domains list in the config/auth.yml file. The current CiMonitor oauth implementation
-will only authorize user accounts within the list of authorized domains.
-
-    authorized_domains: [ "example.com", "anotherexample.com" ]
-
-(This is work in progress)
-
 
 ### Create a user
 
