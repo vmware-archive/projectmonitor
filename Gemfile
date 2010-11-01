@@ -17,6 +17,7 @@ gem "heroku", "1.11.0"
 gem "rspec", "1.3.0"
 gem "rspec-rails", "1.3.2"
 gem "taps", "0.3.13"
+gem "mysql"
 
 group :development do
   gem "sqlite3-ruby"
