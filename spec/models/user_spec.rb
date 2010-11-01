@@ -151,6 +151,26 @@ describe User do
     end
   end
 
+  describe "REST_AUTH_SITE_KEY" do
+    describe "key present in environment" do
+      it "should load the key from env" do
+        ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return('foo')
+        ::SiteKeys.set_site_key
+        User.authenticate('old_password_holder', 'test').should be_nil
+        REST_AUTH_SITE_KEY.should == 'foo'
+      end
+    end
+
+    describe "key not present in environment" do
+      it "should load the key from sitekeys.rb" do
+        ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return(nil)
+        ::SiteKeys.set_site_key
+        User.authenticate('old_password_holder', 'test').should be_nil
+        REST_AUTH_SITE_KEY.should == 'replace-this-key-with-yours'
+      end
+    end
+  end
+
   describe "find or create from google openid fetch response" do
 
     it "should generate name/email from the fetch response" do

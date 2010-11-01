@@ -21,10 +21,16 @@ group :development do
   gem "sqlite3-ruby"
   gem "mongrel", ">= 1.1.5"
   gem "mongrel_cluster", "1.0.5"
+  gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
+  gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
+  gem "ruby-debug-ide"
 end
 
 group :test do
   gem "jasmine", "0.10.3.1"
   gem "mongrel", ">= 1.1.5"
   gem "mongrel_cluster", "1.0.5"
+  gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
+  gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
+  gem "ruby-debug-ide"
 end
