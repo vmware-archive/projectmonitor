@@ -12,9 +12,10 @@ gem "mongrel_cluster", "1.0.5"
 gem "nokogiri", "1.4.2"
 gem "httpauth", "0.1"
 gem "acts_as_taggable_on_steroids", "1.1"
-gem "mysql"
 gem "ruby-openid", "2.1.8"
 gem "ruby-openid-apps-discovery", "1.2.0"
+gem "pg", "0.9.0"
+gem "heroku", "1.11.0"
 
 group :development do
   gem "sqlite3-ruby"
