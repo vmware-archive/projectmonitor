@@ -14,6 +14,8 @@ gem "ruby-openid", "2.1.8"
 gem "ruby-openid-apps-discovery", "1.2.0"
 gem "pg", "0.9.0"
 gem "heroku", "1.11.0"
+gem "rspec", "1.3.0"
+gem "rspec-rails", "1.3.2"
 
 group :development do
   gem "sqlite3-ruby"
@@ -22,8 +24,6 @@ group :development do
 end
 
 group :test do
-  gem "rspec", "1.3.0"
-  gem "rspec-rails", "1.3.2"
   gem "jasmine", "0.10.3.1"
   gem "mongrel", ">= 1.1.5"
   gem "mongrel_cluster", "1.0.5"
