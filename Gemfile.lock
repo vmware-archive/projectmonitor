@@ -14,6 +14,8 @@ GEM
     acts_as_taggable_on_steroids (1.1)
     configuration (1.1.0)
     daemons (1.1.0)
+    delayed_job (2.0.3)
+      daemons
     eventmachine (0.12.10)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
@@ -81,6 +83,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_taggable_on_steroids (= 1.1)
   bundler (~> 1.0.0)
+  delayed_job (= 2.0.3)
   fastthread (= 1.0.7)
   gem_plugin (= 0.2.3)
   heroku (= 1.11.0)
