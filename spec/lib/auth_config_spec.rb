@@ -6,15 +6,16 @@ describe AuthConfig do
   # before(:each) do
   #   # moved to spec_helper for use in all tests:
   #     AuthConfig.reset!
-  #     AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth.yml"))
+  #     AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-false.yml"))
   # end
 
-  shared_examples_for "prefers environment parameters" do
+  describe "should prefer environment variables over auth.yml" do
     before do
-      ENV['AUTH_REQUIRED'] = 'true'
+      ENV['AUTH_REQUIRED'] = 'openid for reals'
       ENV['OPENID_IDENTIFIER'] = 'google.com'
       ENV['OPENID_REALM'] = 'http://google.com'
       ENV['OPENID_RETURN_TO'] = 'http://google.com/openid/success'
+      AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
     end
 
     after do
@@ -25,58 +26,53 @@ describe AuthConfig do
     end
 
     it "should have an auth_required" do
-      AuthConfig.auth_required.should be_true
+      AuthConfig.auth_required.should == "openid for reals"
     end
 
-    describe "with openid" do
-      it "should have an openid identifier" do
-        AuthConfig.openid_identifier.should == "google.com"
-      end
-
-      it "should have an openid realm" do
-        AuthConfig.openid_realm.should == "http://google.com"
-      end
-
-      it "should have an openid return_to" do
-        AuthConfig.openid_return_to.should == "http://google.com/openid/success"
-      end
+    it "should have openid settings" do
+      AuthConfig.openid_identifier.should == "google.com"
+      AuthConfig.openid_realm.should == "http://google.com"
+      AuthConfig.openid_return_to.should == "http://google.com/openid/success"
     end
   end
 
-  describe "should prefer environment parameter over yml" do
-    it_should_behave_like "prefers environment parameters"
-  end
+  describe "should use auth.yml configuration" do
+    describe "for openid" do
+      before(:each) do
+        AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
+      end
+      it "should have an auth_required" do
+        AuthConfig.auth_required.should == "openid"
+      end
 
-  describe "should use yml configuration" do
-    it "should have an auth_required" do
-      AuthConfig.auth_required.should == false
-    end
-
-    describe "with openid" do
-      it "should have an openid identifier" do
+      it "should have openid settings" do
         AuthConfig.openid_identifier.should == "example.com"
-      end
-
-      it "should have an openid realm" do
         AuthConfig.openid_realm.should == "http://example.com"
-      end
-
-      it "should have an openid return_to" do
         AuthConfig.openid_return_to.should == "http://example.com/openid/success"
       end
     end
-  end
 
-  describe "should prefer environment parameters over a non-existent file" do
-    before do
-      AuthConfig.load_from("bad_path")
+    describe "for local passwords" do
+      before(:each) do
+        AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-password.yml"))
+      end
+      it "should have an auth_required" do
+        AuthConfig.auth_required.should == "password"
+      end
+
+      it "should have password settings" do
+        AuthConfig.rest_auth_site_key.should == "replace-this-key-with-yours"
+        AuthConfig.rest_auth_digest_stretches.should == 10
+      end
     end
-
-    it_should_behave_like "prefers environment parameters"
   end
 
   describe "should be able to handle a non-existent file" do
     before do
+      ENV['AUTH_REQUIRED'] = nil
+      ENV['OPENID_IDENTIFIER'] = nil
+      ENV['OPENID_REALM'] = nil
+      ENV['OPENID_RETURN_TO'] = nil
       AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/missing_file.yml"))
     end
 
@@ -84,18 +80,15 @@ describe AuthConfig do
       AuthConfig.auth_required.should be_false
     end
 
-    describe "with openid" do
-      it "should have an openid identifier" do
-        AuthConfig.openid_identifier.should be_nil
-      end
+    it "should default local auth settings to nil" do
+      AuthConfig.rest_auth_site_key.should be_nil
+      AuthConfig.rest_auth_digest_stretches.should be_nil
+    end
 
-      it "should have an openid realm" do
-        AuthConfig.openid_realm.should be_nil
-      end
-
-      it "should have an openid return_to" do
-        AuthConfig.openid_return_to.should be_nil
-      end
+    it "should default openid settings to nil" do
+      AuthConfig.openid_identifier.should be_nil
+      AuthConfig.openid_realm.should be_nil
+      AuthConfig.openid_return_to.should be_nil
     end
   end
 end

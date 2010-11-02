@@ -133,48 +133,6 @@ describe User do
     User.authenticate('quentin', 'invalid_password').should be_nil
   end
 
-  if REST_AUTH_SITE_KEY.blank?
-    it "authenticates a user against a hard-coded old-style password" do
-      User.authenticate('old_password_holder', 'test').should == users(:old_password_holder)
-    end
-  else
-    it "doesn't authenticate a user against a hard-coded old-style password" do
-      User.authenticate('old_password_holder', 'test').should be_nil
-    end
-
-    desired_encryption_expensiveness_ms = 0.1
-    it "takes longer than #{desired_encryption_expensiveness_ms}ms to encrypt a password" do
-      test_reps = 100
-      start_time = Time.now; test_reps.times { User.authenticate('quentin', 'monkey'+rand.to_s) }; end_time = Time.now
-      auth_time_ms = 1000 * (end_time - start_time)/test_reps
-      auth_time_ms.should > desired_encryption_expensiveness_ms
-    end
-  end
-
-  describe "REST_AUTH_SITE_KEY" do
-    describe "key present in environment" do
-      it "should load the key from env" do
-        ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return('foo')
-        silence_warnings do
-          ::SiteKeys.set_site_key
-        end
-        User.authenticate('old_password_holder', 'test').should be_nil
-        REST_AUTH_SITE_KEY.should == 'foo'
-      end
-    end
-
-    describe "key not present in environment" do
-      it "should load the key from sitekeys.rb" do
-        ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return(nil)
-        silence_warnings do
-          ::SiteKeys.set_site_key
-        end
-        User.authenticate('old_password_holder', 'test').should be_nil
-        REST_AUTH_SITE_KEY.should == 'replace-this-key-with-yours'
-      end
-    end
-  end
-
   describe "find or create from google openid fetch response" do
 
     it "should generate name/email from the fetch response" do
