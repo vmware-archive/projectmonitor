@@ -36,6 +36,15 @@ class StatusFetcher
     end
   end
 
+  def schedule_fetches
+    current_time = Time.now
+    count = 0
+    while count < 1440
+      Delayed::Job.enqueue(FetchStatusJob.new, 0, count.minutes.from_now(current_time))
+      count += DELAYED_JOB_FETCH_INTERVAL_MINS
+    end
+  end
+
   private
 
   def retrieve_status_for(project)

@@ -62,3 +62,5 @@ POST_LOAD_BLOCKS.each { |proc| proc.call }
 # Include your application configuration below
 
 ::RED_NOTIFICATION_EMAILS = ["notfiy@example.com"]
+
+DELAYED_JOB_FETCH_INTERVAL_MINS = 3
