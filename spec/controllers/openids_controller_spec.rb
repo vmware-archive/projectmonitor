@@ -2,7 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 
 describe OpenidsController do
   before(:each) do
-    AuthConfig.stub(:auth_required).and_return(true)
+    AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
   end
 
   it "should route" do

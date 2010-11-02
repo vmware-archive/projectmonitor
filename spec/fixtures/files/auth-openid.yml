@@ -1,5 +1,5 @@
 development: &development
-  auth_required: false
+  auth_required: openid
   openid_identifier: "example.com"
   openid_realm: "http://example.com"
   openid_return_to: "http://example.com/openid/success"

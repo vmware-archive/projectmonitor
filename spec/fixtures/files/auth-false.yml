@@ -1,0 +1,8 @@
+development: &development
+  auth_required: false
+
+test:
+  <<: *development
+
+production:
+  <<: *development

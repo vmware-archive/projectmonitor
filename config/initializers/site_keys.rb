@@ -1,10 +1,3 @@
-module SiteKeys
-  def self.set_site_key
-    Object.const_set('REST_AUTH_SITE_KEY', ENV['REST_AUTH_SITE_KEY'] || 'replace-this-key-with-yours')
-  end
-end
-
-
 # A Site key gives additional protection against a dictionary attack if your
 # DB is ever compromised.  With no site key, we store
 #   DB_password = hash(user_password, DB_user_salt)
@@ -22,7 +15,8 @@ end
 # Please note: if you change this, all the passwords will be invalidated, so DO
 # keep it someplace secure.  Use the random value given or type in the lyrics to
 # your favorite Jay-Z song or something; any moderately long, unpredictable text.
-SiteKeys.set_site_key
+
+REST_AUTH_SITE_KEY = AuthConfig.rest_auth_site_key
 
 # Repeated applications of the hash make brute force (even with a compromised
 # database and site key) harder, and scale with Moore's law.
@@ -41,4 +35,4 @@ SiteKeys.set_site_key
 # * http://www.owasp.org/index.php/Hashing_Java
 # * "An Illustrated Guide to Cryptographic Hashes":http://www.unixwiz.net/techtips/iguide-crypto-hashes.html
 
-REST_AUTH_DIGEST_STRETCHES = 10
+REST_AUTH_DIGEST_STRETCHES = AuthConfig.rest_auth_digest_stretches
