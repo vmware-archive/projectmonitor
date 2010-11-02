@@ -1,0 +1,11 @@
+development: &development
+  auth_required: false
+  openid_identifier: "example.com"
+  openid_realm: "http://example.com"
+  openid_return_to: "http://example.com/openid/success"
+
+test:
+  <<: *development
+
+production:
+  <<: *development

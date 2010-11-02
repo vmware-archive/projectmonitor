@@ -20,5 +20,9 @@ Spec::Runner.configure do |configuration|
   configuration.before(:all, :type => :controller) do
     @integrate_views = true
   end
+  configuration.before(:each) do
+    AuthConfig.reset!
+    AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth.yml"))
+  end
 end
 
