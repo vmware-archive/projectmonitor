@@ -155,7 +155,9 @@ describe User do
     describe "key present in environment" do
       it "should load the key from env" do
         ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return('foo')
-        ::SiteKeys.set_site_key
+        silence_warnings do
+          ::SiteKeys.set_site_key
+        end
         User.authenticate('old_password_holder', 'test').should be_nil
         REST_AUTH_SITE_KEY.should == 'foo'
       end
@@ -164,7 +166,9 @@ describe User do
     describe "key not present in environment" do
       it "should load the key from sitekeys.rb" do
         ENV.should_receive(:[]).with('REST_AUTH_SITE_KEY').and_return(nil)
-        ::SiteKeys.set_site_key
+        silence_warnings do
+          ::SiteKeys.set_site_key
+        end
         User.authenticate('old_password_holder', 'test').should be_nil
         REST_AUTH_SITE_KEY.should == 'replace-this-key-with-yours'
       end
