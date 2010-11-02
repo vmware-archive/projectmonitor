@@ -6,6 +6,7 @@ tmp/
 config/database.yml
 config/auth.yml
 .bundle
+vendor/cache
 .rvmrc
 .pairs
 db/*sqlite
