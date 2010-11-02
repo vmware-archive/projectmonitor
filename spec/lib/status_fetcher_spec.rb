@@ -202,6 +202,17 @@ describe StatusFetcher do
     end
   end
 
+  describe "#schedule_fetches" do
+    before do
+      silence_warnings { DELAYED_JOB_FETCH_INTERVAL_MINS = 60 }
+      @fetcher = StatusFetcher.new
+    end
+
+    it "should add scheduled fetches to delayed job" do
+      lambda { @fetcher.schedule_fetches }.should change(Delayed::Job, :count).by(24)
+    end
+  end
+
   private
 
   def fetch_build_history_with_xml_response(xml)
