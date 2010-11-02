@@ -42,7 +42,6 @@ GEM
     mongrel_cluster (1.0.5)
       gem_plugin (>= 0.2.3)
       mongrel (>= 1.0.2)
-    mysql (2.8.1)
     nokogiri (1.4.2)
     pg (0.9.0)
     rack (1.0.1)
@@ -89,7 +88,6 @@ DEPENDENCIES
   mime-types (= 1.16)
   mongrel (>= 1.1.5)
   mongrel_cluster (= 1.0.5)
-  mysql
   nokogiri (= 1.4.2)
   pg (= 0.9.0)
   rack (= 1.0.1)
