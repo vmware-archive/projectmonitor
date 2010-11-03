@@ -63,7 +63,7 @@ class OpenidsController < ApplicationController
     else
       flash[:notice] = "Logged in successfully"
       redirect_to root_path
-    end    
+    end
   end
 
   private
@@ -74,12 +74,12 @@ class OpenidsController < ApplicationController
 
   def append_ax(redirect_url)
     ax = %w{
-  openid.ns.ext1=http://openid.net/srv/ax/1.0
-  openid.ext1.mode=fetch_request
-  openid.ext1.type.email=http://axschema.org/contact/email
-  openid.ext1.type.firstName=http://axschema.org/namePerson/first,
-  openid.ext1.type.lastName=http://axschema.org/namePerson/last,
-  openid.ext1.required=email,firstName,lastName
+        openid.ns.ext1=http://openid.net/srv/ax/1.0
+        openid.ext1.mode=fetch_request
+        openid.ext1.type.email=http://axschema.org/contact/email
+        openid.ext1.type.firstName=http://axschema.org/namePerson/first,
+        openid.ext1.type.lastName=http://axschema.org/namePerson/last,
+        openid.ext1.required=email,firstName,lastName
       }.join("&")
     "#{redirect_url}&#{ax}"
   end
