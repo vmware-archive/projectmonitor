@@ -1,7 +1,4 @@
 class AuthConfig
-
-  SETTINGS = %w[rest_auth_site_key rest_auth_digest_stretches openid_identifier openid_realm openid_return_to]
-
   def self.load_from(path)
     config = File.exist?(path) ? YAML.load_file(path) : {}
     config[Rails.env] || {}
@@ -27,22 +24,29 @@ class AuthConfig
     end
   end
 
-  def self.method_missing(method, *args, &block)
-    m = method.to_s
-    if SETTINGS.include?(m)
-      ENV[m.upcase] || auth_config[m]
-    else
-      super
-    end
+  def self.rest_auth_site_key
+    ENV['REST_AUTH_SITE_KEY'] || auth_config['rest_auth_site_key']
   end
 
-  def self.respond_to?(method, *args)
-    SETTINGS.include?(method.to_s) || super
+  def self.rest_auth_digest_stretches
+    s = ENV['REST_AUTH_DIGEST_STRETCHES'] || auth_config['rest_auth_digest_stretches']
+    s && s.to_i
+  end
+
+  def self.openid_identifier
+    ENV['OPENID_IDENTIFIER'] || auth_config['openid_identifier']
+  end
+
+  def self.openid_realm
+    ENV['OPENID_REALM'] || auth_config['openid_realm']
+  end
+
+  def self.openid_return_to
+    ENV['OPENID_RETURN_TO'] || auth_config['openid_return_to']
   end
 
   # for testing
   def self.reset!
     @auth_config = nil
   end
-
 end

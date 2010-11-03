@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_from_google_openid(fetch_response)
-
     email = fetch_response.get_single('http://axschema.org/contact/email')
     first_name = fetch_response.get_single('http://axschema.org/namePerson/first')
     last_name = fetch_response.get_single('http://axschema.org/namePerson/last')
@@ -43,13 +42,13 @@ class User < ActiveRecord::Base
     email_parts = email.split('@')
     login = email_parts.first
 
-    user = User.find_by_email(email) || User.new(:email => email)
-    user.name = "#{first_name} #{last_name}"
-    user.login = login
+    user = User.find_by_login(login) || User.new(:login => login)
+    full_name = "#{first_name} #{last_name}"
+    user.name = full_name.blank? ? "" : full_name
+    user.email = email
 
     # todo - this is a bit of a hack for now...
     user.password = user.password_confirmation = ActiveSupport::SecureRandom.hex(16)
-
     user.save!
     user
   end
