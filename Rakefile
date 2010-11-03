@@ -8,4 +8,10 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 require 'tasks/rails'
 
+begin
+  require 'delayed/tasks'
+rescue LoadError
+  STDERR.puts "Run `rake gems:install` to install delayed_job"
+end
+
 Rake.application.options.trace = true
