@@ -34,7 +34,7 @@
     <div class="smaller_text">
       <i>As of <%= Time.now.strftime('%I:%M%p %Z %m/%d/%Y') %></i>
       <% if current_user.nil? %>
-          | <%= link_to "Log in", login_path %>
+          | <%= link_to "Log in", AuthConfig.openid? ? new_openid_path : login_path %>
       <% end %>
       <br/>
       <% if params[:controller] == "ci_monitor" %>

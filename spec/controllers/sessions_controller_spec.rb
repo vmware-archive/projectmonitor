@@ -186,19 +186,6 @@ describe SessionsController do
 end
 
 describe SessionsController do
-  before(:each) do
-    AuthConfig.stub(:auth_required).and_return(true)
-  end
-
-  describe "#new" do
-    it "should render an openid login link" do
-      get :new
-      response.should have_tag("div.page") do |page|
-        page.should have_tag('a', 'Login with Google OpenID')
-      end
-    end
-  end
-
   describe "#create" do
     before(:each) do
       User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
