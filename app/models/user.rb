@@ -27,11 +27,11 @@ class User < ActiveRecord::Base
   end
 
   def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
+    self[:login] = value && value.downcase
   end
 
   def email=(value)
-    write_attribute :email, (value ? value.downcase : nil)
+    self[:email] = value && value.downcase
   end
 
   def self.find_or_create_from_google_openid(fetch_response)
