@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
   include AuthenticatedSystem
 
-  skip_before_filter :auth_required?, :only => [:new, :create]
-  
   def new
   end
 

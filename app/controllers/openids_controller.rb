@@ -38,8 +38,6 @@ end
 
 class OpenidsController < ApplicationController
 
-  skip_before_filter :auth_required?, :only => [:new, :success]
-
   def new
     logout_keeping_session!
     checkid_request = get_openid_consumer.begin(AuthConfig.openid_identifier)
