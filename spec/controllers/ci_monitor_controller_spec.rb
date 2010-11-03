@@ -19,6 +19,32 @@ describe CiMonitorController do
       response.should be_success
     end
 
+    describe "login link" do
+      describe "using local password auth" do
+        before(:each) do
+          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-password.yml"))
+        end
+
+        it "renders link to /sessions/new" do
+          get :show
+          response.should be_success
+          response.should have_tag(%Q{a[href="#{login_path}"]})
+        end
+      end
+
+      describe "using openid auth" do
+        before(:each) do
+          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
+        end
+
+        it "renders link to /openid/new" do
+          get :show
+          response.should be_success
+          response.should have_tag(%Q{a[href="#{new_openid_path}"]})
+        end
+      end
+    end
+
     it "should filter by tag" do
       nyc_projects = Project.find_tagged_with('NYC')
       nyc_projects.should_not be_empty

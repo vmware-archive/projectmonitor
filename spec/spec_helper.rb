@@ -22,7 +22,6 @@ Spec::Runner.configure do |configuration|
   end
   configuration.before(:each) do
     AuthConfig.reset!
-    AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-false.yml"))
   end
 end
 

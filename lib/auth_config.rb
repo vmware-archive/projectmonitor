@@ -16,12 +16,16 @@ class AuthConfig
     @auth_config ||= self.load_auth_config
   end
 
-  def self.auth_required
-    if ENV['AUTH_REQUIRED'].nil?
-      auth_config['auth_required']
-    else
-      ENV['AUTH_REQUIRED']
-    end
+  def self.openid?
+    self.auth_strategy == "openid"
+  end
+
+  def self.password?
+    self.auth_strategy == "password"
+  end
+
+  def self.auth_strategy
+    ENV['AUTH_STRATEGY'] || auth_config['auth_strategy']
   end
 
   def self.rest_auth_site_key
