@@ -12,13 +12,20 @@ gem "httpauth", "0.1"
 gem "acts_as_taggable_on_steroids", "1.1"
 gem "ruby-openid", "2.1.8"
 gem "ruby-openid-apps-discovery", "1.2.0"
-gem "pg", "0.9.0"
-gem "heroku", "1.11.0"
 gem "rspec", "1.3.0"
 gem "rspec-rails", "1.3.2"
 gem "delayed_job", "2.0.3"
 
+group :postgres do
+  gem "pg", "0.9.0"
+end
+
+group :mysql do
+  gem "mysql", ">= 2.8.0"   ### assume in system gems
+end
+
 group :development do
+  gem "heroku", "1.11.0"
   gem "sqlite3-ruby"
   gem "mongrel", ">= 1.1.5"
   gem "mongrel_cluster", "1.0.5"
