@@ -1,19 +1,20 @@
 development: &development
   # set auth_required to:
-  #   false - no authentication
   #   "password" - use local auth storing passwords in database
   #   "openid" - use google openid for auth
-  auth_required: false
+  auth_required: password
   # you'll need these settings to support local auth using passwords in the database
   rest_auth_site_key: "replace-this-key-with-yours"
   rest_auth_digest_stretches: 10
   # you'll need these settings to use google openid
   openid_identifier: "example.com"
-  openid_realm: "http://example.com"
-  openid_return_to: "http://example.com/openid/success"
+  openid_realm: "http://localhost:3000
+  openid_return_to: "http://localhost:3000/openid/success"
 
 test:
   <<: *development
 
 production:
   <<: *development
+  openid_realm: "http://example.com"
+  openid_return_to: "http://example.com/openid/success"
