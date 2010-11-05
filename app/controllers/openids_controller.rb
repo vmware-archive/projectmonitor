@@ -47,6 +47,8 @@ class OpenidsController < ApplicationController
   end
 
   def success
+    redirect_to(root_path) && return if params["openid.mode"] == "cancel" 
+
     parameters = params.reject { |k, v| request.path_parameters[k] }
     current_url = url_for(:action => 'success', :only_path => false)
     consumer_response = get_openid_consumer.complete(parameters, current_url)

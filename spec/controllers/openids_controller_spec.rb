@@ -54,5 +54,9 @@ describe OpenidsController do
       current_user.email.should == "email@example.com"
     end
 
+    it "should redirect to project page when user cancels login" do
+      get :success, "openid.mode" => "cancel"
+      response.should redirect_to(root_path)
+    end
   end
 end
