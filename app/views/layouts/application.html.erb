@@ -52,7 +52,9 @@
           Hello, <%= current_user.login %>
           <br>
           <%= link_to "Projects", projects_path %> |
-          <%= link_to "New user", new_user_path %> |
+          <% if AuthConfig.password? %>
+            <%= link_to "New user", new_user_path %> | 
+          <% end %>
           <%= link_to "Log out", session_path, :method => :delete %>
         </div>
     <% end %>

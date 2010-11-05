@@ -30,6 +30,18 @@ describe CiMonitorController do
           response.should be_success
           response.should have_tag(%Q{a[href="#{login_path}"]})
         end
+
+        describe "logged in links" do
+          before(:each) do
+            log_in(create_user)
+          end
+
+          it "renders link to /users/new" do
+            get :show
+            response.should be_success
+            response.should have_tag(%Q{a[href="#{new_user_path}"]})
+          end
+        end
       end
 
       describe "using openid auth" do
@@ -41,6 +53,18 @@ describe CiMonitorController do
           get :show
           response.should be_success
           response.should have_tag(%Q{a[href="#{new_openid_path}"]})
+        end
+
+        describe "logged in links" do
+          before(:each) do
+            log_in(create_user)
+          end
+
+          it "renders link to /users/new" do
+            get :show
+            response.should be_success
+            response.should_not have_tag(%Q{a[href="#{new_user_path}"]})
+          end
         end
       end
     end
@@ -97,7 +121,7 @@ describe CiMonitorController do
         end
       end
     end
-    
+
     it "should display an exclamation for red projects not building" do
       get :show
       not_building_projects = Project.find_all_by_enabled(true).reject(&:building?)
