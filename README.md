@@ -95,7 +95,7 @@ Each build that you want CiMonitor to display is called a "project" in CiMonitor
 CiMonitor uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
 Your first user must be created at the command line.
 
-    RAILS_ENV=production script/console
+    script/console production
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
 
 After that, you can login with the "login" as the username to CiMonitor and use the "New User" link to create new users.
