@@ -5,7 +5,4 @@ task :setup do
 
   puts 'Config/auth.yml'
   system("cp config/auth.yml.example config/auth.yml") and puts "... done"
-
-  puts 'Generating auth site keys'
-  Rake::Task["auth:gen:site_key"].invoke and puts "... done"
 end

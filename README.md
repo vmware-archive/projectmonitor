@@ -50,24 +50,23 @@ for your database:
 
 ### Auth support
 
+Adding, editing and removing projects through the UI requires authentication.
+
 If you have not run `rake setup`, copy `auth.yml.example` to `auth.yml`.
 
     cp config/auth.yml.example config/auth.yml
 
-By default, anyone can view the CIMonitor home screen.  To require authorized users, set `auth_required: true`
+The site can be configured to use Google OpenId or to use the RestfulAuthentication plugin.
 
-    # config/auth.yml
-    production: 
-	  auth_required: true
-	...
+#### Google OpenId setup
 
-### Set up the site keys
+This setup requires you to have Google apps set up for your domain. 
 
-If you have not run `rake setup`, copy `site_keys.rb.example` to `site_keys.rb`.  Change `REST_AUTH_SITE_KEY` to
-something secret.
+In your `config/auth.yml` set the `auth_strategy` to `openid`. Then set the `openid_identifier`, `openid_realm`, and `openid_return_to` fields as appropriate for your domain.
 
-    cp config/initializers/site_keys.rb.example config/initializers/site_keys.rb
-    <edit site_keys.rb>
+#### Restful Authentication (`password`) setup 
+
+In the `config/auth.yml` set the `auth_strategy` to `password`, and edit the `rest_auth_site_key` to be something secret.
 
 ### Set up cron
 
@@ -92,13 +91,14 @@ Each build that you want CiMonitor to display is called a "project" in CiMonitor
 
 ### Create a user
 
-CiMonitor uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
+CiMonitor can use either the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication), or Google OpenId for user security. If you are using Google OpenId, users will be automatically provisioned.  All users from your domain will be permitted to edit projects. Otherwise, use the following steps to add users by hand.
+
 Your first user must be created at the command line.
 
     script/console production
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
 
-After that, you can login with the "login" as the username to CiMonitor and use the "New User" link to create new users.
+After that, you can login to CiMonitor with the username and password you specified and use the "New User" link to create additional users.
 
 ### Log in
 
