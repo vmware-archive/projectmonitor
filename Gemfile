@@ -1,8 +1,7 @@
 source :rubygems
 gem "bundler", "~> 1.0.0"
 
-gem "rails", "2.3.5"
-gem "rack", "1.0.1"
+gem "rails", "2.3.10"
 gem "rake", "0.8.7"
 gem "gem_plugin", "0.2.3"
 gem "mime-types", "1.16"
