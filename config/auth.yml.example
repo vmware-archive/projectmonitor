@@ -8,7 +8,7 @@ development: &development
   rest_auth_digest_stretches: 10
   # you'll need these settings to use google openid
   openid_identifier: "example.com"
-  openid_realm: "http://localhost:3000
+  openid_realm: "http://localhost:3000"
   openid_return_to: "http://localhost:3000/openid/success"
 
 test:
