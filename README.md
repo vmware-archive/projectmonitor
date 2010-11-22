@@ -149,7 +149,7 @@ CI for CiMonitor is [here](http://ci.pivotallabs.com:3333/builds/CiMonitor), and
 The public Tracker project for CiMonitor is [here](http://www.pivotaltracker.com/projects/2872).
 
 To run tests, run:
-
+    rake setup
     rake spec
 
 Copyright (c) 2010 Pivotal Labs. This software is licensed under the MIT License.
