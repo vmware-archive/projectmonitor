@@ -25,15 +25,15 @@ class StatusFetcher
   end
 
   def fetch_build_history(project)
-    returning(retrieve_status_for(project)) do |current_status|
-      project.statuses.build(current_status.attributes).save unless project.status.match?(current_status)
-    end
+    current_status = retrieve_status_for(project)
+    project.statuses.build(current_status.attributes).save unless project.status.match?(current_status)
+    current_status
   end
 
   def fetch_building_status(project)
-    returning(retrieve_building_status_for(project)) do |building_status|
-      project.update_attribute(:building, building_status.building?)
-    end
+    building_status = retrieve_building_status_for(project)
+    project.update_attribute(:building, building_status.building?)
+    building_status
   end
 
   private
