@@ -1,3 +1,4 @@
+require 'nokogiri'
 class CruiseControlProject < Project
   validates_format_of :feed_url, :with => /http:\/\/.*.rss$/
   
