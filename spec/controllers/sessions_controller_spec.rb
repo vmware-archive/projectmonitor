@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
+require 'spec_helper'
 
 describe SessionsController do
   fixtures :users
@@ -58,7 +58,7 @@ describe SessionsController do
 
             it "greets me nicely" do
               do_create
-              response.flash[:notice].should =~ /success/i
+              request.flash[:notice].should =~ /success/i
             end
 
             it "sets/resets/expires cookie" do
@@ -161,7 +161,7 @@ describe SessionsController do
     it "doesn't send password back" do
       @login_params[:password] = 'FROBNOZZ'
       do_create
-      response.should_not have_text(/FROBNOZZ/i)
+      response.body.should_not =~ /FROBNOZZ/i
     end
   end
 

@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   before_filter :adjust_format_for_iphone
 
-  filter_parameter_logging :password
-
   protected
 
   def adjust_format_for_iphone

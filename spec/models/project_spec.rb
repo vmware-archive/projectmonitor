@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require 'spec_helper'
 
 describe Project do
   class RandomProject < Project;end;
@@ -139,7 +139,7 @@ describe Project do
       project = projects(:pivots)
       project.should be_green
 
-      broken_at = Time.now
+      broken_at = Time.now.utc
       3.times do
         project.statuses.create!(:online => false)
         broken_at += 5.minutes
@@ -151,7 +151,7 @@ describe Project do
 
       # Argh.  What is the assert_approximately_equal matcher for rspec?
       # And why is the documentation for it so hard to find?
-      project.red_since.to_s.should == broken_at.to_s
+      project.red_since.to_s(:db).should == broken_at.to_s(:db)
     end
   end
 

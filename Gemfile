@@ -1,7 +1,7 @@
 source :rubygems
 gem "bundler"
 
-gem "rails", "~> 2.3.10"
+gem "rails", "3.0.3"
 gem "rake"
 gem "gem_plugin"
 gem "mime-types"
@@ -11,8 +11,7 @@ gem "httpauth"
 gem "acts_as_taggable_on_steroids"
 gem "ruby-openid"
 gem "ruby-openid-apps-discovery"
-gem "rspec", "~> 1.3.0"
-gem "rspec-rails", "~> 1.3.2"
+gem "rspec-rails", "2.2.0"
 gem "delayed_job"
 
 group :postgres do
@@ -34,7 +33,7 @@ group :development do
 end
 
 group :test do
-  gem "jasmine"
+  gem "jasmine", "1.0.1.1"
   gem "mongrel", "~> 1.2.0.pre2"
   gem "mongrel_cluster"
   gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"

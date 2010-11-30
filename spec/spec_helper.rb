@@ -1,27 +1,43 @@
-ENV["RAILS_ENV"] ||= "test"
-require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
-require 'spec'
-require 'spec/autorun'
-require 'spec/rails'
-require 'nokogiri'
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Spec::Runner.configure do |configuration|
-  configuration.use_transactional_fixtures = true
-  configuration.use_instantiated_fixtures  = false
-  configuration.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  configuration.global_fixtures = :all
-  configuration.include AuthenticatedTestHelper
-  configuration.include(ControllerTestHelper, :type => :controller)
-  configuration.include(ObjectMother)
-  configuration.before(:all, :type => :controller) do
-    @integrate_views = true
+RSpec.configure do |config|
+  # == Mock Framework
+  #
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+  #
+  # config.mock_with :mocha
+  # config.mock_with :flexmock
+  # config.mock_with :rr
+  config.mock_with :rspec
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+  
+#  config.use_transactional_fixtures = true
+  config.use_instantiated_fixtures  = false
+#  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.global_fixtures = :messages, :project_statuses, :projects, :taggings, :tags, :users
+  config.include AuthenticatedTestHelper
+  config.include(ControllerTestHelper, :type => :controller)
+  config.include ObjectMother
+  config.include CiMonitorSpec::Rails::Matchers
+  config.before(:all, :type => :controller) do
+    @render_views = true
   end
-  configuration.before(:each) do
+  config.before(:each) do
     AuthConfig.reset!
   end
+  
 end
-

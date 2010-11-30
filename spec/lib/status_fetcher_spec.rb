@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require 'spec_helper'
 
 shared_examples_for "all build history fetches" do
   it "should not create a new status entry if the status has not changed since the previous fetch" do
