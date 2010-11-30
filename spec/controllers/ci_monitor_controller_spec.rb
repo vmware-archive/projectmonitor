@@ -1,15 +1,11 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require 'spec_helper'
 
 describe CiMonitorController do
-  integrate_views
+  render_views
 
   describe "routes" do
     it "should map /cimonitor to #show" do
-      params_from(:get, "/cimonitor").should == {:controller => "ci_monitor", :action => "show"}
-    end
-
-    it "should map #show to /cimonitor by default" do
-      route_for(:controller => "ci_monitor", :action => "show").should == "/cimonitor"
+      {:get => "/cimonitor"}.should route_to(:controller => 'ci_monitor', :action => 'show')
     end
   end
 
@@ -74,7 +70,7 @@ describe CiMonitorController do
       nyc_projects.should_not be_empty
 
       get :show, :size => 'tiny', :tags => 'NYC'
-      assigns(:projects).should contain_exactly(nyc_projects)
+      assigns(:projects).should =~ nyc_projects
     end
 
     it "should sort the projects by name" do
@@ -165,12 +161,12 @@ describe CiMonitorController do
         it "should have a valid item for each project" do
           @all_projects.each do |project|
             response.should have_tag('rss channel item') do
-             with_tag("title", /#{project.name}/)
-             with_tag("link", project.status.url)
-             with_tag("guid", project.status.url)
-             with_tag("description")
-             with_tag("pubDate", project.status.published_at.to_s)
-           end
+              with_tag("title", /#{project.name}/)
+              with_tag("link", project.status.url)
+              with_tag("guid", project.status.url)
+              with_tag("description")
+              with_tag("pubDate", project.status.published_at.to_s)
+            end
           end
         end
 

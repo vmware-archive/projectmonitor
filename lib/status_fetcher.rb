@@ -18,7 +18,7 @@ class StatusFetcher
 
     unless errors.empty?
       error_msg = errors.join("\n")
-      STDERR.puts(error_msg) unless RAILS_ENV == 'test' # TODO: better way to write to stderr without spamming test output?
+      STDERR.puts(error_msg) unless Rails.env.test? # TODO: better way to write to stderr without spamming test output?
       raise "ALL projects had errors fetching status" if errors.size == projects.size
     end
     0

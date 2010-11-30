@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require 'spec_helper'
 
 describe UsersController do
   it "requires login" do
@@ -39,7 +39,7 @@ describe UsersController do
   end
 
   it "should generate params for users's new action from GET /users" do
-    params_from(:get, '/users/new').should == {:controller => 'users', :action => 'new'}
-    params_from(:post, '/users').should == {:controller => 'users', :action => 'create'}
+    {:get => "/users/new"}.should route_to(:controller => 'users', :action => 'new')
+    {:post => "/users"}.should route_to(:controller => 'users', :action => 'create')
   end
 end

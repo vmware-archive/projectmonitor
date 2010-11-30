@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec_helper'))
+require 'spec_helper'
 
 describe CiMonitorNotifier do
   before(:each) do
@@ -34,10 +34,10 @@ describe CiMonitorNotifier do
 
       it "should include the names of only projects that have been red for over one day in the email" do
         mail = ActionMailer::Base.deliveries.first
-        mail.body.should include(@long_red_project.name)
-        mail.body.should_not include(@short_red_project.name)
-        mail.body.should_not include(@green_project.name)
-        mail.body.should_not include(@offline_project.name)
+        mail.body.encoded.should include(@long_red_project.name)
+        mail.body.encoded.should_not include(@short_red_project.name)
+        mail.body.encoded.should_not include(@green_project.name)
+        mail.body.encoded.should_not include(@offline_project.name)
       end
 
       it "should send the email to the recipients specified by the environment" do
@@ -47,7 +47,7 @@ describe CiMonitorNotifier do
 
       it "should not send emails for disabled projects" do
         mail = ActionMailer::Base.deliveries.first
-        mail.body.should_not include(@long_red_disabled_project.name)
+        mail.body.encoded.should_not include(@long_red_disabled_project.name)
       end
     end
 

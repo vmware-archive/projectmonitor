@@ -42,7 +42,7 @@
         <%= select_tag "refreshInterval",
                            options_for_select([["15 seconds", "15"], ["30 seconds", "30"], ["60 seconds", "60"], ["5 minutes", "300"], ["Never", "0"]]),
                            :onchange => "onChangeRefreshTimeoutDropdown()", :style => "display: none" %>
-        <% javascript_tag do %>
+        <%= javascript_tag do %>
         setRefreshIntervalDropdown();
       <% end %>
       <% end %>
@@ -77,7 +77,7 @@
 
 </div>
 
-<% if RAILS_ENV=='production' %>
+<% if Rails.env.production? %>
     <% javascript_tag do %>
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js'
