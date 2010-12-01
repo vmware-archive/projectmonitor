@@ -24,7 +24,7 @@ end
 
 group :development do
   gem "heroku"
-  gem "sqlite3-ruby"
+  gem "sqlite3-ruby", "1.3.1"
   gem "mongrel", "~> 1.2.0.pre2"
   gem "mongrel_cluster"
   gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
