@@ -39,4 +39,5 @@ group :test do
   gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
   gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
   gem "ruby-debug-ide"
+  gem "headless", "0.1.0"
 end

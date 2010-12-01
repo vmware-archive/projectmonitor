@@ -41,6 +41,7 @@ GEM
       abstract (>= 1.0.0)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
+    headless (0.1.0)
     heroku (1.14.4)
       json_pure (>= 1.2.0, < 1.5.0)
       launchy (~> 0.3.2)
@@ -132,6 +133,7 @@ DEPENDENCIES
   delayed_job
   fastthread
   gem_plugin
+  headless (= 0.1.0)
   heroku
   httpauth
   jasmine (= 1.0.1.1)
