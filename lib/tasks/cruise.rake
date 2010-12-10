@@ -1,6 +1,6 @@
-require "headless"
-
 task :cruise do
+
+  require "headless"
 
   Rake::Task["spec"].invoke
 
