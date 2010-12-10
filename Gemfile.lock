@@ -37,7 +37,6 @@ GEM
       activesupport (~> 3.0)
       daemons
     diff-lcs (1.1.2)
-    dispatcher (0.0.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastthread (1.0.7)
@@ -132,7 +131,6 @@ DEPENDENCIES
   acts_as_taggable_on_steroids
   bundler
   delayed_job
-  dispatcher
   fastthread
   gem_plugin
   headless (= 0.1.0)
@@ -140,7 +138,7 @@ DEPENDENCIES
   httpauth
   jasmine (= 1.0.1.1)
   mime-types
-  mongrel (~> 1.2.0.pre2)
+  mongrel
   mongrel_cluster
   mysql
   nokogiri
