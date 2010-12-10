@@ -38,4 +38,5 @@ end
 group :standard_env do
   gem "mongrel", "~> 1.2.0.pre2"
   gem "mongrel_cluster"
+  gem "dispatcher"
 end
