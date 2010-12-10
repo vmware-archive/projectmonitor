@@ -25,8 +25,6 @@ end
 group :development do
   gem "heroku"
   gem "sqlite3-ruby", "1.3.1"
-  gem "mongrel", "~> 1.2.0.pre2"
-  gem "mongrel_cluster"
   gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
   gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
   gem "ruby-debug-ide"
@@ -34,10 +32,10 @@ end
 
 group :test do
   gem "jasmine", "1.0.1.1"
+  gem "headless", "0.1.0"
+end
+
+group :standard_env do
   gem "mongrel", "~> 1.2.0.pre2"
   gem "mongrel_cluster"
-  gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
-  gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
-  gem "ruby-debug-ide"
-  gem "headless", "0.1.0"
 end
