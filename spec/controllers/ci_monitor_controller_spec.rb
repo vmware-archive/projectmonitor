@@ -129,9 +129,17 @@ describe CiMonitorController do
       end
     end
 
-    it "should not include an auto dicovery rss link until it has stabilized" do
+    it "should not include an auto discovery rss link until it has stabilized" do
       get :show
       response.should_not have_tag("head link[rel=alternate][type=application/rss+xml]")
+    end
+
+    it "should not incorrectly escape html" do
+      get :show
+      response.should_not have_tag("span.sparkline", '&lt;span')
+      Nokogiri::HTML(response.body).css('.sparkline').each do |node|
+        node.to_s.should_not include '&lt;'
+      end
     end
 
     context "when the format is rss" do

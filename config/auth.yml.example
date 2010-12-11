@@ -1,8 +1,8 @@
 development: &development
-  # set auth_required to:
+  # set auth_strategy to:
   #   "password" - use local auth storing passwords in database
   #   "openid" - use google openid for auth
-  auth_required: password
+  auth_strategy: password
   # you'll need these settings to support local auth using passwords in the database
   rest_auth_site_key: "replace-this-key-with-yours"
   rest_auth_digest_stretches: 10
