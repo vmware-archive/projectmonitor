@@ -36,6 +36,5 @@ group :test do
 end
 
 group :standard_env do
-  gem "mongrel"
-  gem "mongrel_cluster"
+  gem "thin"
 end
