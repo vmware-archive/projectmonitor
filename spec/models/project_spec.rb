@@ -92,18 +92,6 @@ describe Project do
     end
   end
 
-  describe "#recent_online_statuses" do
-    it "should should return 'count' recent online statuses" do
-      project = projects(:socialitis)
-      project.statuses.delete_all
-      online_status = project.statuses.create!(:success => false, :online => true)
-      offline_status = project.statuses.create!(:success => false, :online => false)
-
-      project.recent_online_statuses.should include(online_status)
-      project.recent_online_statuses.should_not include(offline_status)
-    end
-  end
-
   describe "#red_since" do
     it "should return #published_at for the red status after the most recent green status" do
       project = projects(:socialitis)

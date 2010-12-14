@@ -5,6 +5,10 @@ class ProjectStatus < ActiveRecord::Base
   FAILURE = 'failure'
   OFFLINE = 'offline'
 
+  scope :online, lambda{ |proj, count|
+    where(:project_id => proj.id, :online => true).limit(count)
+  }
+
   def match?(status)
     if self.online
       all_attributes_match?(status)
