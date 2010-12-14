@@ -5,6 +5,20 @@ describe ProjectStatus do
     @project_status = ProjectStatus.new
   end
 
+  describe 'scopes' do
+    describe "#recent_online_statuses" do
+      it "should only return online statuses" do
+        project = projects(:socialitis)
+        project.statuses.delete_all
+        online_status = project.statuses.create!(:success => false, :online => true)
+        offline_status = project.statuses.create!(:success => false, :online => false)
+
+        ProjectStatus.online(project, 1).should include(online_status)
+        ProjectStatus.online(project, 1).should_not include(offline_status)
+      end
+    end
+  end
+
   it "should default to not online" do
     @project_status.should_not be_online
   end

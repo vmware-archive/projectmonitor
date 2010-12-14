@@ -52,7 +52,7 @@ class Project < ActiveRecord::Base
   end
 
   def recent_online_statuses(count = RECENT_STATUS_COUNT)
-    statuses.reject{|s| !s.online}.reverse.last(count)
+    ProjectStatus.online(self, count)
   end
 
   def set_next_poll!

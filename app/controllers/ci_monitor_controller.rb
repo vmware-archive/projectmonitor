@@ -1,7 +1,9 @@
 class CiMonitorController < ApplicationController
   def show
-    @projects = Project.with_options(:conditions => {:enabled => true}, :order => 'name', :include => :statuses) do |sorted|
-      params[:tags] ? sorted.find_tagged_with(params[:tags]) : sorted.find(:all)
+    if params[:tags]
+      @projects = Project.find_tagged_with(params[:tags], :conditions => {:enabled => true}, :order => 'name', :include => :statuses)
+    else
+      @projects = Project.where(:enabled => true).order(:name)
     end
 
     @messages = Message.all
