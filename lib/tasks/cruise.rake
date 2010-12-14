@@ -2,8 +2,6 @@ task :cruise do
 
   require "headless"
 
-  Rake::Task["spec"].invoke
-
   sh 'rake setup'
   sh 'rake db:migrate'
   sh 'rake db:schema:load RAILS_ENV=test'
