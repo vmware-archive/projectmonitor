@@ -48,8 +48,9 @@ CiMonitor::Application.configure do
   config.active_support.deprecation = :notify
 
   #cache busting per deploy only
-  timestamp = Time.now.to_i
+  TIMESTAMP = Time.now.to_i
+  
   config.action_controller.asset_path = proc { |asset_path|
-    "#{asset_path}?#{timestamp}"
+    "#{asset_path}?#{TIMESTAMP}"
   }
 end
