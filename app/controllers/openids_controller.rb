@@ -25,7 +25,7 @@ class OpenidsController < ApplicationController
       return
     end
 
-    parameters = params.reject { |k, v| request.path_parameters[k] }
+    parameters = params.reject { |k, v| k == 'action' || k == 'controller'}
     current_url = url_for(:action => 'success', :only_path => false)
     consumer_response = get_openid_consumer.complete(parameters, current_url)
 
