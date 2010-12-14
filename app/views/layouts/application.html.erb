@@ -10,7 +10,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
   <title><%= title %></title>
-  <%= javascript_include_tag 'refresh' %>
+  <%= javascript_include_tag :defaults, 'refresh' %>
   <%= stylesheet_link_tag 'style' %>
   <%= stylesheet_link_tag 'sparkline' %>
   <%= yield :head %>
@@ -55,7 +55,7 @@
           <% if AuthConfig.password? %>
             <%= link_to "New user", new_user_path %> | 
           <% end %>
-          <%= link_to "Log out", session_path, :method => :delete %>
+          <%= link_to "Log out", logout_path %>
         </div>
     <% end %>
 

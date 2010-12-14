@@ -2,6 +2,7 @@ CiMonitor::Application.routes.draw do
 
   root :to => 'default#show'
   match 'login' => 'sessions#new'
+  match 'logout' => 'sessions#destroy'
 
   resources :users, :only => [:new, :create]
   resource :openid, :only => [:new, :success] do
@@ -13,5 +14,4 @@ CiMonitor::Application.routes.draw do
   resource :cimonitor, :controller => :ci_monitor, :only => [:show]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy]
   resources :messages, :only => [:index, :new, :create, :edit, :update, :destroy]
-
 end
