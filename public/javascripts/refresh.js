@@ -1,4 +1,4 @@
-var defaultRefreshTimeout = 30;
+var defaultRefreshTimeout = 60;
 var currentTimeout = null;
 
 function scheduleRefresh() {
