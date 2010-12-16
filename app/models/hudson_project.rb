@@ -1,5 +1,5 @@
 class HudsonProject < Project
-  validates_format_of :feed_url, :with =>  /http:\/\/.*job\/.*\/rssAll$/
+  validates_format_of :feed_url, :with =>  /http:\/\/.*job\/.*\/rssAll$/, :message => "should look like: http://*job/*/rssAll"
 
   def project_name
     return nil if feed_url.nil?

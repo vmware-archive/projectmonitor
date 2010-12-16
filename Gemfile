@@ -13,6 +13,7 @@ gem "ruby-openid"
 gem "ruby-openid-apps-discovery"
 gem "rspec-rails", "2.2.0"
 gem "delayed_job"
+gem "dynamic_form"
 
 group :postgres do
   gem "pg"
