@@ -39,5 +39,5 @@ RSpec.configure do |config|
   config.before(:each) do
     AuthConfig.reset!
   end
-  
+
 end
