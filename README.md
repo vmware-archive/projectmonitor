@@ -119,7 +119,7 @@ left.
 
 ## Display
 
-Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
+Just open a browser on `/`. The page will refresh every 60 seconds. When it refreshes, it shows whatever status was last
 fetched by the cron job. That is, a refresh doesn't cause the individual Builds to be polled.
 
 CiMonitor shows a big green check or a big red X to indicate a build's status. In addition, it shows the history of a
