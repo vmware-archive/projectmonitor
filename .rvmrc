@@ -1,1 +1,1 @@
-rvm --create ree@cimonitor
+rvm --create use ree@cimonitor
