@@ -1,6 +1,6 @@
 class TeamCityRestProject < Project
-  # http://teamcity:8111/app/rest/builds?locator=running:all,buildType:(id:bt2)
-  validates_format_of :feed_url, :with => /http:\/\/.*\/app\/rest\/builds\?locator=running:all,buildType:\(id:bt\d*\)$/
+  validates_format_of :feed_url, :with => /http:\/\/.*\/app\/rest\/builds\?locator=running:all,buildType:\(id:bt\d*\)$/,
+                        :message => "should look like: http://*/app/rest/builds?locator=running:all,buildType:(id:bt*)"
 
   def build_status_url
     feed_url
