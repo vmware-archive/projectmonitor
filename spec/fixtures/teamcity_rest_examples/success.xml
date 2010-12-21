@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<builds count="9">
+  <build id="10" number="9" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:10"
+         webUrl="http://localhost:8111/viewLog.html?buildId=10&amp;buildTypeId=bt2"/>
+  <build id="9" number="8" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:9"
+         webUrl="http://localhost:8111/viewLog.html?buildId=9&amp;buildTypeId=bt2"/>
+  <build id="8" number="7" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:8"
+         webUrl="http://localhost:8111/viewLog.html?buildId=8&amp;buildTypeId=bt2"/>
+  <build id="6" number="6" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:6"
+         webUrl="http://localhost:8111/viewLog.html?buildId=6&amp;buildTypeId=bt2"/>
+  <build id="5" number="5" status="ERROR" buildTypeId="bt2" href="/app/rest/builds/id:5"
+         webUrl="http://localhost:8111/viewLog.html?buildId=5&amp;buildTypeId=bt2"/>
+  <build id="4" number="4" status="FAILURE" buildTypeId="bt2" href="/app/rest/builds/id:4"
+         webUrl="http://localhost:8111/viewLog.html?buildId=4&amp;buildTypeId=bt2"/>
+  <build id="3" number="3" status="ERROR" buildTypeId="bt2" href="/app/rest/builds/id:3"
+         webUrl="http://localhost:8111/viewLog.html?buildId=3&amp;buildTypeId=bt2"/>
+  <build id="2" number="2" status="ERROR" buildTypeId="bt2" href="/app/rest/builds/id:2"
+         webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt2"/>
+  <build id="1" number="1" status="ERROR" buildTypeId="bt2" href="/app/rest/builds/id:1"
+         webUrl="http://localhost:8111/viewLog.html?buildId=1&amp;buildTypeId=bt2"/>
+</builds>
