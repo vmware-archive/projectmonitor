@@ -3,12 +3,13 @@ require 'net/https'
 
 class UrlRetriever
   def retrieve_content_at(url, username = nil, password = nil)
-    response = do_get(url)
-    unless response['www-authenticate'].nil?
-      response = do_get(url) { |get| get.basic_auth(username, password)}
-      unless response['www-authenticate'].nil?
+    if username.present? && password.present?
+      response = do_get(url) { |get| get.basic_auth(username, password) }
+      if response['www-authenticate'].present?
         response = do_get(url) { |get| digest_auth(get, response, username, password) }
       end
+    else
+      response = do_get(url)
     end
     raise Net::HTTPError.new("Error: got non-200 return code #{response.code} from #{url}, body = '#{response.body}'", nil) unless response.code.to_i == 200
     response.body
