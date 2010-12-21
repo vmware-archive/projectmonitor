@@ -7,16 +7,12 @@ are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently suppo
 
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
   * [Hudson](http://hudson-ci.org/)
-  * [Team City](http://www.jetbrains.com/teamcity/)
-
-NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server.
-You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
+  * [TeamCity](http://www.jetbrains.com/teamcity/)
 
 We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also
 have an instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the
 status of the builds of various open source projects - both of projects Pivotal Labs maintains (such as Refraction)
-and of non-Pivotal projects (such as
-Rails).
+and of non-Pivotal projects (such as Rails).
 
 ## Installation
 
@@ -109,6 +105,15 @@ Open a browser on CiMonitor. Login by clicking on "Login" in the upper-right cor
 Click on "Projects" in the upper-right corner. Click on "New Project" and enter the details for a build
 you want to display on CiMonitor. The "Name", "Project Type", and "Feed URL" are required. If your Feed URL is
 http://myhost.com:3333/projects/MyProject, then your RSS URL is probably http://myhost.com:3333/projects/MyProject.rss.
+
+#### TeamCity
+To configure TeamCity:
+
+*   Choose Team City Rest Project for the project type
+*   URL looks like: http://teamcity:8111/app/rest/builds?locator=running:all,buildType:(id:bt*) where * is the buildTypeId from the TeamCity Build Configuration.
+*   Requires a username and password that match a valid account in TeamCity with access to the Build Configuration.
+
+NOTE: The Cradiator-TeamCity-Plugin is deprecated. Please use the Team City Rest Project configuration, which is natively supported by TeamCity 5+.
 
 Optionally, if your Build system is behind Basic Authentication or Digest Authentication, you can enter the credentials.
 
