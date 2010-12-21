@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<builds count="3">
+  <build id="4" number="3" status="ERROR" buildTypeId="bt3" href="/app/rest/builds/id:4"
+         webUrl="http://localhost:8111/viewLog.html?buildId=4&amp;buildTypeId=bt3"/>
+  <build id="3" number="2" status="ERROR" buildTypeId="bt3" href="/app/rest/builds/id:3"
+         webUrl="http://localhost:8111/viewLog.html?buildId=3&amp;buildTypeId=bt3"/>
+  <build id="2" number="1" status="ERROR" buildTypeId="bt3" href="/app/rest/builds/id:2"
+         webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt3"/>
+</builds>
