@@ -1,11 +1,11 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 describe ProjectsController do
   describe "with no logged in user" do
     describe "all actions" do
       it "should redirect to the login page" do
         get :index
-        response.should redirect_to(new_login_path)
+        response.should redirect_to(login_path)
       end
     end
   end

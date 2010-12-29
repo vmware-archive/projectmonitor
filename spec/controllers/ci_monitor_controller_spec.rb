@@ -1,25 +1,11 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-
-class SvnSheller
-  def retrieve
-    File.read('test/fixtures/svn_log_examples/svn.xml')
-  end
-end
+require 'spec_helper'
 
 describe CiMonitorController do
-  integrate_views
+  render_views
 
   describe "routes" do
-    it "should map /cimontor to #show" do
-      params_from(:get, "/cimonitor").should == {:controller => "ci_monitor", :action => "show"}
-    end
-
-    it "should map /builds to #show" do
-      params_from(:get, "/builds").should == {:controller => "ci_monitor", :action => "show"}
-    end
-
-    it "should map #show to /cimonitor by default" do
-      route_for(:controller => "ci_monitor", :action => "show").should == "/cimonitor"
+    it "should map /cimonitor to #show" do
+      {:get => "/cimonitor"}.should route_to(:controller => 'ci_monitor', :action => 'show')
     end
   end
 
@@ -29,12 +15,62 @@ describe CiMonitorController do
       response.should be_success
     end
 
+    describe "login link" do
+      describe "using local password auth" do
+        before(:each) do
+          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-password.yml"))
+        end
+
+        it "renders link to /sessions/new" do
+          get :show
+          response.should be_success
+          response.should have_tag(%Q{a[href="#{login_path}"]})
+        end
+
+        describe "logged in links" do
+          before(:each) do
+            log_in(create_user)
+          end
+
+          it "renders link to /users/new" do
+            get :show
+            response.should be_success
+            response.should have_tag(%Q{a[href="#{new_user_path}"]})
+          end
+        end
+      end
+
+      describe "using openid auth" do
+        before(:each) do
+          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
+        end
+
+        it "renders link to /openid/new" do
+          get :show
+          response.should be_success
+          response.should have_tag(%Q{a[href="#{new_openid_path}"]})
+        end
+
+        describe "logged in links" do
+          before(:each) do
+            log_in(create_user)
+          end
+
+          it "renders link to /users/new" do
+            get :show
+            response.should be_success
+            response.should_not have_tag(%Q{a[href="#{new_user_path}"]})
+          end
+        end
+      end
+    end
+
     it "should filter by tag" do
       nyc_projects = Project.find_tagged_with('NYC')
       nyc_projects.should_not be_empty
 
       get :show, :size => 'tiny', :tags => 'NYC'
-      assigns(:projects).should contain_exactly(nyc_projects)
+      assigns(:projects).should =~ nyc_projects
     end
 
     it "should sort the projects by name" do
@@ -81,7 +117,7 @@ describe CiMonitorController do
         end
       end
     end
-    
+
     it "should display an exclamation for red projects not building" do
       get :show
       not_building_projects = Project.find_all_by_enabled(true).reject(&:building?)
@@ -93,15 +129,16 @@ describe CiMonitorController do
       end
     end
 
-    it "should not include an auto dicovery rss link until it has stabilized" do
+    it "should not include an auto discovery rss link until it has stabilized" do
       get :show
       response.should_not have_tag("head link[rel=alternate][type=application/rss+xml]")
     end
 
-    xit "should include an auto dicovery rss link" do
+    it "should not incorrectly escape html" do
       get :show
-      response.should have_tag("head") do
-        with_tag('link[href=http://test.host/builds.rss][rel=alternate][title=RSS][type=application/rss+xml]')
+      response.should_not have_tag("span.sparkline", '&lt;span')
+      Nokogiri::HTML(response.body).css('.sparkline').each do |node|
+        node.to_s.should_not include '&lt;'
       end
     end
 
@@ -132,12 +169,12 @@ describe CiMonitorController do
         it "should have a valid item for each project" do
           @all_projects.each do |project|
             response.should have_tag('rss channel item') do
-             with_tag("title", /#{project.name}/)
-             with_tag("link", project.status.url)
-             with_tag("guid", project.status.url)
-             with_tag("description")
-             with_tag("pubDate", project.status.published_at.to_s)
-           end
+              with_tag("title", /#{project.name}/)
+              with_tag("link", project.status.url)
+              with_tag("guid", project.status.url)
+              with_tag("description")
+              with_tag("pubDate", project.status.published_at.to_s)
+            end
           end
         end
 

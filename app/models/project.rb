@@ -37,10 +37,10 @@ class Project < ActiveRecord::Base
     return nil if feed_url.nil?
 
     url_components = URI.parse(feed_url)
-    returning("#{url_components.scheme}://#{url_components.host}") do |url|
+    ["#{url_components.scheme}://#{url_components.host}"].tap do |url|
       url << ":#{url_components.port}" if url_components.port
       url << "/XmlStatusReport.aspx"
-    end
+    end.join
   end
 
   def project_name
@@ -52,7 +52,7 @@ class Project < ActiveRecord::Base
   end
 
   def recent_online_statuses(count = RECENT_STATUS_COUNT)
-    statuses.reject{|s| !s.online}.reverse.last(count)
+    ProjectStatus.online(self, count)
   end
 
   def set_next_poll!
@@ -62,6 +62,14 @@ class Project < ActiveRecord::Base
 
   def needs_poll?
     self.next_poll_at.nil? || self.next_poll_at <= Time.now
+  end
+
+  def parse_project_status(content)
+    ProjectStatus.new(:online => false, :success => false)
+  end
+
+  def parse_building_status(content)
+    BuildingStatus.new(false)
   end
 
   private

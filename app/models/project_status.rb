@@ -5,11 +5,15 @@ class ProjectStatus < ActiveRecord::Base
   FAILURE = 'failure'
   OFFLINE = 'offline'
 
-  def match?(hash)
+  scope :online, lambda{ |proj, count|
+    where(:project_id => proj.id, :online => true).limit(count)
+  }
+
+  def match?(status)
     if self.online
-      all_attributes_match?(hash)
+      all_attributes_match?(status)
     else
-      !hash[:online]
+      !status.online
     end
   end
   
@@ -27,9 +31,9 @@ class ProjectStatus < ActiveRecord::Base
   
   private
 
-  def all_attributes_match?(hash)
+  def all_attributes_match?(other)
     [:online, :success, :published_at, :url].all? do |attribute|
-      hash[attribute] == self.send(attribute)
+      other.send(attribute) == self.send(attribute)
     end
   end
 end
