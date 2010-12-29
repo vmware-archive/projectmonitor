@@ -9,11 +9,13 @@ are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently suppo
   * [Hudson](http://hudson-ci.org/)
   * [Team City](http://www.jetbrains.com/teamcity/)
 
-NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server. You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
+NOTE: To get TeamCity to output the feed data needed for CIMonitor, you need to install a plugin into the server.
+You can find the plugin at [http://github.com/iwz/Cradiator-TeamCity-Plugin](http://github.com/iwz/Cradiator-TeamCity-Plugin)
 
-We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also have an
-instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the status of the builds of various
-open source projects - both of projects Pivotal Labs maintains (such as Refraction) and of non-Pivotal projects (such as
+We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also
+have an instance of CiMonitor running at [ci.pivotallabs.com](http://ci.pivotallabs.com) that we use for displaying the
+status of the builds of various open source projects - both of projects Pivotal Labs maintains (such as Refraction)
+and of non-Pivotal projects (such as
 Rails).
 
 ## Installation
@@ -26,22 +28,45 @@ CiMonitor is a Rails application. To get the code, execute the following:
     cd pivotal_cimonitor
     bundle install
 
+### Initial Setup
+
+We have provided example files for `database.yml`, `auth.yml`, and `site_keys.rb`.  Run the following to automatically
+generate these files for you:
+
+    rake setup
+
+You likely need to edit the generated files.  See below.
+
 ### Set up the database
 
-You'll need a database. Create it with whatever name you want. Copy `config/database.yml.example` to
-`database.yml` and edit the production environment configuration so it's right for your database:
+You'll need a database. Create it with whatever name you want.  If you have not run `rake setup`,
+copy `database.yml.example` to `database.yml`.  Edit the production environment configuration so it's right
+for your database:
 
     cp config/database.yml.example config/database.yml
     <edit database.yml>
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
-### Set up the site keys
+### Auth support
 
-Copy `config/site_keys.rb.example` to `config/site_keys.rb` and change `REST_AUTH_SITE_KEY` to something secret.
+Adding, editing and removing projects through the UI requires authentication.
 
-    cp config/initializers/site_keys.rb.example config/initializers/site_keys.rb
-    <edit site_keys.rb>
+If you have not run `rake setup`, copy `auth.yml.example` to `auth.yml`.
+
+    cp config/auth.yml.example config/auth.yml
+
+The site can be configured to use Google OpenId or to use the RestfulAuthentication plugin.
+
+#### Google OpenId setup
+
+This setup requires you to have Google apps set up for your domain. 
+
+In your `config/auth.yml` set the `auth_strategy` to `openid`. Then set the `openid_identifier`, `openid_realm`, and `openid_return_to` fields as appropriate for your domain.
+
+#### Restful Authentication (`password`) setup 
+
+In the `config/auth.yml` set the `auth_strategy` to `password`, and edit the `rest_auth_site_key` to be something secret.
 
 ### Set up cron
 
@@ -63,15 +88,17 @@ Execute:
 
 Each build that you want CiMonitor to display is called a "project" in CiMonitor. You need to login to set up projects.
 
+
 ### Create a user
 
-CiMonitor uses the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication) for user security.
+CiMonitor can use either the [Restful Authentication plugin](http://github.com/technoweenie/restful-authentication), or Google OpenId for user security. If you are using Google OpenId, users will be automatically provisioned.  All users from your domain will be permitted to edit projects. Otherwise, use the following steps to add users by hand.
+
 Your first user must be created at the command line.
 
-    RAILS_ENV=production script/console
+    script/console production
     User.create!(:login => 'john', :name => 'John Doe', :email => 'jdoe@example.com', :password => 'password', :password_confirmation => 'password')
 
-After that, you can login with the "login" as the username to CiMonitor and use the "New User" link to create new users.
+After that, you can login to CiMonitor with the username and password you specified and use the "New User" link to create additional users.
 
 ### Log in
 
@@ -92,7 +119,7 @@ left.
 
 ## Display
 
-Just open a browser on `/`. The page will refresh every 30 seconds. When it refreshes, it shows whatever status was last
+Just open a browser on `/`. The page will refresh every 60 seconds. When it refreshes, it shows whatever status was last
 fetched by the cron job. That is, a refresh doesn't cause the individual Builds to be polled.
 
 CiMonitor shows a big green check or a big red X to indicate a build's status. In addition, it shows the history of a
@@ -122,7 +149,7 @@ CI for CiMonitor is [here](http://ci.pivotallabs.com:3333/builds/CiMonitor), and
 The public Tracker project for CiMonitor is [here](http://www.pivotaltracker.com/projects/2872).
 
 To run tests, run:
-
+    rake setup
     rake spec
 
 Copyright (c) 2010 Pivotal Labs. This software is licensed under the MIT License.

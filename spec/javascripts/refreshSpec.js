@@ -2,13 +2,13 @@ var refreshDropdownHTML = '<select name="refreshInterval" id="refreshInterval"><
 describe('scheduleRefresh()', function () {
   describe('with a cookie set', function() {
     beforeEach(function() {
-      createCookie("refreshTimeout","60", 1);
+      createCookie("refreshTimeout","30", 1);
     });
 
     it('should set the refresh timeout to the cookie value', function() {
       spyOn(window, 'setTimeout').andReturn("fakeHandle");
       scheduleRefresh();
-      expect(window.setTimeout).wasCalledWith("refresh();", 60000);
+      expect(window.setTimeout).wasCalledWith("refresh();", 30000);
       expect(window.currentTimeout).toEqual("fakeHandle")
     });
   });
@@ -31,10 +31,10 @@ describe('scheduleRefresh()', function () {
       expect(readCookie("refreshTimeout")).toBeNull();
     });
 
-    it('should set the refresh timeout to 30 seconds', function() {
+    it('should set the refresh timeout to 60 seconds', function() {
       spyOn(window, 'setTimeout');
       scheduleRefresh();
-      expect(window.setTimeout).wasCalledWith("refresh();", 30000);
+      expect(window.setTimeout).wasCalledWith("refresh();", 60000);
     });
   });
 });
@@ -46,19 +46,19 @@ describe('setRefreshIntervalDropdown()', function() {
 
   describe('with a cookie set', function() {
     it("should select the option in the dropdown that corresponds with the cookie", function() {
-      createCookie("refreshTimeout", "60", 1);
-      expect(document.getElementById("refreshInterval").value).toNotEqual("60");
+      createCookie("refreshTimeout", "30", 1);
+      expect(document.getElementById("refreshInterval").value).toNotEqual("30");
       setRefreshIntervalDropdown();
-      expect(document.getElementById("refreshInterval").value).toEqual("60");
+      expect(document.getElementById("refreshInterval").value).toEqual("30");
     })
   });
 
   describe("without a cookie set", function() {
     it("should select the option in the dropdown that corresponds with the default", function() {
       eraseCookie("refreshTimeout");
-      expect(document.getElementById("refreshInterval").value).toNotEqual("30");
+      expect(document.getElementById("refreshInterval").value).toNotEqual("60");
       setRefreshIntervalDropdown();
-      expect(document.getElementById("refreshInterval").value).toEqual("30");
+      expect(document.getElementById("refreshInterval").value).toEqual("60");
     })
   })
 

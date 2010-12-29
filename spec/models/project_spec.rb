@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 describe Project do
   class RandomProject < Project;end;
@@ -92,18 +92,6 @@ describe Project do
     end
   end
 
-  describe "#recent_online_statuses" do
-    it "should should return 'count' recent online statuses" do
-      project = projects(:socialitis)
-      project.statuses.delete_all
-      online_status = project.statuses.create!(:success => false, :online => true)
-      offline_status = project.statuses.create!(:success => false, :online => false)
-
-      project.recent_online_statuses.should include(online_status)
-      project.recent_online_statuses.should_not include(offline_status)
-    end
-  end
-
   describe "#red_since" do
     it "should return #published_at for the red status after the most recent green status" do
       project = projects(:socialitis)
@@ -139,7 +127,7 @@ describe Project do
       project = projects(:pivots)
       project.should be_green
 
-      broken_at = Time.now
+      broken_at = Time.now.utc
       3.times do
         project.statuses.create!(:online => false)
         broken_at += 5.minutes
@@ -151,7 +139,7 @@ describe Project do
 
       # Argh.  What is the assert_approximately_equal matcher for rspec?
       # And why is the documentation for it so hard to find?
-      project.red_since.to_s.should == broken_at.to_s
+      project.red_since.to_s(:db).should == broken_at.to_s(:db)
     end
   end
 

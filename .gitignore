@@ -4,6 +4,8 @@ tmp/
 *.iml
 *.ipr
 config/database.yml
-config/initializers/site_keys.rb
+config/auth.yml
 .bundle
-.rvmrc
+db/*.sqlite3
+log/*.log
+tmp/**/*

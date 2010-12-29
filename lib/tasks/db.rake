@@ -1,8 +1,4 @@
 namespace :db do
-  namespace :fixtures do
-    task :load => ["spec:db:fixtures:load"]
-  end
-  
   # Read from database.yml to create or drop database user for your project.
   # At the moment it only works for MySQL database.
   # SELECT * FROM mysql.user \G statement to find out MySQL users status
