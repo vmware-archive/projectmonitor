@@ -31,6 +31,11 @@
 </p>
 
 <p>
+  <b>Part of aggregate project?</b><br/>
+  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda{|ap| !ap.enabled? }}) %>
+</p>
+
+<p>
   <b>Tags</b> (separate with commas)<br/>
   <%= f.text_field :tag_list, :size=>40 %>
 </p>

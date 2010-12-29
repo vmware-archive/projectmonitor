@@ -1,0 +1,13 @@
+<p>
+  <b>Name</b><br/>
+  <%= f.text_field :name %>
+</p>
+
+<p>
+  <b>Enabled?</b><br/>
+  <%= f.check_box :enabled %>
+</p>
+
+<p>
+  <%= submit_tag @aggregate_project.new_record? ? "Create" : "Update" %>
+</p>

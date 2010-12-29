@@ -2,6 +2,10 @@ class Project < ActiveRecord::Base
   RECENT_STATUS_COUNT = 10
   DEFAULT_POLLING_INTERVAL = 120
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT
+  belongs_to :aggregate_project
+
+  scope :standalone, where(:enabled => true, :aggregate_project_id => nil).order(:name)
+
 
   acts_as_taggable
 

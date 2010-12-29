@@ -3,7 +3,8 @@ class CiMonitorController < ApplicationController
     if params[:tags]
       @projects = Project.find_tagged_with(params[:tags], :conditions => {:enabled => true}, :order => 'name', :include => :statuses)
     else
-      @projects = Project.where(:enabled => true).order(:name)
+      @projects = Project.standalone
+      @projects += AggregateProject.with_projects.flatten
     end
 
     @messages = Message.all

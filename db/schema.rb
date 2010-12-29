@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102215800) do
+ActiveRecord::Schema.define(:version => 20101229174814) do
+
+  create_table "aggregate_projects", :force => true do |t|
+    t.string   "name"
+    t.boolean  "enabled",    :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -51,11 +58,12 @@ ActiveRecord::Schema.define(:version => 20101102215800) do
     t.string   "feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",          :default => true
-    t.boolean  "building",         :default => false,                  :null => false
-    t.string   "type",             :default => "CruiseControlProject", :null => false
+    t.boolean  "enabled",              :default => true
+    t.boolean  "building",             :default => false,                  :null => false
+    t.string   "type",                 :default => "CruiseControlProject", :null => false
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
+    t.integer  "aggregate_project_id"
   end
 
   create_table "sessions", :force => true do |t|

@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.find(:all, :order => 'name')
+    @aggregate_projects = AggregateProject.order(:name)
   end
 
   def new

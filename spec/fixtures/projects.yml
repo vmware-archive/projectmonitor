@@ -45,3 +45,15 @@ never_built:
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/never.rss
   enabled: true
+internal_project1:
+  name: Aggregated Internal Project 1
+  type: CruiseControlProject
+  feed_url: http://never-ci:3333/projects/internal_project1.rss
+  enabled: true
+  aggregate_project: internal_projects_aggregate
+internal_project2:
+  name: Aggregated Internal Project 2
+  type: CruiseControlProject
+  feed_url: http://never-ci:3333/projects/internal_project2.rss
+  enabled: true
+  aggregate_project: internal_projects_aggregate

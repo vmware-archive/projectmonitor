@@ -5,8 +5,10 @@ class ProjectStatus < ActiveRecord::Base
   FAILURE = 'failure'
   OFFLINE = 'offline'
 
-  scope :online, lambda{ |proj, count|
-    where(:project_id => proj.id, :online => true).limit(count)
+  scope :online, lambda{ |*args|
+    count = args.slice!(-1)
+    project_ids = args.flatten.collect {|p| p.id }
+    where(:project_id => project_ids, :online => true).order('published_at DESC').limit(count)
   }
 
   def match?(status)
