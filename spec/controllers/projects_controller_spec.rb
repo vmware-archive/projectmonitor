@@ -19,6 +19,7 @@ describe ProjectsController do
       get :index
       response.should be_success
       assigns(:projects).should_not be_nil
+      assigns(:aggregate_projects).should_not be_nil
     end
 
     it "should respond to new" do

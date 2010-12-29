@@ -29,6 +29,21 @@ describe Project do
     end
   end
 
+  describe 'scopes' do
+    it "should return non aggregated projects" do
+      Project.standalone.should include projects(:pivots)
+      Project.standalone.should include projects(:socialitis)
+      Project.standalone.should_not include projects(:internal_project1)
+      Project.standalone.should_not include projects(:internal_project2)
+
+    end
+
+    it "should sort by project name" do
+      sorted_projects = Project.find(:all, :conditions => {:enabled => true, :aggregate_project_id => nil}).sort_by(&:name)
+      Project.standalone.should == sorted_projects
+    end
+
+  end
   describe "statuses" do
     before(:each) do
       @project = projects(:socialitis)
@@ -60,6 +75,18 @@ describe Project do
         @project.status.should_not be_nil
         @project.status.should_not be_online
       end
+    end
+  end
+
+  describe "#aggregate_project" do
+    it "should have an aggregate project, if set" do
+      @project = projects(:socialitis)
+      @project.aggregate_project.should be_nil
+      @ap = AggregateProject.create(:name => "ap")
+      @project.aggregate_project = @ap
+      @project.save.should be_true
+      @project = Project.find_by_name('Socialitis')
+      @project.aggregate_project.should == @ap
     end
   end
 

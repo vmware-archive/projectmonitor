@@ -13,5 +13,6 @@ CiMonitor::Application.routes.draw do
   resource :session, :only => [:create, :destroy]
   resource :cimonitor, :controller => :ci_monitor, :only => [:show]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy]
+  resources :aggregate_projects, :only => [:index, :new, :create, :edit, :update, :destroy]
   resources :messages, :only => [:index, :new, :create, :edit, :update, :destroy]
 end

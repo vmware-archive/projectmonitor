@@ -16,6 +16,38 @@ describe ProjectStatus do
         ProjectStatus.online(project, 1).should include(online_status)
         ProjectStatus.online(project, 1).should_not include(offline_status)
       end
+
+      it "should only return online statuses across multiple projects" do
+        socialitis = projects(:socialitis)
+        socialitis.statuses.delete_all
+        socialitis_online_status = socialitis.statuses.create!(:success => false, :online => true)
+        socialitis_offline_status = socialitis.statuses.create!(:success => false, :online => false)
+        pivots = projects(:pivots)
+        pivots.statuses.delete_all
+        pivots_online_status1 = pivots.statuses.create!(:success => false, :online => true)
+        pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true)
+        pivots_offline_status = pivots.statuses.create!(:success => false, :online => false)
+
+        results = ProjectStatus.online(socialitis, pivots, 3)
+        results.should include socialitis_online_status
+        results.should include pivots_online_status1
+        results.should include pivots_online_status2
+        results.should_not include socialitis_offline_status
+        results.should_not include pivots_offline_status
+      end
+
+      it "should be ordered by published date" do
+        socialitis = projects(:socialitis)
+        socialitis.statuses.delete_all
+        socialitis_online_status = socialitis.statuses.create!(:success => false, :online => true, :published_at => 10.days.ago)
+        pivots = projects(:pivots)
+        pivots.statuses.delete_all
+        pivots_online_status1 = pivots.statuses.create!(:success => false, :online => true, :published_at => 20.days.ago)
+        pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true, :published_at => 5.days.ago)
+
+        results = ProjectStatus.online(socialitis, pivots, 3)
+        results.should == [pivots_online_status2, socialitis_online_status, pivots_online_status1]
+      end
     end
   end
 

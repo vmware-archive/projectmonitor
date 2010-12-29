@@ -73,12 +73,6 @@ describe CiMonitorController do
       assigns(:projects).should =~ nyc_projects
     end
 
-    it "should sort the projects by name" do
-      sorted_projects = Project.find(:all, :conditions => {:enabled => true}).sort_by(&:name)
-      get :show
-      assigns(:projects).should == sorted_projects
-    end
-
     it "should not store the most recent request location" do
       session[:location] = nil
       get :show
@@ -109,7 +103,7 @@ describe CiMonitorController do
 
     it "should display a checkmark for green projects not building" do
       get :show
-      not_building_projects = Project.find_all_by_enabled(true).reject(&:building?)
+      not_building_projects = Project.standalone.reject(&:building?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
         response.should have_tag("div.box[project_id='#{project.id}']") do |box|
@@ -120,7 +114,7 @@ describe CiMonitorController do
 
     it "should display an exclamation for red projects not building" do
       get :show
-      not_building_projects = Project.find_all_by_enabled(true).reject(&:building?)
+      not_building_projects = Project.standalone.reject(&:building?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
         response.should have_tag("div.box[project_id='#{project.id}']") do |box|
@@ -162,7 +156,7 @@ describe CiMonitorController do
 
       describe "items" do
         before do
-          @all_projects = Project.find(:all, :conditions => {:enabled => true})
+          @all_projects = Project.standalone
           @all_projects.should_not be_empty
         end
 
@@ -223,6 +217,21 @@ describe CiMonitorController do
           end
         end
       end
+    end
+
+    describe 'aggregate projects' do
+      it "should show aggregate projects that are not empty" do
+        get :show
+        assigns(:projects).should include aggregate_projects(:internal_projects_aggregate)
+        assigns(:projects).should_not include aggregate_projects(:empty_aggregate)
+      end
+
+      it "should not show projects that are part of an aggregated project" do
+        get :show
+        assigns(:projects).should_not include projects(:internal_project1)
+        assigns(:projects).should_not include projects(:internal_project2)
+      end
+
     end
   end
 end

@@ -9,7 +9,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.global_fixtures = :messages, :project_statuses, :projects, :taggings, :tags, :users
+  config.global_fixtures = :messages, :project_statuses, :projects, :taggings, :tags, :users, :aggregate_projects
 
   config.include AuthenticatedTestHelper
   config.include(ControllerTestHelper, :type => :controller)
