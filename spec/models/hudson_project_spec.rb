@@ -72,6 +72,14 @@ describe HudsonProject do
       it_should_behave_like "successful build"
     end
 
+    describe "with reported 'back to normal'" do
+      before(:each) do
+        @feed_file = "back_to_normal.atom"
+      end
+
+      it_should_behave_like "successful build"
+    end
+
     describe "with reported failure" do
       before(:each) do
         @status_parser = @project.parse_project_status(HudsonAtomExample.new("failure.atom").read)
