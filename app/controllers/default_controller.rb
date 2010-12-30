@@ -3,7 +3,7 @@ class DefaultController < ApplicationController
     @tags = params[:tags]
     respond_to do |format|
       format.html {}
-      format.iphone {redirect_to cimonitor_path}
+      format.iphone {redirect_to dashboard_path}
     end
   end
 end
