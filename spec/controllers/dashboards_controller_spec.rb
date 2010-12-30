@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe CiMonitorController do
+describe DashboardsController do
   render_views
 
   describe "routes" do
-    it "should map /cimonitor to #show" do
-      {:get => "/cimonitor"}.should route_to(:controller => 'ci_monitor', :action => 'show')
+    it "should map /dashboard to #show" do
+      {:get => "/dashboard"}.should route_to(:controller => 'dashboards', :action => 'show')
     end
   end
 

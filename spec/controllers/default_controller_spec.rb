@@ -9,6 +9,6 @@ describe DefaultController do
   
   it "should route iphone to cimonitor" do
     get :show, :format => 'iphone'
-    response.should redirect_to('/cimonitor')
+    response.should redirect_to('/dashboard')
   end
 end
