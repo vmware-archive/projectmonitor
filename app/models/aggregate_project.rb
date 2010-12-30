@@ -1,4 +1,5 @@
 class AggregateProject < ActiveRecord::Base
+  include ActionController::UrlWriter
   has_many :projects
 
   scope :with_projects, joins(:projects).where(:enabled => true).group('aggregate_projects.id')
@@ -29,4 +30,9 @@ class AggregateProject < ActiveRecord::Base
   def recent_online_statuses(count = Project::RECENT_STATUS_COUNT)
     ProjectStatus.online(projects, count)
   end
+
+  def url
+    aggregate_project_path(self)
+  end
+
 end

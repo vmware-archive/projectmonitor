@@ -1,11 +1,23 @@
 require 'spec_helper'
 
 describe AggregateProjectsController do
+  render_views
+
   describe "with no logged in user" do
-    describe "all actions" do
+    describe "all actions except 'show'" do
       it "should redirect to the login page" do
         get :new
         response.should redirect_to(login_path)
+      end
+
+      it "should show projects within an aggregate project" do
+        ap = aggregate_projects(:internal_projects_aggregate)
+        get :show, :id => ap.to_param
+        ap.projects.each do |project|
+          response.should have_tag("div.box[project_id='#{project.id}']") do |box|
+            box.should have_tag("img", :src => "checkmark.png")
+          end
+        end
       end
     end
   end

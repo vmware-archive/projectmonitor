@@ -76,6 +76,10 @@ class Project < ActiveRecord::Base
     BuildingStatus.new(false)
   end
 
+  def url
+    status.url
+  end
+
   private
 
   def last_green

@@ -12,7 +12,7 @@
      <% end %> >
   <% for project in @projects %>
       <div class="project">
-        <%= render :partial => 'project', :locals => {:project => project} %>
+        <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
       </div>
   <% end %>
 </div>
