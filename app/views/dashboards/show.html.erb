@@ -11,7 +11,7 @@
      <% unless @messages.empty? %>style="width:80%"
      <% end %> >
   <% for project in @projects %>
-      <div class="project">
+      <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
         <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
       </div>
   <% end %>
