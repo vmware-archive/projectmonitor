@@ -69,8 +69,12 @@ describe DashboardsController do
       nyc_projects = Project.find_tagged_with('NYC')
       nyc_projects.should_not be_empty
 
+      aggregate_nyc_projects = AggregateProject.find_tagged_with('NYC')
+      aggregate_nyc_projects.reject! { |project| !project.enabled? }
+      aggregate_nyc_projects.should_not be_empty
+
       get :show, :size => 'tiny', :tags => 'NYC'
-      assigns(:projects).should =~ nyc_projects
+      assigns(:projects).should =~ [nyc_projects, aggregate_nyc_projects].flatten
     end
 
     it "should not store the most recent request location" do
