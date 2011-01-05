@@ -4,6 +4,8 @@ class AggregateProject < ActiveRecord::Base
 
   scope :with_projects, joins(:projects).where(:enabled => true).group('aggregate_projects.id')
 
+  acts_as_taggable
+
   def red?
     projects.detect {|p| p.red? }
   end

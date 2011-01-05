@@ -9,5 +9,10 @@
 </p>
 
 <p>
+  <b>Tags</b> (separate with commas)<br/>
+  <%= f.text_field :tag_list, :size=>40 %>
+</p>
+
+<p>
   <%= submit_tag @aggregate_project.new_record? ? "Create" : "Update" %>
 </p>

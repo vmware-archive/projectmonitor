@@ -41,6 +41,7 @@
   <tr>
     <th>Name</th>
     <th>Enabled?</th>
+    <th>Tags</th>
     <th colspan="2">&nbsp;</th>
   </tr>
 
@@ -48,6 +49,7 @@
     <tr>
       <td><%= h aggregated_project.name %></td>
       <td><%= aggregated_project.enabled? ? "Yes" : "No" %></td>
+      <td><%= aggregated_project.tag_list %></td>
       <td><%= link_to 'Edit', edit_aggregate_project_path(aggregated_project) %></td>
       <td><%= link_to 'Remove', aggregate_project_path(aggregated_project), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
