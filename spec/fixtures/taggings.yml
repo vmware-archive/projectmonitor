@@ -1,3 +1,4 @@
+# Projects
 pivots_nyc:
   tag: nyc
   taggable: pivots (Project)
@@ -7,3 +8,14 @@ socialitis_nyc:
 socialitis_public:
   tag: public
   taggable: socialitis (Project)
+
+# Aggregate Projects
+empty_aggregate_sf:
+  tag: sf
+  taggable: empty_aggregate (AggregateProject)
+internal_projects_aggregate_nyc:
+  tag: nyc
+  taggable: internal_projects_aggregate (AggregateProject)
+disabled_nyc:
+  tag: nyc
+  taggable: disabled (AggregateProject)

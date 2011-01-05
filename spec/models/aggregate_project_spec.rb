@@ -26,6 +26,32 @@ describe AggregateProject do
     end
   end
 
+  describe "acts_as_taggable" do
+    it "should be able to tag an aggregate with a label" do
+      @ap.tag_list.should == ["San Francisco"]
+      @ap.tag_list = "A tag"
+      @ap.save!
+      @ap.tag_list.should == ["A tag"]
+    end
+
+    it "should be able to get all aggregate projects of a label" do
+      first_tag = "A tag"
+      second_tag = "A different tag"
+
+      another_aggregate_project = aggregate_projects(:internal_projects_aggregate)
+      another_aggregate_project.tag_list = first_tag
+      another_aggregate_project.save!
+      @ap.tag_list = first_tag
+      @ap.save!
+      aggregate_project_with_different_tag = aggregate_projects(:disabled)
+      aggregate_project_with_different_tag.tag_list = second_tag
+      aggregate_project_with_different_tag.save!
+
+      AggregateProject.find_tagged_with(first_tag).should =~ [@ap, another_aggregate_project]
+      AggregateProject.find_tagged_with(second_tag).should =~ [aggregate_project_with_different_tag]
+    end
+  end
+
   describe "#red?" do
     it "should be red if one of its projects is red" do
       @ap.should_not be_red
