@@ -32,7 +32,7 @@
 
 <p>
   <b>Part of aggregate project?</b><br/>
-  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda{|ap| !ap.enabled? }}) %>
+  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda{|ap| !ap.enabled? }, :include_blank => true}) %>
 </p>
 
 <p>
