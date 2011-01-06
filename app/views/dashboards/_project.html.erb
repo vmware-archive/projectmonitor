@@ -1,12 +1,15 @@
 <%
    if project.red?
        background = 'redbox'
+       background = 'redbox-aggregate' if project.is_a? AggregateProject
        status_image = project.building? ? 'build-loader-red.gif' : 'exclamation.png'
    elsif project.green?
        background = 'greenbox'
+       background = 'greenbox-aggregate' if project.is_a? AggregateProject
        status_image = project.building? ? 'build-loader-green.gif' : 'checkmark.png'
    else
        background = 'bluebox'
+       background = 'bluebox-aggregate' if project.is_a? AggregateProject
    end
 %>
 

@@ -117,10 +117,6 @@ a:hover {
 /*  white-space: nowrap;*/
 }
 
-.project.aggregate .project_name a {
-  text-decoration: underline;
-}
-
 .project_name a {
   text-decoration: none;
   color: black;
