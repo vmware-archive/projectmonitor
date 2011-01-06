@@ -6,6 +6,7 @@
     <th>Project Type</th>
     <th>Feed URL</th>
     <th>Enabled?</th>
+    <th>Aggregate?</th>
     <th>Tags</th>
     <th colspan="2">&nbsp;</th>
   </tr>
@@ -19,6 +20,7 @@
         <% end %>
       </td>
       <td><%= project.enabled? ? "Yes" : "No" %></td>
+      <td><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
       <td><%= project.tag_list %></td>
       <td><%= link_to 'Edit', edit_project_path(project) %></td>
       <td><%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
