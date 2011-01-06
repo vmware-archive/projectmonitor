@@ -77,6 +77,15 @@ describe DashboardsController do
       assigns(:projects).should =~ [nyc_projects, aggregate_nyc_projects].flatten
     end
 
+    it "should not show child projects that are in an aggregate project when a tag matches both" do
+      internal_nyc_project1 = projects(:internal_project1)
+      internal_nyc_project1.tag_list = 'NYC'
+      internal_nyc_project1.save!
+
+      get :show, :size => 'tiny', :tags => 'NYC'
+      assigns(:projects).map(&:name).should_not include(internal_nyc_project1.name)
+    end
+
     it "should not store the most recent request location" do
       session[:location] = nil
       get :show
