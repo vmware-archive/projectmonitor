@@ -77,6 +77,16 @@ describe DashboardsController do
       assigns(:projects).should =~ [nyc_projects, aggregate_nyc_projects].flatten
     end
 
+    it "should sort across projects and aggregate projects" do
+      get :show
+      assigns(:projects).map(&:name).should == ["Aggregation", "Green Currently Building", "Lumos", "Many Builds", "Never built", "Offline", "Pivots", "Red Currently Building", "Socialitis"]
+    end
+
+    it "should sort across projects and aggregate projects specifying tags" do
+      get :show, :tags => 'NYC'
+      assigns(:projects).map(&:name).should == ["Aggregation", "Pivots", "Socialitis"]
+    end
+
     it "should not show child projects that are in an aggregate project when a tag matches both" do
       internal_nyc_project1 = projects(:internal_project1)
       internal_nyc_project1.tag_list = 'NYC'
