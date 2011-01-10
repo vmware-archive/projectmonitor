@@ -22,7 +22,11 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def status
-    projects.collect {|p| p.status }.sort_by(&:id).last
+    statuses.last
+  end
+
+  def statuses
+    projects.collect {|p| p.status }.sort_by(&:id)
   end
 
   def building?
@@ -35,6 +39,27 @@ class AggregateProject < ActiveRecord::Base
 
   def url
     aggregate_project_path(self)
+  end
+
+  def red_since
+    breaking_build.nil? ? nil : breaking_build.published_at
+  end
+
+  def never_been_green?
+    green = false
+    projects.each do |p|
+      green = true if p.last_green.present?
+    end
+    !green
+  end
+
+  def breaking_build
+    return statuses.first if never_been_green?
+    reds = []
+    projects.each do |p|
+      reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, p.last_green.id])
+    end
+    reds.sort_by(&:published_at).first
   end
 
 end
