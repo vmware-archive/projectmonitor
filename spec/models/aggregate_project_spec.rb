@@ -73,7 +73,7 @@ describe AggregateProject do
   end
 
   describe "#online?" do
-    it "should not be online iff any project not online" do
+    it "should not be online if any project not online" do
       @ap.should_not be_online
       @ap.projects << projects(:socialitis)
       @ap.should be_online
@@ -166,6 +166,51 @@ describe AggregateProject do
       ap = AggregateProject.find(@ap.id)
 
       ap.red_since.to_s(:db).should == broken_at.to_s(:db)
+    end
+  end
+
+  describe "#red_build_count" do
+    it "should return the number of red builds since the last green build" do
+      project = projects(:socialitis)
+      @ap.projects << project
+      @ap.red_build_count.should == 1
+
+      project.statuses.create(:online => true, :success => false)
+      @ap.red_build_count.should == 2
+    end
+
+    it "should return zero for a green project" do
+      project = projects(:pivots)
+      @ap.projects << project
+      @ap.should be_green
+
+      @ap.red_build_count.should == 0
+    end
+
+    it "should not blow up for a project that has never been green" do
+      project = projects(:never_green)
+      @ap.projects << project
+      @ap.red_build_count.should == @ap.statuses.count
+    end
+
+    it "should return zero for an offline project" do
+      project = projects(:offline)
+      @ap.projects << project
+      @ap.should_not be_online
+
+      @ap.red_build_count.should == 0
+    end
+
+    it "should ignore offline statuses" do
+      project = projects(:never_green)
+      @ap.projects << project
+      old_red_build_count = @ap.red_build_count
+
+      3.times do
+        project.statuses.create(:online => false)
+      end
+      project.statuses.create(:online => true, :success => false)
+      @ap.red_build_count.should == old_red_build_count + 1
     end
   end
 
