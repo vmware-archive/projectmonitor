@@ -18,7 +18,7 @@ class AggregateProject < ActiveRecord::Base
 
   def online?
     return false if projects.empty?
-    projects.all? {|p| p.online? }
+    projects.all?(&:online?)
   end
 
   def status
@@ -59,7 +59,13 @@ class AggregateProject < ActiveRecord::Base
     projects.each do |p|
       reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, p.last_green.id])
     end
-    reds.sort_by(&:published_at).first
+    reds.compact.sort_by(&:published_at).first
+  end
+
+  def red_build_count
+    return 0 if breaking_build.nil? || !online?
+    red_project = projects.detect(&:red?)
+    red_project.statuses.count(:conditions => ["online = ? AND id >= ?", true, red_project.breaking_build.id])
   end
 
 end

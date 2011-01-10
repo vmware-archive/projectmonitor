@@ -84,7 +84,6 @@ class Project < ActiveRecord::Base
     @last_green ||= statuses.detect(&:success?)
   end
 
-  private
   def breaking_build
     @breaking_build ||= if last_green.nil?
       statuses.last
