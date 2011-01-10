@@ -110,4 +110,63 @@ describe AggregateProject do
       @ap.recent_online_statuses.should include project_statuses(:socialitis_status_green_01)
     end
   end
+
+  describe "#red_since" do
+    class RandomProject < Project;end;
+
+    it "should return #published_at for the red status after the most recent green status" do
+      socialitis = projects(:socialitis)
+      red_since = socialitis.red_since
+
+      3.times do |i|
+        socialitis.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes )
+      end
+
+      @ap.projects << socialitis
+
+      @ap = AggregateProject.find(@ap.id)
+      @ap.red_since.should == red_since
+    end
+
+    it "should return nil if the project is currently green" do
+      pivots = projects(:pivots)
+      @ap.projects << pivots
+      pivots.should be_green
+
+      pivots.red_since.should be_nil
+    end
+
+    it "should return the published_at of the first recorded status if the project has never been green" do
+      project = projects(:never_green)
+      @ap.projects << project
+      @ap.statuses.detect(&:success?).should be_nil
+      @ap.red_since.should == project.statuses.last.published_at
+    end
+
+    it "should return nil if the project has no statuses" do
+      @project = RandomProject.new(:name => "my_project_foo", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
+      @ap.projects << @project
+      @ap.red_since.should be_nil
+    end
+
+    it "should ignore offline statuses" do
+      project = projects(:pivots)
+      project.should be_green
+
+      broken_at = Time.now.utc
+      3.times do
+        project.statuses.create!(:online => false)
+        broken_at += 5.minutes
+      end
+
+      project.statuses.create!(:online => true, :success => false, :published_at => broken_at)
+
+      @ap.projects << project
+
+      ap = AggregateProject.find(@ap.id)
+
+      ap.red_since.to_s(:db).should == broken_at.to_s(:db)
+    end
+  end
+
 end

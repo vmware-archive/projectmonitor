@@ -80,12 +80,11 @@ class Project < ActiveRecord::Base
     status.url
   end
 
-  private
-
   def last_green
     @last_green ||= statuses.detect(&:success?)
   end
 
+  private
   def breaking_build
     @breaking_build ||= if last_green.nil?
       statuses.last
