@@ -63,6 +63,22 @@ describe DashboardsController do
           end
         end
       end
+
+      describe "skins" do
+        it "should display the skin supplied by the 'skin' query param" do
+          get :show, :skin => 'dark'
+          response.should render_template('layouts/skins/dark')
+        end
+
+        it "should display the default layout if skin doesn't exist or isn't specified" do
+          get :show, :skin => 'fake'
+          response.should_not render_template('layouts/skins/fake')
+          response.should render_template('layouts/application')
+
+          get :show
+          response.should render_template('layouts/application')
+        end
+      end
     end
 
     it "should filter by tag" do
