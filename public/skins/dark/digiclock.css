@@ -12,6 +12,7 @@
   z-index: 0;
   top: 33%;
   width: 100%;
+  left: 0;
   min-width: 820px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(.5, rgba(0, 100, 0, .2)), to(#000));
   background-image: -moz-linear-gradient(top, #000, rgba(0, 100, 0, .2) 20%, #000);
