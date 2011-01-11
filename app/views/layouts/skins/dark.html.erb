@@ -14,7 +14,7 @@
   <%= javascript_include_tag :defaults,
     'refresh',
     'http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js',
-    '/javascripts/digiclock.js' %>
+    '/skins/dark/digiclock.js' %>
   <%= stylesheet_link_tag 'style', 'sparkline', '/skins/dark/dark', '/skins/dark/digiclock' %>
   <%= yield :head %>
 </head>
@@ -32,8 +32,6 @@
         <%= flash[:notice] %>
       </div>
   <% end %>
-
-  <%= yield %>
 
   <div class="digiclock wrapper green">
 	<div class="overlay"></div>
@@ -102,6 +100,9 @@
 		</div>
 	</div>
 </div>
+
+  
+  <%= yield %>
 </div>
 
 <% if Rails.env.production? %>
