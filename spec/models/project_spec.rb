@@ -60,6 +60,16 @@ describe Project do
     end
   end
 
+  describe "#last green" do
+    it "should return the successful project" do
+      @project = projects(:socialitis)
+      @project.statuses = []
+      @happy_status = @project.statuses.create!(:online => true, :success => true)
+      @sad_status = @project.statuses.create!(:online => true, :success => false)
+      @project.last_green.should == @happy_status
+    end
+  end
+
   describe "#status" do
     before(:each) do
       @project = projects(:socialitis)
@@ -167,6 +177,19 @@ describe Project do
       # Argh.  What is the assert_approximately_equal matcher for rspec?
       # And why is the documentation for it so hard to find?
       project.red_since.to_s(:db).should == broken_at.to_s(:db)
+    end
+  end
+
+  describe "#breaking build" do
+    context "without any green builds" do
+      it "should return the first red online build" do
+        project = projects(:socialitis)
+        project.statuses.destroy_all
+        first_red = project.statuses.create!(:online => true, :success => false)
+        project.statuses.create!(:online => true, :success => false)
+        project.statuses.create!(:online => false, :success => false)
+        project.breaking_build.should == first_red
+      end
     end
   end
 

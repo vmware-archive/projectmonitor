@@ -81,12 +81,12 @@ class Project < ActiveRecord::Base
   end
 
   def last_green
-    @last_green ||= statuses.detect(&:success?)
+    @last_green ||= statuses.where(:success => true).first
   end
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      statuses.last
+      statuses.where(:online => true, :success => false).last
     else
       statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, last_green.id])
     end
