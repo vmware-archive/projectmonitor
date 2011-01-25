@@ -30,7 +30,7 @@ class ProjectStatus < ActiveRecord::Base
       return OFFLINE
     end
   end
-  
+
   private
 
   def all_attributes_match?(other)
