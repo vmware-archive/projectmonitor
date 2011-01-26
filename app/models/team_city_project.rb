@@ -1,6 +1,6 @@
 class TeamCityProject < Project
 
-  validates_format_of :feed_url, :with => /http:\/\/.*\/guestAuth\/cradiator.html\?buildTypeId=.*$/,
+  validates_format_of :feed_url, :with => /https?:\/\/.*\/guestAuth\/cradiator.html\?buildTypeId=.*$/,
                       :message => "should look like: http://*/guestAuth/cradiator.html?buildTypeId=*"
 
   def build_status_url

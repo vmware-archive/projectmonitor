@@ -27,6 +27,13 @@ describe TeamCityProject do
       @project.feed_url = 'http://foo.bar.com:3434/feed.html'
       @project.should have(1).errors_on(:feed_url)
     end
+
+    it "should allow both http and https" do
+      @project.feed_url = "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9"
+      @project.should have(0).errors_on(:feed_url)
+      @project.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9'
+      @project.should have(0).errors_on(:feed_url)
+    end
   end
 
   describe "#build_status_url" do

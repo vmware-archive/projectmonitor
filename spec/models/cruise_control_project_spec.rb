@@ -24,6 +24,14 @@ describe Project do
         @project.should_not be_valid
         @project.errors[:feed_url].should_not be_nil
       end
+
+      it "should allow both http and https" do
+        @project.feed_url = "http://bar.com/foo.rss"
+        @project.should be_valid
+
+        @project.feed_url = "https://bar.com/foo.rss"
+        @project.should be_valid
+      end
     end
   end
   
