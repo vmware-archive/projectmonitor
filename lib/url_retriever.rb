@@ -13,24 +13,27 @@ class UrlRetriever
 
   private
 
+  def http(uri)
+    Net::HTTP.new(uri.host, uri.port).tap do |http|
+      http.read_timeout = 30
+      http.open_timeout = 30
+      http.use_ssl = true if uri.scheme == "https"
+    end
+  end
+
   def do_get(url)
     uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.read_timeout = 30
-    http.open_timeout = 30
-
     get = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
 
     yield(get) if block_given?
 
-    res = http.start { |web| web.request(get)}
+    res = http(uri).start { |web| web.request(get)}
     res
   end
 
-  def digest_auth(get, url, response, username, password)
+  def digest_auth(get, response, username, password)
     challenge = HTTPAuth::Digest::Challenge.from_header(response['www-authenticate'])
     credentials = HTTPAuth::Digest::Credentials.from_challenge(challenge, {:username => username, :password => password, :uri => uri.path, :method => 'GET'})
     get['Authorization'] = credentials.to_header
   end
-
 end

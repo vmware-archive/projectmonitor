@@ -1,6 +1,6 @@
 require 'nokogiri'
 class CruiseControlProject < Project
-  validates_format_of :feed_url, :with => /http:\/\/.*\.rss$/, :message => 'should end with ".rss"'
+  validates_format_of :feed_url, :with => /https?:\/\/.*\.rss$/, :message => 'should end with ".rss"'
   
   def project_name
     return nil if feed_url.nil?
