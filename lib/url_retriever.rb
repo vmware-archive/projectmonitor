@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class UrlRetriever
   def retrieve_content_at(url, username = nil, password = nil)
     response = do_get(url)
