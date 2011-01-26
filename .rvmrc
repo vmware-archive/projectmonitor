@@ -1,2 +1,1 @@
-rvm --create use ree@cimonitor-nonexistent_gemset
-
+rvm --create use ree@cimonitor
