@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
 
   scope :standalone, where(:enabled => true, :aggregate_project_id => nil).order(:name)
 
-
   acts_as_taggable
 
   validates_presence_of :name
