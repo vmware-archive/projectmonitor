@@ -2,7 +2,7 @@ class AggregateProject < ActiveRecord::Base
   include ActionController::UrlWriter
   has_many :projects
 
-  scope :with_projects, joins(:projects).where(:enabled => true).group('aggregate_projects.id')
+  scope :with_projects, joins(:projects).where(:aggregate_projects => {:enabled => true}).select("distinct aggregate_projects.*")
 
   acts_as_taggable
 

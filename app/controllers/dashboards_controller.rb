@@ -3,11 +3,11 @@ class DashboardsController < ApplicationController
     if params[:tags]
       aggregate_projects = AggregateProject.find_tagged_with(params[:tags], :conditions => {:enabled => true})
       projects = Project.find_tagged_with(params[:tags], :conditions => {:enabled => true}, :include => :statuses)
-      @projects = (projects.reject {|project| aggregate_projects.include?(project.aggregate_project)} + aggregate_projects).sort{|project_a, project_b| project_a.name <=> project_b.name}
+      projects.reject! {|project| aggregate_projects.map(&:id).include?(project.aggregate_project_id)}
+      @projects = (projects + aggregate_projects).sort_by(&:name)
     else
-      @projects = Project.standalone
-      @projects += AggregateProject.with_projects.flatten
-      @projects = @projects.sort{|project_a, project_b| project_a.name <=> project_b.name}
+      @projects = Project.standalone + AggregateProject.with_projects
+      @projects = @projects.sort_by(&:name)
     end
 
     @messages = Message.all
