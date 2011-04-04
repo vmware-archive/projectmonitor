@@ -46,6 +46,17 @@ describe TeamCityRestProject do
         end
       end
 
+      describe "with a startDate included" do
+        before(:each) do
+          @status_parser = @project.parse_project_status(TeamcityRESTExample.new("success_with_start_date.xml").read)
+        end
+
+        it "should return the published date of the checkin" do
+          @status_parser.published_at.should ==
+            Time.parse(TeamcityRESTExample.new("success_with_start_date.xml").first_css("build").attribute("startDate").value)
+        end
+      end
+
       describe "with reported failure" do
         before(:each) do
           @status_parser = @project.parse_project_status(TeamcityRESTExample.new("failure.xml").read)
