@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project do
-  class RandomProject < Project;end;
+  class RandomProject < Project;end
 
   before(:each) do
     @project = RandomProject.new(:name => "my_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")

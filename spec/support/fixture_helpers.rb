@@ -61,3 +61,17 @@ class TeamcityCradiatorXmlExample < FixtureFile
     as_xml.at_css(selector)
   end
 end
+
+class TeamcityRESTExample < FixtureFile
+  def initialize(filename)
+    super("teamcity_rest_examples", filename)
+  end
+
+  def as_xml
+    Nokogiri::XML.parse(read)
+  end
+
+  def first_css(selector)
+    as_xml.at_css(selector)
+  end
+end
