@@ -17,7 +17,7 @@
 
 .sparkline .item{
   display: block;
-  float: left;
+  float: right;
   padding-top: 3px;
   padding-bottom: 3px;
 }
