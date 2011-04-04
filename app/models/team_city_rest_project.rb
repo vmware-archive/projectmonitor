@@ -22,10 +22,9 @@ class TeamCityRestProject < Project
       status.success = latest_build.attribute('status').value == "SUCCESS"
       status.url = latest_build.attribute('webUrl').value
 
-#      TeamCity REST API does not currently report build time. See: http://youtrack.jetbrains.net/issue/TW-14902
-#      pub_date = Time.parse(latest_build.attribute('startDate').value)
-#      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
-      status.published_at = Clock.now.localtime
+      pub_date = Clock.now
+      pub_date = Time.parse(latest_build.attribute('startDate').value) if latest_build.attribute('startDate').present?
+      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
     rescue
     end
     status
