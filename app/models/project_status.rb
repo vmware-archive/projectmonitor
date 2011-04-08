@@ -8,7 +8,7 @@ class ProjectStatus < ActiveRecord::Base
   scope :online, lambda{ |*args|
     count = args.slice!(-1)
     project_ids = args.flatten.collect {|p| p.id }
-    where(:project_id => project_ids, :online => true).order('published_at DESC').limit(count)
+    where(:project_id => project_ids, :online => true).where('published_at is NOT NULL').order('published_at DESC').limit(count)
   }
 
   def match?(status)

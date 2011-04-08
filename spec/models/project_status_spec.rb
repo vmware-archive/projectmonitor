@@ -10,23 +10,25 @@ describe ProjectStatus do
       it "should only return online statuses" do
         project = projects(:socialitis)
         project.statuses.delete_all
-        online_status = project.statuses.create!(:success => false, :online => true)
-        offline_status = project.statuses.create!(:success => false, :online => false)
+        online_status = project.statuses.create!(:success => false, :online => true, :published_at => 1.day.ago)
+        online_without_published_at_status = project.statuses.create!(:success => false, :online => true, :published_at => nil)
+        offline_status = project.statuses.create!(:success => false, :online => false, :published_at => 3.days.ago)
 
-        ProjectStatus.online(project, 1).should include(online_status)
-        ProjectStatus.online(project, 1).should_not include(offline_status)
+        ProjectStatus.online(project, 3).should include(online_status)
+        ProjectStatus.online(project, 3).should_not include(offline_status)
+        ProjectStatus.online(project, 3).should_not include(online_without_published_at_status)
       end
 
       it "should only return online statuses across multiple projects" do
         socialitis = projects(:socialitis)
         socialitis.statuses.delete_all
-        socialitis_online_status = socialitis.statuses.create!(:success => false, :online => true)
-        socialitis_offline_status = socialitis.statuses.create!(:success => false, :online => false)
+        socialitis_online_status = socialitis.statuses.create!(:success => false, :online => true, :published_at => 1.day.ago)
+        socialitis_offline_status = socialitis.statuses.create!(:success => false, :online => false, :published_at => 1.day.ago)
         pivots = projects(:pivots)
         pivots.statuses.delete_all
-        pivots_online_status1 = pivots.statuses.create!(:success => false, :online => true)
-        pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true)
-        pivots_offline_status = pivots.statuses.create!(:success => false, :online => false)
+        pivots_online_status1 = pivots.statuses.create!(:success => false, :online => true, :published_at => 1.day.ago)
+        pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true, :published_at => 1.day.ago)
+        pivots_offline_status = pivots.statuses.create!(:success => false, :online => false, :published_at => 1.day.ago)
 
         results = ProjectStatus.online(socialitis, pivots, 3)
         results.should include socialitis_online_status
