@@ -214,4 +214,22 @@ describe AggregateProject do
     end
   end
 
+  describe "#breaking_build" do
+    context "when a project does not have a published_at date" do
+      it "should be ignored" do
+        project = projects(:red_currently_building)
+        other_project = projects(:socialitis)
+
+        project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
+        status = project.statuses.create(:online => true, :success => false, :published_at => Time.now)
+
+        other_project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
+        bad_status = other_project.statuses.create(:online => true, :success => false, :published_at => nil)
+        @ap.projects << project
+        @ap.projects << other_project
+        @ap.breaking_build.should == status
+      end
+    end
+  end
+
 end
