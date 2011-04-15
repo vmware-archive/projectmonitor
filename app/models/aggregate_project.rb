@@ -57,7 +57,7 @@ class AggregateProject < ActiveRecord::Base
     return statuses.first if never_been_green?
     reds = []
     projects.each do |p|
-      reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, p.last_green.id])
+      reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at NOT NULL AND id > ?", true, false, p.last_green.id])
     end
     reds.compact.sort_by(&:published_at).first
   end
