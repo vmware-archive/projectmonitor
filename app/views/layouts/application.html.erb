@@ -10,7 +10,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
   <title><%= title %></title>
-  <script type="text/javascript" src="/javascripts/refresh.js"></script>
+  <%= javascript_include_tag :defaults, 'refresh' %>
   <%= stylesheet_link_tag 'style' %>
   <%= stylesheet_link_tag 'sparkline' %>
   <%= yield :head %>
@@ -34,7 +34,7 @@
     <div class="smaller_text">
       <i>As of <%= Time.now.strftime('%I:%M%p %Z %m/%d/%Y') %></i>
       <% if current_user.nil? %>
-          | <%= link_to "Log in", login_path %>
+          | <%= link_to "Log in", AuthConfig.openid? ? new_openid_path : login_path %>
       <% end %>
       <br/>
       <% if params[:controller] == "ci_monitor" %>
@@ -42,7 +42,7 @@
         <%= select_tag "refreshInterval",
                            options_for_select([["15 seconds", "15"], ["30 seconds", "30"], ["60 seconds", "60"], ["5 minutes", "300"], ["Never", "0"]]),
                            :onchange => "onChangeRefreshTimeoutDropdown()", :style => "display: none" %>
-        <% javascript_tag do %>
+        <%= javascript_tag do %>
         setRefreshIntervalDropdown();
       <% end %>
       <% end %>
@@ -52,7 +52,9 @@
           Hello, <%= current_user.login %>
           <br>
           <%= link_to "Projects", projects_path %> |
-          <%= link_to "New user", new_user_path %> |
+          <% if AuthConfig.password? %>
+            <%= link_to "New user", new_user_path %> | 
+          <% end %>
           <%= link_to "Log out", logout_path %>
         </div>
     <% end %>
@@ -75,11 +77,10 @@
 
 </div>
 
-<% if RAILS_ENV=='production' %>
+<% if Rails.env.production? %>
     <% javascript_tag do %>
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js'
-        type='text/javascript'%3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     <% end %>
     <% javascript_tag do %>
         try {

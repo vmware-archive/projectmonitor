@@ -5,11 +5,17 @@ class ProjectStatus < ActiveRecord::Base
   FAILURE = 'failure'
   OFFLINE = 'offline'
 
-  def match?(hash)
+  scope :online, lambda{ |*args|
+    count = args.slice!(-1)
+    project_ids = args.flatten.collect {|p| p.id }
+    where(:project_id => project_ids, :online => true).where('published_at is NOT NULL').order('published_at DESC').limit(count)
+  }
+
+  def match?(status)
     if self.online
-      all_attributes_match?(hash)
+      all_attributes_match?(status)
     else
-      !hash[:online]
+      !status.online
     end
   end
   
@@ -24,12 +30,12 @@ class ProjectStatus < ActiveRecord::Base
       return OFFLINE
     end
   end
-  
+
   private
 
-  def all_attributes_match?(hash)
+  def all_attributes_match?(other)
     [:online, :success, :published_at, :url].all? do |attribute|
-      hash[attribute] == self.send(attribute)
+      other.send(attribute) == self.send(attribute)
     end
   end
 end

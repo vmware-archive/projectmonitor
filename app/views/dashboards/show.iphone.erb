@@ -1,0 +1,78 @@
+<div class="toolbar">
+  <h1 id="pageTitle"></h1>
+  <a id="backButton" class="button" href="#"></a>
+  <a class="button" href="/dashboard?cachebuster=<%= Time.now.to_f %>" target="_top">Refresh</a>
+</div>
+
+<ul id="home" title="<%= title %>" selected="true">
+  <% for project in @projects %>
+    <li class="<%= project.status.to_s %>">
+      <a href="#project_<%= project.id %>">
+        <% if project.status.online? %>
+          <%= image_tag("/images/iphone/#{(project.status.online? && project.status.success?) ? 'success' : 'error'}.png") %>
+        <% else %>
+          <%= image_tag("/images/iphone/question-mark.jpg", {:class => 'status_image'}) %>
+        <% end %>
+        <%= project.name %>
+      </a>
+    </li>
+  <% end %>
+  <li>
+    <small><i>As of <%= Time.now.strftime('%I:%M%p %Z %m/%d/%Y') %></i></small>
+  </li>
+  <li>&nbsp;</li>
+  <li class="panel">
+    <%= image_tag("/images/iphone/#{logo}") %>
+  </li>
+  <li class="panel">
+    <%= link_to(image_tag("/images/iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
+  </li>
+</ul>
+
+<% for project in @projects %>
+  <div id="project_<%= project.id %>" title="<%= project.name %>" class="panel">
+    <h2>
+      <% if project.status.online? && project.status.success? %>
+        <%= image_tag("/images/iphone/success.png") %>
+        <%= project.name %> build succeeded
+      <% elsif project.status.online? %>
+        <%= image_tag("/images/iphone/error.png") %>
+        <%= project.name %> build failed
+      <% else %>
+        <%= image_tag("/images/iphone/question-mark.jpg") %>
+        <%= project.name %> build status unavailable
+      <% end %>
+    </h2>
+    <fieldset>
+      <% if project.status.online? %>
+        <div class="row">
+          <label>Last built</label>
+          <h3><%= time_ago_in_words project.status.published_at %> ago</h3>
+        </div>
+        <% if project.red? %>
+          <div class="row">
+            <label>Red since</label>
+            <h3><%= time_ago_in_words(project.red_since) %> ago</h3>
+          </div>
+          <div class="row">
+            <label>Build count since last green</label>
+            <h3><%= project.red_build_count %></h3>
+          </div>
+        <% end %>
+        <div class="row">
+          <%= link_to 'Visit build', project.status.url, :target => '_top' %>
+        </div>
+
+      <% else %>
+        <div class="row">
+          <label>Status Unavailable</label>
+        </div>
+      <% end %>
+    </fieldset>
+    <div class="row">
+      <%= image_tag("/images/iphone/#{logo}") %>
+    </div>
+    <%= link_to(image_tag("/images/iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
+  </div>
+<% end %>
+

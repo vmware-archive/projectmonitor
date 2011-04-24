@@ -1,19 +1,18 @@
-ActionController::Routing::Routes.draw do |map|
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.resource :login, :controller => "sessions"
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.resources :users
+CiMonitor::Application.routes.draw do
 
-  map.resource :session
+  root :to => 'default#show'
+  match 'login' => 'sessions#new'
+  match 'logout' => 'sessions#destroy'
 
-  map.home_page '', :controller => "default", :action => "show"
-
-  map.resource :cimonitor, :controller => :ci_monitor
-  map.resource :builds, :controller => :ci_monitor
-
-  map.resources :projects
-  map.resources :messages
-
-  map.root :controller => 'default', :action => 'show'
+  resources :users, :only => [:new, :create]
+  resource :openid, :only => [:new, :success] do
+    member do
+      get :success
+    end
+  end
+  resource :session, :only => [:create, :destroy]
+  resource :dashboard, :only => [:show]
+  resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy]
+  resources :aggregate_projects, :only => [:show, :new, :create, :edit, :update, :destroy]
+  resources :messages, :only => [:index, :new, :create, :edit, :update, :destroy]
 end

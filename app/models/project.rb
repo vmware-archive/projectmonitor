@@ -2,6 +2,9 @@ class Project < ActiveRecord::Base
   RECENT_STATUS_COUNT = 10
   DEFAULT_POLLING_INTERVAL = 120
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT
+  belongs_to :aggregate_project
+
+  scope :standalone, where(:enabled => true, :aggregate_project_id => nil).order(:name)
 
   acts_as_taggable
 
@@ -37,10 +40,10 @@ class Project < ActiveRecord::Base
     return nil if feed_url.nil?
 
     url_components = URI.parse(feed_url)
-    returning("#{url_components.scheme}://#{url_components.host}") do |url|
+    ["#{url_components.scheme}://#{url_components.host}"].tap do |url|
       url << ":#{url_components.port}" if url_components.port
       url << "/XmlStatusReport.aspx"
-    end
+    end.join
   end
 
   def project_name
@@ -52,7 +55,7 @@ class Project < ActiveRecord::Base
   end
 
   def recent_online_statuses(count = RECENT_STATUS_COUNT)
-    statuses.reject{|s| !s.online}.reverse.last(count)
+    ProjectStatus.online(self, count)
   end
 
   def set_next_poll!
@@ -64,15 +67,25 @@ class Project < ActiveRecord::Base
     self.next_poll_at.nil? || self.next_poll_at <= Time.now
   end
 
-  private
+  def parse_project_status(content)
+    ProjectStatus.new(:online => false, :success => false)
+  end
+
+  def parse_building_status(content)
+    BuildingStatus.new(false)
+  end
+
+  def url
+    status.url
+  end
 
   def last_green
-    @last_green ||= statuses.detect(&:success?)
+    @last_green ||= statuses.where(:success => true).first
   end
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      statuses.last
+      statuses.where(:online => true, :success => false).last
     else
       statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, last_green.id])
     end

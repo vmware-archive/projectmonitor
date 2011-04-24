@@ -54,7 +54,7 @@ module AuthenticatedSystem
   end
 
   def not_logged_in_url
-    return new_login_path
+    return login_path
   end
 
   # Redirect as appropriate when an access request fails.
@@ -85,7 +85,7 @@ module AuthenticatedSystem
   #
   # We can return to this location by calling #redirect_back_or_default.
   def store_location
-    session[:return_to] = request.request_uri
+    session[:return_to] = request.fullpath
   end
 
   # Redirect to the URI stored by the most recent store_location call or
@@ -139,7 +139,6 @@ module AuthenticatedSystem
   # However, **all session state variables should be unset here**.
   def logout_keeping_session!
     # Kill server-side auth cookie
-    @current_user.forget_me if @current_user.is_a? User
     @current_user = false     # not logged in, and don't do it for me
     kill_remember_cookie!     # Kill client-side auth cookie
     session[:user_id] = nil   # keeps the session but kill our variable
@@ -177,8 +176,6 @@ module AuthenticatedSystem
         @current_user.refresh_token # keeping same expiry date
       when new_cookie_flag        then
         @current_user.remember_me
-      else
-        @current_user.forget_me
     end
     send_remember_cookie!
   end

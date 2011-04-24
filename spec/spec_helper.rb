@@ -1,28 +1,27 @@
-ENV["RAILS_ENV"] = "test"
-dir = File.dirname(__FILE__)
-require File.expand_path(dir + "/../config/environment") unless defined?(RAILS_ROOT)
-require 'spec'
-require 'spec/rails'
-require 'mock_clock'
-require 'rspec_extensions/spec_helper_matchers'
-require 'xml/libxml'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
 
-Spec::Runner.configure do |configuration|
-  configuration.use_transactional_fixtures = true
-  configuration.use_instantiated_fixtures  = false
-  configuration.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  configuration.global_fixtures = :all
-  configuration.include AuthenticatedTestHelper
-end
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Spec::Runner.configuration.before(:all, :behaviour_type => :controller) do
-  @integrate_views = true
-end
+RSpec.configure do |config|
+  config.mock_with :rspec
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.use_transactional_fixtures = true
+  config.use_instantiated_fixtures  = false
+  config.global_fixtures = :messages, :project_statuses, :projects, :taggings, :tags, :users, :aggregate_projects
 
-Spec::Runner.configuration.before(:each, :behaviour_type => :controller) do
-  self.class.module_eval do
-    def log_in(user)
-      controller.send("current_user=", user)
-    end
+  config.include AuthenticatedTestHelper
+  config.include(ControllerTestHelper, :type => :controller)
+  config.include ObjectMother
+  config.include CiMonitorSpec::Rails::Matchers
+
+  config.before(:all, :type => :controller) do
+    @render_views = true
   end
+
+  config.before(:each) do
+    AuthConfig.reset!
+  end
+
 end
