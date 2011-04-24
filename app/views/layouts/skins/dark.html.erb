@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <!-- This is to force all links inside the auto-refresh frame to open outside the frame at the top level. -->
+  <!-- Otherwise, there is no way to escape the auto-refresh frame. -->
+  <base target="_top">
+
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+
+  <title><%= title %></title>
+  <script type="text/javascript" src=></script>
+  <%= javascript_include_tag :defaults,
+    'refresh',
+    'http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js',
+    '/skins/dark/digiclock.js' %>
+  <%= stylesheet_link_tag 'style', 'sparkline', '/skins/dark/dark', '/skins/dark/digiclock' %>
+  <%= yield :head %>
+</head>
+<body>
+
+<div class="page">
+  <% if flash[:error] %>
+      <div id="flash_error">
+        <%= flash[:error] %>
+      </div>
+  <% end %>
+
+  <% if flash[:notice] %>
+      <div id="flash_notice">
+        <%= flash[:notice] %>
+      </div>
+  <% end %>
+
+  <div class="digiclock wrapper green">
+	<div class="overlay"></div>
+	<div class="display">
+		<div class="slot number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot sep colon">
+			<div class="element bar top"></div>
+			<div class="element bar bottom"></div>
+		</div>
+		<div class="slot number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot second number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot second number">
+			<div class="element bar center top"></div>
+			<div class="element bar center middle"></div>
+			<div class="element bar center bottom"></div>
+			<div class="element bar left top"></div>
+			<div class="element bar left bottom"></div>
+			<div class="element bar right top"></div>
+			<div class="element bar right bottom"></div>
+		</div>
+		<div class="slot text ampm">
+				<p class="element am">AM</p>
+				<p class="element pm">PM</p>
+		</div>
+	</div>
+</div>
+
+  
+  <%= yield %>
+</div>
+
+<% if Rails.env.production? %>
+    <% javascript_tag do %>
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    <% end %>
+    <% javascript_tag do %>
+        try {
+        var pageTracker = _gat._getTracker("UA-1687866-10");
+        pageTracker._trackPageview();
+        } catch(err) {}
+    <% end %>
+<% end %>
+
+</body>
+</html>

@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
   before_filter :login_required
-  before_filter :load_project, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_project, :only => [:edit, :update, :destroy]
   before_filter :load_project_type, :only => [:create]
 
   def index
     @projects = Project.find(:all, :order => 'name')
+    @aggregate_projects = AggregateProject.order(:name)
   end
 
   def new

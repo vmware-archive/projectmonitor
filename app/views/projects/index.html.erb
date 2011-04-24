@@ -1,4 +1,4 @@
-<h1>Listing projects</h1>
+<h1>Projects</h1>
 
 <table>
   <tr>
@@ -6,6 +6,7 @@
     <th>Project Type</th>
     <th>Feed URL</th>
     <th>Enabled?</th>
+    <th>Aggregate?</th>
     <th>Tags</th>
     <th colspan="2">&nbsp;</th>
   </tr>
@@ -19,6 +20,7 @@
         <% end %>
       </td>
       <td><%= project.enabled? ? "Yes" : "No" %></td>
+      <td><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
       <td><%= project.tag_list %></td>
       <td><%= link_to 'Edit', edit_project_path(project) %></td>
       <td><%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
@@ -30,3 +32,33 @@
 
 <%= link_to 'Home', root_path %>
 <%= link_to 'New project', new_project_path %>
+
+<br/>
+<br/>
+<br/>
+
+<h1>Aggregate projects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Enabled?</th>
+    <th>Tags</th>
+    <th colspan="2">&nbsp;</th>
+  </tr>
+
+  <% for aggregated_project in @aggregate_projects %>
+    <tr>
+      <td><%= h aggregated_project.name %></td>
+      <td><%= aggregated_project.enabled? ? "Yes" : "No" %></td>
+      <td><%= aggregated_project.tag_list %></td>
+      <td><%= link_to 'Edit', edit_aggregate_project_path(aggregated_project) %></td>
+      <td><%= link_to 'Remove', aggregate_project_path(aggregated_project), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'Home', root_path %>
+<%= link_to 'New aggregate project', new_aggregate_project_path %>

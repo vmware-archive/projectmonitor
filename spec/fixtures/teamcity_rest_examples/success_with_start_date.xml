@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<builds count="9">
+  <build id="10" number="9" status="SUCCESS" buildTypeId="bt2" startDate="Thu, 12 Oct 2007 00:46:37 Z" href="/app/rest/builds/id:10"
+         webUrl="http://localhost:8111/viewLog.html?buildId=10&amp;buildTypeId=bt2"/>
+</builds>
