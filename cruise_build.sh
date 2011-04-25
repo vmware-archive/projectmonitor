@@ -16,4 +16,6 @@ rake setup
 RAILS_ENV=test rake db:create || true
 RAILS_ENV=development rake db:create || true
 
+export DISPLAY=:99
+
 rake cruise
