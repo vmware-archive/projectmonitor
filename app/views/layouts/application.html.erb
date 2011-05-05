@@ -23,7 +23,7 @@
     <div id="top_right">
       <div class="smaller_text">
         <% if current_user.nil? %>
-          <%= link_to "Log in", AuthConfig.openid? ? new_openid_path : login_path %>
+          <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
           <br/>
         <% end %>
         <% if params[:controller] == "ci_monitor" %>
@@ -42,9 +42,9 @@
           <br />
           <%= link_to "Projects", projects_path %> |
           <% if AuthConfig.password? %>
-            <%= link_to "New user", new_user_path %> | 
+            <%= link_to "Add User", new_user_path %> | 
           <% end %>
-          <%= link_to "Log out", logout_path %>
+          <%= link_to "Log Out", logout_path %>
         </div>
       <% end %>
     </div>
