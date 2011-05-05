@@ -21,31 +21,16 @@
     <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
     <%= link_to(image_tag(logo), '/') %>
     <div id="top_right">
-      <div class="smaller_text">
-        <% if current_user.nil? %>
-          <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
-          <br/>
-        <% end %>
-        <% if params[:controller] == "ci_monitor" %>
-          <%= link_to_function "refresh rate", "document.getElementById('refreshInterval').style.display='inline'; this.style.display='none'" %>
-          <%= select_tag "refreshInterval",
-                            options_for_select([["15 seconds", "15"], ["30 seconds", "30"], ["60 seconds", "60"], ["5 minutes", "300"], ["Never", "0"]]),
-                            :onchange => "onChangeRefreshTimeoutDropdown()", :style => "display: none" %>
-          <%= javascript_tag do %>
-            setRefreshIntervalDropdown();
-          <% end %>
-        <% end %>
-      </div>
       <% if current_user.present? %>
-        <div class="smaller_text">
-          Hello, <%= current_user.login %>
-          <br />
-          <%= link_to "Projects", projects_path %> |
-          <% if AuthConfig.password? %>
-            <%= link_to "Add User", new_user_path %> | 
-          <% end %>
-          <%= link_to "Log Out", logout_path %>
-        </div>
+        Hello, <%= current_user.login %>
+        <br />
+        <%= link_to "Projects", projects_path %> |
+        <% if AuthConfig.password? %>
+          <%= link_to "Add User", new_user_path %> | 
+        <% end %>
+        <%= link_to "Log Out", logout_path %>
+      <% else %>
+        <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
       <% end %>
     </div>
     <div style="clear:both;"></div>
@@ -53,33 +38,31 @@
 
 <div class="page">
   <% if flash[:error] %>
-      <div id="flash_error">
-        <%= flash[:error] %>
-      </div>
+    <div id="flash_error">
+      <%= flash[:error] %>
+    </div>
   <% end %>
 
   <% if flash[:notice] %>
-      <div id="flash_notice">
-        <%= flash[:notice] %>
-      </div>
+    <div id="flash_notice">
+      <%= flash[:notice] %>
+    </div>
   <% end %>
 
   <%= yield %>
-
 </div>
 
 <% if Rails.env.production? %>
-    <% javascript_tag do %>
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    <% end %>
-    <% javascript_tag do %>
-        try {
-        var pageTracker = _gat._getTracker("UA-1687866-10");
-        pageTracker._trackPageview();
-        } catch(err) {}
-    <% end %>
+  <% javascript_tag do %>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  <% end %>
+  <% javascript_tag do %>
+    try {
+      var pageTracker = _gat._getTracker("UA-1687866-10");
+      pageTracker._trackPageview();
+    } catch(err) {}
+  <% end %>
 <% end %>
-
 </body>
 </html>
