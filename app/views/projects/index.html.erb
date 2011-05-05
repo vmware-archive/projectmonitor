@@ -1,5 +1,7 @@
 <h1>Projects</h1>
 
+<%= link_to 'Add Project', new_project_path, :class => "button", :style => "margin-left: 15px;" %>
+
 <table class="projects">
   <tr>
     <th>Name</th>
@@ -25,23 +27,21 @@
       </td>
       <td style="text-align: center;"><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
       <td><%= project.tag_list %></td>
-      <td><%= link_to 'Edit', edit_project_path(project) %></td>
-      <td><%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td>
+        <%= link_to 'Edit', edit_project_path(project), :class => "button" %>
+      </td>
+      <td>
+        <%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
+      </td>
     </tr>
   <% end %>
 </table>
 
-<br/>
-
-<%= link_to 'New project', new_project_path %>
-
-<br/>
-<br/>
-<br/>
-
 <h1>Aggregate projects</h1>
 
-<table>
+<%= link_to 'Add Aggregate Project', new_aggregate_project_path, :class => "button", :style => "margin-left: 15px;" %>
+
+<table class="projects">
   <tr>
     <th>Name</th>
     <th>Enabled?</th>
@@ -50,16 +50,22 @@
   </tr>
 
   <% for aggregated_project in @aggregate_projects %>
-    <tr>
+    <tr class="<%= cycle("odd", "even") %>">
       <td><%= h aggregated_project.name %></td>
-      <td><%= aggregated_project.enabled? ? "Yes" : "No" %></td>
+      <td style="text-align: center;">
+        <% if aggregated_project.enabled? %>
+          &#10003;
+        <% else -%>
+          <span style="color: #AA1224;">&#10005;</span>
+        <% end -%>
+      </td>
       <td><%= aggregated_project.tag_list %></td>
-      <td><%= link_to 'Edit', edit_aggregate_project_path(aggregated_project) %></td>
-      <td><%= link_to 'Remove', aggregate_project_path(aggregated_project), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td>
+        <%= link_to 'Edit', edit_aggregate_project_path(aggregated_project), :class => "button" %>
+      </td>
+      <td>
+        <%= link_to 'Remove', aggregate_project_path(aggregated_project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
+      </td>
     </tr>
   <% end %>
 </table>
-
-<br/>
-
-<%= link_to 'New aggregate project', new_aggregate_project_path %>
