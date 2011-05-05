@@ -11,7 +11,6 @@ gem "httpauth"
 gem "acts_as_taggable_on_steroids"
 gem "ruby-openid"
 gem "ruby-openid-apps-discovery"
-gem "rspec-rails", "2.2.0"
 gem "delayed_job"
 gem "dynamic_form"
 
@@ -34,4 +33,8 @@ end
 group :test do
   gem "jasmine", "1.0.1.1"
   gem "headless", "0.1.0"
+end
+
+group :test, :development do
+  gem "rspec-rails", "2.2.0"
 end
