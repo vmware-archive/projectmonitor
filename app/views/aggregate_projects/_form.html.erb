@@ -1,18 +1,19 @@
 <p>
-  <b>Name</b><br/>
+  <%= f.label :name %>
   <%= f.text_field :name %>
 </p>
 
 <p>
-  <b>Enabled?</b><br/>
+  <%= f.label :enabled, "Enabled?" %>
   <%= f.check_box :enabled %>
 </p>
 
 <p>
-  <b>Tags</b> (separate with commas)<br/>
+  <%= f.label :tag_list, "Tags" %>
   <%= f.text_field :tag_list, :size=>40 %>
+  <em>(separate with commas)</em>
 </p>
 
-<p>
+<p style="text-align: right; margin-bottom: 0;">
   <%= submit_tag @aggregate_project.new_record? ? "Create" : "Update" %>
 </p>

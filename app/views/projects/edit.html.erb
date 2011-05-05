@@ -1,4 +1,6 @@
-<h1>Editing project</h1>
+<%= link_to '&larr; Back to Projects'.html_safe, projects_path %>
+
+<h1>Edit Project</h1>
 
 <%= error_messages_for :project %>
 
@@ -6,5 +8,6 @@
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
 
-<%= link_to 'Remove', project_path(@project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
-<%= link_to 'Back', projects_path %>
+<div style="margin-left: 30px;">
+  <%= link_to 'Remove Project -', project_path(@project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
+</div>

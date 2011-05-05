@@ -1,15 +1,15 @@
 <p>
-  <b>Name</b><br/>
+  <%= f.label :name %>
   <%= f.text_field :name %>
 </p>
 
 <p>
-  <b>Feed URL</b><br/>
-  <%= f.text_field :feed_url, :size=>80 %>
+  <%= f.label :feed_url, "Feed URL" %>
+  <%= f.text_area :feed_url, :style => "height: 3em;" %>
 </p>
 
 <p>
-  <b>Project Type</b><br/>
+  <%= f.label :type, "Project Type" %>
   <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name ],
                        [HudsonProject.name.titleize, HudsonProject.name ],
                        [TeamCityRestProject.name.titleize, TeamCityRestProject.name ],
@@ -17,36 +17,45 @@
 </p>
 
 <p>
-  <b>Basic/Digest Auth Username</b><br/>
+  <%= f.label :auth_username, "Feed Username" %>
   <%= f.text_field :auth_username, :size=>40 %>
+  <em>Basic or digest authentication</em>
 </p>
 
 <p>
-  <b>Basic/Digest Auth Password</b><br/>
+  <%= f.label :auth_password, "Feed Password" %>
   <%= f.password_field :auth_password, :size=>40 %>
+  <em>Basic or digest authentication</em>
 </p>
 
 <p>
-  <b>Enabled?</b><br/>
+  <%= f.label :enabled, "Enabled?" %>
   <%= f.check_box :enabled %>
 </p>
 
 <p>
-  <b>Part of aggregate project?</b><br/>
+  <%= f.label :aggregate_project_id, "Aggregate Project" %>
   <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda{|ap| !ap.enabled? }, :include_blank => true}) %>
 </p>
 
 <p>
-  <b>Tags</b> (separate with commas)<br/>
+  <%= f.label :aggregate_project_id, "Tags" %>
   <%= f.text_field :tag_list, :size=>40 %>
+  <em>
+    Separate with commas
+  </em>
 </p>
 
 <p>
-  <b>Polling Interval (seconds)</b> if blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %>s<br/>
-  <%= f.text_field :polling_interval, :size=>3 %><br/>
-  <em>Will poll next <%= @project.next_poll_at ? time_ago_in_words(@project.next_poll_at) + " from now" : "ASAP" %></em>
+  <%= f.label :polling_interval, "Polling Interval" %>
+  <%= f.text_field :polling_interval, :size=>3 %> seconds
+  <em>
+    If blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %> seconds.
+    <br />
+    Will poll next <%= @project.next_poll_at ? time_ago_in_words(@project.next_poll_at) + " from now" : "ASAP" %>.
+  </em>
 </p>
 
-<p>
+<p style="text-align: right; margin-bottom: 0;">
   <%= submit_tag @project.new_record? ? "Create" : "Update" %>
 </p>
