@@ -1,10 +1,9 @@
 <h1>Projects</h1>
 
-<table>
+<table class="projects">
   <tr>
     <th>Name</th>
     <th>Project Type</th>
-    <th>Feed URL</th>
     <th>Enabled?</th>
     <th>Aggregate?</th>
     <th>Tags</th>
@@ -12,15 +11,19 @@
   </tr>
 
   <% for project in @projects %>
-    <tr>
+    <tr class="<%= cycle("odd", "even") %>">
       <td><%= h project.name %></td>
-      <td><%= h project.class.name.titleize %></td>
-      <td><%= link_to h(project.feed_url), project.feed_url %>
-        <% if !project.auth_username.blank? || !project.auth_password.blank? %>(under auth)
-        <% end %>
+      <td>
+        <%= content_tag 'span', project.class.name.titleize, :title=>"#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}" %>
       </td>
-      <td><%= project.enabled? ? "Yes" : "No" %></td>
-      <td><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
+      <td style="text-align: center;">
+        <% if project.enabled? %>
+          &#10003;
+        <% else -%>
+          <span style="color: #AA1224;">&#10005;</span>
+        <% end -%>
+      </td>
+      <td style="text-align: center;"><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
       <td><%= project.tag_list %></td>
       <td><%= link_to 'Edit', edit_project_path(project) %></td>
       <td><%= link_to 'Remove', project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
@@ -30,7 +33,6 @@
 
 <br/>
 
-<%= link_to 'Home', root_path %>
 <%= link_to 'New project', new_project_path %>
 
 <br/>
@@ -60,5 +62,4 @@
 
 <br/>
 
-<%= link_to 'Home', root_path %>
 <%= link_to 'New aggregate project', new_aggregate_project_path %>
