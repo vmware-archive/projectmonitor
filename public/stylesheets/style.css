@@ -2,7 +2,7 @@ body {
 	font-family: Verdana, Arial, sans-serif;
 	font-size: 12px; 
 	background: white;
-  margin-top: 3px;
+  margin: 0;
 }
 
 body, p, li { 
@@ -30,6 +30,10 @@ h1 {
 	margin: 0 0 5px;
   letter-spacing: -2px;
   font-weight: bold;
+}
+
+.page {
+  margin:8px;
 }
 
 .page h1 {
@@ -71,7 +75,7 @@ a:hover {
 
 #header {
   margin: 0;
-  padding: .5em 1em .5em 1em;
+  padding: .8em 1em;
   background-color: #88C2E5;
 }
 
@@ -154,7 +158,6 @@ a:hover {
   top: 0.25em;
   right: 2em;
   margin-top: 0.5em;
-  width: 20em;
 }
 
 #advertisement {
