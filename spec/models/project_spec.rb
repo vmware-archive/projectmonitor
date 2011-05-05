@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
   class RandomProject < Project;end
 
-  before(:each) do
+  before do
     @project = RandomProject.new(:name => "my_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
   end
 
@@ -319,6 +319,23 @@ describe Project do
         @project.set_next_poll!
         (@project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
       end
+    end
+  end
+
+  describe "#has_auth?" do
+    it "returns true if either username or password exists" do
+      @project.auth_username = "uname"
+      @project.has_auth?.should be_true
+
+      @project.auth_username = nil
+      @project.auth_password = "pwd"
+      @project.has_auth?.should be_true
+    end
+
+    it "returns false if both username and password are blank" do
+      @project.auth_username = ""
+      @project.auth_password = nil
+      @project.has_auth?.should be_false
     end
   end
 end

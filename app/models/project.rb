@@ -90,4 +90,8 @@ class Project < ActiveRecord::Base
       statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, last_green.id])
     end
   end
+
+  def has_auth?
+    auth_username.present? || auth_password.present?
+  end
 end
