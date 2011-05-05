@@ -1,6 +1,10 @@
 <h1>Editing aggregate project</h1>
+
 <%= error_messages_for :aggregate_project %>
+
 <%= form_for(@aggregate_project, :as => :project, :url => aggregate_project_path, :html => {:method => :put}) do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
+
+<%= link_to 'Remove', aggregate_project_path(aggregated_project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
 <%= link_to 'Back', projects_path %>
