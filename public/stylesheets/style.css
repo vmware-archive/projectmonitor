@@ -177,19 +177,21 @@ a:hover {
 }
 
 #flash_error {
-  color: red;
+  color: #ffffff;
   font-weight: bold;
-  background-color: lightgray;
-  padding: 5px;
-  margin: 5px;
+  font-size: 1.2em;
+  background-color: #aa1224;
+  padding: 15px;
+  margin: 15px 0;
 }
 
 #flash_notice {
-  color: blue;
+  color: #ffffff;
   font-weight: bold;
-  background-color: lightgray;
-  padding: 5px;
-  margin: 5px;
+  font-size: 1.2em;
+  background-color: #2B4C74;
+  padding: 15px;
+  margin: 15px 0;
 }
 
 #openid_url {
