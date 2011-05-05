@@ -17,6 +17,7 @@
       <td><%= h project.name %></td>
       <td>
         <%= content_tag 'span', project.class.name.titleize, :title=>"#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}" %>
+        <%= image_tag("icons/lock.png", :style => "position:relative; top: 3px;") if project.has_auth? %>
       </td>
       <td style="text-align: center;">
         <% if project.enabled? %>
