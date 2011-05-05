@@ -25,12 +25,12 @@ h1 {
   font-family: Helvetica, sans-serif; 
 	padding: 0; 
 	line-height: 1em; 
-	margin: 0 0 5px;
+	margin: 15px 0;
   font-weight: bold;
 }
 
 .page {
-  margin:8px;
+  margin: 15px;
 }
 
 .page h1 {
@@ -55,7 +55,7 @@ a:link {
 }
 
 a:hover {
-        color: #aa1224;
+  color: #aa1224;
 }
 
 
@@ -244,6 +244,7 @@ Form Errors
 
 table.projects {
   border-collapse: collapse;
+  margin: 15px 0 40px 0;
 }
 
 table.projects tr th {
@@ -262,4 +263,28 @@ table.projects tr.odd td {
 }
 
 table.projects tr.even {
+}
+
+.button,
+a:link.button {
+  background:#2B4C74;
+  padding: 2px 5px;
+  font-size: 12px;
+  color: #eeeeee;
+  text-decoration:none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  display:table-inline;
+  font-weight:bold;
+  letter-spacing: 1px;
+  box-shadow: 0 0 0 1px #3B6692, 0 0 0 2px #444;
+  -moz-box-shadow: 0 0 0 1px #3B6692, 0 0 0 2px #444;
+  -webkit-shadow: 0 0 0 1px #3B6692, 0 0 0 2px #444;
+}
+
+.button:hover,
+a:hover.button {
+  color: #eeeeee;
+  background: #14274A;
 }
