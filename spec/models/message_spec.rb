@@ -58,5 +58,19 @@ describe Message do
       message.expires_at.should be
       message.expires_at.should == now + 1.hour
     end
+    
+    it "sets expires_at correctly on message creation" do
+      message = Message.create(:text => "hi")
+
+      message.expires_at.should_not be
+
+
+      duration = 1.hour
+      message = Message.new(:text => "hi", :expires_in => duration)
+      sleep(2)
+      message.save
+
+      message.expires_at.should == message.created_at + duration
+    end
   end
 end
