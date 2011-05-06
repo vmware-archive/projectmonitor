@@ -33,6 +33,7 @@ class AggregateProjectsController < ApplicationController
 
   def destroy
     @aggregate_project.destroy
+    flash[:notice] = 'Aggregate project was successfully destroyed.'
     redirect_to projects_url
   end
 
