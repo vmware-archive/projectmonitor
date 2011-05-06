@@ -39,9 +39,22 @@ describe ProjectsController do
       response.should be_success
     end
 
-    it "should respond to update" do
-      put :update, :id => projects(:socialitis), :project => { }
-      response.should redirect_to(projects_path)
+    context "#update" do
+      it "should respond to update" do
+        put :update, :id => projects(:socialitis), :project => { }
+        response.should redirect_to(projects_path)
+      end
+
+      it "allows changing the type" do
+        project = HudsonProject.create(:name => "HP to CCP", :feed_url => "http://www.example.com/job/example/rssAll")
+        project.should be_valid
+        project.should be_a_kind_of(HudsonProject)
+
+        put :update, :id => project.id, :project => { :type => "CruiseControlProject", :feed_url => "http://redrover.dyndns-ip.com:8111/app/rest/builds?locator=running:all,buildType:(id:bt10).rss" }
+
+        assigns(:project).should be_valid
+        assigns(:project).should be_a_kind_of(CruiseControlProject)
+      end
     end
 
     it "should respond to destroy" do
