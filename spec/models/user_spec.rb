@@ -20,7 +20,7 @@ describe User do
   it 'requires login' do
     lambda do
       u = create_user(:login => nil)
-      u.errors[:name].should_not be_nil
+      u.errors[:login].should be_present
     end.should_not change(User, :count)
   end
 
@@ -30,7 +30,7 @@ describe User do
       it "should work for '#{login_str}'" do
         lambda do
           u = create_user(:login => login_str)
-          u.errors[:name].should be_empty
+          u.errors[:login].should be_blank
         end.should change(User, :count).by(1)
       end
     end
@@ -42,7 +42,7 @@ describe User do
       it "'#{login_str}'" do
         lambda do
           u = create_user(:login => login_str)
-          u.errors[:name].should_not be_nil
+          u.errors[:login].should be_present
         end.should_not change(User, :count)
       end
     end
@@ -51,21 +51,21 @@ describe User do
   it 'requires password' do
     lambda do
       u = create_user(:password => nil)
-      u.errors[:name].should_not be_nil
+      u.errors[:password].should be_present
     end.should_not change(User, :count)
   end
 
   it 'requires password confirmation' do
     lambda do
       u = create_user(:password_confirmation => nil)
-      u.errors[:name].should_not be_nil
+      u.errors[:password_confirmation].should be_present
     end.should_not change(User, :count)
   end
 
   it 'requires email' do
     lambda do
       u = create_user(:email => nil)
-      u.errors[:name].should_not be_nil
+      u.errors[:email].should be_present
     end.should_not change(User, :count)
   end
 
@@ -93,7 +93,7 @@ describe User do
       it "'#{email_str}'" do
         lambda do
           u = create_user(:email => email_str)
-          u.errors[:name].should_not be_nil
+          u.errors[:email].should be_present
         end.should_not change(User, :count)
       end
     end
@@ -118,7 +118,7 @@ describe User do
       it "'#{name_str}'" do
         lambda do
           u = create_user(:name => name_str)
-          u.errors[:name].should_not be_nil
+          u.errors[:name].should be_present
         end.should_not change(User, :count)
       end
     end

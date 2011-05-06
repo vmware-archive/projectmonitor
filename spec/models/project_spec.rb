@@ -19,13 +19,13 @@ describe Project do
     it "should require a name" do
       @project.name = ""
       @project.should_not be_valid
-      @project.errors[:name].should_not be_nil
+      @project.errors[:name].should be_present
     end
 
-    it "should require a name" do
-      @project.name = ""
+    it "should require a feed url" do
+      @project.feed_url = ""
       @project.should_not be_valid
-      @project.errors[:name].should_not be_nil
+      @project.errors[:feed_url].should be_present
     end
   end
 

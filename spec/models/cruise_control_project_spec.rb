@@ -10,19 +10,19 @@ describe Project do
       it "should require an RSS URL" do
         @project.feed_url = ""
         @project.should_not be_valid
-        @project.errors[:feed_url].should_not be_nil
+        @project.errors[:feed_url].should be_present
       end
 
       it "should require that the RSS URL contain a valid domain" do
         @project.feed_url = "foo"
         @project.should_not be_valid
-        @project.errors[:feed_url].should_not be_nil
+        @project.errors[:feed_url].should be_present
       end
 
       it "should require that the RSS URL contain a valid address" do
         @project.feed_url = "http://foo.bar.com/"
         @project.should_not be_valid
-        @project.errors[:feed_url].should_not be_nil
+        @project.errors[:feed_url].should be_present
       end
 
       it "should allow both http and https" do
