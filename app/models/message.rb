@@ -21,13 +21,13 @@ class Message < ActiveRecord::Base
     return if expires_at.blank?
     return if created_at.blank?
 
-    expires_at - created_at
+    (expires_at - created_at).to_i
   end
 
   def expires_in=(seconds)
     if seconds.to_i > 0
       @expires_in = seconds.to_i
-      self.expires_at = (created_at || Time.now) + @expires_in
+      self.expires_at = created_at + @expires_in if created_at
     end
   end
 

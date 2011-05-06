@@ -258,6 +258,35 @@ describe DashboardsController do
       end
     end
 
+    context "messages" do
+      before do
+        @tag = 'nyc'
+        @message_active = Message.create(:text => 'foo', :expires_at => 1.hour.from_now)
+        @message_expired = Message.create(:text => 'foo', :expires_at => 1.hour.ago)
+        @message_matching_tag = Message.create(:text => 'foo', :expires_at => 1.hour.from_now, :tag_list => @tag)
+        @message_expired_matching_tag = Message.create(:text => 'foo', :expires_at => 1.hour.ago, :tag_list => @tag)
+        @message_not_matching_tag = Message.create(:text => 'foo', :expires_at => 1.hour.from_now, :tag_list => 'notnyc')
+      end
+
+      it "loads all active messages without tags" do
+        get :show
+        assigns(:messages).should include(@message_active)
+        assigns(:messages).should_not include(@message_expired)
+        assigns(:messages).should include(@message_matching_tag)
+        assigns(:messages).should_not include(@message_expired_matching_tag)
+        assigns(:messages).should include(@message_not_matching_tag)
+      end
+
+      it "loads all active messages with specified tags" do
+        get :show, :tags => @tag
+        assigns(:messages).should_not include(@message_active)
+        assigns(:messages).should_not include(@message_expired)
+        assigns(:messages).should include(@message_matching_tag)
+        assigns(:messages).should_not include(@message_expired_matching_tag)
+        assigns(:messages).should_not include(@message_not_matching_tag)
+      end
+    end
+
     describe 'aggregate projects' do
       it "should show aggregate projects that are not empty" do
         get :show

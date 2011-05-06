@@ -13,6 +13,14 @@
   <%- end -%>
 </p>
 
+<p>
+  <%= f.label :tag_list, "Tags" %>
+  <%= f.text_field :tag_list, :size=>40 %>
+  <em>
+    Separate with commas
+  </em>
+</p>
+
 <p style="text-align: right; margin-bottom: 0;">
   <%= f.submit @message.new_record? ? "Create" : "Update" %>
 </p>
