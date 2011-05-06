@@ -1,15 +1,7 @@
-<h1>New message</h1>
+<%= link_to '&larr; Back to Messages'.html_safe, messages_path %>
+
+<h1>Add Message</h1>
 
 <%= form_for(@message) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :text %><br />
-    <%= f.text_field :text %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
+  <%= render :partial => 'form', :locals => { :f => f } %>
 <% end %>
-
-<%= link_to 'Back', messages_path %>

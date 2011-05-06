@@ -23,12 +23,15 @@
     <div id="top_right">
       <% if current_user.present? %>
         Hello, <%= current_user.login %>
+        <%= link_to "(log out)", logout_path, :class=>'smaller_text' %>
         <br />
-        <%= link_to "Projects", projects_path %> |
+        <%= link_to "Projects", projects_path %>
+        |
+        <%= link_to "Messages", messages_path %>
+        |
         <% if AuthConfig.password? %>
-          <%= link_to "Add User", new_user_path %> | 
+          <%= link_to "Add User", new_user_path %>
         <% end %>
-        <%= link_to "Log Out", logout_path %>
       <% else %>
         <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
       <% end %>

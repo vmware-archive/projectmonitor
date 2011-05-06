@@ -1,0 +1,15 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :text %>
+  <%= f.text_field :text %>
+</p>
+
+<p>
+  <%= f.label :expires_in %>
+  <%= f.select :expires_in, Message::DURATIONS_SELECT %>
+</p>
+
+<p style="text-align: right; margin-bottom: 0;">
+  <%= f.submit @message.new_record? ? "Create" : "Update" %>
+</p>

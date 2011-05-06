@@ -1,19 +1,19 @@
-<h1>Listing messages</h1>
+<h1>Messages</h1>
 
-<table>
+<%= link_to 'Add Message +', new_message_path, :class => "button add_button" %>
+
+<table class="projects">
   <tr>
     <th>Text</th>
+    <th>Expires</th>
   </tr>
 
 <% for message in @messages %>
-  <tr>
+  <tr class="<%= cycle("odd", "even") %>">
     <td><%=h message.text %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Delete', message, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h message.expires_at %></td>
+    <td><%= link_to 'Edit', edit_message_path(message), :class => "button" %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New message', new_message_path %>
