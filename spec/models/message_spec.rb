@@ -12,6 +12,26 @@ describe Message do
     end
   end
 
+  describe ".active" do
+    before do
+      @message_no_expiry = Message.create(:text => "hi")
+      @message_future_expiry = Message.create(:text => "hello", :expires_at => 1.hour.from_now)
+      @message_past_expiry = Message.create(:text => "aloha", :expires_at => 1.hour.ago)
+    end
+
+    it "returns messages that do not have an expiration" do
+      Message.active.should include(@message_no_expiry)
+    end
+
+    it "returns messages with an expiry that haven't yet" do
+      Message.active.should include(@message_future_expiry)
+    end
+
+    it "doesn't return expired messages" do
+      Message.active.should_not include(@message_past_expiry)
+    end
+  end
+
   describe "#expires_in" do
     it "returns nil when expires_at is blank" do
       message = Message.new(:expires_at => nil)

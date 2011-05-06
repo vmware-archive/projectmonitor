@@ -5,13 +5,13 @@
 <table class="projects">
   <tr>
     <th>Text</th>
-    <th>Expires</th>
+    <th>Expires In</th>
   </tr>
 
 <% for message in @messages %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%=h message.text %></td>
-    <td><%=h message.expires_at %></td>
+    <td><%=h time_ago_in_words(message.expires_at) %></td>
     <td><%= link_to 'Edit', edit_message_path(message), :class => "button" %></td>
   </tr>
 <% end %>
