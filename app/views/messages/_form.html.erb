@@ -9,7 +9,7 @@
   <%= f.label :expires_in %>
   <%= f.select :expires_in, Message::DURATIONS_SELECT %>
   <%- if @message.created_at -%>
-    <em>From message creation, <%= @message.created_at %></em>
+    <em>From message creation, <%= time_ago_in_words(@message.created_at) %> ago</em>
   <%- end -%>
 </p>
 
