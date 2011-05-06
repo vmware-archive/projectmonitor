@@ -164,14 +164,6 @@ a:hover {
   text-align: center;
 }
 
-#messages_right {
-  float: right;
-  overflow: hidden;
-}
-
-.message {  
-}
-
 .smaller_text {
   font-size: smaller;
 }
@@ -314,4 +306,18 @@ form em {
   margin-top: .4em;
   margin-left: 12em;
   display: block;
+}
+
+.project.message .box {
+  background: url('/images/greybox.png') no-repeat top left;
+}
+
+.project.message .box p {
+  margin: 5px 0 0 15px;
+  width: 183px;
+  height: 180px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 22px;
+  overflow:hidden;
 }
