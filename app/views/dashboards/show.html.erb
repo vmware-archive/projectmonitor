@@ -1,18 +1,15 @@
 <%= content_for(:head) do %>
 <% end %>
 
-<% unless @messages.empty? %>
-    <div id="messages_right" style="width:20%">
-      <%= render :partial => 'messages' %>
-    </div>
-<% end %>
-
-<div class="projects"
-     <% unless @messages.empty? %>style="width:80%"
-     <% end %> >
+<div class="projects">
   <% for project in @projects %>
-      <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
-        <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
-      </div>
+    <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
+      <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
+    </div>
   <% end %>
+  <% for message in @messages -%>
+    <div class="project message">
+      <%= render :partial => 'dashboards/message', :locals => {:message => message} %>
+    </div>
+  <% end -%>
 </div>
