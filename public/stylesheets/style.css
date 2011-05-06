@@ -294,16 +294,14 @@ a:hover.button {
   font-weight: bold;
 }
 
-form.project_edit, form.project_new, form.new_user,
-form.aggregate_project_edit, form.aggregate_project_new {
+form {
   background-color: #eeeeee;
   margin: 30px;
   padding: 30px;
   width: 38em;
 }
 
-form.project_edit label, form.project_new label, form.new_user label,
-form.aggregate_project_edit label, form.aggregate_project_new label {
+form label {
   width: 9em;
   display: inline-table;
   vertical-align: top;
@@ -312,8 +310,7 @@ form.aggregate_project_edit label, form.aggregate_project_new label {
   margin-right: 2em;
 }
 
-form.project_edit em, form.project_new em,
-form.aggregate_project_edit em, form.aggregate_project_new em {
+form em {
   margin-top: .4em;
   margin-left: 12em;
   display: block;

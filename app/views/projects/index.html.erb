@@ -47,6 +47,7 @@
     <th>&nbsp;</th>
   </tr>
 
+  <% reset_cycle -%>
   <% for aggregated_project in @aggregate_projects %>
     <tr class="<%= cycle("odd", "even") %>">
       <td><%= h aggregated_project.name %></td>
