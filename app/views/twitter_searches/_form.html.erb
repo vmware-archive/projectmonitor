@@ -1,0 +1,18 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :search_term %>
+  <%= f.text_field :search_term %>
+</p>
+
+<p>
+  <%= f.label :tag_list, "Tags" %>
+  <%= f.text_field :tag_list, :size=>40 %>
+  <em>
+    Separate with commas
+  </em>
+</p>
+
+<p style="text-align: right; margin-bottom: 0;">
+  <%= f.submit @twitter_search.new_record? ? "Create" : "Update" %>
+</p>

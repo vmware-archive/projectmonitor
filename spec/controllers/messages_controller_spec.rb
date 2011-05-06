@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MessagesController do
-  describe "with no logged in user" do
+  context "with no logged in user" do
     describe "all actions" do
       it "should redirect to the login page" do
         get :index
@@ -10,15 +10,25 @@ describe MessagesController do
     end
   end
 
-  describe "with a logged in user" do
+  context "with a logged in user" do
     before(:each) do
       controller.send("current_user=",users(:valid_edward))
     end
 
-    it "should respond to index" do
-      get :index
-      response.should be_success
-      assigns(:messages).should_not be_nil
+    describe "#index" do
+      it "should respond to index" do
+        get :index
+        response.should be_success
+        assigns(:messages).should_not be_nil
+      end
+
+      it "loads twitter searches" do
+        TwitterSearch.create(:search_term => "foo")
+        get :index
+
+        assigns(:twitter_searches).length.should == 1
+        assigns(:twitter_searches).first.should be_a_kind_of(TwitterSearch)
+      end
     end
 
     it "should respond to new" do

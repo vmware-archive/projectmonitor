@@ -321,3 +321,25 @@ form em {
   line-height: 22px;
   overflow:hidden;
 }
+
+.twtr-widget {
+  position: relative;
+  top: 4px;
+  left: 13px;
+}
+.twtr-bd {
+  height: 171px;
+  overflow: hidden;
+}
+
+.twtr-ft {
+  height: 7px;
+}
+
+.twtr-reply, .twtr-rt, .twtr-fav {
+  display: none;
+}
+
+.twtr-tweet-text em {
+  color: #ffffff;
+}

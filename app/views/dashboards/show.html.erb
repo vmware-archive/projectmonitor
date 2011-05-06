@@ -7,9 +7,20 @@
       <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
     </div>
   <% end %>
+
   <% for message in @messages -%>
     <div class="project message">
       <%= render :partial => 'dashboards/message', :locals => {:message => message} %>
     </div>
+  <% end -%>
+
+  <% if @twitter_searches.present? -%>
+    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+
+    <% for twitter_search in @twitter_searches -%>
+      <div class="project message">
+        <%= render :partial => 'dashboards/twitter_search', :locals => {:twitter_search => twitter_search} %>
+      </div>
+    <% end -%>
   <% end -%>
 </div>

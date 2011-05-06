@@ -270,6 +270,7 @@ describe DashboardsController do
 
       it "loads all active messages without tags" do
         get :show
+
         assigns(:messages).should include(@message_active)
         assigns(:messages).should_not include(@message_expired)
         assigns(:messages).should include(@message_matching_tag)
@@ -279,11 +280,37 @@ describe DashboardsController do
 
       it "loads all active messages with specified tags" do
         get :show, :tags => @tag
+
         assigns(:messages).should_not include(@message_active)
         assigns(:messages).should_not include(@message_expired)
         assigns(:messages).should include(@message_matching_tag)
         assigns(:messages).should_not include(@message_expired_matching_tag)
         assigns(:messages).should_not include(@message_not_matching_tag)
+      end
+    end
+
+    context "twitter searches" do
+      before do
+        @tag = 'nyc'
+        @twitter_search_no_tag = TwitterSearch.create(:search_term => '@pivotallabs')
+        @twitter_search_matching_tag = TwitterSearch.create(:search_term => '@pivotaltracker', :tag_list => @tag)
+        @twitter_search_not_matching_tag = TwitterSearch.create(:search_term => '@pivotal', :tag_list => 'notnyc')
+      end
+
+      it "loads all active tweets without tags" do
+        get :show
+
+        assigns(:twitter_searches).should include(@twitter_search_no_tag)
+        assigns(:twitter_searches).should include(@twitter_search_matching_tag)
+        assigns(:twitter_searches).should include(@twitter_search_not_matching_tag)
+      end
+
+      it "loads all tweets with specified tags" do
+        get :show, :tags => @tag
+
+        assigns(:twitter_searches).should_not include(@twitter_search_active)
+        assigns(:twitter_searches).should include(@twitter_search_matching_tag)
+        assigns(:twitter_searches).should_not include(@twitter_search_not_matching_tag)
       end
     end
 

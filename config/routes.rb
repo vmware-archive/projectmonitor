@@ -15,4 +15,5 @@ CiMonitor::Application.routes.draw do
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy]
   resources :aggregate_projects, :only => [:show, :new, :create, :edit, :update, :destroy]
   resources :messages, :only => [:index, :new, :create, :edit, :update, :destroy]
+  resources :twitter_searches, :only => [:new, :create, :edit, :update, :destroy]
 end

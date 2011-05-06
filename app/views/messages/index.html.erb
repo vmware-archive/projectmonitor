@@ -19,3 +19,23 @@
 <% end %>
 </table>
 
+<h1>Twitter Searches</h1>
+
+<%= link_to 'Add Twitter Search +', new_twitter_search_path, :class => "button add_button" %>
+
+<table class="projects">
+  <tr>
+    <th>Search Term</th>
+    <th>Tags</th>
+  </tr>
+
+<% reset_cycle -%>
+<% for twitter_search in @twitter_searches %>
+  <tr class="<%= cycle("odd", "even") %>">
+    <td><%=h twitter_search.search_term %></td>
+    <td class="tag_list"><%= twitter_search.tag_list %></td>
+    <td><%= link_to 'Edit', edit_twitter_search_path(twitter_search), :class => "button" %></td>
+  </tr>
+<% end %>
+</table>
+
