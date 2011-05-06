@@ -5,12 +5,14 @@ class DashboardsController < ApplicationController
       projects = Project.find_tagged_with(params[:tags], :conditions => {:enabled => true}, :include => :statuses)
       projects.reject! {|project| aggregate_projects.map(&:id).include?(project.aggregate_project_id)}
       @projects = (projects + aggregate_projects).sort_by(&:name)
+
+      @messages = Message.active.find_tagged_with(params[:tags])
     else
       @projects = Project.standalone + AggregateProject.with_projects
       @projects = @projects.sort_by(&:name)
-    end
 
-    @messages = Message.all
+      @messages = Message.active
+    end
 
     skin = params[:skin]
     render :layout => "layouts/skins/#{skin}" if skin_exists?(skin)
