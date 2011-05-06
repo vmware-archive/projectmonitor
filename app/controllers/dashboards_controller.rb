@@ -7,11 +7,13 @@ class DashboardsController < ApplicationController
       @projects = (projects + aggregate_projects).sort_by(&:name)
 
       @messages = Message.active.find_tagged_with(params[:tags])
+      @twitter_searches = TwitterSearch.find_tagged_with(params[:tags])
     else
       @projects = Project.standalone + AggregateProject.with_projects
       @projects = @projects.sort_by(&:name)
 
       @messages = Message.active
+      @twitter_searches = TwitterSearch.all
     end
 
     skin = params[:skin]

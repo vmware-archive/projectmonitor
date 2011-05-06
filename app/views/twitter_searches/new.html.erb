@@ -1,0 +1,7 @@
+<%= link_to '&larr; Back to Messages'.html_safe, messages_path %>
+
+<h1>Add Twitter Search</h1>
+
+<%= form_for(@twitter_search) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>

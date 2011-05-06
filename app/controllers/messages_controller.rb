@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = Message.active
+    @twitter_searches = TwitterSearch.all
   end
 
   def new
