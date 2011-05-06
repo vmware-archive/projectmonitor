@@ -12,6 +12,9 @@ class Message < ActiveRecord::Base
 
   acts_as_taggable
 
+  default_scope order('created_at asc')
+  scope :active, lambda { where("expires_at IS NULL OR expires_at >= ?", Time.now) }
+
   def expires_in
     return if expires_at.blank?
     return if created_at.blank?

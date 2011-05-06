@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_filter :login_required
 
   def index
-    @messages = Message.find(:all)
+    @messages = Message.active
   end
 
   def new
