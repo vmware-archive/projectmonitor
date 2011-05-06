@@ -10,6 +10,8 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :text
 
+  after_create :set_expires_at
+
   acts_as_taggable
 
   default_scope order('created_at asc')
@@ -23,10 +25,17 @@ class Message < ActiveRecord::Base
   end
 
   def expires_in=(seconds)
-    self.expires_at = if seconds.to_i > 0 && created_at.present?
-      created_at + seconds.to_i
-    else
-      Time.now
+    if seconds.to_i > 0
+      @expires_in = seconds.to_i
+      self.expires_at = (created_at || Time.now) + @expires_in
     end
+  end
+
+  private
+
+  def set_expires_at
+    return unless @expires_in
+
+    update_attribute(:expires_at, created_at + @expires_in)
   end
 end
