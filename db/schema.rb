@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110505140551) do
+ActiveRecord::Schema.define(:version => 20110506140319) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20110505140551) do
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expires_at"
   end
 
   create_table "project_statuses", :force => true do |t|
