@@ -23,6 +23,11 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if params[:project][:type].present?
+      @project.update_attribute(:type, params[:project][:type])
+      @project = Project.find(@project.id)
+    end
+
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project was successfully updated.'
       redirect_to projects_url
