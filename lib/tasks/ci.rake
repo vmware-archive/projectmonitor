@@ -9,7 +9,8 @@ namespace :ci do
     ID_RSA_LOCATION = '/Users/pivotal/.ssh/id_rsa.pub'
 
     aws_conf_location = File.expand_path('../../../config/aws.yml', __FILE__)
-    aws_credentials = YAML.load_file(aws_conf_location)['credentials']
+    aws_conf = YAML.load_file(aws_conf_location)
+    aws_credentials = aws_conf['credentials']
 
     aws_connection = Fog::Compute.new(
       :provider => aws_credentials['provider'],
@@ -36,7 +37,14 @@ namespace :ci do
       :key_name => 'ci'
     )
     server.wait_for { ready? }
+    
     p server
     p "Server is ready"
+    
+    p "Writing server public IP (#{server.dns_name}) to aws.yml"
+    aws_conf.merge!("ci_server" => { "public_ip" => server.dns_name })
+    f = File.open(aws_conf_location, "w")
+    f.write(aws_conf.to_yaml)
+    f.close
   end
 end
