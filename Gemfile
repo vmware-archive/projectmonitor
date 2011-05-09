@@ -19,7 +19,7 @@ group :postgres do
 end
 
 group :mysql do
-  gem "mysql"   ### assume in system gems
+  gem "mysql2"   ### assume in system gems
 end
 
 group :development do
