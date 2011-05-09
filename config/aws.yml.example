@@ -1,0 +1,6 @@
+credentials:
+  provider: 'AWS'
+  aws_access_key_id: >>> AWS ACCESS KEY GOES HERE <<<
+  aws_secret_access_key: >>> AWS SECRET KEY GOES HERE <<<
+ci_server:
+  public_ip: >>> AWS PUBLIC IP ADDRESS <<<

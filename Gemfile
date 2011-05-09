@@ -14,6 +14,7 @@ gem "ruby-openid-apps-discovery"
 gem "delayed_job"
 gem "dynamic_form"
 
+
 group :postgres do
   gem "pg"
 end
@@ -28,6 +29,11 @@ group :development do
   gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
   gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
   gem "ruby-debug-ide"
+  gem "capistrano"
+  gem "capistrano-ext"
+  gem "soloist"
+  gem "rvm"
+  gem "fog"
 end
 
 group :test do
