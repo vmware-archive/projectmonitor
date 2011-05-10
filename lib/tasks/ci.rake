@@ -2,10 +2,10 @@ namespace :ci do
   desc "Spin up CI server on amazon"
   task :server_start do
     require 'fog'
-    require 'yaml'  
+    require 'yaml'
 
     SECURITY_GROUP_NAME = "default"
-    PORTS_TO_OPEN = [22, 443]
+    PORTS_TO_OPEN = [22, 443, 80]
     ID_RSA_LOCATION = '/Users/pivotal/.ssh/id_rsa.pub'
 
     aws_conf_location = File.expand_path('../../../config/ci.yml', __FILE__)
@@ -43,8 +43,16 @@ namespace :ci do
     
     p "Writing server public IP (#{server.dns_name}) to ci.yml"
     aws_conf.merge!("ci_server" => { "public_ip" => server.dns_name })
+
     f = File.open(aws_conf_location, "w")
     f.write(aws_conf.to_yaml)
     f.close
+  end
+  
+  desc "open the CI interface in a browser"
+  task :open do
+    aws_conf_location = File.expand_path('../../../config/ci.yml', __FILE__)
+    aws_conf = YAML.load_file(aws_conf_location)
+    exec "open http://#{aws_conf['ci_server']['public_ip']}"
   end
 end

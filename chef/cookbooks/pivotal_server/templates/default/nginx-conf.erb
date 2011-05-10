@@ -1,0 +1,42 @@
+user nginx;
+worker_processes  1;
+daemon off;
+
+error_log  logs/error.log  info;
+
+events {
+    worker_connections  200;
+}
+
+http {
+  auth_basic            "CI";
+  auth_basic_user_file  htpasswd;
+  include       mime.types;
+  default_type   application/octet-stream;
+  sendfile        on;
+  keepalive_timeout  65;
+  tcp_nodelay        on;
+ 
+  upstream app_server {
+    server 127.0.0.1:8080;
+  }
+ 
+  server {
+    root         /usr/local/nginx/html/;
+ 
+    try_files $uri @app_server;
+ 
+    location @app_server {
+      proxy_set_header  X-Real-IP        $remote_addr;
+      proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+      proxy_set_header  Host             $http_host;
+      proxy_set_header  X_FORWARDED_PROTO $scheme;
+      proxy_redirect    off;
+      proxy_pass        http://app_server;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+      root   html;
+    }
+  }
+}
