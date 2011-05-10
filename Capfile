@@ -39,6 +39,7 @@ task :upload_cookbooks do
   run "rm #{app_dir}/soloistrc || true"
   run "rm -r #{app_dir}/chef || true"
   upload("soloistrc", "#{app_dir}/soloistrc")
+  upload("config/ci.yml", "#{app_dir}/ci.yml")
   upload("chef/", "#{app_dir}/chef/", :via => :scp, :recursive => true)
 end
 

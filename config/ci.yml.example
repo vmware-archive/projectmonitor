@@ -1,3 +1,4 @@
+--- 
 credentials:
   provider: 'AWS'
   aws_access_key_id: >>> AWS ACCESS KEY GOES HERE <<<
