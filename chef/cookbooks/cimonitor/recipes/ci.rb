@@ -1,6 +1,7 @@
 include_recipe "pivotal_server::mysql"
 include_recipe "pivotal_server::sqlite"
 include_recipe "pivotal_server::libxml_prereqs"
+include_recipe "pivotal_server::nginx"
 include_recipe "pivotal_ci::jenkins"
 
 username = ENV['SUDO_USER'].strip
