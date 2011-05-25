@@ -11,11 +11,11 @@ echo USER=$USER && ruby --version && which ruby && which bundle
 # conditionally install project gems from Gemfile
 bundle check || bundle install --without postgres || exit 1
 
-rake setup
+bundle exec rake setup
 
-RAILS_ENV=test rake db:create || true
-RAILS_ENV=development rake db:create || true
+RAILS_ENV=test bundle exec rake db:create || true
+RAILS_ENV=development bundle exec rake db:create || true
 
 export DISPLAY=:99
 
-rake cruise
+bundle exec rake cruise
