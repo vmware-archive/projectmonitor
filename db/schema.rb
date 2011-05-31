@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110506185504) do
+ActiveRecord::Schema.define(:version => 20110531211123) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20110506185504) do
   end
 
   add_index "project_statuses", ["project_id", "online", "published_at"], :name => "index_project_statuses_on_project_id_and_online_and_published_at"
-  add_index "project_statuses", ["project_id"], :name => "index_project_statuses_on_project_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -66,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20110506185504) do
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
     t.integer  "aggregate_project_id"
+    t.integer  "latest_status_id"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

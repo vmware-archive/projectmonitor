@@ -35,12 +35,6 @@ describe Project do
       Project.standalone.should include projects(:socialitis)
       Project.standalone.should_not include projects(:internal_project1)
       Project.standalone.should_not include projects(:internal_project2)
-
-    end
-
-    it "should sort by project name" do
-      sorted_projects = Project.find(:all, :conditions => {:enabled => true, :aggregate_project_id => nil}).sort_by(&:name)
-      Project.standalone.should == sorted_projects
     end
 
   end
@@ -118,6 +112,7 @@ describe Project do
     it "should be false/false if the project's current status is offline" do
       project = projects(:pivots)
       project.statuses.create!(:online => false)
+      project.reload
       project.should_not be_green
       project.should_not be_red
     end
