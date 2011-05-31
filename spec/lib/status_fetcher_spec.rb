@@ -184,11 +184,12 @@ describe StatusFetcher do
         project_count = Project.count
         project_count.should > 1
         Project.all.each {|project| project.needs_poll?.should be_true }
-        Project.first.update_attribute(:next_poll_at, 5.minutes.from_now)  # make 1 project not ready to poll
+        update_later = Project.first
+        update_later.update_attribute(:next_poll_at, 5.minutes.from_now)  # make 1 project not ready to poll
 
         @fetcher.should_receive(:fetch_build_history).exactly(project_count - 1).times.and_return(ProjectStatus.new(:success => true))
         @fetcher.should_receive(:fetch_building_status).exactly(project_count - 1).times.and_return(BuildingStatus.new(false))
-        @fetcher.should_not_receive(:fetch_build_history).with(Project.first)
+        @fetcher.should_not_receive(:fetch_build_history).with(update_later)
 
         @fetcher.fetch_all
 
