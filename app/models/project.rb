@@ -3,9 +3,10 @@ class Project < ActiveRecord::Base
   DEFAULT_POLLING_INTERVAL = 120
 
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT
+  belongs_to :latest_status, :class_name => "ProjectStatus"
   belongs_to :aggregate_project
 
-  scope :standalone, where(:enabled => true, :aggregate_project_id => nil).order(:name)
+  scope :standalone, where(:enabled => true, :aggregate_project_id => nil)
 
   acts_as_taggable
 
@@ -13,7 +14,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :feed_url
 
   def status
-    statuses.first || ProjectStatus.new
+    latest_status || ProjectStatus.new
   end
 
   def online?

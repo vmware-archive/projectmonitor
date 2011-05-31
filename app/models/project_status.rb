@@ -1,15 +1,18 @@
 class ProjectStatus < ActiveRecord::Base
-  belongs_to :project
 
   SUCCESS = 'success'
   FAILURE = 'failure'
   OFFLINE = 'offline'
+
+  belongs_to :project
 
   scope :online, lambda{ |*args|
     count = args.slice!(-1)
     project_ids = args.flatten.collect {|p| p.id }
     where(:project_id => project_ids, :online => true).where('published_at is NOT NULL').order('published_at DESC').limit(count)
   }
+
+  after_create :become_project_latest_status
 
   def match?(status)
     if self.online
@@ -29,6 +32,10 @@ class ProjectStatus < ActiveRecord::Base
     else
       return OFFLINE
     end
+  end
+
+  def become_project_latest_status
+    project.update_attributes!(:latest_status => self)
   end
 
   private

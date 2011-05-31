@@ -46,11 +46,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def never_been_green?
-    green = false
-    projects.each do |p|
-      green = true if p.last_green.present?
-    end
-    !green
+    projects.all? { |p| p.last_green.blank? }
   end
 
   def breaking_build

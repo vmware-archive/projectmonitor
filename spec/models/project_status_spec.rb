@@ -53,6 +53,14 @@ describe ProjectStatus do
     end
   end
 
+  describe "after_create" do
+    it "becomes project's latest_status" do
+      project = projects(:pivots)
+      status = project.statuses.create()
+      project.reload.latest_status.should == status
+    end
+  end
+
   it "should default to not online" do
     @project_status.should_not be_online
   end
