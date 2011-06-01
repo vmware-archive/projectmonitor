@@ -23,12 +23,17 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if params[:project][:type].present?
-      @project.update_attribute(:type, params[:project][:type])
-      @project = Project.find(@project.id)
+    success = nil
+    Project.transaction do
+      if params[:project][:type].present?
+        @project.update_attribute(:type, params[:project][:type])
+        @project = Project.find(@project.id)
+      end
+      success = @project.update_attributes(params[:project])
+      raise ActiveRecord::Rollback unless success
     end
 
-    if @project.update_attributes(params[:project])
+    if success
       flash[:notice] = 'Project was successfully updated.'
       redirect_to projects_url
     else

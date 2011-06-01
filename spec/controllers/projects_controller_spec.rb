@@ -50,10 +50,20 @@ describe ProjectsController do
         project.should be_valid
         project.should be_a_kind_of(HudsonProject)
 
-        put :update, :id => project.id, :project => { :type => "CruiseControlProject", :feed_url => "http://redrover.dyndns-ip.com:8111/app/rest/builds?locator=running:all,buildType:(id:bt10).rss" }
+        put :update, :id => project.to_param, :project => { :type => "CruiseControlProject", :feed_url => "http://redrover.dyndns-ip.com:8111/app/rest/builds?locator=running:all,buildType:(id:bt10).rss" }
 
         assigns(:project).should be_valid
         assigns(:project).should be_a_kind_of(CruiseControlProject)
+      end
+
+      it "changing type is atomic" do
+        project = projects(:pivots)
+        project.should be_a_kind_of(CruiseControlProject)
+
+        put :update, :id => project.to_param, :project => { :type => "HudsonProject" }
+        response.should be_success
+        response.should render_template('edit')
+        Project.find(project.id).should be_a_kind_of(CruiseControlProject)
       end
     end
 
