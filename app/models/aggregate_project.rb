@@ -1,5 +1,5 @@
 class AggregateProject < ActiveRecord::Base
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   has_many :projects
 
   scope :with_projects, joins(:projects).where(:aggregate_projects => {:enabled => true}).select("distinct aggregate_projects.*")
