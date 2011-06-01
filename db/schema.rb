@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20110531220851) do
     t.text     "error"
   end
 
-  add_index "project_statuses", ["project_id", "online", "published_at"], :name => "index_project_statuses_on_project_id_and_online_and_published_at"
+  add_index "project_statuses", ["project_id", "online", "published_at"], :name => "index_project_statuses_on_project_id_and_others"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
