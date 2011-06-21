@@ -1,6 +1,8 @@
 class TeamCityRestProject < Project
-  validates_format_of :feed_url, :with => /http:\/\/.*\/app\/rest\/builds\?locator=running:all,buildType:\(id:bt\d*\)$/,
-                        :message => "should look like: http://*/app/rest/builds?locator=running:all,buildType:(id:bt*)"
+  URL_FORMAT = /http:\/\/.*\/app\/rest\/builds\?locator=running:all,buildType:\(id:bt\d*\)(,user:(\w+))?(,personal:(true|false|any))?$/
+  URL_MESSAGE = "should look like ('[...]' is optional): http://*/app/rest/builds?locator=running:all,buildType:(id:bt*)[,user:*][,personal:true|false|any]"
+
+  validates_format_of :feed_url, :with => URL_FORMAT, :message => URL_MESSAGE
 
   def build_status_url
     feed_url
