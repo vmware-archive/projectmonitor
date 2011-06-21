@@ -9,6 +9,31 @@ describe TeamCityRestProject do
       @project = TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => @rest_url)
     end
 
+    describe "#feed_url" do
+      context "with the personal flag" do
+        ["true", "false", "any"].each do |flag|
+          it "should be valid with #{flag}" do
+            @project.feed_url = "#{@rest_url},personal:#{flag}"
+            @project.should be_valid
+          end
+        end
+      end
+
+      context "with the user option" do
+        it "should be valid" do
+          @project.feed_url = "#{@rest_url},user:some_user123"
+          @project.should be_valid
+        end
+      end
+
+      context "with both the personal and user option" do
+        it "should be valid" do
+          @project.feed_url = "#{@rest_url},user:some_user123,personal:true"
+          @project.should be_valid
+        end
+      end
+    end
+
     describe "#project_name" do
       it "should return nil when feed_url is nil" do
         @project.feed_url = nil
