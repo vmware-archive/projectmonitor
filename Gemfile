@@ -26,8 +26,8 @@ end
 group :development do
   gem "heroku"
   gem "sqlite3-ruby", "1.3.1"
-  gem 'ruby-debug-base19' if RUBY_VERSION.include? "1.9"
-  gem 'ruby-debug-base' if RUBY_VERSION.include? "1.8"
+  gem 'ruby-debug-base19', :platforms => :mri_19
+  gem 'ruby-debug-base', :platforms => :mri_18
   gem "ruby-debug-ide"
   gem "capistrano"
   gem "capistrano-ext"
