@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   belongs_to :aggregate_project
 
   scope :standalone, where(:enabled => true, :aggregate_project_id => nil)
+  scope :enabled, where(:enabled => true)
 
   acts_as_taggable
 
