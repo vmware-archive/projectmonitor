@@ -56,34 +56,50 @@
   </em>
 </p>
 
+<hr/>
+<h3>Lobot Setup</h3>
+
+<p>
+  <%= f.label :ec2_instance_id, "EC2 Instance ID" %>
+  <%= f.text_field :ec2_instance_id %>
+</p>
+<p>
+  <%= f.label :ec2_access_key_id, "EC2 Access Key ID" %>
+  <%= f.text_field :ec2_access_key_id %>
+</p>
+<p>
+  <%= f.label :ec2_secret_access_key, "EC2 Secret Access Key" %>
+  <%= f.text_field :ec2_secret_access_key %>
+</p>
+  
 <p>
   <%= label_tag :schedule, "Schedule" %>
   <span id="schedules">
-    <%= f.check_box :monday %>
-    <%= f.label :monday, "Mon" %>
-    <%= f.check_box :tuesday %>
-    <%= f.label :tuesday, "Tue" %>
-    <%= f.check_box :wednesday %>
-    <%= f.label :wednesday, "Wed" %>
-    <%= f.check_box :thursday %>
-    <%= f.label :thursday, "Thur" %>
-    <%= f.check_box :friday %>
-    <%= f.label :friday, "Fri" %>
-    <%= f.check_box :saturday %>
-    <%= f.label :saturday, "Sat" %>
-    <%= f.check_box :sunday %>
-    <%= f.label :sunday, "Sun" %>
+    <%= f.check_box :ec2_monday %>
+    <%= f.label :ec2_monday, "Mon" %>
+    <%= f.check_box :ec2_tuesday %>
+    <%= f.label :ec2_tuesday, "Tue" %>
+    <%= f.check_box :ec2_wednesday %>
+    <%= f.label :ec2_wednesday, "Wed" %>
+    <%= f.check_box :ec2_thursday %>
+    <%= f.label :ec2_thursday, "Thur" %>
+    <%= f.check_box :ec2_friday %>
+    <%= f.label :ec2_friday, "Fri" %>
+    <%= f.check_box :ec2_saturday %>
+    <%= f.label :ec2_saturday, "Sat" %>
+    <%= f.check_box :ec2_sunday %>
+    <%= f.label :ec2_sunday, "Sun" %>
   </span>
 </p>
 
 <p>
-  <%= f.label :start_time, "Start Time" %>
-  <%= time_select :project, :start_time, :minute_step => 5 %>
+  <%= f.label :ec2_start_time, "Start Time" %>
+  <%= time_select :project, :ec2_start_time, :minute_step => 5 %>
 </p>
 
 <p>
-  <%= f.label :end_time, "End Time" %>
-  <%= time_select :project, :end_time, :minute_step => 5 %>
+  <%= f.label :ec2_end_time, "End Time" %>
+  <%= time_select :project, :ec2_end_time, :minute_step => 5 %>
 </p>
 
 <p style="text-align: right; margin-bottom: 0;">

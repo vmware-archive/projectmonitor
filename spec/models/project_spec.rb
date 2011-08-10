@@ -27,6 +27,17 @@ describe Project do
       @project.should_not be_valid
       @project.errors[:feed_url].should be_present
     end
+
+    it "should require all ec2 fields or none" do
+      @project.ec2_instance_id = "123"
+      @project.should_not be_valid
+      @project.ec2_access_key_id = "lkjafkh3223"
+      @project.should_not be_valid
+      @project.ec2_secret_access_key = "lksdjfj2398732497"
+      @project.should_not be_valid
+      @project.ec2_tuesday = true
+      @project.should be_valid
+    end
   end
 
   describe 'scopes' do

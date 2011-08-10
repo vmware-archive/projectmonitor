@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110809221908) do
+ActiveRecord::Schema.define(:version => 20110810172823) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -59,22 +59,25 @@ ActiveRecord::Schema.define(:version => 20110809221908) do
     t.string   "feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",              :default => true
-    t.boolean  "building",             :default => false,                  :null => false
-    t.string   "type",                 :default => "CruiseControlProject", :null => false
+    t.boolean  "enabled",               :default => true
+    t.boolean  "building",              :default => false,                  :null => false
+    t.string   "type",                  :default => "CruiseControlProject", :null => false
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
     t.integer  "aggregate_project_id"
     t.integer  "latest_status_id"
-    t.boolean  "monday"
-    t.boolean  "tuesday"
-    t.boolean  "wednesday"
-    t.boolean  "thursday"
-    t.boolean  "friday"
-    t.boolean  "saturday"
-    t.boolean  "sunday"
-    t.time     "start_time"
-    t.time     "end_time"
+    t.boolean  "ec2_monday"
+    t.boolean  "ec2_tuesday"
+    t.boolean  "ec2_wednesday"
+    t.boolean  "ec2_thursday"
+    t.boolean  "ec2_friday"
+    t.boolean  "ec2_saturday"
+    t.boolean  "ec2_sunday"
+    t.time     "ec2_start_time"
+    t.time     "ec2_end_time"
+    t.string   "ec2_access_key_id"
+    t.string   "ec2_secret_access_key"
+    t.string   "ec2_instance_id"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
