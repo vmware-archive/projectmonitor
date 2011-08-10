@@ -31,6 +31,11 @@ GEM
     acts_as_taggable_on_steroids (1.2)
     archive-tar-minitar (0.5.2)
     arel (2.0.6)
+    aws-sdk (1.0.4)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     builder (2.1.2)
     bunny (0.6.0)
     capistrano (2.6.0)
@@ -57,6 +62,7 @@ GEM
       uuidtools
     columnize (0.3.4)
     configuration (1.2.0)
+    crack (0.1.8)
     daemons (1.1.0)
     delayed_job (2.1.2)
       activesupport (~> 3.0)
@@ -85,6 +91,8 @@ GEM
       launchy (~> 0.3.2)
       rest-client (>= 1.4.0, < 1.7.0)
     highline (1.6.1)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     httpauth (0.1)
     i18n (0.5.0)
     jasmine (1.0.1.1)
@@ -198,6 +206,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_taggable_on_steroids
+  aws-sdk
   bundler
   capistrano
   capistrano-ext

@@ -13,6 +13,7 @@ gem "ruby-openid"
 gem "ruby-openid-apps-discovery"
 gem "delayed_job"
 gem "dynamic_form"
+gem "aws-sdk"
 
 
 group :postgres do
