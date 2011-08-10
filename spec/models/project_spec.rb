@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Project do
-  class RandomProject < Project;end
+  class RandomProject < Project;
+  end
 
   before do
     @project = RandomProject.new(:name => "my_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
@@ -41,13 +42,24 @@ describe Project do
   end
 
   describe 'scopes' do
-    it "should return non aggregated projects" do
-      Project.standalone.should include projects(:pivots)
-      Project.standalone.should include projects(:socialitis)
-      Project.standalone.should_not include projects(:internal_project1)
-      Project.standalone.should_not include projects(:internal_project2)
+    describe "standalone" do
+      it "should return non aggregated projects" do
+        Project.standalone.should include projects(:pivots)
+        Project.standalone.should include projects(:socialitis)
+        Project.standalone.should_not include projects(:internal_project1)
+        Project.standalone.should_not include projects(:internal_project2)
+      end
     end
 
+    describe "enabled" do
+      it "should return only enabled projects" do
+        @project.update_attribute(:enabled, false)
+
+        Project.enabled.should include projects(:pivots)
+        Project.enabled.should include projects(:socialitis)
+        Project.enabled.should_not include @project
+      end
+    end
   end
 
   describe "statuses" do
@@ -142,7 +154,7 @@ describe Project do
       red_since = project.red_since
 
       3.times do |i|
-        project.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes )
+        project.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes)
       end
 
       project = Project.find(project.id)
