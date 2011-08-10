@@ -10,10 +10,10 @@
 
 <p>
   <%= f.label :type, "Project Type" %>
-  <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name ],
-                       [HudsonProject.name.titleize, HudsonProject.name ],
-                       [TeamCityRestProject.name.titleize, TeamCityRestProject.name ],
-                       [TeamCityProject.name.titleize, TeamCityProject.name ]] %>
+  <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name],
+                       [HudsonProject.name.titleize, HudsonProject.name],
+                       [TeamCityRestProject.name.titleize, TeamCityRestProject.name],
+                       [TeamCityProject.name.titleize, TeamCityProject.name]] %>
 </p>
 
 <p>
@@ -35,7 +35,7 @@
 
 <p>
   <%= f.label :aggregate_project_id, "Aggregate Project" %>
-  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda{|ap| !ap.enabled? }, :include_blank => true}) %>
+  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda { |ap| !ap.enabled? }, :include_blank => true}) %>
 </p>
 
 <p>
@@ -51,9 +51,39 @@
   <%= f.text_field :polling_interval, :size=>3 %> seconds
   <em>
     If blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %> seconds.
-    <br />
+    <br/>
     Will poll next <%= @project.next_poll_at ? time_ago_in_words(@project.next_poll_at) + " from now" : "ASAP" %>.
   </em>
+</p>
+
+<p>
+  <%= label_tag :schedule, "Schedule" %>
+  <span id="schedules">
+    <%= f.check_box :monday %>
+    <%= f.label :monday, "Mon" %>
+    <%= f.check_box :tuesday %>
+    <%= f.label :tuesday, "Tue" %>
+    <%= f.check_box :wednesday %>
+    <%= f.label :wednesday, "Wed" %>
+    <%= f.check_box :thursday %>
+    <%= f.label :thursday, "Thur" %>
+    <%= f.check_box :friday %>
+    <%= f.label :friday, "Fri" %>
+    <%= f.check_box :saturday %>
+    <%= f.label :saturday, "Sat" %>
+    <%= f.check_box :sunday %>
+    <%= f.label :sunday, "Sun" %>
+  </span>
+</p>
+
+<p>
+  <%= f.label :start_time, "Start Time" %>
+  <%= time_select :project, :start_time, :minute_step => 5 %>
+</p>
+
+<p>
+  <%= f.label :end_time, "End Time" %>
+  <%= time_select :project, :end_time, :minute_step => 5 %>
 </p>
 
 <p style="text-align: right; margin-bottom: 0;">

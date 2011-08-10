@@ -38,6 +38,7 @@ describe Project do
     end
 
   end
+
   describe "statuses" do
     before(:each) do
       @project = projects(:socialitis)
