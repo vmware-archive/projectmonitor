@@ -7,4 +7,5 @@ CrontabLoader.new(:app_name => "cimonitor") do |cron|
   cron << "0 6 * * * cd #{RAILS_ROOT} && #{`which rake`.strip} db:dump FILE=/u/apps/cimonitor/shared/backup/#{RAILS_ENV}_dump.sql RAILS_ENV=#{RAILS_ENV} >> /u/apps/cimonitor/shared/log/db_backup.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
   cron << "*/3 * * * * cd #{RAILS_ROOT} && #{`which rake`.strip} cimonitor:fetch_statuses RAILS_ENV=#{RAILS_ENV} >> /u/apps/cimonitor/shared/log/fetch_statuses.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
   cron << "30 8 * * 1-5 cd #{RAILS_ROOT} && #{`which rake`.strip} cimonitor:red_over_one_day_notification RAILS_ENV=#{RAILS_ENV} >> /u/apps/cimonitor/shared/log/red_notify.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
+  cron << "*/5 * * * * cd #{RAILS_ROOT} && #{`which rake`.strip} amazon:schedule RAILS_ENV=#{RAILS_ENV} >> /u/apps/cimonitor/shared/log/amazon.log 2>&1" if RAILS_ENV == 'internal' or RAILS_ENV == 'production'
 end
