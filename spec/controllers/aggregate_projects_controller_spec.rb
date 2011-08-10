@@ -19,6 +19,14 @@ describe AggregateProjectsController do
           end
         end
       end
+
+      it "should show only enabled projects within an aggregate project" do
+        ap = aggregate_projects(:internal_projects_aggregate)
+        disabled_project = CruiseControlProject.create!(:enabled => false, :name => "disabled project", :feed_url => "http://never-ci:3333/projects/internal_project1.rss", :aggregate_project_id => ap.id)
+        ap.projects.should include(disabled_project)
+        get :show, :id => ap.to_param
+        response.should_not have_tag("div.box[project_id='#{disabled_project.id}']")
+      end
     end
   end
 
@@ -38,7 +46,7 @@ describe AggregateProjectsController do
     end
 
     it "should respond to update" do
-      put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => { }
+      put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => {}
       response.should redirect_to(projects_path)
     end
 

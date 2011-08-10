@@ -3,7 +3,7 @@ class AggregateProjectsController < ApplicationController
   before_filter :load_aggregate_project, :only => [:show, :edit, :update, :destroy]
 
   def show
-    @projects = @aggregate_project.projects
+    @projects = @aggregate_project.projects.enabled
     @messages = []
     render :template => 'dashboards/show', :layout => 'application'
   end
