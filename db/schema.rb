@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110531220851) do
+ActiveRecord::Schema.define(:version => 20110809221908) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -66,6 +66,15 @@ ActiveRecord::Schema.define(:version => 20110531220851) do
     t.datetime "next_poll_at"
     t.integer  "aggregate_project_id"
     t.integer  "latest_status_id"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

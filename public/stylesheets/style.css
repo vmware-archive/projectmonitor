@@ -308,6 +308,13 @@ form em {
   display: block;
 }
 
+#schedules label {
+  display: inline;
+  width: 3em;
+  margin-right: 0;
+  font-weight: normal;
+}
+
 .project.message .box {
   background: url('/images/greybox.png') no-repeat top left;
 }
