@@ -14,9 +14,9 @@ class AmazonService
   end
 
   def self.schedule(date)
-    puts "Scheduling amazon lobot services"
+    puts "Scheduling amazon lobot services at #{date}"
     end_time = date.to_s(:db_time)
-    start_time = (date - 5.minutes).to_s(:db_time)
+    start_time = (date - 7.minutes).to_s(:db_time)
     day = date.to_s(:db_day).downcase
 
     process_instances(:start, day, end_time, start_time)
