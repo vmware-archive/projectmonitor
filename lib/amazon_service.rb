@@ -4,14 +4,17 @@ class AmazonService
   end
 
   def start_instance(instance_id)
+    puts "Starting service #{instance_id}"
     @ec2.instances[instance_id].start
   end
 
   def stop_instance(instance_id)
+    puts "Stopping service #{instance_id}"
     @ec2.instances[instance_id].stop
   end
 
   def self.schedule(date)
+    puts "Scheduling amazon lobot services"
     end_time = date.to_s(:db_time)
     start_time = (date - 5.minutes).to_s(:db_time)
     day = date.to_s(:db_day).downcase
