@@ -1,6 +1,6 @@
 class AmazonService
   def initialize(access_key_id, secret_access_key)
-    @ec2 = AWS::EC2.new(:access_key_id => access_key_id, :secret_access_key => secret_access_key)
+    @ec2 = AWS::EC2.new(:access_key_id => access_key_id, :secret_access_key => secret_access_key, :ssl_ca_file => '/etc/ssl/certs/ca-certificates.crt')
   end
 
   def start_instance(instance_id)
