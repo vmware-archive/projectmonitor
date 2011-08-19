@@ -11,12 +11,14 @@
 #   - dist/**/*.js
 #
 src_files:
+  - public/javascripts/jquery-1.6.2.min.js
   - public/javascripts/prototype.js
   - public/javascripts/effects.js
   - public/javascripts/controls.js
   - public/javascripts/dragdrop.js
   - public/javascripts/application.js
-  - public/javascripts/**/*.js
+  - public/javascripts/refresh.js
+#  - public/javascripts/**/*.js
 
 # stylesheets
 #
