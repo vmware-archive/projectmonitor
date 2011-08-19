@@ -15,6 +15,12 @@ class Project < ActiveRecord::Base
   validates_presence_of :feed_url
   validate :ec2_presence
 
+  def before_save
+    if changed.include?('polling_interval')
+      set_next_poll
+    end
+  end
+
   def status
     latest_status || ProjectStatus.new
   end
@@ -63,8 +69,12 @@ class Project < ActiveRecord::Base
   end
 
   def set_next_poll!
-    self.next_poll_at = Time.now + (self.polling_interval || Project::DEFAULT_POLLING_INTERVAL)
+    set_next_poll
     self.save!
+  end
+
+  def set_next_poll
+    self.next_poll_at = Time.now + (self.polling_interval || Project::DEFAULT_POLLING_INTERVAL)
   end
 
   def needs_poll?
