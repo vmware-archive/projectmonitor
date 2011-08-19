@@ -1,3 +1,4 @@
+<script language="javascript" src="/javascripts/countdown.js"></script>
 <p>
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -52,7 +53,7 @@
   <em>
     If blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %> seconds.
     <br/>
-    Will poll next <%= @project.next_poll_at ? time_ago_in_words(@project.next_poll_at) + " from now" : "ASAP" %>.
+    Will poll in <span id='time_left'><%= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"%></span>
   </em>
 </p>
 
