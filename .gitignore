@@ -11,3 +11,4 @@ log/*.log
 tmp/**/*
 .DS_Store
 config/ci.yml
+.pairs
