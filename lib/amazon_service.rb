@@ -3,14 +3,28 @@ class AmazonService
     @ec2 = AWS::EC2.new(:access_key_id => access_key_id, :secret_access_key => secret_access_key, :ssl_ca_file => '/etc/ssl/certs/ca-certificates.crt')
   end
 
-  def start_instance(instance_id)
+  def start_instance(instance_id, ec2_elastic_ip = nil)
     puts "Starting service #{instance_id}"
-    @ec2.instances[instance_id].start
+    instance = @ec2.instances[instance_id]
+    instance.start
+    if ec2_elastic_ip
+      while instance.status != :running
+        puts instance.status
+        sleep(1)
+      end
+      elastic_ip = AWS::EC2::ElasticIp.new(ec2_elastic_ip)
+      instance.associate_elastic_ip(elastic_ip)
+    end
   end
 
-  def stop_instance(instance_id)
+  def stop_instance(instance_id, ec2_elastic_ip = nil)
     puts "Stopping service #{instance_id}"
-    @ec2.instances[instance_id].stop
+    instance = @ec2.instances[instance_id]
+    if ec2_elastic_ip
+      elastic_ip = AWS::EC2::ElasticIp.new(ec2_elastic_ip)
+      instance.disassociate_elastic_ip
+    end
+    instance.stop
   end
 
   def self.schedule(date)
@@ -31,9 +45,9 @@ class AmazonService
     projects.each do |project|
       service = AmazonService.new(project.ec2_access_key_id, project.ec2_secret_access_key)
       if method == :start
-        service.start_instance(project.ec2_instance_id)
+        service.start_instance(project.ec2_instance_id, project.ec2_elastic_ip)
       else
-        service.stop_instance(project.ec2_instance_id)
+        service.stop_instance(project.ec2_instance_id, project.ec2_elastic_ip)
       end
     end
   end

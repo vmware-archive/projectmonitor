@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810172823) do
+ActiveRecord::Schema.define(:version => 20111004230957) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20110810172823) do
     t.string   "ec2_access_key_id"
     t.string   "ec2_secret_access_key"
     t.string   "ec2_instance_id"
+    t.string   "ec2_elastic_ip"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

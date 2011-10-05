@@ -53,7 +53,9 @@
   <em>
     If blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %> seconds.
     <br/>
-    Will poll in <span id='time_left'><%= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"%></span>
+    <% if @project.next_poll_at %>
+        Will poll in <span id='time_left'><%= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"%></span>
+    <% end %>
   </em>
 </p>
 
@@ -63,6 +65,10 @@
 <p>
   <%= f.label :ec2_instance_id, "EC2 Instance ID" %>
   <%= f.text_field :ec2_instance_id %>
+</p>
+<p>
+  <%= f.label :ec2_elastic_ip, "EC2 Elastic IP Address" %>
+  <%= f.text_field :ec2_elastic_ip %>
 </p>
 <p>
   <%= f.label :ec2_access_key_id, "EC2 Access Key ID" %>
