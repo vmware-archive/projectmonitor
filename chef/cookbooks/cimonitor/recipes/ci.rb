@@ -8,7 +8,7 @@ username = ENV['SUDO_USER'].strip
 
 raise "CI_CONFIG does not contain a jenkins_dir" unless CI_CONFIG["jenkins_dir"]
 
-execute "make projec#t dir" do
+execute "make project dir" do
   command "mkdir -p #{CI_CONFIG["jenkins_dir"]}/jobs/cimonitor"
   user username
 end
