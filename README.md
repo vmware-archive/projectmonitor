@@ -78,7 +78,7 @@ run every 3 minutes.  Also, make sure that you set your PATH correctly in cronta
 
 Execute:
 
-    nohup script/server -e production & > cimonitor.log 2> &1
+    nohup script/server -e production &> cimonitor.log
 
 ## Configuration
 
