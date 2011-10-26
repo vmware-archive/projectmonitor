@@ -24,6 +24,10 @@ group :mysql do
   gem "mysql2"   ### assume in system gems
 end
 
+group :thin do
+  gem "thin"
+end
+
 group :development do
   gem "heroku"
   gem "sqlite3-ruby", "1.3.1"
