@@ -1,0 +1,1 @@
+script: "./ci_build.sh"
