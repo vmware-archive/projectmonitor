@@ -78,7 +78,7 @@
   <%= f.label :ec2_secret_access_key, "EC2 Secret Access Key" %>
   <%= f.password_field :ec2_secret_access_key %>
 </p>
-  
+
 <p>
   <%= label_tag :schedule, "Schedule" %>
   <span id="schedules">
@@ -108,6 +108,8 @@
   <%= f.label :ec2_end_time, "End Time" %>
   <%= time_select :project, :ec2_end_time, :minute_step => 5 %>
 </p>
+
+<em>Server time is <%= Clock.now %></em>
 
 <p style="text-align: right; margin-bottom: 0;">
   <%= submit_tag @project.new_record? ? "Create" : "Update" %>
