@@ -6,7 +6,7 @@ The intent is that you display the page on a big screen monitor or TV so that th
 are highly visible/glanceable (a "Big Visible Chart"). CiMonitor currently supports:
 
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
-  * [Hudson](http://hudson-ci.org/)
+  * [Jenkins](http://jenkins-ci.org/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
 
 We use CiMonitor internally at Pivotal Labs to display the status of the builds for all our client projects. We also
