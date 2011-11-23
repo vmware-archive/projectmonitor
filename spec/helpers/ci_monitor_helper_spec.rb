@@ -11,6 +11,22 @@ describe CiMonitorHelper do
       Time.now - 1.day
     end
 
+    context "when the project's status published_at & red_since is nil" do
+      before do
+        @status = stub(ProjectStatus, :published_at => nil)
+        @project = stub(Project, :status => @status, :red_since => nil)
+        @project.stub!(:online?).and_return(true)
+        @project.stub!(:red?).and_return(true)
+        @project.stub!(:red_build_count).and_return(1)
+      end
+
+      it "acts as though the build were today" do
+        last_built_messages = helper.relative_status_messages_for(@project)
+        last_built_messages.should include(['project_published_at', 'Last build date unknown'])
+        last_built_messages.should include(['project_red_since', 'Red for some time'])
+      end
+    end
+
     context "when the project is online" do
       before do
         @project.stub!(:online?).and_return(true)
@@ -61,6 +77,22 @@ describe CiMonitorHelper do
   describe "#static_status_messages_for" do
     def publish_time
       Time.parse('Fri May 28 17:27:11 -0700 2010')
+    end
+    
+    context "when the project's status published_at & red_since is nil" do
+      before do
+        @status = stub(ProjectStatus, :published_at => nil)
+        @project = stub(Project, :status => @status, :red_since => nil)
+        @project.stub!(:online?).and_return(true)
+        @project.stub!(:red?).and_return(true)
+        @project.stub!(:red_build_count).and_return(1)
+      end
+
+      it "acts as though the build were today" do
+        last_built_messages = helper.static_status_messages_for(@project)
+        last_built_messages.should include('Last build date unknown')
+        last_built_messages.should include('Red for some time')
+      end
     end
 
     context "when the project is online" do
