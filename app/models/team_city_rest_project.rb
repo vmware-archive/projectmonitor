@@ -24,9 +24,16 @@ class TeamCityRestProject < Project
       status.success = latest_build.attribute('status').value == "SUCCESS"
       status.url = latest_build.attribute('webUrl').value
 
-      pub_date = Clock.now
-      pub_date = Time.parse(latest_build.attribute('startDate').value) if latest_build.attribute('startDate').present?
-      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+      status.published_at = if latest_build.attribute('startDate').present?
+                              Time.parse(latest_build.attribute('startDate').value).localtime
+                            else
+                              previous_status = statuses.first
+                              if previous_status && status.url == previous_status.url && status.success == previous_status.success
+                                previous_status.published_at # no change
+                              else
+                                Clock.now.localtime
+                              end
+                            end
     rescue
     end
     status
