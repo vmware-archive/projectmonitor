@@ -19,7 +19,7 @@ describe AggregateProject do
 
   describe 'scopes' do
     it "should return aggregate projects that contain projects" do
-      AggregateProject.with_projects.should have(1).aggregate_project
+      AggregateProject.with_projects.length.should == 1
       AggregateProject.with_projects.should include aggregate_projects(:internal_projects_aggregate)
       AggregateProject.with_projects.should_not include aggregate_projects(:empty_aggregate)
       AggregateProject.with_projects.should_not include aggregate_projects(:empty_aggregate)

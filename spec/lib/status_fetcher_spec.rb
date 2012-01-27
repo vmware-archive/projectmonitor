@@ -29,6 +29,21 @@ shared_examples_for "status for a valid build history xml response" do
 end
 
 describe StatusFetcher do
+  class FakeUrlRetriever
+    def initialize(xml_or_exception)
+      if xml_or_exception.is_a? Exception
+        @exception = xml_or_exception
+      else
+        @xml = xml_or_exception
+      end
+    end
+
+    def retrieve_content_at(*args)
+      raise @exception if @exception
+      @xml
+    end
+  end
+
 
   before(:each) do
     @project = projects(:socialitis)
@@ -40,11 +55,18 @@ describe StatusFetcher do
         @response_doc = Nokogiri::XML(@response_xml = CCRssExample.new("never_green.rss").read)
       end
 
+      let!(:old_status_count) { @project.statuses.count }
       before(:each) do
+        Timecop.freeze
         fetch_build_history_with_xml_response(@response_xml)
       end
 
+      after(:each) do
+        Timecop.return
+      end
+
       it "should return current time" do
+        @project.statuses.count.should == old_status_count + 1
         @project.status.published_at.to_i.should == Clock.now.to_i
       end
     end
@@ -100,14 +122,11 @@ describe StatusFetcher do
 
     describe "with exception while parsing xml" do
       before do
-        retriever = mock("mock retriever")
-        retriever.should_receive(:retrieve_content_at).any_number_of_times.and_raise(Exception.new('bad error'))
-
-        @fetcher = StatusFetcher.new(retriever)
+        fetch_build_history_with_xml_response(Exception.new)
       end
 
       it "should return error" do
-        @fetcher.fetch_build_history(@project)[:error].should match(/#{@project.name}.*bad error/)
+        @project.status.error.should match(/#{@project.name}.*Exception/)
       end
     end
   end
@@ -187,37 +206,33 @@ describe StatusFetcher do
         update_later = Project.first
         update_later.update_attribute(:next_poll_at, 5.minutes.from_now)  # make 1 project not ready to poll
 
-        @fetcher.should_receive(:fetch_build_history).exactly(project_count - 1).times.and_return(ProjectStatus.new(:success => true))
-        @fetcher.should_receive(:fetch_building_status).exactly(project_count - 1).times.and_return(BuildingStatus.new(false))
-        @fetcher.should_not_receive(:fetch_build_history).with(update_later)
+        @fetcher.should_receive(:retrieve_status_for).exactly(project_count - 1).times.and_return(ProjectStatus.new(:success => true))
+        @fetcher.should_receive(:retrieve_building_status_for).exactly(project_count - 1).times.and_return(BuildingStatus.new(false))
+        @fetcher.should_not_receive(:retrieve_status_for).with(update_later)
 
         @fetcher.fetch_all
 
         Project.last.next_poll_at.should > Time.now
       end
 
-      it "should raise an exception" do
-        Project.all.each {|project| project.needs_poll?.should be_true }
-        lambda {@fetcher.fetch_all}.should raise_error(/ALL projects had errors fetching status/)
-      end
     end
   end
 
   private
 
   def fetch_build_history_with_xml_response(xml)
-    fetcher_with_mocked_url_retriever(@project.feed_url, xml).fetch_build_history(@project).success.should_not be_nil
+    fetcher_with_mocked_url_retriever(@project.feed_url, xml).retrieve_status_for(@project)
+    status = Delayed::Worker.new.work_off(1)
     @project.reload
   end
 
   def fetch_building_status_with_xml_response(xml)
-    fetcher_with_mocked_url_retriever(@project.build_status_url, xml).fetch_building_status(@project).error.should be_nil
+    fetcher_with_mocked_url_retriever(@project.build_status_url, xml).retrieve_building_status_for(@project)
+    status = Delayed::Worker.new.work_off(1)
     @project.reload
   end
 
   def fetcher_with_mocked_url_retriever(url, xml)
-    retriever = mock("mock retriever")
-    retriever.should_receive(:retrieve_content_at).with(url, @project.auth_username, @project.auth_password).and_return(xml)
-    StatusFetcher.new(retriever)
+    StatusFetcher.new(FakeUrlRetriever.new(xml))
   end
 end

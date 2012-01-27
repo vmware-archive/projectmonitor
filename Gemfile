@@ -14,6 +14,8 @@ gem "ruby-openid-apps-discovery"
 gem "delayed_job"
 gem "dynamic_form"
 gem "aws-sdk"
+gem 'delayed_job_active_record'
+gem "daemons"
 
 
 group :postgres do
@@ -21,7 +23,7 @@ group :postgres do
 end
 
 group :mysql do
-  gem "mysql2"   ### assume in system gems
+  gem 'mysql2', '< 0.3'
 end
 
 group :thin do
@@ -44,6 +46,7 @@ end
 group :test do
   gem "jasmine", "1.0.1.1"
   gem "headless", "0.1.0"
+  gem "timecop"
 end
 
 group :test, :development do

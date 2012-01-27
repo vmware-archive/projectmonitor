@@ -33,7 +33,7 @@ describe ProjectsController do
     it "should show you the time when you are creating a new project" do
       Clock.now = Time.parse("Wed Oct 26 17:02:10 -0700 2011")
       get :new
-      response.body.should include("Server time is Wed Oct 26 17:02:10 -0700 2011")
+      response.body.should include("Server time is #{Clock.now.to_s}")
     end
 
     it "should create projects by type" do
