@@ -4,39 +4,15 @@ class StatusFetcher
   end
 
   def fetch_all
-    errors = []
     projects = Project.find(:all)
     projects.reject! {|project| !project.needs_poll?}
     projects.each do |project|
-      status = fetch_build_history(project)
-      errors << status.error if status.error
-
-      # Ignoring errors fetching building status at the moment.  Do we care?
-      fetch_building_status(project)
+      retrieve_status_for(project)
+      retrieve_building_status_for(project)
       project.set_next_poll!
-    end
-
-    unless errors.empty?
-      error_msg = errors.join("\n")
-      STDERR.puts(error_msg) unless Rails.env.test? # TODO: better way to write to stderr without spamming test output?
-      raise "ALL projects had errors fetching status" if errors.size == projects.size
     end
     0
   end
-
-  def fetch_build_history(project)
-    current_status = retrieve_status_for(project)
-    project.statuses.build(current_status.attributes).save unless project.status.match?(current_status)
-    current_status
-  end
-
-  def fetch_building_status(project)
-    building_status = retrieve_building_status_for(project)
-    project.update_attribute(:building, building_status.building?)
-    building_status
-  end
-
-  private
 
   def retrieve_status_for(project)
     status = ProjectStatus.new(:online => false, :success => false)
@@ -45,8 +21,9 @@ class StatusFetcher
       status = project.parse_project_status(content)
       status.online = true
     end
-    status
+    project.statuses.build(status.attributes).save unless project.status.match?(status)
   end
+  handle_asynchronously :retrieve_status_for, :queue => 'project_status'
 
   def retrieve_building_status_for(project)
     status = BuildingStatus.new(false)
@@ -54,8 +31,9 @@ class StatusFetcher
       content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
       status = project.parse_building_status(content)
     end
-    status
+    project.update_attribute(:building, status.building?)
   end
+  handle_asynchronously :retrieve_building_status_for, :queue => 'build_status'
 
   private
 

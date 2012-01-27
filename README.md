@@ -74,6 +74,22 @@ This is what goes out and hits the individual builds. We find that if you do thi
 can swamp the builds. On the other hand, you don't want CiMonitor displaying stale information. At Pivotal we set it up to
 run every 3 minutes.  Also, make sure that you set your PATH correctly in crontab to include the 'bundle' executable.
 
+### Start workers
+
+The cron job above will add jobs to the queue, which workers will execute.  To start running the workers, use the following command:
+
+    rake start_workers
+
+The default number of workers is 2, but if you wanted 3 you would call it like this:
+
+    rake start_workers[3]
+
+These workers need only be started once per system reboot, and must be running for your project statuses to update.  To stop the workers, run this command:
+
+    rake stop_workers
+
+The workers are implemented using the [delayed_job gem](http://github.com/collectiveidea/delayed_job).  The workers are configured to have a maximum timeout of 1 minute when polling project status.  If you want to change this setting, you can edit config/initializers/delayed_job_config.rb
+
 ### Start the application
 
 Execute:
