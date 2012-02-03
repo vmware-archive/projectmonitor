@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => :load_project_with_status
   before_filter :load_project, :only => [:edit, :update, :destroy]
   before_filter :load_project_type, :only => [:create]
 
@@ -20,6 +20,10 @@ class ProjectsController < ApplicationController
     else
       render :action => "new"
     end
+  end
+
+  def load_project_with_status
+    render :partial => "dashboards/project", :locals => { :project => Project.find_by_id(params[:project_id]) }
   end
 
   def update

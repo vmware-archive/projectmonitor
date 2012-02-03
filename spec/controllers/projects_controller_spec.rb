@@ -11,6 +11,14 @@ describe ProjectsController do
         response.should redirect_to(login_path)
       end
     end
+
+    describe "load_project_with_status" do
+      let(:project) { projects(:socialitis) }
+      it "should render the project partial" do
+        get :load_project_with_status, :project_id => project.id
+        response.should render_template("dashboards/_project")
+      end
+    end
   end
 
   describe "with a logged in user" do

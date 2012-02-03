@@ -85,3 +85,42 @@ describe('onChangeRefreshTimeoutDropdown', function() {
     expect(window.clearTimeout).wasCalledWith("fakeHandle");
   })
 });
+
+describe('refresh', function() {
+  var spyOnGet;
+  beforeEach(function() {
+   var $ = jQuery.noConflict();
+   var fixtures = '' +
+       '<div class="projects">' +
+           '<div class="project">' +
+           '    <div class="box" project_id="1"/>' +
+           '</div>' +
+            '<div class="project aggregate">' +
+           '    <div class="box" project_id="1"/>' +
+           '</div>' +
+           '<div class="project message">'+
+                '<div class="box" message_id="1"/>'+
+                '<div class="tweets" tweet_id="1"/>'+
+           '</div>' +
+       '</div>';
+   spyOnGet = spyOn(jQuery, "get");
+   spyOn(window, "scheduleRefresh");
+   setFixtures(fixtures);
+
+  });
+
+  afterEach(function(){
+    jQuery.get.reset();
+  });
+
+  it("should call $.get for the project", function() {
+         refresh();
+    expect(spyOnGet).toHaveBeenCalled();
+    expect(spyOnGet.argsForCall[0][0]).toBe("projects/1/load_project_with_status");
+    expect(spyOnGet.argsForCall[1][0]).toBe("messages/1/load_message");
+    expect(spyOnGet.argsForCall[2][0]).toBe("aggregate_projects/1/load_aggregate_project_with_status");
+    expect(spyOnGet.argsForCall[3][0]).toBe("twitter_searches/1/load_tweet");
+    expect(window.scheduleRefresh).toHaveBeenCalled();
+  });
+
+});

@@ -1,5 +1,5 @@
 class AggregateProjectsController < ApplicationController
-  before_filter :login_required, :except => [:show]
+  before_filter :login_required, :except => [:show, :load_aggregate_project_with_status]
   before_filter :load_aggregate_project, :only => [:show, :edit, :update, :destroy]
 
   def show
@@ -20,6 +20,10 @@ class AggregateProjectsController < ApplicationController
     else
       render :action => "new"
     end
+  end
+
+  def load_aggregate_project_with_status
+    render :partial => "dashboards/project", :locals => { :project => AggregateProject.find(params[:aggregate_project_id]) }
   end
 
   def update
