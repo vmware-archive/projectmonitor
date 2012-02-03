@@ -53,7 +53,6 @@ function refresh() {
     var twitterFeeds = jQuery(".projects div.project.message div.tweets");
     for (var j = 0; j < twitterFeeds.length; j++) {
         var currentDiv = twitterFeeds[j];
-        console.log(jQuery(currentDiv).attr('tweet_id'));
         if (id) {
             jQuery.get('twitter_searches/'+id+'/load_tweet', function reloadDiv(divContents) {
                     var tweet_id = jQuery(divContents).attr('project_id');
