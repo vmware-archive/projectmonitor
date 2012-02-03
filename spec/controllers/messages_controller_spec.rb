@@ -2,13 +2,34 @@ require 'spec_helper'
 
 describe MessagesController do
   context "with no logged in user" do
-    describe "all actions" do
+    describe "index" do
       it "should redirect to the login page" do
         get :index
         response.should redirect_to(login_path)
       end
     end
-  end
+
+    describe "load_project_with_status" do
+      let(:message) { messages(:company_meeting) }
+      context "when the message is active" do
+        it "should render the message partial" do
+          get :load_message, :message_id => message.id
+          response.should render_template("dashboards/_message")
+          response.should be_success
+        end
+      end
+      context "when the message is not active" do
+        before { message.update_attributes!({:expires_at => 1.day.ago}) }
+        it "should return status 204" do
+          get :load_message, :message_id => message.id
+          response.should_not render_template("dashboards/_message")
+          response.should be_success
+          response.blank.should be_true
+          response.body.length == 1
+        end
+      end
+    end
+   end
 
   context "with a logged in user" do
     before(:each) do

@@ -59,7 +59,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - **/*[sS]pec.js
+  - "**/**Spec.js"
 
 # src_dir
 #

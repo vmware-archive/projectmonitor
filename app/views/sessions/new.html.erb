@@ -3,7 +3,7 @@
 <%= form_tag session_path do -%>
   <p>
     <%= label_tag 'login' %>
-    <%= text_field_tag 'login', @login %>
+    <%= text_field_tag 'login', @login, :autofocus => true %>
   </p>
 
   <p>
@@ -23,4 +23,3 @@
   </p>
 <% end -%>
 
-<%= javascript_tag "Field.focus('login');" %>

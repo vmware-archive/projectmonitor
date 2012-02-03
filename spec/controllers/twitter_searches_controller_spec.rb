@@ -39,4 +39,15 @@ describe TwitterSearchesController do
 
     response.should redirect_to(messages_path)
   end
+
+  describe "load_tweet" do
+    let(:tweet) { TwitterSearch.create(:search_term => "nyc") }
+    context "when the message is active" do
+      it "should render the message partial" do
+        get :load_tweet, :twitter_search_id => tweet.id
+        response.should render_template("dashboards/_twitter_search")
+        response.should be_success
+      end
+    end
+  end
 end

@@ -20,6 +20,10 @@ class TwitterSearchesController < ApplicationController
     end
   end
 
+  def load_tweet
+    render :partial => "dashboards/twitter_search", :locals => { :twitter_search => TwitterSearch.find_by_id(params[:twitter_search_id]) }
+  end
+
   def update
     @twitter_search = TwitterSearch.find(params[:id])
 

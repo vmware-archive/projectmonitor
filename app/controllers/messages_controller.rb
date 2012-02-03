@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => :load_message
+
 
   def index
     @messages = Message.active
@@ -12,6 +13,15 @@ class MessagesController < ApplicationController
 
   def edit
     @message = Message.find(params[:id])
+  end
+
+  def load_message
+    message = Message.active.where("id = ?", params[:message_id]).first
+    if message.present?
+      render :partial => "dashboards/message", :locals => {:message => message}
+    else
+      render :nothing => true, :status => 204
+    end
   end
 
   def create

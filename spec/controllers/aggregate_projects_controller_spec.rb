@@ -27,6 +27,14 @@ describe AggregateProjectsController do
         get :show, :id => ap.to_param
         response.should_not have_tag("div.box[project_id='#{disabled_project.id}']")
       end
+
+      describe "load_project_with_status" do
+        let(:project) { aggregate_projects(:internal_projects_aggregate) }
+        it "should render the project partial" do
+          get :load_aggregate_project_with_status, :aggregate_project_id => project.id
+          response.should render_template("dashboards/_project")
+        end
+      end
     end
   end
 
