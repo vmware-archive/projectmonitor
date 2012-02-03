@@ -357,4 +357,14 @@ describe Project do
       @project.has_auth?.should be_false
     end
   end
+
+  describe "#destroy" do
+    it "should destroy related statuses" do
+      project = projects(:pivots)
+      project.statuses.count.should_not == 0
+      status_id = project.statuses.first.id
+      project.destroy
+      proc { ProjectStatus.find(status_id)}.should raise_exception(ActiveRecord::RecordNotFound)
+    end
+  end
 end

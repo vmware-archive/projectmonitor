@@ -232,4 +232,14 @@ describe AggregateProject do
     end
   end
 
+
+  describe "#destroy" do
+    it "should orphan its children projects" do
+      aggregate_project = aggregate_projects(:internal_projects_aggregate)
+      project = aggregate_project.projects.first
+      aggregate_project.destroy
+      Project.find(project.id).aggregate_project_id.should be(nil)
+    end
+  end
+
 end
