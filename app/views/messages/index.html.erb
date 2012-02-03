@@ -7,6 +7,8 @@
     <th>Text</th>
     <th>Expires In</th>
     <th>Tags</th>
+    <th>Actions</th>
+    <th>Remove</th>
   </tr>
 
 <% for message in @messages %>
@@ -15,6 +17,7 @@
     <td><%=h time_ago_in_words(message.expires_at) %></td>
     <td class="tag_list"><%= message.tag_list %></td>
     <td><%= link_to 'Edit', edit_message_path(message), :class => "button" %></td>
+    <td><%= link_to 'Delete', message_path(message), :method => :delete, :class => "button" %></td>
   </tr>
 <% end %>
 </table>
@@ -27,6 +30,8 @@
   <tr>
     <th>Search Term</th>
     <th>Tags</th>
+    <th>Actions</th>
+    <th>Remove</th>
   </tr>
 
 <% reset_cycle -%>
@@ -35,6 +40,7 @@
     <td><%=h twitter_search.search_term %></td>
     <td class="tag_list"><%= twitter_search.tag_list %></td>
     <td><%= link_to 'Edit', edit_twitter_search_path(twitter_search), :class => "button" %></td>
+    <td><%= link_to 'Delete', twitter_search_path(twitter_search), :method => :delete, :class => "button" %></td>
   </tr>
 <% end %>
 </table>

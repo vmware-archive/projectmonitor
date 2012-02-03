@@ -2,6 +2,8 @@ class AggregateProject < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   has_many :projects
 
+  before_destroy :remove_project_associations
+
   scope :with_projects, joins(:projects).where(:aggregate_projects => {:enabled => true}).select("distinct aggregate_projects.*")
 
   acts_as_taggable
@@ -62,6 +64,11 @@ class AggregateProject < ActiveRecord::Base
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
     red_project.statuses.count(:conditions => ["online = ? AND id >= ?", true, red_project.breaking_build.id])
+  end
+
+  private
+  def remove_project_associations
+    projects.map {|p| p.aggregate_project = nil; p.save! }
   end
 
 end

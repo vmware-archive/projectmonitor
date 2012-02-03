@@ -16,6 +16,7 @@ gem "dynamic_form"
 gem "aws-sdk"
 gem 'delayed_job_active_record'
 gem "daemons"
+gem 'jquery-rails', '>= 1.0.12'
 
 
 group :postgres do
