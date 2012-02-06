@@ -94,7 +94,7 @@ The workers are implemented using the [delayed_job gem](http://github.com/collec
 
 Execute:
 
-    nohup script/server -e production & > cimonitor.log 2> &1
+    nohup script/server -e production &> cimonitor.log
 
 ## Configuration
 
