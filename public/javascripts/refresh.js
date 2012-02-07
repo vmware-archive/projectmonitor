@@ -17,7 +17,7 @@ function refresh() {
         var id = jQuery(currentDiv).attr("project_id");
         if (id) {
             jQuery.get('/projects/'+id+'/load_project_with_status', function reloadDiv(divContents) {
-                var new_project_id = this.url.split('/')[1];
+                var new_project_id = this.url.split('/')[2];
                 if (divContents.length > 0) {
                     jQuery('.projects div.project:not(.aggregate) div.box[project_id='+new_project_id+']').replaceWith(divContents);
                 }
@@ -26,7 +26,7 @@ function refresh() {
             id = jQuery(currentDiv).attr("message_id");
             if (id) {
                 jQuery.get("/messages/"+id+"/load_message", function reloadDiv(divContents) {
-                    var new_message_id = this.url.split('/')[1];
+                    var new_message_id = this.url.split('/')[2];
                     if (divContents.length > 0) {
                         jQuery('.projects div.box[message_id='+new_message_id+']').replaceWith(divContents);
                     } else {
@@ -43,7 +43,7 @@ function refresh() {
         var id = jQuery(currentDiv).attr("project_id");
         if (id) {
             jQuery.get('/aggregate_projects/'+id+'/load_aggregate_project_with_status', function reloadDiv(divContents) {
-                var new_project_id = this.url.split('/')[1];
+                var new_project_id = this.url.split('/')[2];
                 if (divContents.length > 0) {
                     jQuery('.projects div.project.aggregate div.box[project_id='+new_project_id+']').replaceWith(divContents);
                 }
