@@ -54,20 +54,51 @@ describe TeamCityRestProject do
     describe "#status_parser" do
 
       describe "with reported success" do
-        before(:each) do
-          @status_parser = @project.parse_project_status(TeamcityRESTExample.new("success.xml").read)
+        let :status_parser do
+          @project.parse_project_status(TeamcityRESTExample.new("success.xml").read)
         end
 
         it "should return the link to the checkin" do
-          @status_parser.url.should == TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value
+          status_parser.url.should == TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value
         end
 
-        it "should return the published date of the checkin" do
-          @status_parser.published_at.should == Clock.now
+        context "there is a previous status for the same build" do
+          before do
+            @published_at = Clock.now - 10.minutes
+            @project.stub(:statuses) {[
+                ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value,
+                                  :published_at => @published_at,
+                                  :success => true, :online => true)
+              ]}
+          end
+
+          it "should return the published date of the checkin" do
+            status_parser.published_at.should == @published_at
+          end
+        end
+
+        context "there is a previous status for another build" do
+          before do
+            @project.stub(:statuses) {[
+                ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").as_xml.css("build")[1].attribute("webUrl").value,
+                                  :published_at => Clock.now - 10.minutes,
+                                  :success => true, :online => true)
+              ]}
+          end
+
+          it "should return the timestamp when we checked" do
+            status_parser.published_at.should == Clock.now
+          end
+        end
+
+        context "there is no previous status" do
+          it "should return the timestamp when we checked" do
+            status_parser.published_at.should == Clock.now
+          end
         end
 
         it "should report success" do
-          @status_parser.should be_success
+          status_parser.should be_success
         end
       end
 
