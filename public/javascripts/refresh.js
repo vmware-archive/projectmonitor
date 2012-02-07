@@ -16,7 +16,7 @@ function refresh() {
         var currentDiv = ProjectDivs[i];
         var id = jQuery(currentDiv).attr("project_id");
         if (id) {
-            jQuery.get('projects/'+id+'/load_project_with_status', function reloadDiv(divContents) {
+            jQuery.get('/projects/'+id+'/load_project_with_status', function reloadDiv(divContents) {
                 var new_project_id = this.url.split('/')[1];
                 if (divContents.length > 0) {
                     jQuery('.projects div.project:not(.aggregate) div.box[project_id='+new_project_id+']').replaceWith(divContents);
@@ -25,7 +25,7 @@ function refresh() {
         } else {
             id = jQuery(currentDiv).attr("message_id");
             if (id) {
-                jQuery.get("messages/"+id+"/load_message", function reloadDiv(divContents) {
+                jQuery.get("/messages/"+id+"/load_message", function reloadDiv(divContents) {
                     var new_message_id = this.url.split('/')[1];
                     if (divContents.length > 0) {
                         jQuery('.projects div.box[message_id='+new_message_id+']').replaceWith(divContents);
@@ -42,7 +42,7 @@ function refresh() {
         var currentDiv = aggregateDivs[i];
         var id = jQuery(currentDiv).attr("project_id");
         if (id) {
-            jQuery.get('aggregate_projects/'+id+'/load_aggregate_project_with_status', function reloadDiv(divContents) {
+            jQuery.get('/aggregate_projects/'+id+'/load_aggregate_project_with_status', function reloadDiv(divContents) {
                 var new_project_id = this.url.split('/')[1];
                 if (divContents.length > 0) {
                     jQuery('.projects div.project.aggregate div.box[project_id='+new_project_id+']').replaceWith(divContents);
@@ -54,7 +54,7 @@ function refresh() {
     for (var j = 0; j < twitterFeeds.length; j++) {
         var currentDiv = twitterFeeds[j];
         if (id) {
-            jQuery.get('twitter_searches/'+id+'/load_tweet', function reloadDiv(divContents) {
+            jQuery.get('/twitter_searches/'+id+'/load_tweet', function reloadDiv(divContents) {
                     var tweet_id = jQuery(divContents).attr('project_id');
                     jQuery('.projects div.project.message div.tweets[tweet_id='+tweet_id+']').replaceWith(divContents);
                 }
