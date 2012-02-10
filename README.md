@@ -138,6 +138,13 @@ If you want to temporarily hide your build on CiMonitor, you can uncheck the "En
 CiMonitor's main display page is at `/`. You can always get back there by clicking on the "Pivotal Labs" logo at the upper
 left.
 
+### Auto-start for Ubuntu
+
+In order to have cimonitor starts when the machine boots, modify the startup scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu 10.04 server (change paths & userids as needed):
+
+       # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
+       su - pivotal -c 'PS1=sonja; . /home/pivotal/.bashrc; cd ~/cimonitor/current; bundle exec thin -e production start -c /home/pivotal/cimonitor/current -p7990 -s3'
+
 ## Display
 
 Just open a browser on `/`. The page will refresh every 60 seconds. When it refreshes, it shows whatever status was last
