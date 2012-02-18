@@ -17,4 +17,7 @@ cp config/database.yml.travis config/database.yml
 RAILS_ENV=test bundle exec rake db:create || true
 RAILS_ENV=development bundle exec rake db:create || true
 
+export DISPLAY=:99
+/etc/init.d/xvfb start
+
 bundle exec rake cruise
