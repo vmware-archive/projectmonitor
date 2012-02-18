@@ -2,7 +2,6 @@ task :cruise do
 
   require "headless"
 
-  sh 'rake setup'
   sh 'rake db:migrate'
   sh 'rake db:schema:load RAILS_ENV=test'
   sh 'rake spec'
