@@ -17,7 +17,7 @@ gem "aws-sdk"
 gem 'delayed_job_active_record'
 gem "daemons"
 gem 'jquery-rails', '>= 1.0.12'
-
+gem 'pivotal_git_scripts'
 
 group :postgres do
   gem "pg"
