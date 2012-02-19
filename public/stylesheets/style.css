@@ -1,20 +1,20 @@
 body {
 	font-family: Helvetica, sans-serif;
-	font-size: 13px; 
+	font-size: 13px;
 	background: white;
   margin: 0;
 }
 
-body, p, li { 
-	color: black; 
+body, p, li {
+	color: black;
 }
 
 p {
 	font-size: 1em;
 	line-height: 1.6em;
 	font-weight: normal;
-	margin: 0 0 1.6em 0; 
-	padding: 0; 
+	margin: 0 0 1.6em 0;
+	padding: 0;
 }
 
 /*
@@ -22,9 +22,9 @@ p {
 */
 
 h1 {
-  font-family: Helvetica, sans-serif; 
-	padding: 0; 
-	line-height: 1em; 
+  font-family: Helvetica, sans-serif;
+	padding: 0;
+	line-height: 1em;
 	margin: 15px 0;
   font-weight: bold;
 }
@@ -49,9 +49,9 @@ h1 {
 =Links
 */
 
-a, 
+a,
 a:link {
-	color: black; 
+	color: black;
 }
 
 a:hover {
@@ -87,7 +87,7 @@ a:hover {
 #title {
   padding-top: 10px;
   margin-left: 300px;
-  text-align: left; 
+  text-align: left;
 }
 
 .project {
@@ -97,11 +97,72 @@ a:hover {
   margin-bottom:15px;
   width:230px;
   height:210px;
+
+}
+
+.project_status.green {
+  background: url("/images/checkmark.png") no-repeat;
+  width: 50px;
+  height: 50px;
+  margin: 0 0 25px 80px;
+}
+.project_status.red {
+  background: url("/images/exclamation.png") no-repeat;
+  width: 50px;
+  height: 50px;
+  margin: 0 0 25px 97px;
+}
+.project_status.building.green {
+  background-image: url("/images/build-loader-green.gif");
+  width: 200px;
+  height: 50px;
+  margin: 0 0 25px 20px;
+}
+.project_status.building.red {
+  background-image: url("/images/build-loader-red.gif");
+  width: 200px;
+  height: 50px;
+  margin: 0 0 25px 20px;
+}
+.box.redbox {
+  background: url('/images/redbox.png') no-repeat top left;
+}
+
+.box.redbox-aggregate {
+  background: url('/images/redbox-aggregate.png') no-repeat top left;
+}
+.box.greenbox {
+  background: url('/images/greenbox.png') no-repeat top left;
+}
+.box.greenbox-aggregate {
+  background: url("/images/greenbox-aggregate.png") no-repeat top left;
+}
+.box.bluebox {
+  background: url('/images/bluebox.png') no-repeat top left;
+}
+.box.bluebox-aggregate {
+  background: url('/images/bluebox-aggregate.png') no-repeat top left;
+}
+.tweet.offline {
+  background: url('/images/bluebox-aggregate.png') no-repeat top left;
+}
+
+.cached_images {
+  display: none;
+}
+
+
+
+.project_status.offline {
+  background: url("/images/questionmark.png") no-repeat;
+  width: 50px;
+  height: 50px;
+  margin: 0 0 27px 95px;
 }
 
 .project_visit {
   float: right;
-  font-size: smaller;  
+  font-size: smaller;
 }
 
 .project_name {
@@ -126,7 +187,7 @@ a:hover {
 
 .project_published_at {
   text-align: center;
-  font-size: 1em;  
+  font-size: 1em;
 }
 
 .project_red_since {
@@ -138,7 +199,7 @@ a:hover {
 
 .project_invalid {
   text-align: center;
-  font-size: 1em;  
+  font-size: 1em;
 }
 
 #top_right {

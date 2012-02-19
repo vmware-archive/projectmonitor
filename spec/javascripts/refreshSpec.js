@@ -78,49 +78,97 @@ describe('onChangeRefreshTimeoutDropdown', function() {
   it("should set the timeout to new value", function() {
     window.currentTimeout = "fakeHandle"
     document.getElementById("refreshInterval").value = "300";
-    spyOn(window, "setTimeout");
-    spyOn(window, "clearTimeout");
-    onChangeRefreshTimeoutDropdown();
-    expect(window.setTimeout).wasCalledWith("refresh();", 300000);
-    expect(window.clearTimeout).wasCalledWith("fakeHandle");
+  spyOn(window, "setTimeout");
+  spyOn(window, "clearTimeout");
+  onChangeRefreshTimeoutDropdown();
+  expect(window.setTimeout).wasCalledWith("refresh();", 300000);
+  expect(window.clearTimeout).wasCalledWith("fakeHandle");
   })
 });
 
 describe('refresh', function() {
   var spyOnGet;
   beforeEach(function() {
-   var $ = jQuery.noConflict();
-   var fixtures = '' +
-       '<div class="projects">' +
-           '<div class="project">' +
-           '    <div class="box" project_id="1"/>' +
-           '</div>' +
-            '<div class="project aggregate">' +
-           '    <div class="box" project_id="1"/>' +
-           '</div>' +
-           '<div class="project message">'+
-                '<div class="box" message_id="1"/>'+
-                '<div class="tweets" tweet_id="1"/>'+
-           '</div>' +
-       '</div>';
-   spyOnGet = spyOn(jQuery, "get");
-   spyOn(window, "scheduleRefresh");
-   setFixtures(fixtures);
+    var $ = jQuery.noConflict();
+    var fixtures = '' +
+    '<div class="projects">' +
+    '<div class="project">' +
+    '    <div class="box" project_id="1"/>' +
+    '</div>' +
+    '<div class="project aggregate">' +
+    '    <div class="box" project_id="1"/>' +
+    '</div>' +
+    '<div class="project message">'+
+    '<div class="box" message_id="1"/>'+
+    '<div class="tweets" tweet_id="1"/>'+
+    '</div>' +
+    '</div>';
+  spyOnGet = spyOn(jQuery, "ajax");
+  spyOn(window, "scheduleRefresh");
+  setFixtures(fixtures);
 
   });
 
   afterEach(function(){
-    jQuery.get.reset();
+    jQuery.ajax.reset();
   });
 
   it("should call $.get for the project", function() {
-         refresh();
+    refresh();
     expect(spyOnGet).toHaveBeenCalled();
-    expect(spyOnGet.argsForCall[0][0]).toBe("projects/1/load_project_with_status");
-    expect(spyOnGet.argsForCall[1][0]).toBe("messages/1/load_message");
-    expect(spyOnGet.argsForCall[2][0]).toBe("aggregate_projects/1/load_aggregate_project_with_status");
-    expect(spyOnGet.argsForCall[3][0]).toBe("twitter_searches/1/load_tweet");
+    expect(spyOnGet.argsForCall[0][0].url).toBe("/projects/1/load_project_with_status");
+    expect(spyOnGet.argsForCall[1][0].url).toBe("/messages/1/load_message");
+    expect(spyOnGet.argsForCall[2][0].url).toBe("/aggregate_projects/1/load_aggregate_project_with_status");
+    expect(spyOnGet.argsForCall[3][0].url).toBe("/twitter_searches/1/load_tweet");
     expect(window.scheduleRefresh).toHaveBeenCalled();
   });
+});
+describe("when the server is down", function() {
+  beforeEach(function() {
+    var fixtures = '' +
+    '<div class="projects">' +
+    '<div class="project">' +
+    '    <div class="box" project_id="1">' +
+    '     <div class="project_status building"/>' +
+    '    </div> '+
+    '</div>' +
+    '<div class="project aggregate">' +
+    '    <div class="box" project_id="1">' +
+    '     <div class="project_status building"/>' +
+    '    </div> '+
+    '</div>' +
+    '<div class="project message">'+
+    '<div class="box" message_id="1"/>'+
+    '<div class="tweets" tweet_id="1"/>'+
+    '</div>' +
+    '</div>';
+  spyOn(window, "scheduleRefresh");
+  setFixtures(fixtures);
+  spyOn(jQuery, "ajax").andCallFake(function(params) {
+    params.error({status: 404, statusText:''}, 'Not found');
+  });
+  });
 
+  afterEach(function(){
+    jQuery.ajax.reset();
+  });
+
+  it("should make the background blue", function() {
+    refresh();
+    expect(jQuery('div.project:not(.aggregate) div.box')).toHaveClass("bluebox");
+    expect(jQuery('div.project.aggregate div.box')).toHaveClass("bluebox-aggregate");
+    expect(jQuery('div.project .project_status')).toHaveClass("offline");
+    expect(jQuery('div.project .project_status')).not.toHaveClass("building");
+  });
+  describe("after the server is back online", function() {
+    beforeEach(function() {
+      jQuery.ajax.andReturn("200");
+    });
+    it("should not have class bluebox", function() {
+      refresh();
+      expect(jQuery('div.project:not(.aggregate) div.box')).not.toHaveClass("bluebox");
+      expect(jQuery('div.project.aggregate div.box')).not.toHaveClass("bluebox-aggregate");
+      expect(jQuery('div.project .project_status')).not.toHaveClass("offline");
+    });
+  });
 });

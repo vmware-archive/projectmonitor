@@ -14,7 +14,9 @@
 <% for message in @messages %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%=h message.text %></td>
-    <td><%=h time_ago_in_words(message.expires_at) %></td>
+    <% if message.expires_at %>
+      <td><%=h time_ago_in_words(message.expires_at) %></td>
+    <% end %>
     <td class="tag_list"><%= message.tag_list %></td>
     <td><%= link_to 'Edit', edit_message_path(message), :class => "button" %></td>
     <td><%= link_to 'Delete', message_path(message), :method => :delete, :class => "button" %></td>

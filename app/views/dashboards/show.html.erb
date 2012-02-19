@@ -5,7 +5,11 @@
   });
 </script>
 <% end %>
-
+<div class="cached_images" >
+  <% ["/images/bluebox-aggregate.png", "/images/questionmark.png", "/images/bluebox.png"].each do |image| %>
+    <%= image_tag image %>
+  <% end %>
+</div>
 <div class="projects">
   <% for project in @projects %>
     <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
