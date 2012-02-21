@@ -1,0 +1,29 @@
+mysql: &mysql
+  adapter: mysql2
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  charset: utf8
+
+postgres: &postgres
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  username: postgres
+  password:
+  encoding: unicode
+
+common: &common
+  <<: <%= ENV['DB']=="postgres" ? "*postgres" : "*mysql" %>
+
+development: &development
+  <<: *common
+  database: cimonitor_development
+
+# Warning: The database defined as 'test' will be erased and
+# re-generated from your development database when you run 'rake'.
+# Do not set this db to the same as development or production.
+test:
+  <<: *common
+  database: cimonitor_test

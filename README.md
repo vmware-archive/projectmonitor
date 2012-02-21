@@ -142,8 +142,8 @@ left.
 
 In order to have cimonitor starts when the machine boots, modify the startup scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu 10.04 server (change paths & userids as needed):
 
-       # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
-       su - pivotal -c 'PS1=sonja; . /home/pivotal/.bashrc; cd ~/cimonitor/current; bundle exec thin -e production start -c /home/pivotal/cimonitor/current -p7990 -s3'
+  # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
+  su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/cimonitor/current; bundle exec thin -e production start -c /home/pivotal/cimonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
 
 ## Display
 
