@@ -24,7 +24,7 @@ describe DashboardsController do
         it "renders link to /sessions/new" do
           get :show
           response.should be_success
-          response.should have_tag(%Q{a[href="#{login_path}"]})
+          response.should have_selector(%Q{a[href="#{login_path}"]})
         end
 
         describe "logged in links" do
@@ -35,7 +35,7 @@ describe DashboardsController do
           it "renders link to /users/new" do
             get :show
             response.should be_success
-            response.should have_tag(%Q{a[href="#{new_user_path}"]})
+            response.should have_selector(%Q{a[href="#{new_user_path}"]})
           end
         end
       end
@@ -48,7 +48,7 @@ describe DashboardsController do
         it "renders link to /openid/new" do
           get :show
           response.should be_success
-          response.should have_tag(%Q{a[href="#{new_openid_path}"]})
+          response.should have_selector(%Q{a[href="#{new_openid_path}"]})
         end
 
         describe "logged in links" do
@@ -59,7 +59,7 @@ describe DashboardsController do
           it "renders link to /users/new" do
             get :show
             response.should be_success
-            response.should_not have_tag(%Q{a[href="#{new_user_path}"]})
+            response.should_not have_selector(%Q{a[href="#{new_user_path}"]})
           end
         end
       end
@@ -71,8 +71,8 @@ describe DashboardsController do
         end
 
         it "should display the default layout if skin doesn't exist or isn't specified" do
+          DashboardsController.any_instance.should_not_receive(:render).with(:layout)
           get :show, :skin => 'fake'
-          response.should_not render_template('layouts/skins/fake')
           response.should render_template('layouts/application')
 
           get :show
@@ -118,58 +118,49 @@ describe DashboardsController do
       session[:location].should be_nil
     end
 
-    it "should display a red spinner for red building projects" do
+    it "should have classes building and red for red building projects" do
       get :show
-      building_projects = Project.find(:all, :conditions => {:enabled => true, :building => true}).reject(&:green?)
+      building_projects = Project.find(:all, :conditions => {:enabled => true, :building => true}).select(&:red?)
       building_projects.should_not be_empty
       building_projects.each do |project|
-        response.should have_tag("div.box[project_id='#{project.id}']") do |box|
-          box.should have_tag("img", :src => "build-loader-red.gif")
-        end
+        response.should have_selector("div.box[project_id='#{project.id}'] div.building.red")
       end
     end
 
-    it "should display a green spinner for green building projects" do
+    it "should have classes building and green for green building projects" do
       get :show
       green_building_projects = Project.find(:all, :conditions => {:enabled => true, :building => true}).select(&:green?)
       green_building_projects.should_not be_empty
       green_building_projects.each do |project|
-        response.should have_tag("div.box[project_id='#{project.id}']") do |box|
-          box.should have_tag("img", :src => "build-loader-green.gif")
-        end
+        response.should have_selector("div.box[project_id='#{project.id}'] div.building.green")
       end
     end
 
-    it "should display a checkmark for green projects not building" do
+    it "should have class green and not building for green projects not building" do
       get :show
-      not_building_projects = Project.standalone.reject(&:building?)
+      not_building_projects = Project.standalone.reject(&:building?).select(&:green?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
-        response.should have_tag("div.box[project_id='#{project.id}']") do |box|
-          box.should have_tag("img", :src => "checkmark.png")
-        end
+        response.should have_selector("div.box[project_id='#{project.id}'] div.green:not(.building)")
       end
     end
 
-    it "should display an exclamation for red projects not building" do
+    it "should have class red and not building for red projects not building" do
       get :show
-      not_building_projects = Project.standalone.reject(&:building?)
+      not_building_projects = Project.standalone.reject(&:building?).select(&:red?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
-        response.should have_tag("div.box[project_id='#{project.id}']") do |box|
-          box.should have_tag("img", :src => "exclamation.png")
-        end
+        response.should have_selector("div.box[project_id='#{project.id}'] div.red:not(.building)")
       end
     end
 
     it "should not include an auto discovery rss link until it has stabilized" do
       get :show
-      response.should_not have_tag("head link[rel=alternate][type=application/rss+xml]")
+      response.should_not have_selector("head link[rel=alternate][type='application/rss+xml']")
     end
 
     it "should not incorrectly escape html" do
       get :show
-      response.should_not have_tag("span.sparkline", '&lt;span')
       Nokogiri::HTML(response.body).css('.sparkline').each do |node|
         node.to_s.should_not include '&lt;'
       end
@@ -183,7 +174,7 @@ describe DashboardsController do
 
       it "should respond with valid rss" do
         response.body.should include('<?xml version="1.0" encoding="UTF-8"?>')
-        response.should have_tag('rss[version="2.0"]') do
+        response.should have_selector('rss[version="2.0"]') do
           with_tag("channel") do
             with_tag("title", "Pivotal Labs CI")
             with_tag("link", "http://test.host/")
@@ -201,7 +192,7 @@ describe DashboardsController do
 
         it "should have a valid item for each project" do
           @all_projects.each do |project|
-            response.should have_tag('rss channel item') do
+            response.should have_selector('rss channel item') do
               with_tag("title", /#{project.name}/)
               with_tag("link", project.status.url)
               with_tag("guid", project.status.url)
@@ -212,7 +203,7 @@ describe DashboardsController do
         end
 
         it "should use static dates in the description so it doesn't keep changing all the time" do
-          response.should_not have_tag('rss channel item description', /ago/)
+          response.should_not have_selector('rss channel item description:contains("ago")')
         end
 
 
@@ -222,7 +213,7 @@ describe DashboardsController do
           end
 
           it "should include the last built date in the description" do
-            response.should have_tag("rss channel item") do
+            response.should have_selector("rss channel item") do
               with_tag("title", "#{@project.name} success")
               with_tag("description", /Last built/)
             end
@@ -235,7 +226,7 @@ describe DashboardsController do
           end
 
           it "should include the last built date and the oldest failure date in the description" do
-            response.should have_tag("rss channel item") do
+            response.should have_selector("rss channel item") do
               with_tag("title", "#{@project.name} failure")
               with_tag("description", /Last built/)
               with_tag("description", /Red since/)
@@ -249,7 +240,7 @@ describe DashboardsController do
           end
 
           it "should indicate that it's inaccessible in the description" do
-            response.should have_tag("rss channel item") do
+            response.should have_selector("rss channel item") do
               with_tag("title", "#{@project.name} offline")
               with_tag("description", 'Could not retrieve status.')
             end
