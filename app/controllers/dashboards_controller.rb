@@ -3,8 +3,11 @@ class DashboardsController < ApplicationController
     if params[:tags]
       aggregate_projects = AggregateProject.find_tagged_with(params[:tags], :conditions => {:enabled => true}, :include => {:projects => :latest_status})
       aggregate_project_ids = aggregate_projects.map(&:id)
-      projects = Project.where("aggregate_project_id NOT IN (?) OR aggregate_project_id IS NULL", aggregate_project_ids)\
-        .find_tagged_with(params[:tags], :conditions => {:enabled => true}, :include => :latest_status)
+      projects = Project.all(:include => :latest_status).select do |project|
+        ((params[:tags] && (project.tag_list & Array(params[:tags])) != []) || !params[:tags].present?) &&
+          project.enabled? &&
+          !(aggregate_project_ids.include?(project.aggregate_project_id))
+      end
 
       @projects = (projects + aggregate_projects).sort_by(&:name)
 

@@ -112,6 +112,15 @@ describe DashboardsController do
       assigns(:projects).map(&:name).should_not include(internal_nyc_project1.name)
     end
 
+    it "should show projects with a given tag unless an aggregate has that tag name" do
+      internal_project_3 = projects(:internal_project3)
+      internal_project_3.tag_list = 'independent'
+      internal_project_3.save!
+
+      get :show, :size => 'tiny', :tags => "independent"
+      assigns(:projects).map(&:name).should include(internal_project_3.name)
+    end
+
     it "should not store the most recent request location" do
       session[:location] = nil
       get :show
