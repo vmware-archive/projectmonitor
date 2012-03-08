@@ -1,4 +1,7 @@
 # Projects
+internal_project3_independent:
+  tag: independent
+  taggable: internal_project3 (Project)
 pivots_nyc:
   tag: nyc
   taggable: pivots (Project)

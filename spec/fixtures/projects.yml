@@ -66,3 +66,11 @@ internal_project2:
   enabled: true
   aggregate_project: internal_projects_aggregate
   latest_status_id: 13
+internal_project3:
+  name: Aggregated Internal Project with Different Tag
+  type: CruiseControlProject
+  feed_url: http://never-ci:3333/projects/internal_project3.rss
+  enabled: true
+  aggregate_project: internal_projects_aggregate
+  latest_status_id: 53
+

@@ -103,3 +103,10 @@ online_status_<%= i %>:
   published_at: <%= (4 + i).minutes.ago.to_s(:db) %>
   project: many_builds
 <% end %>
+
+aggregate3_status:
+  id: 53
+  online: true
+  success: true
+  published_at: <%= 5.minutes.ago.to_s(:db) %>
+  project: internal_project3
