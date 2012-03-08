@@ -1,5 +1,6 @@
 require 'net/http'
 require 'net/https'
+require 'httpi'
 
 class UrlRetriever
   def retrieve_content_at(url, username = nil, password = nil)
@@ -19,9 +20,9 @@ class UrlRetriever
 
   def http(uri)
     Net::HTTP.new(uri.host, uri.port).tap do |http|
+      http.use_ssl = (uri.scheme == 'https')
       http.read_timeout = 30
       http.open_timeout = 30
-      http.use_ssl = true if uri.scheme == "https"
     end
   end
 

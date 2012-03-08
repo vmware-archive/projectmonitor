@@ -21,8 +21,8 @@ describe MessagesController do
       context "when the message is not active" do
         before { message.update_attributes!({:expires_at => 1.day.ago}) }
         it "should return status 204" do
+          MessagesController.any_instance.should_not_receive(:render).with(:partial => "dashboards/_message")
           get :load_message, :message_id => message.id
-          response.should_not render_template("dashboards/_message")
           response.should be_success
           response.blank.should be_true
           response.body.length == 1

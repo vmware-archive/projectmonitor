@@ -18,6 +18,7 @@ gem 'delayed_job_active_record'
 gem "daemons"
 gem 'jquery-rails', '>= 1.0.12'
 gem 'pivotal_git_scripts'
+gem 'httpi'
 
 group :postgres do
   gem "pg"
@@ -31,12 +32,10 @@ group :thin do
   gem "thin"
 end
 
+
 group :development do
   gem "heroku"
   gem "sqlite3-ruby", "1.3.1"
-  gem 'ruby-debug-base19', :platforms => :mri_19
-  gem 'ruby-debug-base', :platforms => :mri_18
-  gem "ruby-debug-ide"
   gem "capistrano"
   gem "capistrano-ext"
   gem "soloist"
@@ -52,4 +51,5 @@ end
 
 group :test, :development do
   gem "rspec-rails", "2.2.0"
+  gem "webrat"
 end

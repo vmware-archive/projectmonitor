@@ -23,10 +23,10 @@ describe "UrlRetriever#retrieve_content_at" do
   describe "#http" do
     it "should respect the uri's scheme" do
       http1 = UrlRetriever.new.send(:http, URI.parse("http://example.com"))
-      http1.use_ssl.should be_false
+      http1.use_ssl?.should be_false
 
       http2 = UrlRetriever.new.send(:http, URI.parse("https://example.com"))
-      http2.use_ssl.should be_true
+      http2.use_ssl?.should be_true
     end
   end
 end
