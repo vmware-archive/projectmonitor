@@ -32,11 +32,11 @@ describe AmazonService do
         instance_mock = mock(:ec2_instance_mock)
         AWS::EC2.stub_chain(:new, :instances, :[]) { instance_mock }
 
-        instance_mock.stub(:start).and_raise(ArgumentError.new("blah"))
+        instance_mock.stub(:start).and_raise(ArgumentError)
 
         expect {
           AmazonService.new("a", "b").start_instance("cat")
-        }.to raise_error(ArgumentError, "blah")
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -58,11 +58,11 @@ describe AmazonService do
         instance_mock = mock(:ec2_instance_mock)
         AWS::EC2.stub_chain(:new, :instances, :[]) { instance_mock }
 
-        instance_mock.stub(:start).and_raise(ArgumentError.new("blah"))
+        instance_mock.stub(:start).and_raise(ArgumentError)
 
         expect {
           AmazonService.new("a", "b").start_instance("cat", "123")
-        }.to raise_error(ArgumentError, "blah")
+        }.to raise_error(ArgumentError)
       end
     end
   end
