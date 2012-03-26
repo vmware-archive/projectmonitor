@@ -2,7 +2,7 @@ source :rubygems
 gem "bundler"
 
 gem "rails", "3.0.3"
-gem "rake"
+gem "rake", "0.8.7"
 gem "gem_plugin"
 gem "mime-types"
 gem "fastthread"
