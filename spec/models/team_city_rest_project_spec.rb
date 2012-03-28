@@ -3,59 +3,56 @@ require 'spec_helper'
 describe TeamCityRestProject do
 
   context "TeamCity REST API feed" do
-
-    before(:each) do
-      @rest_url = "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)"
-      @project = TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => @rest_url)
-    end
+    let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
+    let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => rest_url) }
 
     describe "#feed_url" do
       context "with the personal flag" do
         ["true", "false", "any"].each do |flag|
           it "should be valid with #{flag}" do
-            @project.feed_url = "#{@rest_url},personal:#{flag}"
-            @project.should be_valid
+            project.feed_url = "#{rest_url},personal:#{flag}"
+            project.should be_valid
           end
         end
       end
 
       context "with the user option" do
         it "should be valid" do
-          @project.feed_url = "#{@rest_url},user:some_user123"
-          @project.should be_valid
+          project.feed_url = "#{rest_url},user:some_user123"
+          project.should be_valid
         end
       end
 
       context "with both the personal and user option" do
         it "should be valid" do
-          @project.feed_url = "#{@rest_url},user:some_user123,personal:true"
-          @project.should be_valid
+          project.feed_url = "#{rest_url},user:some_user123,personal:true"
+          project.should be_valid
         end
       end
     end
 
     describe "#project_name" do
       it "should return nil when feed_url is nil" do
-        @project.feed_url = nil
-        @project.project_name.should be_nil
+        project.feed_url = nil
+        project.project_name.should be_nil
       end
 
       it "should return the feed url, since TeamCity does not have the project name in the feed_url" do
-        @project.project_name.should == @project.feed_url
+        project.project_name.should == project.feed_url
       end
     end
 
     describe "#build_status_url" do
       it "should use rest api" do
-        @project.build_status_url.should == @rest_url
+        project.build_status_url.should == rest_url
       end
     end
 
-    describe "#status_parser" do
+    describe "#parse_project_status" do
 
       describe "with reported success" do
         let :status_parser do
-          @project.parse_project_status(TeamcityRESTExample.new("success.xml").read)
+          project.parse_project_status(TeamcityRESTExample.new("success.xml").read)
         end
 
         it "should return the link to the checkin" do
@@ -65,7 +62,7 @@ describe TeamCityRestProject do
         context "there is a previous status for the same build" do
           before do
             @published_at = Clock.now - 10.minutes
-            @project.stub(:statuses) {[
+            project.stub(:statuses) {[
                 ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value,
                                   :published_at => @published_at,
                                   :success => true, :online => true)
@@ -79,7 +76,7 @@ describe TeamCityRestProject do
 
         context "there is a previous status for another build" do
           before do
-            @project.stub(:statuses) {[
+            project.stub(:statuses) {[
                 ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").as_xml.css("build")[1].attribute("webUrl").value,
                                   :published_at => Clock.now - 10.minutes,
                                   :success => true, :online => true)
@@ -104,7 +101,7 @@ describe TeamCityRestProject do
 
       describe "with a startDate included" do
         before(:each) do
-          @status_parser = @project.parse_project_status(TeamcityRESTExample.new("success_with_start_date.xml").read)
+          @status_parser = project.parse_project_status(TeamcityRESTExample.new("success_with_start_date.xml").read)
         end
 
         it "should return the published date of the checkin" do
@@ -115,7 +112,7 @@ describe TeamCityRestProject do
 
       describe "with reported failure" do
         before(:each) do
-          @status_parser = @project.parse_project_status(TeamcityRESTExample.new("failure.xml").read)
+          @status_parser = project.parse_project_status(TeamcityRESTExample.new("failure.xml").read)
         end
 
         it "should return the link to the checkin" do
@@ -135,19 +132,19 @@ describe TeamCityRestProject do
         before(:each) do
           @parser        = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
           @response_doc  = @parser.parse
-          @status_parser = @project.parse_project_status("<foo><bar>baz</bar></foo>")
+          @status_parser = project.parse_project_status("<foo><bar>baz</bar></foo>")
         end
       end
     end
 
-    describe "#building_parser" do
+    describe "#parse_building_status" do
       before(:each) do
-        @project = TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
+        project = TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
       end
 
       context "with a valid response that the project is building" do
         before(:each) do
-          @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_rest_building.xml").read)
+          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_building.xml").read)
         end
 
         it "should set the building flag on the project to true" do
@@ -157,7 +154,7 @@ describe TeamCityRestProject do
 
       context "with a valid response that the project is not building" do
         before(:each) do
-          @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_rest_not_building.xml").read)
+          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_not_building.xml").read)
         end
 
         it "should set the building flag on the project to false" do
@@ -167,7 +164,7 @@ describe TeamCityRestProject do
 
       context "with an invalid response" do
         before(:each) do
-          @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
+          @status_parser = project.parse_building_status("<foo><bar>baz</bar></foo>")
         end
 
         it "should set the building flag on the project to false" do

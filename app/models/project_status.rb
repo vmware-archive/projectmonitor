@@ -21,16 +21,16 @@ class ProjectStatus < ActiveRecord::Base
       !status.online
     end
   end
-  
+
   def in_words
     if self.online
       if self.success
-        return SUCCESS
+        SUCCESS
       else
-        return FAILURE
+        FAILURE
       end
     else
-      return OFFLINE
+      OFFLINE
     end
   end
 

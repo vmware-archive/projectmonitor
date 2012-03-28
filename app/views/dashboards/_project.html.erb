@@ -1,37 +1,37 @@
 <%
-   if project.red?
-       background = 'redbox'
-       background = 'redbox-aggregate' if project.is_a? AggregateProject
-       if project.building?
-         status_class = 'project_status red building'
-       else
-         status_class = 'project_status red'
-       end
-   elsif project.green?
-       background = 'greenbox'
-       background = 'greenbox-aggregate' if project.is_a? AggregateProject
-       if project.building?
-         status_class = 'project_status green building'
-       else
-         status_class = 'project_status green'
-       end
-   else
-       background = 'bluebox'
-       background = 'bluebox-aggregate' if project.is_a? AggregateProject
-       status_class = 'project_status offline'
-   end
-%>
+  if !project.online?
+    background = 'bluebox'
+    background = 'bluebox-aggregate' if project.is_a? AggregateProject
+    status_class = 'project_status offline'
+  elsif project.red?
+    background = 'redbox'
+    background = 'redbox-aggregate' if project.is_a? AggregateProject
+    if project.building?
+      status_class = 'project_status red building'
+    else
+      status_class = 'project_status red'
+    end
+  elsif project.green?
+    background = 'greenbox'
+    background = 'greenbox-aggregate' if project.is_a? AggregateProject
+    if project.building?
+      status_class = 'project_status green building'
+    else
+      status_class = 'project_status green'
+    end
+  end
+-%>
 
 <div class="box <%= background %>" project_id="<%= project.id %>" >
   <div class="project_name <%= project.green? ? 'success' : 'error' %>">
     <h1><%= link_to(h(project.name), project.url) %></h1>
   </div>
 
-  <% relative_status_messages_for(project).each do |css_class, message| %>
+  <% relative_status_messages_for(project).each do |css_class, message| -%>
       <div class="<%= css_class %>">
         <%= message %>
       </div>
-  <% end %>
+  <% end -%>
 
   <div class="project_history">
     <%= render :partial=>'dashboards/history', :locals=>{:project=>project} %>
