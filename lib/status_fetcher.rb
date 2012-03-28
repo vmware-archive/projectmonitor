@@ -1,5 +1,5 @@
 class StatusFetcher
-  def initialize(url_retriever = UrlRetriever.new)
+  def initialize(url_retriever = UrlRetriever)
     @url_retriever = url_retriever
   end
 
