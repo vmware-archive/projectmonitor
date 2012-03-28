@@ -386,7 +386,7 @@ describe TeamCityBuild do
 
       its(:online) { should be_true}
       its(:success) { should be_false }
-      its(:published_at) { should be_present }
+      its(:published_at) { should_not be_present }
     end
 
     context "test boundary with default build status fetcher" do
@@ -408,17 +408,24 @@ describe TeamCityBuild do
 
       its(:online) { should be_true }
       its(:success) { should be_true }
-      its(:published_at) { should be_present }
+      its(:published_at) { should_not be_present }
     end
   end
 
   describe "#parse_project_status" do
-    let(:live_status) { double(:live_status)}
-    before { build.stub(:live_status).and_return live_status }
+    let(:live_status) { ProjectStatus.new }
+    let(:publish_date) { Time.now }
+    let(:build_status) { double(:build_status, :publish_date => publish_date) }
 
-    subject { build.parse_project_status("foo")}
+    before do
+      build.build_status_fetcher = proc { build_status }
+      build.stub(:children).and_return []
+      build.stub(:live_status).and_return live_status
+    end
 
-    it { should == live_status }
+    subject { build.parse_project_status("foo") }
+
+    its(:published_at) { should == publish_date }
   end
 
   describe "#parse_building_status" do

@@ -34,12 +34,13 @@ class TeamCityBuild < TeamCityRestProject
     ProjectStatus.new.tap do |s|
       s.online = build_status.online?
       s.success = build_status.green?
-      s.published_at = publish_date
     end
   end
 
   def parse_project_status(*)
-    live_status
+    live_status.tap do |s|
+      s.published_at = publish_date
+    end
   end
 
   def parse_building_status(*)

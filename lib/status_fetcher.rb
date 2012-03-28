@@ -1,6 +1,5 @@
 class StatusFetcher
   def initialize(url_retriever = UrlRetriever)
-    @url_retriever = url_retriever
   end
 
   def fetch_all
@@ -17,18 +16,18 @@ class StatusFetcher
   def retrieve_status_for(project)
     status = ProjectStatus.new(:online => false, :success => false)
     status.error = http_errors_for(project) do
-      content = @url_retriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
+      content = UrlRetriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
       status = project.parse_project_status(content)
       status.online = true
     end
     project.statuses.build(status.attributes).save unless project.status.match?(status)
   end
-  handle_asynchronously :retrieve_status_for, :queue => 'project_status'
+  # handle_asynchronously :retrieve_status_for, :queue => 'project_status'
 
   def retrieve_building_status_for(project)
     status = BuildingStatus.new(false)
     status.error = http_errors_for(project) do
-      content = @url_retriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
+      content = UrlRetriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
       status = project.parse_building_status(content)
     end
     project.update_attribute(:building, status.building?)
