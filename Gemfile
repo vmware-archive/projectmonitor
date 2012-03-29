@@ -52,6 +52,7 @@ end
 
 group :test, :development do
   gem "rspec-rails", "~> 2.9.0"
+  gem "shoulda-matchers", "~> 1.0.0"
   gem "capybara", "~> 1.1.2"
   gem "jasmine", "~> 1.1.2"
 end
