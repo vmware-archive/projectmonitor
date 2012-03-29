@@ -47,13 +47,6 @@ CiMonitor::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  #cache busting per deploy only
-  TIMESTAMP = Time.now.to_i
-  
-  config.action_controller.asset_path = proc { |asset_path|
-    "#{asset_path}?#{TIMESTAMP}"
-  }
-
   # Compress JavaScript and CSS
   config.assets.compress = true
 
@@ -62,6 +55,4 @@ CiMonitor::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-
-  config.assets.precompile += ['iphone.js', 'iphone.css']
 end
