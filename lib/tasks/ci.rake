@@ -37,10 +37,10 @@ namespace :ci do
       :key_name => 'ci'
     )
     server.wait_for { ready? }
-    
+
     p server
     p "Server is ready"
-    
+
     p "Writing server public IP (#{server.dns_name}) to ci.yml"
     aws_conf.merge!("ci_server" => { "public_ip" => server.dns_name })
 
@@ -48,7 +48,7 @@ namespace :ci do
     f.write(aws_conf.to_yaml)
     f.close
   end
-  
+
   desc "open the CI interface in a browser"
   task :open do
     aws_conf_location = File.expand_path('../../../config/ci.yml', __FILE__)
