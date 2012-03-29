@@ -2,11 +2,13 @@ class AggregateProjectsController < ApplicationController
   before_filter :login_required, :except => [:show, :load_aggregate_project_with_status]
   before_filter :load_aggregate_project, :only => [:show, :edit, :update, :destroy]
 
+  layout "dashboard", only: [ :show ]
+
   def show
     @projects = @aggregate_project.projects.enabled
     @messages = []
     @twitter_searches = []
-    render :template => 'dashboards/show', :layout => 'application'
+    render :template => 'dashboards/show'
   end
 
   def new

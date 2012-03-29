@@ -1,42 +1,28 @@
 <%
-  if !project.online?
-    background = 'bluebox'
-    background = 'bluebox-aggregate' if project.is_a? AggregateProject
-    status_class = 'project_status offline'
-  elsif project.red?
-    background = 'redbox'
-    background = 'redbox-aggregate' if project.is_a? AggregateProject
-    if project.building?
-      status_class = 'project_status red building'
-    else
-      status_class = 'project_status red'
-    end
+  project_class = 'project'
+  if project.red?
+    project_class += ' failure'
   elsif project.green?
-    background = 'greenbox'
-    background = 'greenbox-aggregate' if project.is_a? AggregateProject
-    if project.building?
-      status_class = 'project_status green building'
-    else
-      status_class = 'project_status green'
-    end
+    project_class += ' success'
+  else
+    project_class += ' offline'
   end
--%>
-
-<div class="box <%= background %>" project_id="<%= project.id %>" >
-  <div class="project_name <%= project.green? ? 'success' : 'error' %>">
-    <h1><%= link_to(h(project.name), project.url) %></h1>
+  project_class += ' aggregate' if project.is_a? AggregateProject
+%>
+<li class="<%= project_class %>" id="project_<%= project.id %>">
+  <div class="information">
+    <h1><%= link_to(project.code, project.url) %></h1>
+    <h2><%= link_to(project.name, project.url) %></h2>
   </div>
 
-  <% relative_status_messages_for(project).each do |css_class, message| -%>
-      <div class="<%= css_class %>">
-        <%= message %>
-      </div>
-  <% end -%>
-
-  <div class="project_history">
-    <%= render :partial=>'dashboards/history', :locals=>{:project=>project} %>
+  <div class="history">
+    <h3 class="publish_date">??</h3>
+    <ol class="sparklines<%= " building" if project.building? %>">
+      <% project.recent_online_statuses(9).each do |status| %>
+        <li class="sparkline <%= status.in_words %>">
+          <%= link_to status.in_words, status.url %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-
-  <div class="<%= status_class %>">
-  </div>
-</div>
+</li>

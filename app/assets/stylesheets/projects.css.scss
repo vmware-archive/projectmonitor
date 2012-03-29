@@ -1,0 +1,279 @@
+@-webkit-keyframes building-green {
+  0% { background: $very-very-light-green; }
+  100% { background: white; }
+}
+
+@-webkit-keyframes building-red {
+  0% { background: $very-very-light-red; }
+  100% { background: white; }
+}
+
+@-moz-keyframes building-green {
+  0% { background: $very-very-light-green; }
+  100% { background: white; }
+}
+
+@-moz-keyframes building-red {
+  0% { background: $very-very-light-red; }
+  100% { background: white; }
+}
+
+@-ms-keyframes building-green {
+  0% { background: $very-very-light-green; }
+  100% { background: white; }
+}
+
+@-ms-keyframes building-red {
+  0% { background: $very-very-light-red; }
+  100% { background: white; }
+}
+
+ol.projects {
+  list-style: none;
+
+  li.project {
+    float:left;
+    margin: 5px;
+    width:620px;
+    height:200px;
+    padding-right: 10px;
+
+    > div {
+      height: 100%;
+    }
+
+    &.success {
+      background: $green;
+      .information {
+        h2 {
+          background: $light-green;
+          border-top: solid $very-dark-green 2px;
+        }
+      }
+      .history{
+        background: $very-light-green;
+        border-color: $very-dark-green;
+
+        .sparklines .sparkline {
+          background: $very-very-light-green;
+        }
+      }
+      &.aggregate .information {
+        @include linear-gradient(0deg, $green 50%, $dark-green 51%);
+      }
+    }
+
+    &.failure {
+      background: $red;
+      .information {
+        h2 {
+          background: $light-red;
+          border-top: solid $very-dark-red 2px;
+        }
+
+      }
+      .history{
+        background: $very-light-red;
+        border-color: $very-dark-red;
+
+        .sparklines .sparkline {
+          background: $very-very-light-red;
+        }
+      }
+      &.aggregate .information {
+        @include linear-gradient(0deg, $red 50%, $dark-red 51%);
+      }
+    }
+
+
+    &.offline {
+      background: $grey;
+
+      .information {
+        h2 {
+          background: $light-grey;
+          border-top: solid $very-dark-grey 2px;
+        }
+      }
+
+      .history{
+        background: $very-light-grey;
+        border-color: $very-dark-grey;
+
+        .sparklines .sparkline {
+          background: $very-very-light-grey;
+        }
+      }
+      &.aggregate .information{
+        @include linear-gradient(0deg, $grey 50%, $dark-grey 51%);
+      }
+    }
+
+    .information {
+      > div {
+        text-align: left;
+      }
+      float: left;
+      width: 430px;
+
+
+      h1 {
+        height: 150px - 1;
+        padding: 0 15px;
+        line-height: 150px - 1;
+        font-size: 100px;
+        font-family: Helvetica, sans-serif;
+        font-weight: bold;
+        text-transform: capitalize;
+        color: #2B2820;
+
+        a, a:hover, a:visited {
+          color: #2B2820;
+          text-decoration: none;
+        }
+      }
+
+      h2 {
+        padding: 0 15px;
+        height: 50px - 1;
+        line-height: 50px - 1;
+        font-size: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-transform: capitalize;
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+
+    .history {
+      float: right;
+      width: 180px;
+      border-left: solid 2px;
+      border-right: solid 2px;
+      float: left;
+      text-align: center;
+
+      .publish_date {
+        text-align: center;
+        height: 150px;
+        font-size: 40px;
+        line-height: 150px;
+      }
+
+      .sparklines {
+        display: inline-block;
+        position: relative;
+        margin: -25px 30px 5px;
+        width: (20px + 2 + 2) * 5;
+        list-style: none;
+
+        .sparkline {
+          display: block;
+          float: left;
+          position: relative;
+          margin: 2px;
+          overflow: hidden;
+          text-indent: -1000px;
+
+          a {
+            display: block;
+            width: 20px;
+            height: 20px;
+          }
+
+          &.offline {
+            background-color: #5CC8F9;
+          }
+
+          &.success {
+            a {
+              background-image: url(/assets/projects/success.png);
+            }
+          }
+
+          &.failure {
+            a {
+              background-image: url(/assets/projects/failure.png);
+            }
+          }
+        }
+
+        &.building {
+          .sparkline {
+            @include animation-name(building-green);
+            @include animation-duration(2s);
+            @include animation-direction(alternate);
+            @include animation-timing-function(ease);
+            @include animation-iteration-count(infinite);
+
+            &:nth-child(1) { @include animation-delay(1s); }
+            &:nth-child(2) { @include animation-delay(2s); }
+            &:nth-child(3) { @include animation-delay(3s); }
+            &:nth-child(4) { @include animation-delay(4s); }
+            &:nth-child(5) { @include animation-delay(5s); }
+            &:nth-child(6) { @include animation-delay(6s); }
+            &:nth-child(7) { @include animation-delay(7s); }
+            &:nth-child(8) { @include animation-delay(8s); }
+            &:nth-child(9) { @include animation-delay(9s); }
+            &:nth-child(10) { @include animation-delay(10s); }
+
+            &.success, &.failure {
+              a {
+                background-color: transparent;
+              }
+            }
+
+            &.success {
+              a {
+                background-image: url(/assets/projects/success-building.png);
+              }
+            }
+
+            &.failure {
+              a {
+                background-image: url(/assets/projects/failure-building.png);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.aggregate {
+      .information {
+        background-size: 78.5px 78.5px;
+      }
+    }
+
+
+    &.success {
+      .history {
+        .project_history {
+          .sparklines.building {
+            .sparkline {
+              @include animation-name(building-green);
+            }
+          }
+        }
+      }
+    }
+
+    &.failure {
+      .history {
+        .project_history {
+          .sparklines.building {
+            .sparkline {
+              @include animation-name(building-red);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CI Monitor</title>
+    <%= stylesheet_link_tag "dashboard" %>
+  </head>
+  <body class="dashboard">
+    <%= yield %>
+    <%= link_to "projects", projects_path, class: "projects_path" %>
+    <%= javascript_include_tag "dashboard" %>
+  </body>
+</html>

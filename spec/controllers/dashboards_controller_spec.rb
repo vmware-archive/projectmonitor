@@ -18,56 +18,6 @@ describe DashboardsController do
       response.should be_success
     end
 
-    describe "login link" do
-      describe "using local password auth" do
-        before(:each) do
-          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-password.yml"))
-        end
-
-        it "renders link to /sessions/new" do
-          get :show
-          response.should be_success
-          page.should have_css(%Q{a[href="#{login_path}"]})
-        end
-
-        describe "logged in links" do
-          before(:each) do
-            log_in(create_user)
-          end
-
-          it "renders link to /users/new" do
-            get :show
-            response.should be_success
-            page.should have_css(%Q{a[href="#{new_user_path}"]})
-          end
-        end
-      end
-
-      describe "using openid auth" do
-        before(:each) do
-          AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
-        end
-
-        it "renders link to /openid/new" do
-          get :show
-          response.should be_success
-          page.should have_css(%Q{a[href="#{new_openid_path}"]})
-        end
-
-        describe "logged in links" do
-          before(:each) do
-            log_in(create_user)
-          end
-
-          it "renders link to /users/new" do
-            get :show
-            response.should be_success
-            page.should_not have_css(%Q{a[href="#{new_user_path}"]})
-          end
-        end
-      end
-    end
-
     it "should filter by tag" do
       nyc_projects = Project.find_tagged_with('NYC')
       nyc_projects.should_not be_empty
@@ -121,8 +71,8 @@ describe DashboardsController do
       building_projects.should_not be_empty
 
       building_projects.each do |project|
-        page.find("div.box[project_id='#{project.id}']").tap do |box|
-          box.should have_css(".building.red")
+        page.find("#project_#{project.id}").tap do |box|
+          box.should have_css(".sparkline.building")
         end
       end
     end
@@ -132,8 +82,8 @@ describe DashboardsController do
       green_building_projects = Project.find(:all, :conditions => {:enabled => true, :building => true}).select(&:green?)
       green_building_projects.should_not be_empty
       green_building_projects.each do |project|
-        page.find("div.box[project_id='#{project.id}']").tap do |box|
-          box.should have_css(".building.green")
+        page.find("#project_#{project.id}").tap do |box|
+          box.should have_css(".sparkline.building")
         end
       end
     end
@@ -143,7 +93,7 @@ describe DashboardsController do
       not_building_projects = Project.standalone.reject(&:building?).select(&:green?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
-        page.should have_css("div[project_id='#{project.id}'].box.greenbox")
+        page.should have_css("#project_#{project.id}.success")
       end
     end
 
@@ -152,7 +102,18 @@ describe DashboardsController do
       not_building_projects = Project.standalone.reject(&:building?).select(&:red?)
       not_building_projects.should_not be_empty
       not_building_projects.each do |project|
-        page.should have_css("div[project_id='#{project.id}'].box.redbox")
+        page.should have_css("#project_#{project.id}.failure")
+      end
+    end
+
+    describe "offline projects" do
+      it "should display a grey tile" do
+        get :show
+        offline_projects = Project.standalone.reject(&:green?).reject(&:red?)
+        offline_projects.should_not be_empty
+        offline_projects.each do |project|
+          page.should have_css("#project_#{project.id}.offline")
+        end
       end
     end
 
@@ -235,7 +196,7 @@ describe DashboardsController do
           end
         end
 
-        context "when the project is blue" do
+        context "when the project is grey" do
           before do
             @project = @all_projects.reject(&:online?).last
           end
