@@ -138,9 +138,7 @@ describe TeamCityRestProject do
     end
 
     describe "#parse_building_status" do
-      before(:each) do
-        project = TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
-      end
+      let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse") }
 
       context "with a valid response that the project is building" do
         before(:each) do
