@@ -4,6 +4,7 @@
 
 <table class="projects">
   <tr>
+    <th>Code</th>
     <th>Name</th>
     <th>Project Type</th>
     <th>Enabled?</th>
@@ -15,6 +16,7 @@
 
   <% for project in @projects %>
     <tr class="<%= cycle("odd", "even") %>">
+      <td><%= h project.code %></td>
       <td><%= h project.name %></td>
       <td>
         <%= content_tag 'span', project.class.name.titleize, :title=>"#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}" %>
