@@ -32,7 +32,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def statuses
-    projects.collect {|p| p.status }.sort_by(&:id)
+    projects.map(&:latest_status).reject(&:nil?).sort_by(&:id)
   end
 
   def building?

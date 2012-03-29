@@ -111,7 +111,4 @@ class Project < ActiveRecord::Base
   def has_auth?
     auth_username.present? || auth_password.present?
   end
-
-  end
-
 end

@@ -115,7 +115,7 @@ describe AggregateProject do
     it "should return the last status of all the projects" do
       @ap.projects << projects(:pivots)
       @ap.projects << projects(:socialitis)
-      @ap.status.should == projects(:socialitis).status
+      @ap.status.should == projects(:socialitis).latest_status
     end
   end
 
@@ -135,6 +135,21 @@ describe AggregateProject do
       @ap.projects << projects(:socialitis)
       @ap.recent_online_statuses.should include project_statuses(:pivots_status)
       @ap.recent_online_statuses.should include project_statuses(:socialitis_status_green_01)
+    end
+  end
+
+  describe "#statuses" do
+    it "return all latest_status of projects sorted by id, even if one of the project has no statuses" do
+      @ap.projects << projects(:socialitis)
+      @ap.projects << projects(:pivots)
+      @ap.projects << projects(:offline)
+      @ap.projects << Project.create(code: 'NS', name: 'No status',
+                                    type: 'CruiseControlProject',
+                                    feed_url: 'http://ci.pivotallabs.com:3333/projects/pivots.rss',
+                                    enabled: true)
+      @ap.reload.statuses.should == [projects(:pivots).latest_status,
+                              projects(:socialitis).latest_status,
+                              projects(:offline).latest_status,]
     end
   end
 

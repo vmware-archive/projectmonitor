@@ -4,12 +4,10 @@ class AmazonService
   end
 
   def start_instance(instance_id, ec2_elastic_ip = nil)
-    puts "Starting service #{instance_id}"
     instance = @ec2.instances[instance_id]
     instance.start
     if ec2_elastic_ip
       while instance.status != :running
-        puts instance.status
         sleep(1)
       end
       elastic_ip = AWS::EC2::ElasticIp.new(ec2_elastic_ip)
@@ -18,7 +16,6 @@ class AmazonService
   end
 
   def stop_instance(instance_id, ec2_elastic_ip = nil)
-    puts "Stopping service #{instance_id}"
     instance = @ec2.instances[instance_id]
     if ec2_elastic_ip
       elastic_ip = AWS::EC2::ElasticIp.new(ec2_elastic_ip)
@@ -28,7 +25,6 @@ class AmazonService
   end
 
   def self.schedule(date)
-    puts "Scheduling amazon lobot services at #{date}"
     end_time = date.to_s(:db_time)
     start_time = (date - 7.minutes).to_s(:db_time)
     day = date.to_s(:db_day).downcase
