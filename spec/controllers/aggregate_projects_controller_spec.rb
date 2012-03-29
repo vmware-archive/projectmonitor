@@ -16,7 +16,7 @@ describe AggregateProjectsController do
         ap = aggregate_projects(:internal_projects_aggregate)
         get :show, :id => ap.to_param
         ap.projects.each do |project|
-          page.should have_css("div[project_id='#{project.id}'].box.greenbox")
+          page.should have_css("#project_#{project.id}.success")
         end
       end
 

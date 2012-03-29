@@ -1,70 +1,48 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CI Monitor</title>
+    <%= stylesheet_link_tag "application" %>
+    <%= yield :head %>
+  </head>
+  <body>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <!-- This is to force all links inside the auto-refresh frame to open outside the frame at the top level. -->
-  <!-- Otherwise, there is no way to escape the auto-refresh frame. -->
-  <base target="_top">
-
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-
-  <title>CI Monitor</title>
-  <%= javascript_include_tag "application" %>
-  <%= stylesheet_link_tag "application" %>
-  <%= yield :head %>
-</head>
-<body>
-
-  <div id="header">
-    <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
-    <%= link_to(image_tag('ci-logo.png'), '/') %>
-    <div id="top_right">
-      <% if current_user.present? %>
-        Hello, <%= current_user.login %>
-        <%= link_to "(log out)", logout_path, :class=>'smaller_text' %>
-        <br />
-        <%= link_to "Projects", projects_path %>
-        |
-        <%= link_to "Messages", messages_path %>
-        |
-        <% if AuthConfig.password? %>
-          <%= link_to "Add User", new_user_path %>
+    <div id="header">
+      <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
+      <%= link_to(image_tag('ci-logo.png'), '/') %>
+      <div id="top_right">
+        <% if current_user.present? %>
+          Hello, <%= current_user.login %>
+          <%= link_to "(log out)", logout_path, :class=>'smaller_text' %>
+          <br />
+          <%= link_to "Projects", projects_path %>
+          |
+          <%= link_to "Messages", messages_path %>
+          |
+          <% if AuthConfig.password? %>
+            <%= link_to "Add User", new_user_path %>
+          <% end %>
+        <% else %>
+          <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
         <% end %>
-      <% else %>
-        <%= link_to "Log In", AuthConfig.openid? ? new_openid_path : login_path %>
+      </div>
+    </div>
+
+    <div class="page <%= params[:controller] %> <%= params[:action] %>">
+      <% if flash[:error] %>
+        <div id="flash_error">
+          <%= flash[:error] %>
+        </div>
       <% end %>
+
+      <% if flash[:notice] %>
+        <div id="flash_notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
     </div>
-    <div style="clear:both;"></div>
-  </div>
-
-<div class="page">
-  <% if flash[:error] %>
-    <div id="flash_error">
-      <%= flash[:error] %>
-    </div>
-  <% end %>
-
-  <% if flash[:notice] %>
-    <div id="flash_notice">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-
-  <%= yield %>
-</div>
-
-<% if Rails.env.production? %>
-  <% javascript_tag do %>
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  <% end %>
-  <% javascript_tag do %>
-    try {
-      var pageTracker = _gat._getTracker("UA-1687866-10");
-      pageTracker._trackPageview();
-    } catch(err) {}
-  <% end %>
-<% end %>
-</body>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

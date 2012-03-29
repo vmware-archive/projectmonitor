@@ -1,21 +1,3 @@
-<div class="projects">
-  <% @projects.each do |project| -%>
-    <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
-      <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
-    </div>
-  <% end %>
-
-  <% @messages.each do |message| -%>
-    <div class="project message">
-      <%= render :partial => 'dashboards/message', :locals => {:message => message} %>
-    </div>
-  <% end -%>
-
-  <% @twitter_searches.each do |twitter_search| -%>
-    <div class="project message">
-      <%= render :partial => 'dashboards/twitter_search', :locals => {:twitter_search => twitter_search} %>
-    </div>
-  <% end -%>
-</div>
-
-<%= javascript_include_tag "refresh", "http://widgets.twimg.com/j/2/widget.js" %>
+<ol class="projects">
+  <%= render partial: "dashboards/project", collection: @projects %>
+</ol>
