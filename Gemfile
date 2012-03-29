@@ -1,55 +1,57 @@
 source :rubygems
-gem "bundler"
 
-gem "rails", "3.0.3"
-gem "rake"
-gem "gem_plugin"
-gem "mime-types"
-gem "fastthread"
-gem "nokogiri"
-gem "httpauth"
-gem "acts_as_taggable_on_steroids"
-gem "ruby-openid"
-gem "ruby-openid-apps-discovery"
-gem "delayed_job"
-gem "dynamic_form"
-gem "aws-sdk"
-gem 'delayed_job_active_record'
-gem "daemons"
-gem 'jquery-rails', '>= 1.0.12'
-gem 'pivotal_git_scripts'
-gem 'httpi'
+gem "rails", "~> 3.2.0"
+gem "rake", "~> 0.9.2"
+
+gem "gem_plugin", "~> 0.2.0"
+gem "mime-types", "~> 1.18"
+gem "fastthread", "~> 1.0.7"
+gem "nokogiri", "~> 1.5.2"
+gem "httpauth", "~> 0.1"
+gem "acts_as_taggable_on_steroids", :git => "https://github.com/jviney/acts_as_taggable_on_steroids.git"
+gem "ruby-openid", "~> 2.1.8"
+gem "ruby-openid-apps-discovery", "~> 1.2.0"
+gem "delayed_job", "~> 3.0.1"
+gem "dynamic_form", "~> 1.1.4"
+gem "aws-sdk", "~> 1.3.6"
+gem "delayed_job_active_record", "~> 0.3.2"
+gem "daemons", "~> 1.1.8"
+gem "jquery-rails", "~> 2.0.1"
+gem "foreman", "~> 0.41.0"
 
 group :postgres do
-  gem "pg"
+  gem "pg", "~> 0.13.2"
 end
 
 group :mysql do
-  gem 'mysql2', '< 0.3'
+  gem "mysql2", "~> 0.3.0"
 end
 
 group :thin do
-  gem "thin"
+  gem "thin", "~> 1.3.1"
 end
 
+group :assets do
+  gem "sass-rails", "~> 3.2.3"
+  gem "uglifier", "~> 1.0.3"
+end
 
 group :development do
-  gem "heroku"
-  gem "sqlite3-ruby", "1.3.1"
-  gem "capistrano"
-  gem "capistrano-ext"
-  gem "soloist"
-  gem "rvm"
-  gem "fog"
+  gem "heroku", "~> 2.23.0"
+  gem "pry", "~> 0.9.8"
+  gem "capistrano", "~> 2.11.2"
+  gem "capistrano-ext", "~> 1.2.1"
+  gem "soloist", "~> 0.9.4"
+  gem "fog", "~> 1.3.1"
+  gem "pivotal_git_scripts", "~> 1.1.4"
 end
 
 group :test do
-  gem "jasmine", "1.0.1.1"
   gem "headless", "0.1.0"
-  gem "timecop"
 end
 
 group :test, :development do
-  gem "rspec-rails", "2.2.0"
-  gem "webrat"
+  gem "rspec-rails", "~> 2.9.0"
+  gem "capybara", "~> 1.1.2"
+  gem "jasmine", "~> 1.1.2"
 end

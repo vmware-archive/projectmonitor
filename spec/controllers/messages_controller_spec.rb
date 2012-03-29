@@ -24,7 +24,7 @@ describe MessagesController do
           MessagesController.any_instance.should_not_receive(:render).with(:partial => "dashboards/_message")
           get :load_message, :message_id => message.id
           response.should be_success
-          response.blank.should be_true
+          response.body.blank?.should be_true
           response.body.length == 1
         end
       end

@@ -19,7 +19,7 @@ describe ApplicationHelper do
         @status.published_at = @now - 1.hour
 
         html = helper.historical_status_image(@status)
-        html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/images/red1.png' border='0' /></a>"
+        html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/assets/red1.png' border='0' /></a>"
       end
 
       it 'should render the right image for a success statue' do
@@ -28,7 +28,7 @@ describe ApplicationHelper do
         @status.published_at = @now - 1.hour
 
         html = helper.historical_status_image(@status)
-        html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/images/green1.png' border='0' /></a>"
+        html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/assets/green1.png' border='0' /></a>"
       end
 
     end
@@ -99,7 +99,7 @@ describe ApplicationHelper do
 
     def should_use_green_icon(number)
       html = helper.historical_status_image(@status)
-      html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/images/green#{number}.png' border='0' /></a>"
+      html.should == "<a href='http://www.pivotallabs.com/build1'><img src='/assets/green#{number}.png' border='0' /></a>"
     end
   end
   

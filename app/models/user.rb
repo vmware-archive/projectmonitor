@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
     user.email = email
 
     # todo - this is a bit of a hack for now...
-    user.password = user.password_confirmation = ActiveSupport::SecureRandom.hex(16)
+    user.password = user.password_confirmation = SecureRandom.hex(16)
     user.save!
     user
   end
