@@ -1,35 +1,21 @@
-<%= content_for(:head) do %>
-    <script type="text/javascript">
-  jQuery(function(){
-    scheduleRefresh();
-  });
-</script>
-<% end %>
-<div class="cached_images" >
-  <% ["/assets/bluebox-aggregate.png", "/assets/questionmark.png", "/assets/bluebox.png"].each do |image| %>
-    <%= image_tag image %>
-  <% end %>
-</div>
 <div class="projects">
-  <% for project in @projects %>
+  <% @projects.each do |project| -%>
     <div class="project<%= project.is_a?(AggregateProject) ? ' aggregate' : ''%>">
       <%= render :partial => 'dashboards/project', :locals => {:project => project} %>
     </div>
   <% end %>
 
-  <% for message in @messages -%>
+  <% @messages.each do |message| -%>
     <div class="project message">
       <%= render :partial => 'dashboards/message', :locals => {:message => message} %>
     </div>
   <% end -%>
 
-  <% if @twitter_searches.present? -%>
-    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-
-    <% for twitter_search in @twitter_searches -%>
-      <div class="project message">
-        <%= render :partial => 'dashboards/twitter_search', :locals => {:twitter_search => twitter_search} %>
-      </div>
-    <% end -%>
+  <% @twitter_searches.each do |twitter_search| -%>
+    <div class="project message">
+      <%= render :partial => 'dashboards/twitter_search', :locals => {:twitter_search => twitter_search} %>
+    </div>
   <% end -%>
 </div>
+
+<%= javascript_include_tag "refresh", "http://widgets.twimg.com/j/2/widget.js" %>
