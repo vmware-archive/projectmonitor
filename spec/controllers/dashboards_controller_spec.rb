@@ -13,7 +13,6 @@ describe DashboardsController do
 
     let(:page) { Capybara::Node::Simple.new(response.body) }
 
-
     it "should succeed" do
       get :show
       response.should be_success
@@ -65,22 +64,6 @@ describe DashboardsController do
             response.should be_success
             page.should_not have_css(%Q{a[href="#{new_user_path}"]})
           end
-        end
-      end
-
-      describe "skins" do
-        it "should display the skin supplied by the 'skin' query param" do
-          get :show, :skin => 'dark'
-          response.should render_template('layouts/skins/dark')
-        end
-
-        it "should display the default layout if skin doesn't exist or isn't specified" do
-          get :show, :skin => 'fake'
-          response.should_not render_template('layouts/skins/fake')
-          response.should render_template('layouts/application')
-
-          get :show
-          response.should render_template('layouts/application')
         end
       end
     end
@@ -196,7 +179,7 @@ describe DashboardsController do
         response.body.should include('<?xml version="1.0" encoding="UTF-8"?>')
         page.should have_css('rss[version="2.0"]')
         page.should have_css('channel')
-        page.should have_css('channel title', text: "Pivotal Labs CI")
+        page.should have_css('channel title')
         #capybara does not expect <link> to have text in them - hence the following always fails
         #page.should have_css('channel link', text: "http://test.host/")
         page.should have_css('channel description', text: "Most recent builds and their status")

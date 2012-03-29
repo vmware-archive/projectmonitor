@@ -167,13 +167,6 @@ ProjectMonitor can inform you of builds that have been red for more than 24 hour
 You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
 only projects that match a set of tags by going to /?tags=tag1,tag2
 
-## Skins
-
-You can skin the ProjectMonitor dashboard by adding a layout to app/views/layouts/skins, and associated static assets in
-public/skins. View your skinned dashboard at http://myhost.com:3333/?skin=my_skin_name.
-
-We have included an example skin - 'dark', which is great for dashboards with fewer projects.
-
 ## CI
 
 CI for ProjectMonitor is [here](http://ci.pivotallabs.com:3333/builds/ProjectMonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
