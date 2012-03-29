@@ -1,7 +1,7 @@
 xml.instruct!
 xml.rss :version => '2.0' do
   xml.channel do
-    xml.title title
+    xml.title "CI Monitor"
     xml.link root_url
     xml.description "Most recent builds and their status"
 

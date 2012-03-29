@@ -63,5 +63,5 @@ CiMonitor::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['iphone.js', 'iphone.css', 'dark/*.js', 'dark/*.css']
+  config.assets.precompile += ['iphone.js', 'iphone.css']
 end

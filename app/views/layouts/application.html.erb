@@ -9,7 +9,7 @@
 
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
-  <title><%= title %></title>
+  <title>CI Monitor</title>
   <%= javascript_include_tag "application" %>
   <%= stylesheet_link_tag "application" %>
   <%= yield :head %>
@@ -18,7 +18,7 @@
 
   <div id="header">
     <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
-    <%= link_to(image_tag(logo), '/') %>
+    <%= link_to(image_tag('ci-logo.png'), '/') %>
     <div id="top_right">
       <% if current_user.present? %>
         Hello, <%= current_user.login %>
