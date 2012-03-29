@@ -1,45 +1,11 @@
 require 'spec_helper'
 
 describe Project do
-  class RandomProject < Project;
-  end
 
-  before do
-    @project = RandomProject.new(:name => "my_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
-  end
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :feed_url }
 
-  it "should be valid" do
-    @project.should be_valid
-  end
-
-  it "should have name as to_s" do
-    @project.to_s.should == (@project.name)
-  end
-
-  describe "validation" do
-    it "should require a name" do
-      @project.name = ""
-      @project.should_not be_valid
-      @project.errors[:name].should be_present
-    end
-
-    it "should require a feed url" do
-      @project.feed_url = ""
-      @project.should_not be_valid
-      @project.errors[:feed_url].should be_present
-    end
-
-    it "should require all ec2 fields or none" do
-      @project.ec2_instance_id = "123"
-      @project.should_not be_valid
-      @project.ec2_access_key_id = "lkjafkh3223"
-      @project.should_not be_valid
-      @project.ec2_secret_access_key = "lksdjfj2398732497"
-      @project.should_not be_valid
-      @project.ec2_tuesday = true
-      @project.should be_valid
-    end
-  end
+  let(:project) { Project.new(name: "my_project", code: "mypr", feed_url: "http://localhost:8111/bar.xml") }
 
   describe 'scopes' do
     describe "standalone" do
@@ -53,68 +19,102 @@ describe Project do
 
     describe "enabled" do
       it "should return only enabled projects" do
-        @project.update_attribute(:enabled, false)
+        project.update_attribute(:enabled, false)
 
         Project.enabled.should include projects(:pivots)
         Project.enabled.should include projects(:socialitis)
-        Project.enabled.should_not include @project
+        Project.enabled.should_not include project
       end
     end
   end
 
   describe "statuses" do
-    before(:each) do
-      @project = projects(:socialitis)
-    end
+    let(:project) { projects(:socialitis) }
 
     it "should sort by newest to oldest" do
-      @project.statuses.should_not be_empty
+      project.statuses.should_not be_empty
 
       last_id = nil
-      @project.statuses.each do |status|
+      project.statuses.each do |status|
         status.id.should < last_id unless last_id.nil?
         last_id = status.id
       end
     end
   end
 
+  describe "#code" do
+    subject { project.code }
+
+    context "code set but empty" do
+      before do
+        project.code = ""
+      end
+
+      context "name set" do
+        let(:project) { Project.new(name: "My Cool Project") }
+        it { should == "myco" }
+      end
+
+      context "name not set" do
+        let(:project) { Project.new }
+        it { should be_nil }
+      end
+    end
+
+    context "code not set" do
+      context "name set" do
+        let(:project) { Project.new(name: "My Cool Project") }
+        it { should == "myco" }
+      end
+
+      context "name not set" do
+        let(:project) { Project.new }
+        it { should be_nil }
+      end
+    end
+
+    context "code is set" do
+      let(:project) { Project.new(code: "code") }
+      it { should == "code" }
+    end
+  end
+
   describe "#last green" do
     it "should return the successful project" do
-      @project = projects(:socialitis)
-      @project.statuses = []
-      @happy_status = @project.statuses.create!(:online => true, :success => true)
-      @sad_status = @project.statuses.create!(:online => true, :success => false)
-      @project.last_green.should == @happy_status
+      project = projects(:socialitis)
+      project.statuses = []
+      @happy_status = project.statuses.create!(:online => true, :success => true)
+      @sad_status = project.statuses.create!(:online => true, :success => false)
+      project.last_green.should == @happy_status
     end
   end
 
   describe "#status" do
-    before(:each) do
-      @project = projects(:socialitis)
-    end
+    let(:project) { projects(:socialitis) }
 
     it "should return the most recent status" do
-      @project.status.should == @project.statuses.find(:first)
+      project.status.should == project.statuses.find(:first)
     end
 
     describe "with no retrieved statuses" do
       it "should return an offline status" do
-        @project.statuses.destroy_all
-        @project.status.should_not be_nil
-        @project.status.should_not be_online
+        project.statuses.destroy_all
+        project.status.should_not be_nil
+        project.status.should_not be_online
       end
     end
   end
 
   describe "#aggregate_project" do
+    let(:project) { projects(:socialitis) }
+
     it "should have an aggregate project, if set" do
-      @project = projects(:socialitis)
-      @project.aggregate_project.should be_nil
-      @ap = AggregateProject.create(:name => "ap")
-      @project.aggregate_project = @ap
-      @project.save.should be_true
-      @project = Project.find_by_name('Socialitis')
-      @project.aggregate_project.should == @ap
+      project.aggregate_project.should be_nil
+      @ap = AggregateProject.create(code:'ap', name:'ap')
+      project.aggregate_project = @ap
+      project.save.should be_true
+      project = Project.find_by_name('Socialitis')
+      project.aggregate_project.should == @ap
     end
   end
 
@@ -142,9 +142,9 @@ describe Project do
     end
 
     it "should be false/false if the project has no statuses" do
-      @project.statuses.should be_empty
-      @project.should_not be_red
-      @project.should_not be_green
+      project.statuses.should be_empty
+      project.should_not be_red
+      project.should_not be_green
     end
   end
 
@@ -175,8 +175,8 @@ describe Project do
     end
 
     it "should return nil if the project has no statuses" do
-      @project.statuses.should be_empty
-      @project.red_since.should be_nil
+      project.statuses.should be_empty
+      project.red_since.should be_nil
     end
 
     it "should ignore offline statuses" do
@@ -280,43 +280,43 @@ describe Project do
 
   describe "#build_status_url" do
     it "should use the host name from the RSS URL, including the port" do
-      @project.build_status_url.should =~ /^#{Regexp.escape("http://foo.bar.com:3434")}/
+      project.build_status_url.should =~ /^#{Regexp.escape("http://localhost:8111")}/
     end
 
     it "should end with the appropriate location" do
-      @project.build_status_url.should =~ /#{Regexp.escape("XmlStatusReport.aspx")}$/
+      project.build_status_url.should =~ /#{Regexp.escape("XmlStatusReport.aspx")}$/
     end
 
     it "should not blow up if the RSS URL is not set (and the project is therefore invalid)" do
-      @project.feed_url = nil
-      @project.build_status_url.should be_nil
+      project.feed_url = nil
+      project.build_status_url.should be_nil
     end
   end
 
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
-      @project.feed_url = nil
-      @project.project_name.should be_nil
+      project.feed_url = nil
+      project.project_name.should be_nil
     end
 
     it "should just use the feed URL" do
-      @project.project_name.should == @project.feed_url
+      project.project_name.should == project.feed_url
     end
   end
 
   describe "#needs_poll?" do
     it "should return true if current time >= next_poll_at" do
-      @project.next_poll_at = 5.minutes.ago
-      @project.needs_poll?.should be_true
+      project.next_poll_at = 5.minutes.ago
+      project.needs_poll?.should be_true
     end
 
     it "should return false when current time < next_poll_at" do
-      @project.next_poll_at = 5.minutes.from_now
-      @project.needs_poll?.should be_false
+      project.next_poll_at = 5.minutes.from_now
+      project.needs_poll?.should be_false
     end
 
     it "should return true if next_poll_at is null" do
-      @project.needs_poll?.should be_true
+      project.needs_poll?.should be_true
     end
   end
 
@@ -324,37 +324,37 @@ describe Project do
     epsilon = 2
     context "with a project poll interval set" do
       before do
-        @project.polling_interval = 25
+        project.polling_interval = 25
       end
 
       it "should set the next_poll_at to Time.now + the project poll interval" do
-        @project.set_next_poll!
-        (@project.reload.next_poll_at - (Time.now + @project.polling_interval)).abs.should <= epsilon
+        project.set_next_poll!
+        (project.reload.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
       end
     end
 
     context "without a project poll interval set" do
       it "should set the next_poll_at to Time.now + the system default interval" do
-        @project.set_next_poll!
-        (@project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
+        project.set_next_poll!
+        (project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
       end
     end
   end
 
   describe "#has_auth?" do
     it "returns true if either username or password exists" do
-      @project.auth_username = "uname"
-      @project.has_auth?.should be_true
+      project.auth_username = "uname"
+      project.has_auth?.should be_true
 
-      @project.auth_username = nil
-      @project.auth_password = "pwd"
-      @project.has_auth?.should be_true
+      project.auth_username = nil
+      project.auth_password = "pwd"
+      project.has_auth?.should be_true
     end
 
     it "returns false if both username and password are blank" do
-      @project.auth_username = ""
-      @project.auth_password = nil
-      @project.has_auth?.should be_false
+      project.auth_username = ""
+      project.auth_password = nil
+      project.has_auth?.should be_false
     end
   end
 
