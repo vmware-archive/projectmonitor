@@ -1,19 +1,46 @@
 require 'spec_helper'
 
 describe AggregateProject do
+  it { should validate_presence_of :name }
+
   before :each do
     @ap = aggregate_projects(:empty_aggregate)
   end
 
-  describe 'validations' do
-    it "should be valid" do
-      @ap.should be_valid
-    end
-  end
+  describe "#code" do
+    subject { project.code }
 
-  describe 'associations' do
-    it "should start with no projects" do
-      @ap.projects.should be_empty
+    context "code set but empty" do
+      before do
+        project.code = ""
+      end
+
+      context "name set" do
+        let(:project) { Project.new(name: "My Cool Project") }
+        it { should == "myco" }
+      end
+
+      context "name not set" do
+        let(:project) { Project.new }
+        it { should be_nil }
+      end
+    end
+
+    context "code not set" do
+      context "name set" do
+        let(:project) { AggregateProject.new(name: "My Cool Project") }
+        it { should == "myco" }
+      end
+
+      context "name not set" do
+        let(:project) { AggregateProject.new }
+        it { should be_nil }
+      end
+    end
+
+    context "code is set" do
+      let(:project) { AggregateProject.new(code: "code") }
+      it { should == "code" }
     end
   end
 

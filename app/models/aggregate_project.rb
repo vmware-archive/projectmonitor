@@ -7,6 +7,7 @@ class AggregateProject < ActiveRecord::Base
   scope :with_projects, joins(:projects).where(:aggregate_projects => {:enabled => true}).select("distinct aggregate_projects.*")
 
   acts_as_taggable
+  validates :name, presence: true
 
   def red?
     projects.detect {|p| p.red? }
@@ -14,13 +15,16 @@ class AggregateProject < ActiveRecord::Base
 
   def green?
     return false if projects.empty?
-    
     projects.all? {|p| p.green? }
   end
 
   def online?
     return false if projects.empty?
     projects.all?(&:online?)
+  end
+
+  def code
+    self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
   end
 
   def status

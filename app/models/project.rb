@@ -11,14 +11,17 @@ class Project < ActiveRecord::Base
 
   acts_as_taggable
 
-  validates_presence_of :name
-  validates_presence_of :feed_url
-  validate :ec2_presence
+  validates :name, presence: true
+  validates :feed_url, presence: true
 
   def before_save
     if changed.include?('polling_interval')
       set_next_poll
     end
+  end
+
+  def code
+    self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
   end
 
   def status
@@ -109,19 +112,6 @@ class Project < ActiveRecord::Base
     auth_username.present? || auth_password.present?
   end
 
-  private
-  def ec2_presence
-    unless self.ec2_instance_id.blank? && self.ec2_access_key_id.blank? && self.ec2_secret_access_key.blank? && has_no_day?
-      errors.add(:ec2_instance_id, "must be present if using Lobot") if self.ec2_instance_id.blank?
-      errors.add(:ec2_access_key_id, "must be present if using Lobot") if self.ec2_access_key_id.blank?
-      errors.add(:ec2_secret_access_key, "must be present if using Lobot") if self.ec2_secret_access_key.blank?
-      errors.add(:base, "Must have a day checked if using Lobot") if has_no_day?
-    end
   end
 
-  def has_no_day?
-    [:ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday].all? do |day|
-      self.send(day) != true
-    end
-  end
 end
