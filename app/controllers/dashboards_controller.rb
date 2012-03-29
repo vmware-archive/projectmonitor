@@ -20,14 +20,5 @@ class DashboardsController < ApplicationController
       @messages = Message.active
       @twitter_searches = TwitterSearch.all
     end
-
-    skin = params[:skin]
-    render :layout => "layouts/skins/#{skin}" if skin_exists?(skin)
-  end
-
-  private
-
-  def skin_exists?(skin)
-    File.exists?(Rails.root.join("app", "views", "layouts", "skins", "#{skin}.html.erb"))
   end
 end
