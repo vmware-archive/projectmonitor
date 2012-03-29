@@ -1,8 +1,8 @@
 source :rubygems
 gem "bundler"
 
-gem "rails", "~> 3.0.0"
-gem "rake", "0.8.7"
+gem "rails", "3.0.3"
+gem "rake"
 gem "gem_plugin"
 gem "mime-types"
 gem "fastthread"
@@ -50,6 +50,6 @@ group :test do
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.9.0"
+  gem "rspec-rails", "2.2.0"
   gem "webrat"
 end
