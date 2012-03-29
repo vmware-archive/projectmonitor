@@ -9,9 +9,9 @@
     <li class="<%= project.status.to_s %>">
       <a href="#project_<%= project.id %>">
         <% if project.status.online? %>
-          <%= image_tag("/images/iphone/#{(project.status.online? && project.status.success?) ? 'success' : 'error'}.png") %>
+          <%= image_tag("iphone/#{(project.status.online? && project.status.success?) ? 'success' : 'error'}.png") %>
         <% else %>
-          <%= image_tag("/images/iphone/question-mark.jpg", {:class => 'status_image'}) %>
+          <%= image_tag("iphone/question-mark.jpg", {:class => 'status_image'}) %>
         <% end %>
         <%= project.name %>
       </a>
@@ -19,10 +19,10 @@
   <% end %>
   <li>&nbsp;</li>
   <li class="panel">
-    <%= image_tag("/images/iphone/#{logo}") %>
+    <%= image_tag("iphone/#{logo}") %>
   </li>
   <li class="panel">
-    <%= link_to(image_tag("/images/iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
+    <%= link_to(image_tag("iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
   </li>
 </ul>
 
@@ -30,13 +30,13 @@
   <div id="project_<%= project.id %>" title="<%= project.name %>" class="panel">
     <h2>
       <% if project.status.online? && project.status.success? %>
-        <%= image_tag("/images/iphone/success.png") %>
+        <%= image_tag("iphone/success.png") %>
         <%= project.name %> build succeeded
       <% elsif project.status.online? %>
-        <%= image_tag("/images/iphone/error.png") %>
+        <%= image_tag("iphone/error.png") %>
         <%= project.name %> build failed
       <% else %>
-        <%= image_tag("/images/iphone/question-mark.jpg") %>
+        <%= image_tag("iphone/question-mark.jpg") %>
         <%= project.name %> build status unavailable
       <% end %>
     </h2>
@@ -67,9 +67,9 @@
       <% end %>
     </fieldset>
     <div class="row">
-      <%= image_tag("/images/iphone/#{logo}") %>
+      <%= image_tag("iphone/#{logo}") %>
     </div>
-    <%= link_to(image_tag("/images/iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
+    <%= link_to(image_tag("iphone/pivotallabs-logo.png"), 'http://pivotallabs.com', :target=> '_top') %>
   </div>
 <% end %>
 

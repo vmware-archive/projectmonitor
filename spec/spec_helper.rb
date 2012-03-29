@@ -14,14 +14,10 @@ RSpec.configure do |config|
   config.include AuthenticatedTestHelper
   config.include(ControllerTestHelper, :type => :controller)
   config.include ObjectMother
-  config.include CiMonitorSpec::Rails::Matchers
 
-  config.before(:all, :type => :controller) do
-    @render_views = true
-  end
+  config.render_views
 
   config.before(:each) do
     AuthConfig.reset!
   end
-
 end

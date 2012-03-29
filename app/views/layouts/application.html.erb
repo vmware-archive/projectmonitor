@@ -10,9 +10,8 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
   <title><%= title %></title>
-  <%= javascript_include_tag :defaults, 'refresh' %>
-  <%= stylesheet_link_tag 'style' %>
-  <%= stylesheet_link_tag 'sparkline' %>
+  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application" %>
   <%= yield :head %>
 </head>
 <body>

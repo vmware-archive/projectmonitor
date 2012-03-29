@@ -115,7 +115,7 @@ class Project < ActiveRecord::Base
       errors.add(:ec2_instance_id, "must be present if using Lobot") if self.ec2_instance_id.blank?
       errors.add(:ec2_access_key_id, "must be present if using Lobot") if self.ec2_access_key_id.blank?
       errors.add(:ec2_secret_access_key, "must be present if using Lobot") if self.ec2_secret_access_key.blank?
-      errors.add_to_base("Must have a day checked if using Lobot") if has_no_day?
+      errors.add(:base, "Must have a day checked if using Lobot") if has_no_day?
     end
   end
 
