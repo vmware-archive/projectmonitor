@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302090355) do
+ActiveRecord::Schema.define(:version => 20120308072721) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",    :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -61,9 +62,9 @@ ActiveRecord::Schema.define(:version => 20120302090355) do
     t.string   "feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",                  :default => true
-    t.boolean  "building",                 :default => false,                  :null => false
-    t.string   "type",                     :default => "CruiseControlProject", :null => false
+    t.boolean  "enabled",               :default => true
+    t.boolean  "building",              :default => false,                  :null => false
+    t.string   "type",                  :default => "CruiseControlProject", :null => false
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
     t.integer  "aggregate_project_id"
@@ -81,11 +82,7 @@ ActiveRecord::Schema.define(:version => 20120302090355) do
     t.string   "ec2_secret_access_key"
     t.string   "ec2_instance_id"
     t.string   "ec2_elastic_ip"
-    t.string   "tracker_url"
-    t.string   "tracker_api_key"
-    t.datetime "tracker_release_deadline"
-    t.string   "tracker_release_status"
-    t.datetime "tracker_updated_at"
+    t.string   "code"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
@@ -105,13 +102,9 @@ ActiveRecord::Schema.define(:version => 20120302090355) do
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
