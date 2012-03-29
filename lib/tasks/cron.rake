@@ -1,7 +1,7 @@
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do |t, args|
-  unless JobManager.jobs_exist?('project_status')
-    StatusFetcher.new.fetch_all
+  unless Delayed::Job.present?
+    StatusFetcher.fetch_all
   end
   AmazonService.schedule(Time.zone.now)
 
