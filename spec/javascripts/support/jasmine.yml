@@ -12,7 +12,6 @@
 #
 src_files:
   - app/assets/javascripts/refresh.js
-  - app/assets/javascripts/countdown.js
   - vendor/assets/javascripts/jquery.js
   - vendor/assets/javascripts/jquery-ujs.js
 
