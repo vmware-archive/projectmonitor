@@ -11,96 +11,96 @@ function scheduleRefresh() {
 }
 
 function refresh() {
-    var ProjectDivs = jQuery(".projects div.project:not(.aggregate) div.box");
+    var ProjectDivs = $(".projects div.project:not(.aggregate) div.box");
     for (var i = 0; i < ProjectDivs.length; i++) {
         var currentDiv = ProjectDivs[i];
-        var id = jQuery(currentDiv).attr("project_id");
+        var id = $(currentDiv).attr("project_id");
         if (id) {
-            jQuery.ajax({
+            $.ajax({
                 url: '/projects/'+id+'/load_project_with_status',
               method: 'GET',
                 success: function reloadDiv(divContents) {
                 var new_project_id = this.url.split('/')[2];
                 if (divContents.length > 0) {
-                    jQuery('.projects div.project:not(.aggregate) div.box[project_id='+new_project_id+']').replaceWith(divContents);
+                    $('.projects div.project:not(.aggregate) div.box[project_id='+new_project_id+']').replaceWith(divContents);
                 }
               },
               error: (function(currentDiv) {
                 return function errorState(xhr) {
-                  var new_id = jQuery(currentDiv).attr("project_id");
-                  jQuery(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"] div.project_status").addClass('offline');
-                  jQuery(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"]").addClass('bluebox');
-                  jQuery(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"] div.project_status").removeClass('building');
+                  var new_id = $(currentDiv).attr("project_id");
+                  $(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"] div.project_status").addClass('offline');
+                  $(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"]").addClass('bluebox');
+                  $(".projects div.project:not(.aggregate) div.box[project_id="+ new_id +"] div.project_status").removeClass('building');
                 }
               })(currentDiv)
               });
         } else {
-            id = jQuery(currentDiv).attr("message_id");
+            id = $(currentDiv).attr("message_id");
             if (id) {
-                jQuery.ajax({
+                $.ajax({
                   url:"/messages/"+id+"/load_message",
                   method: 'GET',
                   success: function reloadDiv(divContents) {
                     var new_message_id = this.url.split('/')[2];
                     if (divContents.length > 0) {
-                        jQuery('.projects div.box[message_id='+new_message_id+']').replaceWith(divContents);
+                        $('.projects div.box[message_id='+new_message_id+']').replaceWith(divContents);
                     } else {
-                        jQuery('.projects div.box[message_id='+new_message_id+']').remove();
+                        $('.projects div.box[message_id='+new_message_id+']').remove();
                     }
                   },
                   error: (function(currentDiv) {
                     return function errorState(xhr) {
-                      var new_id = jQuery(currentDiv).attr("message_id");
-                      jQuery(".projects div.message div.box[message_id="+ new_id +"]").addClass('offline');
+                      var new_id = $(currentDiv).attr("message_id");
+                      $(".projects div.message div.box[message_id="+ new_id +"]").addClass('offline');
                     }
                   })(currentDiv)
                 });
             }
         }
     }
-    var aggregateDivs = jQuery(".projects div.project.aggregate div.box");
+    var aggregateDivs = $(".projects div.project.aggregate div.box");
     for (var i = 0; i < aggregateDivs.length; i++) {
         var currentDiv = aggregateDivs[i];
-        var id = jQuery(currentDiv).attr("project_id");
+        var id = $(currentDiv).attr("project_id");
         if (id) {
-            jQuery.ajax({
+            $.ajax({
               url: '/aggregate_projects/'+id+'/load_aggregate_project_with_status',
               method: 'GET',
               success: function reloadDiv(divContents) {
                 var new_project_id = this.url.split('/')[2];
                 if (divContents.length > 0) {
-                    jQuery('.projects div.project.aggregate div.box[project_id='+new_project_id+']').replaceWith(divContents);
+                    $('.projects div.project.aggregate div.box[project_id='+new_project_id+']').replaceWith(divContents);
                 }
             },
             error: (function(currentDiv) {
               return function errorState(xhr) {
-                  var new_id = jQuery(currentDiv).attr("project_id");
-                  jQuery(".projects div.project.aggregate div.box[project_id="+ new_id +"] div.project_status").addClass('offline');
-                  jQuery(".projects div.project.aggregate div.box[project_id="+ new_id +"]").addClass('bluebox-aggregate');
-                  jQuery(".projects div.project.aggregate div.box[project_id="+ new_id +"] div.project_status").removeClass('building');
+                  var new_id = $(currentDiv).attr("project_id");
+                  $(".projects div.project.aggregate div.box[project_id="+ new_id +"] div.project_status").addClass('offline');
+                  $(".projects div.project.aggregate div.box[project_id="+ new_id +"]").addClass('bluebox-aggregate');
+                  $(".projects div.project.aggregate div.box[project_id="+ new_id +"] div.project_status").removeClass('building');
               }
             })(currentDiv)
             });
         }
     }
-    var twitterFeeds = jQuery(".projects div.project.message div.tweets");
+    var twitterFeeds = $(".projects div.project.message div.tweets");
     for (var j = 0; j < twitterFeeds.length; j++) {
         var currentDiv = twitterFeeds[j];
-        var id = jQuery(currentDiv).attr("tweet_id");
+        var id = $(currentDiv).attr("tweet_id");
 
         if (id) {
-            jQuery.ajax({
+            $.ajax({
               url: '/twitter_searches/'+id+'/load_tweet',
               method: 'GET',
               success: function reloadDiv(divContents) {
-                var tweet_id = jQuery(divContents).attr('tweet_id');
-                var foundExistingTwitterBox = jQuery('.projects div.project.message div.tweets[tweet_id='+tweet_id+']')
-                foundExistingTwitterBox.replaceWith(jQuery(divContents));
+                var tweet_id = $(divContents).attr('tweet_id');
+                var foundExistingTwitterBox = $('.projects div.project.message div.tweets[tweet_id='+tweet_id+']')
+                foundExistingTwitterBox.replaceWith($(divContents));
               },
               error: (function(currentDiv) {
                 return function errorState(xhr) {
-                  var new_id = jQuery(currentDiv).attr("tweet_id");
-                  jQuery(".projects div.project.message div.tweets[tweet_id="+ new_id +"]").addClass('offline');
+                  var new_id = $(currentDiv).attr("tweet_id");
+                  $(".projects div.project.message div.tweets[tweet_id="+ new_id +"]").addClass('offline');
                 }
               })(currentDiv)
             });
@@ -144,4 +144,6 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-
+$(function(){
+  scheduleRefresh();
+});

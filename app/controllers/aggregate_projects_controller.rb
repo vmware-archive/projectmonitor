@@ -5,6 +5,7 @@ class AggregateProjectsController < ApplicationController
   def show
     @projects = @aggregate_project.projects.enabled
     @messages = []
+    @twitter_searches = []
     render :template => 'dashboards/show', :layout => 'application'
   end
 
