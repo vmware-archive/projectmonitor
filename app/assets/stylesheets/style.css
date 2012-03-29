@@ -101,50 +101,50 @@ a:hover {
 }
 
 .project_status.green {
-  background: url("/images/checkmark.png") no-repeat;
+  background: url("/assets/checkmark.png") no-repeat;
   width: 50px;
   height: 50px;
   margin: 0 0 25px 80px;
 }
 .project_status.red {
-  background: url("/images/exclamation.png") no-repeat;
+  background: url("/assets/exclamation.png") no-repeat;
   width: 50px;
   height: 50px;
   margin: 0 0 25px 97px;
 }
 .project_status.building.green {
-  background-image: url("/images/build-loader-green.gif");
+  background-image: url("/assets/build-loader-green.gif");
   width: 200px;
   height: 50px;
   margin: 0 0 25px 20px;
 }
 .project_status.building.red {
-  background-image: url("/images/build-loader-red.gif");
+  background-image: url("/assets/build-loader-red.gif");
   width: 200px;
   height: 50px;
   margin: 0 0 25px 20px;
 }
 .box.redbox {
-  background: url('/images/redbox.png') no-repeat top left;
+  background: url('/assets/redbox.png') no-repeat top left;
 }
 
 .box.redbox-aggregate {
-  background: url('/images/redbox-aggregate.png') no-repeat top left;
+  background: url('/assets/redbox-aggregate.png') no-repeat top left;
 }
 .box.greenbox {
-  background: url('/images/greenbox.png') no-repeat top left;
+  background: url('/assets/greenbox.png') no-repeat top left;
 }
 .box.greenbox-aggregate {
-  background: url("/images/greenbox-aggregate.png") no-repeat top left;
+  background: url("/assets/greenbox-aggregate.png") no-repeat top left;
 }
 .box.bluebox {
-  background: url('/images/bluebox.png') no-repeat top left;
+  background: url('/assets/bluebox.png') no-repeat top left;
 }
 .box.bluebox-aggregate {
-  background: url('/images/bluebox-aggregate.png') no-repeat top left;
+  background: url('/assets/bluebox-aggregate.png') no-repeat top left;
 }
 .tweet.offline {
-  background: url('/images/bluebox-aggregate.png') no-repeat top left;
+  background: url('/assets/bluebox-aggregate.png') no-repeat top left;
 }
 
 .cached_images {
@@ -154,7 +154,7 @@ a:hover {
 
 
 .project_status.offline {
-  background: url("/images/questionmark.png") no-repeat;
+  background: url("/assets/questionmark.png") no-repeat;
   width: 50px;
   height: 50px;
   margin: 0 0 27px 95px;
@@ -248,7 +248,7 @@ a:hover {
 }
 
 #openid_url {
-  background: url(/images/login-bg.gif) no-repeat #FFF 5px;
+  background: url(/assets/login-bg.gif) no-repeat #FFF 5px;
   padding-left: 25px;
 }
 
@@ -377,7 +377,7 @@ form em {
 }
 
 .project.message .box {
-  background: url('/images/greybox.png') no-repeat top left;
+  background: url('/assets/greybox.png') no-repeat top left;
 }
 
 .project.message .box p {

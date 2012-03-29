@@ -11,11 +11,10 @@
 
   <title><%= title %></title>
   <script type="text/javascript" src=></script>
-  <%= javascript_include_tag :defaults,
-    'refresh',
+  <%= javascript_include_tag 'application',
     'http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js',
-    '/skins/dark/digiclock.js' %>
-  <%= stylesheet_link_tag 'style', 'sparkline', '/skins/dark/dark', '/skins/dark/digiclock' %>
+    '/assets/dark/digiclock.js' %>
+  <%= stylesheet_link_tag 'application', '/assets/dark/dark', '/assets/dark/digiclock' %>
   <%= yield :head %>
 </head>
 <body>

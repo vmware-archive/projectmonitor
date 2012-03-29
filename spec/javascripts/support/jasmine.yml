@@ -11,14 +11,10 @@
 #   - dist/**/*.js
 #
 src_files:
-  - public/javascripts/jquery.min.js
-  - public/javascripts/effects.js
-  - public/javascripts/controls.js
-  - public/javascripts/dragdrop.js
-  - public/javascripts/application.js
-  - public/javascripts/countdown.js
-  - public/javascripts/refresh.js
-#  - public/javascripts/**/*.js
+  - app/assets/javascripts/refresh.js
+  - app/assets/javascripts/countdown.js
+  - vendor/assets/javascripts/jquery.js
+  - vendor/assets/javascripts/jquery-ujs.js
 
 # stylesheets
 #
@@ -32,7 +28,7 @@ src_files:
 #   - stylesheets/*.css
 #
 stylesheets:
-  - stylesheets/**/*.css
+  - assets/application.css
 
 # helpers
 #

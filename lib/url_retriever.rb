@@ -1,6 +1,5 @@
 require 'net/http'
 require 'net/https'
-require 'httpi'
 
 module UrlRetriever
   extend self

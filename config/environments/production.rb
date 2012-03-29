@@ -53,4 +53,15 @@ CiMonitor::Application.configure do
   config.action_controller.asset_path = proc { |asset_path|
     "#{asset_path}?#{TIMESTAMP}"
   }
+
+  # Compress JavaScript and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline
+  config.assets.compile = true
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
+  config.assets.precompile += ['iphone.js', 'iphone.css', 'dark/*.js', 'dark/*.css']
 end

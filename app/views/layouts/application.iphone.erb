@@ -4,8 +4,8 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <meta id="viewport" name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
   <title><%= title -%></title>
-  <style type="text/css" media="screen">@import "/stylesheets/iuix.css";</style>
-  <script type="application/x-javascript" src="/javascripts/iuix.js"></script>
+  <%= javascript_include_tag "iphone" %>
+  <%= stylesheet_link_tag "iphone" %>
 </head>
 <body>
   <%= yield %>

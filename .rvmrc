@@ -1,1 +1,1 @@
-rvm --create use ree-1.8.7-2011.03@cimonitor
+rvm --create use ruby-1.9.2

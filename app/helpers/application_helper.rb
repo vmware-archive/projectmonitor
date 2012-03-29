@@ -19,9 +19,9 @@ module ApplicationHelper
     result = "<a href='#{status.url}'>"
     case status.in_words
       when 'success'
-        result += "<img src='/images/green#{icon_number}.png' border='0' />"
+        result += "<img src='/assets/green#{icon_number}.png' border='0' />"
       when 'failure'
-        result += "<img src='/images/red#{icon_number}.png' border='0' />"
+        result += "<img src='/assets/red#{icon_number}.png' border='0' />"
     end
     result + "</a>"
   end

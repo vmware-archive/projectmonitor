@@ -3,6 +3,8 @@ require 'spec_helper'
 describe AggregateProjectsController do
   render_views
 
+  let(:page) { Capybara::Node::Simple.new(response.body) }
+
   describe "with no logged in user" do
     describe "all actions except 'show'" do
       it "should redirect to the login page" do
@@ -14,9 +16,7 @@ describe AggregateProjectsController do
         ap = aggregate_projects(:internal_projects_aggregate)
         get :show, :id => ap.to_param
         ap.projects.each do |project|
-          response.should have_selector("div.greenbox.box[project_id='#{project.id}']") do |box|
-            box.should have_selector(".green")
-          end
+          page.should have_css("div[project_id='#{project.id}'].box.greenbox")
         end
       end
 
@@ -25,7 +25,7 @@ describe AggregateProjectsController do
         disabled_project = CruiseControlProject.create!(:enabled => false, :name => "disabled project", :feed_url => "http://never-ci:3333/projects/internal_project1.rss", :aggregate_project_id => ap.id)
         ap.projects.should include(disabled_project)
         get :show, :id => ap.to_param
-        response.should_not include("div.box[project_id='#{disabled_project.id}']")
+        page.should_not have_css("div.box[project_id='#{disabled_project.id}']")
       end
 
       describe "load_project_with_status" do
