@@ -15,8 +15,6 @@ RSpec.configure do |config|
   config.include(ControllerTestHelper, :type => :controller)
   config.include ObjectMother
 
-  config.render_views
-
   config.before(:each) do
     AuthConfig.reset!
   end

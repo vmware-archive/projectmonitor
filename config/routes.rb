@@ -1,6 +1,5 @@
 CiMonitor::Application.routes.draw do
 
-  root :to => 'dashboards#show'
   match 'login' => 'sessions#new'
   match 'logout' => 'sessions#destroy'
 
@@ -24,4 +23,6 @@ CiMonitor::Application.routes.draw do
   resources :twitter_searches, :only => [:new, :create, :edit, :update, :destroy] do
     get :load_tweet
   end
+
+  root :to => 'dashboards#index'
 end

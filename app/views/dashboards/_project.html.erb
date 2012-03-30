@@ -16,7 +16,7 @@
   </div>
 
   <div class="history">
-    <h3 class="publish_date">??</h3>
+    <h3 class="publish_date"><%= project.time_since_last_build %></h3>
     <ol class="sparklines<%= " building" if project.building? %>">
       <% project.recent_online_statuses(9).each do |status| %>
         <li class="sparkline <%= status.in_words %>">
