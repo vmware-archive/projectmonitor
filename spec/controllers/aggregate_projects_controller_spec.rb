@@ -5,6 +5,13 @@ describe AggregateProjectsController do
 
   let(:page) { Capybara::Node::Simple.new(response.body) }
 
+  describe "#status" do
+    let(:project) { aggregate_projects(:internal_projects_aggregate) }
+    before { get :status, :id => project.id }
+
+    it { response.should render_template("dashboards/_project") }
+  end
+
   describe "with no logged in user" do
     describe "all actions except 'show'" do
       it "should redirect to the login page" do
@@ -28,13 +35,6 @@ describe AggregateProjectsController do
         page.should_not have_css("div.box[project_id='#{disabled_project.id}']")
       end
 
-      describe "load_project_with_status" do
-        let(:project) { aggregate_projects(:internal_projects_aggregate) }
-        it "should render the project partial" do
-          get :load_aggregate_project_with_status, :aggregate_project_id => project.id
-          response.should render_template("dashboards/_project")
-        end
-      end
     end
   end
 

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :login_required, :except => :load_project_with_status
+  before_filter :login_required, :except => :status
   before_filter :load_project, :only => [:edit, :update, :destroy]
   before_filter :load_project_type, :only => [:create]
 
@@ -22,8 +22,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def load_project_with_status
-    render :partial => "dashboards/project", :locals => { :project => ProjectDecorator.new(Project.find(params[:project_id])) }
+  def status
+    @project = ProjectDecorator.new(Project.find(params[:id]))
+
+    render :partial => "dashboards/project", :locals => { :project => @project}
   end
 
   def update
