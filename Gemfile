@@ -39,6 +39,7 @@ end
 
 group :development do
   gem "heroku", "~> 2.23.0"
+  gem "taps", "~> 0.3.23"
   gem "pry", "~> 0.9.8"
   gem "capistrano", "~> 2.11.2"
   gem "capistrano-ext", "~> 1.2.1"
