@@ -5,7 +5,7 @@ describe Project do
   it { should validate_presence_of :name }
   it { should validate_presence_of :feed_url }
 
-  let(:project) { Project.new(name: "my_project", code: "mypr", feed_url: "http://localhost:8111/bar.xml") }
+  let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
 
   describe 'scopes' do
     describe "standalone" do
@@ -25,6 +25,20 @@ describe Project do
         Project.enabled.should include projects(:socialitis)
         Project.enabled.should_not include project
       end
+    end
+
+    describe "standalone_with_tags" do
+      let!(:untagged_project) { Project.create!(project.attributes) }
+      let!(:foo_bar_project) { Project.create!(project.attributes.merge tag_list: ["foo","bar"])}
+      let!(:foo_project) { Project.create!(project.attributes.merge tag_list: ["foo"])}
+      let!(:bar_project) { Project.create!(project.attributes.merge tag_list: ["bar"])}
+
+      subject { Project.standalone_with_tags(["foo","bar"]) }
+
+      it { should include(foo_bar_project) }
+      it { should_not include(untagged_project) }
+      it { should_not include(foo_project) }
+      it { should_not include(bar_project) }
     end
   end
 
