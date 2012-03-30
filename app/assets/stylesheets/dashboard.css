@@ -4,4 +4,18 @@
 
 body.dashboard {
   background-color: #2A271F;
+
+}
+
+a.projects_path {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  color: white;
+  text-decoration: none;
+}
+
+a.projects_path:hover {
+  text-decoration: underline;
 }
