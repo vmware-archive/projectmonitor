@@ -3,7 +3,7 @@ require 'time'
 
 describe ProjectsController do
   render_views
-  
+
   describe "with no logged in user" do
     describe "all actions" do
       it "should redirect to the login page" do
@@ -37,7 +37,7 @@ describe ProjectsController do
       get :new
       response.should be_success
     end
-    
+
     it "should show you the time when you are creating a new project" do
       Clock.now = Time.parse("Wed Oct 26 17:02:10 -0700 2011")
       get :new

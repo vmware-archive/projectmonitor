@@ -8,7 +8,7 @@ class AggregateProjectsController < ApplicationController
     @projects = @aggregate_project.projects.enabled
     @messages = []
     @twitter_searches = []
-    render :template => 'dashboards/show'
+    render :template => 'dashboards/index'
   end
 
   def new
@@ -26,7 +26,7 @@ class AggregateProjectsController < ApplicationController
   end
 
   def load_aggregate_project_with_status
-    render :partial => "dashboards/project", :locals => { :project => AggregateProject.find(params[:aggregate_project_id]) }
+    render :partial => "dashboards/project", :locals => { :project => ProjectDecorator.new(AggregateProject.find(params[:aggregate_project_id])) }
   end
 
   def update
