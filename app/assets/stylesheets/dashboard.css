@@ -1,5 +1,6 @@
-@import "application";
-@import "projects";
+/*
+ *= require projects
+ */
 
 body.dashboard {
   background-color: #2A271F;
