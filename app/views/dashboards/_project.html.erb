@@ -9,7 +9,7 @@
   end
   project_class += ' aggregate' if project.is_a? AggregateProject
 %>
-<li class="<%= project_class %>" id="project_<%= project.id %>">
+<li class="<%= project_class %>" id="project_<%= project.id %>" data-id="<%= project.id %>">
   <div class="information">
     <h1><%= link_to(project.code, project.url) %></h1>
     <h2><%= link_to(project.name, project.url) %></h2>

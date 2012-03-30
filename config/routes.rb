@@ -12,10 +12,14 @@ CiMonitor::Application.routes.draw do
   resource :session, :only => [:create, :destroy]
   resource :dashboard, :only => [:show]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy] do
-    get :load_project_with_status
+    member do
+      get :status
+    end
   end
   resources :aggregate_projects, :only => [:show, :new, :create, :edit, :update, :destroy] do
-    get :load_aggregate_project_with_status
+    member do
+      get :status
+    end
   end
   resources :messages, :only => [:index, :new, :create, :edit, :update, :destroy] do
     get :load_message
