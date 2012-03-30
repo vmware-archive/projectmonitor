@@ -4,21 +4,10 @@ require 'time'
 describe ProjectsController do
   render_views
 
-  describe "with no logged in user" do
-    describe "all actions" do
-      it "should redirect to the login page" do
-        get :index
-        response.should redirect_to(login_path)
-      end
-    end
-
-    describe "load_project_with_status" do
-      let(:project) { projects(:socialitis) }
-      it "should render the project partial" do
-        get :load_project_with_status, :project_id => project.id
-        response.should render_template("dashboards/_project")
-      end
-    end
+  describe "#status" do
+    let(:project) { projects(:socialitis) }
+    before { get :status, :id => project.id }
+    it { response.should render_template("dashboards/_project") }
   end
 
   describe "with a logged in user" do
