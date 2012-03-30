@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
   end
 
   def load_project_with_status
-    render :partial => "dashboards/project", :locals => { :project => Project.find_by_id(params[:project_id]) }
+    render :partial => "dashboards/project", :locals => { :project => ProjectDecorator.new(Project.find(params[:project_id])) }
   end
 
   def update

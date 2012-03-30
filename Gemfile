@@ -19,6 +19,7 @@ gem "daemons", "~> 1.1.8"
 gem "jquery-rails", "~> 2.0.1"
 gem "foreman", "~> 0.41.0"
 gem "bourbon", "~> 2.0.0.rc1"
+gem "draper", "~> 0.11.1"
 
 group :postgres do
   gem "pg", "~> 0.13.2"
