@@ -6,8 +6,8 @@ class Project < ActiveRecord::Base
   belongs_to :latest_status, :class_name => "ProjectStatus"
   belongs_to :aggregate_project
 
-  scope :standalone, where(:enabled => true, :aggregate_project_id => nil)
   scope :enabled, where(:enabled => true)
+  scope :standalone, enabled.where(:aggregate_project_id => nil)
 
   acts_as_taggable
 
@@ -110,5 +110,9 @@ class Project < ActiveRecord::Base
 
   def has_auth?
     auth_username.present? || auth_password.present?
+  end
+
+  def self.standalone_with_tags(tags)
+    standalone.find_tagged_with tags, match_all: true
   end
 end

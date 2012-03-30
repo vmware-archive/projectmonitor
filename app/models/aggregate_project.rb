@@ -4,7 +4,8 @@ class AggregateProject < ActiveRecord::Base
 
   before_destroy :remove_project_associations
 
-  scope :with_projects, joins(:projects).where(:aggregate_projects => {:enabled => true}).select("distinct aggregate_projects.*")
+  scope :enabled, where(enabled: true)
+  scope :all_with_tags, lambda {}
 
   acts_as_taggable
   validates :name, presence: true
@@ -30,6 +31,7 @@ class AggregateProject < ActiveRecord::Base
   def status
     statuses.last
   end
+  alias_method :latest_status, :status
 
   def statuses
     projects.map(&:latest_status).reject(&:nil?).sort_by(&:id)
@@ -68,6 +70,10 @@ class AggregateProject < ActiveRecord::Base
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
     red_project.statuses.count(:conditions => ["online = ? AND id >= ?", true, red_project.breaking_build.id])
+  end
+
+  def self.all_with_tags(tags)
+    enabled.joins(:projects).find_tagged_with tags, match_all: true
   end
 
   private
