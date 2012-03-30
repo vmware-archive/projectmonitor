@@ -30,7 +30,7 @@
 
 <p>
   <%= f.label :auth_password, "Feed Password" %>
-  <%= f.password_field :auth_password, :size=>40 %>
+  <%= f.password_field :auth_password, size: 40, value: f.object.auth_password %>
   <em>Basic or digest authentication</em>
 </p>
 

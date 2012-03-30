@@ -1,10 +1,25 @@
 require 'spec_helper'
 
 describe AggregateProject do
+
   it { should validate_presence_of :name }
 
-  before :each do
-    @ap = aggregate_projects(:empty_aggregate)
+  let(:aggregate_project) { AggregateProject.new(name: "Aggregate Project") }
+
+  describe "scopes" do
+    describe "all_with_tags" do
+      let(:results) { double(:results) }
+
+      before do
+        AggregateProject.should_receive(:enabled).and_return AggregateProject
+        AggregateProject.should_receive(:joins).with(:projects).and_return AggregateProject
+        AggregateProject.should_receive(:find_tagged_with).with("foo,bar", match_all: true).and_return results
+      end
+
+      subject { AggregateProject.all_with_tags("foo,bar") }
+
+      it { should == results }
+    end
   end
 
   describe "#code" do
@@ -44,117 +59,82 @@ describe AggregateProject do
     end
   end
 
-  describe 'scopes' do
-    it "should return aggregate projects that contain projects" do
-      AggregateProject.with_projects.length.should == 1
-      AggregateProject.with_projects.should include aggregate_projects(:internal_projects_aggregate)
-      AggregateProject.with_projects.should_not include aggregate_projects(:empty_aggregate)
-      AggregateProject.with_projects.should_not include aggregate_projects(:empty_aggregate)
-    end
-  end
-
-  describe "acts_as_taggable" do
-    it "should be able to tag an aggregate with a label" do
-      @ap.tag_list.should == ["San Francisco"]
-      @ap.tag_list = "A tag"
-      @ap.save!
-      @ap.tag_list.should == ["A tag"]
-    end
-
-    it "should be able to get all aggregate projects of a label" do
-      first_tag = "A tag"
-      second_tag = "A different tag"
-
-      another_aggregate_project = aggregate_projects(:internal_projects_aggregate)
-      another_aggregate_project.tag_list = first_tag
-      another_aggregate_project.save!
-      @ap.tag_list = first_tag
-      @ap.save!
-      aggregate_project_with_different_tag = aggregate_projects(:disabled)
-      aggregate_project_with_different_tag.tag_list = second_tag
-      aggregate_project_with_different_tag.save!
-
-      AggregateProject.find_tagged_with(first_tag).should =~ [@ap, another_aggregate_project]
-      AggregateProject.find_tagged_with(second_tag).should =~ [aggregate_project_with_different_tag]
-    end
-  end
-
   describe "#red?" do
     it "should be red if one of its projects is red" do
-      @ap.should_not be_red
-      @ap.projects << projects(:red_currently_building)
-      @ap.should be_red
-      @ap.projects << projects(:green_currently_building)
-      @ap.should be_red
+      aggregate_project.should_not be_red
+      aggregate_project.projects << projects(:red_currently_building)
+      aggregate_project.should be_red
+      aggregate_project.projects << projects(:green_currently_building)
+      aggregate_project.should be_red
     end
   end
 
   describe "#green?" do
     it "should be green iff all projects are green" do
-      @ap.should_not be_green
-      @ap.projects << projects(:green_currently_building)
-      @ap.should be_green
-      @ap.projects << projects(:pivots)
-      @ap.should be_green
+      aggregate_project.should_not be_green
+      aggregate_project.projects << projects(:green_currently_building)
+      aggregate_project.should be_green
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.should be_green
     end
   end
 
   describe "#online?" do
     it "should not be online if any project not online" do
-      @ap.should_not be_online
-      @ap.projects << projects(:socialitis)
-      @ap.should be_online
-      @ap.projects << projects(:pivots)
-      @ap.should be_online
-      @ap.projects << projects(:offline)
-      @ap.should_not be_online
+      aggregate_project.should_not be_online
+      aggregate_project.projects << projects(:socialitis)
+      aggregate_project.should be_online
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.should be_online
+      aggregate_project.projects << projects(:offline)
+      aggregate_project.should_not be_online
     end
   end
 
   describe '#status' do
     it "should return the last status of all the projects" do
-      @ap.projects << projects(:pivots)
-      @ap.projects << projects(:socialitis)
-      @ap.status.should == projects(:socialitis).latest_status
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.projects << projects(:socialitis)
+      aggregate_project.status.should == projects(:socialitis).latest_status
     end
   end
 
   describe '#building?' do
     it "should return the last status of all the projects" do
-      @ap.projects << projects(:pivots)
-      @ap.projects << projects(:socialitis)
-      @ap.should_not be_building
-      @ap.projects << projects(:green_currently_building)
-      @ap.should be_building
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.projects << projects(:socialitis)
+      aggregate_project.should_not be_building
+      aggregate_project.projects << projects(:green_currently_building)
+      aggregate_project.should be_building
     end
   end
 
   describe '#recent_online_statuses' do
     it "should return the most recent statuses across projects" do
-      @ap.projects << projects(:pivots)
-      @ap.projects << projects(:socialitis)
-      @ap.recent_online_statuses.should include project_statuses(:pivots_status)
-      @ap.recent_online_statuses.should include project_statuses(:socialitis_status_green_01)
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.projects << projects(:socialitis)
+      aggregate_project.recent_online_statuses.should include project_statuses(:pivots_status)
+      aggregate_project.recent_online_statuses.should include project_statuses(:socialitis_status_green_01)
     end
   end
 
   describe "#statuses" do
+    let(:aggregate_project) { aggregate_projects(:empty_aggregate) }
+
     it "return all latest_status of projects sorted by id, even if one of the project has no statuses" do
-      @ap.projects << projects(:socialitis)
-      @ap.projects << projects(:pivots)
-      @ap.projects << projects(:offline)
-      @ap.projects << Project.create(code: 'NS', name: 'No status',
-                                    type: 'CruiseControlProject',
-                                    feed_url: 'http://ci.pivotallabs.com:3333/projects/pivots.rss',
-                                    enabled: true)
-      @ap.reload.statuses.should == [projects(:pivots).latest_status,
+      aggregate_project.projects << projects(:socialitis)
+      aggregate_project.projects << projects(:pivots)
+      aggregate_project.projects << projects(:offline)
+      aggregate_project.projects << Project.create(name: 'No status',
+                                    feed_url: 'http://ci.pivotallabs.com:3333/projects/pivots.rss')
+      aggregate_project.reload.statuses.should == [projects(:pivots).latest_status,
                               projects(:socialitis).latest_status,
                               projects(:offline).latest_status,]
     end
   end
 
   describe "#red_since" do
-    class RandomProject < Project;end;
+    let(:aggregate_project) { aggregate_projects(:empty_aggregate) }
 
     it "should return #published_at for the red status after the most recent green status" do
       socialitis = projects(:socialitis)
@@ -164,15 +144,14 @@ describe AggregateProject do
         socialitis.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes )
       end
 
-      @ap.projects << socialitis
+      aggregate_project.projects << socialitis
 
-      @ap = AggregateProject.find(@ap.id)
-      @ap.red_since.should == red_since
+      aggregate_project.reload.red_since.should == red_since
     end
 
     it "should return nil if the project is currently green" do
       pivots = projects(:pivots)
-      @ap.projects << pivots
+      aggregate_project.projects << pivots
       pivots.should be_green
 
       pivots.red_since.should be_nil
@@ -180,15 +159,15 @@ describe AggregateProject do
 
     it "should return the published_at of the first recorded status if the project has never been green" do
       project = projects(:never_green)
-      @ap.projects << project
-      @ap.statuses.detect(&:success?).should be_nil
-      @ap.red_since.should == project.statuses.last.published_at
+      aggregate_project.projects << project
+      aggregate_project.statuses.detect(&:success?).should be_nil
+      aggregate_project.red_since.should == project.statuses.last.published_at
     end
 
     it "should return nil if the project has no statuses" do
-      @project = RandomProject.new(:name => "my_project_foo", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
-      @ap.projects << @project
-      @ap.red_since.should be_nil
+      @project = Project.new(:name => "my_project_foo", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
+      aggregate_project.projects << @project
+      aggregate_project.red_since.should be_nil
     end
 
     it "should ignore offline statuses" do
@@ -203,9 +182,9 @@ describe AggregateProject do
 
       project.statuses.create!(:online => true, :success => false, :published_at => broken_at)
 
-      @ap.projects << project
+      aggregate_project.projects << project
 
-      ap = AggregateProject.find(@ap.id)
+      ap = AggregateProject.find(aggregate_project.id)
 
       ap.red_since.to_s(:db).should == broken_at.to_s(:db)
     end
@@ -214,45 +193,45 @@ describe AggregateProject do
   describe "#red_build_count" do
     it "should return the number of red builds since the last green build" do
       project = projects(:socialitis)
-      @ap.projects << project
-      @ap.red_build_count.should == 1
+      aggregate_project.projects << project
+      aggregate_project.red_build_count.should == 1
 
       project.statuses.create(:online => true, :success => false)
-      @ap.red_build_count.should == 2
+      aggregate_project.red_build_count.should == 2
     end
 
     it "should return zero for a green project" do
       project = projects(:pivots)
-      @ap.projects << project
-      @ap.should be_green
+      aggregate_project.projects << project
+      aggregate_project.should be_green
 
-      @ap.red_build_count.should == 0
+      aggregate_project.red_build_count.should == 0
     end
 
     it "should not blow up for a project that has never been green" do
       project = projects(:never_green)
-      @ap.projects << project
-      @ap.red_build_count.should == @ap.statuses.count
+      aggregate_project.projects << project
+      aggregate_project.red_build_count.should == aggregate_project.statuses.count
     end
 
     it "should return zero for an offline project" do
       project = projects(:offline)
-      @ap.projects << project
-      @ap.should_not be_online
+      aggregate_project.projects << project
+      aggregate_project.should_not be_online
 
-      @ap.red_build_count.should == 0
+      aggregate_project.red_build_count.should == 0
     end
 
     it "should ignore offline statuses" do
       project = projects(:never_green)
-      @ap.projects << project
-      old_red_build_count = @ap.red_build_count
+      aggregate_project.projects << project
+      old_red_build_count = aggregate_project.red_build_count
 
       3.times do
         project.statuses.create(:online => false)
       end
       project.statuses.create(:online => true, :success => false)
-      @ap.red_build_count.should == old_red_build_count + 1
+      aggregate_project.red_build_count.should == old_red_build_count + 1
     end
   end
 
@@ -267,9 +246,9 @@ describe AggregateProject do
 
         other_project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
         bad_status = other_project.statuses.create(:online => true, :success => false, :published_at => nil)
-        @ap.projects << project
-        @ap.projects << other_project
-        @ap.breaking_build.should == status
+        aggregate_project.projects << project
+        aggregate_project.projects << other_project
+        aggregate_project.breaking_build.should == status
       end
     end
   end
