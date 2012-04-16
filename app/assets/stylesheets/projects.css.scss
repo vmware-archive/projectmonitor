@@ -208,21 +208,21 @@ ol.projects {
         &.building {
           .sparkline {
             @include animation-name(building-green);
-            @include animation-duration(2s);
+            @include animation-duration(.5s);
             @include animation-direction(alternate);
             @include animation-timing-function(ease);
             @include animation-iteration-count(infinite);
 
-            &:nth-child(1) { @include animation-delay(1s); }
-            &:nth-child(2) { @include animation-delay(2s); }
-            &:nth-child(3) { @include animation-delay(3s); }
-            &:nth-child(4) { @include animation-delay(4s); }
-            &:nth-child(5) { @include animation-delay(5s); }
-            &:nth-child(6) { @include animation-delay(6s); }
-            &:nth-child(7) { @include animation-delay(7s); }
-            &:nth-child(8) { @include animation-delay(8s); }
-            &:nth-child(9) { @include animation-delay(9s); }
-            &:nth-child(10) { @include animation-delay(10s); }
+            &:nth-child(1) { @include animation-delay(.2s); }
+            &:nth-child(2) { @include animation-delay(.4s); }
+            &:nth-child(3) { @include animation-delay(.6s); }
+            &:nth-child(4) { @include animation-delay(.8s); }
+            &:nth-child(5) { @include animation-delay(1s); }
+            &:nth-child(6) { @include animation-delay(.2s); }
+            &:nth-child(7) { @include animation-delay(.4s); }
+            &:nth-child(8) { @include animation-delay(.6s); }
+            &:nth-child(9) { @include animation-delay(.8s); }
+            &:nth-child(10) { @include animation-delay(1s); }
 
             &.success, &.failure {
               a {
