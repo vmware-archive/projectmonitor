@@ -2,7 +2,7 @@ namespace :cimonitor do
   desc "Update the status for each active project"
   task :fetch_statuses => :environment do
     if !Delayed::Job.present?
-      StatusFetcher.new.fetch_all
+      StatusFetcher.fetch_all
     end
   end
 
