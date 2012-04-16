@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20120330185655) do
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",    :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "code"
   end
 
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20120330185655) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -113,13 +113,13 @@ ActiveRecord::Schema.define(:version => 20120330185655) do
 
   create_table "twitter_searches", :force => true do |t|
     t.string   "search_term"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
-    t.string   "name",                      :limit => 100
+    t.string   "name",                      :limit => 100, :default => ""
     t.string   "email",                     :limit => 100
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
