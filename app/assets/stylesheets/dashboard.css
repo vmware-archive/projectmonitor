@@ -7,15 +7,19 @@ body.dashboard {
 
 }
 
-a.projects_path {
+#footer {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 0px;
+  width: 100%;
+  text-align: right;
+  color: white;
+}
+
+a.projects_path {
   padding: 5px;
   color: white;
   text-decoration: none;
 }
 
 a.projects_path:hover {
-  text-decoration: underline;
 }
