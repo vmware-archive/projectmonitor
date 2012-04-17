@@ -59,4 +59,7 @@ group :test, :development do
   gem "shoulda-matchers", "~> 1.0.0"
   gem "capybara", "~> 1.1.2"
   gem "jasmine", "~> 1.1.2"
+  gem "factory_girl_rails"
+  gem "ffaker"
+  gem "ruby-debug19"
 end
