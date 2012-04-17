@@ -10,17 +10,17 @@ describe ProjectDecorator do
 
     context "project is red" do
       let(:red) { true }
-      it { should == "project failure"}
+      it { should == "project grid_4 failure"}
     end
 
     context "project is green" do
       let(:green) { true }
-      it { should == "project success"}
+      it { should == "project grid_4 success"}
     end
 
     context "project is neither red nor green" do
       let(:project) { double :project, red?: false, green?: false }
-      it { should == "project offline"}
+      it { should == "project grid_4 offline"}
     end
 
     context "project is aggregate" do
