@@ -6,7 +6,17 @@
   </head>
   <body class="dashboard">
     <%= yield %>
-    <%= link_to "manage projects", projects_path, class: "projects_path" %>
+
+    <div id="footer">
+
+      <% if current_user %>
+        <%= link_to "log out", logout_path, class: "projects_path" %>
+        |
+      <% end %>
+      <%= link_to "manage projects", projects_path, class: "projects_path" %>
+
+    </div>
+
     <%= javascript_include_tag "dashboard" %>
   </body>
 </html>
