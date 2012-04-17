@@ -54,6 +54,7 @@ group :test do
 end
 
 group :test, :development do
+  gem "jslint_on_rails", git: "git://github.com/psionides/jslint_on_rails.git", tag: "1.1.1"
   gem "rspec-rails", "~> 2.9.0"
   gem "shoulda-matchers", "~> 1.0.0"
   gem "capybara", "~> 1.1.2"

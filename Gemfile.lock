@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/psionides/jslint_on_rails.git
+  revision: 666890370f393fc5d5bf3f28b30df2fcc24b268e
+  tag: 1.1.1
+  specs:
+    jslint_on_rails (1.1.1)
+
+GIT
   remote: https://github.com/jviney/acts_as_taggable_on_steroids.git
   revision: ec56014e040b9e384339cfa4d6bad7649c813c8d
   specs:
@@ -289,6 +296,7 @@ DEPENDENCIES
   httpauth (~> 0.1)
   jasmine (~> 1.1.2)
   jquery-rails (~> 2.0.1)
+  jslint_on_rails!
   mime-types (~> 1.18)
   mysql2 (~> 0.3.0)
   nokogiri (~> 1.5.2)
