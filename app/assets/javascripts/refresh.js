@@ -1,12 +1,9 @@
 var refreshTimeout = 30 * 60 * 1000; // 30 minutes
 var currentTimeout = null;
 
-function scheduleRefresh() {
-  clearTimeout(currentTimeout);
-  currentTimeout = setTimeout("refresh();", refreshTimeout);
-}
+var refresh, scheduleRefresh;
 
-function refresh() {
+refresh = function() {
   $(".project").each(function(index,element) {
     var project_id = $(element).attr('data-id');
     var project_type = $(element).hasClass('aggregate') ? 'aggregate_project' : 'project';
@@ -16,10 +13,15 @@ function refresh() {
       complete: function(data) {
         $('#project_'+project_id).replaceWith(data.responseText);
       }
-    })
+    });
   });
   scheduleRefresh();
-}
+};
+
+scheduleRefresh = function () {
+  clearTimeout(currentTimeout);
+  currentTimeout = setTimeout(refresh, refreshTimeout);
+};
 
 $(function(){
   scheduleRefresh();
