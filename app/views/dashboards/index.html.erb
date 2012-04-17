@@ -1,3 +1,3 @@
-<ol class="projects">
-  <%= render partial: "dashboards/project", collection: @projects.map {|p| ProjectDecorator.new(p) } %>
+<ol class="projects <%="grid" + @projects.count.to_s %>">
+  <%= render partial: "dashboards/project", collection: @projects.map {|p| p.nil? ? p : ProjectDecorator.new(p) } %>
 </ol>
