@@ -5,7 +5,7 @@ class TeamCityRestProject < Project
   validates_format_of :feed_url, :with => URL_FORMAT, :message => URL_MESSAGE
 
   def build_status_url
-    feed_url
+    build_type_url
   end
 
   def parse_building_status(content)
@@ -37,5 +37,15 @@ class TeamCityRestProject < Project
     rescue
     end
     status
+  end
+
+  def build_id
+    feed_url.match(/id:([^)]*)/)[1]
+  end
+
+  private
+  def build_type_url
+    uri = URI(feed_url)
+    "#{uri.scheme}://#{uri.host}:#{uri.port}/httpAuth/app/rest/buildTypes/id:#{build_id}"
   end
 end

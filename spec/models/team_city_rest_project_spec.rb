@@ -6,6 +6,12 @@ describe TeamCityRestProject do
     let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
     let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => rest_url) }
 
+    describe "#build_id" do
+      it "is retrieved from the feed_url" do
+        project.build_id.should == "bt3"
+      end
+    end
+
     describe "#feed_url" do
       context "with the personal flag" do
         ["true", "false", "any"].each do |flag|
@@ -44,7 +50,7 @@ describe TeamCityRestProject do
 
     describe "#build_status_url" do
       it "should use rest api" do
-        project.build_status_url.should == rest_url
+        project.build_status_url.should == "http://foo.bar.com:3434/httpAuth/app/rest/buildTypes/id:bt3"
       end
     end
 

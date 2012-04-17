@@ -5,12 +5,6 @@ describe TeamCityBuild do
   let(:build_id) { "bt#{rand(1)}" }
   let(:build) { TeamCityBuild.new(:feed_url => feed_url, :auth_username => "john", :auth_password => "secret") }
 
-  describe "#build_id" do
-    it "is retrieved from the feed_url" do
-      build.build_id.should == build_id
-    end
-  end
-
   describe "#online?" do
     before do
       build.stub(:publish_date).and_return Time.now
