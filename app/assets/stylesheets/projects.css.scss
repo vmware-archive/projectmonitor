@@ -123,7 +123,7 @@ ol.projects {
         padding: 0 15px;
         line-height: 150px - 1;
         font-size: 100px;
-        font-family: Helvetica, sans-serif;
+        font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
         font-weight: bold;
         text-transform: capitalize;
         color: #2B2820;
@@ -138,6 +138,7 @@ ol.projects {
         padding: 0 15px;
         height: 50px - 1;
         line-height: 50px - 1;
+        font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
         font-size: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -162,6 +163,7 @@ ol.projects {
       .publish_date {
         text-align: center;
         height: 150px;
+        font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
         font-size: 34pt;
         line-height: 150px;
       }
