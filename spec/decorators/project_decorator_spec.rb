@@ -1,6 +1,37 @@
 require 'spec_helper'
 
 describe ProjectDecorator do
+
+  describe "#css_class" do
+    subject { ProjectDecorator.new(project).css_class }
+    let(:project) { double :project, red?: red, green?: green }
+    let(:red) { false }
+    let(:green) { false }
+
+    context "project is red" do
+      let(:red) { true }
+      it { should == "project failure"}
+    end
+
+    context "project is green" do
+      let(:green) { true }
+      it { should == "project success"}
+    end
+
+    context "project is neither red nor green" do
+      let(:project) { double :project, red?: false, green?: false }
+      it { should == "project offline"}
+    end
+
+    context "project is aggregate" do
+      before do
+        project.stub :projects
+      end
+
+      it { should include "aggregate"}
+    end
+  end
+
   describe "#time_since_last_build" do
     let(:project_decorator) { ProjectDecorator.new project }
     let(:project) { Project.new }

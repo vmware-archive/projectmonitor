@@ -32,14 +32,21 @@
 
 $information-width: 436px;
 
+ol.projects.grid15 li.project {
+  margin: 5px;
+  width:630px;
+  height:200px;
+}
+
+li.empty-project {
+  background: image_url("icons/empty_tile_x.png") center no-repeat;
+}
+
 ol.projects {
   list-style: none;
 
   li.project {
     float:left;
-    margin: 5px;
-    width:630px;
-    height:200px;
 
     > div {
       height: 100%;

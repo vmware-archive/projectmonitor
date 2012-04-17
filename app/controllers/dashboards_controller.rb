@@ -9,5 +9,7 @@ class DashboardsController < ApplicationController
     else
       @projects = Project.standalone + AggregateProject.all
     end
+
+    @projects = GridCollection.new @projects
   end
 end

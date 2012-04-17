@@ -1,28 +1,21 @@
-<%
-  project_class = 'project'
-  if project.red?
-    project_class += ' failure'
-  elsif project.green?
-    project_class += ' success'
-  else
-    project_class += ' offline'
-  end
-  project_class += ' aggregate' if project.is_a? AggregateProject
-%>
-<li class="<%= project_class %>" id="project_<%= project.id %>" data-id="<%= project.id %>">
-  <div class="information">
-    <h1><%= link_to(project.code, project.url) %></h1>
-    <h2><%= link_to(project.name, project.url) %></h2>
-  </div>
+<% if project %>
+  <li class="<%= project.css_class %>" id="project_<%= project.id %>" data-id="<%= project.id %>">
+    <div class="information">
+      <h1><%= link_to(project.code, project.url) %></h1>
+      <h2><%= link_to(project.name, project.url) %></h2>
+    </div>
 
-  <div class="history">
-    <h3 class="publish_date"><%= project.time_since_last_build %></h3>
-    <ol class="sparklines<%= " building" if project.building? %>">
-      <% project.recent_online_statuses(9).each do |status| %>
-        <li class="sparkline <%= status.in_words %>">
-          <%= link_to status.in_words, status.url %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</li>
+    <div class="history">
+      <h3 class="publish_date"><%= project.time_since_last_build %></h3>
+      <ol class="sparklines<%= " building" if project.building? %>">
+        <% project.recent_online_statuses(9).each do |status| %>
+          <li class="sparkline <%= status.in_words %>">
+            <%= link_to status.in_words, status.url %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </li>
+<% else %>
+  <li class="project empty-project"></li>
+<% end %>

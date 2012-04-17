@@ -1,5 +1,19 @@
 class ProjectDecorator < ApplicationDecorator
 
+  def css_class
+    klass = 'project'
+    if red?
+      klass += ' failure'
+    elsif green?
+      klass += ' success'
+    else
+      klass += ' offline'
+    end
+    klass += ' aggregate' if respond_to? :projects
+
+    klass
+  end
+
   def time_since_last_build
     return unless published_at = latest_status.try(:published_at)
 
