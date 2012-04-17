@@ -2,10 +2,6 @@ class TeamCityBuild < TeamCityRestProject
 
   attr_writer :build_status_fetcher, :build_type_fetcher
 
-  def build_id
-    feed_url.match(/id:([^)]*)/)[1]
-  end
-
   def online?
     status.online? && children.all?(&:online?)
   end
@@ -77,10 +73,5 @@ class TeamCityBuild < TeamCityRestProject
     @build_type_fetcher ||= proc {
       UrlRetriever.retrieve_content_at(build_type_url, auth_username, auth_password)
     }
-  end
-
-  def build_type_url
-    uri = URI(feed_url)
-    "#{uri.scheme}://#{uri.host}:#{uri.port}/httpAuth/app/rest/buildTypes/id:#{build_id}"
   end
 end
