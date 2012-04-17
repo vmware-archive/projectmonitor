@@ -30,6 +30,8 @@
   100% { background: white; }
 }
 
+$information-width: 436px;
+
 ol.projects {
   list-style: none;
 
@@ -58,6 +60,10 @@ ol.projects {
         .sparklines .sparkline {
           background: $very-very-light-green;
         }
+
+        .sparklines.building .sparkline {
+          @include animation-name(building-green);
+        }
       }
       &.aggregate .information {
         @include linear-gradient(0deg, $green 50%, $dark-green 51%);
@@ -79,6 +85,10 @@ ol.projects {
 
         .sparklines .sparkline {
           background: $very-very-light-red;
+        }
+
+        .sparklines.building .sparkline {
+          @include animation-name(building-red);
         }
       }
       &.aggregate .information {
@@ -110,12 +120,13 @@ ol.projects {
       }
     }
 
+
     .information {
       > div {
         text-align: left;
       }
       float: left;
-      width: 436px;
+      width: $information-width;
 
 
       h1 {
@@ -195,20 +206,19 @@ ol.projects {
 
           &.success {
             a {
-              background-image: url(/assets/projects/success.png);
+              background: url(/assets/icons/success.png) center no-repeat;
             }
           }
 
           &.failure {
             a {
-              background-image: url(/assets/projects/failure.png);
+              background: url(/assets/icons/failure.png) center no-repeat;
             }
           }
         }
 
         &.building {
           .sparkline {
-            @include animation-name(building-green);
             @include animation-duration(.5s);
             @include animation-direction(alternate);
             @include animation-timing-function(ease);
@@ -233,13 +243,13 @@ ol.projects {
 
             &.success {
               a {
-                background-image: url(/assets/projects/success-building.png);
+                opacity: 0.4;
               }
             }
 
             &.failure {
               a {
-                background-image: url(/assets/projects/failure-building.png);
+                opacity: 0.4;
               }
             }
           }
@@ -249,7 +259,7 @@ ol.projects {
 
     &.aggregate {
       .information {
-        background-size: 78.5px 78.5px;
+        background-size: ($information-width/5.5);
       }
     }
 
