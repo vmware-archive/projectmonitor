@@ -265,17 +265,20 @@ ol.projects {
 }
 
 ol.projects.tiles_15 {
-  $information-width: 436px;
+  $information-width: 432px;
 
   li.project {
-    height: 200px;
+    height: 192px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     .information {
       width: $information-width;
 
       h1 {
-        height: 150px - 1;
+        $height: 142px - 1;
+        height: $height;
         padding: 0 15px;
-        line-height: 150px - 1;
+        line-height: $height;
         font-size: 100px;
       }
 
@@ -318,19 +321,21 @@ ol.projects.tiles_15 {
 }
 
 ol.projects.tiles_24 {
-  $information-width: 276px;
+  $information-width: 263px;
 
   li.project {
-    height: 180px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    height: 161px;
     .information {
       width: $information-width;
 
       h1 {
-        $height: 130px - 1;
+        $height: 110px - 1;
         height: $height;
         padding: 0 15px;
         line-height: $height;
-        font-size: 100px;
+        font-size: 92px;
       }
 
       h2 {
@@ -350,7 +355,7 @@ ol.projects.tiles_24 {
       }
 
       .sparklines {
-        margin: -25px 30px 5px;
+        margin: -40px 30px 5px;
         width: (20px + 2 + 2) * 5;
 
         .sparkline {
