@@ -1,5 +1,5 @@
 <% if project %>
-  <li class="<%= project.css_class %>" id="project_<%= project.id %>" data-id="<%= project.id %>">
+  <li class="<%= project.css_class %> <%=grid_class%>" id="project_<%= project.id %>" data-id="<%= project.id %>">
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
       <h2><%= link_to(project.name, project.url) %></h2>
@@ -17,5 +17,5 @@
     </div>
   </li>
 <% else %>
-  <li class="project empty-project grid_4"></li>
+  <li class="project empty-project <%=grid_class%>"></li>
 <% end %>
