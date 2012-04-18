@@ -5,7 +5,7 @@ class AggregateProjectsController < ApplicationController
   layout "dashboard", only: [ :show ]
 
   def show
-    @projects = @aggregate_project.projects.enabled
+    @projects = GridCollection.new(@aggregate_project.projects.enabled)
     @messages = []
     @twitter_searches = []
     render :template => 'dashboards/index'
