@@ -10,8 +10,8 @@ body.dashboard {
 
 #footer {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 15px;
+  right: 15px;
   width: 100%;
   text-align: right;
   color: white;
