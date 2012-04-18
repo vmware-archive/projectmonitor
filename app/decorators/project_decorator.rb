@@ -1,7 +1,7 @@
 class ProjectDecorator < ApplicationDecorator
 
   def css_class
-    klass = 'project grid_4'
+    klass = 'project'
     if red?
       klass += ' failure'
     elsif green?
