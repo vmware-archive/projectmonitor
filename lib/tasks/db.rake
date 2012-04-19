@@ -47,7 +47,7 @@ module DbRakeTasks
   end
 
   def db_config
-    YAML.load_file("#{RAILS_ROOT}/config/database.yml")
+    YAML.load_file("#{Rails.root}/config/database.yml")
   end
 
   def user_found?(username, host, root_password)

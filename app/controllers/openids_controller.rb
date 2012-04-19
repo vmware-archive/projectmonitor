@@ -45,7 +45,7 @@ class OpenidsController < ApplicationController
   private
 
   def get_openid_consumer
-    @openid_consumer ||= OpenID::Consumer.new(session, OpenID::Store::Filesystem.new("#{RAILS_ROOT}/tmp/openid"))
+    @openid_consumer ||= OpenID::Consumer.new(session, OpenID::Store::Filesystem.new("#{Rails.root}/tmp/openid"))
   end
 
   def append_ax(redirect_url)
