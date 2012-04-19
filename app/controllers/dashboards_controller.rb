@@ -11,4 +11,8 @@ class DashboardsController < ApplicationController
 
     @projects = GridCollection.new @projects, params[:tiles_count].try(:to_i)
   end
+
+  def builds
+    @projects = Project.standalone.with_statuses + AggregateProject.with_statuses
+  end
 end

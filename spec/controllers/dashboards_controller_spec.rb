@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe DashboardsController do
+  describe "#feed" do
+    let(:project) { Project.new }
+    let(:aggregate_project) { AggregateProject.new }
+
+    before do
+      Project.stub_chain(:standalone, :with_statuses).and_return [project]
+      AggregateProject.stub_chain(:with_statuses).and_return [aggregate_project]
+      get :builds, :format => "rss"
+    end
+
+    it "renders an RSS feed" do
+      response.should render_template("builds")
+    end
+
+    it "assigns all projects and aggregate projects" do
+      assigns(:projects).should =~ [project, aggregate_project]
+    end
+  end
+
   describe "#index" do
     let(:project) { double(:project) }
     let(:aggregate_project) { double(:aggregate_project) }

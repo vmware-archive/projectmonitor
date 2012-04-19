@@ -20,6 +20,22 @@ describe AggregateProject do
 
       it { should == results }
     end
+
+    describe "with_statuses" do
+      before do
+        aggregate_project.save!
+      end
+
+      it "returns only projects with statuses" do
+        projects = AggregateProject.with_statuses
+        projects.length.should > 0
+
+        projects.should_not include(aggregate_project)
+        projects.each do |project|
+          project.status.should_not be_nil
+        end
+      end
+    end
   end
 
   describe "#code" do

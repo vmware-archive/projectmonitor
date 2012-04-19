@@ -6,6 +6,7 @@ class AggregateProject < ActiveRecord::Base
 
   scope :enabled, where(enabled: true)
   scope :all_with_tags, lambda {}
+  scope :with_statuses, joins(:projects => :statuses).uniq
 
   acts_as_taggable
   validates :name, presence: true
