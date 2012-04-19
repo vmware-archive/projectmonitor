@@ -2,6 +2,7 @@ CiMonitor::Application.routes.draw do
 
   match 'login' => 'sessions#new'
   match 'logout' => 'sessions#destroy'
+  match 'builds.rss' => "dashboards#builds", :format => :rss
 
   resources :users, :only => [:new, :create]
   resource :openid, :only => [:new, :success] do
