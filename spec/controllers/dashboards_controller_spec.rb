@@ -37,7 +37,7 @@ describe DashboardsController do
         assigns(:projects).size.should == 15
       end
 
-      [15, 24].each do |tiles_count|
+      [15, 24, 48].each do |tiles_count|
         context "#{tiles_count} tiles" do
           it "displays #{tiles_count}" do
             get :index, tiles_count: tiles_count

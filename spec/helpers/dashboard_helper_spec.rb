@@ -21,5 +21,12 @@ describe DashboardHelper do
       end
       it { should == "grid_3" }
     end
+
+    context "when there are 48 projects" do
+      before do
+        @projects = stub(GridCollection, :size => 48)
+      end
+      it { should == "grid_2" }
+    end
   end
 end
