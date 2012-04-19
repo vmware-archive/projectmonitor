@@ -202,21 +202,21 @@ ol.projects {
 
         &.building {
           .sparkline {
-            @include animation-duration(.5s);
+            @include animation-duration(1s);
             @include animation-direction(alternate);
             @include animation-timing-function(ease);
             @include animation-iteration-count(infinite);
 
-            &:nth-child(1) { @include animation-delay(.2s); }
-            &:nth-child(2) { @include animation-delay(.4s); }
-            &:nth-child(3) { @include animation-delay(.6s); }
-            &:nth-child(4) { @include animation-delay(.8s); }
+            &:nth-child(1) { @include animation-delay(.135s); }
+            &:nth-child(2) { @include animation-delay(.94s); }
+            &:nth-child(3) { @include animation-delay(.26s); }
+            &:nth-child(4) { @include animation-delay(2s); }
             &:nth-child(5) { @include animation-delay(1s); }
-            &:nth-child(6) { @include animation-delay(.2s); }
-            &:nth-child(7) { @include animation-delay(.4s); }
-            &:nth-child(8) { @include animation-delay(.6s); }
-            &:nth-child(9) { @include animation-delay(.8s); }
-            &:nth-child(10) { @include animation-delay(1s); }
+            &:nth-child(6) { @include animation-delay(.5s); }
+            &:nth-child(7) { @include animation-delay(.3s); }
+            &:nth-child(8) { @include animation-delay(1.18s); }
+            &:nth-child(9) { @include animation-delay(1.8s); }
+            &:nth-child(10) { @include animation-delay(.4s); }
 
             &.success, &.failure {
               a {
@@ -226,13 +226,13 @@ ol.projects {
 
             &.success {
               a {
-                opacity: 0.4;
+                opacity: 0.6;
               }
             }
 
             &.failure {
               a {
-                opacity: 0.4;
+                opacity: 0.6;
               }
             }
           }
