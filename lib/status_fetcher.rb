@@ -10,8 +10,7 @@ module StatusFetcher
   end
 
   def fetch_all
-    projects = Project.find(:all)
-    projects.select! &:needs_poll?
+    projects = Project.all.select(&:needs_poll?)
     projects.each do |project|
       Delayed::Job.enqueue StatusFetcher::Job.new(project)
     end

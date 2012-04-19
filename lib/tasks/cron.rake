@@ -1,10 +1,10 @@
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do |t, args|
-  unless Delayed::Job.present?
+  if Delayed::Job.present?
     StatusFetcher.fetch_all
   end
-  AmazonService.schedule(Time.zone.now)
 
+  AmazonService.schedule(Time.zone.now)
 end
 
 task :start_workers, [:worker_count] => :environment do | t, args |
