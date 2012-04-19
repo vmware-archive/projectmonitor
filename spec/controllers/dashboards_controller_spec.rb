@@ -30,5 +30,21 @@ describe DashboardsController do
         assigns(:projects).should include(aggregate_project)
       end
     end
+
+    context "tiles_count" do
+      it "displays 15 when no params present" do
+        get :index
+        assigns(:projects).size.should == 15
+      end
+
+      [15, 24].each do |tiles_count|
+        context "#{tiles_count} tiles" do
+          it "displays #{tiles_count}" do
+            get :index, tiles_count: tiles_count
+            assigns(:projects).size.should == tiles_count
+          end
+        end
+      end
+    end
   end
 end
