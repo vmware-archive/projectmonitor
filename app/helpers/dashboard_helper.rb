@@ -4,8 +4,10 @@ module DashboardHelper
 
     if @projects.size <= 15
       "grid_4"
-    elsif @projects.size >= 24
+    elsif @projects.size <= 24
       "grid_3"
+    else
+      "grid_2"
     end
   end
 end
