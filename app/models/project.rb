@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
 
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
+  scope :with_statuses, joins(:statuses).uniq
 
   acts_as_taggable
 
