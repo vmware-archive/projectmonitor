@@ -128,7 +128,7 @@ ol.projects {
 
       h1 {
         font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
-        font-weight: bold;
+        font-weight: normal;
         text-transform: capitalize;
         color: #2B2820;
 
@@ -140,6 +140,7 @@ ol.projects {
 
       h2 {
         font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+        font-weight: normal;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -162,6 +163,7 @@ ol.projects {
       .publish_date {
         text-align: center;
         font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+        font-weight: normal;
       }
 
       .sparklines {
