@@ -378,3 +378,59 @@ ol.projects.tiles_24 {
   }
 }
 
+ol.projects.tiles_48 {
+  $information-width: 200px;
+
+  li.project {
+    height: 102px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    .information {
+      width: $information-width;
+
+      h1 {
+        $height: 66px - 1;
+        height: $height;
+        padding: 0 15px;
+        line-height: $height;
+        font-size: 48px;
+      }
+
+      h2 {
+        padding: 0 15px;
+        height: 35px - 1;
+        line-height: 35px - 1;
+        font-size: 30px;
+      }
+    }
+
+    .history {
+      width: 90px;
+      .publish_date {
+        height: 90px;
+        font-size: 24pt;
+        line-height: 70px;
+      }
+
+      .sparklines {
+        margin: -30px 10px 20px;
+        width: 80px;
+
+        .sparkline {
+          a {
+            background-size: 100%;
+            width: 10px;
+            height: 10px;
+          }
+
+        }
+      }
+    }
+
+    &.aggregate {
+      .information {
+        background-size: ($information-width/5.5);
+      }
+    }
+  }
+}
