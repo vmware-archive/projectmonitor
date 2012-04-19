@@ -24,7 +24,7 @@ describe StatusFetcher do
     let(:projects) { [project] }
 
     before do
-      Project.stub(:find).and_return projects
+      Project.stub(:all).and_return projects
       project.stub(:needs_poll?).and_return true
     end
 
