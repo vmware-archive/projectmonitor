@@ -1,0 +1,34 @@
+/*
+ *= require projects
+ *= require 960gs
+ */
+
+body.dashboard {
+  background-color: #2A271F;
+  padding: 14px;
+
+  #footer {
+    color: white;
+    vertical-align: bottom;
+
+    .left {
+      display: inline-block;
+      float: left;
+    }
+
+    .right {
+      display: inline-block;
+      float: right;
+    }
+  }
+
+  a.projects_path {
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+
+a.projects_path:hover {
+}
