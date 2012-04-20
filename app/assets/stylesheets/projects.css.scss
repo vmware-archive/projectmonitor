@@ -381,6 +381,10 @@ ol.projects.tiles_24 {
 ol.projects.tiles_48 {
   $information-width: 190px;
 
+  li.empty-project {
+    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
+  }
+
   li.project {
     height: 118px;
     margin-top: 6px;
