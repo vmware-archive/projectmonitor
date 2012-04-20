@@ -14,6 +14,9 @@ feature "Dashboard" do
       click_link "48"
       page.should have_css("ol.projects.tiles_48")
 
+      click_link "63"
+      page.should have_css("ol.projects.tiles_63")
+
       click_link "15"
       page.should have_css("ol.projects.tiles_15")
     end

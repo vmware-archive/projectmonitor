@@ -5,7 +5,7 @@
     <%= stylesheet_link_tag "dashboard" %>
     <script type="text/javascript" src="http://fast.fonts.com/jsapi/14aea2b8-37b7-4a31-afb9-e44414bef419.js"></script>
   </head>
-  <body class="dashboard container_12">
+  <body class="dashboard <%= container_class %>">
     <%= yield %>
 
     <div id="footer">
@@ -16,6 +16,8 @@
         <%= link_to "24", root_path(tiles_count: 24), class: "projects_path" %>
           |
         <%= link_to "48", root_path(tiles_count: 48), class: "projects_path" %>
+          |
+        <%= link_to "63", root_path(tiles_count: 63), class: "projects_path" %>
       </div>
 
       <div class="right">
