@@ -9,11 +9,14 @@ class Project < ActiveRecord::Base
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
   scope :with_statuses, joins(:statuses).uniq
+  scope :for_location, lambda { |location| where(location: location) }
+  scope :unknown_location, where("location IS NULL OR location = ''")
 
   acts_as_taggable
 
   validates :name, presence: true
   validates :feed_url, presence: true
+  validates_length_of :location, :maximum => 20, :allow_blank => true
 
   def before_save
     if changed.include?('polling_interval')

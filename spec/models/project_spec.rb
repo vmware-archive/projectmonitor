@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe Project do
-
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :feed_url }
-
   let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
+
+  describe "validations" do
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :feed_url }
+    it { should ensure_length_of(:location).is_at_most(20) }
+  end
 
   describe 'scopes' do
     describe "standalone" do
@@ -52,6 +54,29 @@ describe Project do
       it { should_not include(untagged_project) }
       it { should_not include(foo_project) }
       it { should_not include(bar_project) }
+    end
+
+    describe "for_location" do
+      let(:location) { "Jamaica" }
+      let!(:included_project) { Project.create!(project.attributes.merge location: location) }
+      let!(:excluded_project1) { Project.create!(project.attributes) }
+      let!(:excluded_project2) { Project.create!(project.attributes.merge location: "Miami") }
+
+      subject { Project.for_location(location) }
+      it { should =~ [included_project] }
+    end
+
+    describe "unknown_location" do
+      let(:included_project) { Project.create!(project.attributes) }
+      let(:excluded_project) { Project.create!(project.attributes.merge location: "Miami") }
+      before do
+        Project.destroy_all # Remove fixtures
+        included_project
+        excluded_project
+      end
+
+      subject { Project.unknown_location }
+      it { should =~ [included_project] }
     end
   end
 
