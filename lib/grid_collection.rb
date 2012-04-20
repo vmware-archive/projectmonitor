@@ -6,7 +6,13 @@ class GridCollection < SimpleDelegator
   def initialize(array, tile_count = nil)
     @upper_limit = tile_count || LIMITS.find { |limit| array.count <= limit }
     validate_size
-    @entries = array + Array.new(@upper_limit - array.size)
+
+    if array.size < @upper_limit
+      @entries = array + Array.new(@upper_limit - array.size)
+    else
+      @entries = array[0...@upper_limit]
+    end
+
     super @entries
   end
 

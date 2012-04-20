@@ -89,18 +89,33 @@ describe ::GridCollection do
   end
 
   context "with tile_count" do
-    subject { GridCollection.new [], tile_count }
-    context "when present" do
+    let(:collection) { [] }
+    subject { GridCollection.new collection, tile_count }
+    context "greater than passed collection count" do
       let(:tile_count) { 24 }
       its(:size) { should == tile_count }
     end
 
-    context "when not present" do
+    context "less than passed collection count" do
+      let(:collection) { [1, 2, 3, 4] }
+      let(:tile_count) { 2 }
+      its(:size) { should == tile_count }
+      it { should == [1,2] }
+    end
+
+    context "equal to the passed collection count" do
+      let(:collection) { [1, 2] }
+      let(:tile_count) { 2 }
+      its(:size) { should == tile_count }
+      it { should == [1,2] }
+    end
+
+    context "is not present" do
       subject { GridCollection.new [] }
       its(:size) { should == GridCollection::LIMITS.first }
     end
 
-    context "when nil" do
+    context "as nil" do
       let(:tile_count) { nil }
       its(:size) { should == GridCollection::LIMITS.first }
     end
