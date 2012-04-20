@@ -1,12 +1,13 @@
 @import "constants";
 
 @mixin building_animation_0($background_color) {
-  opacity: 1;
-  background: $background_color + #252525;
+  opacity: 0;
+  // background: $background_color + #252525;
+  background: white;
 }
 
 @mixin building_animation_100 {
-  opacity: 0;
+  opacity: 1;
   background: white;
 }
 
@@ -231,6 +232,7 @@ ol.projects {
             &.success, &.failure {
               a {
                 background-color: transparent;
+                background: none !important;
               }
             }
           }
