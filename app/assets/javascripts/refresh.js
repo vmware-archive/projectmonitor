@@ -5,6 +5,7 @@ var refresh, scheduleRefresh;
 
 refresh = function() {
   $(".project").each(function(index,element) {
+    var current_classes = $(element).attr("class");
     var project_id = $(element).attr('data-id');
     var project_type = $(element).hasClass('aggregate') ? 'aggregate_project' : 'project';
     $.ajax({
@@ -12,6 +13,7 @@ refresh = function() {
       method: 'GET',
       complete: function(data) {
         $('#project_'+project_id).replaceWith(data.responseText);
+        $('#project_'+project_id).attr("class", current_classes);
       }
     });
   });
