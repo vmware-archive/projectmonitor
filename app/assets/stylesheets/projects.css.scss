@@ -299,15 +299,26 @@ ol.projects.tiles_15 {
       }
 
       .sparklines {
-        margin: -25px 30px 5px;
-        width: (20px + 2 + 2) * 5;
+        margin: -35px 15px 5px;
+        width: 150px;
 
         .sparkline {
           a {
-            width: 20px;
-            height: 20px;
+            width: 26px;
+            height: 26px;
           }
 
+          &.success {
+            a {
+              background: url(/assets/icons/success_15.png) center no-repeat;
+            }
+          }
+
+          &.failure {
+            a {
+              background: url(/assets/icons/failure_15.png) center no-repeat;
+            }
+          }
         }
       }
     }
