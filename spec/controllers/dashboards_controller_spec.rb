@@ -21,8 +21,8 @@ describe DashboardsController do
   end
 
   describe "#index" do
-    let(:project) { double(:project) }
-    let(:aggregate_project) { double(:aggregate_project) }
+    let(:project) { Project.new }
+    let(:aggregate_project) { AggregateProject.new }
 
     context "no tags" do
       before do
@@ -63,6 +63,21 @@ describe DashboardsController do
             assigns(:projects).size.should == tiles_count
           end
         end
+      end
+    end
+
+    context "with multiple projects" do
+      fixtures :projects, :aggregate_projects
+
+      let(:projects) { assigns(:projects).compact }
+
+      before do
+        get :index
+        projects.compact.size.should > 1
+      end
+
+      it "sorts the projects in alphabetical order" do
+        projects.should == projects.sort_by(&:name)
       end
     end
   end
