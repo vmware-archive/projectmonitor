@@ -81,10 +81,32 @@ describe ::GridCollection do
       end
     end
 
-    context "instantiated with a collection size > 48" do
-      let(:collection) { (0...50).to_a }
+    context "instantiated with a collection of size > 48 AND < 63" do
+      let(:collection) { (0...49).to_a }
 
-      specify { expect { subject }.to raise_exception(ArgumentError, "We never anticipated more than 48 projects. Sorry.") }
+      its(:count) { should == 63}
+
+      it "should pad the collection with nil objects" do
+        subject.select(&:nil?).count.should == (63 - 49)
+        subject[0...49].should == collection
+      end
+    end
+
+    context "instantiated with a collection of size = 63" do
+      let(:collection) { (0...63).to_a }
+
+      its(:count) { should == 63}
+
+      it "should pad the collection with nil objects" do
+        subject.select(&:nil?).count.should == 0
+        subject.should == collection
+      end
+    end
+
+    context "instantiated with a collection size > 63" do
+      let(:collection) { (0...100).to_a }
+
+      specify { expect { subject }.to raise_exception(ArgumentError, "We never anticipated more than 63 projects. Sorry.") }
     end
   end
 
