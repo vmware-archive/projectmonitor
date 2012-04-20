@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe ProjectDecorator do
+  describe "#css_id" do
+    let(:id) { "123" }
+    subject { ProjectDecorator.new(project).css_id }
+
+    before { project.stub(:id => id)}
+
+    context "when Project" do
+      let(:project) { CruiseControlProject.new }
+
+      it { should == "project_#{id}"}
+    end
+
+    context "when AggregateProject" do
+      let(:project) { AggregateProject.new }
+
+      it { should == "aggregate_project_#{id}"}
+    end
+
+  end
 
   describe "#css_class" do
     subject { ProjectDecorator.new(project).css_class }
