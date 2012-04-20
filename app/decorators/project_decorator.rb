@@ -1,4 +1,7 @@
 class ProjectDecorator < ApplicationDecorator
+  def css_id
+    "#{model.class.base_class.name.underscore}_#{model.id}"
+  end
 
   def css_class
     klass = 'project'
