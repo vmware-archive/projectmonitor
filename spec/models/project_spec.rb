@@ -201,6 +201,47 @@ describe Project do
   end
 
 
+  describe TrackerApi do
+    it "should have an instance method 'fetch_current_iteration'" do
+      TrackerApi.new("token").should respond_to :fetch_current_iteration
+    end
+  end
+
+  describe "#update_tracker_status!" do
+    let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
+    let(:tracker_api) { double :tracker_api_instance }
+
+    before do
+      TrackerApi.should_receive(:new).with(project.tracker_auth_token).and_return tracker_api
+      tracker_api.should_receive(:fetch_current_iteration).with(project.tracker_project_id).and_return current_iteration
+    end
+
+    context "no stories" do
+      let(:current_iteration) { {"id"=>179, "stories"=>[] } }
+
+      it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
+        project.update_tracker_status!
+        project.tracker_num_unaccepted_stories.should == 0
+      end
+    end
+
+    context "has some stories unaccepted" do
+      let :current_iteration do
+        {
+          "id"=>179,
+          "stories"=> [
+            {"current_state"=>"accepted"},
+            {"current_state"=>"unaccepted"}
+          ]
+        }
+      end
+
+      it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
+        project.update_tracker_status!
+        project.tracker_num_unaccepted_stories.should == 1
+      end
+    end
+  end
 
   describe "#red? and #green?" do
     it "should be true/false if the project's current status is not success" do
