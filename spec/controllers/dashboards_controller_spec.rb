@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe DashboardsController do
-  describe "#feed" do
-    let(:project) { Project.new }
-    let(:aggregate_project) { AggregateProject.new }
+  let(:project) { FactoryGirl.build(:project) }
+  let(:aggregate_project) { FactoryGirl.build(:aggregate_project) }
 
+  describe "#feed" do
     before do
       Project.stub_chain(:standalone, :with_statuses).and_return [project]
       AggregateProject.stub_chain(:with_statuses).and_return [aggregate_project]
@@ -21,9 +21,6 @@ describe DashboardsController do
   end
 
   describe "#index" do
-    let(:project) { Project.new }
-    let(:aggregate_project) { AggregateProject.new }
-
     context "no tags" do
       before do
         Project.should_receive(:standalone).and_return [project]
@@ -67,17 +64,24 @@ describe DashboardsController do
     end
 
     context "with multiple projects" do
-      fixtures :projects, :aggregate_projects
-
       let(:projects) { assigns(:projects).compact }
 
       before do
+        Project.delete_all
+        AggregateProject.delete_all
+
+        FactoryGirl.create(:project, :name => "AA")
+        FactoryGirl.create(:project, :name => "CA")
+        FactoryGirl.create(:project, :name => "ba")
+        AggregateProject.create!(:name => "AB")
+        AggregateProject.create!(:name => "CB")
+        AggregateProject.create!(:name => "bb")
+
         get :index
-        projects.compact.size.should > 1
       end
 
-      it "sorts the projects in alphabetical order" do
-        projects.should == projects.sort_by(&:name)
+      it "sorts the projects in alphabetical order, case-insensitively" do
+        projects.map(&:name).should == ["AA", "AB", "ba", "bb", "CA", "CB"]
       end
     end
   end
