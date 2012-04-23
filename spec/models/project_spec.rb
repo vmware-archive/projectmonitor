@@ -145,6 +145,63 @@ describe Project do
     end
   end
 
+  describe "tracker integration" do
+    let(:project) { Project.new }
+
+    describe "#tracker_project?" do
+      it "should return true if the project has a tracker_project_id and a tracker_auth_token" do
+        project.tracker_project_id = double(:tracker_project_id)
+        project.tracker_auth_token = double(:tracker_auth_token)
+        project.tracker_project?.should be(true)
+      end
+
+      it "should return false if the project has a blank tracker_project_id AND a blank tracker_auth_token" do
+        project.tracker_project_id = ""
+        project.tracker_auth_token = ""
+        project.tracker_project?.should be(false)
+      end
+
+      it "should return false if the project doesn't have tracker_project_id" do
+        project.tracker_project?.should be(false)
+      end
+
+      it "should return false if the project doesn't have tracker_auth_token" do
+        project.tracker_project?.should be(false)
+      end
+    end
+
+
+    describe "#tracker_project_health?" do
+      context "tracker_project? is false"
+
+      context "tracker_project? is true" do
+        before do
+          project.stub(:tracker_project?).and_return true
+        end
+
+        describe "#tracker_project_healthy?" do
+          it "should return false if tracker project's volatility over 30%" do
+            project.tracker_volatility = 100
+            project.tracker_project_healthy?.should be(false)
+          end
+
+          it "should return false if the number of unaccepted tracker stories in the current iteration is greater than 5" do
+            project.tracker_num_unaccepted_stories = 6
+            project.tracker_project_healthy?.should be(false)
+          end
+
+          it "should return true if the number of unaccepted tracker stories in the current iteration is less than 6 AND the volatility is 30% or less" do
+            project.tracker_volatility = 30
+            project.tracker_num_unaccepted_stories = 3
+            project.tracker_project_healthy?.should be(true)
+          end
+        end
+      end
+    end
+  end
+
+
+
   describe "#red? and #green?" do
     it "should be true/false if the project's current status is not success" do
       project = projects(:socialitis)

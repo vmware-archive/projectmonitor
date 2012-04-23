@@ -113,7 +113,20 @@ class Project < ActiveRecord::Base
     auth_username.present? || auth_password.present?
   end
 
+  def tracker_project?
+    if tracker_project_id.blank? || tracker_auth_token.blank?
+      false
+    else
+      true
+    end
+  end
+
+  def tracker_project_healthy?
+    tracker_volatility <= 30 && tracker_num_unaccepted_stories < 6
+  end
+
   def self.standalone_with_tags(tags)
     standalone.find_tagged_with tags, match_all: true
   end
+
 end
