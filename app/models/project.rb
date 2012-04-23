@@ -129,4 +129,11 @@ class Project < ActiveRecord::Base
     standalone.find_tagged_with tags, match_all: true
   end
 
+  def update_tracker_status!
+    status = TrackerApi.new(tracker_auth_token).fetch_current_iteration(tracker_project_id)
+    self.tracker_num_unaccepted_stories = status["stories"].select do |i|
+      i["current_state"] == "unaccepted"
+    end.count
+  end
+
 end
