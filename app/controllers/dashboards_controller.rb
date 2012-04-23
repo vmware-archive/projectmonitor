@@ -9,7 +9,7 @@ class DashboardsController < ApplicationController
       @projects = Project.standalone + AggregateProject.all
     end
 
-    @projects = @projects.sort_by(&:name)
+    @projects = @projects.sort_by{|p| p.name.downcase }
     @projects = GridCollection.new @projects, params[:tiles_count].try(:to_i)
   end
 

@@ -394,4 +394,10 @@ describe Project do
       proc { ProjectStatus.find(status_id)}.should raise_exception(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe "validation" do
+    it "has a valid Factory" do
+      FactoryGirl.build(:project).should be_valid
+    end
+  end
 end
