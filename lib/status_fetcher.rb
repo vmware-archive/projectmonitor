@@ -5,6 +5,8 @@ module StatusFetcher
     def perform
       StatusFetcher.retrieve_status_for(project)
       StatusFetcher.retrieve_building_status_for(project)
+      StatusFetcher.retrieve_tracker_status_for(project)
+
       project.set_next_poll!
     end
   end
@@ -35,5 +37,13 @@ module StatusFetcher
     project.update_attribute(:building, false)
   end
 
+  def retrieve_tracker_status_for(project)
+    return unless project.tracker_project?
+
+    status = TrackerApi.new(project.tracker_auth_token).fetch_current_iteration(project.tracker_project_id)
+    project.tracker_num_unaccepted_stories = status["stories"].select do |i|
+      i["current_state"] == "unaccepted"
+    end.count
+  end
 end
 

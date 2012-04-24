@@ -117,15 +117,11 @@ class Project < ActiveRecord::Base
   end
 
   def tracker_project?
-    if tracker_project_id.blank? || tracker_auth_token.blank?
-      false
-    else
-      true
-    end
+    tracker_project_id.present? && tracker_auth_token.present?
   end
 
-  def tracker_project_healthy?
-    tracker_volatility <= 30 && tracker_num_unaccepted_stories < 6
+  def tracker_volatility_healthy?
+    tracker_volatility <= 30
   end
 
   def update_tracker_status!
@@ -135,4 +131,7 @@ class Project < ActiveRecord::Base
     end.count
   end
 
+  def tracker_unaccepted_stories_healthy?
+    tracker_num_unaccepted_stories < 6
+  end
 end
