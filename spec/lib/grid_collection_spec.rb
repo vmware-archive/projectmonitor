@@ -1,4 +1,4 @@
-require_relative '../../lib/grid_collection'
+require 'spec_helper'
 
 describe ::GridCollection do
   context "without tile count" do
@@ -113,23 +113,42 @@ describe ::GridCollection do
   context "with tile_count" do
     let(:collection) { [] }
     subject { GridCollection.new collection, tile_count }
-    context "greater than passed collection count" do
-      let(:tile_count) { 24 }
-      its(:size) { should == tile_count }
+
+    context "one row" do
+      context "greater than passed collection count" do
+        let(:tile_count) { 7 }
+        its(:size) { should == tile_count }
+      end
+
+      context "less than passed collection count" do
+        let(:collection) { [1, 2, 3, 4] }
+        let(:tile_count) { 2 }
+        its(:size) { should == tile_count }
+        it { should == [1,2] }
+      end
+
+      context "equal to the passed collection count" do
+        let(:collection) { [1, 2] }
+        let(:tile_count) { 2 }
+        its(:size) { should == tile_count }
+        it { should == [1,2] }
+      end
+
+      context "more_than the passed collection count" do
+        let(:collection) { [1, 2] }
+        let(:tile_count) { 4 }
+        its(:size) { should == tile_count }
+        it { should == [1,2,nil,nil] }
+      end
     end
 
-    context "less than passed collection count" do
-      let(:collection) { [1, 2, 3, 4] }
-      let(:tile_count) { 2 }
-      its(:size) { should == tile_count }
-      it { should == [1,2] }
-    end
-
-    context "equal to the passed collection count" do
-      let(:collection) { [1, 2] }
-      let(:tile_count) { 2 }
-      its(:size) { should == tile_count }
-      it { should == [1,2] }
+    context "more than one row" do
+      context "pads the row when extra slots" do
+        let(:collection) { [1,2,3,4,5] }
+        let(:tile_count) { 4 }
+        its(:size) { should == 4 }
+        it { should == [1,2,3,4] }
+      end
     end
 
     context "is not present" do
@@ -142,4 +161,5 @@ describe ::GridCollection do
       its(:size) { should == GridCollection::LIMITS.first }
     end
   end
+
 end

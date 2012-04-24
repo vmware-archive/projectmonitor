@@ -1,4 +1,9 @@
 module DashboardHelper
+  def container_class
+    return "container_12" if @projects.blank? || @projects.size < 63
+    "container_7"
+  end
+
   def grid_class
     return "grid_4" if @projects.blank?
 
@@ -13,8 +18,8 @@ module DashboardHelper
     end
   end
 
-  def container_class
-    return "container_12" if @projects.blank? || @projects.size < 63
-    "container_7"
+  def tile_for(tile_obj)
+    return tile_obj if tile_obj.nil? || tile_obj.is_a?(Location)
+    ProjectDecorator.new(tile_obj)
   end
 end
