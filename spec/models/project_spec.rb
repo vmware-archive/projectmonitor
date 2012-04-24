@@ -3,6 +3,12 @@ require 'spec_helper'
 describe Project do
   let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
 
+  describe "factories" do
+    it "should be valid for project" do
+      FactoryGirl.build(:project).should be_valid
+    end
+  end
+
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :feed_url }

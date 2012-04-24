@@ -84,5 +84,17 @@ describe DashboardsController do
         projects.map(&:name).should == ["AA", "AB", "ba", "bb", "CA", "CB"]
       end
     end
+
+    context "generates grid" do
+      let(:project_collection) { double(:project_grid_collection) }
+      before do
+        DashboardGrid.should_receive(:generate).and_return(project_collection)
+      end
+
+      it "should generate the grid to determine the projects" do
+        get :index
+        assigns(:projects).should == project_collection
+      end
+    end
   end
 end
