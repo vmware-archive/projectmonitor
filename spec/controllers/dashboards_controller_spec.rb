@@ -36,7 +36,7 @@ describe DashboardsController do
 
     context "tags" do
       before do
-        Project.should_receive(:standalone_with_tags).with("foo,bar").and_return [project]
+        Project.should_receive(:find_tagged_with).with("foo,bar", match_all: true).and_return [project]
         AggregateProject.should_receive(:all_with_tags).with("foo,bar").and_return [aggregate_project]
         get :index, tags: "foo,bar"
       end

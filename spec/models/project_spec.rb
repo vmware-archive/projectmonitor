@@ -48,20 +48,6 @@ describe Project do
       end
     end
 
-    describe "standalone_with_tags" do
-      let!(:untagged_project) { Project.create!(project.attributes) }
-      let!(:foo_bar_project) { Project.create!(project.attributes.merge tag_list: ["foo","bar"])}
-      let!(:foo_project) { Project.create!(project.attributes.merge tag_list: ["foo"])}
-      let!(:bar_project) { Project.create!(project.attributes.merge tag_list: ["bar"])}
-
-      subject { Project.standalone_with_tags(["foo","bar"]) }
-
-      it { should include(foo_bar_project) }
-      it { should_not include(untagged_project) }
-      it { should_not include(foo_project) }
-      it { should_not include(bar_project) }
-    end
-
     describe "for_location" do
       let(:location) { "Jamaica" }
       let!(:included_project) { Project.create!(project.attributes.merge location: location) }

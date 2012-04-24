@@ -50,7 +50,9 @@ class DashboardGrid
   end
 
   def generate_with_tags
-    Project.standalone_with_tags(@tags) + AggregateProject.all_with_tags(@tags)
+    aggregate_projects = AggregateProject.all_with_tags(@tags)
+    projects_with_aggregates = aggregate_projects.collect(&:projects).flatten.uniq
+    Project.find_tagged_with(@tags, match_all: true) - projects_with_aggregates + aggregate_projects
   end
 
   def group_sort(l1, l2)
