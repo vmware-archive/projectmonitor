@@ -25,7 +25,7 @@ describe AggregateProjectsController do
 
         assigns(:projects).class.should == GridCollection
         ap.projects.each do |project|
-          page.should have_css("#project_#{ProjectDecorator.new(project).css_id}.success")
+          page.should have_css("##{ProjectDecorator.new(project).css_id}.success")
         end
       end
 
