@@ -18,15 +18,29 @@ describe DashboardGrid do
   end
 
   context "tags" do
-    before do
-      Project.should_receive(:standalone_with_tags).with("foo,bar").and_return [project]
-      AggregateProject.should_receive(:all_with_tags).with("foo,bar").and_return [aggregate_project]
-    end
+    let!(:tagged_project) { FactoryGirl.create(:project, tag_list: "tag") }
+    let!(:tagged_aggregate_project) { FactoryGirl.create(:aggregate_project, tag_list: "tag,awesome") }
+    let!(:awesome_project) { FactoryGirl.create(:project, tag_list: "awesome", aggregate_project: tagged_aggregate_project) }
 
     it "assigns all projects and aggregate projects with the requested tags" do
-      projects = DashboardGrid.generate(tags: "foo,bar")
-      projects.should include(project)
-      projects.should include(aggregate_project)
+      projects = DashboardGrid.generate(tags: "tag")
+      projects.should include(tagged_project)
+      projects.should include(tagged_aggregate_project)
+    end
+
+    context "aggregate contains project with same tags" do
+      it "does not return projects that are included in an aggregate with the same tag" do
+        projects = DashboardGrid.generate(tags: "awesome")
+        projects.should_not include(awesome_project)
+      end
+    end
+
+    context "aggregate project does not contain the tag" do
+      it "should return all the children projects with that tag" do
+        child_project = FactoryGirl.create(:project, tag_list: "other_tag", aggregate_project: tagged_aggregate_project)
+        projects = DashboardGrid.generate(tags: "other_tag")
+        projects.should include(child_project)
+      end
     end
   end
 
