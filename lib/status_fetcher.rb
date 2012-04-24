@@ -3,7 +3,6 @@ module StatusFetcher
 
   class Job < Struct.new(:project)
     def perform
-      project.update_tracker_status!
       StatusFetcher.retrieve_status_for(project)
       StatusFetcher.retrieve_building_status_for(project)
       project.set_next_poll!
