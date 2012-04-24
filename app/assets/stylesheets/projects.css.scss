@@ -54,6 +54,20 @@ ol.projects {
       height: 100%;
     }
 
+    ul.tracker-status {
+      > li {
+        list-style-type: disc;
+
+        &.success {
+          color: $green;
+        }
+
+        &.failure {
+          color: $red;
+        }
+      }
+    }
+
     &.success {
       background: $green;
       .information {

@@ -188,74 +188,35 @@ describe Project do
     end
 
 
-    describe "#tracker_project_health?" do
-      context "tracker_project? is false"
-
+    describe "tracker health" do
       context "tracker_project? is true" do
         before do
           project.stub(:tracker_project?).and_return true
         end
 
-        describe "#tracker_project_healthy?" do
+        describe "#tracker_volatility_healthy?" do
           it "should return false if tracker project's volatility over 30%" do
-            project.tracker_volatility = 100
-            project.tracker_project_healthy?.should be(false)
+            project.tracker_volatility = 31
+            project.tracker_volatility_healthy?.should be(false)
           end
 
-          it "should return false if the number of unaccepted tracker stories in the current iteration is greater than 5" do
-            project.tracker_num_unaccepted_stories = 6
-            project.tracker_project_healthy?.should be(false)
-          end
-
-          it "should return true if the number of unaccepted tracker stories in the current iteration is less than 6 AND the volatility is 30% or less" do
+          it "should return true if the volatility is 30% or less" do
             project.tracker_volatility = 30
-            project.tracker_num_unaccepted_stories = 3
-            project.tracker_project_healthy?.should be(true)
+            project.tracker_volatility_healthy?.should be(true)
           end
         end
-      end
-    end
-  end
 
+        describe "#tracker_unaccepted_stories_healthy?" do
+          it "should return false if the number of unaccepted tracker stories in the current iteration is greater than 5" do
+            project.tracker_num_unaccepted_stories = 6
+            project.tracker_unaccepted_stories_healthy?.should be(false)
+          end
 
-  describe TrackerApi do
-    it "should have an instance method 'fetch_current_iteration'" do
-      TrackerApi.new("token").should respond_to :fetch_current_iteration
-    end
-  end
-
-  describe "#update_tracker_status!" do
-    let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
-    let(:tracker_api) { double :tracker_api_instance }
-
-    before do
-      TrackerApi.should_receive(:new).with(project.tracker_auth_token).and_return tracker_api
-      tracker_api.should_receive(:fetch_current_iteration).with(project.tracker_project_id).and_return current_iteration
-    end
-
-    context "no stories" do
-      let(:current_iteration) { {"id"=>179, "stories"=>[] } }
-
-      it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
-        project.update_tracker_status!
-        project.tracker_num_unaccepted_stories.should == 0
-      end
-    end
-
-    context "has some stories unaccepted" do
-      let :current_iteration do
-        {
-          "id"=>179,
-          "stories"=> [
-            {"current_state"=>"accepted"},
-            {"current_state"=>"unaccepted"}
-          ]
-        }
-      end
-
-      it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
-        project.update_tracker_status!
-        project.tracker_num_unaccepted_stories.should == 1
+          it "should return true if the number of unaccepted tracker stories in the current iteration is less than 6" do
+            project.tracker_num_unaccepted_stories = 5
+            project.tracker_unaccepted_stories_healthy?.should be(true)
+          end
+        end
       end
     end
   end
