@@ -54,8 +54,8 @@ class DashboardGrid
   end
 
   def group_sort(l1, l2)
-    return -1 if l1 == "San Francisco"
-    return 1 if l2 == "San Francisco"
+    return -1 if ["San Francisco", "SF"].include?(l1)
+    return 1 if ["San Francisco", "SF"].include?(l2)
     return 1 if l1.nil?
     return -1 if l2.nil?
     l1 <=> l2
