@@ -13,6 +13,12 @@
     </div>
 
     <div class="history">
+      <% if project.tracker_project? %>
+        <ul class="tracker-status">
+          <li class="<%= project.tracker_volatility_healthy? ? "success" : "failure" %>" />
+          <li class="<%= project.tracker_unaccepted_stories_healthy? ? "success" : "failure" %>" />
+        </ul>
+      <% end %>
       <ol class="sparklines<%= " building" if project.building? %>">
         <% project.recent_online_statuses(10).each do |status| %>
           <li class="sparkline <%= status.in_words %>">

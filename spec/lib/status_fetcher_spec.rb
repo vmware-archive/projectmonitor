@@ -8,6 +8,7 @@ describe StatusFetcher::Job do
     before do
       StatusFetcher.should_receive(:retrieve_status_for).with project
       StatusFetcher.should_receive(:retrieve_building_status_for).with project
+      StatusFetcher.should_receive(:retrieve_tracker_status_for).with project
       project.should_receive(:set_next_poll!).and_return true
     end
 
@@ -131,7 +132,56 @@ describe StatusFetcher do
 
       it { should be_false }
     end
-
   end
 
+  describe "#retrieve_tracker_status_for" do
+    # StatusFetcher.retrieve_tracker_status_for(project)
+
+    describe "#update_tracker_status!" do
+      context "no tracker configuration" do
+        let(:project) { Project.new }
+
+        it "doesn't do anything with the TrackerApi" do
+          TrackerApi.should_not_receive(:new)
+          StatusFetcher.retrieve_tracker_status_for(project)
+        end
+      end
+
+      context "with tracker configuration" do
+        let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
+        let(:tracker_api) { double :tracker_api_instance }
+
+        before do
+          TrackerApi.should_receive(:new).with(project.tracker_auth_token).and_return tracker_api
+          tracker_api.should_receive(:fetch_current_iteration).with(project.tracker_project_id).and_return current_iteration
+        end
+
+        context "no stories" do
+          let(:current_iteration) { {"id"=>179, "stories"=>[] } }
+
+          it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
+            StatusFetcher.retrieve_tracker_status_for(project)
+            project.tracker_num_unaccepted_stories.should == 0
+          end
+        end
+
+        context "has some stories unaccepted" do
+          let :current_iteration do
+            {
+              "id"=>179,
+              "stories"=> [
+                {"current_state"=>"accepted"},
+                {"current_state"=>"unaccepted"}
+              ]
+            }
+          end
+
+          it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
+            StatusFetcher.retrieve_tracker_status_for(project)
+            project.tracker_num_unaccepted_stories.should == 1
+          end
+        end
+      end
+    end
+  end
 end
