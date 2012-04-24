@@ -22,6 +22,10 @@ gem "bourbon", "~> 2.0.0.rc1"
 gem "draper", "~> 0.11.1"
 gem "awesome_print"
 
+group :production do
+  gem "therubyracer"
+end
+
 group :postgres do
   gem "pg", "~> 0.13.2"
 end
