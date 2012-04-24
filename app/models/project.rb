@@ -128,10 +128,6 @@ class Project < ActiveRecord::Base
     tracker_volatility <= 30 && tracker_num_unaccepted_stories < 6
   end
 
-  def self.standalone_with_tags(tags)
-    standalone.find_tagged_with tags, match_all: true
-  end
-
   def update_tracker_status!
     status = TrackerApi.new(tracker_auth_token).fetch_current_iteration(tracker_project_id)
     self.tracker_num_unaccepted_stories = status["stories"].select do |i|
