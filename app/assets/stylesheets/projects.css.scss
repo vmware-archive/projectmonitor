@@ -455,6 +455,22 @@ ol.projects.tiles_63 {
     background: image_url("icons/empty_tile_x_48.png") center no-repeat;
   }
 
+  li.location-header {
+    text-align: center;
+
+    background: image_url("icons/location_arrow.png") 50% 74% no-repeat;
+
+    span {
+      border-bottom: 2px solid #666;
+      color: #666;
+      display: inline-block;
+      font-family: 'AvenirNextLTW01-Condens 721299', Helvetica, sans-serif;
+      font-size: 40px;
+      margin-top: 23px;
+      text-transform: uppercase;
+    }
+  }
+
   li.project {
     height: 104px;
     margin-top: 6px;

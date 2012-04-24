@@ -4,7 +4,7 @@ class GridCollection < SimpleDelegator
   LIMITS = [15, 24, 48, 63]
 
   def initialize(array, tile_count = nil)
-    @upper_limit = tile_count || LIMITS.find { |limit| array.count <= limit }
+    @upper_limit = upper_limit(array, tile_count) || LIMITS.find { |limit| array.count <= limit }
     validate_size
 
     if array.size < @upper_limit
@@ -17,7 +17,13 @@ class GridCollection < SimpleDelegator
   end
 
   private
+
+  def upper_limit(array, tile_count)
+    tile_count
+  end
+
   def validate_size
     raise ArgumentError, "We never anticipated more than 63 projects. Sorry." unless @upper_limit
   end
+
 end
