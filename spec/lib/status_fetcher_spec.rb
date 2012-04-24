@@ -4,6 +4,7 @@ describe StatusFetcher::Job do
 
   describe "#perform" do
     let(:project) { double(:project) }
+
     before do
       StatusFetcher.should_receive(:retrieve_status_for).with project
       StatusFetcher.should_receive(:retrieve_building_status_for).with project
