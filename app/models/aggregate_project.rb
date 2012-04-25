@@ -26,6 +26,10 @@ class AggregateProject < ActiveRecord::Base
     projects.all?(&:online?)
   end
 
+  def tracker_project?
+    false
+  end
+
   def code
     self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
   end
