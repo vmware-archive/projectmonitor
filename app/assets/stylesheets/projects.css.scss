@@ -57,7 +57,7 @@ ol.projects {
     &.success {
       background: $green;
       .information {
-        h2 {
+        .status-bar {
           background: $light-green;
           border-top: solid $very-dark-green 2px;
         }
@@ -82,7 +82,7 @@ ol.projects {
     &.failure {
       background: $red;
       .information {
-        h2 {
+        .status-bar {
           background: $light-red;
           border-top: solid $very-dark-red 2px;
         }
@@ -110,7 +110,7 @@ ol.projects {
       background: $grey;
 
       .information {
-        h2 {
+        .status-bar {
           background: $light-grey;
           border-top: solid $very-dark-grey 2px;
         }
@@ -148,17 +148,26 @@ ol.projects {
         }
       }
 
-      h2 {
-        font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
-        font-weight: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        text-transform: capitalize;
+      .status-bar {
+        .publish-date {
+          float: right;
+          text-align: center;
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+          font-weight: normal;
+        }
 
-        a {
-          text-decoration: none;
-          color: black;
+        .name {
+          font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+          font-weight: normal;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-transform: capitalize;
+
+          a {
+            text-decoration: none;
+            color: black;
+          }
         }
       }
     }
@@ -169,12 +178,6 @@ ol.projects {
       border-right: solid 2px;
       float: left;
       text-align: center;
-
-      .publish_date {
-        text-align: center;
-        font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
-        font-weight: normal;
-      }
 
       .sparklines {
         display: inline-block;
@@ -282,7 +285,7 @@ ol.projects.tiles_15 {
         font-size: 100px;
       }
 
-      h2 {
+      .status-bar {
         padding: 0 15px;
         height: 50px - 1;
         line-height: 50px - 1;
@@ -299,7 +302,7 @@ ol.projects.tiles_15 {
       }
 
       .sparklines {
-        margin: -35px 15px 5px;
+        margin: 100px 15px 5px;
         width: 150px;
 
         .sparkline {
@@ -349,7 +352,7 @@ ol.projects.tiles_24 {
         font-size: 92px;
       }
 
-      h2 {
+      .status-bar {
         padding: 0 15px;
         height: 50px - 1;
         line-height: 50px - 1;
@@ -409,7 +412,7 @@ ol.projects.tiles_48 {
         font-size: 66px;
       }
 
-      h2 {
+      .status-bar {
         padding: 0 15px;
         height: 35px - 1;
         line-height: 35px - 1;
@@ -486,7 +489,7 @@ ol.projects.tiles_63 {
         font-size: 48px;
       }
 
-      h2 {
+      .status-bar {
         border: none;
         padding: 0 15px;
         height: 25px;
