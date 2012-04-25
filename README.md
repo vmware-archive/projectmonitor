@@ -241,4 +241,8 @@ To run tests, run:
     rake setup
     rake spec
 
+To run a local development server and worker, run:
+
+    foreman start
+
 Copyright (c) 2012 Pivotal Labs. This software is licensed under the MIT License.
