@@ -6,11 +6,13 @@
   <li class="<%= project.css_class %> <%=grid_class%>" id="<%= project.css_id %>" data-id="<%= project.id %>">
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
-      <h2><%= link_to(project.name, project.url) %></h2>
+      <div class="status-bar">
+        <div class="publish-date"><%= project.time_since_last_build %></div>
+        <div class="name"><%= link_to(project.name, project.url) %></div>
+      </div>
     </div>
 
     <div class="history">
-      <h3 class="publish_date"><%= project.time_since_last_build %></h3>
       <ol class="sparklines<%= " building" if project.building? %>">
         <% project.recent_online_statuses(10).each do |status| %>
           <li class="sparkline <%= status.in_words %>">
