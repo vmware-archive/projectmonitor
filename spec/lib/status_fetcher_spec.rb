@@ -171,7 +171,7 @@ describe StatusFetcher do
               "id"=>179,
               "stories"=> [
                 {"current_state"=>"accepted"},
-                {"current_state"=>"unaccepted"}
+                {"current_state"=>"delivered"}
               ]
             }
           end

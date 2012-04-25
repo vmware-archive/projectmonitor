@@ -8,17 +8,19 @@
       <h1><%= link_to(project.code, project.url) %></h1>
       <div class="status-bar">
         <div class="publish-date"><%= project.time_since_last_build %></div>
+        <% if project.tracker_project? %>
+          <div class="inventory">
+            Inventory:
+            <span class="<%= project.tracker_unaccepted_stories_healthy? ? "healthy" : "unhealthy" %>">
+              <%= project.tracker_num_unaccepted_stories %>
+            </span>
+          </div>
+        <% end %>
         <div class="name"><%= link_to(project.name, project.url) %></div>
       </div>
     </div>
 
     <div class="history">
-      <% if project.tracker_project? %>
-        <ul class="tracker-status">
-          <li class="<%= project.tracker_volatility_healthy? ? "success" : "failure" %>" />
-          <li class="<%= project.tracker_unaccepted_stories_healthy? ? "success" : "failure" %>" />
-        </ul>
-      <% end %>
       <ol class="sparklines<%= " building" if project.building? %>">
         <% project.recent_online_statuses(10).each do |status| %>
           <li class="sparkline <%= status.in_words %>">

@@ -11,6 +11,8 @@ describe AggregateProject do
 
   let(:aggregate_project) { AggregateProject.new(name: "Aggregate Project") }
 
+  it { should_not be_tracker_project }
+
   describe "scopes" do
     describe "all_with_tags" do
       let(:results) { double(:results) }

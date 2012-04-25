@@ -42,7 +42,7 @@ module StatusFetcher
 
     status = TrackerApi.new(project.tracker_auth_token).fetch_current_iteration(project.tracker_project_id)
     project.tracker_num_unaccepted_stories = status["stories"].select do |i|
-      i["current_state"] == "unaccepted"
+      i["current_state"] == "delivered"
     end.count
   end
 end
