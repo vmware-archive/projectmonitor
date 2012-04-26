@@ -122,6 +122,8 @@ GEM
       thor (>= 0.13.6)
     formatador (0.2.1)
     gem_plugin (0.2.3)
+    happymapper (0.4.0)
+      libxml-ruby (~> 2.0)
     headless (0.1.0)
     heroku (2.23.0)
       launchy (>= 0.3.2)
@@ -150,6 +152,7 @@ GEM
     launchy (2.1.0)
       addressable (~> 2.2.6)
     libv8 (3.3.10.4)
+    libxml-ruby (2.3.2)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.4.4)
@@ -184,6 +187,15 @@ GEM
       systemu
       yajl-ruby
     pg (0.13.2)
+    pivotal-tracker (0.5.3)
+      builder
+      builder
+      happymapper (>= 0.3.2)
+      happymapper (>= 0.3.2)
+      nokogiri (>= 1.4.3)
+      nokogiri (~> 1.4)
+      rest-client (~> 1.6.0)
+      rest-client (~> 1.6.0)
     pivotal_git_scripts (1.1.4)
     polyglot (0.3.3)
     pry (0.9.9.3)
@@ -328,6 +340,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.0)
   nokogiri (~> 1.5.2)
   pg (~> 0.13.2)
+  pivotal-tracker
   pivotal_git_scripts (~> 1.1.4)
   pry
   rails (~> 3.2.0)
