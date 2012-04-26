@@ -58,15 +58,15 @@ class DashboardGrid
   def group_sort(l1, l2)
     return -1 if ["San Francisco", "SF"].include?(l1)
     return 1 if ["San Francisco", "SF"].include?(l2)
-    return 1 if l1.nil?
-    return -1 if l2.nil?
+    return 1 if l1.blank?
+    return -1 if l2.blank?
     l1 <=> l2
   end
 
 
   def location(location_projects)
     location = location_projects.first.try(:location)
-    return location if location_projects.all? { |e| e.nil? || e.location == location }
+    return location if location_projects.all? { |e| e.blank? || e.location == location }
   end
 
   def location_groups
