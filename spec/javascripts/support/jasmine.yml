@@ -13,7 +13,28 @@
 src_files:
   - spec/javascripts/vendor/jquery.js
   - spec/javascripts/vendor/jquery-ujs.js
+  - public/javascripts/prototype.js
+  - public/javascripts/effects.js
+  - public/javascripts/controls.js
+  - public/javascripts/dragdrop.js
+  - public/javascripts/application.js
   - app/assets/javascripts/refresh.js
+  - public/javascripts/**/*.js
+
+# stylesheets
+#
+# Return an array of stylesheet filepaths relative to src_dir to include before jasmine specs.
+# Default: []
+#
+# EXAMPLE:
+#
+# stylesheets:
+#   - css/style.css
+#   - stylesheets/*.css
+#
+stylesheets:
+  - app/assets/stylesheets/*.css
+  # - stylesheets/**/*.css
 
 # helpers
 #
@@ -39,7 +60,18 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - "**/**Spec.js"
+  - '**/*[sS]pec.js'
+
+# src_dir
+#
+# Source directory path. Your src_files must be returned relative to this path. Will use root if left blank.
+# Default: project root
+#
+# EXAMPLE:
+#
+# src_dir: public
+#
+src_dir:
 
 # spec_dir
 #
