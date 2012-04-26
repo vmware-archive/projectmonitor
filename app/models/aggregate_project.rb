@@ -12,6 +12,12 @@ class AggregateProject < ActiveRecord::Base
   acts_as_taggable
   validates :name, presence: true
 
+  before_save :clear_empty_location
+
+  def clear_empty_location
+    self.location = nil if self.location.blank?
+  end
+
   def red?
     projects.detect {|p| p.red? }
   end

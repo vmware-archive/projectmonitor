@@ -15,6 +15,25 @@ describe Project do
     it { should ensure_length_of(:location).is_at_most(20) }
   end
 
+  describe "callbacks" do
+    before do
+      project.location = location
+      project.save
+    end
+
+    subject { project }
+
+    context "without a location" do
+      let(:location) { '' }
+      its(:location) { should be_nil }
+    end
+
+    context "with a location" do
+      let(:location) { 'New York' }
+      its(:location) { should == location }
+    end
+  end
+
   describe 'scopes' do
     describe "standalone" do
       it "should return non aggregated projects" do

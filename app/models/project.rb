@@ -18,10 +18,15 @@ class Project < ActiveRecord::Base
   validates :feed_url, presence: true
   validates_length_of :location, :maximum => 20, :allow_blank => true
 
-  def before_save
-    if changed.include?('polling_interval')
-      set_next_poll
-    end
+  before_save :clear_empty_location
+  before_save :check_next_poll
+
+  def clear_empty_location
+    self.location = nil if self.location.blank?
+  end
+
+  def check_next_poll
+    set_next_poll if changed.include?('polling_interval')
   end
 
   def code

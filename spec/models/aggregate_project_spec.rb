@@ -13,6 +13,25 @@ describe AggregateProject do
 
   it { should_not be_tracker_project }
 
+  describe "callbacks" do
+    before do
+      aggregate_project.location = location
+      aggregate_project.save
+    end
+
+    subject { aggregate_project }
+
+    context "without a location" do
+      let(:location) { '' }
+      its(:location) { should be_nil }
+    end
+
+    context "with a location" do
+      let(:location) { 'New York' }
+      its(:location) { should == location }
+    end
+  end
+
   describe "scopes" do
     describe "all_with_tags" do
       let(:results) { double(:results) }
