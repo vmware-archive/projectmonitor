@@ -27,6 +27,9 @@
           <%= link_to "log out", logout_path, class: "projects_path" %>
           |
         <% end %>
+        <div id='indicator'>
+          <%= image_tag "indicator.gif", :title => "indicator", :alt => "indicator" %>
+        </div>
         <%= link_to "manage projects", projects_path, class: "projects_path" %>
       </div>
     </div>

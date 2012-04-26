@@ -20,6 +20,16 @@ body.dashboard {
     .right {
       display: inline-block;
       float: right;
+      width:124px;
+
+      #indicator {
+        float:left;
+        display:block;
+
+        &.idle {
+          display:none;
+        }
+      }
     }
   }
 

@@ -1,9 +1,12 @@
 var refreshTimeout = 60 * 1000; // 1 minute
 var currentTimeout = null;
-
+var total = 0;
 var refresh, scheduleRefresh;
 
 refresh = function() {
+  $('#indicator').removeClass('idle');
+  total = $(".project:not(.empty-project)").length;
+
   $(".project:not(.empty-project)").each(function(index,element) {
     var current_classes = $(element).attr("class");
     var projectCssId = $(element).attr("id");
@@ -15,6 +18,7 @@ refresh = function() {
       complete: function(data) {
         $('#' + projectCssId).replaceWith(data.responseText);
         $('#' + projectCssId).attr("class", current_classes);
+        refreshComplete();
       }
     });
   });
@@ -25,6 +29,14 @@ scheduleRefresh = function () {
   clearTimeout(currentTimeout);
   currentTimeout = setTimeout(refresh, refreshTimeout);
 };
+
+refreshComplete = function() {
+  total -= 1;
+  if(total === 0) {
+    $('#indicator').addClass('idle');
+  }
+};
+
 
 $(function(){
   scheduleRefresh();
