@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe StatusFetcher::Job do
-
   describe "#perform" do
     let(:project) { double(:project) }
 
@@ -16,38 +15,38 @@ describe StatusFetcher::Job do
 
     it { should be_true }
   end
-
 end
 
 describe StatusFetcher do
-  let(:project) { Project.new }
-
   describe "#fetch_all" do
-    let(:projects) { [project] }
-
-    before do
-      Project.stub(:all).and_return projects
-      project.stub(:needs_poll?).and_return true
-    end
-
-    subject { StatusFetcher.fetch_all }
-
     context "some projects don't need to be polled" do
-      let(:non_polling_project) { Project.new }
-      let(:job) { double(:delayed_job) }
+      let(:project) { stub(:project, needs_poll?: true) }
+      let(:non_polling_project) { stub(:project, needs_poll?: false) }
       let(:projects) { [project, non_polling_project] }
 
+      let(:job_for_project) { stub(:delayed_job) }
+      let(:job_for_non_polling_project) { stub(:unexpected_delayed_job) }
+
       before do
-        non_polling_project.stub(:needs_poll?).and_return false
-        StatusFetcher::Job.should_receive(:new).with(project).and_return job
-        Delayed::Job.should_receive(:enqueue).with job
+        Project.stub(:all).and_return projects
+        StatusFetcher::Job.stub(:new).with(project).and_return job_for_project
+        StatusFetcher::Job.stub(:new).with(non_polling_project).and_return job_for_non_polling_project
       end
 
-      it { should == [project] }
+      it "enqueues a job for each polling project" do
+        Delayed::Job.should_receive(:enqueue).with job_for_project
+        StatusFetcher.fetch_all
+      end
+
+      it "does not enqueue a job for a project which doesn't need to poll" do
+        Delayed::Job.should_not_receive(:enqueue).with job_for_non_polling_project
+        StatusFetcher.fetch_all
+      end
     end
   end
 
   describe "#retrieve_status_for" do
+    let(:project) { Project.new }
     let(:content) { double(:xml_content) }
     let(:status)  { ProjectStatus.new }
 
@@ -106,6 +105,7 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_building_status_for" do
+    let(:project) { Project.new }
     let(:content) { double(:content) }
     let(:building_status) { [true, false].sample }
     let(:status) { double(:status, :building? => building_status )}
@@ -135,6 +135,7 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_tracker_status_for" do
+    let(:project) { Project.new }
     # StatusFetcher.retrieve_tracker_status_for(project)
 
     describe "#update_tracker_status!" do
