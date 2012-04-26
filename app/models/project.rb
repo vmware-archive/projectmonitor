@@ -124,13 +124,6 @@ class Project < ActiveRecord::Base
     tracker_volatility <= 30
   end
 
-  def update_tracker_status!
-    status = TrackerApi.new(tracker_auth_token).fetch_current_iteration(tracker_project_id)
-    self.tracker_num_unaccepted_stories = status["stories"].select do |i|
-      i["current_state"] == "unaccepted"
-    end.count
-  end
-
   def tracker_unaccepted_stories_healthy?
     tracker_num_unaccepted_stories < 6
   end
