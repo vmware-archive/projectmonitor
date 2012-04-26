@@ -21,6 +21,7 @@ gem "foreman", "~> 0.41.0"
 gem "bourbon", "~> 2.0.0.rc1"
 gem "draper", "~> 0.11.1"
 gem "awesome_print"
+gem "pivotal-tracker"
 
 group :production do
   gem "therubyracer"

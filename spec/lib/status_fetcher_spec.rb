@@ -153,34 +153,13 @@ describe StatusFetcher do
         let(:tracker_api) { double :tracker_api_instance }
 
         before do
-          TrackerApi.should_receive(:new).with(project.tracker_auth_token).and_return tracker_api
-          tracker_api.should_receive(:fetch_current_iteration).with(project.tracker_project_id).and_return current_iteration
+          TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
+          tracker_api.stub(:delivered_story_count).with(project.tracker_project_id).and_return 7
         end
 
-        context "no stories" do
-          let(:current_iteration) { {"id"=>179, "stories"=>[] } }
-
-          it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
-            StatusFetcher.retrieve_tracker_status_for(project)
-            project.tracker_num_unaccepted_stories.should == 0
-          end
-        end
-
-        context "has some stories unaccepted" do
-          let :current_iteration do
-            {
-              "id"=>179,
-              "stories"=> [
-                {"current_state"=>"accepted"},
-                {"current_state"=>"delivered"}
-              ]
-            }
-          end
-
-          it "should set the project's tracker_num_unaccepted_stories to the number of unaccepted stories found in the response" do
-            StatusFetcher.retrieve_tracker_status_for(project)
-            project.tracker_num_unaccepted_stories.should == 1
-          end
+        it "should set the project's tracker_num_unaccepted_stories to the number of delivered stories" do
+          StatusFetcher.retrieve_tracker_status_for(project)
+          project.tracker_num_unaccepted_stories.should == 7
         end
       end
     end
