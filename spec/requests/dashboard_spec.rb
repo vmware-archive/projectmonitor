@@ -8,19 +8,19 @@ feature "Dashboard" do
     before { visit root_path }
 
     scenario "user toggles tile layout" do
-      page.should have_css("ol.projects.tiles_15")
+      page.should have_css(".tiles_15 ol.projects")
 
       click_link "24"
-      page.should have_css("ol.projects.tiles_24")
+      page.should have_css(".tiles_24 ol.projects")
 
       click_link "48"
-      page.should have_css("ol.projects.tiles_48")
+      page.should have_css(".tiles_48 ol.projects")
 
       click_link "63"
-      page.should have_css("ol.projects.tiles_63")
+      page.should have_css(".tiles_63 ol.projects")
 
       click_link "15"
-      page.should have_css("ol.projects.tiles_15")
+      page.should have_css(".tiles_15 ol.projects")
     end
 
     scenario "user toggles the location view" do
