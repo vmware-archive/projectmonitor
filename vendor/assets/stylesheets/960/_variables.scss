@@ -1,0 +1,15 @@
+// Global use variables
+$ninesixty-class-separator: "_" !default;
+$ninesixty-columns: 12 !default;
+$ninesixty-font-family: Helvetica, Arial, 'Liberation Sans', 'FreeSans', sans-serif !default;
+$ninesixty-font-size: 10pt/1.5 !default;
+
+// Fixed grid variables
+$ninesixty-grid-width: 960px !default;
+$ninesixty-gutter-width: 20px !default;
+
+// Fluid grid variables
+$ninesixty-fluid-grid-margin: (100% - $ninesixty-fluid-grid-width)/2 !default;
+$ninesixty-fluid-grid-min-width: 960px !default;
+$ninesixty-fluid-grid-width: 92% !default;
+$ninesixty-fluid-gutter-margin: 2% !default;
