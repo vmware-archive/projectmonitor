@@ -130,6 +130,29 @@ ol.projects {
     }
 
 
+    &.server-unreachable {
+      background: $very-very-light-grey;
+
+      .information {
+        .status-bar {
+          background: $very-light-grey;
+          border-top: solid $dark-grey 2px;
+        }
+      }
+
+      .history{
+        background: $very-very-light-grey;
+        border-color: $dark-grey;
+
+        .sparklines .sparkline {
+          background: $white;
+        }
+      }
+      &.aggregate .information{
+        @include linear-gradient(0deg, $light-grey 50%, $grey 51%);
+      }
+    }
+
     .information {
       > div {
         text-align: left;
