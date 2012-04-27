@@ -11,9 +11,13 @@ refresh = function() {
     $.ajax({
       url: '/'+project_type+'s/'+project_id+'/status',
       method: 'GET',
-      complete: function(data) {
-        $('#' + projectCssId).replaceWith(data.responseText);
+      dataType: 'html',
+      success: function(response) {
+        $('#' + projectCssId).replaceWith(response);
         $('#' + projectCssId).attr("class", current_classes);
+      },
+      error: function() {
+        $('#' + projectCssId).addClass("server-unreachable");
       }
     });
   });

@@ -5,7 +5,7 @@ describe('refresh', function() {
         "<li class='project success' id='project_1' data-id='1'></li>",
         "<li class='project failure' id='project_2' data-id='2'></li>",
         "<li class='project failure' id='project_3' data-id='3'></li>",
-        "<li class='project aggregate success' id='aggregate_project_4' data-id='4'></li>",
+        "<li class='project aggregate success' id='aggregate_project_4' data-id='4'>Aggregate Project</li>",
       "</ul>"
     ].join("\n");
     setFixtures(fixtures);
@@ -21,7 +21,7 @@ describe('refresh', function() {
     expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status");
   });
 
-  describe("when a requjest comes back", function() {
+  describe("when a request succeeds", function() {
     beforeEach(function() {
       refresh();
       mostRecentAjaxRequest().response({
@@ -39,6 +39,25 @@ describe('refresh', function() {
       expect($("#aggregate_project_4")).toHaveClass("aggregate");
       expect($("#aggregate_project_4")).toHaveClass("success");
       expect($("#aggregate_project_4")).not.toHaveClass("grid_4");
+    });
+  });
+
+  describe("when a request fails", function() {
+    beforeEach(function() {
+      refresh();
+      mostRecentAjaxRequest().response({
+        status: 500,
+        responseText: "Whoops!  An error occurred!"
+      });
+    });
+
+    it("leaves the contents of the element alone", function() {
+      expect($("#aggregate_project_4").text()).toContain("Aggregate Project");
+    });
+
+    it("adds the 'server-unreachable' class to the element", function() {
+      expect($("#aggregate_project_4")).toHaveClass("success");
+      expect($("#aggregate_project_4")).toHaveClass("server-unreachable");
     });
   });
 });
