@@ -1,8 +1,14 @@
 /*
  *= require projects
- *= require 960gs_7c
- *= require 960gs_12c
  */
+
+$ninesixty-gutter-width: 12px;
+$ninesixty-fluid-grid-width: 100%;
+$ninesixty-grid-width: 1884px;
+@import '960.gs';
+
+@include grid-system-complete(7);
+@include grid-system-complete(12);
 
 body.dashboard {
   background-color: #2A271F;
