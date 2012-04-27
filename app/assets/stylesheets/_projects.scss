@@ -304,8 +304,12 @@ ol.projects {
   }
 }
 
-ol.projects.tiles_15 {
+.tiles_15 ol.projects {
   $information-width: 420px;
+
+  > li {
+    @include grid(4);
+  }
 
   li.project {
     height: 192px;
@@ -371,8 +375,12 @@ ol.projects.tiles_15 {
   }
 }
 
-ol.projects.tiles_24 {
+.tiles_24 ol.projects {
   $information-width: 263px;
+
+  > li {
+    @include grid(3);
+  }
 
   li.project {
     margin-top: 6px;
@@ -427,8 +435,12 @@ ol.projects.tiles_24 {
   }
 }
 
-ol.projects.tiles_48 {
+.tiles_48 ol.projects {
   $information-width: 190px;
+
+  > li {
+    @include grid(2);
+  }
 
   li.empty-project {
     background: image_url("icons/empty_tile_x_48.png") center no-repeat;
@@ -488,8 +500,12 @@ ol.projects.tiles_48 {
   }
 }
 
-ol.projects.tiles_63 {
+.tiles_63 ol.projects {
   $information-width: 157px;
+
+  > li {
+    @include grid(1, 7);
+  }
 
   li.empty-project {
     background: image_url("icons/empty_tile_x_48.png") center no-repeat;

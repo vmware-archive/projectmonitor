@@ -1,9 +1,9 @@
 <% if project.is_a? Location %>
-  <li class="project location-header <%=grid_class%>">
+  <li class="project location-header">
     <span><%= project %></span>
   </li>
 <% elsif project %>
-  <li class="<%= project.css_class %> <%=grid_class%>" id="<%= project.css_id %>" data-id="<%= project.id %>">
+  <li class="<%= project.css_class %>" id="<%= project.css_id %>" data-id="<%= project.id %>">
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
       <div class="status-bar">
@@ -31,5 +31,5 @@
     </div>
   </li>
 <% else %>
-  <li class="project empty-project <%=grid_class%>"></li>
+  <li class="project empty-project"></li>
 <% end %>
