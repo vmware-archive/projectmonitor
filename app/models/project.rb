@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
   RECENT_STATUS_COUNT = 10
-  DEFAULT_POLLING_INTERVAL = 120
+  DEFAULT_POLLING_INTERVAL = 60
 
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT, :dependent => :destroy
   belongs_to :latest_status, :class_name => "ProjectStatus"
