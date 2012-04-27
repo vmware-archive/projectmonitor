@@ -33,13 +33,6 @@ describe('refresh', function() {
     it("replaces the correct DOM element", function() {
       expect($("#aggregate_project_4").text()).toContain("Hello World");
     });
-
-    it("uses the previous items classes", function() {
-      expect($("#aggregate_project_4")).toHaveClass("project");
-      expect($("#aggregate_project_4")).toHaveClass("aggregate");
-      expect($("#aggregate_project_4")).toHaveClass("success");
-      expect($("#aggregate_project_4")).not.toHaveClass("grid_4");
-    });
   });
 
   describe("when a request fails", function() {

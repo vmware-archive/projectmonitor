@@ -4,7 +4,6 @@ var refresh, scheduleRefresh;
 
 refresh = function() {
   $(".project:not(.empty-project)").each(function(index,element) {
-    var current_classes = $(element).attr("class");
     var projectCssId = $(element).attr("id");
     var project_id = $(element).data('id');
     var project_type = $(element).hasClass('aggregate') ? 'aggregate_project' : 'project';
@@ -14,7 +13,6 @@ refresh = function() {
       dataType: 'html',
       success: function(response) {
         $('#' + projectCssId).replaceWith(response);
-        $('#' + projectCssId).attr("class", current_classes);
       },
       error: function() {
         $('#' + projectCssId).addClass("server-unreachable");
