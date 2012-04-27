@@ -46,14 +46,8 @@ describe('refresh', function() {
 describe('polling indicator', function(){
   beforeEach(function() {
     var fixtures = [
-      "<ul class='projects'>",
-        "<li class='project success' id='project_1' data-id='1'></li>",
-        "<li class='project failure' id='project_2' data-id='2'></li>",
-        "<li class='project failure' id='project_3' data-id='3'></li>",
-        "<li class='project aggregate success' id='aggregate_project_4' data-id='4'></li>",
-      "</ul>",
       "<div id='indicator' class='idle'>",
-      "<img/>",
+        "<img/>",
       "</div>"
     ].join("\n");
     setFixtures(fixtures);
@@ -70,32 +64,20 @@ describe('polling indicator', function(){
   describe("when polling", function() {
 
     beforeEach(function() {
-      refresh();
+      $(document).trigger("ajaxStart");
     });
 
     it("should show the indicator", function() {
       expect($("#indicator")).not.toHaveClass('idle');
     });
 
-    describe("when one project has finished polling", function() {
+    describe("when all projects have finished polling", function() {
       beforeEach(function() {
-        refreshComplete({responseText: 'success'});
+        $(document).trigger("ajaxStop");
       });
 
-      it("should show the indicator", function() {
-        expect($("#indicator")).not.toHaveClass('idle');
-      });
-
-      describe("when one project has finished polling", function() {
-        beforeEach(function() {
-          refreshComplete({responseText: 'success'});
-          refreshComplete({responseText: 'success'});
-          refreshComplete({responseText: 'success'});
-        });
-
-        it("should hide the indicator", function() {
-          expect($("#indicator")).toHaveClass('idle');
-        });
+      it("should not show the indicator", function() {
+        expect($("#indicator")).toHaveClass('idle');
       });
     });
   });
