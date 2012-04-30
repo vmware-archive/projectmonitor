@@ -154,7 +154,7 @@ describe StatusFetcher do
 
         before do
           TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
-          tracker_api.stub(:delivered_story_count).with(project.tracker_project_id).and_return 7
+          tracker_api.stub(:delivered_stories_count).with(project.tracker_project_id).and_return 7
         end
 
         it "should set the project's tracker_num_unaccepted_stories to the number of delivered stories" do
