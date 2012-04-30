@@ -19,7 +19,7 @@ class TeamCityBuild < TeamCityRestProject
   end
 
   def building?
-    build_status.building? || children.any?(&:building?)
+    false
   end
 
   def status
