@@ -18,8 +18,7 @@
   <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name],
                        [HudsonProject.name.titleize, HudsonProject.name],
                        [TeamCityRestProject.name.titleize, TeamCityRestProject.name],
-                       [TeamCityProject.name.titleize, TeamCityProject.name],
-                       ["#{TeamCityBuild.name.titleize} (TC 7+)", TeamCityBuild.name]] %>
+                       [TeamCityProject.name.titleize, TeamCityProject.name] ] %>
 </p>
 
 <p>
