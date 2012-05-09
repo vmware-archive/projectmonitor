@@ -19,6 +19,7 @@ src_files:
   - public/javascripts/dragdrop.js
   - public/javascripts/application.js
   - app/assets/javascripts/refresh.js
+  - app/assets/javascripts/versionCheck.js
   - public/javascripts/**/*.js
 
 # stylesheets
