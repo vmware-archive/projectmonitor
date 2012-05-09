@@ -7,7 +7,7 @@ var VersionCheck = function() {
     $.ajax({
       url: '/revision',
       method: 'GET',
-      success: success,
+      success: success
     });
   };
 
@@ -26,8 +26,9 @@ var VersionCheck = function() {
 
     checkVersion: function() {
       versionRequest(function(response) {
-        if (response != window.currentVersion)
+        if (response != window.currentVersion) {
           window.location.reload();
+        }
       });
       scheduleRefresh();
     },
@@ -35,7 +36,7 @@ var VersionCheck = function() {
     currentVersion: function() {
       return window.currentVersion;
     }
-  }
+  };
 }();
 
 $(function() {
