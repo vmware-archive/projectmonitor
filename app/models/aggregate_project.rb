@@ -88,6 +88,10 @@ class AggregateProject < ActiveRecord::Base
     enabled.joins(:projects).find_tagged_with tags, match_all: true
   end
 
+  def as_json(options = {})
+    super(:only => :id, :methods => :tag_list)
+  end
+
   private
   def remove_project_associations
     projects.map {|p| p.aggregate_project = nil; p.save! }

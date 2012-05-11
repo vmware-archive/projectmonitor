@@ -49,6 +49,18 @@ feature "Dashboard" do
     end
   end
 
+  context "project list as JSON" do
+    let!(:project) { FactoryGirl.create(:project, code: "MyCode") }
+
+    before do
+      visit root_path(:format => 'json')
+    end
+
+    scenario "user sees a JSON collection of current build statuses" do
+      builds = JSON.parse(page.source)
+      builds.should include(JSON.parse(project.to_json))
+    end
+  end
 
   context "the build RSS feed" do
     let!(:project) { FactoryGirl.create(:project, code: "MyCode", statuses: [ProjectStatus.new]) }
