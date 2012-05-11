@@ -50,7 +50,7 @@ describe TeamCityRestProject do
 
     describe "#build_status_url" do
       it "should use rest api" do
-        project.build_status_url.should == "http://foo.bar.com:3434/httpAuth/app/rest/buildTypes/id:bt3"
+        project.build_status_url.should == rest_url
       end
     end
 

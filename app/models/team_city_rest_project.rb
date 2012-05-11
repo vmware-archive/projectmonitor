@@ -5,7 +5,7 @@ class TeamCityRestProject < Project
   validates_format_of :feed_url, :with => URL_FORMAT, :message => URL_MESSAGE
 
   def build_status_url
-    build_type_url
+    feed_url
   end
 
   def parse_building_status(content)
@@ -13,8 +13,10 @@ class TeamCityRestProject < Project
 
     document = Nokogiri::XML.parse(content)
     p_element = document.css("build").first
-    return status if p_element.nil? || p_element.attribute('running').nil?
-    status.building = p_element.attribute('running').value == 'true'
+
+    if p_element.present? && p_element.attribute('running').present?
+      status.building = true
+    end
 
     status
   end
