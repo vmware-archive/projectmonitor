@@ -315,4 +315,11 @@ describe AggregateProject do
     end
   end
 
+  describe "#as_json" do
+    subject { FactoryGirl.create(:aggregate_project) }
+
+    it "should return only public attributes" do
+      subject.as_json['aggregate_project'].keys.should == ['id', :tag_list]
+    end
+  end
 end

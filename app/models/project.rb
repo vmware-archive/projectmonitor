@@ -132,4 +132,8 @@ class Project < ActiveRecord::Base
   def tracker_unaccepted_stories_healthy?
     tracker_num_unaccepted_stories < 6
   end
+
+  def as_json(options = {})
+    super(:only => :id, :methods => :tag_list)
+  end
 end
