@@ -495,4 +495,12 @@ describe Project do
       FactoryGirl.build(:project).should be_valid
     end
   end
+
+  describe "#as_json" do
+    subject { FactoryGirl.create(:project) }
+
+    it "should return only public attributes" do
+      subject.as_json['project'].keys.should == ['id', :tag_list]
+    end
+  end
 end

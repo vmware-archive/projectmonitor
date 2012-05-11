@@ -38,7 +38,3 @@ var VersionCheck = function() {
     }
   };
 }();
-
-$(function() {
-  VersionCheck.init();
-});
