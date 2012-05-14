@@ -7,7 +7,11 @@
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
       <div class="status-bar">
-        <div class="publish-date"><%= project.time_since_last_build %></div>
+        <% if project.building? %>
+          <div class="building-indicator"></div>
+        <% else %>
+          <div class="publish-date"><%= project.time_since_last_build %></div>
+        <% end %>
         <% if project.tracker_project? %>
           <div class="inventory">
             Inventory:
