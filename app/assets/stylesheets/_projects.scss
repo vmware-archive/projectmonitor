@@ -54,6 +54,27 @@ ol.projects {
       height: 100%;
     }
 
+    .history {
+      ol {
+        li {
+          display:block;
+          float:left;
+          width:32px;
+          height:32px;
+          margin: 8px 5px;
+          position: relative;
+        }
+
+        a {
+          overflow: hidden;
+          font-size: 0;
+          display: block;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+
     &.success {
       background: $green;
       .information {
@@ -62,7 +83,7 @@ ol.projects {
           border-top: solid $very-dark-green 2px;
         }
       }
-      .history{
+      .velocity {
         background: $very-light-green;
         border-color: $very-dark-green;
 
@@ -74,8 +95,17 @@ ol.projects {
           @include animation-name(building-green);
         }
       }
+
       &.aggregate .information {
         @include linear-gradient(0deg, $green 50%, $dark-green 51%);
+      }
+
+      .history {
+        ol {
+          li {
+            background: $very-very-light-green center no-repeat;
+          }
+        }
       }
     }
 
@@ -88,7 +118,7 @@ ol.projects {
         }
 
       }
-      .history{
+      .velocity {
         background: $very-light-red;
         border-color: $very-dark-red;
 
@@ -100,8 +130,17 @@ ol.projects {
           @include animation-name(building-red);
         }
       }
+
       &.aggregate .information {
         @include linear-gradient(0deg, $red 50%, $dark-red 51%);
+      }
+
+      .history {
+        ol {
+          li {
+            background: $very-very-light-red no-repeat center;
+          }
+        }
       }
     }
 
@@ -116,7 +155,7 @@ ol.projects {
         }
       }
 
-      .history{
+      .velocity {
         background: $very-light-grey;
         border-color: $very-dark-grey;
 
@@ -140,7 +179,7 @@ ol.projects {
         }
       }
 
-      .history{
+      .velocity {
         background: $very-very-light-grey;
         border-color: $dark-grey;
 
@@ -173,10 +212,10 @@ ol.projects {
 
       .status-bar {
         .publish-date {
-          float: right;
-          text-align: center;
           font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
           font-weight: normal;
+          float: left;
+          text-align: center;
         }
 
         .inventory {
@@ -210,6 +249,18 @@ ol.projects {
     }
 
     .history {
+      ol {
+        li.success {
+          background-image: url(/assets/icons/success.png);
+        }
+
+        li.failure {
+          background-image: url(/assets/icons/failure.png);
+        }
+      }
+    }
+
+    .velocity {
       float: right;
       border-left: solid 2px;
       border-right: solid 2px;
@@ -279,7 +330,7 @@ ol.projects {
     }
 
     &.success {
-      .history {
+      .velocity {
         .project_history {
           .sparklines.building {
             .sparkline {
@@ -291,7 +342,7 @@ ol.projects {
     }
 
     &.failure {
-      .history {
+      .velocity {
         .project_history {
           .sparklines.building {
             .sparkline {
@@ -327,14 +378,18 @@ ol.projects {
       }
 
       .status-bar {
-        padding: 0 15px;
         height: 50px - 1;
-        line-height: 50px - 1;
+        line-height: 53px - 1;
         font-size: 30px;
+
+        .publish-date {
+          width: 80px;
+          font-size: 24px;
+        }
       }
     }
 
-    .history {
+    .velocity {
       width: 180px;
       .publish_date {
         height: 150px;
@@ -405,7 +460,7 @@ ol.projects {
       }
     }
 
-    .history {
+    .velocity {
       width: 180px;
       .publish_date {
         height: 150px;
@@ -469,7 +524,7 @@ ol.projects {
       }
     }
 
-    .history {
+    .velocity {
       width: 96px;
       .publish_date {
         height: 90px;
@@ -551,7 +606,7 @@ ol.projects {
       }
     }
 
-    .history {
+    .velocity {
       border: none;
       width: 96px;
       .publish_date {
