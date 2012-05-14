@@ -211,6 +211,18 @@ ol.projects {
       }
 
       .status-bar {
+        .building-indicator {
+          float:left;
+          margin:3px 0;
+          width:80px;
+          text-align:center;
+
+          img {
+            width:30px;
+            height:30px;
+          }
+        }
+
         .publish-date {
           font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
           font-weight: normal;

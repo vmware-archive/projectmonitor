@@ -47,6 +47,39 @@ feature "Dashboard" do
       page.should have_no_content("New York")
       page.should have_no_content("San Francisco")
     end
+
+    context "with no building projects" do
+      let!(:project) { FactoryGirl.create(:project) }
+
+      before do
+        visit root_path
+      end
+
+      it 'should display a publish date in the project tile' do
+        page.should have_selector("#project_#{project.id} .publish-date")
+      end
+
+      it 'should not display the building indicator in the project tile' do
+        page.should_not have_selector("#project_#{project.id} .building-indicator")
+      end
+    end
+
+    context "with a building project" do
+      let!(:project) { FactoryGirl.create(:project, :building => true) }
+
+      before do
+        visit root_path
+      end
+
+      it 'should not display a publish date in the project tile' do
+        page.should_not have_selector("#project_#{project.id} .publish-date")
+      end
+
+      it 'should display the building indicator in the project tile' do
+        page.should have_selector("#project_#{project.id} .building-indicator")
+      end
+    end
+
   end
 
   context "project list as JSON" do
