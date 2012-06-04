@@ -341,28 +341,13 @@ ol.projects {
       }
     }
 
-    &.success {
-      .velocity {
-        .project_history {
-          .sparklines.building {
-            .sparkline {
-              @include animation-name(building-green);
-            }
-          }
-        }
+    &.success .velocity .project_history .sparklines.building .sparkline {
+      @include animation-name(building-green);
       }
     }
 
-    &.failure {
-      .velocity {
-        .project_history {
-          .sparklines.building {
-            .sparkline {
-              @include animation-name(building-red);
-            }
-          }
-        }
-      }
+    &.failure .velocity .project_history .sparklines.building .sparkline {
+      @include animation-name(building-red);
     }
   }
 }
