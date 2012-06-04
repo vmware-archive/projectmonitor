@@ -54,6 +54,7 @@ group :development do
   gem "soloist", "~> 0.9.4"
   gem "fog", "~> 1.3.1"
   gem "pivotal_git_scripts", "~> 1.1.4"
+  gem "rails-erd"
 end
 
 group :test do
