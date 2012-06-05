@@ -40,6 +40,33 @@
   100% { @include building_animation_100; }
 }
 
+
+$success-unicode-glyph: "\2022"; // unicode bullet
+$failure-unicode-glyph: "\00D7"; // unicode 'x'
+
+// Default values for tiles_15; vars need to be declared before being invokes.
+
+$information-width: 420px !default;
+
+$success-font-size: 1.4em !default;
+$success-line-height: 36px !default;
+$success-padding-left: 6px !default;
+$success-top: -38px !default;
+
+$failure-font-size: 1.3em !default;
+$failure-line-height: -1px !default;
+$failure-padding-left: 3px !default;
+$failure-top: -36px !default;
+
+//Variables for history elements
+$history-margin-vertical: 8px !default;
+$history-margin-history: 5px !default;
+
+$history-width: 32px !default;
+$history-height: 32px !default;
+
+$statusbar-font-size: 30px !default;
+
 ol.projects {
   list-style: none;
 
@@ -59,9 +86,9 @@ ol.projects {
         li {
           display:block;
           float:left;
-          width:32px;
-          height:32px;
-          margin: 8px 5px;
+          width: $history-width;
+          height:$history-height;
+          margin: $history-margin-vertical $history-margin-history;
           position: relative;
         }
 
@@ -69,19 +96,18 @@ ol.projects {
           overflow: hidden;
           font-size: 0;
           display: block;
-          width: 32px;
-          height: 32px;
+          width: $history-width;
+          height: $history-height;
         }
       }
     }
 
     &.success {
       background: $green;
-      .information {
-        .status-bar {
+      .information .status-bar {
           background: $light-green;
           border-top: solid $very-dark-green 2px;
-        }
+
       }
       .velocity {
         background: $very-light-green;
@@ -262,12 +288,35 @@ ol.projects {
 
     .history {
       ol {
-        li.success {
-          background-image: url(/assets/icons/success.png);
+        li {
+          line-height: 32px;
+          font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+          text-decoration: none;
+          a {
+            position: relative;
+          }
         }
 
-        li.failure {
-          background-image: url(/assets/icons/failure.png);
+        li.success a {
+          top: $success-top;
+        }
+
+        li.failure a {
+          top: $failure-top;
+        }
+
+        li.success:before {
+          content: $success-unicode-glyph;
+          font-size: $success-font-size;
+          line-height: $success-line-height;
+          padding-left: $success-padding-left;
+        }
+
+        li.failure:before {
+          content: $failure-unicode-glyph;
+          font-size: $failure-font-size;
+          line-height: $failure-line-height;
+          padding-left: $failure-padding-left;
         }
       }
     }
