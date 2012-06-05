@@ -1,0 +1,64 @@
+.tiles_48 ol.projects {
+  $information-width: 190px;
+
+  > li {
+    @include grid(2);
+  }
+
+  li.empty-project {
+    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
+  }
+
+  li.project {
+    height: 118px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    .information {
+      width: $information-width;
+
+      h1 {
+        $height: 82px - 1;
+        height: $height;
+        padding: 0 15px;
+        line-height: $height;
+        font-size: 60px;
+      }
+
+      .status-bar {
+        padding: 0 15px;
+        height: 35px - 1;
+        line-height: 35px - 1;
+        font-size: 28px;
+      }
+    }
+
+    .velocity {
+      width: 96px;
+      .publish_date {
+        height: 90px;
+        font-size: 24pt;
+        line-height: 70px;
+      }
+
+      .sparklines {
+        margin: 70px 10px 20px;
+        width: 80px;
+
+        .sparkline {
+          margin: 2px 2px 0 0;
+          a {
+            background-size: 63%;
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+
+    &.aggregate {
+      .information {
+        background-size: ($information-width/5.5);
+      }
+    }
+  }
+}

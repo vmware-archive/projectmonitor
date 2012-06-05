@@ -1,0 +1,76 @@
+.tiles_24 ol.projects {
+  $information-width: 263px;
+
+  $success-font-size: 1.4em;
+  $success-line-height: 36px;
+  $success-padding-left: 6px;
+  $success-top: -38px;
+
+  $failure-font-size: 1.3em;
+  $failure-line-height: -1px;
+  $failure-padding-left: 3px;
+  $failure-top: -36px;
+
+  $history-margin-vertical: 5px;
+  $history-margin-history: 2px;
+
+  $history-width: 24px;
+  $history-height: 24px;
+
+  $statusbar-font-size: 24px;
+  > li {
+    @include grid(3);
+  }
+
+  li.project {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    height: 161px;
+    .information {
+      width: $information-width;
+
+      h1 {
+        $height: 110px - 1;
+        height: $height;
+        padding: 0 15px;
+        line-height: $height;
+        font-size: 92px;
+      }
+
+      .status-bar {
+        padding: 0 15px;
+        height: 50px - 1;
+        line-height: 50px - 1;
+        font-size: 30px;
+      }
+    }
+
+    .velocity {
+      width: 180px;
+      .publish_date {
+        height: 150px;
+        font-size: 34pt;
+        line-height: 150px;
+      }
+
+      .sparklines {
+        margin: 95px 30px 5px;
+        width: (20px + 2 + 2) * 5;
+
+        .sparkline {
+          a {
+            width: 20px;
+            height: 20px;
+          }
+
+        }
+      }
+    }
+
+    &.aggregate {
+      .information {
+        background-size: ($information-width/5.5);
+      }
+    }
+  }
+}
