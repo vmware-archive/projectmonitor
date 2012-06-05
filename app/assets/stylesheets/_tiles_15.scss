@@ -1,0 +1,91 @@
+.tiles_15 ol.projects {
+  $information-width: 420px;
+
+  $success-font-size: 1.4em;
+  $success-line-height: 36px;
+  $success-padding-left: 6px;
+  $success-top: -38px;
+
+  $failure-font-size: 1.3em;
+  $failure-line-height: -1px;
+  $failure-padding-left: 3px;
+  $failure-top: -36px;
+
+  $history-margin-vertical: 8px;
+  $history-margin-history: 5px;
+
+  $history-width: 32px;
+  $history-height: 32px;
+
+  $statusbar-font-size: 30px;
+
+  > li {
+    @include grid(4);
+  }
+
+  li.project {
+    height: 192px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    .information {
+      width: $information-width;
+      h1 {
+        $height: 142px - 1;
+        height: $height;
+        padding: 0 15px;
+        line-height: $height;
+        font-size: 100px;
+      }
+
+      .status-bar {
+        height: 50px - 1;
+        line-height: 53px - 1;
+        font-size: 30px;
+
+        .publish-date {
+          width: 80px;
+          font-size: 24px;
+        }
+      }
+    }
+
+    .velocity {
+      width: 180px;
+      .publish_date {
+        height: 150px;
+        font-size: 34pt;
+        line-height: 150px;
+      }
+
+      .sparklines {
+        margin: 100px 15px 5px;
+        width: 150px;
+
+        .sparkline {
+          a {
+            width: 26px;
+            height: 26px;
+          }
+
+          &.success {
+            a {
+              background: url(/assets/icons/success_15.png) center no-repeat;
+            }
+          }
+
+          &.failure {
+            a {
+              background: url(/assets/icons/failure_15.png) center no-repeat;
+            }
+          }
+        }
+      }
+    }
+
+    &.aggregate {
+      .information {
+        background-size: ($information-width/5.5);
+      }
+    }
+  }
+}
