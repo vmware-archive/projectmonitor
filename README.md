@@ -24,8 +24,8 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 
 ProjectMonitor is a Rails application. To get the code, execute the following:
 
-    git clone git://github.com/pivotal/cimonitor.git pivotal_cimonitor
-    cd pivotal_cimonitor
+    git clone git://github.com/pivotal/projectmonitor.git
+    cd projectmonitor
     bundle install
 
 ### Initial Setup
