@@ -105,8 +105,8 @@ ol.projects {
     &.success {
       background: $green;
       .information .status-bar {
-          background: $light-green;
-          border-top: solid $very-dark-green 2px;
+        background: $light-green;
+        border-top: solid $very-dark-green 2px;
 
       }
       .velocity {
@@ -392,12 +392,11 @@ ol.projects {
 
     &.success .velocity .project_history .sparklines.building .sparkline {
       @include animation-name(building-green);
-      }
     }
+  }
 
-    &.failure .velocity .project_history .sparklines.building .sparkline {
-      @include animation-name(building-red);
-    }
+  &.failure .velocity .project_history .sparklines.building .sparkline {
+    @include animation-name(building-red);
   }
 }
 
