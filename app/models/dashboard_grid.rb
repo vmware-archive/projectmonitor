@@ -46,7 +46,7 @@ class DashboardGrid
   end
 
   def generate_projects
-    Project.standalone + AggregateProject.all
+    (Project.standalone + AggregateProject.all).select(&:enabled?)
   end
 
   def generate_with_tags
