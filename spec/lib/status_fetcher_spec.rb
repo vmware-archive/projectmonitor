@@ -55,24 +55,11 @@ describe StatusFetcher do
     context "project status can be retrieved from remote source" do
       before do
         UrlRetriever.stub(:retrieve_content_at).and_return content
-        project.should_receive(:parse_project_status).with(content).and_return status
-        project.stub_chain(:statuses, :create).and_return "success"
       end
 
-      context "a matching status does not exist" do
-        before do
-          project.stub_chain(:status, :match?).with(status).and_return(false)
-        end
-
-        it { should == "success" }
-      end
-
-      context "a matching status exists" do
-        before do
-          project.stub_chain(:status, :match?).with(status).and_return(true)
-        end
-
-        it { should be_nil }
+      it "delegates status update to the project" do
+        project.should_receive(:process_status_update)
+        subject
       end
 
     end

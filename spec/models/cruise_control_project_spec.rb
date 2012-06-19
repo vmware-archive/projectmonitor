@@ -5,6 +5,8 @@ describe Project do
     @project = CruiseControlProject.new(:name => "my_cc_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
   end
 
+  it_should_behave_like 'a project that updates only the most recent status'
+
   describe "validations" do
     describe "validation" do
       it "should require an RSS URL" do
@@ -34,7 +36,7 @@ describe Project do
       end
     end
   end
-  
+
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       @project.feed_url = nil
@@ -63,7 +65,7 @@ describe Project do
 
       it "should return the published date of the checkin" do
         @status_parser.published_at.should ==
-            Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate")) 
+            Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate"))
       end
 
       it "should report success" do
@@ -107,7 +109,7 @@ describe Project do
     before(:each) do
       @project = CruiseControlProject.new(:name => "Socialitis", :feed_url => "http://foo.bar.com:3434/projects/Socialitis.rss")
     end
-    
+
     context "with a valid response that the project is building" do
       before(:each) do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_building.xml").read)
@@ -138,5 +140,5 @@ describe Project do
       end
     end
   end
-  
+
 end
