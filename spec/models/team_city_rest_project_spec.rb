@@ -6,6 +6,8 @@ describe TeamCityRestProject do
     let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
     let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => rest_url) }
 
+    it_should_behave_like 'a project that updates only the most recent status'
+
     describe "#build_id" do
       it "is retrieved from the feed_url" do
         project.build_id.should == "bt3"
