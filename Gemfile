@@ -70,6 +70,6 @@ group :test, :development do
   gem "jasmine", "~> 1.1.2"
   gem "factory_girl_rails"
   gem "ffaker"
-  gem "ruby-debug19"
+  gem "debugger"
   gem "pry"
 end
