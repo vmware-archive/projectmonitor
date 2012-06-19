@@ -12,9 +12,8 @@ $(function() {
   if ($('body').hasClass('tiles_15')) {
     $('.building-indicator').spin({radius:8, length:9, width:3, lines:12, top:2, left:16});
   }
-  else if ($('body').hasClass('tiles_24')) {
+  else {
     $('.building-indicator').spin({radius:6, length:7, width:2, lines:12, top:4, left:6});
-
   }
 });
 
