@@ -22,24 +22,32 @@ class TeamCityRestProject < Project
   end
 
   def parse_project_status(content)
-    status = super(content)
+    raise NotImplementedError, "TeamCityRestProject#parse_project_status is no longer used"
+  end
 
-    latest_build = Nokogiri::XML.parse(content).css('build').first
-    status.success = latest_build.attribute('status').value == "SUCCESS"
-    status.url = latest_build.attribute('webUrl').value
+  def process_status_update(xml_text)
+    parse_project_statuses(xml_text).each do |parsed_status|
+      parsed_status.save! unless statuses.find_by_url(parsed_status.url)
+    end
+  end
 
-    status.published_at = if latest_build.attribute('startDate').present?
-                            Time.parse(latest_build.attribute('startDate').value).localtime
-                          else
-                            previous_status = statuses.first
-                            if previous_status && status.url == previous_status.url && status.success == previous_status.success
-                              previous_status.published_at # no change
-                            else
-                              Clock.now.localtime
-                            end
-                          end
+  def parse_project_statuses(content)
+    Nokogiri::XML.parse(content).css('build').first(50).compact.
+      reject { |status_elem|
+        status_elem.attribute('running') && status_elem.attribute('status').value == "SUCCESS"
+      }.
+      map { |status_elem|
+        status = ProjectStatus.new(:project => self, :online => true)
+        status.success = status_elem.attribute('status').value == "SUCCESS"
+        status.url = status_elem.attribute('webUrl').value
 
-    status
+        status.published_at = if status_elem.attribute('startDate').present?
+                                Time.parse(status_elem.attribute('startDate').value).localtime
+                              else
+                                Clock.now.localtime
+                              end
+        status
+      }
   end
 
   def build_id
