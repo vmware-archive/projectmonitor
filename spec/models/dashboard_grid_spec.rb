@@ -100,14 +100,23 @@ describe DashboardGrid do
   context "with multiple projects" do
     fixtures :projects, :aggregate_projects
 
-    let(:projects) { DashboardGrid.generate.compact }
+    let(:generated_projects) { DashboardGrid.generate.compact }
 
     before do
-      projects.size.should > 1
+      generated_projects.size.should > 1
     end
 
     it "sorts the projects in alphabetical order" do
-      projects.should == projects.sort_by(&:name)
+      generated_projects.should == generated_projects.sort_by(&:name)
+    end
+
+    it "should include enabled projects" do
+      generated_projects.should_not be_empty
+    end
+
+    it "does not include disabled projects" do
+      generated_projects.should_not include( projects(:disabled) )
+      generated_projects.should_not include( aggregate_projects(:disabled) )
     end
   end
 end
