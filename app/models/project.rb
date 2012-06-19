@@ -21,6 +21,12 @@ class Project < ActiveRecord::Base
   before_save :clear_empty_location
   before_save :check_next_poll
 
+  def process_status_update(content)
+    parsed_status = parse_project_status(content)
+    parsed_status.online = true
+    statuses.create(parsed_status.attributes) unless self.status.match?(parsed_status)
+  end
+
   def clear_empty_location
     self.location = nil if self.location.blank?
   end
