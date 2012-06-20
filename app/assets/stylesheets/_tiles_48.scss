@@ -1,6 +1,25 @@
 .tiles_48 ol.projects {
   $information-width: 190px;
 
+  $success-font-size: 2.0em;
+  $success-line-height: 15px;
+  $success-padding-left: 4px;
+  // $success-top: 100px;
+
+  $failure-font-size: 1.7em;
+  $failure-line-height: 15px;
+  $failure-padding-left: 3px;
+  // $failure-top: 100px;
+
+  $history-margin-horizontal: 8px;
+  $history-margin-vertical: 12px;
+  $history-margin-history: 2px;
+
+  $history-width: 20px;
+  $history-height: 20px;
+
+  $statusbar-font-size: 30px;
+
   > li {
     @include grid(2);
   }
@@ -10,25 +29,116 @@
   }
 
   li.project {
-    height: 118px;
+    height: 140px;
     margin-top: 6px;
     margin-bottom: 6px;
+
+    .history {
+      ol {
+        li {
+          display:block;
+          float:left;
+          width: $history-width;
+          height:$history-height;
+          margin: $history-margin-vertical $history-margin-history;
+          position: relative;
+          background:$very-very-light-grey;
+        }
+
+        li.success:before {
+          content: $success-unicode-glyph;
+          font-size: $success-font-size;
+          line-height: $success-line-height;
+          padding-left: $success-padding-left;
+          position: absolute;
+          top:3px;
+        }
+
+        li.failure:before {
+          content: $failure-unicode-glyph;
+          font-size: $failure-font-size;
+          line-height: $failure-line-height;
+          padding-left: $failure-padding-left;
+          position: absolute;
+          top:2px;
+        }
+
+        a {
+          overflow: hidden;
+          font-size: 0;
+          display: block;
+          width: $history-width;
+          height: $history-height;
+        }
+      }
+    }
+
     .information {
       width: $information-width;
-
       h1 {
-        $height: 82px - 1;
+        text-transform: uppercase;
+        $height: 96px - 1;
         height: $height;
-        padding: 0 15px;
-        line-height: $height;
-        font-size: 60px;
+        padding: 0px 15px;
+        line-height: 105px;
+        text-align: left;
+        font-size: 54px;
       }
 
       .status-bar {
-        padding: 0 15px;
-        height: 35px - 1;
-        line-height: 35px - 1;
-        font-size: 28px;
+        height: 43px;
+        width: 190px;
+        overflow: hidden;
+        .building-indicator {
+          // margin: 0px 0 0 0;
+          float:left;
+          width:42px;
+          text-align:center;
+
+          img {
+            width:30px;
+            height:30px;
+          }
+        }
+
+        .publish-date {
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+          font-weight: normal;
+          float: left;
+          text-align: center;
+          font-size: 16px;
+          width: 26px;
+          padding: 0 8px;
+          margin: 12px 0 0 0;
+        }
+
+        .inventory {
+          .healthy {
+            color: green;
+          }
+
+          .unhealthy {
+            color: red;
+          }
+
+          float: right;
+          margin-right: 20px;
+          font-size: 10px;
+        }
+
+        .name {
+          font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+          font-weight: normal;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-transform: capitalize;
+
+          a {
+            text-decoration: none;
+            color: black;
+          }
+        }
       }
     }
 
