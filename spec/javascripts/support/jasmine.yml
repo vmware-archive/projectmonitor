@@ -19,9 +19,7 @@ src_files:
   - public/javascripts/dragdrop.js
   - public/javascripts/application.js
   - vendor/assets/javascripts/underscore.js
-  - app/assets/javascripts/refresh.js
-  - app/assets/javascripts/versionCheck.js
-  - app/assets/javascripts/projectCheck.js
+  - app/assets/javascripts/**/*.js
   - public/javascripts/**/*.js
 
 # stylesheets

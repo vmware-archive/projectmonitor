@@ -30,7 +30,7 @@ var ProjectCheck = function() {
     checkProjects: function() {
       makeRequest(function(data) {
         if (!_.isEqual(data, projects)) {
-          window.location.reload();
+          WindowManager.reload();
         }
         scheduleRefresh();
       });
