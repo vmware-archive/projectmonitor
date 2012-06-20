@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   def status
     @project = ProjectDecorator.new(Project.find(params[:id]))
 
-    render :partial => "dashboards/project", :locals => { :project => @project}
+    render :partial => "dashboards/project", :locals => { :project => @project, :projects_count => params[:projects_count].to_i }
   end
 
   def update
@@ -62,6 +62,6 @@ class ProjectsController < ApplicationController
   end
 
   def load_project_type
-    @project_type = params[:project][:type].nil? ? Project : params[:project][:type].constantize 
+    @project_type = params[:project][:type].nil? ? Project : params[:project][:type].constantize
   end
 end

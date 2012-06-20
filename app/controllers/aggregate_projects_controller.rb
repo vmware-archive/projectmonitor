@@ -28,7 +28,7 @@ class AggregateProjectsController < ApplicationController
   def status
     @aggregate_project = ProjectDecorator.new(AggregateProject.find(params[:id]))
 
-    render :partial => "dashboards/project", :locals => { :project => @aggregate_project }
+    render :partial => "dashboards/project", :locals => { :project => @aggregate_project, :projects_count => params[:projects_count].to_i }
   end
 
   def update
