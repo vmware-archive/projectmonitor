@@ -1,31 +1,35 @@
-.tiles_24 ol.projects {
-  $information-width: 263px;
+.tiles_63 ol.projects {
+  $information-width: 157px;
 
-  $success-font-size: 2.5em;
-  $success-line-height: 23px;
-  $success-padding-left: 3px;
+  $success-font-size: 1.8em;
+  $success-line-height: 13px;
+  $success-padding-left: 4px;
   // $success-top: 100px;
 
-  $failure-font-size: 2.3em;
-  $failure-line-height: 0px;
+  $failure-font-size: 1.7em;
+  $failure-line-height: 13px;
   $failure-padding-left: 2px;
   // $failure-top: 100px;
 
-  $history-margin-horizontal: 6px;
-  $history-margin-vertical: 10px;
-  $history-margin-history: 2.5px;
+  $history-margin-horizontal: 8px;
+  $history-margin-vertical: 13px;
+  $history-margin-history: 2px;
 
-  $history-width: 22px;
-  $history-height: 22px;
+  $history-width: 18px;
+  $history-height: 18px;
 
   $statusbar-font-size: 30px;
 
   > li {
-    @include grid(3);
+    @include grid(1, 7);
+  }
+
+  li.empty-project {
+    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
   }
 
   li.project {
-    height: 192px;
+    height: 140px;
     margin-top: 6px;
     margin-bottom: 6px;
 
@@ -46,6 +50,8 @@
           font-size: $success-font-size;
           line-height: $success-line-height;
           padding-left: $success-padding-left;
+          position: absolute;
+          top:3px;
         }
 
         li.failure:before {
@@ -53,6 +59,8 @@
           font-size: $failure-font-size;
           line-height: $failure-line-height;
           padding-left: $failure-padding-left;
+          position: absolute;
+          top:2px;
         }
 
         a {
@@ -69,18 +77,18 @@
       width: $information-width;
       h1 {
         text-transform: uppercase;
-        $height: 142px - 1;
+        $height: 96px - 1;
         height: $height;
         padding: 0px 15px;
-        line-height: 155px;
+        line-height: 105px;
         text-align: left;
-        font-size: 80px;
+        font-size: 44px;
       }
 
       .status-bar {
-        margin: 6px 0 0 0;
         height: 43px;
-        width: auto;
+        width: 157px;
+        overflow: hidden;
         .building-indicator {
           // margin: 0px 0 0 0;
           float:left;
@@ -99,8 +107,8 @@
           float: left;
           text-align: center;
           font-size: 16px;
-          width: 32px;
-          padding: 0 $history-margin-horizontal;
+          width: 26px;
+          padding: 0 8px;
           margin: 12px 0 0 0;
         }
 
@@ -135,27 +143,34 @@
     }
 
     .velocity {
-      width: 180px;
+      width: 96px;
+      display: inline;
+      font-size: 10px;
+      text-align: left;
+      .velocity_text {
+      font-size: 10px;
+      text-align: left;
+      }
+      .velocity_number {
+        font-size: 32px;
+        padding: 0 0 0 50px;
+      }
+      .publish_date {
+        height: 90px;
+        font-size: 24pt;
+        line-height: 70px;
+      }
+
       .sparklines {
-        margin: 100px 15px 5px;
-        width: 150px;
+        margin: 70px 10px 20px;
+        width: 80px;
 
         .sparkline {
+          margin: 2px 2px 0 0;
           a {
-            width: 26px;
-            height: 26px;
-          }
-
-          &.success {
-            a {
-              background: url(/assets/icons/success_15.png) center no-repeat;
-            }
-          }
-
-          &.failure {
-            a {
-              background: url(/assets/icons/failure_15.png) center no-repeat;
-            }
+            background-size: 63%;
+            width: 14px;
+            height: 14px;
           }
         }
       }

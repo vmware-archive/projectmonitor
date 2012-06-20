@@ -1,4 +1,8 @@
 @import "constants";
+@import "tiles_24";
+@import "tiles_15";
+@import "tiles_48";
+@import "tiles_63";
 
 @mixin building_animation_0($background_color) {
   opacity: 1;
@@ -40,10 +44,6 @@
   100% { @include building_animation_100; }
 }
 
-
-$success-unicode-glyph: "\2022"; // unicode bullet
-$failure-unicode-glyph: "\00D7"; // unicode 'x'
-
 // Default values for tiles_15; vars need to be declared before being invokes.
 
 $information-width: 420px !default;
@@ -81,26 +81,26 @@ ol.projects {
       height: 100%;
     }
 
-    .history {
-      ol {
-        li {
-          display:block;
-          float:left;
-          width: $history-width;
-          height:$history-height;
-          margin: $history-margin-vertical $history-margin-history;
-          position: relative;
-        }
+    // .history {
+      // ol {
+        // li {
+          // display:block;
+          // float:left;
+          // width: $history-width;
+          // height:$history-height;
+          // margin: $history-margin-vertical $history-margin-history;
+          // position: relative;
+        // }
 
-        a {
-          overflow: hidden;
-          font-size: 0;
-          display: block;
-          width: $history-width;
-          height: $history-height;
-        }
-      }
-    }
+        // a {
+          // overflow: hidden;
+          // font-size: 0;
+          // display: block;
+          // width: $history-width;
+          // height: $history-height;
+        // }
+      // }
+    // }
 
     &.success {
       background: $green;
@@ -176,7 +176,7 @@ ol.projects {
 
       .information {
         .status-bar {
-          background: $light-grey;
+          background: $grey;
           border-top: solid $very-dark-grey 2px;
         }
       }
@@ -254,6 +254,7 @@ ol.projects {
           font-weight: normal;
           float: left;
           text-align: center;
+          font-size:1px;
         }
 
         .inventory {
@@ -305,19 +306,19 @@ ol.projects {
           top: $failure-top;
         }
 
-        li.success:before {
-          content: $success-unicode-glyph;
-          font-size: $success-font-size;
-          line-height: $success-line-height;
-          padding-left: $success-padding-left;
-        }
+        // li.success:before {
+          // content: $success-unicode-glyph;
+          // font-size: $success-font-size;
+          // line-height: $success-line-height;
+          // padding-left: $success-padding-left;
+        // }
 
-        li.failure:before {
-          content: $failure-unicode-glyph;
-          font-size: $failure-font-size;
-          line-height: $failure-line-height;
-          padding-left: $failure-padding-left;
-        }
+        // li.failure:before {
+          // content: $failure-unicode-glyph;
+          // font-size: $failure-font-size;
+          // line-height: $failure-line-height;
+          // padding-left: $failure-padding-left;
+        // }
       }
     }
 
@@ -400,287 +401,287 @@ ol.projects {
   }
 }
 
-.tiles_15 ol.projects {
-  $information-width: 420px;
+// .tiles_15 ol.projects {
+  // $information-width: 420px;
 
-  > li {
-    @include grid(4);
-  }
+  // // > li {
+    // // @include grid(4);
+  // // }
 
-  li.project {
-    height: 192px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    .information {
-      width: $information-width;
+  // li.project {
+    // height: 192px;
+    // margin-top: 6px;
+    // margin-bottom: 6px;
+    // .information {
+      // width: $information-width;
 
-      h1 {
-        $height: 142px - 1;
-        height: $height;
-        padding: 0 15px;
-        line-height: $height;
-        font-size: 100px;
-      }
+      // h1 {
+        // $height: 142px - 1;
+        // height: $height;
+        // padding: 0 15px;
+        // line-height: $height;
+        // font-size: 100px;
+      // }
 
-      .status-bar {
-        height: 50px - 1;
-        line-height: 53px - 1;
-        font-size: 30px;
+      // .status-bar {
+        // height: 50px - 1;
+        // line-height: 53px - 1;
+        // font-size: 30px;
 
-        .publish-date {
-          width: 80px;
-          font-size: 24px;
-        }
-      }
-    }
+        // .publish-date {
+          // width: 80px;
+          // font-size: 24px;
+        // }
+      // }
+    // }
 
-    .velocity {
-      width: 180px;
-      .publish_date {
-        height: 150px;
-        font-size: 34pt;
-        line-height: 150px;
-      }
+    // .velocity {
+      // width: 180px;
+      // .publish_date {
+        // height: 150px;
+        // font-size: 34pt;
+        // line-height: 150px;
+      // }
 
-      .sparklines {
-        margin: 100px 15px 5px;
-        width: 150px;
+      // .sparklines {
+        // margin: 100px 15px 5px;
+        // width: 150px;
 
-        .sparkline {
-          a {
-            width: 26px;
-            height: 26px;
-          }
+        // .sparkline {
+          // a {
+            // width: 26px;
+            // height: 26px;
+          // }
 
-          &.success {
-            a {
-              background: url(/assets/icons/success_15.png) center no-repeat;
-            }
-          }
+          // &.success {
+            // a {
+              // background: url(/assets/icons/success_15.png) center no-repeat;
+            // }
+          // }
 
-          &.failure {
-            a {
-              background: url(/assets/icons/failure_15.png) center no-repeat;
-            }
-          }
-        }
-      }
-    }
+          // &.failure {
+            // a {
+              // background: url(/assets/icons/failure_15.png) center no-repeat;
+            // }
+          // }
+        // }
+      // }
+    // }
 
-    &.aggregate {
-      .information {
-        background-size: ($information-width/5.5);
-      }
-    }
-  }
-}
+    // &.aggregate {
+      // .information {
+        // background-size: ($information-width/5.5);
+      // }
+    // }
+  // }
+// }
 
-.tiles_24 ol.projects {
-  $information-width: 263px;
+// .tiles_24 ol.projects {
+  // $information-width: 263px;
 
-  > li {
-    @include grid(3);
-  }
+  // > li {
+    // @include grid(3);
+  // }
 
-  li.project {
-    margin-top: 6px;
-    margin-bottom: 6px;
-    height: 161px;
-    .information {
-      width: $information-width;
+  // li.project {
+    // margin-top: 6px;
+    // margin-bottom: 6px;
+    // height: 161px;
+    // .information {
+      // width: $information-width;
 
-      h1 {
-        $height: 110px - 1;
-        height: $height;
-        padding: 0 15px;
-        line-height: $height;
-        font-size: 92px;
-      }
+      // h1 {
+        // $height: 110px - 1;
+        // height: $height;
+        // padding: 0 15px;
+        // line-height: $height;
+        // font-size: 92px;
+      // }
 
-      .status-bar {
-        padding: 0 15px;
-        height: 50px - 1;
-        line-height: 50px - 1;
-        font-size: 30px;
-      }
-    }
+      // .status-bar {
+        // padding: 0 15px;
+        // height: 50px - 1;
+        // line-height: 50px - 1;
+        // font-size: 30px;
+      // }
+    // }
 
-    .velocity {
-      width: 180px;
-      .publish_date {
-        height: 150px;
-        font-size: 34pt;
-        line-height: 150px;
-      }
+    // .velocity {
+      // width: 180px;
+      // .publish_date {
+        // height: 150px;
+        // font-size: 34pt;
+        // line-height: 150px;
+      // }
 
-      .sparklines {
-        margin: 95px 30px 5px;
-        width: (20px + 2 + 2) * 5;
+      // .sparklines {
+        // margin: 95px 30px 5px;
+        // width: (20px + 2 + 2) * 5;
 
-        .sparkline {
-          a {
-            width: 20px;
-            height: 20px;
-          }
+        // .sparkline {
+          // a {
+            // width: 20px;
+            // height: 20px;
+          // }
 
-        }
-      }
-    }
+        // }
+      // }
+    // }
 
-    &.aggregate {
-      .information {
-        background-size: ($information-width/5.5);
-      }
-    }
-  }
-}
+    // &.aggregate {
+      // .information {
+        // background-size: ($information-width/5.5);
+      // }
+    // }
+  // }
+// }
 
-.tiles_48 ol.projects {
-  $information-width: 190px;
+// .tiles_48 ol.projects {
+  // $information-width: 190px;
 
-  > li {
-    @include grid(2);
-  }
+  // > li {
+    // @include grid(2);
+  // }
 
-  li.empty-project {
-    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
-  }
+  // li.empty-project {
+    // background: image_url("icons/empty_tile_x_48.png") center no-repeat;
+  // }
 
-  li.project {
-    height: 118px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    .information {
-      width: $information-width;
+  // li.project {
+    // height: 118px;
+    // margin-top: 6px;
+    // margin-bottom: 6px;
+    // .information {
+      // width: $information-width;
 
-      h1 {
-        $height: 82px - 1;
-        height: $height;
-        padding: 0 15px;
-        line-height: $height;
-        font-size: 60px;
-      }
+      // h1 {
+        // $height: 82px - 1;
+        // height: $height;
+        // padding: 0 15px;
+        // line-height: $height;
+        // font-size: 60px;
+      // }
 
-      .status-bar {
-        padding: 0 15px;
-        height: 35px - 1;
-        line-height: 35px - 1;
-        font-size: 28px;
-      }
-    }
+      // .status-bar {
+        // padding: 0 15px;
+        // height: 35px - 1;
+        // line-height: 35px - 1;
+        // font-size: 28px;
+      // }
+    // }
 
-    .velocity {
-      width: 96px;
-      .publish_date {
-        height: 90px;
-        font-size: 24pt;
-        line-height: 70px;
-      }
+    // .velocity {
+      // width: 96px;
+      // .publish_date {
+        // height: 90px;
+        // font-size: 24pt;
+        // line-height: 70px;
+      // }
 
-      .sparklines {
-        margin: 70px 10px 20px;
-        width: 80px;
+      // .sparklines {
+        // margin: 70px 10px 20px;
+        // width: 80px;
 
-        .sparkline {
-          margin: 2px 2px 0 0;
-          a {
-            background-size: 63%;
-            width: 14px;
-            height: 14px;
-          }
-        }
-      }
-    }
+        // .sparkline {
+          // margin: 2px 2px 0 0;
+          // a {
+            // background-size: 63%;
+            // width: 14px;
+            // height: 14px;
+          // }
+        // }
+      // }
+    // }
 
-    &.aggregate {
-      .information {
-        background-size: ($information-width/5.5);
-      }
-    }
-  }
-}
+    // &.aggregate {
+      // .information {
+        // background-size: ($information-width/5.5);
+      // }
+    // }
+  // }
+// }
 
-.tiles_63 ol.projects {
-  $information-width: 157px;
+// .tiles_63 ol.projects {
+  // $information-width: 157px;
 
-  > li {
-    @include grid(1, 7);
-  }
+  // > li {
+    // @include grid(1, 7);
+  // }
 
-  li.empty-project {
-    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
-  }
+  // li.empty-project {
+    // background: image_url("icons/empty_tile_x_48.png") center no-repeat;
+  // }
 
-  li.location-header {
-    text-align: center;
+  // li.location-header {
+    // text-align: center;
 
-    background: image_url("icons/location_arrow.png") 50% 74% no-repeat;
+    // background: image_url("icons/location_arrow.png") 50% 74% no-repeat;
 
-    span {
-      border-bottom: 2px solid #666;
-      color: #666;
-      display: inline-block;
-      font-family: 'AvenirNextLTW01-Condens 721299', Helvetica, sans-serif;
-      font-size: 40px;
-      margin-top: 23px;
-      text-transform: uppercase;
-    }
-  }
+    // span {
+      // border-bottom: 2px solid #666;
+      // color: #666;
+      // display: inline-block;
+      // font-family: 'AvenirNextLTW01-Condens 721299', Helvetica, sans-serif;
+      // font-size: 40px;
+      // margin-top: 23px;
+      // text-transform: uppercase;
+    // }
+  // }
 
-  li.project {
-    height: 104px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    .information {
-      width: $information-width;
+  // li.project {
+    // height: 104px;
+    // margin-top: 6px;
+    // margin-bottom: 6px;
+    // .information {
+      // width: $information-width;
 
-      h1 {
-        $height: 80px - 1;
-        height: $height;
-        padding: 0 15px;
-        line-height: $height;
-        font-size: 48px;
-      }
+      // h1 {
+        // $height: 80px - 1;
+        // height: $height;
+        // padding: 0 15px;
+        // line-height: $height;
+        // font-size: 48px;
+      // }
 
-      .status-bar {
-        border: none;
-        padding: 0 15px;
-        height: 25px;
-        line-height: 27px;
-        font-size: 14px;
-      }
-    }
+      // .status-bar {
+        // border: none;
+        // padding: 0 15px;
+        // height: 25px;
+        // line-height: 27px;
+        // font-size: 14px;
+      // }
+    // }
 
-    .velocity {
-      border: none;
-      width: 96px;
-      .publish_date {
-        height: 90px;
-        font-size: 24pt;
-        line-height: 70px;
-      }
+    // .velocity {
+      // border: none;
+      // width: 96px;
+      // .publish_date {
+        // height: 90px;
+        // font-size: 24pt;
+        // line-height: 70px;
+      // }
 
-      .sparklines {
-        margin: 60px 10px 20px;
-        width: 80px;
+      // .sparklines {
+        // margin: 60px 10px 20px;
+        // width: 80px;
 
-        .sparkline {
-          margin: 2px 2px 0 0;
-          a {
-            background-size: 63%;
-            width: 14px;
-            height: 14px;
-          }
+        // .sparkline {
+          // margin: 2px 2px 0 0;
+          // a {
+            // background-size: 63%;
+            // width: 14px;
+            // height: 14px;
+          // }
 
-        }
-      }
-    }
+        // }
+      // }
+    // }
 
-    &.aggregate {
-      .information {
-        background-size: ($information-width/5.5);
-      }
-    }
-  }
-}
+    // &.aggregate {
+      // .information {
+        // background-size: ($information-width/5.5);
+      // }
+    // }
+  // }
+// }
 
