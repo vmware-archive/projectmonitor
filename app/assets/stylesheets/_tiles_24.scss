@@ -25,7 +25,7 @@
   }
 
   li.project {
-    height: 192px;
+    height: 160px;
     margin-top: 6px;
     margin-bottom: 6px;
 
@@ -69,17 +69,17 @@
       width: $information-width;
       h1 {
         text-transform: uppercase;
-        $height: 142px - 1;
+        $height: 112px - 1;
         height: $height;
         padding: 0px 15px;
-        line-height: 155px;
+        line-height: 124px;
         text-align: left;
         font-size: 80px;
       }
 
       .status-bar {
         margin: 6px 0 0 0;
-        height: 43px;
+        height: 41px;
         width: auto;
         .building-indicator {
           // margin: 0px 0 0 0;
