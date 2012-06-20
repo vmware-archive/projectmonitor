@@ -52,41 +52,9 @@ describe StatusFetcher do
 
     subject { StatusFetcher.retrieve_status_for project }
 
-    context "project status can be retrieved from remote source" do
-      before do
-        UrlRetriever.stub(:retrieve_content_at).and_return content
-      end
-
-      it "delegates status update to the project" do
-        project.should_receive(:process_status_update)
-        subject
-      end
-
-    end
-
-    context "project status can not be retrieved" do
-      before do
-        UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new("can't do it", 500)
-        project.stub_chain(:statuses, :create).and_return "success"
-      end
-
-      context "a status does not exist with that error" do
-        before do
-          project.stub(:status).and_return status
-          status.stub(:error).and_return "another error"
-        end
-
-        it { should == "success" }
-      end
-
-      context "a status exists with that error" do
-        before do
-          project.stub(:status).and_return status
-          status.stub(:error).and_return "HTTP Error retrieving status for project '##{project.id}': can't do it"
-        end
-
-        it { should be_nil }
-      end
+    it "delegates status update to the project" do
+      project.should_receive(:process_status_update)
+      subject
     end
 
   end

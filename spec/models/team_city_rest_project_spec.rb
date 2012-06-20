@@ -12,125 +12,162 @@ describe TeamCityRestProject do
       end
 
       def process_status_update
-        project.process_status_update(xml_text)
+        project.process_status_update
       end
 
 
-      context "when there are no builds" do
-        let(:xml_text) {
-          <<-XML.strip_heredoc
-            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-            <builds count="0"/>
-          XML
-        }
+      context "project status can not be retrieved from remote source" do
+        let(:project_status) { double('project status') }
+        before do
+          UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new("can't do it", 500)
+          project.stub(:status).and_return project_status
+          project.stub(:statuses).and_return(double('statuses'))
+        end
 
-        it "does not add any statuses" do
-          expect { process_status_update }.to_not change(project.statuses, :count)
+        context "a status does not exist with the error that is returned" do
+          before do
+            project_status.stub(:error).and_return "another error"
+          end
+
+          it "creates a status with the error message" do
+            project.statuses.should_receive(:create)
+            process_status_update
+          end
+        end
+
+        context "a status exists with the error that is returned" do
+          before do
+            project_status.stub(:error).and_return "HTTP Error retrieving status for project '##{project.id}': can't do it"
+          end
+
+          it "does not create a duplicate status" do
+            project.statuses.should_not_receive(:create)
+            process_status_update
+          end
         end
       end
 
-      context "when there is a new build" do
-        let(:url) { '/1' }
-        let(:start_time) { 5.minutes.ago }
-        let(:status) { '' }
+      context "project status can be retrieved" do
+        before do
+          UrlRetriever.stub(:retrieve_content_at).and_return xml_text
+        end
 
-        let(:xml_text) {
-          <<-XML.strip_heredoc
+        context "when there are no builds" do
+          let(:xml_text) {
+            <<-XML.strip_heredoc
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <builds count="0"/>
+            XML
+          }
+
+          it "does not add any statuses" do
+            expect { process_status_update }.to_not change(project.statuses, :count)
+          end
+        end
+
+        context "when there is a new build" do
+          let(:url) { '/1' }
+          let(:start_time) { 5.minutes.ago }
+          let(:status) { '' }
+
+          let(:xml_text) {
+            <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
               <build id="1" number="1" status="#{status}" webUrl="#{url}" startDate="#{start_time.iso8601}" />
             </builds>
-          XML
-        }
+            XML
+          }
 
-        it "creates a new status" do
-          expect { process_status_update }.to change(project.statuses, :count).by(1)
-        end
+          it "creates a new status" do
+            expect { process_status_update }.to change(project.statuses, :count).by(1)
+          end
 
-        it "gives the status the correct time" do
-          process_status_update
-          project.status.published_at.to_i.should == start_time.to_i
-        end
-
-        it "gives the status the correct url" do
-          process_status_update
-          project.status.url.should == url
-        end
-
-        context "and the build is successful" do
-          let(:status) { 'SUCCESS' }
-
-          it "creates a successful status" do
+          it "gives the status the correct time" do
             process_status_update
-            project.status.should be_success
+            project.status.published_at.to_i.should == start_time.to_i
+          end
+
+          it "gives the status the correct url" do
+            process_status_update
+            project.status.url.should == url
+          end
+
+          context "and the build is successful" do
+            let(:status) { 'SUCCESS' }
+
+            it "creates a successful status" do
+              process_status_update
+              project.status.should be_success
+            end
+          end
+
+          context "and the build is a failure" do
+            let(:status) { 'FAILURE' }
+
+            it "creates an unsuccessful status" do
+              process_status_update
+              project.status.should_not be_success
+            end
           end
         end
 
-        context "and the build is a failure" do
-          let(:status) { 'FAILURE' }
-
-          it "creates an unsuccessful status" do
-            process_status_update
-            project.status.should_not be_success
+        context "with multiple new builds" do
+          before do
+            project.statuses.create(url: '/1', success: true)
           end
-        end
-      end
 
-      context "with multiple new builds" do
-        before do
-          project.statuses.create(url: '/1', success: true)
-        end
-
-        let(:xml_text) {
-          <<-XML.strip_heredoc
+          let(:xml_text) {
+            <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="3">
               <build id="3" number="3" status="SUCCESS" webUrl="/3"  />
               <build id="2" number="2" status="SUCCESS" webUrl="/2"  />
               <build id="1" number="1" status="SUCCESS" webUrl="/1"  />
             </builds>
-          XML
-        }
+            XML
+          }
 
-        it "adds the new statuses" do
-          process_status_update
-          project.statuses.find_by_url('/3').should be
-          project.statuses.find_by_url('/2').should be
+          it "adds the new statuses" do
+            process_status_update
+            project.statuses.find_by_url('/3').should be
+            project.statuses.find_by_url('/2').should be
+          end
+
+          it "doesn't add a duplicate of the existing status" do
+            expect { process_status_update }.
+              to_not change { project.statuses.find_all_by_url("/1").count }
+          end
         end
 
-        it "doesn't add a duplicate of the existing status" do
-          expect { process_status_update }.
-            to_not change { project.statuses.find_all_by_url("/1").count }
-        end
-      end
-
-      context "when a failing build is still in progress" do
-        let(:xml_text) {
-          <<-XML.strip_heredoc
+        context "when a failing build is still in progress" do
+          let(:xml_text) {
+            <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
               <build id="1" number="1" status="FAILURE" webUrl="/1" running="true" />
             </builds>
-          XML
-        }
+            XML
+          }
 
-        it "creates a status" do
-          expect { process_status_update }.to change(project.statuses, :count).by(1)
+          it "creates a status" do
+            expect { process_status_update }.to change(project.statuses, :count).by(1)
+          end
         end
-      end
 
-      context "when a succeeding build is still in progress" do
-        let(:xml_text) {
-          <<-XML.strip_heredoc
+        context "when a succeeding build is still in progress" do
+          let(:xml_text) {
+            <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
               <build id="1" number="1" status="SUCCESS" webUrl="/1" running="true" />
             </builds>
-          XML
-        }
+            XML
+          }
 
-        it "does not create a status" do
-          expect { process_status_update }.to_not change(project.statuses, :count)
+          it "does not create a status" do
+            expect { process_status_update }.to_not change(project.statuses, :count)
+          end
         end
       end
     end
