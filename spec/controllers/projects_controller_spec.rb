@@ -5,9 +5,12 @@ describe ProjectsController do
   render_views
 
   describe "#status" do
-    let(:project) { projects(:socialitis) }
-    before { get :status, :id => project.id }
-    it { response.should render_template("dashboards/_project") }
+    context "should set the correct params" do
+      let(:project) { projects(:socialitis) }
+      before { get :status, :id => project.id, :projects_count => 8 }
+
+      it { response.should render_template("dashboards/_project") }
+    end
   end
 
   describe "with a logged in user" do

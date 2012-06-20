@@ -1,4 +1,4 @@
 <%# TODO: add logic to render either locations or projects %>
 <ol class="projects">
-  <%= render partial: "dashboards/project", collection: @projects.map { |p| tile_for(p) } %>
+  <%= render partial: "dashboards/project", collection: @projects.map { |p| tile_for(p) }, locals: { projects_count: @projects.count } %>
 </ol>
