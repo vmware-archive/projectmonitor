@@ -32,12 +32,7 @@ module StatusFetcher
     end
 
     def retrieve_status_for(project)
-      content = UrlRetriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password)
-      project.process_status_update(content)
-
-    rescue Net::HTTPError => e
-      error = "HTTP Error retrieving status for project '##{project.id}': #{e.message}"
-      project.statuses.create(:error => error) unless project.status.error == error
+      project.process_status_update
     end
 
     def retrieve_building_status_for(project)
