@@ -12,7 +12,7 @@
   // $failure-top: 100px;
 
   $history-margin-horizontal: 8px;
-  $history-margin-vertical: 13px;
+  $history-margin-vertical: 6px;
   $history-margin-history: 2px;
 
   $history-width: 18px;
@@ -29,7 +29,7 @@
   }
 
   li.project {
-    height: 140px;
+    height:103px;
     margin-top: 6px;
     margin-bottom: 6px;
 
@@ -77,16 +77,16 @@
       width: $information-width;
       h1 {
         text-transform: uppercase;
-        $height: 96px - 1;
+        $height: 72px - 1;
         height: $height;
         padding: 0px 15px;
-        line-height: 105px;
+        line-height: 75px;
         text-align: left;
         font-size: 44px;
       }
 
       .status-bar {
-        height: 43px;
+        height: 30px;
         width: 157px;
         overflow: hidden;
         .building-indicator {
@@ -109,7 +109,7 @@
           font-size: 16px;
           width: 26px;
           padding: 0 8px;
-          margin: 12px 0 0 0;
+          margin: 6px 0 0 0;
         }
 
         .inventory {
