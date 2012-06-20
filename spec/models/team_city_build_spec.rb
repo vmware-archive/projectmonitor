@@ -172,7 +172,46 @@ describe TeamCityBuild do
   end
 
   describe "#building?" do
-    pending
+    let(:build_status) { double(:build_status, :online? => true, :building? => building) }
+
+    before do
+      build.build_status_fetcher = proc { build_status }
+      build.stub(:children).and_return children
+    end
+
+    subject { build.building? }
+
+    context "is building" do
+      let(:building) { true }
+
+      context "any child is building" do
+        let(:children) { [double(:child, :online? => true, :building? => true)] }
+
+        it { should be_true }
+      end
+
+      context "no child is building" do
+        let(:children) { [double(:child, :online? => true, :building? => false)] }
+
+        it { should be_true }
+      end
+    end
+
+    context "is not building" do
+      let(:building) { false }
+
+      context "any child is building" do
+        let(:children) { [double(:child, :online? => true, :building? => true)] }
+
+        it { should be_true }
+      end
+
+      context "no child is building" do
+        let(:children) { [double(:child, :online? => true, :building? => false)] }
+
+        it { should be_false }
+      end
+    end
   end
 
   describe "#status" do
