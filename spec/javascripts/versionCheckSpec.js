@@ -34,7 +34,7 @@ describe('checkVersion', function() {
     var currentVersion = 1;
 
     beforeEach(function() {
-      spyOn(window.location, 'reload')
+      spyOn(WindowManager, 'reload')
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success(currentVersion);
       });
@@ -48,7 +48,7 @@ describe('checkVersion', function() {
     it('should reload the page (in Firefox)', function() {
       VersionCheck.checkVersion();
 
-      expect(window.location.reload).toHaveBeenCalled();
+      expect(WindowManager.reload).toHaveBeenCalled();
     });
   });
 
@@ -56,7 +56,7 @@ describe('checkVersion', function() {
     var currentVersion = 1;
 
     beforeEach(function() {
-      spyOn(window.location, 'reload');
+      spyOn(WindowManager, 'reload');
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success(currentVersion);
       });
@@ -65,7 +65,7 @@ describe('checkVersion', function() {
     });
 
     it('should not reload the page (in Firefox)', function() {
-      expect(window.location.reload).not.toHaveBeenCalled();
+      expect(WindowManager.reload).not.toHaveBeenCalled();
     });
   });
 
@@ -73,7 +73,7 @@ describe('checkVersion', function() {
     var currentVersion = 1;
 
     beforeEach(function() {
-      spyOn(window.location, 'reload');
+      spyOn(WindowManager, 'reload');
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success(currentVersion++);
       });
@@ -82,7 +82,7 @@ describe('checkVersion', function() {
     });
 
     it('reloads the page (in Firefox)', function() {
-      expect(window.location.reload).toHaveBeenCalled();
+      expect(WindowManager.reload).toHaveBeenCalled();
     });
   });
 });

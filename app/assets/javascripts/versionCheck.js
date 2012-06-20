@@ -27,7 +27,7 @@ var VersionCheck = function() {
     checkVersion: function() {
       versionRequest(function(response) {
         if (response != window.currentVersion) {
-          window.location.reload();
+          WindowManager.reload();
         }
       });
       scheduleRefresh();
