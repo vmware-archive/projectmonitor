@@ -9,16 +9,17 @@ describe('refresh', function() {
       "</ul>"
     ].join("\n");
     setFixtures(fixtures);
+    $("body").addClass("dashboard").addClass("tiles_15");
   });
 
   it("should call $.get for projects and aggregates", function() {
     refresh();
 
     expect(ajaxRequests.length).toEqual(4);
-    expect(ajaxRequests[0].url).toBe("/projects/1/status");
-    expect(ajaxRequests[1].url).toBe("/projects/2/status");
-    expect(ajaxRequests[2].url).toBe("/projects/3/status");
-    expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status");
+    expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=15");
+    expect(ajaxRequests[1].url).toBe("/projects/2/status?projects_count=15");
+    expect(ajaxRequests[2].url).toBe("/projects/3/status?projects_count=15");
+    expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?projects_count=15");
   });
 
   describe("when a request succeeds", function() {

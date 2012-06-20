@@ -7,8 +7,10 @@ refresh = function() {
     var projectCssId = $(element).attr("id");
     var project_id = $(element).data('id');
     var project_type = $(element).hasClass('aggregate') ? 'aggregate_project' : 'project';
+    var projects_count = $("body").attr("class").split(" ").slice(-1)[0].split("_").slice(-1)[0];
     $.ajax({
       url: '/'+project_type+'s/'+project_id+'/status',
+      data: { projects_count: projects_count },
       method: 'GET',
       dataType: 'html',
       success: function(response) {
