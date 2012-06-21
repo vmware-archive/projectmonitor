@@ -18,6 +18,7 @@ src_files:
   - public/javascripts/controls.js
   - public/javascripts/dragdrop.js
   - public/javascripts/application.js
+  - vendor/assets/javascripts/spin.js
   - vendor/assets/javascripts/underscore.js
   - app/assets/javascripts/**/*.js
   - public/javascripts/**/*.js
