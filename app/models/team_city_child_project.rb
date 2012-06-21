@@ -10,17 +10,34 @@ class TeamCityChildProject
     live_status != 'SUCCESS' || children.any?(&:red?)
   end
 
+  def last_build_time
+    [live_build_time, *children.map(&:last_build_time)].max
+  end
+
   private
 
   def live_status
-    content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
-    status_elem = Nokogiri::XML.parse(content).css('build').reject { |se|
-      se.attribute('status').value == 'UNKNOWN'
-    }.
-    detect { |se|
-      !se.attribute('running') || se.attribute('status').value != "SUCCESS"
-    }
-    status_elem.attribute('status').value
+    newest_build_node.attribute('status').value
+  end
+
+  def live_build_time
+    if newest_build_node.attribute('startDate').present?
+      Time.parse(newest_build_node.attribute('startDate').value).localtime
+    else
+      Clock.now.localtime
+    end
+  end
+
+  def newest_build_node
+    @newest_build_node ||= begin
+      content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
+      status_elem = Nokogiri::XML.parse(content).css('build').reject { |se|
+        se.attribute('status').value == 'UNKNOWN'
+      }.
+      detect { |se|
+        !se.attribute('running') || se.attribute('status').value != "SUCCESS"
+      }
+    end
   end
 
   def children
