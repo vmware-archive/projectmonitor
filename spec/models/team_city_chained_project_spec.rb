@@ -108,6 +108,42 @@ describe TeamCityChainedProject do
           project.latest_status.published_at.to_i.should == now.to_i
         end
       end
+
+      context "when the most recent build status is UNKNOWN" do
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="2">
+            <build id="2" number="2" status="UNKNOWN" webUrl="/456" />
+            <build id="1" number="1" status="#{build_status}" webUrl="/123" />
+          </builds>
+          XML
+        }
+
+        context "and the previous build is red" do
+          let(:build_status) { 'FAILURE' }
+
+          it "should not be successful" do
+            process_status_update
+            project.reload.latest_status.should_not be_success
+          end
+        end
+
+        context "and the previous build is green" do
+          let(:build_status) { 'SUCCESS' }
+
+          it "should be successful" do
+            process_status_update
+            project.reload.latest_status.should be_success
+          end
+        end
+      end
+    end
+  end
+
+  describe "#build_id" do
+    it "should use the build id in the feed_url" do
+      project.build_id.should == build_id
     end
   end
 end
