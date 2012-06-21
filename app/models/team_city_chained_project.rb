@@ -23,7 +23,11 @@ class TeamCityChainedProject < TeamCityRestProject
     status = ProjectStatus.new(:project => self, :online => true)
     status.success = status_elem.attribute('status').value == "SUCCESS"
     status.url = status_elem.attribute('webUrl').value
-    status.published_at = Clock.now
+    status.published_at = if status_elem.attribute('startDate').present?
+                            Time.parse(status_elem.attribute('startDate').value).localtime
+                          else
+                            Clock.now.localtime
+                          end
     status
   end
 
@@ -31,6 +35,7 @@ class TeamCityChainedProject < TeamCityRestProject
     status = live_status
     return status unless status.success?
     status.success = false if children.any?(&:red?)
+    status.published_at = [status.published_at, *children.map(&:last_build_time)].max
     status
   end
 
