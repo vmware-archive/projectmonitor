@@ -14,7 +14,10 @@ class TeamCityChildProject
 
   def live_status
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
-    status_elem = Nokogiri::XML.parse(content).css('build').detect { |se|
+    status_elem = Nokogiri::XML.parse(content).css('build').reject { |se|
+      se.attribute('status').value == 'UNKNOWN'
+    }.
+    detect { |se|
       !se.attribute('running') || se.attribute('status').value != "SUCCESS"
     }
     status_elem.attribute('status').value
