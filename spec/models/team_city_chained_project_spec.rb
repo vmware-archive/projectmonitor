@@ -82,9 +82,9 @@ describe TeamCityChainedProject do
           project.latest_status.should_not be_success
         end
 
-        it "gives the status the current time" do
+        it "gives the status the project's last build time" do
           process_status_update
-          project.latest_status.published_at.to_i.should == now.to_i
+          project.latest_status.published_at.to_i.should == start_time.to_i
         end
       end
 
@@ -92,20 +92,20 @@ describe TeamCityChainedProject do
         let(:build_status) { 'SUCCESS' }
 
         before do
-          TeamCityChildBuilder.stub(:parse).with(project, anything).and_return(
-            [ double('project child', green?: true, red?: false), double('project child', green?: false, red?: true) ]
-          )
+          TeamCityChildBuilder.stub(:parse).with(project, anything).and_return([
+            double('project child', red?: false, last_build_time: start_time + 1.hour),
+            double('project child', red?: true, last_build_time: start_time)
+          ])
         end
-
 
         it "creates a failing status" do
           process_status_update
           project.latest_status.should_not be_success
         end
 
-        it "gives the status the current time" do
+        it "gives the status the most recent build time" do
           process_status_update
-          project.latest_status.published_at.to_i.should == now.to_i
+          project.latest_status.published_at.to_i.should == (start_time + 1.hour).to_i
         end
       end
 
@@ -137,6 +137,34 @@ describe TeamCityChainedProject do
             project.reload.latest_status.should be_success
           end
         end
+      end
+
+      describe "when no builds have happened since the last status was created" do
+        before do
+          project.statuses.create!(online: true, success: false, url: '/456', published_at: last_build_time)
+          project.reload
+          TeamCityChildBuilder.stub(:parse).with(project, anything).and_return(children)
+        end
+
+        let(:last_build_time) { 5.minutes.ago }
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="2">
+            <build id="2" number="2" status="SUCCESS" webUrl="/456" startDate="#{last_build_time.iso8601}" />
+            <build id="1" number="1" status="FAILURE" webUrl="/123" startDate="#{(last_build_time - 5.minutes).iso8601}" />
+          </builds>
+          XML
+        }
+        let(:children) {[
+          double('project child', red?: false, last_build_time: last_build_time - 1.minute),
+          double('project child', red?: true, last_build_time: last_build_time - 2.minutes)
+        ]}
+
+        it "should not create a new status" do
+          expect { process_status_update }.to_not change(project.statuses, :count)
+        end
+
       end
     end
   end
