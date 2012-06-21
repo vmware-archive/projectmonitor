@@ -8,20 +8,35 @@
 $(function() {
   VersionCheck.init();
   ProjectCheck.init();
+  var projectsCount = $("body").projectsCount();
+  $('.building-indicator').setSpinner(projectsCount);
+});
 
-  if ($('body').hasClass('tiles_15')) {
-    $('.building-indicator').spin({radius:8, length:9, width:3, lines:12, top:2, left:16});
+$.fn.projectsCount = function(){
+  var bodyClass = $(this).attr("class");
+  var projectsCount;
+  if(bodyClass) {
+    projectsCount = parseInt(bodyClass.split(" ").slice(-1)[0].split("_").slice(-1)[0], 10);
   }
-  else if ($('body').hasClass('tiles_48')) {
-    $('.building-indicator').spin({radius:4, length:6, width:1, lines:12, top:1, left:10});
+  return projectsCount;
+};
+
+$.fn.setSpinner = function(projectsCount){
+  var $this = $(this);
+
+  if (projectsCount == 15) {
+    $this.spin({radius:8, length:9, width:3, lines:12, top:2, left:16});
   }
-  else if ($('body').hasClass('tiles_63')) {
-    $('.building-indicator').spin({radius:4, length:4, width:1, lines:12, top:3, left:12});
+  else if (projectsCount == 24) {
+    $this.spin({radius:6, length:7, width:2, lines:12, top:4, left:6});
+  }
+  else if (projectsCount == 63) {
+    $this.spin({radius:4, length:4, width:1, lines:12, top:3, left:12});
   }
   else {
-    $('.building-indicator').spin({radius:6, length:7, width:2, lines:12, top:4, left:6});
+    $this.spin({radius:4, length:6, width:1, lines:12, top:1, left:10});
   }
-});
+};
 
 $.fn.spin = function(opts) {
   this.each(function() {
