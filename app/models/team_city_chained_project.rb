@@ -7,6 +7,12 @@ class TeamCityChainedProject < TeamCityRestProject
     statuses.create(parsed_status.attributes) unless status.match?(parsed_status)
   end
 
+  def fetch_building_status
+    my_building_status = super
+    return my_building_status if my_building_status.building?
+    BuildingStatus.new( children.any?(&:building?) )
+  end
+
   private
 
   def parse_project_status

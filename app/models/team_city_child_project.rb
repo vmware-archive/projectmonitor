@@ -9,6 +9,10 @@ class TeamCityChildProject
     end
   end
 
+  def building?
+    live_building_status.building? || children.any?(&:building?)
+  end
+
   def red?
     live_status_hash[:status] != 'SUCCESS' || children.any?(&:red?)
   end
