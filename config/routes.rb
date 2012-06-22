@@ -28,7 +28,7 @@ CiMonitor::Application.routes.draw do
   resources :twitter_searches, :only => [:new, :create, :edit, :update, :destroy] do
     get :load_tweet
   end
-  resource :revision
+  resource :version
 
   root :to => 'dashboards#index'
 end

@@ -19,7 +19,7 @@ describe('checkProjects', function() {
 
   describe('when the project list has not changed', function() {
     beforeEach(function() {
-      spyOn(WindowManager, 'reload');
+      spyOn(ProjectMonitor.Window, 'reload');
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success([{hudson_project: {id: 1}}]);
       });
@@ -28,13 +28,13 @@ describe('checkProjects', function() {
     it('should not reload the page (in Firefox)', function() {
       ProjectCheck.init();
       ProjectCheck.checkProjects();
-      expect(WindowManager.reload).not.toHaveBeenCalled();
+      expect(ProjectMonitor.Window.reload).not.toHaveBeenCalled();
     });
   });
 
   describe('when the project list has changed', function() {
     beforeEach(function() {
-      spyOn(WindowManager, 'reload');
+      spyOn(ProjectMonitor.Window, 'reload');
 
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success([]);
@@ -49,7 +49,7 @@ describe('checkProjects', function() {
 
     it('should reload the page (in Firefox)', function() {
       ProjectCheck.checkProjects();
-      expect(WindowManager.reload).toHaveBeenCalled();
+      expect(ProjectMonitor.Window.reload).toHaveBeenCalled();
     });
   });
 });
