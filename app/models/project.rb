@@ -21,6 +21,13 @@ class Project < ActiveRecord::Base
   before_save :clear_empty_location
   before_save :check_next_poll
 
+  def fetch_new_statuses
+    content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
+    parsed_status = parse_project_status(content)
+    parsed_status.online = true
+    statuses.create(parsed_status.attributes) unless status.match?(parsed_status)
+  end
+
   def clear_empty_location
     self.location = nil if self.location.blank?
   end
@@ -95,6 +102,11 @@ class Project < ActiveRecord::Base
 
   def parse_project_status(content)
     ProjectStatus.new(:online => false, :success => false)
+  end
+
+  def fetch_building_status
+    content = UrlRetriever.retrieve_content_at(build_status_url, auth_username, auth_password)
+    parse_building_status(content)
   end
 
   def parse_building_status(content)

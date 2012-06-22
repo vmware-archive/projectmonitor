@@ -10,23 +10,20 @@ class TeamCityChildBuilder
   end
 
   def build
-    dependencies
+    child_build_ids = parsed_content.xpath("//snapshot-dependency").collect {|d| d.attributes["id"].to_s }
+
+    child_build_ids.map { |child_id| build_project(child_id) }
   end
 
   private
 
   def build_project(build_id)
-    TeamCityBuild.new(
+    TeamCityChildProject.new(
+      :build_id => build_id,
       :feed_url => @parent.feed_url.gsub(@parent.build_id, build_id),
       :auth_username => @parent.auth_username,
       :auth_password => @parent.auth_password
     )
-  end
-
-  def dependencies
-    parsed_content.xpath("//snapshot-dependency").collect {|d| d.attributes["id"].to_s }.map do |id|
-      build_project id
-    end
   end
 
   def parsed_content
