@@ -39,8 +39,7 @@ module StatusFetcher
     end
 
     def retrieve_building_status_for(project)
-      content = UrlRetriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password)
-      status = project.parse_building_status(content)
+      status = project.fetch_building_status
       project.update_attribute(:building, status.building?)
     rescue Net::HTTPError => e
       project.update_attribute(:building, false)
