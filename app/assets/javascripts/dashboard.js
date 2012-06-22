@@ -13,12 +13,7 @@ $(function() {
 });
 
 $.fn.projectsCount = function(){
-  var bodyClass = $(this).attr("class");
-  var projectsCount;
-  if(bodyClass) {
-    projectsCount = parseInt(bodyClass.split(" ").slice(-1)[0].split("_").slice(-1)[0], 10);
-  }
-  return projectsCount;
+  return parseInt($(this).data("tiles-count"));
 };
 
 $.fn.setSpinner = function(projectsCount){
