@@ -2,10 +2,18 @@ module TeamCityBuildStatusParsing
   private
 
   def live_status_hashes
-    statuses = status_nodes.map { |node| status_hash_for(node) }
-    statuses.reject { |status|
+    live_builds.reject { |status|
       status[:status] == 'UNKNOWN' || (status[:running] && status[:status] == 'SUCCESS')
     }
+  end
+
+  def live_building_status
+    most_recent_build = live_builds.first
+    BuildingStatus.new( most_recent_build ? most_recent_build[:running] : false )
+  end
+
+  def live_builds
+    status_nodes.map { |node| status_hash_for(node) }
   end
 
   def status_hash_for(node)

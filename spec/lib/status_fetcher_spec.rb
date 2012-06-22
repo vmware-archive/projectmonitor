@@ -101,8 +101,7 @@ describe StatusFetcher do
 
     context "project status can be retrieved from the remote source" do
       before do
-        UrlRetriever.stub(:retrieve_content_at).and_return content
-        project.should_receive(:parse_building_status).with(content).and_return status
+        project.stub(:fetch_building_status).and_return status
         StatusFetcher.retrieve_building_status_for project
       end
 
@@ -111,7 +110,7 @@ describe StatusFetcher do
 
     context "project status can not be retrieved" do
       before do
-        UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new("can't do it", 500)
+        project.stub(:fetch_building_status).and_raise Net::HTTPError.new("can't do it", 500)
         StatusFetcher.retrieve_building_status_for project
       end
 

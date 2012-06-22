@@ -184,37 +184,39 @@ describe TeamCityRestProject do
       end
     end
 
-    describe "#parse_building_status" do
+    describe "#fetch_building_status" do
+      subject { project.fetch_building_status }
       let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse") }
 
-      context "with a valid response that the project is building" do
-        before(:each) do
-          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_building.xml").read)
-        end
+      before do
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+      end
 
-        it "should set the building flag on the project to true" do
-          @status_parser.should be_building
-        end
+      let(:xml_text) {
+        <<-XML
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="1">
+            <build id="1" number="1" status="FAILURE" webUrl="/1"
+        #{project_is_running ? 'running="true"' : nil}
+            />
+          </builds>
+        XML
+      }
+
+      context "with a valid response that the project is building" do
+        let(:project_is_running) { true }
+        it { should be_building }
       end
 
       context "with a valid response that the project is not building" do
-        before(:each) do
-          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_not_building.xml").read)
-        end
-
-        it "should set the building flag on the project to false" do
-          @status_parser.should_not be_building
-        end
+        let(:project_is_running) { false }
+        it { should_not be_building }
       end
 
       context "with an invalid response" do
-        before(:each) do
-          @status_parser = project.parse_building_status("<foo><bar>baz</bar></foo>")
-        end
+        let(:xml_text) { "<foo><bar>baz</bar></foo>" }
 
-        it "should set the building flag on the project to false" do
-          @status_parser.should_not be_building
-        end
+        it { should_not be_building }
       end
     end
   end

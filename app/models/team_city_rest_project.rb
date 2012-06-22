@@ -11,16 +11,7 @@ class TeamCityRestProject < Project
   end
 
   def parse_building_status(content)
-    status = super(content)
-
-    document = Nokogiri::XML.parse(content)
-    p_element = document.css("build").first
-
-    if p_element.present? && p_element.attribute('running').present?
-      status.building = true
-    end
-
-    status
+    raise NotImplementedError, "TeamCityRestProject#parse_building_status is no longer used"
   end
 
   def parse_project_status(content)
@@ -31,6 +22,10 @@ class TeamCityRestProject < Project
     build_live_statuses.each do |parsed_status|
       parsed_status.save! unless statuses.find_by_url(parsed_status.url)
     end
+  end
+
+  def fetch_building_status
+    live_building_status
   end
 
   def build_id
