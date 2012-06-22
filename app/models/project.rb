@@ -21,15 +21,11 @@ class Project < ActiveRecord::Base
   before_save :clear_empty_location
   before_save :check_next_poll
 
-  def process_status_update
+  def fetch_new_statuses
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
     parsed_status = parse_project_status(content)
     parsed_status.online = true
     statuses.create(parsed_status.attributes) unless status.match?(parsed_status)
-
-  rescue Net::HTTPError => e
-    error = "HTTP Error retrieving status for project '##{id}': #{e.message}"
-    statuses.create(:error => error) unless status.error == error
   end
 
   def clear_empty_location

@@ -32,7 +32,10 @@ module StatusFetcher
     end
 
     def retrieve_status_for(project)
-      project.process_status_update
+      project.fetch_new_statuses
+    rescue Net::HTTPError => e
+      error = "HTTP Error retrieving status for project '##{project.id}': #{e.message}"
+      project.statuses.create(:error => error) unless project.status.error == error
     end
 
     def retrieve_building_status_for(project)
