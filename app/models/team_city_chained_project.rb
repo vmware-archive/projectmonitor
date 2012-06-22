@@ -1,14 +1,10 @@
 class TeamCityChainedProject < TeamCityRestProject
   include TeamCityProjectWithChildren
 
-  def process_status_update
+  def fetch_new_statuses
     parsed_status = parse_project_status
     parsed_status.online = true
     statuses.create(parsed_status.attributes) unless status.match?(parsed_status)
-
-  rescue Net::HTTPError => e
-    error = "HTTP Error retrieving status for project '##{id}': #{e.message}"
-    statuses.create(:error => error) unless status.error == error
   end
 
   private

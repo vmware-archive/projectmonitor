@@ -27,13 +27,10 @@ class TeamCityRestProject < Project
     raise NotImplementedError, "TeamCityRestProject#parse_project_status is no longer used"
   end
 
-  def process_status_update
+  def fetch_new_statuses
     build_live_statuses.each do |parsed_status|
       parsed_status.save! unless statuses.find_by_url(parsed_status.url)
     end
-  rescue Net::HTTPError => e
-    error = "HTTP Error retrieving status for project '##{id}': #{e.message}"
-    statuses.create(:error => error) unless status.error == error
   end
 
   def build_id
