@@ -24,6 +24,14 @@ describe TeamCityChildBuilder do
     end
   end
 
+  it "assigns the correct build_id to all children builds" do
+    [3,5,9].each do |i|
+      parsed.collect(&:build_id).should(
+        include("bt#{i}")
+      )
+    end
+  end
+
   it "assigns the correct auth_username to all children builds" do
     [3,5,9].each do |i|
       parsed.collect(&:auth_username).should(
