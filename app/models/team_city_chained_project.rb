@@ -1,4 +1,6 @@
 class TeamCityChainedProject < TeamCityRestProject
+  include TeamCityProjectWithChildren
+
   def process_status_update
     parsed_status = parse_project_status
     parsed_status.online = true
@@ -11,49 +13,11 @@ class TeamCityChainedProject < TeamCityRestProject
 
   private
 
-  def live_status
-    content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
-    status_elem = Nokogiri::XML.parse(content).css('build').reject { |se|
-      se.attribute('status').value == 'UNKNOWN'
-    }.
-    detect { |se|
-      !se.attribute('running') || se.attribute('status').value != "SUCCESS"
-    }
-
-    status = ProjectStatus.new(:project => self, :online => true)
-    status.success = status_elem.attribute('status').value == "SUCCESS"
-    status.url = status_elem.attribute('webUrl').value
-    status.published_at = if status_elem.attribute('startDate').present?
-                            Time.parse(status_elem.attribute('startDate').value).localtime
-                          else
-                            Clock.now.localtime
-                          end
-    status
-  end
-
   def parse_project_status
-    status = live_status
+    status = build_live_statuses.first
     return status unless status.success?
     status.success = false if children.any?(&:red?)
     status.published_at = [status.published_at, *children.map(&:last_build_time)].max
     status
   end
-
-  def children
-    TeamCityChildBuilder.parse(self, build_type_fetcher.call)
-  rescue Net::HTTPError
-    []
-  end
-
-  def build_type_url
-    uri = URI(feed_url)
-    "#{uri.scheme}://#{uri.host}:#{uri.port}/httpAuth/app/rest/buildTypes/id:#{build_id}"
-  end
-
-  def build_type_fetcher
-    @build_type_fetcher ||= proc {
-      UrlRetriever.retrieve_content_at(build_type_url, auth_username, auth_password)
-    }
-  end
-
 end
