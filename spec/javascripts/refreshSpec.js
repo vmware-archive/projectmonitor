@@ -9,17 +9,33 @@ describe('refresh', function() {
       "</ul>"
     ].join("\n");
     setFixtures(fixtures);
-    $("body").addClass("dashboard").addClass("tiles_15");
   });
 
-  it("should call $.get for projects and aggregates", function() {
-    refresh();
+  describe("on a page with 15 projects", function() {
+    beforeEach(function() {
+      $("body").addClass("dashboard").data("tiles-count", "15");
+    });
 
-    expect(ajaxRequests.length).toEqual(4);
-    expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=15");
-    expect(ajaxRequests[1].url).toBe("/projects/2/status?projects_count=15");
-    expect(ajaxRequests[2].url).toBe("/projects/3/status?projects_count=15");
-    expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?projects_count=15");
+    it("should call $.get for projects and aggregates", function() {
+      refresh();
+
+      expect(ajaxRequests.length).toEqual(4);
+      expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=15");
+      expect(ajaxRequests[1].url).toBe("/projects/2/status?projects_count=15");
+      expect(ajaxRequests[2].url).toBe("/projects/3/status?projects_count=15");
+      expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?projects_count=15");
+    });
+  });
+
+  describe("on a page with 48 projects", function() {
+    beforeEach(function() {
+      $("body").addClass("dashboard").data("tiles-count", "48");
+    });
+
+    it("should send the correct number of projects", function() {
+      refresh();
+      expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=48");
+    });
   });
 
   describe("when a request succeeds", function() {

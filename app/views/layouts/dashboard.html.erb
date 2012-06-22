@@ -5,7 +5,7 @@
     <%= stylesheet_link_tag "dashboard" %>
     <script type="text/javascript" src="http://fast.fonts.com/jsapi/14aea2b8-37b7-4a31-afb9-e44414bef419.js"></script>
   </head>
-  <body class="dashboard tiles_<%= @projects.size %>">
+  <body class="dashboard tiles_<%= @projects.size %>" data-tiles-count="<%= @projects.size %>">
     <%= yield %>
 
     <div id="footer">
