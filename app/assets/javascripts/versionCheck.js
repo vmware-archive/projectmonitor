@@ -5,7 +5,7 @@ var VersionCheck = function() {
 
   var versionRequest = function(success) {
     $.ajax({
-      url: '/revision',
+      url: '/version',
       method: 'GET',
       success: success
     });
@@ -27,7 +27,7 @@ var VersionCheck = function() {
     checkVersion: function() {
       versionRequest(function(response) {
         if (response != window.currentVersion) {
-          WindowManager.reload();
+          ProjectMonitor.Window.reload();
         }
       });
       scheduleRefresh();
