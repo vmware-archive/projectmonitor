@@ -12,6 +12,62 @@ describe TeamCityChildProject do
     )
   }
 
+  describe "#building?" do
+    subject { project.building? }
+
+    before do
+      UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+      TeamCityChildBuilder.stub(:parse).and_return(children)
+    end
+
+    let(:xml_text) {
+      <<-XML
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <builds count="1">
+          <build id="1" number="1" status="SUCCESS" webUrl="/1"
+      #{project_is_running ? 'running="true"' : nil}
+          />
+        </builds>
+      XML
+    }
+
+    context "when the project is building" do
+      let(:project_is_running) { true }
+      let(:children) { [ mock('child project') ] }
+
+      it { should be_true }
+
+      it "does not query its children" do
+        children.each {|c| c.should_not_receive(:building?) }
+      end
+    end
+
+    context "when the project is not building" do
+      let(:project_is_running) { false }
+
+      context "when it has no children" do
+        let(:children) { Array.new }
+        it { should be_false }
+      end
+
+      context "when one of its children is building" do
+        let(:children) { [
+          double('child project', building?: false ),
+          double('child project', building?: true ),
+        ] }
+        it { should be_true }
+      end
+
+      context "when none of its children are building" do
+        let(:children) { [
+          double('child project', building?: false ),
+          double('child project', building?: false ),
+        ] }
+        it { should be_false }
+      end
+    end
+  end
+
   describe "#last_build_time" do
     subject { project.last_build_time }
     before do

@@ -12,6 +12,59 @@ describe TeamCityChainedProject do
     )
   }
 
+  describe "#fetch_building_status" do
+    before do
+      UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+      TeamCityChildBuilder.stub(:parse).and_return(children)
+    end
+
+    let(:xml_text) {
+      <<-XML
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <builds count="1">
+          <build id="1" number="1" status="FAILURE" webUrl="/1"
+      #{project_is_running ? 'running="true"' : nil}
+          />
+        </builds>
+      XML
+    }
+
+    subject { project.fetch_building_status }
+
+    context "when the project itself is building" do
+      let(:project_is_running) { true }
+      let(:children) { [ double('child project') ] }
+
+      it { should be_building }
+
+      it "does not query its children for their statuses" do
+        children.each {|child| child.should_not_receive(:building?) }
+        project.fetch_building_status
+      end
+    end
+
+    context "when the project itself is not building, and it has no children" do
+      let(:project_is_running) { false }
+      let(:children) { Array.new }
+
+      it { should_not be_building }
+    end
+
+    context "when the project is not building, but one of its children builds is" do
+      let(:project_is_running) { false }
+      let(:children) { [ double('child_project', building?: true) ] }
+
+      it { should be_building }
+    end
+
+    context "when the project is not building and neither are its children" do
+      let(:project_is_running) { false }
+      let(:children) { [ double('child_project', building?: false) ] }
+
+      it { should_not be_building }
+    end
+  end
+
   describe "#fetch_new_statuses" do
     before do
       project.save!
