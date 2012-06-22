@@ -1,6 +1,7 @@
 shared_examples_for 'a project that updates only the most recent status' do
+  let(:project) { described_class.new.tap {|c| c.save(validate: false) } }
+
   describe "#fetch_new_statuses" do
-    let(:project) { described_class.new.tap {|c| c.save(validate: false) } }
     let(:project_status) { double('project status') }
     let(:parsed_status) { ProjectStatus.new }
 
@@ -11,7 +12,7 @@ shared_examples_for 'a project that updates only the most recent status' do
     before do
       project.stub(:status).and_return(project_status)
       project.stub(:parse_project_status).and_return(parsed_status)
-      UrlRetriever.stub(:retrieve_content_at).and_return "<something />"
+      UrlRetriever.stub(:retrieve_content_at)
     end
 
     context "when the parsed status is new" do
@@ -38,5 +39,20 @@ shared_examples_for 'a project that updates only the most recent status' do
         expect { fetch_new_statuses }.to_not change(project.statuses, :count)
       end
     end
+  end
+
+  describe "#fetch_building_status" do
+    before do
+      UrlRetriever.stub(:retrieve_content_at).and_return(xml)
+    end
+
+    let(:building_status) { double('building status') }
+    let(:xml) { double('xml') }
+
+    it "returns the result of parse_building_status" do
+      project.should_receive(:parse_building_status).with(xml).and_return(building_status)
+      project.fetch_building_status.should == building_status
+    end
+
   end
 end

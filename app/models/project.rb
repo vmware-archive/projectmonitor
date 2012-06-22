@@ -104,6 +104,11 @@ class Project < ActiveRecord::Base
     ProjectStatus.new(:online => false, :success => false)
   end
 
+  def fetch_building_status
+    content = UrlRetriever.retrieve_content_at(build_status_url, auth_username, auth_password)
+    parse_building_status(content)
+  end
+
   def parse_building_status(content)
     BuildingStatus.new(false)
   end
