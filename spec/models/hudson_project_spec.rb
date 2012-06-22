@@ -5,6 +5,8 @@ describe HudsonProject do
     @project = HudsonProject.new(:name => "my_hudson_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll")
   end
 
+  it_should_behave_like 'a project that updates only the most recent status'
+
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       @project.feed_url = nil

@@ -6,6 +6,136 @@ describe TeamCityRestProject do
     let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
     let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => rest_url) }
 
+    describe "#fetch_new_statuses" do
+      before do
+        project.save!
+        UrlRetriever.stub(:retrieve_content_at).and_return xml_text
+      end
+
+      def fetch_new_statuses
+        project.fetch_new_statuses
+      end
+
+
+      context "when there are no builds" do
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="0"/>
+          XML
+        }
+
+        it "does not add any statuses" do
+          expect { fetch_new_statuses }.to_not change(project.statuses, :count)
+        end
+      end
+
+      context "when there is a new build" do
+        let(:url) { '/1' }
+        let(:start_time) { 5.minutes.ago }
+        let(:status) { '' }
+
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="1">
+            <build id="1" number="1" status="#{status}" webUrl="#{url}" startDate="#{start_time.iso8601}" />
+          </builds>
+          XML
+        }
+
+        it "creates a new status" do
+          expect { fetch_new_statuses }.to change(project.statuses, :count).by(1)
+        end
+
+        it "gives the status the correct time" do
+          fetch_new_statuses
+          project.status.published_at.to_i.should == start_time.to_i
+        end
+
+        it "gives the status the correct url" do
+          fetch_new_statuses
+          project.status.url.should == url
+        end
+
+        context "and the build is successful" do
+          let(:status) { 'SUCCESS' }
+
+          it "creates a successful status" do
+            fetch_new_statuses
+            project.status.should be_success
+          end
+        end
+
+        context "and the build is a failure" do
+          let(:status) { 'FAILURE' }
+
+          it "creates an unsuccessful status" do
+            fetch_new_statuses
+            project.status.should_not be_success
+          end
+        end
+      end
+
+      context "with multiple new builds" do
+        before do
+          project.statuses.create(url: '/1', success: true)
+        end
+
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="3">
+            <build id="3" number="3" status="SUCCESS" webUrl="/3"  />
+            <build id="2" number="2" status="SUCCESS" webUrl="/2"  />
+            <build id="1" number="1" status="SUCCESS" webUrl="/1"  />
+          </builds>
+          XML
+        }
+
+        it "adds the new statuses" do
+          fetch_new_statuses
+          project.statuses.find_by_url('/3').should be
+          project.statuses.find_by_url('/2').should be
+        end
+
+        it "doesn't add a duplicate of the existing status" do
+          expect { fetch_new_statuses }.
+            to_not change { project.statuses.find_all_by_url("/1").count }
+        end
+      end
+
+      context "when a failing build is still in progress" do
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="1">
+            <build id="1" number="1" status="FAILURE" webUrl="/1" running="true" />
+          </builds>
+          XML
+        }
+
+        it "creates a status" do
+          expect { fetch_new_statuses }.to change(project.statuses, :count).by(1)
+        end
+      end
+
+      context "when a succeeding build is still in progress" do
+        let(:xml_text) {
+          <<-XML.strip_heredoc
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="1">
+            <build id="1" number="1" status="SUCCESS" webUrl="/1" running="true" />
+          </builds>
+          XML
+        }
+
+        it "does not create a status" do
+          expect { fetch_new_statuses }.to_not change(project.statuses, :count)
+        end
+      end
+    end
+
     describe "#build_id" do
       it "is retrieved from the feed_url" do
         project.build_id.should == "bt3"
@@ -54,126 +184,39 @@ describe TeamCityRestProject do
       end
     end
 
-    describe "#parse_project_status" do
-
-      describe "with reported success" do
-        let :status_parser do
-          project.parse_project_status(TeamcityRESTExample.new("success.xml").read)
-        end
-
-        it "should return the link to the checkin" do
-          status_parser.url.should == TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value
-        end
-
-        context "there is a previous status for the same build" do
-          before do
-            @published_at = Clock.now - 10.minutes
-            project.stub(:statuses) {[
-                ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").first_css("build").attribute("webUrl").value,
-                                  :published_at => @published_at,
-                                  :success => true, :online => true)
-              ]}
-          end
-
-          it "should return the published date of the checkin" do
-            status_parser.published_at.should == @published_at
-          end
-        end
-
-        context "there is a previous status for another build" do
-          before do
-            project.stub(:statuses) {[
-                ProjectStatus.new(:url => TeamcityRESTExample.new("success.xml").as_xml.css("build")[1].attribute("webUrl").value,
-                                  :published_at => Clock.now - 10.minutes,
-                                  :success => true, :online => true)
-              ]}
-          end
-
-          it "should return the timestamp when we checked" do
-            status_parser.published_at.should == Clock.now
-          end
-        end
-
-        context "there is no previous status" do
-          it "should return the timestamp when we checked" do
-            status_parser.published_at.should == Clock.now
-          end
-        end
-
-        it "should report success" do
-          status_parser.should be_success
-        end
-      end
-
-      describe "with a startDate included" do
-        before(:each) do
-          @status_parser = project.parse_project_status(TeamcityRESTExample.new("success_with_start_date.xml").read)
-        end
-
-        it "should return the published date of the checkin" do
-          @status_parser.published_at.should ==
-            Time.parse(TeamcityRESTExample.new("success_with_start_date.xml").first_css("build").attribute("startDate").value)
-        end
-      end
-
-      describe "with reported failure" do
-        before(:each) do
-          @status_parser = project.parse_project_status(TeamcityRESTExample.new("failure.xml").read)
-        end
-
-        it "should return the link to the checkin" do
-          @status_parser.url.should == TeamcityRESTExample.new("failure.xml").first_css("build").attribute("webUrl").value
-        end
-
-        it "should return the published date of the checkin" do
-          @status_parser.published_at.should == Clock.now
-        end
-
-        it "should report failure" do
-          @status_parser.should_not be_success
-        end
-      end
-
-      describe "with invalid xml" do
-        before(:each) do
-          @parser        = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
-          @response_doc  = @parser.parse
-          @status_parser = project.parse_project_status("<foo><bar>baz</bar></foo>")
-        end
-      end
-    end
-
-    describe "#parse_building_status" do
+    describe "#fetch_building_status" do
+      subject { project.fetch_building_status }
       let(:project) { TeamCityRestProject.new(:name => "my_teamcity_project", :feed_url => "Pulse") }
 
-      context "with a valid response that the project is building" do
-        before(:each) do
-          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_building.xml").read)
-        end
+      before do
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+      end
 
-        it "should set the building flag on the project to true" do
-          @status_parser.should be_building
-        end
+      let(:xml_text) {
+        <<-XML
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <builds count="1">
+            <build id="1" number="1" status="FAILURE" webUrl="/1"
+        #{project_is_running ? 'running="true"' : nil}
+            />
+          </builds>
+        XML
+      }
+
+      context "with a valid response that the project is building" do
+        let(:project_is_running) { true }
+        it { should be_building }
       end
 
       context "with a valid response that the project is not building" do
-        before(:each) do
-          @status_parser = project.parse_building_status(BuildingStatusExample.new("team_city_rest_not_building.xml").read)
-        end
-
-        it "should set the building flag on the project to false" do
-          @status_parser.should_not be_building
-        end
+        let(:project_is_running) { false }
+        it { should_not be_building }
       end
 
       context "with an invalid response" do
-        before(:each) do
-          @status_parser = project.parse_building_status("<foo><bar>baz</bar></foo>")
-        end
+        let(:xml_text) { "<foo><bar>baz</bar></foo>" }
 
-        it "should set the building flag on the project to false" do
-          @status_parser.should_not be_building
-        end
+        it { should_not be_building }
       end
     end
   end
