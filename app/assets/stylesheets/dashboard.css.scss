@@ -1,16 +1,19 @@
 $ninesixty-gutter-width: 12px;
+$ninesixty-fluid-gutter-width: 1%;
 $ninesixty-fluid-grid-width: 100%;
-$ninesixty-grid-width: 1884px;
+$ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
 
 body.dashboard {
   background-color: #2A271F;
+  max-width: $ninesixty-grid-width;
   padding: 14px;
 
   #footer {
     color: white;
     vertical-align: bottom;
+    clear: both;
 
     .left {
       display: inline-block;
@@ -39,10 +42,10 @@ body.dashboard {
   }
 
   &.tiles_15, &.tiles_24, &.tiles_48 {
-    @include grid-system(12);
+    @include fluid-grid-system(12);
   }
 
   &.tiles_63 {
-    @include grid-system(7);
+    @include fluid-grid-system(7);
   }
 }
