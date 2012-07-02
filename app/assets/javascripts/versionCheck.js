@@ -1,5 +1,5 @@
 var VersionCheck = function() {
-  var versionCheckTimeout = 60 * 1000; // 1 minute
+  var versionCheckTimeout = 30 * 1000; // 1 minute
 
   var currentTimeout;
 
