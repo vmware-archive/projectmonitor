@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20120423184705) do
     t.string   "tracker_auth_token"
     t.integer  "tracker_volatility",                           :default => 0,     :null => false
     t.integer  "tracker_num_unaccepted_stories",               :default => 0,     :null => false
+    t.integer  "current_velocity",                             :default => 0,     :null => false
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
