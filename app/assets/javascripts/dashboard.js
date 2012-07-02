@@ -13,7 +13,7 @@ $(function() {
 });
 
 $.fn.projectsCount = function(){
-  return parseInt($(this).data("tiles-count"));
+  return parseInt($(this).data("tiles-count"), 10);
 };
 
 $.fn.setSpinner = function(projectsCount){
