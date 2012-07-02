@@ -4,16 +4,16 @@ describe StatusFetcher::Job do
   describe "#perform" do
     let(:project) { double(:project) }
 
-    before do
+    it "retrieves statuses from the StatusFetcher" do
       StatusFetcher.should_receive(:retrieve_status_for).with project
       StatusFetcher.should_receive(:retrieve_building_status_for).with project
       StatusFetcher.should_receive(:retrieve_tracker_status_for).with project
-      project.should_receive(:set_next_poll!).and_return true
+      StatusFetcher.should_receive(:retrieve_velocity_for).with project
+      project.should_receive(:set_next_poll!)
+
+      StatusFetcher::Job.new(project).perform
     end
 
-    subject { StatusFetcher::Job.new(project).perform }
-
-    it { should be_true }
   end
 end
 
@@ -146,6 +146,21 @@ describe StatusFetcher do
           project.tracker_num_unaccepted_stories.should == 7
         end
       end
+    end
+  end
+
+  describe "#retrieve_velocity_for" do
+    let(:project) { Project.new }
+    let(:tracker_api) { double :tracker_api_instance }
+
+    before do
+      TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
+      tracker_api.stub(:current_velocity).with(project.tracker_project_id).and_return 7
+    end
+
+    it "sets the project's velocity number to the most recent velocity'" do
+      StatusFetcher.retrieve_velocity_for(project)
+      project.current_velocity.should == 7
     end
   end
 end
