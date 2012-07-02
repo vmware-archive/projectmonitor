@@ -4,6 +4,7 @@ module StatusFetcher
       retrieve_status
       retrieve_building_status
       retrieve_tracker_status
+      retrieve_velocity
 
       project.set_next_poll!
     end
@@ -20,6 +21,10 @@ module StatusFetcher
 
     def retrieve_tracker_status
       StatusFetcher.retrieve_tracker_status_for(project)
+    end
+
+    def retrieve_velocity
+      StatusFetcher.retrieve_velocity_for(project)
     end
   end
 
@@ -50,6 +55,10 @@ module StatusFetcher
 
       tracker = TrackerApi.new(project.tracker_auth_token)
       project.tracker_num_unaccepted_stories = tracker.delivered_story_count(project.tracker_project_id)
+    end
+
+    def retrieve_velocity_for(project)
+      project.current_velocity = TrackerApi.new(project.tracker_auth_token).current_velocity(project.tracker_project_id)
     end
   end
 end

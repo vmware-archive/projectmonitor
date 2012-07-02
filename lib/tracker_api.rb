@@ -12,4 +12,8 @@ class TrackerApi
                              .all(current_state: "delivered")
                                .count
   end
+
+  def current_velocity(project_id)
+    PivotalTracker::Project.find(project_id).current_velocity
+  end
 end
