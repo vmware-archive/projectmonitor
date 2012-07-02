@@ -23,6 +23,7 @@ gem "draper", "~> 0.11.1"
 gem "awesome_print"
 gem "pivotal-tracker"
 gem "kumade"
+gem "airbrake"
 
 group :production do
   gem "therubyracer"
