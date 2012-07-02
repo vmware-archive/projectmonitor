@@ -28,6 +28,15 @@ describe DashboardGrid do
       projects.should include(tagged_aggregate_project)
     end
 
+    it "does not include disabled projects" do
+      disabled_project = FactoryGirl.create(:project, enabled: false, tag_list: "tag")
+      disabled_aggregate = FactoryGirl.create(:aggregate_project, tag_list: "tag", enabled: false)
+      projects = DashboardGrid.generate(tags: "tag")
+
+      projects.should_not include(disabled_project)
+      projects.should_not include(disabled_aggregate)
+    end
+
     context "aggregate contains project with same tags" do
       it "does not return projects that are included in an aggregate with the same tag" do
         projects = DashboardGrid.generate(tags: "awesome")
