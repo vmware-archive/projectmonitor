@@ -5,7 +5,6 @@ class AggregateProject < ActiveRecord::Base
   before_destroy :remove_project_associations
 
   scope :enabled, where(enabled: true)
-  scope :all_with_tags, lambda {}
   scope :with_statuses, joins(:projects => :statuses).uniq
   scope :for_location, lambda { |location| where(:location => location) }
 
