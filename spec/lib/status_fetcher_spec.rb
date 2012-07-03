@@ -150,7 +150,6 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_velocity_for" do
-    let(:project) { Project.new }
     let(:tracker_api) { double :tracker_api_instance }
 
     before do
@@ -158,9 +157,21 @@ describe StatusFetcher do
       tracker_api.stub(:current_velocity).with(project.tracker_project_id).and_return 7
     end
 
-    it "sets the project's velocity number to the most recent velocity'" do
-      StatusFetcher.retrieve_velocity_for(project)
-      project.current_velocity.should == 7
+    context "no tracker configuration" do
+      let(:project) { Project.new }
+
+      it "doesn't do anything with the TrackerApi" do
+        TrackerApi.should_not_receive(:new)
+        StatusFetcher.retrieve_velocity_for(project)
+      end
+    end
+
+    context "with tracker configuration" do
+      let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
+      it "sets the project's velocity number to the most recent velocity'" do
+        StatusFetcher.retrieve_velocity_for(project)
+        project.current_velocity.should == 7
+      end
     end
   end
 end

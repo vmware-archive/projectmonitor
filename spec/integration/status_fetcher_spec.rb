@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe StatusFetcher do
   describe "#current_velocity_for" do
-    let(:project) { FactoryGirl.create(:project, :current_velocity => 5) }
-    let(:pt_project) { double(:pt_project, :current_velocity => 7) }
+    let(:project) { FactoryGirl.create(:project, current_velocity: 5, tracker_project_id: 1, tracker_auth_token: "token") }
+    let(:pt_project) { double(:pt_project, current_velocity: 7) }
 
     before { PivotalTracker::Project.stub(:find).and_return(pt_project) }
 

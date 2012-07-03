@@ -58,6 +58,8 @@ module StatusFetcher
     end
 
     def retrieve_velocity_for(project)
+      return unless project.tracker_project?
+
       project.current_velocity = TrackerApi.new(project.tracker_auth_token).current_velocity(project.tracker_project_id)
     end
   end
