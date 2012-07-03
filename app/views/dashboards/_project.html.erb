@@ -12,14 +12,6 @@
         <% else %>
           <div class="publish-date"><%= project.time_since_last_build %></div>
         <% end %>
-        <% if project.tracker_project? %>
-          <div class="inventory">
-            Inventory:
-            <span class="<%= project.tracker_unaccepted_stories_healthy? ? "healthy" : "unhealthy" %>">
-              <%= project.tracker_num_unaccepted_stories %>
-            </span>
-          </div>
-        <% end %>
         <div class="history">
           <ol>
             <% project.recent_online_statuses(status_count_for(projects_count)).each do |status| %>

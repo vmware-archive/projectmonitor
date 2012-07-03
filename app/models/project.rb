@@ -137,14 +137,6 @@ class Project < ActiveRecord::Base
     tracker_project_id.present? && tracker_auth_token.present?
   end
 
-  def tracker_volatility_healthy?
-    tracker_volatility <= 30
-  end
-
-  def tracker_unaccepted_stories_healthy?
-    tracker_num_unaccepted_stories < 6
-  end
-
   def as_json(options = {})
     super(:only => :id, :methods => :tag_list)
   end

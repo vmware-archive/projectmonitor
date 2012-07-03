@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423184705) do
+ActiveRecord::Schema.define(:version => 20120703210814) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20120423184705) do
     t.string   "feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",                                      :default => true
-    t.boolean  "building",                                     :default => false, :null => false
+    t.boolean  "enabled",                             :default => true
+    t.boolean  "building",                            :default => false, :null => false
     t.string   "type"
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
@@ -84,12 +84,10 @@ ActiveRecord::Schema.define(:version => 20120423184705) do
     t.string   "ec2_instance_id"
     t.string   "ec2_elastic_ip"
     t.string   "code"
-    t.string   "location",                       :limit => 20
+    t.string   "location",              :limit => 20
     t.string   "tracker_project_id"
     t.string   "tracker_auth_token"
-    t.integer  "tracker_volatility",                           :default => 0,     :null => false
-    t.integer  "tracker_num_unaccepted_stories",               :default => 0,     :null => false
-    t.integer  "current_velocity",                             :default => 0,     :null => false
+    t.integer  "current_velocity",                    :default => 0,     :null => false
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
