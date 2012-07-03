@@ -86,9 +86,9 @@ describe TeamCityRestProject do
           <<-XML.strip_heredoc
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <builds count="3">
-            <build id="3" number="3" status="SUCCESS" webUrl="/3"  />
-            <build id="2" number="2" status="SUCCESS" webUrl="/2"  />
-            <build id="1" number="1" status="SUCCESS" webUrl="/1"  />
+            <build id="3" number="3" status="SUCCESS" webUrl="/3" startDate="20120703T143307-0400" />
+            <build id="2" number="2" status="SUCCESS" webUrl="/2" startDate="20120703T135338-0400" />
+            <build id="1" number="1" status="SUCCESS" webUrl="/1" startDate="20120703T135112-0400" />
           </builds>
           XML
         }
@@ -102,6 +102,11 @@ describe TeamCityRestProject do
         it "doesn't add a duplicate of the existing status" do
           expect { fetch_new_statuses }.
             to_not change { project.statuses.find_all_by_url("/1").count }
+        end
+
+        it "correctly sets the project status to the latest status" do
+          fetch_new_statuses
+          project.status.url.should == "/3"
         end
       end
 

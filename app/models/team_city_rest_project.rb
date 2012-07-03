@@ -43,6 +43,6 @@ class TeamCityRestProject < Project
         :url => status_hash[:url],
         :published_at => status_hash[:published_at],
       )
-    }
+    }.sort { |status1, status2| status1.published_at <=> status2.published_at }
   end
 end
