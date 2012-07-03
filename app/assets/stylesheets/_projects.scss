@@ -88,7 +88,7 @@ ol.projects {
         border-top: solid $very-dark-green 2px;
 
       }
-      .velocity {
+      .velocity-block {
         background: $very-light-green;
         border-color: $very-dark-green;
 
@@ -123,7 +123,7 @@ ol.projects {
         }
 
       }
-      .velocity {
+      .velocity-block {
         background: $very-light-red;
         border-color: $very-dark-red;
 
@@ -160,7 +160,7 @@ ol.projects {
         }
       }
 
-      .velocity {
+      .velocity-block {
         background: $very-light-grey;
         border-color: $very-dark-grey;
 
@@ -184,7 +184,7 @@ ol.projects {
         }
       }
 
-      .velocity {
+      .velocity-block {
         background: $very-very-light-grey;
         border-color: $dark-grey;
 
@@ -287,12 +287,30 @@ ol.projects {
       }
     }
 
-    .velocity {
+    .velocity-block {
       float: right;
       border-left: solid 2px;
       border-right: solid 2px;
       float: left;
       text-align: center;
+
+      .label {
+        font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+        font-weight: normal;
+        text-transform: uppercase;
+        vertical-align: top;
+        color: #2B2820
+      }
+      .value {
+        font-family: 'Avenir LT W01 65 Medium', Helvetica, sans-serif;
+        vertical-align: top;
+      }
+
+      .no-connection {
+        font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+        color: #878385;
+        text-transform: uppercase;
+      }
 
       .sparklines {
         display: inline-block;
@@ -356,12 +374,12 @@ ol.projects {
       }
     }
 
-    &.success .velocity .project_history .sparklines.building .sparkline {
+    &.success .velocity-block .project_history .sparklines.building .sparkline {
       @include animation-name(building-green);
     }
   }
 
-  &.failure .velocity .project_history .sparklines.building .sparkline {
+  &.failure .velocity-block .project_history .sparklines.building .sparkline {
     @include animation-name(building-red);
   }
 }

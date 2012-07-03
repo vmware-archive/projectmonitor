@@ -158,19 +158,27 @@
       }
     }
 
-    .velocity {
+    .velocity-block {
       width: 96px;
-      display: inline;
-      font-size: 10px;
-      text-align: left;
-      .velocity_text {
-      font-size: 10px;
-      text-align: left;
+
+      .velocity {
+        margin-top: 12px;
       }
-      .velocity_number {
-        font-size: 32px;
-        padding: 0 0 0 50px;
+
+      .label {
+        font-size: 0.9em;
       }
+
+      .value {
+        line-height: 0.8em;
+        font-size: 2em;
+      }
+
+      .no-connection {
+        font-size: .8em;
+        line-height: 103px;
+      }
+
       .publish_date {
         height: 90px;
         font-size: 24pt;
