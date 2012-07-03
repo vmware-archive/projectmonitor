@@ -205,39 +205,6 @@ describe Project do
         project.tracker_project?.should be(false)
       end
     end
-
-
-    describe "tracker health" do
-      context "tracker_project? is true" do
-        before do
-          project.stub(:tracker_project?).and_return true
-        end
-
-        describe "#tracker_volatility_healthy?" do
-          it "should return false if tracker project's volatility over 30%" do
-            project.tracker_volatility = 31
-            project.tracker_volatility_healthy?.should be(false)
-          end
-
-          it "should return true if the volatility is 30% or less" do
-            project.tracker_volatility = 30
-            project.tracker_volatility_healthy?.should be(true)
-          end
-        end
-
-        describe "#tracker_unaccepted_stories_healthy?" do
-          it "should return false if the number of unaccepted tracker stories in the current iteration is greater than 5" do
-            project.tracker_num_unaccepted_stories = 6
-            project.tracker_unaccepted_stories_healthy?.should be(false)
-          end
-
-          it "should return true if the number of unaccepted tracker stories in the current iteration is less than 6" do
-            project.tracker_num_unaccepted_stories = 5
-            project.tracker_unaccepted_stories_healthy?.should be(true)
-          end
-        end
-      end
-    end
   end
 
   describe "#red? and #green?" do

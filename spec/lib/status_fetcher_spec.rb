@@ -7,7 +7,6 @@ describe StatusFetcher::Job do
     it "retrieves statuses from the StatusFetcher" do
       StatusFetcher.should_receive(:retrieve_status_for).with project
       StatusFetcher.should_receive(:retrieve_building_status_for).with project
-      StatusFetcher.should_receive(:retrieve_tracker_status_for).with project
       StatusFetcher.should_receive(:retrieve_velocity_for).with project
       project.should_receive(:set_next_poll!)
 
@@ -115,37 +114,6 @@ describe StatusFetcher do
       end
 
       it { should be_false }
-    end
-  end
-
-  describe "#retrieve_tracker_status_for" do
-    let(:project) { Project.new }
-    # StatusFetcher.retrieve_tracker_status_for(project)
-
-    describe "#update_tracker_status!" do
-      context "no tracker configuration" do
-        let(:project) { Project.new }
-
-        it "doesn't do anything with the TrackerApi" do
-          TrackerApi.should_not_receive(:new)
-          StatusFetcher.retrieve_tracker_status_for(project)
-        end
-      end
-
-      context "with tracker configuration" do
-        let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
-        let(:tracker_api) { double :tracker_api_instance }
-
-        before do
-          TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
-          tracker_api.stub(:delivered_stories_count).with(project.tracker_project_id).and_return 7
-        end
-
-        it "should set the project's tracker_num_unaccepted_stories to the number of delivered stories" do
-          StatusFetcher.retrieve_tracker_status_for(project)
-          project.tracker_num_unaccepted_stories.should == 7
-        end
-      end
     end
   end
 

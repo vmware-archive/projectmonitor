@@ -3,7 +3,6 @@ module StatusFetcher
     def perform
       retrieve_status
       retrieve_building_status
-      retrieve_tracker_status
       retrieve_velocity
 
       project.set_next_poll!
@@ -17,10 +16,6 @@ module StatusFetcher
 
     def retrieve_building_status
       StatusFetcher.retrieve_building_status_for(project)
-    end
-
-    def retrieve_tracker_status
-      StatusFetcher.retrieve_tracker_status_for(project)
     end
 
     def retrieve_velocity
@@ -48,13 +43,6 @@ module StatusFetcher
       project.update_attribute(:building, status.building?)
     rescue Net::HTTPError => e
       project.update_attribute(:building, false)
-    end
-
-    def retrieve_tracker_status_for(project)
-      return unless project.tracker_project?
-
-      tracker = TrackerApi.new(project.tracker_auth_token)
-      project.tracker_num_unaccepted_stories = tracker.delivered_stories_count(project.tracker_project_id)
     end
 
     def retrieve_velocity_for(project)
