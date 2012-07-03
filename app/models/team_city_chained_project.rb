@@ -16,7 +16,7 @@ class TeamCityChainedProject < TeamCityRestProject
   private
 
   def parse_project_status
-    status = build_live_statuses.first
+    status = build_live_statuses.last
     return status unless status.success?
     status.success = false if children.any?(&:red?)
     status.published_at = [status.published_at, *children.map(&:last_build_time)].max
