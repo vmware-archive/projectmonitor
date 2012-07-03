@@ -32,7 +32,15 @@
       </div>
     </div>
 
-    <div class="velocity">
+    <div class="velocity-block">
+      <% if project.tracker_project? %>
+        <div class="velocity">
+          <span class="label">Velocity</span>
+          <span class="value">1<%= project.current_velocity %></span>
+        </div>
+      <% else %>
+        <div class="no-connection">No connection</div>
+      <% end %>
     </div>
   </li>
 <% else %>

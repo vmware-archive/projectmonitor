@@ -134,8 +134,26 @@
       }
     }
 
-    .velocity {
+    .velocity-block {
       width: 180px;
+
+      .velocity {
+        margin-top: 19px;
+      }
+
+      .label {
+        font-size: 1.3em;
+      }
+      .value {
+        line-height: 0.8em;
+        font-size: 4.5em;
+      }
+
+      .no-connection {
+        font-size: 1.3em;
+        line-height: 160px;
+      }
+
       .sparklines {
         margin: 100px 15px 5px;
         width: 150px;
