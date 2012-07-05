@@ -123,6 +123,7 @@ describe StatusFetcher do
     before do
       TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
       tracker_api.stub(:current_velocity).with(project.tracker_project_id).and_return 7
+      tracker_api.stub(:last_ten_velocities).with(project.tracker_project_id).and_return [4,3,4,2,1,5,3,2,3,3]
     end
 
     context "no tracker configuration" do
@@ -135,11 +136,17 @@ describe StatusFetcher do
     end
 
     context "with tracker configuration" do
-      let(:project) { Project.new tracker_project_id: 1, tracker_auth_token: "token"}
-      it "sets the project's velocity number to the most recent velocity'" do
+      let(:project) { FactoryGirl.build(:project, tracker_project_id: 1, tracker_auth_token: "token") }
+      it "sets the project's velocity number to the velocity of current iteration" do
         StatusFetcher.retrieve_velocity_for(project)
         project.current_velocity.should == 7
       end
+      it "stores velocity for the last 10 completed iterations" do
+        StatusFetcher.retrieve_velocity_for(project)
+        project.save!
+        project.reload.last_ten_velocities.should == [4,3,4,2,1,5,3,2,3,3]
+      end
     end
   end
+
 end
