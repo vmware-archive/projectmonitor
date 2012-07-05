@@ -92,6 +92,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   private
+
   def remove_project_associations
     projects.map {|p| p.aggregate_project = nil; p.save! }
   end

@@ -104,4 +104,18 @@ feature "Dashboard" do
       page.should have_content("MyCode")
     end
   end
+
+  context "graphing iteration points" do
+    scenario "user sees a graph when tracker integration enabled" do
+      FactoryGirl.create(:project_with_tracker_integration)
+      visit root_path
+      page.should have_css(".chart")
+    end
+
+    scenario "user does not see a graph when tracker integration not enabled" do
+      FactoryGirl.create(:project)
+      visit root_path
+      page.should_not have_css(".chart")
+    end
+  end
 end

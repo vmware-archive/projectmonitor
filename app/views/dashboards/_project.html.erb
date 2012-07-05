@@ -30,6 +30,7 @@
           <span class="label">Velocity</span>
           <span class="value"><%= project.current_velocity %></span>
         </div>
+        <%= project_bar_chart project %>
       <% else %>
         <div class="no-connection">No connection</div>
       <% end %>
