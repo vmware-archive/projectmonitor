@@ -157,6 +157,12 @@
       }
     }
 
+    &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-very-light-grey 95%, $very-dark-grey 97%, $very-very-light-grey 5%);
+      }
+    }
+
     .velocity-block {
       width: 96px;
       background-size: 9px;
