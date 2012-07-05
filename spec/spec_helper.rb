@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'vcr_setup'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
@@ -14,6 +15,10 @@ RSpec.configure do |config|
   config.include AuthenticatedTestHelper
   config.include(ControllerTestHelper, :type => :controller)
   config.include ObjectMother
+
+  config.extend VCR::RSpec::Macros
+
+  config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.before(:each) do
     AuthConfig.reset!
