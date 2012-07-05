@@ -162,30 +162,6 @@
         font-size: 34pt;
         line-height: 150px;
       }
-
-      .sparklines {
-        margin: 100px 15px 5px;
-        width: 150px;
-
-        .sparkline {
-          a {
-            width: 26px;
-            height: 26px;
-          }
-
-          &.success {
-            a {
-              background: url(/assets/icons/success_15.png) center no-repeat;
-            }
-          }
-
-          &.failure {
-            a {
-              background: url(/assets/icons/failure_15.png) center no-repeat;
-            }
-          }
-        }
-      }
     }
 
     &.aggregate {
