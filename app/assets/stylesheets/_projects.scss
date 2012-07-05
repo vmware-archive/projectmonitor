@@ -91,14 +91,6 @@ ol.projects {
       .velocity-block {
         background: $very-light-green;
         border-color: $very-dark-green;
-
-        .sparklines .sparkline {
-          background: $very-very-light-green;
-        }
-
-        .sparklines.building .sparkline {
-          @include animation-name(building-green);
-        }
       }
 
       &.aggregate .information {
@@ -126,14 +118,6 @@ ol.projects {
       .velocity-block {
         background: $very-light-red;
         border-color: $very-dark-red;
-
-        .sparklines .sparkline {
-          background: $very-very-light-red;
-        }
-
-        .sparklines.building .sparkline {
-          @include animation-name(building-red);
-        }
       }
 
       &.aggregate .information {
@@ -163,10 +147,6 @@ ol.projects {
       .velocity-block {
         background: $very-light-grey;
         border-color: $very-dark-grey;
-
-        .sparklines .sparkline {
-          background: $very-very-light-grey;
-        }
       }
       &.aggregate .information{
         @include linear-gradient(0deg, $grey 50%, $dark-grey 51%);
@@ -187,10 +167,6 @@ ol.projects {
       .velocity-block {
         background: $very-very-light-grey;
         border-color: $dark-grey;
-
-        .sparklines .sparkline {
-          background: $white;
-        }
       }
       &.aggregate .information{
         @include linear-gradient(0deg, $light-grey 50%, $grey 51%);
@@ -311,76 +287,7 @@ ol.projects {
         color: #878385;
         text-transform: uppercase;
       }
-
-      .sparklines {
-        display: inline-block;
-        position: relative;
-        list-style: none;
-
-        .sparkline {
-          display: block;
-          float: left;
-          position: relative;
-          margin: 2px;
-          overflow: hidden;
-          text-indent: -1000px;
-
-          a {
-            display: block;
-          }
-
-          &.offline {
-            background-color: #5CC8F9;
-          }
-
-          &.success {
-            a {
-              background: url(/assets/icons/success.png) center no-repeat;
-            }
-          }
-
-          &.failure {
-            a {
-              background: url(/assets/icons/failure.png) center no-repeat;
-            }
-          }
-        }
-
-        &.building {
-          .sparkline {
-            @include animation-duration(1s);
-            @include animation-direction(alternate);
-            @include animation-timing-function(ease);
-            @include animation-iteration-count(infinite);
-
-            &:nth-child(1) { @include animation-delay(.135s); }
-            &:nth-child(2) { @include animation-delay(.94s); }
-            &:nth-child(3) { @include animation-delay(.26s); }
-            &:nth-child(4) { @include animation-delay(2s); }
-            &:nth-child(5) { @include animation-delay(1s); }
-            &:nth-child(6) { @include animation-delay(.5s); }
-            &:nth-child(7) { @include animation-delay(.3s); }
-            &:nth-child(8) { @include animation-delay(1.18s); }
-            &:nth-child(9) { @include animation-delay(1.8s); }
-            &:nth-child(10) { @include animation-delay(.4s); }
-
-            &.success, &.failure {
-              a {
-                background-color: transparent;
-              }
-            }
-          }
-        }
-      }
     }
-
-    &.success .velocity-block .project_history .sparklines.building .sparkline {
-      @include animation-name(building-green);
-    }
-  }
-
-  &.failure .velocity-block .project_history .sparklines.building .sparkline {
-    @include animation-name(building-red);
   }
 }
 
