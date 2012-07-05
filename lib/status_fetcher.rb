@@ -48,9 +48,9 @@ module StatusFetcher
     def retrieve_velocity_for(project)
       return unless project.tracker_project?
 
-      tracker = TrackerApi.new(project.tracker_auth_token)
-      project.current_velocity = tracker.current_velocity(project.tracker_project_id)
-      project.last_ten_velocities = tracker.last_ten_velocities(project.tracker_project_id)
+      tracker = TrackerApi.new(project)
+      project.current_velocity = tracker.current_velocity
+      project.last_ten_velocities = tracker.last_ten_velocities
     end
   end
 end

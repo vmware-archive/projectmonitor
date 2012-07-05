@@ -121,9 +121,9 @@ describe StatusFetcher do
     let(:tracker_api) { double :tracker_api_instance }
 
     before do
-      TrackerApi.stub(:new).with(project.tracker_auth_token).and_return tracker_api
-      tracker_api.stub(:current_velocity).with(project.tracker_project_id).and_return 7
-      tracker_api.stub(:last_ten_velocities).with(project.tracker_project_id).and_return [4,3,4,2,1,5,3,2,3,3]
+      TrackerApi.stub(:new).with(project).and_return tracker_api
+      tracker_api.stub(:current_velocity).and_return 7
+      tracker_api.stub(:last_ten_velocities).and_return [4,3,4,2,1,5,3,2,3,3]
     end
 
     context "no tracker configuration" do
