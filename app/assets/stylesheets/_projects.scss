@@ -89,8 +89,15 @@ ol.projects {
 
       }
       .velocity-block {
-        background: $very-light-green;
         border-color: $very-dark-green;
+
+        .chart {
+          dd {
+            span {
+              background: $dark-green;
+            }
+          }
+        }
       }
 
       &.aggregate .information {
@@ -118,6 +125,14 @@ ol.projects {
       .velocity-block {
         background: $very-light-red;
         border-color: $very-dark-red;
+
+        .chart {
+          dd {
+            span {
+              background: $dark-red;
+            }
+          }
+        }
       }
 
       &.aggregate .information {
@@ -147,6 +162,14 @@ ol.projects {
       .velocity-block {
         background: $very-light-grey;
         border-color: $very-dark-grey;
+
+        .chart {
+          dd {
+            span {
+              background: $dark-grey;
+            }
+          }
+        }
       }
       &.aggregate .information{
         @include linear-gradient(0deg, $grey 50%, $dark-grey 51%);
@@ -287,32 +310,26 @@ ol.projects {
         color: #878385;
         text-transform: uppercase;
       }
+
+      .chart {
+        padding-left: 10px;
+        dd {
+          display:inline;
+          float: left;
+          margin-right: 2px;
+          position: relative;
+
+          span {
+            position: absolute;
+            bottom: 0;
+            border-top-left-radius:1px;
+            border-top-right-radius:1px;
+          }
+        }
+      }
+
     }
   }
 }
 
-.chart{
-  width: 200px;
-  height: 80px;
-  padding-left: 10px;
-}
 
-.chart dd {
-  height: 100px;
-  float: left;
-  margin-right: 2px;
-  display:inline;
-  width: 14px;
-  background: #B9DCC8;
-  position: relative;
-}
-
-.chart dd span {
-  background: #93CDAD;
-  position: absolute;
-  width: 14px;
-  bottom: 0;
-
-  border-top-left-radius:1px;
-  border-top-right-radius:1px;
-}

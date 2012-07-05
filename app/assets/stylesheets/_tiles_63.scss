@@ -158,7 +158,26 @@
       }
     }
 
+    &.success {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-green 95%, $very-dark-green 96%, $very-light-green 5%);
+      }
+    }
+
+    &.failure {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-red 95%, $very-dark-red 96%, $very-light-red 5%);
+      }
+    }
+
+    &.offline {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-grey 95%, $very-dark-grey 96%, $very-light-grey 5%);
+      }
+    }
+
     .velocity-block {
+      background-size: 11px;
       width: 96px;
 
       .velocity {
@@ -183,6 +202,19 @@
         height: 90px;
         font-size: 24pt;
         line-height: 70px;
+      }
+
+      .chart {
+        padding-top: 32px;
+
+        dd {
+          height: 35px;
+          width: 6px;
+
+          span {
+            width: 6px;
+          }
+        }
       }
     }
 
