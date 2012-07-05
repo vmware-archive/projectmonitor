@@ -139,8 +139,27 @@
       }
     }
 
+    &.success {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-green 95%, $very-dark-green 97%, $very-light-green 5%);
+      }
+    }
+
+    &.failure {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-red 95%, $very-dark-red 97%, $very-light-red 5%);
+      }
+    }
+
+    &.offline {
+      .velocity-block {
+        @include linear-gradient(90deg, $very-light-grey 95%, $very-dark-grey 97%, $very-light-grey 5%);
+      }
+    }
+
     .velocity-block {
       width: 96px;
+      background-size: 9px;
 
       .velocity {
         margin-top: 14px;
@@ -164,6 +183,19 @@
         height: 90px;
         font-size: 24pt;
         line-height: 70px;
+      }
+
+      .chart {
+        padding-top: 42px;
+
+        dd {
+          height: 35px;
+          width: 6px;
+
+          span {
+            width: 6px;
+          }
+        }
       }
     }
 
