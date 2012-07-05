@@ -171,13 +171,14 @@ ol.projects {
           }
         }
       }
+
       &.aggregate .information{
         @include linear-gradient(0deg, $grey 50%, $dark-grey 51%);
       }
     }
 
 
-    &.server-unreachable {
+    &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
       background: $very-very-light-grey;
 
       .information {
@@ -190,7 +191,24 @@ ol.projects {
       .velocity-block {
         background: $very-very-light-grey;
         border-color: $dark-grey;
+
+        .chart {
+          dd {
+            span {
+              background: $dark-grey;
+            }
+          }
+        }
       }
+
+      .history {
+        ol {
+          li {
+            background: $very-very-light-grey;
+          }
+        }
+      }
+
       &.aggregate .information{
         @include linear-gradient(0deg, $light-grey 50%, $grey 51%);
       }
