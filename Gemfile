@@ -60,6 +60,8 @@ end
 
 group :test do
   gem "headless", "0.1.0"
+  gem "vcr"
+  gem "fakeweb"
 end
 
 group :test, :development do
