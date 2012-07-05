@@ -165,20 +165,6 @@
         font-size: 24pt;
         line-height: 70px;
       }
-
-      .sparklines {
-        margin: 70px 10px 20px;
-        width: 80px;
-
-        .sparkline {
-          margin: 2px 2px 0 0;
-          a {
-            background-size: 63%;
-            width: 14px;
-            height: 14px;
-          }
-        }
-      }
     }
 
     &.aggregate {
