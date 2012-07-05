@@ -1,7 +1,73 @@
 require 'spec_helper'
 
 describe DashboardHelper do
-  context "#tile_for" do
+  describe "#project_bar_chart" do
+    let(:project) { double(:project, last_ten_velocities: last_ten_velocities) }
+
+    context "with one bar" do
+      let(:last_ten_velocities) { [1] }
+
+      it "should display one bar at 100%" do
+        helper.project_bar_chart(project).should include("<span style=\"height: 100%\" />")
+      end
+    end
+
+    context "with two bars" do
+      let(:last_ten_velocities) { [1, 2] }
+
+      it "displays two bars, with heights relative to max" do
+        helper.project_bar_chart(project).should include("<span style=\"height: 50%\" />")
+        helper.project_bar_chart(project).should include("<span style=\"height: 100%\" />")
+      end
+    end
+
+    context "with a full history" do
+      let(:last_ten_velocities) { [5,8,1,6,10,3,3,7,9,2] }
+
+      it "displays 10 bars with relative heights" do
+        helper.project_bar_chart(project).scan(/\d+\%/).should == ["50%", "80%", "10%", "60%", "100%", "30%", "30%", "70%", "90%", "20%"]
+      end
+    end
+  end
+
+  describe "#status_count_for" do
+    subject  { helper.status_count_for(number) }
+
+    before do
+      helper.status_count_for(number) do |status|
+        status
+      end
+    end
+
+    context "when a number is passed" do
+      context "when 15 is passed" do
+        let(:number) { 15 }
+        it { should == 8 }
+      end
+
+      context "when 24 is passed" do
+        let(:number) { 24 }
+        it { should == 8 }
+      end
+
+      context "when 48 is passed" do
+        let(:number) { 48 }
+        it { should == 6 }
+      end
+
+      context "when 63 is passed" do
+        let(:number) { 63 }
+        it { should == 5 }
+      end
+    end
+
+    context "when a number is not passed" do
+      let(:number) { nil }
+      it { should == 6 }
+    end
+  end
+
+  describe "#tile_for" do
     subject { helper.tile_for @tile_obj }
 
     context "when nil" do
@@ -23,41 +89,5 @@ describe DashboardHelper do
       it { should == :project_decorator }
     end
 
-    context "#status_count_for" do
-      subject  { helper.status_count_for(number) }
-
-      before do
-        helper.status_count_for(number) do |status|
-          status
-        end
-      end
-
-      context "when a number is passed" do
-        context "when 15 is passed" do
-          let(:number) { 15 }
-          it { should == 8 }
-        end
-
-        context "when 24 is passed" do
-          let(:number) { 24 }
-          it { should == 8 }
-        end
-
-        context "when 48 is passed" do
-          let(:number) { 48 }
-          it { should == 6 }
-        end
-
-        context "when 63 is passed" do
-          let(:number) { 63 }
-          it { should == 5 }
-        end
-      end
-
-      context "when a number is not passed" do
-        let(:number) { nil }
-        it { should == 6 }
-      end
-    end
   end
 end

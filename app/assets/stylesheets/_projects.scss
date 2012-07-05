@@ -383,3 +383,29 @@ ol.projects {
     @include animation-name(building-red);
   }
 }
+
+.chart{
+  width: 200px;
+  height: 80px;
+  padding-left: 10px;
+}
+
+.chart dd {
+  height: 100px;
+  float: left;
+  margin-right: 2px;
+  display:inline;
+  width: 14px;
+  background: #B9DCC8;
+  position: relative;
+}
+
+.chart dd span {
+  background: #93CDAD;
+  position: absolute;
+  width: 14px;
+  bottom: 0;
+
+  border-top-left-radius:1px;
+  border-top-right-radius:1px;
+}
