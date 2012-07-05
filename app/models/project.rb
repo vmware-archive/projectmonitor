@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
   belongs_to :latest_status, :class_name => "ProjectStatus"
   belongs_to :aggregate_project
 
+  serialize :last_ten_velocities, Array
+
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
   scope :with_statuses, joins(:statuses).uniq
