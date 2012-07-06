@@ -103,6 +103,7 @@ describe Project do
         last_id = status.id
       end
     end
+
   end
 
   describe "#code" do
@@ -224,7 +225,7 @@ describe Project do
 
     it "should be false/false if the project's current status is offline" do
       project = projects(:pivots)
-      project.statuses.create!(:online => false)
+      project.statuses.create!(:online => false, published_at: Time.now)
       project.reload
       project.should_not be_green
       project.should_not be_red
@@ -234,6 +235,17 @@ describe Project do
       project.statuses.should be_empty
       project.should_not be_red
       project.should_not be_green
+    end
+  end
+
+  describe "#latest_status" do
+    let(:project) { Project.create(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
+
+    let!(:recent_status_created_a_while_ago) { project.statuses.create(:success => true, :online => true, :published_at => 5.minutes.ago, :created_at => 10.minutes.ago) }
+    let!(:old_status_created_recently) { project.statuses.create(:success => true, :online => false, :published_at => 20.minutes.ago, :created_at => 4.minutes.ago) }
+
+    it "should return the most recent status" do
+      project.latest_status.should == recent_status_created_a_while_ago
     end
   end
 

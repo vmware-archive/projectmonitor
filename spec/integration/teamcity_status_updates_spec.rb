@@ -11,9 +11,9 @@ describe "TeamCity status updates" do
         <builds count="1">
           <build id="2" number="2" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:2"
                  running="true" percentageComplete="4"
-                 webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt2"/>
+                 webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt2" startDate="#{10.minutes.ago.to_s(:db)}"/>
           <build id="1" number="1" status="FAILURE" buildTypeId="bt1" href="/app/rest/builds/id:1"
-                 webUrl="http://localhost:8111/viewLog.html?buildId=1&amp;buildTypeId=bt1"/>
+                 webUrl="http://localhost:8111/viewLog.html?buildId=1&amp;buildTypeId=bt1" startDate="#{20.minutes.ago.to_s(:db)}"/>
         </builds>
       XML
     }
@@ -22,9 +22,9 @@ describe "TeamCity status updates" do
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
         <builds count="1">
           <build id="2" number="2" status="SUCCESS" buildTypeId="bt2" href="/app/rest/builds/id:2"
-                 webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt2"/>
+                 webUrl="http://localhost:8111/viewLog.html?buildId=2&amp;buildTypeId=bt2" startDate="#{10.minutes.ago.to_s(:db)}"/>
           <build id="1" number="1" status="FAILURE" buildTypeId="bt1" href="/app/rest/builds/id:1"
-                 webUrl="http://localhost:8111/viewLog.html?buildId=1&amp;buildTypeId=bt1"/>
+                 webUrl="http://localhost:8111/viewLog.html?buildId=1&amp;buildTypeId=bt1" startDate="#{20.minutes.ago.to_s(:db)}"/>
         </builds>
       XML
     }

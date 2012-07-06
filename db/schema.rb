@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705143627) do
+ActiveRecord::Schema.define(:version => 20120706202714) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",                  :default => true
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "code"
     t.string   "location",   :limit => 20
   end
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20120705143627) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
@@ -63,13 +63,13 @@ ActiveRecord::Schema.define(:version => 20120705143627) do
     t.string   "feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",                             :default => true
-    t.boolean  "building",                            :default => false, :null => false
+    t.boolean  "enabled",                                   :default => true
+    t.boolean  "building",                                  :default => false, :null => false
     t.string   "type"
     t.integer  "polling_interval"
     t.datetime "next_poll_at"
     t.integer  "aggregate_project_id"
-    t.integer  "latest_status_id"
+    t.integer  "deprecated_latest_status_id"
     t.boolean  "ec2_monday"
     t.boolean  "ec2_tuesday"
     t.boolean  "ec2_wednesday"
@@ -84,10 +84,10 @@ ActiveRecord::Schema.define(:version => 20120705143627) do
     t.string   "ec2_instance_id"
     t.string   "ec2_elastic_ip"
     t.string   "code"
-    t.string   "location",              :limit => 20
+    t.string   "location",                    :limit => 20
     t.string   "tracker_project_id"
     t.string   "tracker_auth_token"
-    t.integer  "current_velocity",                    :default => 0,     :null => false
+    t.integer  "current_velocity",                          :default => 0,     :null => false
     t.string   "last_ten_velocities"
   end
 
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(:version => 20120705143627) do
 
   create_table "twitter_searches", :force => true do |t|
     t.string   "search_term"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
