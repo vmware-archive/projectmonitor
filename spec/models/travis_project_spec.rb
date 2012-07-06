@@ -28,7 +28,7 @@ describe TravisProject do
     end
 
     it "should allow both http and https" do
-      project.feed_url = "http://travis-ci.org/pivotal/projectmonitor/cc.xml"
+      project.feed_url = "http://travis-ci.org/pivotal/project-monitor/cc.xml"
       project.should have(0).errors_on(:feed_url)
       project.feed_url = 'https://travis-ci.org/pivotal/projectmonitor/cc.xml'
       project.should have(0).errors_on(:feed_url)
