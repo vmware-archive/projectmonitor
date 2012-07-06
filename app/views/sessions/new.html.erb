@@ -20,14 +20,6 @@
 
   <p style="text-align: right; margin-bottom: 0;">
     <%= submit_tag 'Log In' %>
-    </p>
   </p>
 <% end -%>
 
-<%- if AuthConfig.openid? %>
-  <p class="login">Or</span>
-
-  <div class="openid">
-    <p><%= link_to "Log In With Google OpenID", new_openid_path %></p>
-  </div>
-<% end %>
