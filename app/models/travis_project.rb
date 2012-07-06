@@ -13,6 +13,16 @@ class TravisProject < Project
     feed_url
   end
 
+  def fetch_new_statuses
+    content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
+    parsed_status = parse_project_status(content)
+    parsed_status.online = true
+    project = Nokogiri::XML.parse(content).css('Project').first
+    if !status.match?(parsed_status) && project.attribute("activity").value != "Building"
+      statuses.create(parsed_status.attributes)
+    end
+  end
+
   def parse_building_status(content)
     status = super(content)
 
