@@ -3,25 +3,21 @@ pivots:
   type: CruiseControlProject
   feed_url: http://ci.pivotallabs.com:3333/projects/pivots.rss
   enabled: true
-  latest_status_id: 1
 socialitis:
   name: Socialitis
   type: CruiseControlProject
   feed_url: http://ci.pivotallabs.com:3333/projects/socialitis.rss
   enabled: true
-  latest_status_id: 4
 never_green:
   name: Lumos
   type: CruiseControlProject
   feed_url: http://lumos-ci:3333/projects/lumos.rss
   enabled: true
-  latest_status_id: 5
 offline:
   name: Offline
   type: CruiseControlProject
   feed_url: http://gnip-ci:3333/projects/gnip.rss
   enabled: true
-  latest_status_id: 9
 disabled:
   name: Core Bundle
   type: CruiseControlProject
@@ -32,21 +28,18 @@ many_builds:
   type: CruiseControlProject
   feed_url: http://many_builds-ci:3333/projects/many_builds.rss
   enabled: true
-  latest_status_id: 33
 red_currently_building:
   name: Red Currently Building
   type: CruiseControlProject
   feed_url: http://red_currently_building-ci:3333/projects/red_currently_building.rss
   enabled: true
   building: true
-  latest_status_id: 10
 green_currently_building:
   name: Green Currently Building
   type: CruiseControlProject
   feed_url: http://green_currently_building-ci:3333/projects/green_currently_building.rss
   enabled: true
   building: true
-  latest_status_id: 11
 never_built:
   name: Never built
   type: CruiseControlProject
@@ -58,19 +51,16 @@ internal_project1:
   feed_url: http://never-ci:3333/projects/internal_project1.rss
   enabled: true
   aggregate_project: internal_projects_aggregate
-  latest_status_id: 12
 internal_project2:
   name: Aggregated Internal Project 2
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/internal_project2.rss
   enabled: true
   aggregate_project: internal_projects_aggregate
-  latest_status_id: 13
 internal_project3:
   name: Aggregated Internal Project with Different Tag
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/internal_project3.rss
   enabled: true
   aggregate_project: internal_projects_aggregate
-  latest_status_id: 53
 

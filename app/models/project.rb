@@ -3,7 +3,6 @@ class Project < ActiveRecord::Base
   DEFAULT_POLLING_INTERVAL = 30
 
   has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT, :dependent => :destroy
-  belongs_to :latest_status, :class_name => "ProjectStatus"
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
@@ -40,6 +39,10 @@ class Project < ActiveRecord::Base
 
   def code
     self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
+  end
+
+  def latest_status
+    ProjectStatus.where(project_id: id).reverse_chronological.limit(1).first
   end
 
   def status

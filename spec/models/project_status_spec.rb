@@ -56,7 +56,7 @@ describe ProjectStatus do
   describe "after_create" do
     it "becomes project's latest_status" do
       project = projects(:pivots)
-      status = project.statuses.create()
+      status = project.statuses.create(published_at: Time.now)
       project.reload.latest_status.should == status
     end
   end
