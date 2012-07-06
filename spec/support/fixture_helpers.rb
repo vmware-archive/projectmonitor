@@ -28,6 +28,20 @@ class CCRssExample < FixtureFile
   end
 end
 
+class TravisExample < FixtureFile
+  def initialize(filename)
+    super("travis_examples", filename)
+  end
+
+  def as_xml
+    Nokogiri::XML.parse(read)
+  end
+
+  def first_css(selector)
+    as_xml.at_css(selector)
+  end
+end
+
 class HudsonAtomExample < FixtureFile
   def initialize(filename)
     super("hudson_atom_examples", filename)
