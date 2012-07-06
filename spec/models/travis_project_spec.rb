@@ -3,8 +3,6 @@ require 'spec_helper'
 describe TravisProject do
   let(:project) { TravisProject.new(:name => "my_travis_project", :feed_url => "http://travis-ci.org/pivotal/projectmonitor/cc.xml") }
 
-  it_should_behave_like 'a project that updates only the most recent status'
-
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
       project.feed_url = nil
@@ -38,6 +36,68 @@ describe TravisProject do
   describe "#build_status_url" do
     it "should use cc.xml" do
       project.build_status_url.should == "http://travis-ci.org/pivotal/projectmonitor/cc.xml"
+    end
+  end
+
+  describe "#fetch_new_statuses" do
+    before do
+      project.save!
+      project.create_latest_status(online: true, success: true, project: project)
+    end
+
+    context "when not currently building" do
+      it "is green when latest build is successful" do
+        xml_text = TravisExample.new("success.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+
+        project.fetch_new_statuses
+        project.reload.should be_green
+      end
+
+      it "is red when latest build has failed" do
+        xml_text = TravisExample.new("failure.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+
+        project.fetch_new_statuses
+        project.reload.should be_red
+      end
+
+      it "doesn't add a duplicate of the existing status" do
+        xml_text = TravisExample.new("success.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+
+        project.fetch_new_statuses
+        last_status = project.reload.latest_status
+
+        project.fetch_new_statuses
+        project.reload.latest_status.should == last_status
+      end
+    end
+
+    context "when building" do
+      it "remains green when existing status is green" do
+        xml_text = TravisExample.new("success.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+        project.fetch_new_statuses
+
+        xml_text = TravisExample.new("building.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+
+        project.fetch_new_statuses
+        project.reload.should be_green
+      end
+
+      it "remains red when existing status is red" do
+        xml_text = TravisExample.new("failure.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+        project.fetch_new_statuses
+
+        xml_text = TravisExample.new("building.xml").read
+        UrlRetriever.stub(:retrieve_content_at).and_return(xml_text)
+
+        project.fetch_new_statuses
+        project.reload.should be_red
+      end
     end
   end
 
