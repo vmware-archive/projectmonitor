@@ -28,7 +28,9 @@
       <% if project.tracker_project? %>
         <div class="velocity">
           <span class="label">Velocity</span>
-          <span class="value"><%= project.current_velocity %></span>
+          <% unless project.last_ten_velocities.empty? %>
+            <span class="value"><%= project.current_velocity %></span>
+          <% end %>
         </div>
         <%= project_bar_chart project %>
       <% end %>
