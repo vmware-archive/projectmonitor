@@ -1,7 +1,7 @@
 class TravisProject < Project
 
   validates_format_of :feed_url,
-    :with => %r(^https?://travis-ci.org/\w+/\w+/cc\.xml$),
+    :with => %r(^https?://travis-ci.org/[\w-]+/[\w-]+/cc\.xml$),
     :message => "should look like: http://travis-ci.org/[account]/[project]/cc.xml"
 
   def project_name
