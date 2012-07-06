@@ -105,6 +105,21 @@ feature "Dashboard" do
     end
   end
 
+  context "viewing tracker velocity" do
+    scenario "user sees current velocity number when velocity history present" do
+      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [3,2], current_velocity: 1)
+      visit root_path
+      page.should have_content("Velocity 1")
+    end
+
+    scenario "user does not see current velocity number when velocity history not present" do
+      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [], current_velocity: 0)
+      visit root_path
+      page.should have_content("Velocity")
+      page.should have_no_content("Velocity 0")
+    end
+  end
+
   context "graphing iteration points" do
     scenario "user sees a graph when tracker integration enabled" do
       FactoryGirl.create(:project_with_tracker_integration)
