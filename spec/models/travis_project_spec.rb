@@ -42,7 +42,7 @@ describe TravisProject do
   describe "#fetch_new_statuses" do
     before do
       project.save!
-      project.create_latest_status(online: true, success: true, project: project)
+      project.statuses.create(online: true, success: true, project: project)
     end
 
     context "when not currently building" do

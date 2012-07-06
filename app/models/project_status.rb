@@ -14,8 +14,6 @@ class ProjectStatus < ActiveRecord::Base
 
   scope :reverse_chronological, order('published_at DESC')
 
-  after_create :become_project_latest_status
-
   def match?(status)
     if self.online
       all_attributes_match?(status)
@@ -34,10 +32,6 @@ class ProjectStatus < ActiveRecord::Base
     else
       OFFLINE
     end
-  end
-
-  def become_project_latest_status
-    project.update_attributes!(:latest_status => self)
   end
 
   private
