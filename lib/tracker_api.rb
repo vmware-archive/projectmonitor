@@ -22,6 +22,6 @@ class TrackerApi
   private
 
   def pt_project
-    PivotalTracker::Project.find(@project.tracker_project_id)
+    @pt_project ||= PivotalTracker::Project.find(@project.tracker_project_id)
   end
 end
