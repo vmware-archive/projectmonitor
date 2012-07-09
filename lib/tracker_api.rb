@@ -7,19 +7,23 @@ class TrackerApi
   end
 
   def delivered_stories_count
-    PivotalTracker::Project.find(@project.tracker_project_id)
-                             .stories
-                             .all(current_state: "delivered")
-                               .count
+    pt_project.stories.all(current_state: "delivered").count
   end
 
   def current_velocity
-    PivotalTracker::Project.find(@project.tracker_project_id).current_velocity
+    pt_project.current_velocity
   end
 
   def last_ten_velocities
-    pt_project = PivotalTracker::Project.find(@project.tracker_project_id)
-    iters = PivotalTracker::Iteration.done(pt_project).reverse.take(10)
-    iters.map { |i| i.stories.map(&:estimate).compact.sum }
+    done = PivotalTracker::Iteration.done(pt_project).map(&:stories).reverse.take(9)
+    current = PivotalTracker::Iteration.current(pt_project).stories
+
+    ([current] + done).map { |stories| stories.map(&:estimate).compact.sum }
+  end
+
+  private
+
+  def pt_project
+    @pt_project ||= PivotalTracker::Project.find(@project.tracker_project_id)
   end
 end
