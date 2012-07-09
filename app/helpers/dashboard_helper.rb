@@ -1,6 +1,6 @@
 module DashboardHelper
   def project_bar_chart(project)
-    points_per_iteration = project.last_ten_velocities
+    points_per_iteration = project.last_ten_velocities.reverse
     maximum_point_value = points_per_iteration.max
 
     content_tag(:dl, class: "chart") do
