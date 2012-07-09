@@ -24,8 +24,8 @@ describe TrackerApi do
     end
 
     context "last_ten_velocities" do
-      it "should be the sum of the estimates of the stories from the prior 10 iterations in reverse order" do
-        TrackerApi.new(project).last_ten_velocities.should == [1,2,3]
+      it "should be the sum of the estimates of the stories from the current and 9 most recent iterations" do
+        TrackerApi.new(project).last_ten_velocities.should == [0,1,2,3]
       end
     end
   end
