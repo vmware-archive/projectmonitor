@@ -7,8 +7,8 @@ describe DashboardHelper do
     context "with one bar" do
       let(:last_ten_velocities) { [1] }
 
-      it "should display one bar at 100%" do
-        helper.project_bar_chart(project).should include("<span style=\"height: 100%\" />")
+      it "should display one bar at full height" do
+        helper.project_bar_chart(project).should include("<span style=\"height: 105%\" />")
       end
     end
 
@@ -16,16 +16,16 @@ describe DashboardHelper do
       let(:last_ten_velocities) { [1, 2] }
 
       it "displays two bars, with heights relative to max" do
-        helper.project_bar_chart(project).should include("<span style=\"height: 50%\" />")
-        helper.project_bar_chart(project).should include("<span style=\"height: 100%\" />")
+        helper.project_bar_chart(project).should include("<span style=\"height: 55%\" />")
+        helper.project_bar_chart(project).should include("<span style=\"height: 105%\" />")
       end
     end
 
     context "with a full history" do
-      let(:last_ten_velocities) { [5,8,1,6,10,3,3,7,9,2] }
+      let(:last_ten_velocities) { [5,8,1,6,10,0,3,7,9,2] }
 
       it "displays 10 bars with relative heights" do
-        helper.project_bar_chart(project).scan(/\d+\%/).should == ["50%", "80%", "10%", "60%", "100%", "30%", "30%", "70%", "90%", "20%"]
+        helper.project_bar_chart(project).scan(/\d+\%/).should == ["55%", "85%", "15%", "65%", "105%", "5%", "35%", "75%", "95%", "25%"]
       end
     end
   end

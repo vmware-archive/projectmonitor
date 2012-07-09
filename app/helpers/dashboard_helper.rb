@@ -31,8 +31,9 @@ module DashboardHelper
   private
 
   def bar_chart_bar(percentage)
+    zero_offset = 5
     content_tag(:dd) do
-      concat tag(:span, style: "height: #{percentage.to_i}%")
+      concat tag(:span, style: "height: #{percentage.to_i + zero_offset}%")
     end
   end
 end
