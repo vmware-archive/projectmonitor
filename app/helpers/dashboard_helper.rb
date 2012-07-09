@@ -1,11 +1,11 @@
 module DashboardHelper
-  def project_bar_chart(project)
-    points_per_iteration = project.last_ten_velocities.reverse
-    maximum_point_value = points_per_iteration.max
+
+  def tracker_histogram(project)
+    tracker_histogram = TrackerHistogram.new(project.last_ten_velocities.reverse)
 
     content_tag(:dl, class: "chart") do
-      points_per_iteration.each do |iteration_points|
-        concat bar_chart_bar(iteration_points.to_f / maximum_point_value * 100)
+      tracker_histogram.each_bar do |bar|
+        concat tracker_histogram_bar(bar.height_percentage, bar.opacity)
       end
     end.html_safe
   end
@@ -30,10 +30,11 @@ module DashboardHelper
 
   private
 
-  def bar_chart_bar(percentage)
-    zero_offset = 5
+  def tracker_histogram_bar(percentage, opacity)
     content_tag(:dd) do
-      concat tag(:span, style: "height: #{percentage.to_i + zero_offset}%")
+      concat tag(:span, style: "opacity: #{opacity}; height: #{percentage}%")
     end
   end
 end
+
+

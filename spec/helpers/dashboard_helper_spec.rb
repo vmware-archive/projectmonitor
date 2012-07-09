@@ -1,31 +1,27 @@
 require 'spec_helper'
 
 describe DashboardHelper do
-  describe "#project_bar_chart" do
+  describe "#tracker_histogram" do
     let(:project) { double(:project, last_ten_velocities: last_ten_velocities) }
+    let(:last_ten_velocities) { [5,8,1,6,10,0,3,7,9,2] }
 
-    context "with one bar" do
-      let(:last_ten_velocities) { [1] }
-
-      it "should display one bar at full height" do
-        helper.project_bar_chart(project).should include("<span style=\"height: 105%\" />")
-      end
-    end
-
-    context "with two bars" do
-      let(:last_ten_velocities) { [1, 2] }
-
-      it "displays two bars, with heights relative to max" do
-        helper.project_bar_chart(project).should include("<span style=\"height: 55%\" />")
-        helper.project_bar_chart(project).should include("<span style=\"height: 105%\" />")
-      end
-    end
-
-    context "with a full history" do
-      let(:last_ten_velocities) { [5,8,1,6,10,0,3,7,9,2] }
-
+    describe "regarding bar height" do
       it "displays 10 bars with relative heights from oldest to youngest" do
-        helper.project_bar_chart(project).scan(/\d+\%/).should == ["25%", "95%", "75%", "35%", "5%", "105%", "65%", "15%", "85%", "55%"]
+        helper.tracker_histogram(project).scan(/\d+\%/).should == %w(25% 95% 75% 35% 5% 105% 65% 15% 85% 55%)
+      end
+    end
+
+    describe "regarding opacity" do
+      it "displays the bars from most transparent to least transparent" do
+        helper.tracker_histogram(project).scan(/[01]\.\d{1,2}/).should == %w(0.37 0.44 0.51 0.58 0.65 0.72 0.79 0.86 0.93 1.0)
+      end
+
+      context "when < 10 velocities" do
+        let(:last_ten_velocities) { [5,8,1,6,10] }
+
+        it "displays the bars with adjusted opacity increments" do
+          helper.tracker_histogram(project).scan(/[01]\.\d{1,2}/).should == %w(0.44 0.58 0.72 0.86 1.0)
+        end
       end
     end
   end
