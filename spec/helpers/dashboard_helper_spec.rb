@@ -24,8 +24,8 @@ describe DashboardHelper do
     context "with a full history" do
       let(:last_ten_velocities) { [5,8,1,6,10,0,3,7,9,2] }
 
-      it "displays 10 bars with relative heights" do
-        helper.project_bar_chart(project).scan(/\d+\%/).should == ["55%", "85%", "15%", "65%", "105%", "5%", "35%", "75%", "95%", "25%"]
+      it "displays 10 bars with relative heights from oldest to youngest" do
+        helper.project_bar_chart(project).scan(/\d+\%/).should == ["25%", "95%", "75%", "35%", "5%", "105%", "65%", "15%", "85%", "55%"]
       end
     end
   end
