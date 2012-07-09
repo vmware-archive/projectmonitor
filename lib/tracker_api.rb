@@ -15,8 +15,10 @@ class TrackerApi
   end
 
   def last_ten_velocities
-    iters = PivotalTracker::Iteration.done(pt_project).reverse.take(10)
-    iters.map { |i| i.stories.map(&:estimate).compact.sum }
+    done = PivotalTracker::Iteration.done(pt_project).map(&:stories).reverse.take(9)
+    current = PivotalTracker::Iteration.current(pt_project).stories
+
+    ([current] + done).map { |stories| stories.map(&:estimate).compact.sum }
   end
 
   private
