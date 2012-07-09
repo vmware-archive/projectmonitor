@@ -118,35 +118,37 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_velocity_for" do
-    let(:tracker_api) { double :tracker_api_instance }
+    context "when the project is a tracker_project?" do
+      let(:project) { FactoryGirl.create :project, current_velocity: 5, tracker_project_id: 1, tracker_auth_token: "token" }
+      let(:current_velocity) { 20 }
+      let(:last_ten_velocities) { [1,2,3,4,5,6,7,8,9,10] }
 
-    before do
-      TrackerApi.stub(:new).with(project).and_return tracker_api
-      tracker_api.stub(:current_velocity).and_return 7
-      tracker_api.stub(:last_ten_velocities).and_return [4,3,4,2,1,5,3,2,3,3]
-    end
+      let(:tracker_api) { double :tracker_api, :current_velocity => current_velocity, :last_ten_velocities => last_ten_velocities }
 
-    context "no tracker configuration" do
-      let(:project) { Project.new }
+      before do
+        TrackerApi.stub(:new).and_return tracker_api
+      end
 
-      it "doesn't do anything with the TrackerApi" do
-        TrackerApi.should_not_receive(:new)
+      it "should set the last_ten_velocities on the project" do
         StatusFetcher.retrieve_velocity_for(project)
+        project.last_ten_velocities.should == last_ten_velocities
+      end
+
+      it "should set the current_velocity on the project" do
+        StatusFetcher.retrieve_velocity_for(project)
+        project.current_velocity.should == current_velocity
       end
     end
 
-    context "with tracker configuration" do
-      let(:project) { FactoryGirl.build(:project, tracker_project_id: 1, tracker_auth_token: "token") }
-      it "sets the project's velocity number to the velocity of current iteration" do
+    context "when the project is not a tracker_project?" do
+      let(:project) { FactoryGirl.create :project }
+
+      it "should do nothing" do
+        project.should_not_receive :current_velocity=
+        project.should_not_receive :last_ten_velocities=
+
         StatusFetcher.retrieve_velocity_for(project)
-        project.current_velocity.should == 7
-      end
-      it "stores velocity for the last 10 completed iterations" do
-        StatusFetcher.retrieve_velocity_for(project)
-        project.save!
-        project.reload.last_ten_velocities.should == [4,3,4,2,1,5,3,2,3,3]
       end
     end
   end
-
 end
