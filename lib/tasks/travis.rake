@@ -1,5 +1,5 @@
 namespace :travis do
-
+  desc "Create configuration files from examples"
   task :setup do
     puts 'Creating config/database.yml'
     system("cp config/database.yml.travis config/database.yml") and puts "... done"
@@ -8,14 +8,12 @@ namespace :travis do
     system("cp config/auth.yml.example config/auth.yml") and puts "... done"
   end
 
-  task :ci do
+  desc "Run specs"
+  task :ci => ['travis:go_headless', 'db:create', 'db:migrate', :spec, :jslint, 'jasmine:ci']
+
+  task :go_headless do
     require "headless"
-
-    sh 'rake db:create'
-    sh 'rake db:migrate'
-    sh 'rake db:schema:load RAILS_ENV=test'
-    sh 'rake spec'
-    sh 'rake jasmine:ci'
   end
-
 end
+
+task :travis => 'travis:ci'
