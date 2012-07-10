@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe HudsonProject do
+describe JenkinsProject do
   before(:each) do
-    @project = HudsonProject.new(:name => "my_hudson_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll")
+    @project = JenkinsProject.new(:name => "my_jenkins_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll")
   end
 
   it_should_behave_like 'a project that updates only the most recent status'
@@ -24,7 +24,7 @@ describe HudsonProject do
   end
 
   describe 'validations' do
-    it "should require a Hudson url format" do
+    it "should require a Jenkins url format" do
       @project.should have(0).errors_on(:feed_url)
       @project.feed_url = 'http://foo.bar.com:3434/wrong/example_project/rssAll'
       @project.should have(1).errors_on(:feed_url)
@@ -49,15 +49,15 @@ describe HudsonProject do
   describe "#status_parser" do
     shared_examples_for "successful build" do
       before(:each) do
-        @status_parser = @project.parse_project_status(HudsonAtomExample.new(@feed_file).read)
+        @status_parser = @project.parse_project_status(JenkinsAtomExample.new(@feed_file).read)
       end
 
       it "should return the link to the checkin" do
-        @status_parser.url.should == HudsonAtomExample.new(@feed_file).first_css("entry:first link").attribute('href').value
+        @status_parser.url.should == JenkinsAtomExample.new(@feed_file).first_css("entry:first link").attribute('href').value
       end
 
       it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(HudsonAtomExample.new(@feed_file).first_css("entry:first published").content)
+        @status_parser.published_at.should == Time.parse(JenkinsAtomExample.new(@feed_file).first_css("entry:first published").content)
       end
 
       it "should report success" do
@@ -91,15 +91,15 @@ describe HudsonProject do
 
     describe "with reported failure" do
       before(:each) do
-        @status_parser = @project.parse_project_status(HudsonAtomExample.new("failure.atom").read)
+        @status_parser = @project.parse_project_status(JenkinsAtomExample.new("failure.atom").read)
       end
 
       it "should return the link to the checkin" do
-        @status_parser.url.should == HudsonAtomExample.new("failure.atom").first_css("entry:first link").attribute('href').value
+        @status_parser.url.should == JenkinsAtomExample.new("failure.atom").first_css("entry:first link").attribute('href').value
       end
 
       it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(HudsonAtomExample.new("failure.atom").first_css("entry:first published").content)
+        @status_parser.published_at.should == Time.parse(JenkinsAtomExample.new("failure.atom").first_css("entry:first published").content)
       end
 
       it "should report failure" do
@@ -118,12 +118,12 @@ describe HudsonProject do
 
   describe "#building_parser" do
     before(:each) do
-      @project = HudsonProject.new(:name => "CiMonitor", :feed_url => "http://foo.bar.com:3434/job/CiMonitor/rssAll")
+      @project = JenkinsProject.new(:name => "CiMonitor", :feed_url => "http://foo.bar.com:3434/job/CiMonitor/rssAll")
     end
 
     context "with a valid response that the project is building" do
       before(:each) do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("hudson_cimonitor_building.atom").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("jenkins_cimonitor_building.atom").read)
       end
 
       it "should set the building flag on the project to true" do
@@ -133,7 +133,7 @@ describe HudsonProject do
 
     context "with a valid response that the project is not building" do
       before(:each) do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("hudson_cimonitor_not_building.atom").read)
+        @status_parser = @project.parse_building_status(BuildingStatusExample.new("jenkins_cimonitor_not_building.atom").read)
       end
 
       it "should set the building flag on the project to false" do

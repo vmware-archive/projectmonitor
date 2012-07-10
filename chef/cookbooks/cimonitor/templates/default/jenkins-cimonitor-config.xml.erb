@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM">
+  <scm class="jenkins.plugins.git.GitSCM">
     <configVersion>1</configVersion>
     <remoteRepositories>
       <org.spearce.jgit.transport.RemoteConfig>
@@ -23,9 +23,9 @@
       </org.spearce.jgit.transport.RemoteConfig>
     </remoteRepositories>
     <branches>
-      <hudson.plugins.git.BranchSpec>
+      <jenkins.plugins.git.BranchSpec>
         <name>master</name>
-      </hudson.plugins.git.BranchSpec>
+      </jenkins.plugins.git.BranchSpec>
     </branches>
     <mergeOptions/>
     <recursiveSubmodules>false</recursiveSubmodules>
@@ -34,7 +34,7 @@
     <clean>false</clean>
     <wipeOutWorkspace>false</wipeOutWorkspace>
     <pruneBranches>false</pruneBranches>
-    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <buildChooser class="jenkins.plugins.git.util.DefaultBuildChooser"/>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
     <relativeTargetDir></relativeTargetDir>
@@ -47,15 +47,15 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
-    <hudson.triggers.SCMTrigger>
+    <jenkins.triggers.SCMTrigger>
     <spec>* * * * *</spec>
-    </hudson.triggers.SCMTrigger>
+    </jenkins.triggers.SCMTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
+    <jenkins.tasks.Shell>
       <command>./cruise_build.sh</command>
-    </hudson.tasks.Shell>
+    </jenkins.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers/>
