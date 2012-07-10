@@ -28,8 +28,8 @@ describe ProjectsController do
 
     it "should create projects by type" do
       lambda do
-        post :create, :project => {:name=>'name', :feed_url=>'http://www.example.com/job/example/rssAll', :type => HudsonProject.name}
-      end.should change(HudsonProject, :count).by(1)
+        post :create, :project => {:name=>'name', :feed_url=>'http://www.example.com/job/example/rssAll', :type => JenkinsProject.name}
+      end.should change(JenkinsProject, :count).by(1)
       response.should redirect_to(projects_path)
     end
 
@@ -45,9 +45,9 @@ describe ProjectsController do
       end
 
       it "allows changing the type" do
-        project = HudsonProject.create(:name => "HP to CCP", :feed_url => "http://www.example.com/job/example/rssAll")
+        project = JenkinsProject.create(:name => "HP to CCP", :feed_url => "http://www.example.com/job/example/rssAll")
         project.should be_valid
-        project.should be_a_kind_of(HudsonProject)
+        project.should be_a_kind_of(JenkinsProject)
 
         put :update, :id => project.to_param, :project => { :type => "CruiseControlProject", :feed_url => "http://redrover.dyndns-ip.com:8111/app/rest/builds?locator=running:all,buildType:(id:bt10).rss" }
 
@@ -59,7 +59,7 @@ describe ProjectsController do
         project = projects(:pivots)
         project.should be_a_kind_of(CruiseControlProject)
 
-        put :update, :id => project.to_param, :project => { :type => "HudsonProject" }
+        put :update, :id => project.to_param, :project => { :type => "JenkinsProject" }
         response.should be_success
         response.should render_template('edit')
         Project.find(project.id).should be_a_kind_of(CruiseControlProject)

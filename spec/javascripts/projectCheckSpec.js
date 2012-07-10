@@ -21,7 +21,7 @@ describe('checkProjects', function() {
     beforeEach(function() {
       spyOn(ProjectMonitor.Window, 'reload');
       spyOn($, 'ajax').andCallFake(function(options) {
-        options.success([{hudson_project: {id: 1}}]);
+        options.success([{jenkins_project: {id: 1}}]);
       });
     });
 
@@ -43,7 +43,7 @@ describe('checkProjects', function() {
       ProjectCheck.init();
 
       $.ajax.andCallFake(function(options) {
-        options.success([{hudson_project: {id: 1}}]);
+        options.success([{jenkins_project: {id: 1}}]);
       });
     });
 

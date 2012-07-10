@@ -1,4 +1,4 @@
-class HudsonProject < Project
+class JenkinsProject < Project
   validates_format_of :feed_url, :with =>  /https?:\/\/.*job\/.*\/rssAll$/, :message => "should look like: http://*job/*/rssAll"
 
   def project_name

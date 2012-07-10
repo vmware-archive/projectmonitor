@@ -12,7 +12,7 @@
   <%= f.label :type, "Project Type" %>
   <%= f.select :type, [ ["",""],
                        [CruiseControlProject.name.titleize, CruiseControlProject.name],
-                       [HudsonProject.name.titleize, HudsonProject.name],
+                       [JenkinsProject.name.titleize, JenkinsProject.name],
                        [TeamCityRestProject.name.titleize, TeamCityRestProject.name],
                        [TeamCityProject.name.titleize, TeamCityProject.name],
                        ["#{TeamCityChainedProject.name.titleize} (TC 7+)", TeamCityChainedProject.name],
