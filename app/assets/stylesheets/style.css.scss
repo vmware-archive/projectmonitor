@@ -272,3 +272,14 @@ form em {
 .projects.index {
  h1 { margin-bottom: 10px; }
 }
+
+.projects.edit, .projects.new {
+  #project_tracker_project_id_error, #project_tracker_auth_token_error {
+    display: inline;
+    color: red;
+  }
+  #project_tracker_project_id_success,#project_tracker_auth_token_success {
+    display: inline;
+    color: green;
+  }
+}
