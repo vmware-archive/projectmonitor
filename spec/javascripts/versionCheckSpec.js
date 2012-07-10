@@ -34,7 +34,7 @@ describe('checkVersion', function() {
     var currentVersion = 1;
 
     beforeEach(function() {
-      spyOn(ProjectMonitor.Window, 'reload')
+      spyOn(ProjectMonitor.Window, 'reload');
       spyOn($, 'ajax').andCallFake(function(options) {
         options.success(currentVersion);
       });
