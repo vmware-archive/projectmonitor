@@ -1,5 +1,5 @@
 var ProjectCheck = function() {
-  var projectCheckTimeout = 30 * 1000; // 1 minute
+  var projectCheckTimeout = 30 * 1000;
 
   var currentTimeout;
 
