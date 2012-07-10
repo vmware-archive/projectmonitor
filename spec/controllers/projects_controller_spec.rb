@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'time'
 
 describe ProjectsController do
-  render_views
-
   describe "#status" do
     let(:project) { projects(:socialitis) }
     before { get :status, :id => project.id, :projects_count => 8 }
