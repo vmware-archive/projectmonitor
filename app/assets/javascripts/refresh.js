@@ -1,4 +1,4 @@
-var refreshTimeout = 30 * 1000; // 1 minute
+var refreshTimeout = 30 * 1000;
 var currentTimeout = null;
 var refresh, scheduleRefresh;
 

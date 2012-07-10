@@ -2,14 +2,12 @@ require 'spec_helper'
 require 'time'
 
 describe ProjectsController do
-  render_views
-
   describe "#status" do
-    context "should set the correct params" do
-      let(:project) { projects(:socialitis) }
-      before { get :status, :id => project.id, :projects_count => 8 }
+    let(:project) { projects(:socialitis) }
+    before { get :status, :id => project.id, :projects_count => 8 }
 
-      it { response.should render_template("dashboards/_project") }
+    it "should render dashboards/_project" do
+      response.should render_template("dashboards/_project")
     end
   end
 
@@ -21,19 +19,11 @@ describe ProjectsController do
     it "should respond to index" do
       get :index
       response.should be_success
-      assigns(:projects).should_not be_nil
-      assigns(:aggregate_projects).should_not be_nil
     end
 
     it "should respond to new" do
       get :new
       response.should be_success
-    end
-
-    it "should show you the time when you are creating a new project" do
-      Clock.now = Time.parse("Wed Oct 26 17:02:10 -0700 2011")
-      get :new
-      response.body.should include("Server time is #{Clock.now.to_s}")
     end
 
     it "should create projects by type" do
@@ -82,6 +72,19 @@ describe ProjectsController do
       Project.count.should == old_count - 1
 
       response.should redirect_to(projects_path)
+    end
+
+    describe "#validate_tracker_project" do
+      let(:status) { :ok }
+
+      subject { response }
+
+      before do
+        TrackerProjectValidator.stub(:validate).and_return status
+        post :validate_tracker_project, { auth_token: "12354", project_id: "98765" }
+      end
+
+      it { should be_success }
     end
   end
 end
