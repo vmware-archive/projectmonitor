@@ -10,10 +10,10 @@ describe TrackerApi do
       (1..3).each do |x|
         x.times do
           tracker_project.stories.create :name => "Test #{x}",
-                                         :story_type => "feature",
-                                         :estimate => 1,
-                                         :accepted_at => x.weeks.ago,
-                                         :current_state => "accepted"
+            :story_type => "feature",
+            :estimate => 1,
+            :accepted_at => x.weeks.ago,
+            :current_state => "accepted"
 
         end
       end
@@ -26,6 +26,17 @@ describe TrackerApi do
     context "last_ten_velocities" do
       it "should be the sum of the estimates of the stories from the current and 9 most recent iterations" do
         TrackerApi.new(project).last_ten_velocities.should == [0,1,2,3]
+      end
+
+      context "when the current iterations has unaccepted stories" do
+        it "does not count the unaccepted stories" do
+          tracker_project.stories.create :name => "Test (started)",
+            :story_type => "feature",
+            :estimate => 3,
+            :current_state => "started"
+
+          TrackerApi.new(project).last_ten_velocities.should == [0,1,2,3]
+        end
       end
     end
   end
