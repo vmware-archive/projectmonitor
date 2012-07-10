@@ -42,9 +42,9 @@ class TravisExample < FixtureFile
   end
 end
 
-class HudsonAtomExample < FixtureFile
+class JenkinsAtomExample < FixtureFile
   def initialize(filename)
-    super("hudson_atom_examples", filename)
+    super("jenkins_atom_examples", filename)
   end
 
   def as_xml
