@@ -1,6 +1,6 @@
 language: ruby
 
-bundler_args: --without postgres
+bundler_args: --without postgres development
 
 notifications:
   email:
