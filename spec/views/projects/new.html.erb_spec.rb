@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "projects/new.html.erb" do
+describe "projects/new" do
   before do
     @project = Project.new
   end
