@@ -3,7 +3,6 @@ source :rubygems
 gem "rails", "~> 3.2.0"
 gem "rake", "~> 0.9.2"
 
-gem "gem_plugin", "~> 0.2.0"
 gem "mime-types", "~> 1.18"
 gem "fastthread", "~> 1.0.7"
 gem "nokogiri", "~> 1.5.2"
@@ -49,7 +48,6 @@ end
 
 group :development do
   gem "heroku", "~> 2.23.0"
-  gem "taps", "~> 0.3.23"
   gem "capistrano", "~> 2.11.2"
   gem "capistrano-ext", "~> 1.2.1"
   gem "soloist", "~> 0.9.4"
