@@ -5,6 +5,8 @@ class TrackerHistogramBar
     self.index = index
   end
 
+  attr_reader :points_value
+
   delegate :number_of_points_values, :maximum_points_value, :opacity_step, :to => :tracker_histogram
 
   def height_percentage
@@ -17,5 +19,6 @@ class TrackerHistogramBar
 
   private
 
-  attr_accessor :tracker_histogram, :points_value, :index
+  attr_accessor :tracker_histogram, :index
+  attr_writer :points_value
 end

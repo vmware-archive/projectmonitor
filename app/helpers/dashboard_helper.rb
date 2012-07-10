@@ -5,7 +5,7 @@ module DashboardHelper
 
     content_tag(:dl, class: "chart") do
       tracker_histogram.each_bar do |bar|
-        concat tracker_histogram_bar(bar.height_percentage, bar.opacity)
+        concat tracker_histogram_bar(bar.height_percentage, bar.opacity, bar.points_value)
       end
     end.html_safe
   end
@@ -30,8 +30,8 @@ module DashboardHelper
 
   private
 
-  def tracker_histogram_bar(percentage, opacity)
-    content_tag(:dd) do
+  def tracker_histogram_bar(percentage, opacity, points_value)
+    content_tag(:dd, :title => "#{pluralize(points_value, "point")} completed") do
       concat tag(:span, style: "opacity: #{opacity}; height: #{percentage}%")
     end
   end
