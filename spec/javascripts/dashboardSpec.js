@@ -12,10 +12,8 @@ describe('dashboard', function() {
   });
 
   it("should create a spinner", function() {
-
     expect($('.spinner').length).toEqual(0);
 
-    var projectsCount = $("body").projectsCount();
     var projectsCount = 48;
     $('.building-indicator').setSpinner(projectsCount);
 
