@@ -14,4 +14,4 @@ before_script:
   - "export DISPLAY=:99"
   - "sh -e /etc/init.d/xvfb start"
 
-script: "bundle exec rake travis:ci"
+script: "bundle exec rake travis"
