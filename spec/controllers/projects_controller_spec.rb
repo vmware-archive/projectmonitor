@@ -73,5 +73,18 @@ describe ProjectsController do
 
       response.should redirect_to(projects_path)
     end
+
+    describe "#validate_tracker_project" do
+      let(:status) { :ok }
+
+      subject { response }
+
+      before do
+        TrackerProjectValidator.stub(:validate).and_return status
+        post :validate_tracker_project, { auth_token: "12354", project_id: "98765" }
+      end
+
+      it { should be_success }
+    end
   end
 end
