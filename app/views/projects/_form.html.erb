@@ -9,11 +9,6 @@
 </p>
 
 <p>
-  <%= f.label :feed_url, "Feed URL" %>
-  <%= f.text_area :feed_url, :style => "height: 3em;" %>
-</p>
-
-<p>
   <%= f.label :type, "Project Type" %>
   <%= f.select :type, [[CruiseControlProject.name.titleize, CruiseControlProject.name],
                        [HudsonProject.name.titleize, HudsonProject.name],
@@ -21,6 +16,11 @@
                        [TeamCityProject.name.titleize, TeamCityProject.name],
                        ["#{TeamCityChainedProject.name.titleize} (TC 7+)", TeamCityChainedProject.name],
                        [TravisProject.name.titleize, TravisProject.name]] %>
+</p>
+
+<p>
+  <%= f.label :feed_url, "Feed URL" %>
+  <%= f.text_area :feed_url, :style => "height: 3em;" %>
 </p>
 
 <p>
