@@ -52,6 +52,11 @@ class ProjectsController < ApplicationController
     redirect_to projects_url
   end
 
+  def validate_tracker_project
+    status = TrackerProjectValidator.validate(params)
+    head status
+  end
+
   protected
 
   private
@@ -63,4 +68,5 @@ class ProjectsController < ApplicationController
   def load_project_type
     @project_type = params[:project][:type].nil? ? Project : params[:project][:type].constantize
   end
+
 end
