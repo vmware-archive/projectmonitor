@@ -32,7 +32,7 @@ describe MessagesController do
    end
 
   context "with a logged in user" do
-    before(:each) do
+    before do
       controller.send("current_user=",users(:valid_edward))
     end
 
