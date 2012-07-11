@@ -2,58 +2,83 @@ require 'spec_helper'
 require 'time'
 
 describe ProjectsController do
-  describe "#status" do
-    let(:project) { projects(:socialitis) }
-    before { get :status, :id => project.id, :projects_count => 8 }
+  describe "without a logged in user" do
+    describe "status" do
+      let(:project) { projects(:socialitis) }
+      before { get :status, :id => project.id, :projects_count => 8 }
 
-    it "should render dashboards/_project" do
-      response.should render_template("dashboards/_project")
+      it "should render dashboards/_project" do
+        response.should render_template("dashboards/_project")
+      end
     end
   end
 
   describe "with a logged in user" do
     before(:each) do
-      log_in(users(:valid_edward))
+      log_in users(:valid_edward)
     end
 
-    it "should respond to index" do
-      get :index
-      response.should be_success
-    end
+    describe "create" do
+      context "when the project was successfully created" do
+        subject do
+          post :create, :project => {
+            :name => 'name',
+            :feed_url => 'http://www.example.com/job/example/rssAll',
+            :type => JenkinsProject.name
+          }
+        end
 
-    it "should respond to new" do
-      get :new
-      response.should be_success
-    end
+        it "should create a project of the correct type" do
+          lambda { subject }.should change(JenkinsProject, :count).by(1)
+        end
 
-    it "should create projects by type" do
-      lambda do
-        post :create, :project => {:name=>'name', :feed_url=>'http://www.example.com/job/example/rssAll', :type => JenkinsProject.name}
-      end.should change(JenkinsProject, :count).by(1)
-      response.should redirect_to(projects_path)
-    end
+        it "should set the flash" do
+          subject
+          flash[:notice].should == 'Project was successfully created.'
+        end
 
-    it "should respond to edit" do
-      get :edit, :id => projects(:socialitis)
-      response.should be_success
-    end
+        it { should redirect_to projects_path }
+      end
 
-    context "#update" do
-      it "should respond to update" do
-        put :update, :id => projects(:socialitis), :project => { }
-        response.should redirect_to(projects_path)
+      context "when the project was not successfully created" do
+        before { post :create, :project => { :name => nil } }
+        it { should render_template :new }
       end
     end
 
-    it "should respond to destroy" do
-      old_count = Project.count
-      delete :destroy, :id => projects(:socialitis)
-      Project.count.should == old_count - 1
+    describe "update" do
+      context "when the project was successfully updated" do
+        before { put :update, :id => projects(:jenkins_project), :project => { :name => "new name" } }
 
-      response.should redirect_to(projects_path)
+        it "should set the flash" do
+          flash[:notice].should == 'Project was successfully updated.'
+        end
+
+        it { should redirect_to projects_url }
+      end
+
+      context "when the project was not successfully updated" do
+        before { put :update, :id => projects(:jenkins_project), :project => { :name => nil } }
+        it { should render_template :edit }
+      end
     end
 
-    describe "#validate_tracker_project" do
+    describe "destroy" do
+      subject { delete :destroy, :id => projects(:jenkins_project) }
+
+      it "should destroy the project" do
+        lambda { subject }.should change(JenkinsProject, :count).by(-1)
+      end
+
+      it "should set the flash" do
+        subject
+        flash[:notice].should == 'Project was successfully destroyed.'
+      end
+
+      it { should redirect_to projects_url }
+    end
+
+    describe "validate_tracker_project" do
       let(:status) { :ok }
 
       subject { response }
