@@ -17,10 +17,18 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true
   validates :feed_url, presence: true
+  validates :type, presence: true
   validates_length_of :location, :maximum => 20, :allow_blank => true
 
   before_save :clear_empty_location
   before_save :check_next_poll
+
+  attr_accessible :aggregate_project_id,
+    :feed_url, :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
+    :auth_password, :auth_username,
+    :tracker_auth_token, :tracker_project_id,
+    :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
+    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time
 
   def fetch_new_statuses
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
