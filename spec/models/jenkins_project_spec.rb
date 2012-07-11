@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe JenkinsProject do
-  before(:each) do
+  before do
     @project = JenkinsProject.new(:name => "my_jenkins_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll")
   end
 
@@ -48,7 +48,7 @@ describe JenkinsProject do
 
   describe "#status_parser" do
     shared_examples_for "successful build" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(JenkinsAtomExample.new(@feed_file).read)
       end
 
@@ -66,7 +66,7 @@ describe JenkinsProject do
     end
     
     describe "with reported 'success'" do
-      before(:each) do
+      before do
         @feed_file = "success.atom"
       end
 
@@ -74,7 +74,7 @@ describe JenkinsProject do
     end
 
     describe "with reported 'stable'" do
-      before(:each) do
+      before do
         @feed_file = "stable.atom"
       end
 
@@ -82,7 +82,7 @@ describe JenkinsProject do
     end
 
     describe "with reported 'back to normal'" do
-      before(:each) do
+      before do
         @feed_file = "back_to_normal.atom"
       end
 
@@ -90,7 +90,7 @@ describe JenkinsProject do
     end
 
     describe "with reported failure" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(JenkinsAtomExample.new("failure.atom").read)
       end
 
@@ -108,7 +108,7 @@ describe JenkinsProject do
     end
 
     describe "with invalid xml" do
-      before(:each) do
+      before do
         @parser = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
         @response_doc = @parser.parse
         @status_parser = @project.parse_project_status("<foo><bar>baz</bar></foo>")
@@ -117,12 +117,12 @@ describe JenkinsProject do
   end
 
   describe "#building_parser" do
-    before(:each) do
+    before do
       @project = JenkinsProject.new(:name => "CiMonitor", :feed_url => "http://foo.bar.com:3434/job/CiMonitor/rssAll")
     end
 
     context "with a valid response that the project is building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("jenkins_cimonitor_building.atom").read)
       end
 
@@ -132,7 +132,7 @@ describe JenkinsProject do
     end
 
     context "with a valid response that the project is not building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("jenkins_cimonitor_not_building.atom").read)
       end
 
@@ -142,7 +142,7 @@ describe JenkinsProject do
     end
 
     context "with an invalid response" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
       end
 

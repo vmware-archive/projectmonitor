@@ -7,7 +7,7 @@ describe UsersController do
   end
 
   describe "logged in as a user" do
-    before(:each) do
+    before do
       log_in(create_user)
     end
 

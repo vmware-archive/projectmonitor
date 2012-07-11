@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TeamCityProject do
-  before(:each) do
+  before do
     @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9")
   end
 
@@ -47,7 +47,7 @@ describe TeamCityProject do
   describe "#status_parser" do
 
     describe "with reported success" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("success.xml").read)
       end
 
@@ -65,7 +65,7 @@ describe TeamCityProject do
     end
 
     describe "with reported failure" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("failure.xml").read)
       end
 
@@ -83,7 +83,7 @@ describe TeamCityProject do
     end
 
     describe "with invalid xml" do
-      before(:each) do
+      before do
         @parser = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
         @response_doc = @parser.parse
         @status_parser = @project.parse_project_status("<foo><bar>baz</bar></foo>")
@@ -92,12 +92,12 @@ describe TeamCityProject do
   end
 
   describe "#building_parser" do
-    before(:each) do
+    before do
       @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
     end
 
     context "with a valid response that the project is building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_building.xml").read)
       end
 
@@ -107,7 +107,7 @@ describe TeamCityProject do
     end
 
     context "with a valid response that the project is not building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_not_building.xml").read)
       end
 
@@ -117,7 +117,7 @@ describe TeamCityProject do
     end
 
     context "with an invalid response" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
       end
 
