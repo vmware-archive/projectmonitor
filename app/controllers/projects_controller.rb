@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :login_required, :except => :status
   before_filter :load_project, :only => [:edit, :update, :destroy]
-  before_filter :load_project_type, :only => [:create]
 
   def index
     @projects = Project.find(:all, :order => 'name')
@@ -13,7 +12,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = @project_type.new(params[:project])
+    @project = Project.new(params[:project])
     if @project.save
       flash[:notice] = 'Project was successfully created.'
       redirect_to projects_url
@@ -28,17 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    success = nil
-    Project.transaction do
-      if params[:project][:type].present?
-        @project.update_attribute(:type, params[:project][:type])
-        @project = Project.find(@project.id)
-      end
-      success = @project.update_attributes(params[:project])
-      raise ActiveRecord::Rollback unless success
-    end
-
-    if success
+    if @project.update_attributes(params[:project])
       flash[:notice] = 'Project was successfully updated.'
       redirect_to projects_url
     else
@@ -64,9 +53,4 @@ class ProjectsController < ApplicationController
   def load_project
     @project = Project.find(params[:id])
   end
-
-  def load_project_type
-    @project_type = params[:project][:type].nil? ? Project : params[:project][:type].constantize
-  end
-
 end
