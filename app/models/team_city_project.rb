@@ -29,4 +29,12 @@ class TeamCityProject < Project
 
     status
   end
+
+  def self.feed_url_fields
+    ["URL","ID"]
+  end
+
+  def self.build_url_from_fields(params)
+    "http://#{params["URL"]}/guestAuth/cradiator.html?buildTypeId=#{params["ID"]}"
+  end
 end

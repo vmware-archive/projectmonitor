@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    handle_feed_url
     @project = Project.new(params[:project])
     if @project.save
       flash[:notice] = 'Project was successfully created.'
@@ -27,6 +28,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    handle_feed_url
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project was successfully updated.'
       redirect_to projects_url
@@ -47,6 +49,13 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def handle_feed_url
+    if params[:feed_url]
+      parser = URLParser.new(params[:feed_url], params[:project][:type])
+      params[:project].merge!({feed_url: parser.url, serialized_feed_url_parts: params[:feed_url]})
+    end
+  end
 
   def load_project
     @project = Project.find(params[:id])

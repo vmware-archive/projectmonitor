@@ -51,13 +51,17 @@ var ProjectEdit = {};
   };
 
   o.validateFeedUrl = function () {
-    var travis_example_feed_url = "http://travis-ci.org/[account]/[project]/cc.xml";
-    var field_url = $("#project_feed_url");
-
-    if($(this).val() == 'TravisProject' && field_url.val() === '') {
-      field_url.val(travis_example_feed_url);
-    } else if($(this).val() != 'TravisProject' && field_url.val() === travis_example_feed_url) {
-      field_url.val("");
+    var container = $('#field_container');
+    container.empty();
+    fields = $('option[value=' + $(this).val() + ']').data('feed-url-fields');
+    if(fields) {
+      fields = fields.split(',');
+      $(fields).each(function(field){
+        var name = fields[field];
+        var label = '<p><label for="feed_url_' + name + '">' + name + '</label>';
+        var input = '<input size="40" name="feed_url[' + name + ']" id="feed_url_' + name + '"></p>';
+        container.append($(label + input));
+      });
     }
   };
 

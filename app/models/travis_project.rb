@@ -48,4 +48,12 @@ class TravisProject < Project
     document.css("#{path}") if document
   end
 
+
+  def self.feed_url_fields
+    ["Account","Project"]
+  end
+
+  def self.build_url_from_fields(params)
+    "http://travis-ci.org/#{params["Account"]}/#{params["Project"]}/cc.xml"
+  end
 end

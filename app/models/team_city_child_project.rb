@@ -21,6 +21,10 @@ class TeamCityChildProject
     [live_status_hash[:published_at], *children.map(&:last_build_time)].max
   end
 
+  def self.feed_url_fields
+    ["URL","ID"]
+  end
+
   private
 
   def live_status_hash
