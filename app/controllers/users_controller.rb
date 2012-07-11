@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect_to(root_path)
       flash[:notice] = "User created."
     else
-      render :action => 'new'
+      render :new
     end
   end
 end
