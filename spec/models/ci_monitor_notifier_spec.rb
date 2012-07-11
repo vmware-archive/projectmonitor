@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe CiMonitorNotifier do
-  before(:each) do
+  before do
     ActionMailer::Base.deliveries = []
   end
 
   describe "#send_red_over_one_day_notifications" do
     describe "with projects that have been red for over one day" do
-      before(:each) do
+      before do
         @long_red_project = FactoryGirl.create(:project, :name => "Long red")
         @long_red_project.statuses.create!(:online => true, :success => false, :published_at => Clock.now)
 
@@ -52,7 +52,7 @@ describe CiMonitorNotifier do
     end
 
     describe "with no projects that have been red for over one day" do
-      before(:each) do
+      before do
         Project.find(:all).each do |project|
           project.statuses.create!(:online => true, :success => true, :published_at => Clock.now)
         end

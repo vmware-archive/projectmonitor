@@ -14,7 +14,7 @@ describe ProjectsController do
   end
 
   describe "with a logged in user" do
-    before(:each) do
+    before do
       log_in users(:valid_edward)
     end
 

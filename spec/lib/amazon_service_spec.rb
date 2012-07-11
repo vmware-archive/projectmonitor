@@ -97,7 +97,7 @@ describe AmazonService do
   end
 
   describe ".schedule" do
-    before(:each) do
+    before do
       @time = DateTime.parse("Tue, 09 Aug 2011 17:07:41 -0700")
       @start_project = FactoryGirl.create(:project, :name => "my_start_project",
                                           :ec2_tuesday => true, :ec2_start_time => (@time - 3.minutes).strftime('%H:%M'),
@@ -120,7 +120,7 @@ describe AmazonService do
 
 
     context "when starting a project" do
-      before(:each) do
+      before do
         AWS::EC2.stub_chain(:new, :instances, :[]).and_return(@instance_mock)
       end
 
@@ -152,7 +152,7 @@ describe AmazonService do
     end
 
     context "when ending a project" do
-      before(:each) do
+      before do
         AWS::EC2.stub_chain(:new, :instances, :[]).and_return(@instance_mock)
         @time += 5.hours
       end

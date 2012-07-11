@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe OpenidsController do
-  before(:each) do
+  before do
     AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
   end
 
@@ -11,7 +11,7 @@ describe OpenidsController do
   end
 
   describe "GET new" do
-    before(:each) do
+    before do
       @consumer = mock("openid consumer")
       controller.stub!(:get_openid_consumer).and_return(@consumer)
     end
@@ -29,7 +29,7 @@ describe OpenidsController do
   end
 
   describe "GET success" do
-    before(:each) do
+    before do
       @consumer = mock("openid consumer")
       controller.stub!(:get_openid_consumer).and_return(@consumer)
     end
