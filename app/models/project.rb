@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
+  serialize :serialized_feed_url_parts, Hash
 
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
@@ -28,7 +29,7 @@ class Project < ActiveRecord::Base
     :auth_password, :auth_username,
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
-    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time
+    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
 
   def fetch_new_statuses
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
@@ -152,5 +153,13 @@ class Project < ActiveRecord::Base
 
   def as_json(options = {})
     super(:only => :id, :methods => :tag_list)
+  end
+
+  def self.feed_url_fields
+    raise NotImplementedError, "Must implement feed_url_fields in subclasses"
+  end
+
+  def self.build_url_from_fields(params)
+    raise NotImplementedError, "Must implement build_url_from_fields in subclasses"
   end
 end

@@ -32,4 +32,12 @@ class CruiseControlProject < Project
   def find(document, path)
     document.at_xpath("/rss/channel/item[1]/#{path}").content
   end
+
+  def self.feed_url_fields
+    ["URL"]
+  end
+
+  def self.build_url_from_fields(params)
+    params["URL"]
+  end
 end

@@ -23,13 +23,18 @@ describe ProjectsController do
         subject do
           post :create, :project => {
             :name => 'name',
-            :feed_url => 'http://www.example.com/job/example/rssAll',
             :type => JenkinsProject.name
-          }
+          },
+          :feed_url => {"URL" => 'www.example.com', "Build Name" => 'example'}
         end
 
         it "should create a project of the correct type" do
           lambda { subject }.should change(JenkinsProject, :count).by(1)
+        end
+
+        it "should save the serialized feed url hash" do
+          subject
+          JenkinsProject.last.serialized_feed_url_parts.should == {"URL" => 'www.example.com', "Build Name" => 'example'}
         end
 
         it "should set the flash" do
@@ -41,7 +46,7 @@ describe ProjectsController do
       end
 
       context "when the project was not successfully created" do
-        before { post :create, :project => { :name => nil } }
+        before { post :create, :project => { :name => nil, :type => JenkinsProject.name} }
         it { should render_template :new }
       end
     end
