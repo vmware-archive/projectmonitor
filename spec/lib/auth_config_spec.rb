@@ -51,7 +51,7 @@ describe AuthConfig do
 
   describe "should use auth.yml configuration" do
     describe "for openid" do
-      before(:each) do
+      before do
         AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-openid.yml"))
       end
       it "should have an auth_strategy" do
@@ -66,7 +66,7 @@ describe AuthConfig do
     end
 
     describe "for local passwords" do
-      before(:each) do
+      before do
         AuthConfig.stub(:auth_file_path).and_return(Rails.root.join("spec/fixtures/files/auth-password.yml"))
       end
       it "should have an auth_strategy" do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectStatus do
-  before(:each) do
+  before do
     @project_status = ProjectStatus.new
   end
 
