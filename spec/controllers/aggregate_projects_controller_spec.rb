@@ -1,49 +1,80 @@
 require 'spec_helper'
 
 describe AggregateProjectsController do
-  let(:page) { Capybara::Node::Simple.new(response.body) }
-
-  describe "#status" do
-    let(:project) { aggregate_projects(:internal_projects_aggregate) }
-    before { get :status, :id => project.id }
-
-    it { response.should render_template("dashboards/_project") }
-  end
-
   describe "with no logged in user" do
-    let(:ap) { aggregate_projects(:internal_projects_aggregate) }
+    describe "show" do
+      let(:project) { aggregate_projects(:internal_projects_aggregate) }
+      before { get :show, :id => project.to_param }
 
-    it "should respond to new" do
-      get :show, :id => ap.to_param
-      response.should be_success
+      it "should be_success" do
+        response.should be_success
+      end
+
+      it "should render dashboards/index" do
+        response.should render_template("dashboards/index")
+      end
+    end
+
+    describe "status" do
+      let(:project) { aggregate_projects(:internal_projects_aggregate) }
+      before { get :status, :id => project.to_param }
+
+      it "should render dashboards/_project" do
+        response.should render_template("dashboards/_project")
+      end
     end
   end
 
   describe "with a logged in user" do
-    before(:each) do
-      log_in(users(:valid_edward))
+    before { log_in users(:valid_edward) }
+
+    describe "create" do
+      context "when the aggregate project was successfully created" do
+        before { post :create, :aggregate_project => { :name => "new name" } }
+
+        it "should set the flash" do
+          flash[:notice].should == 'Aggregate project was successfully created.'
+        end
+
+        it { should redirect_to projects_path }
+      end
+
+      context "when the aggregate project was not successfully created" do
+        before { post :create, :aggregate_project => { :name => nil } }
+        it { should render_template :new }
+      end
     end
 
-    it "should respond to new" do
-      get :new
-      response.should be_success
+    describe "update" do
+      context "when the aggregate project was successfully updated" do
+        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => { :name => "new name" } }
+
+        it "should set the flash" do
+          flash[:notice].should == 'Aggregate project was successfully updated.'
+        end
+
+        it { should redirect_to projects_url }
+      end
+
+      context "when the aggregate project was not successfully updated" do
+        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => { :name => nil } }
+        it { should render_template :edit }
+      end
     end
 
-    it "should respond to edit" do
-      get :edit, :id => aggregate_projects(:internal_projects_aggregate)
-      response.should be_success
-    end
+    describe "destroy" do
+      subject { delete :destroy, :id => aggregate_projects(:internal_projects_aggregate) }
 
-    it "should respond to update" do
-      put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => {}
-      response.should redirect_to(projects_path)
-    end
+      it "should destroy the aggregate project" do
+        lambda { subject }.should change(AggregateProject, :count).by(-1)
+      end
 
-    it "should respond to destroy" do
-      lambda {
-        delete :destroy, :id => aggregate_projects(:internal_projects_aggregate)
-      }.should change(AggregateProject, :count).by(-1)
-      response.should redirect_to(projects_path)
+      it "should set the flash" do
+        subject
+        flash[:notice].should == 'Aggregate project was successfully destroyed.'
+      end
+
+      it { should redirect_to projects_url }
     end
   end
 end
