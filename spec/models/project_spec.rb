@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project do
-  let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
+  let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/123job/123/rssAll", type: "Project") }
 
   describe "factories" do
     it "should be valid for project" do
@@ -12,6 +12,7 @@ describe Project do
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :feed_url }
+    it { should validate_presence_of :type }
     it { should ensure_length_of(:location).is_at_most(20) }
   end
 
@@ -239,7 +240,7 @@ describe Project do
   end
 
   describe "#latest_status" do
-    let(:project) { Project.create(name: "my_project", feed_url: "http://localhost:8111/bar.xml") }
+    let(:project) { FactoryGirl.create :project, name: "my_project" }
 
     let!(:recent_status_created_a_while_ago) { project.statuses.create(:success => true, :online => true, :published_at => 5.minutes.ago, :created_at => 10.minutes.ago) }
     let!(:old_status_created_recently) { project.statuses.create(:success => true, :online => false, :published_at => 20.minutes.ago, :created_at => 4.minutes.ago) }
@@ -476,7 +477,7 @@ describe Project do
   end
 
   describe "#as_json" do
-    subject { FactoryGirl.create(:project) }
+    subject { Project.new }
 
     it "should return only public attributes" do
       subject.as_json['project'].keys.should == ['id', :tag_list]

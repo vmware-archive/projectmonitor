@@ -1,3 +1,8 @@
+jenkins_project:
+  name: JP
+  type: JenkinsProject
+  feed_url: http://www.example.com/job/example/rssAll
+  enabled: true
 pivots:
   name: Pivots
   type: CruiseControlProject

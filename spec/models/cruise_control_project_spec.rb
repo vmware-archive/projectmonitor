@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project do
-  before(:each) do
+  before do
     @project = CruiseControlProject.new(:name => "my_cc_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
   end
 
@@ -55,7 +55,7 @@ describe Project do
 
   describe "status_parser" do
     describe "with reported success" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(CCRssExample.new("success.rss").read)
       end
 
@@ -74,7 +74,7 @@ describe Project do
     end
 
     describe "with reported failure" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_project_status(CCRssExample.new("failure.rss").read)
       end
 
@@ -106,12 +106,12 @@ describe Project do
 
 
   describe "building_parser" do
-    before(:each) do
+    before do
       @project = CruiseControlProject.new(:name => "Socialitis", :feed_url => "http://foo.bar.com:3434/projects/Socialitis.rss")
     end
 
     context "with a valid response that the project is building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_building.xml").read)
       end
 
@@ -121,7 +121,7 @@ describe Project do
     end
 
     context "with a valid response that the project is not building" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_not_building.xml").read)
       end
 
@@ -131,7 +131,7 @@ describe Project do
     end
 
     context "with an invalid response" do
-      before(:each) do
+      before do
         @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
       end
 

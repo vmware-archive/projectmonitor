@@ -6,8 +6,6 @@ class AggregateProjectsController < ApplicationController
 
   def show
     @projects = GridCollection.new(@aggregate_project.projects.enabled)
-    @messages = []
-    @twitter_searches = []
     render :template => 'dashboards/index'
   end
 
@@ -21,7 +19,7 @@ class AggregateProjectsController < ApplicationController
       flash[:notice] = 'Aggregate project was successfully created.'
       redirect_to projects_url
     else
-      render :action => "new"
+      render :new
     end
   end
 
@@ -36,7 +34,7 @@ class AggregateProjectsController < ApplicationController
       flash[:notice] = 'Aggregate project was successfully updated.'
       redirect_to projects_url
     else
-      render :action => "edit"
+      render :edit
     end
   end
 
