@@ -43,4 +43,12 @@ class JenkinsProject < Project
     document.css("#{path}") if document
   end
 
+  def self.feed_url_fields
+    ["URL","Build Name"]
+  end
+
+  def self.build_url_from_fields(params)
+    params["URL"] + '/job/' + params["Build Name"] + '/rssAll'
+  end
+
 end

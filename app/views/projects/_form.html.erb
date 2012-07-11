@@ -9,20 +9,23 @@
 </p>
 
 <p>
+  <%- project_types = [["",""]]; [CruiseControlProject,JenkinsProject,TeamCityRestProject,TeamCityProject,TeamCityChainedProject,TravisProject].each do |type_class| %>
+    <%- project_types << [type_class.name.titleize, type_class.name, {"data-feed-url-fields"=>type_class.feed_url_fields.join(",")}] %>
+    <%- end %>
   <%= f.label :type, "Project Type" %>
-  <%= f.select :type, [ ["",""],
-                       [CruiseControlProject.name.titleize, CruiseControlProject.name],
-                       [JenkinsProject.name.titleize, JenkinsProject.name],
-                       [TeamCityRestProject.name.titleize, TeamCityRestProject.name],
-                       [TeamCityProject.name.titleize, TeamCityProject.name],
-                       ["#{TeamCityChainedProject.name.titleize} (TC 7+)", TeamCityChainedProject.name],
-                       [TravisProject.name.titleize, TravisProject.name]] %>
+  <%= f.select :type, project_types %>
 </p>
 
-<p>
-  <%= f.label :feed_url, "Feed URL" %>
-  <%= f.text_area :feed_url, :style => "height: 3em;" %>
-</p>
+<div id="field_container">
+  <%- if f.object.persisted? %>
+    <%- f.object.class.feed_url_fields.each do |part| %>
+      <p>
+      <%= f.label part.to_sym, part %>
+      <%= f.text_field part.to_sym, :size=>40, value: f.object.serialized_feed_url_parts[part.to_s] %>
+      </p>
+    <%- end %>
+  <%- end %>
+</div>
 
 <p>
   <%= f.label :auth_username, "Feed Username" %>

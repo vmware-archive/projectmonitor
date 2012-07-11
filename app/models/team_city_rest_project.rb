@@ -32,6 +32,14 @@ class TeamCityRestProject < Project
     feed_url.match(/id:([^)]*)/)[1]
   end
 
+  def self.feed_url_fields
+    ["URL","ID"]
+  end
+
+  def self.build_url_from_fields(params)
+    "http://#{params["URL"]}/app/rest/builds?locator=running:all,buildType:(id:#{params["ID"]})"
+  end
+
   protected
 
   def build_live_statuses
