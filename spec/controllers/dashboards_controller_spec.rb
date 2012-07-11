@@ -4,96 +4,30 @@ describe DashboardsController do
   let(:project) { FactoryGirl.build(:project) }
   let(:aggregate_project) { FactoryGirl.build(:aggregate_project) }
 
-  describe "#feed" do
+  describe "index" do
     before do
-      Project.stub_chain(:standalone, :with_statuses).and_return [project]
-      AggregateProject.stub_chain(:with_statuses).and_return [aggregate_project]
-      get :builds, :format => "rss"
+      DashboardGrid.stub(:generate).and_return(projects)
     end
 
-    it "renders an RSS feed" do
-      response.should render_template("builds")
-    end
-
-    it "assigns all projects and aggregate projects" do
-      assigns(:projects).should =~ [project, aggregate_project]
-    end
-  end
-
-  describe "#index" do
-    context "no tags" do
+    context "format html" do
       before do
-        Project.should_receive(:standalone).and_return [project]
-        AggregateProject.should_receive(:all).and_return [aggregate_project]
-        get :index
+        get :index, :format => :html
       end
 
-      it "assigns all projects and aggregate projects" do
-        assigns(:projects).should include(project)
-        assigns(:projects).should include(aggregate_project)
+      it "should render_template :index" do
+        response.should render_template :index
       end
     end
 
-    context "tags" do
-      before do
-        Project.should_receive(:find_tagged_with).with("foo,bar", match_all: true).and_return [project]
-        AggregateProject.should_receive(:all_with_tags).with("foo,bar").and_return [aggregate_project]
-        get :index, tags: "foo,bar"
-      end
-
-      it "assigns all projects and aggregate projects with the requested tags" do
-        assigns(:projects).should include(project)
-        assigns(:projects).should include(aggregate_project)
-      end
-    end
-
-    context "tiles_count" do
-      it "displays 15 when no params present" do
-        get :index
-        assigns(:projects).size.should == 15
-      end
-
-      [15, 24, 48, 63].each do |tiles_count|
-        context "#{tiles_count} tiles" do
-          it "displays #{tiles_count}" do
-            get :index, tiles_count: tiles_count
-            assigns(:projects).size.should == tiles_count
-          end
-        end
-      end
-    end
-
-    context "with multiple projects" do
-      let(:projects) { assigns(:projects).compact }
+    context "format json" do
+      let(:projects) { double(:projects, :to_json => "{ foo: bar }" ) }
 
       before do
-        Project.delete_all
-        AggregateProject.delete_all
-
-        FactoryGirl.create(:project, :name => "AA")
-        FactoryGirl.create(:project, :name => "CA")
-        FactoryGirl.create(:project, :name => "ba")
-        AggregateProject.create!(:name => "AB")
-        AggregateProject.create!(:name => "CB")
-        AggregateProject.create!(:name => "bb")
-
-        get :index
+        get :index, :format => :json
       end
 
-      it "sorts the projects in alphabetical order, case-insensitively" do
-        projects.map(&:name).should == ["AA", "AB", "ba", "bb", "CA", "CB"]
-      end
-    end
-
-    context "generates grid" do
-      let(:project_collection) { double(:project_grid_collection) }
-      before do
-        DashboardGrid.should_receive(:generate).and_return(project_collection)
-      end
-
-      it "should generate the grid to determine the projects" do
-        get :index
-        assigns(:projects).should == project_collection
+      it "should render :json => @projects" do
+        response.body.should == "{ foo: bar }"
       end
     end
   end

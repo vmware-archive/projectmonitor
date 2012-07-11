@@ -97,17 +97,17 @@ describe AmazonService do
   end
 
   describe ".schedule" do
-    before(:each) do
+    before do
       @time = DateTime.parse("Tue, 09 Aug 2011 17:07:41 -0700")
-      @start_project = Project.create!(:name => "my_start_project", :feed_url => "http://foo.bar.com/baz.rss",
-                                       :ec2_tuesday => true, :ec2_start_time => (@time - 3.minutes).strftime('%H:%M'),
-                                       :ec2_access_key_id => "some id", :ec2_secret_access_key => "some secret",
-                                       :ec2_instance_id => "some instance")
+      @start_project = FactoryGirl.create(:project, :name => "my_start_project",
+                                          :ec2_tuesday => true, :ec2_start_time => (@time - 3.minutes).strftime('%H:%M'),
+                                          :ec2_access_key_id => "some id", :ec2_secret_access_key => "some secret",
+                                          :ec2_instance_id => "some instance")
 
-      @end_project = Project.create!(:name => "my_end_project", :feed_url => "http://foo.bar.com/baz.rss",
-                                     :ec2_tuesday => true, :ec2_end_time => (@time + 5.hours - 1.minute).strftime('%H:%M'),
-                                     :ec2_access_key_id => "some end id", :ec2_secret_access_key => "some end secret",
-                                     :ec2_instance_id => "some end instance")
+      @end_project = FactoryGirl.create(:project, :name => "my_end_project",
+                                        :ec2_tuesday => true, :ec2_end_time => (@time + 5.hours - 1.minute).strftime('%H:%M'),
+                                        :ec2_access_key_id => "some end id", :ec2_secret_access_key => "some end secret",
+                                        :ec2_instance_id => "some end instance")
 
       @instance_mock = mock(:instance_mock, :start => nil, :stop => nil, :[] => @instance_mock)
     end
@@ -120,7 +120,7 @@ describe AmazonService do
 
 
     context "when starting a project" do
-      before(:each) do
+      before do
         AWS::EC2.stub_chain(:new, :instances, :[]).and_return(@instance_mock)
       end
 
@@ -152,7 +152,7 @@ describe AmazonService do
     end
 
     context "when ending a project" do
-      before(:each) do
+      before do
         AWS::EC2.stub_chain(:new, :instances, :[]).and_return(@instance_mock)
         @time += 5.hours
       end
