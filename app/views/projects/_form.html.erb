@@ -21,7 +21,7 @@
     <%- f.object.class.feed_url_fields.each do |part| %>
       <p>
       <%= f.label part.to_sym, part %>
-      <%= f.text_field part.to_sym, :size=>40, value: f.object.serialized_feed_url_parts[part.to_s] %>
+      <%= text_field_tag "feed_url[#{part}]", f.object.serialized_feed_url_parts[part.to_s] %>
       </p>
     <%- end %>
   <%- end %>
