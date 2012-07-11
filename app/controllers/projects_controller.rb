@@ -46,8 +46,6 @@ class ProjectsController < ApplicationController
     head status
   end
 
-  protected
-
   private
 
   def load_project
