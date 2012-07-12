@@ -10,6 +10,7 @@ ProjectMonitor currently supports:
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
   * [Jenkins](http://jenkins-ci.org/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
+  * [Travis CI](http://travis-ci.org/)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
 builds for all our client projects. We also have an instance of ProjectMonitor
@@ -176,7 +177,7 @@ scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
 
 ## Display
 
-Just open a browser on `/`. The page will refresh every 60 seconds. When it
+Just open a browser on `/`. The page will refresh every 30 seconds. When it
 refreshes, it shows whatever status was last fetched by the cron job. That is,
 a refresh doesn't cause the individual builds to be polled.
 
@@ -195,22 +196,29 @@ project's build server cannot be reached.
 ### Project Ticker Codes
 
 Each tile shows the project's brief ticker code.  If not chosen explicitly,
-this will be the first 4 letters of the project. The name of the project
-appears below in a smaller font.
+this will be the first 4 letters of the project.
 
 ### Build Statuses
 
 To the right of the ticker and name, each project lists the amount of time
-since the last build, followed by the build status history.  The last 10 builds
+since the last build, followed by the build status history.  The last 5-8 builds
 are displayed from left to right, in reverse chronological order -- the most
-recent build will be on the top left and the least recent on the bottom right.
+recent build will be on the left and the least recent on the right.
 Successful builds are marked with a filled in circle, and unsuccessful builds
-are marked with an x.  Builds in progress are shown with an oscillating motion.
+are marked with an x.  When a build is in progress a spinner is displayed instead
+of the time since the last build.
 
 ### Aggregate Projects
 
 Striped tiles indicate the aggregate status of several projects.  Click on an
 aggregate project to see the status of its component projects.
+
+### Pivotal Tracker Integration
+
+ProjectMonitor can display basic [Pivotal Tracker](http://pivotaltracker.com) information.  When
+configured, the current velocity will be displayed, as well as a graph showing points completed for
+the current iteration and the past 9 iterations.  To add this integration, you will need to add your
+Pivotal Tracker project ID and a Pivotal Tracker API key in the admin section.
 
 ### Admin Interface
 
@@ -229,7 +237,7 @@ only projects that match a set of tags by going to /?tags=tag1,tag2
 
 ## CI
 
-CI for ProjectMonitor is [here](http://cibuilder.pivotallabs.com:3333/builds/ProjectMonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
+CI for ProjectMonitor is [here](http://travis-ci.org/pivotal/projectmonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
 (that's an instance of ProjectMonitor, of course).
 
 ## Development
