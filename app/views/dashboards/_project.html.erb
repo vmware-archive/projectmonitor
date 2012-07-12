@@ -3,15 +3,11 @@
     <span><%= project %></span>
   </li>
 <% elsif project %>
-  <li class="<%= project.css_class %>" id="<%= project.css_id %>" data-id="<%= project.id %>">
+  <li class="<%= project.css_class %> <%= project.building? ? "building" : "" %>" id="<%= project.css_id %>" data-id="<%= project.id %>">
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
       <div class="status-bar">
-        <% if project.building? %>
-          <div class="building-indicator"></div>
-        <% else %>
-          <div class="publish-date"><%= project.time_since_last_build %></div>
-        <% end %>
+        <div class="publish-date"><%= project.time_since_last_build %></div>
         <div class="history">
           <ol>
             <% project.recent_online_statuses(status_count_for(projects_count)).each do |status| %>
