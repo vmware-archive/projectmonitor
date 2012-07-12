@@ -1,4 +1,4 @@
-describe('refresh', function() {
+describe('ProjectRefresh.init', function() {
   beforeEach(function() {
     var fixtures = [
       "<ul class='projects'>",
@@ -9,6 +9,7 @@ describe('refresh', function() {
       "</ul>"
     ].join("\n");
     setFixtures(fixtures);
+    jasmine.Clock.useMock();
   });
 
   describe("on a page with 15 projects", function() {
@@ -17,8 +18,8 @@ describe('refresh', function() {
     });
 
     it("should call $.get for projects and aggregates", function() {
-      refresh();
-
+      ProjectRefresh.init();
+      jasmine.Clock.tick(30001);
       expect(ajaxRequests.length).toEqual(4);
       expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=15");
       expect(ajaxRequests[1].url).toBe("/projects/2/status?projects_count=15");
@@ -33,14 +34,16 @@ describe('refresh', function() {
     });
 
     it("should send the correct number of projects", function() {
-      refresh();
+      ProjectRefresh.init();
+      jasmine.Clock.tick(30001);
       expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=48");
     });
   });
 
   describe("when a request succeeds", function() {
     beforeEach(function() {
-      refresh();
+      ProjectRefresh.init();
+      jasmine.Clock.tick(30001);
       mostRecentAjaxRequest().response({
         status: 200,
         responseText: "<li class='grid_4' id='aggregate_project_4' data-id='4'>Hello World</li>"
@@ -54,7 +57,8 @@ describe('refresh', function() {
 
   describe("when a request fails", function() {
     beforeEach(function() {
-      refresh();
+      ProjectRefresh.init();
+      jasmine.Clock.tick(30001);
       mostRecentAjaxRequest().response({
         status: 500,
         responseText: "Whoops!  An error occurred!"
@@ -72,42 +76,3 @@ describe('refresh', function() {
   });
 });
 
-describe('polling indicator', function(){
-  beforeEach(function() {
-    var fixtures = [
-      "<div id='indicator' class='idle'>",
-        "<img/>",
-      "</div>"
-    ].join("\n");
-    setFixtures(fixtures);
-  });
-
-  it("should have an image", function() {
-    expect($("#indicator img")).toExist();
-  });
-
-  it("should hide the indicator", function() {
-    expect($("#indicator")).toHaveClass('idle');
-  });
-
-  describe("when polling", function() {
-
-    beforeEach(function() {
-      $(document).trigger("ajaxStart");
-    });
-
-    it("should show the indicator", function() {
-      expect($("#indicator")).not.toHaveClass('idle');
-    });
-
-    describe("when all projects have finished polling", function() {
-      beforeEach(function() {
-        $(document).trigger("ajaxStop");
-      });
-
-      it("should not show the indicator", function() {
-        expect($("#indicator")).toHaveClass('idle');
-      });
-    });
-  });
-});

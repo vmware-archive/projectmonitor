@@ -71,12 +71,8 @@ feature "Dashboard" do
         visit root_path
       end
 
-      it 'should not display a publish date in the project tile' do
-        page.should_not have_selector("#project_#{project.id} .publish-date")
-      end
-
-      it 'should display the building indicator in the project tile' do
-        page.should have_selector("#project_#{project.id} .building-indicator")
+      it 'should add class building to the project li' do
+        page.should have_selector("li.building")
       end
     end
 

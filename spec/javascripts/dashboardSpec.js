@@ -1,23 +1,38 @@
-describe('dashboard', function() {
+describe('polling indicator', function(){
   beforeEach(function() {
     var fixtures = [
-      "<ul class='projects'>",
-        "<li class='project success' id='project_1' data-id='1'>",
-          "<div class='building-indicator'></div>",
-        "</li>",
-      "</ul>"
+      "<div id='indicator' class='idle'>",
+        "<img/>",
+      "</div>"
     ].join("\n");
     setFixtures(fixtures);
-    $("body").addClass("dashboard").addClass("tiles_15");
   });
 
-  it("should create a spinner", function() {
-    expect($('.spinner').length).toEqual(0);
+  it("should have an image", function() {
+    expect($("#indicator img")).toExist();
+  });
 
-    var projectsCount = 48;
-    $('.building-indicator').setSpinner(projectsCount);
+  it("should hide the indicator", function() {
+    expect($("#indicator")).toHaveClass('idle');
+  });
 
-    expect($('.spinner').length).toEqual(1);
+  describe("when polling", function() {
+    beforeEach(function() {
+      $(document).trigger("ajaxStart");
+    });
+
+    it("should show the indicator", function() {
+      expect($("#indicator")).not.toHaveClass('idle');
+    });
+
+    describe("when all projects have finished polling", function() {
+      beforeEach(function() {
+        $(document).trigger("ajaxStop");
+      });
+
+      it("should not show the indicator", function() {
+        expect($("#indicator")).toHaveClass('idle');
+      });
+    });
   });
 });
-
