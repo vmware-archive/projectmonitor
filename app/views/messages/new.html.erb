@@ -1,7 +1,0 @@
-<%= link_to '&larr; Back to Messages'.html_safe, messages_path %>
-
-<h1>Add Message</h1>
-
-<%= form_for(@message) do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f } %>
-<% end %>

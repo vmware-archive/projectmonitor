@@ -1,5 +1,4 @@
 //= require application
-//= require twitter
 //= require versionCheck
 //= require projectCheck
 //= require projectRefresh
