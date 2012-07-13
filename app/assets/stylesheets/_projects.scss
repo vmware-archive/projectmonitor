@@ -4,46 +4,6 @@
 @import "tiles_48";
 @import "tiles_63";
 
-@mixin building_animation_0($background_color) {
-  opacity: 1;
-  background: $background_color + #252525;
-}
-
-@mixin building_animation_100 {
-  opacity: 0;
-  background: white;
-}
-
-@-webkit-keyframes building-green {
-  0% { @include building_animation_0($very-very-light-green); }
-  100% { @include building_animation_100; }
-}
-
-@-webkit-keyframes building-red {
-  0% { @include building_animation_0($very-very-light-red); }
-  100% { @include building_animation_100; }
-}
-
-@-moz-keyframes building-green {
-  0% { @include building_animation_0($very-very-light-green); }
-  100% { @include building_animation_100; }
-}
-
-@-moz-keyframes building-red {
-  0% { @include building_animation_0($very-very-light-red); }
-  100% { @include building_animation_100; }
-}
-
-@-ms-keyframes building-green {
-  0% { @include building_animation_0($very-very-light-green); }
-  100% { @include building_animation_100; }
-}
-
-@-ms-keyframes building-red {
-  0% { @include building_animation_0($very-very-light-red); }
-  100% { @include building_animation_100; }
-}
-
 // Default values for tiles_15; vars need to be declared before being invokes.
 
 $information-width: 420px !default;
