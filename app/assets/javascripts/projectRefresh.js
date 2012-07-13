@@ -1,13 +1,13 @@
 var ProjectRefresh = (function () {
-  var projects, projectsCount;
+  var projects, projectsCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
 
   function showAsBuilding (selector) {
     (function f(i) {
-      if (i < 9) {
+      if (i < (pollIntervalSeconds / fadeIntervalSeconds) - 1) {
         setTimeout(function() {
           $(selector).fadeTo(1000, 0.5).fadeTo(1000, 1);
           f(i + 1);
-        }, 3000);
+        }, fadeIntervalSeconds * 1000);
       }
     })(0);
   }
@@ -16,10 +16,10 @@ var ProjectRefresh = (function () {
     init : function () {
       projects = $('.project:not(.empty-project)');
       projectsCount = parseInt($('body').data('tiles-count'), 10);
-      setTimeout(this.refresh, 30 * 1000);
       $('li.building').each(function (i, li) {
         showAsBuilding(li);
       });
+      setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
 
     refresh : function () {
@@ -47,7 +47,7 @@ var ProjectRefresh = (function () {
           }
         });
       });
-      setTimeout(ProjectRefresh.refresh, 30 * 1000);
+      setTimeout(ProjectRefresh.refresh, pollIntervalSeconds * 1000);
     }
   };
 })();
