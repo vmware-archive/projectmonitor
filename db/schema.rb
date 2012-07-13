@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711154752) do
+ActiveRecord::Schema.define(:version => 20120713162101) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",                  :default => true
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "code"
     t.string   "location",   :limit => 20
   end
@@ -31,19 +31,12 @@ ActiveRecord::Schema.define(:version => 20120711154752) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "messages", :force => true do |t|
-    t.string   "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "expires_at"
-  end
 
   create_table "project_statuses", :force => true do |t|
     t.boolean  "online",       :default => false, :null => false
@@ -116,12 +109,6 @@ ActiveRecord::Schema.define(:version => 20120711154752) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
-  end
-
-  create_table "twitter_searches", :force => true do |t|
-    t.string   "search_term"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
