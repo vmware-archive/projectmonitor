@@ -1,9 +1,9 @@
 CiMonitor::Application.routes.draw do
-
   match 'login' => 'sessions#new'
   match 'logout' => 'sessions#destroy'
   match 'builds.rss' => "dashboards#builds", :format => :rss
   match 'projects/validate_tracker_project'
+  match 'version' => 'versions#show'
 
   resources :users, :only => [:new, :create]
   resource :openid, :only => [:new, :success] do
@@ -12,7 +12,6 @@ CiMonitor::Application.routes.draw do
     end
   end
   resource :session, :only => [:create, :destroy]
-  resource :dashboard, :only => [:show]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy] do
     member do
       get :status
@@ -29,7 +28,6 @@ CiMonitor::Application.routes.draw do
   resources :twitter_searches, :only => [:new, :create, :edit, :update, :destroy] do
     get :load_tweet
   end
-  resource :version
 
   root :to => 'dashboards#index'
 end
