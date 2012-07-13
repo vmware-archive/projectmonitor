@@ -6,11 +6,6 @@ CiMonitor::Application.routes.draw do
   match 'version' => 'versions#show'
 
   resources :users, :only => [:new, :create]
-  resource :openid, :only => [:new, :success] do
-    member do
-      get :success
-    end
-  end
   resource :session, :only => [:create, :destroy]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy] do
     member do
