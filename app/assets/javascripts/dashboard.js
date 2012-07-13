@@ -2,7 +2,6 @@
 //= require versionCheck
 //= require projectCheck
 //= require projectRefresh
-//= require spin
 
 $(function() {
   VersionCheck.init();
