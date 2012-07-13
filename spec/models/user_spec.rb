@@ -134,52 +134,6 @@ describe User do
     User.authenticate('quentin', 'invalid_password').should be_nil
   end
 
-  describe "find or create from google openid fetch response" do
-
-    it "should generate name/email from the fetch response" do
-      fetch_response = mock()
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/contact/email').and_return("wilma@example.com")
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/first').and_return("Wilma")
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/last').and_return("Flintstone")
-
-      lambda {
-        user = User.find_or_create_from_google_openid(fetch_response)
-        user.login.should == "wilma"
-        user.name.should == "Wilma Flintstone"
-        user.email.should == "wilma@example.com"
-        user.should be_valid
-      }.should change(User, :count).by(1)
-    end
-
-    it "handle blank names" do
-      fetch_response = mock()
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/contact/email').and_return("wilma@example.com")
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/first').and_return("")
-      fetch_response.should_receive(:get_single).once.with('http://axschema.org/namePerson/last').and_return("")
-
-      lambda {
-        user = User.find_or_create_from_google_openid(fetch_response)
-        user.login.should == "wilma"
-        user.name.should == ""
-        user.email.should == "wilma@example.com"
-        user.should be_valid
-      }.should change(User, :count).by(1)
-    end
-
-    it "should retrieve a user if they already exist" do
-      User.create!(:login => "wilma", :email => "wilma@example.com", :name => "Wilma Flintstone", :password => "password", :password_confirmation => "password")
-      fetch_response = mock()
-      fetch_response.should_receive(:get_single).with('http://axschema.org/contact/email').and_return("wilma@example.com")
-      fetch_response.should_receive(:get_single).with('http://axschema.org/namePerson/first').and_return("Wilma")
-      fetch_response.should_receive(:get_single).with('http://axschema.org/namePerson/last').and_return("Flintstone")
-
-      lambda {
-        User.find_or_create_from_google_openid(fetch_response)
-      }.should_not change(User, :count)
-    end
-
-  end
-
   protected
 
   def create_user(options = {})
