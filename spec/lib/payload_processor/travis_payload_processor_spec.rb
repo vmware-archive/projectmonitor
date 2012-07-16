@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TravisPayloadProcessor do
   let(:project) { TravisProject.create(name: "foo", feed_url: "http://travis-ci.org/account/project/cc.xml") }
-  let(:payload) { [TravisExample.new(xml).read, nil] }
+  let(:payload) { TravisExample.new(xml).read }
 
   subject do
     ProjectPayloadProcessor.new(project, payload).perform
@@ -32,20 +32,20 @@ describe TravisPayloadProcessor do
 
     context "when building" do
       it "remains green when existing status is green" do
-        payload = [TravisExample.new("success.xml").read, nil]
+        payload = TravisExample.new("success.xml").read
         TravisPayloadProcessor.new(project,payload).perform
         statuses = project.statuses
-        payload = [nil, TravisExample.new("building.xml").read]
+        payload = TravisExample.new("building.xml").read
         TravisPayloadProcessor.new(project,payload).perform
         project.reload.should be_green
         project.statuses.should == statuses
       end
 
       it "remains red when existing status is red" do
-        payload = [TravisExample.new("failure.xml").read, nil]
+        payload = TravisExample.new("failure.xml").read
         TravisPayloadProcessor.new(project,payload).perform
         statuses = project.statuses
-        payload = [nil, TravisExample.new("building.xml").read]
+        payload = TravisExample.new("building.xml").read
         TravisPayloadProcessor.new(project,payload).perform
         project.reload.should be_red
         project.statuses.should == statuses
@@ -55,7 +55,7 @@ describe TravisPayloadProcessor do
 
   describe "saving data" do
     let(:example) { TravisExample.new(xml) }
-    let(:payload) { [example.read, nil] }
+    let(:payload) { example.read }
 
     describe "when build was successful" do
       let(:xml)  { "success.xml" }
@@ -83,19 +83,19 @@ describe TravisPayloadProcessor do
   end
 
   describe "building status" do
-    let(:payload) { [nil, TravisExample.new(xml).read] }
+    let(:payload) { TravisExample.new(xml).read }
     let(:xml) { "building.xml" }
     it { should be_building }
     it "should set building to false on the project when it is not building" do
       subject.should be_building
-      payload = [nil, TravisExample.new("sleeping.xml").read]
+      payload = TravisExample.new("sleeping.xml").read
       TravisPayloadProcessor.new(project,payload).perform
       project.reload.should_not be_building
     end
   end
 
   describe "with invalid xml" do
-    let(:payload) { ["<foo><bar>baz</bar></foo>", nil] }
+    let(:payload) { "<foo><bar>baz</bar></foo>" }
     it { should_not be_building }
     its(:latest_status) { should_not be_success }
   end
