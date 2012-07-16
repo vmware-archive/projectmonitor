@@ -13,7 +13,7 @@ class TeamCityChildProject
   end
 
   def red?
-   live_status_hash[:status] != 'SUCCESS' || children.any?(&:red?)
+    live_status_hash[:status] != 'SUCCESS' || children.any?(&:red?)
   end
 
   def last_build_time
