@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TravisProject do
-  let(:project) { TravisProject.new(:name => "my_travis_project", :feed_url => "http://travis-ci.org/pivotal/projectmonitor/cc.xml") }
+  let(:project) { TravisProject.new(:name => "my_travis_project", :feed_url => "http://travis-ci.org/pivotal/projectmonitor/builds.json") }
 
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
@@ -15,27 +15,11 @@ describe TravisProject do
   end
 
   describe 'validations' do
-    it "should require a Travis url format" do
-      project.should have(0).errors_on(:feed_url)
-      project.feed_url = 'http://foo/pivotal/projectmonitor'
-      project.should have(1).errors_on(:feed_url)
-      project.feed_url = 'http://travis-ci.org/pivotal/projectmonitor'
-      project.should have(1).errors_on(:feed_url)
-      project.feed_url = 'http://travis-ci.org/#!/pivotal/projectmonitor'
-      project.should have(1).errors_on(:feed_url)
-    end
-
     it "should allow both http and https" do
-      project.feed_url = "http://travis-ci.org/pivotal/project-monitor/cc.xml"
+      project.feed_url = "http://travis-ci.org/pivotal/project-monitor/builds.json"
       project.should have(0).errors_on(:feed_url)
-      project.feed_url = 'https://travis-ci.org/pivotal/projectmonitor/cc.xml'
+      project.feed_url = 'https://travis-ci.org/pivotal/projectmonitor/builds.json'
       project.should have(0).errors_on(:feed_url)
-    end
-  end
-
-  describe "#build_status_url" do
-    it "should use cc.xml" do
-      project.build_status_url.should == "http://travis-ci.org/pivotal/projectmonitor/cc.xml"
     end
   end
 end
