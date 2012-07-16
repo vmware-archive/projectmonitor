@@ -32,7 +32,7 @@ class Project < ActiveRecord::Base
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
 
   def clear_empty_location
-    self.location = nil if self.location.blank?
+    self.location = nil if location.blank?
   end
 
   def check_next_poll
@@ -40,7 +40,7 @@ class Project < ActiveRecord::Base
   end
 
   def code
-    self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
+    super.presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
   end
 
   def latest_status
@@ -64,7 +64,7 @@ class Project < ActiveRecord::Base
   end
 
   def red_since
-    breaking_build.nil? ? nil : breaking_build.published_at
+    breaking_build.try(:published_at)
   end
 
   def red_build_count
@@ -83,7 +83,7 @@ class Project < ActiveRecord::Base
   end
 
   def project_name
-    feed_url.blank? ? nil : feed_url
+    feed_url.presence
   end
 
   def to_s
@@ -96,15 +96,15 @@ class Project < ActiveRecord::Base
 
   def set_next_poll!
     set_next_poll
-    self.save!
+    save!
   end
 
   def set_next_poll
-    self.next_poll_at = Time.now + (self.polling_interval || Project::DEFAULT_POLLING_INTERVAL)
+    self.next_poll_at = Time.now + (polling_interval || Project::DEFAULT_POLLING_INTERVAL)
   end
 
   def needs_poll?
-    self.next_poll_at.nil? || self.next_poll_at <= Time.now
+    next_poll_at.nil? || next_poll_at <= Time.now
   end
 
   def url

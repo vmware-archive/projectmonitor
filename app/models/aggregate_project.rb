@@ -14,16 +14,16 @@ class AggregateProject < ActiveRecord::Base
   before_save :clear_empty_location
 
   def clear_empty_location
-    self.location = nil if self.location.blank?
+    self.location = nil if location.blank?
   end
 
   def red?
-    projects.detect {|p| p.red? }
+    projects.any?(&:red?)
   end
 
   def green?
     return false if projects.empty?
-    projects.all? {|p| p.green? }
+    projects.all?(&:green?)
   end
 
   def online?
@@ -36,7 +36,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def code
-    self[:code].presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
+    super.presence || (name ? name.downcase.gsub(" ", '')[0..3] : nil)
   end
 
   def status
@@ -49,7 +49,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def building?
-    projects.detect{|p| p.building? }
+    projects.any?(&:building?)
   end
 
   def recent_online_statuses(count = Project::RECENT_STATUS_COUNT)
@@ -61,7 +61,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def red_since
-    breaking_build.nil? ? nil : breaking_build.published_at
+    breaking_build.try(:published_at)
   end
 
   def never_been_green?
@@ -94,7 +94,6 @@ class AggregateProject < ActiveRecord::Base
   private
 
   def remove_project_associations
-    projects.map {|p| p.aggregate_project = nil; p.save! }
+    projects.map { |p| p.aggregate_project = nil; p.save! }
   end
-
 end
