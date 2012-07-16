@@ -1,5 +1,5 @@
 class ProjectPayloadProcessor
-  attr_accessor :project, :payload, :processor
+  attr_accessor :project, :payload
 
   def initialize(project, payload)
     self.project = project
