@@ -31,13 +31,6 @@ class Project < ActiveRecord::Base
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
 
-  def fetch_new_statuses
-    content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
-    parsed_status = parse_project_status(content)
-    parsed_status.online = true
-    statuses.create(parsed_status.attributes) unless status.match?(parsed_status)
-  end
-
   def clear_empty_location
     self.location = nil if self.location.blank?
   end
@@ -114,19 +107,6 @@ class Project < ActiveRecord::Base
     self.next_poll_at.nil? || self.next_poll_at <= Time.now
   end
 
-  def parse_project_status(content)
-    ProjectStatus.new(:online => false, :success => false)
-  end
-
-  def fetch_building_status
-    content = UrlRetriever.retrieve_content_at(build_status_url, auth_username, auth_password)
-    parse_building_status(content)
-  end
-
-  def parse_building_status(content)
-    BuildingStatus.new(false)
-  end
-
   def url
     status.url
   end
@@ -161,5 +141,9 @@ class Project < ActiveRecord::Base
 
   def self.build_url_from_fields(params)
     raise NotImplementedError, "Must implement build_url_from_fields in subclasses"
+  end
+
+  def processor
+    raise NotImplementedError, "Must implement processor in subclasses"
   end
 end
