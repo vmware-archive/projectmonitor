@@ -33,12 +33,8 @@ class TravisExample < FixtureFile
     super("travis_examples", filename)
   end
 
-  def as_xml
-    Nokogiri::XML.parse(read)
-  end
-
-  def first_css(selector)
-    as_xml.at_css(selector)
+  def as_json
+    JSON.parse(read)
   end
 end
 
