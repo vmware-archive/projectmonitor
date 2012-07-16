@@ -1,5 +1,4 @@
 class ProjectStatus < ActiveRecord::Base
-
   SUCCESS = 'success'
   FAILURE = 'failure'
   OFFLINE = 'offline'
@@ -15,16 +14,16 @@ class ProjectStatus < ActiveRecord::Base
   scope :reverse_chronological, order('published_at DESC')
 
   def match?(status)
-    if self.online
+    if online?
       all_attributes_match?(status)
     else
-      !status.online
+      !status.online?
     end
   end
 
   def in_words
-    if self.online
-      if self.success
+    if online?
+      if success?
         SUCCESS
       else
         FAILURE
