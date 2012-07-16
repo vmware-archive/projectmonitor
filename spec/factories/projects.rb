@@ -8,6 +8,7 @@ FactoryGirl.define do
     factory :project_with_tracker_integration do |f|
       tracker_project_id { "123" }
       tracker_auth_token { "foo" }
+      tracker_online true
     end
   end
 end
