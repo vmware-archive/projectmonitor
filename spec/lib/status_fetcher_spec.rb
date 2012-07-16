@@ -91,6 +91,23 @@ describe StatusFetcher do
         StatusFetcher.retrieve_velocity_for(project)
         project.current_velocity.should == current_velocity
       end
+
+      it "should set the online status to true" do
+        project.tracker_online.should == nil
+        StatusFetcher.retrieve_velocity_for(project)
+        project.tracker_online.should == true
+      end
+
+      context "when a connection failure occurs" do
+        before do
+          tracker_api.stub(:current_velocity).and_raise(RestClient::Unauthorized)
+        end
+
+        it "should set the online status to false" do
+          StatusFetcher.retrieve_velocity_for(project)
+          project.tracker_online.should == false
+        end
+      end
     end
 
     context "when the project is not a tracker_project?" do
