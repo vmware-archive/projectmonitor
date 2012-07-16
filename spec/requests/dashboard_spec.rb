@@ -102,6 +102,13 @@ feature "Dashboard" do
   end
 
   context "viewing tracker velocity" do
+    scenario "user sees indicator when unable to connect to tracker" do
+      FactoryGirl.create(:project_with_tracker_integration, tracker_online: false)
+      visit root_path
+      page.should have_content("No Connection")
+      page.should have_no_content("Velocity")
+    end
+
     scenario "user sees current velocity number when velocity history present" do
       FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [3,2], current_velocity: 1)
       visit root_path
@@ -109,10 +116,10 @@ feature "Dashboard" do
     end
 
     scenario "user does not see current velocity number when velocity history not present" do
-      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [], current_velocity: 0)
+      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [], current_velocity: 1)
       visit root_path
       page.should have_content("Velocity")
-      page.should have_no_content("Velocity 0")
+      page.should have_no_content("Velocity 1")
     end
   end
 

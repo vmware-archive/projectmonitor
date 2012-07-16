@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713162101) do
+ActiveRecord::Schema.define(:version => 20120716160034) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20120713162101) do
     t.integer  "current_velocity",                          :default => 0,     :null => false
     t.string   "last_ten_velocities"
     t.text     "serialized_feed_url_parts"
+    t.boolean  "tracker_online"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

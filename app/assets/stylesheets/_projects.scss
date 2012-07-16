@@ -276,8 +276,17 @@ ol.projects {
         font-weight: normal;
         text-transform: uppercase;
         vertical-align: top;
-        color: #2B2820
+        color: #2B2820;
       }
+
+      .error {
+        color: $disabled-grey;
+        font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+        font-weight: normal;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+
       .value {
         font-family: 'Avenir LT W01 65 Medium', Helvetica, sans-serif;
         vertical-align: top;

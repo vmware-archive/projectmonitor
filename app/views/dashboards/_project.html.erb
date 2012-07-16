@@ -22,13 +22,19 @@
 
     <div class="velocity-block">
       <% if project.tracker_project? %>
-        <div class="velocity">
-          <span class="label">Velocity</span>
-          <% unless project.last_ten_velocities.empty? %>
-            <span class="value"><%= project.current_velocity %></span>
-          <% end %>
-        </div>
-        <%= tracker_histogram project %>
+        <% if project.tracker_online? %>
+          <div class="velocity">
+            <span class="label">Velocity</span>
+            <% unless project.last_ten_velocities.empty? %>
+              <span class="value"><%= project.current_velocity %></span>
+            <% end %>
+          </div>
+          <%= tracker_histogram project %>
+        <% else %>
+          <div class="error">
+            No Connection
+          </div>
+        <% end %>
       <% end %>
     </div>
   </li>
