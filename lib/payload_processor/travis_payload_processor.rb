@@ -14,7 +14,7 @@ class TravisPayloadProcessor < ProjectPayloadProcessor
     status = ProjectStatus.new(:online => false, :success => false)
     begin
       if json = JSON.parse(payload).first
-        status.success = json["result"] == 0
+        status.success = json["result"].to_i == 0
         status.url = project.feed_url
         published_at = json["finished_at"]
         status.published_at = Time.parse(published_at).localtime if published_at.present?
