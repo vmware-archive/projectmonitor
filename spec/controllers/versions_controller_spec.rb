@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 class VersionsController
-  DEFAULT_VERSION = '-1 (for testing)'
+  silence_warnings do
+    DEFAULT_VERSION = '-1 (for testing)'
+  end
 end
 
 describe VersionsController do
