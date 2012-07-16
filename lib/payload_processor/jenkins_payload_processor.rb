@@ -30,14 +30,3 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
     end
   end
 end
-
-  # def build_status_url
-  # return nil if feed_url.nil?
-
-  # url_components = URI.parse(feed_url)
-  # ["#{url_components.scheme}://#{url_components.host}"].tap do |url|
-  # url << ":#{url_components.port}" if url_components.port
-  # url << "/cc.xml"
-  # end.join
-  # end
-
