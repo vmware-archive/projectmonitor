@@ -5,8 +5,6 @@ describe Project do
     @project = CruiseControlProject.new(:name => "my_cc_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
   end
 
-  it_should_behave_like 'a project that updates only the most recent status'
-
   describe "validations" do
     describe "validation" do
       it "should require an RSS URL" do
@@ -52,93 +50,4 @@ describe Project do
       @project.project_name.should == "BAZ"
     end
   end
-
-  describe "status_parser" do
-    describe "with reported success" do
-      before do
-        @status_parser = @project.parse_project_status(CCRssExample.new("success.rss").read)
-      end
-
-      it "should return the link to the checkin" do
-        @status_parser.url.should == CCRssExample.new("success.rss").xpath_content("/rss/channel/item/link")
-      end
-
-      it "should return the published date of the checkin" do
-        @status_parser.published_at.should ==
-            Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate"))
-      end
-
-      it "should report success" do
-        @status_parser.should be_success
-      end
-    end
-
-    describe "with reported failure" do
-      before do
-        @status_parser = @project.parse_project_status(CCRssExample.new("failure.rss").read)
-      end
-
-      it "should return the link to the checkin" do
-        @status_parser.url.should == CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/link")
-      end
-
-      it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/pubDate"))
-      end
-
-      it "should report failure" do
-        @status_parser.should_not be_success
-      end
-    end
-
-  #  describe "with invalid xml" do
-  #    before(:all) do
-  #      @parser = XML::Parser.string(@response_xml =  "<foo><bar>baz</bar></foo>")
-  #      @response_doc = @parser.parse
-  #      @status_parser = StatusParser.status( "<foo><bar>baz</bar></foo>")
-  #    end
-  #
-  #    it "should report failure" do
-  #      @status_parser.should_not be_success
-  #    end
-  #  end
-  end
-
-
-  describe "building_parser" do
-    before do
-      @project = CruiseControlProject.new(:name => "Socialitis", :feed_url => "http://foo.bar.com:3434/projects/Socialitis.rss")
-    end
-
-    context "with a valid response that the project is building" do
-      before do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_building.xml").read)
-      end
-
-      it "should set the building flag on the project to true" do
-        @status_parser.should be_building
-      end
-    end
-
-    context "with a valid response that the project is not building" do
-      before do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("socialitis_not_building.xml").read)
-      end
-
-      it "should set the building flag on the project to false" do
-        @status_parser.should_not be_building
-      end
-    end
-
-    context "with an invalid response" do
-      before do
-        @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
-      end
-
-      it "should set the building flag on the project to false" do
-        @status_parser.should_not be_building
-      end
-    end
-  end
-
 end

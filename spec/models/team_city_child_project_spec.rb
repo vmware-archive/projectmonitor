@@ -188,9 +188,5 @@ describe TeamCityChildProject do
         it { should_not be_red }
       end
     end
-
-    context "when it cannot retrieve the build status" do
-
-    end
   end
 end

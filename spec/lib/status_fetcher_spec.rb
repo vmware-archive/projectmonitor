@@ -6,7 +6,6 @@ describe StatusFetcher::Job do
 
     it "retrieves statuses from the StatusFetcher" do
       StatusFetcher.should_receive(:retrieve_status_for).with project
-      StatusFetcher.should_receive(:retrieve_building_status_for).with project
       StatusFetcher.should_receive(:retrieve_velocity_for).with project
       project.should_receive(:set_next_poll!)
 
@@ -45,75 +44,29 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_status_for" do
-    let(:project) { Project.new }
-    let(:content) { double(:xml_content) }
-    let(:status)  { ProjectStatus.new }
+    let(:project) { double(Project) }
 
-    subject { StatusFetcher.retrieve_status_for project }
+    it "fetches content" do
+      processor = double(ProjectPayloadProcessor, perform: nil)
+      ProjectPayloadProcessor.stub(new: processor)
 
-    it "delegates status update to the project" do
-      project.should_receive(:fetch_new_statuses)
-      subject
+      fetcher = double(ProjectContentFetcher)
+      ProjectContentFetcher.should_receive(:new).with(project).and_return(fetcher)
+      fetcher.should_receive(:fetch)
+
+      StatusFetcher.retrieve_status_for project
     end
 
-    context "project status can not be retrieved from remote source" do
-      let(:project_status) { double('project_status') }
-      before do
-        project.stub(:fetch_new_statuses).and_raise Net::HTTPError.new("can't do it", 500)
-        project.stub(:status).and_return project_status
-      end
+    it "processes content" do
+      payload = double("foo")
+      fetcher = double(ProjectContentFetcher, fetch: payload)
+      ProjectContentFetcher.stub(new: fetcher)
 
-      context "a status does not exist with the error that is returned" do
-        before do
-          project_status.stub(:error).and_return "another error"
-        end
+      processor = double(ProjectPayloadProcessor)
+      ProjectPayloadProcessor.should_receive(:new).with(project, payload).and_return(processor)
+      processor.should_receive(:perform)
 
-        it "creates a status with the error message" do
-          project.statuses.should_receive(:create)
-          StatusFetcher.retrieve_status_for(project)
-        end
-      end
-
-      context "a status exists with the error that is returned" do
-        before do
-          project_status.stub(:error).and_return "HTTP Error retrieving status for project '##{project.id}': can't do it"
-        end
-
-        it "does not create a duplicate status" do
-          project.statuses.should_not_receive(:create)
-          StatusFetcher.retrieve_status_for(project)
-        end
-      end
-    end
-
-  end
-
-  describe "#retrieve_building_status_for" do
-    let(:project) { Project.new }
-    let(:content) { double(:content) }
-    let(:building_status) { [true, false].sample }
-    let(:status) { double(:status, :building? => building_status )}
-
-    subject do
-      project.building
-    end
-
-    context "project status can be retrieved from the remote source" do
-      before do
-        project.stub(:fetch_building_status).and_return status
-        StatusFetcher.retrieve_building_status_for project
-      end
-
-      it { should == building_status }
-    end
-
-    context "project status can not be retrieved" do
-      before do
-        project.stub(:fetch_building_status).and_raise Net::HTTPError.new("can't do it", 500)
-        StatusFetcher.retrieve_building_status_for project
-      end
-
-      it { should be_false }
+      StatusFetcher.retrieve_status_for project
     end
   end
 
