@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe TrackerApi do
   context "with the real service", :vcr => {:re_record_interval => 7.days} do
+    subject { TrackerApi.new(project) }
+
     let(:project) { FactoryGirl.create :project, tracker_project_id: 590337, tracker_auth_token: "881c7bc3264a00d280225ea409225fe8" }
     let(:tracker_project) { PivotalTracker::Project.find project.tracker_project_id }
 
@@ -25,7 +27,7 @@ describe TrackerApi do
 
     context "last_ten_velocities" do
       it "should be the sum of the estimates of the stories from the current and 9 most recent iterations" do
-        TrackerApi.new(project).last_ten_velocities.should == [0,1,2,3]
+        subject.last_ten_velocities.should == [0,1,2,3]
       end
 
       context "when the current iterations has unaccepted stories" do
@@ -35,7 +37,7 @@ describe TrackerApi do
             :estimate => 3,
             :current_state => "started"
 
-          TrackerApi.new(project).last_ten_velocities.should == [0,1,2,3]
+          subject.last_ten_velocities.should == [0,1,2,3]
         end
       end
     end
