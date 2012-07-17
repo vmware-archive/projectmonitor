@@ -1,8 +1,6 @@
 class TeamCityChainedPayloadProcessor < TeamCityPayloadProcessor
   def parse_building_status
-    my_building_status = super
-    return my_building_status if my_building_status.building?
-    BuildingStatus.new( project.children.any?(&:building?) )
+    (live_builds.present? && live_builds.first[:running]) || project.children.any?(&:building?)
   end
 
   def parse_project_status
@@ -14,5 +12,4 @@ class TeamCityChainedPayloadProcessor < TeamCityPayloadProcessor
     end
     status
   end
-
 end

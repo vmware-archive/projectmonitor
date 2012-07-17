@@ -19,8 +19,7 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_building_status
-    most_recent_build = live_builds.first
-    BuildingStatus.new( most_recent_build ? most_recent_build[:running] : false )
+    (live_builds.present? && live_builds.first[:running])
   end
 
   def live_status_hashes

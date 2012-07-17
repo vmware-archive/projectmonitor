@@ -2,14 +2,14 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
   private
 
   def parse_building_status
-    building_status = BuildingStatus.new(false)
+    building = false
     if payload && building_payload = payload.last
       document = Nokogiri::XML.parse(building_payload.downcase)
       p_element = document.xpath("//project[@name=\"#{project.project_name.downcase}\"]")
       return building_status if p_element.empty?
-      building_status.building = p_element.attribute('activity').value == 'building'
+      building = p_element.attribute('activity').value == 'building'
     end
-    building_status
+    building
   end
 
   def parse_project_status
