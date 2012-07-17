@@ -8,9 +8,4 @@ namespace :cimonitor do
       puts "DJ queue is not empty.  Refusing to queue new jobs."
     end
   end
-
-  desc "Send an email notification including any projects that have been red for over one day"
-  task :red_over_one_day_notification => :environment  do
-    CiMonitorNotifier.send_red_over_one_day_notifications
-  end
 end
