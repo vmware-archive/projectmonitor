@@ -5,7 +5,7 @@
 <% elsif project %>
   <li class="<%= project.css_class %> <%= project.building? ? "building" : "" %>" id="<%= project.css_id %>" data-id="<%= project.id %>">
     <div class="information">
-      <h1><%= link_to(project.code, project.url) %></h1>
+      <h1><%= link_to(project.code, project.status_url) %></h1>
       <div class="status-bar">
         <% if project.is_a? AggregateProject %>
           <div class="aggregate">Aggregate</div>

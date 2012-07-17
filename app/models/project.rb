@@ -107,7 +107,7 @@ class Project < ActiveRecord::Base
     next_poll_at.nil? || next_poll_at <= Time.now
   end
 
-  def url
+  def status_url
     status.url
   end
 

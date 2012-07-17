@@ -1,5 +1,27 @@
 class JenkinsProject < Project
-  validates_format_of :feed_url, :with =>  /https?:\/\/.*job\/.*\/rssAll$/, :message => "should look like: http://*job/*/rssAll"
+  FEED_URL_REGEXP = %r{(https?://.*)/job/(.*)/rssAll$}
+
+  validates :url, :build_name, presence: true
+
+  attr_accessible :url, :build_name
+
+  def url
+    feed_url =~ FEED_URL_REGEXP
+    $1
+  end
+
+  def url=(url)
+    self.feed_url = "#{url}/job/#{build_name}/rssAll"
+  end
+
+  def build_name
+    feed_url =~ FEED_URL_REGEXP
+    $2
+  end
+
+  def build_name=(build_name)
+    self.feed_url = "#{url}/job/#{build_name}/rssAll"
+  end
 
   def project_name
     return nil if feed_url.nil?
@@ -8,10 +30,6 @@ class JenkinsProject < Project
 
   def self.feed_url_fields
     ["URL","Build Name"]
-  end
-
-  def self.build_url_from_fields(params)
-    params["URL"] + '/job/' + params["Build Name"] + '/rssAll'
   end
 
   def build_status_url
