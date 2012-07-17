@@ -21,7 +21,6 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
   validates_length_of :location, :maximum => 20, :allow_blank => true
 
-  before_save :clear_empty_location
   before_save :check_next_poll
 
   attr_accessible :aggregate_project_id,
@@ -30,10 +29,6 @@ class Project < ActiveRecord::Base
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
-
-  def clear_empty_location
-    self.location = nil if location.blank?
-  end
 
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
