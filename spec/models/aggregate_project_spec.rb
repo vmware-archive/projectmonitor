@@ -14,21 +14,34 @@ describe AggregateProject do
   it { should_not be_tracker_project }
 
   describe "callbacks" do
-    before do
-      aggregate_project.location = location
-      aggregate_project.save
-    end
-
     subject { aggregate_project }
 
-    context "without a location" do
-      let(:location) { '' }
-      its(:location) { should be_nil }
+    describe "location" do
+      before do
+        aggregate_project.location = location
+        aggregate_project.save
+      end
+
+      context "without a location" do
+        let(:location) { '' }
+        its(:location) { should be_nil }
+      end
+
+      context "with a location" do
+        let(:location) { 'New York' }
+        its(:location) { should == location }
+      end
     end
 
-    context "with a location" do
-      let(:location) { 'New York' }
-      its(:location) { should == location }
+    describe "before_destroy" do
+      let(:project) { projects(:socialitis) }
+      let!(:aggregate_project) { FactoryGirl.create :aggregate_project, :projects => [project] }
+
+      it "should remove its id from its projects" do
+        project.aggregate_project_id.should_not be_nil
+        aggregate_project.destroy
+        project.reload.aggregate_project_id.should be_nil
+      end
     end
   end
 

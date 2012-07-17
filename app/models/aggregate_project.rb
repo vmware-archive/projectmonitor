@@ -2,7 +2,7 @@ class AggregateProject < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   has_many :projects
 
-  before_destroy :remove_project_associations
+  before_destroy { |record| record.projects.update_all :aggregate_project_id => nil }
 
   scope :enabled, where(enabled: true)
   scope :with_statuses, joins(:projects => :statuses).uniq
@@ -89,11 +89,5 @@ class AggregateProject < ActiveRecord::Base
 
   def as_json(options = {})
     super(:only => :id, :methods => :tag_list)
-  end
-
-  private
-
-  def remove_project_associations
-    projects.map { |p| p.aggregate_project = nil; p.save! }
   end
 end
