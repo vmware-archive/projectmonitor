@@ -3,10 +3,10 @@
 
 <%= error_messages_for :aggregate_project %>
 
-<%= form_for(@aggregate_project, :as => :project, :url => aggregate_project_path, :html => {:method => :put}) do |f| %>
+<%= form_for @aggregate_project do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
 
 <div style="margin-left: 30px;">
-<%= link_to 'Remove Aggregate Project -', aggregate_project_path(@aggregated_project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
+  <%= link_to 'Remove Aggregate Project -', aggregate_project_path(@aggregated_project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
 </div>
