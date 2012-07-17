@@ -16,8 +16,7 @@ class AggregateProjectsController < ApplicationController
   def create
     @aggregate_project = AggregateProject.new(params[:aggregate_project])
     if @aggregate_project.save
-      flash[:notice] = 'Aggregate project was successfully created.'
-      redirect_to projects_url
+      redirect_to projects_url, notice: 'Aggregate project was successfully created.'
     else
       render :new
     end
@@ -30,9 +29,8 @@ class AggregateProjectsController < ApplicationController
   end
 
   def update
-    if @aggregate_project.update_attributes(params[:project])
-      flash[:notice] = 'Aggregate project was successfully updated.'
-      redirect_to projects_url
+    if @aggregate_project.update_attributes(params[:aggregate_project])
+      redirect_to projects_url, notice: 'Aggregate project was successfully updated.'
     else
       render :edit
     end
@@ -40,8 +38,7 @@ class AggregateProjectsController < ApplicationController
 
   def destroy
     @aggregate_project.destroy
-    flash[:notice] = 'Aggregate project was successfully destroyed.'
-    redirect_to projects_url
+    redirect_to projects_url, notice: 'Aggregate project was successfully destroyed.'
   end
 
   private

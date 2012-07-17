@@ -57,22 +57,22 @@
   </tr>
 
   <% reset_cycle -%>
-  <% for aggregated_project in @aggregate_projects %>
-    <tr class="<%= cycle("odd", "even") %>">
-      <td><%= h aggregated_project.name %></td>
+  <% for aggregate_project in @aggregate_projects %>
+    <tr id="aggregate-project-<%= aggregate_project.id %>" class="<%= cycle("odd", "even") %>">
+      <td><%= h aggregate_project.name %></td>
       <td style="text-align: center;">
-        <% if aggregated_project.enabled? %>
+        <% if aggregate_project.enabled? %>
           &#10003;
         <% else -%>
           <span style="color: #AA1224;">&#10005;</span>
         <% end -%>
       </td>
-      <td class="tag_list"><%= aggregated_project.tag_list %></td>
+      <td class="tag_list"><%= aggregate_project.tag_list %></td>
       <td>
-        <%= link_to 'Edit', edit_aggregate_project_path(aggregated_project), :class => "button" %>
+        <%= link_to 'Edit', edit_aggregate_project_path(aggregate_project), :class => "button" %>
       </td>
       <td>
-        <%= link_to 'Delete', aggregate_project_path(aggregated_project), :method => :delete, :class =>"button" %>
+        <%= link_to 'Delete', aggregate_project_path(aggregate_project), :method => :delete, :class =>"button" %>
       </td>
     </tr>
   <% end %>
