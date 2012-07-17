@@ -1,6 +1,13 @@
-
 class CruiseControlProject < Project
-  validates_format_of :feed_url, :with => /https?:\/\/.*\.rss$/, :message => 'should end with ".rss"'
+  validates :url, presence: true, format: {with: /https?:\/\/.*\.rss$/i, message: 'should end with ".rss"'}
+
+  def url
+    feed_url
+  end
+
+  def url=(url)
+    self.feed_url = url
+  end
 
   def project_name
     return nil if feed_url.nil?
@@ -13,9 +20,5 @@ class CruiseControlProject < Project
 
   def self.feed_url_fields
     ["URL"]
-  end
-
-  def self.build_url_from_fields(params)
-    params["URL"]
   end
 end

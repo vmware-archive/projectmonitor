@@ -56,7 +56,7 @@ class AggregateProject < ActiveRecord::Base
     ProjectStatus.online(projects, count)
   end
 
-  def url
+  def status_url
     aggregate_project_path(self)
   end
 
