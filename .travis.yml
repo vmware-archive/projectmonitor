@@ -1,10 +1,16 @@
 language: ruby
 
+branches:
+  only:
+    - master
+
 bundler_args: --without postgres development
 
 notifications:
   email:
     - common-effort@pivotallabs.com
+  webhooks:
+    - http://projectmonitor-staging.pivotallabs.com/projects/50/status
 
 rvm:
   - 1.9.3
