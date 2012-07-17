@@ -13,7 +13,7 @@ class LegacyTeamCityPayloadProcessor < ProjectPayloadProcessor
       status.success = latest_build.attribute('lastBuildStatus').value == "NORMAL"
       status.url = latest_build.attribute('webUrl').value
       pub_date = Time.parse(latest_build.attribute('lastBuildTime').value)
-      status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+      status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
     end
     status
   end

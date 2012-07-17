@@ -138,7 +138,7 @@
   <%= time_select :project, :ec2_end_time, :minute_step => 5 %>
 </p>
 
-<em>Server time is <%= Clock.now %></em>
+<em>Server time is <%= Time.now %></em>
 
 <p style="text-align: right; margin-bottom: 0;">
   <%= submit_tag @project.new_record? ? "Create" : "Update" %>
