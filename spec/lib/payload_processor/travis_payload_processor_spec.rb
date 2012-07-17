@@ -61,7 +61,7 @@ describe TravisPayloadProcessor do
       let(:json)  { "success.json" }
       its(:latest_status) { should be_success }
       it "should return the link to the checkin" do
-        subject.latest_status.url.should == project.feed_url
+        subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
       end
 
       it "should return the published date of the checkin" do
@@ -73,7 +73,7 @@ describe TravisPayloadProcessor do
       let(:json) { "failure.json" }
       its(:latest_status) { should_not be_success }
       it "should return the link to the checkin" do
-        subject.latest_status.url.should == project.feed_url
+        subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
       end
 
       it "should return the published date of the checkin" do
