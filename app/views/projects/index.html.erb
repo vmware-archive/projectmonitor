@@ -16,7 +16,7 @@
   </tr>
 
   <% for project in @projects %>
-    <tr class="<%= cycle("odd", "even") %>">
+    <tr id="project-<%= project.id %>" class="<%= cycle("odd", "even") %>">
       <td><%= h project.code %></td>
       <td><%= h project.name %></td>
       <td>

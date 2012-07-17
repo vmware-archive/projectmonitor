@@ -1,9 +1,11 @@
 require 'spec_helper'
 
-feature "Authentication" do
+feature "authentication" do
   let(:password) { "monkey" }
   let(:user) { FactoryGirl.create(:user, password: password) }
+
   before { visit root_path }
+
   scenario "user logs in and logs out" do
     click_link "manage projects"
 

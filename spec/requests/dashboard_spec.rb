@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-feature "Dashboard" do
-  let(:password) { "monkey" }
-  let(:user) { FactoryGirl.create(:user, password: password) }
-
+feature "dashboard" do
   context "looking at projects" do
     before { visit root_path }
 
