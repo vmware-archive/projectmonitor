@@ -10,6 +10,7 @@
     <th>Enabled?</th>
     <th>Aggregate</th>
     <th>Tags</th>
+    <th>Webhook URL</th>
     <th>Actions</th>
     <th>Remove</th>
   </tr>
@@ -31,6 +32,7 @@
       </td>
       <td style="text-align: center;"><%= project.aggregate_project.present? ? project.aggregate_project.name : "" %></td>
       <td class="tag_list"><%= project.tag_list %></td>
+      <td><%= project_status_url(project) %></td>
       <td>
         <%= link_to 'Edit', edit_project_path(project), :class => "button" %>
       </td>
