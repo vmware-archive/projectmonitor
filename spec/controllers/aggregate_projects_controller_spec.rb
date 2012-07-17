@@ -3,8 +3,8 @@ require 'spec_helper'
 describe AggregateProjectsController do
   describe "with no logged in user" do
     describe "show" do
-      let(:project) { aggregate_projects(:internal_projects_aggregate) }
-      before { get :show, :id => project.to_param }
+      let(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
+      before { get :show, :id => aggregate_project.to_param }
 
       it "should be_success" do
         response.should be_success
@@ -16,8 +16,8 @@ describe AggregateProjectsController do
     end
 
     describe "status" do
-      let(:project) { aggregate_projects(:internal_projects_aggregate) }
-      before { get :status, :id => project.to_param }
+      let(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
+      before { get :status, :id => aggregate_project.to_param }
 
       it "should render dashboards/_project" do
         response.should render_template("dashboards/_project")
@@ -47,7 +47,7 @@ describe AggregateProjectsController do
 
     describe "update" do
       context "when the aggregate project was successfully updated" do
-        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => { :name => "new name" } }
+        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :aggregate_project => { :name => "new name" } }
 
         it "should set the flash" do
           flash[:notice].should == 'Aggregate project was successfully updated.'
@@ -57,7 +57,7 @@ describe AggregateProjectsController do
       end
 
       context "when the aggregate project was not successfully updated" do
-        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :project => { :name => nil } }
+        before { put :update, :id => aggregate_projects(:internal_projects_aggregate), :aggregate_project => { :name => nil } }
         it { should render_template :edit }
       end
     end
