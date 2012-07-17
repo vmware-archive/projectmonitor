@@ -17,11 +17,11 @@
 </p>
 
 <div id="field_container">
-  <%- if f.object.persisted? %>
-    <%- f.object.class.feed_url_fields.each do |part| %>
+  <%- if f.object.type.present? %>
+    <%- f.object.class.feed_url_fields.each do |field| %>
       <p>
-      <%= f.label part.to_sym, part %>
-      <%= text_field_tag "feed_url[#{part}]", f.object.serialized_feed_url_parts[part.to_s] %>
+      <%= f.label field.gsub(' ','').underscore, field %>
+      <%= f.text_field field.gsub(' ','').underscore %>
       </p>
     <%- end %>
   <%- end %>

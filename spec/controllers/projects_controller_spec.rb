@@ -23,18 +23,14 @@ describe ProjectsController do
         subject do
           post :create, :project => {
             :name => 'name',
-            :type => JenkinsProject.name
-          },
-          :feed_url => {"URL" => 'www.example.com', "Build Name" => 'example'}
+            :type => JenkinsProject.name,
+            :url => 'http://www.example.com',
+            :build_name => 'example'
+          }
         end
 
         it "should create a project of the correct type" do
           lambda { subject }.should change(JenkinsProject, :count).by(1)
-        end
-
-        it "should save the serialized feed url hash" do
-          subject
-          JenkinsProject.last.serialized_feed_url_parts.should == {"URL" => 'www.example.com', "Build Name" => 'example'}
         end
 
         it "should set the flash" do

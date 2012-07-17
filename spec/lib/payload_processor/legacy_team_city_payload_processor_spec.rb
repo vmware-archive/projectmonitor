@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe LegacyTeamCityPayloadProcessor do
-  let(:project) { TeamCityProject.create(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9")}
+  let(:project) { FactoryGirl.create(:team_city_project) }
   let(:payload) { TeamcityCradiatorXmlExample.new(xml).read }
 
   subject do

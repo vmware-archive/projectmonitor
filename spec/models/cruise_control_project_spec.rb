@@ -1,53 +1,39 @@
 require 'spec_helper'
 
-describe Project do
-  before do
-    @project = CruiseControlProject.new(:name => "my_cc_project", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
-  end
+describe CruiseControlProject do
+  subject { FactoryGirl.build(:cruise_control_project) }
 
   describe "validations" do
-    describe "validation" do
-      it "should require an RSS URL" do
-        @project.feed_url = ""
-        @project.should_not be_valid
-        @project.errors[:feed_url].should be_present
-      end
+    it { should validate_presence_of(:url) }
 
-      it "should require that the RSS URL contain a valid domain" do
-        @project.feed_url = "foo"
-        @project.should_not be_valid
-        @project.errors[:feed_url].should be_present
-      end
+    it "should validate the URL" do
+      subject.url = "example.com/proj.rss"
+      should_not be_valid
+      should have(1).error_on(:url)
 
-      it "should require that the RSS URL contain a valid address" do
-        @project.feed_url = "http://foo.bar.com/"
-        @project.should_not be_valid
-        @project.errors[:feed_url].should be_present
-      end
+      subject.url = "http://example.com/proj.rss"
+      should be_valid
 
-      it "should allow both http and https" do
-        @project.feed_url = "http://bar.com/foo.rss"
-        @project.should be_valid
-
-        @project.feed_url = "https://bar.com/foo.rss"
-        @project.should be_valid
-      end
+      subject.url = "https://example.com/proj.rss"
+      should be_valid
     end
   end
 
   describe "#project_name" do
-    it "should return nil when feed_url is nil" do
-      @project.feed_url = nil
-      @project.project_name.should be_nil
+    before { subject.url = "http://example.com/baz.rss" }
+
+    it "should return nil when url is nil" do
+      subject.url = nil
+      subject.project_name.should be_nil
     end
 
     it "should extract the project name from the RSS url" do
-      @project.project_name.should == "baz"
+      subject.project_name.should == "baz"
     end
 
     it "should extract the project name from the RSS url regardless of capitalization" do
-      @project.feed_url = @project.feed_url.upcase
-      @project.project_name.should == "BAZ"
+      subject.url = subject.url.upcase
+      subject.project_name.should == "BAZ"
     end
   end
 end

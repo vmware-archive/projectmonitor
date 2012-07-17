@@ -22,25 +22,37 @@ describe JenkinsProject do
   end
 
   describe 'validations' do
-    it "should require a Jenkins url format" do
-      @project.should have(0).errors_on(:feed_url)
-      @project.feed_url = 'http://foo.bar.com:3434/wrong/example_project/rssAll'
-      @project.should have(1).errors_on(:feed_url)
-      @project.feed_url = 'http://foo.bar.com:3434/job/example_project/wrong'
-      @project.should have(1).errors_on(:feed_url)
-    end
-
-    it "should allow both http and https" do
-      @project.feed_url = "http://foo.bar.com:3434/job/example_project/rssAll"
-      @project.should have(0).errors_on(:feed_url)
-      @project.feed_url = 'https://foo.bar.com:3434/job/example_project/rssAll'
-      @project.should have(0).errors_on(:feed_url)
-    end
+    it { should validate_presence_of :url }
+    it { should validate_presence_of :build_name }
   end
 
   describe "#build_status_url" do
     it "should use cc.xml" do
       @project.build_status_url.should == "http://foo.bar.com:3434/cc.xml"
+    end
+  end
+
+  describe '#url' do
+    subject { FactoryGirl.build(:jenkins_project) }
+
+    it 'should read the url from the feed URL' do
+      subject.feed_url = "http://foo.bar.com:3434/job/example_project/rssAll"
+      subject.url.should == "http://foo.bar.com:3434"
+
+      subject.feed_url = "https://foo2.bar2.org:3538/job/example_project/rssAll"
+      subject.url.should == "https://foo2.bar2.org:3538"
+    end
+  end
+
+  describe '#build_name' do
+    subject { FactoryGirl.build(:jenkins_project) }
+
+    it 'should read the build_name from the feed URL' do
+      subject.feed_url = "http://foo.bar.com:3434/job/example_project/rssAll"
+      subject.build_name.should == "example_project"
+
+      subject.feed_url = "https://foo2.bar2.org:3538/job/example_project_2/rssAll"
+      subject.build_name.should == "example_project_2"
     end
   end
 end
