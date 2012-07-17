@@ -1,9 +1,6 @@
-require 'pivotal_tracker'
-
 class TrackerApi
   def initialize(project)
     @project = project
-    PivotalTracker::Client.use_ssl = true
     PivotalTracker::Client.token = @project.tracker_auth_token
   end
 
