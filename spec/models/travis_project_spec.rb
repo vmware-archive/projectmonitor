@@ -20,9 +20,9 @@ describe TravisProject do
   describe 'validations' do
     it "should allow both http and https" do
       project.feed_url = "http://travis-ci.org/pivotal/project-monitor/builds.json"
-      project.should have(0).errors_on(:feed_url)
+      project.should be_valid
       project.feed_url = 'https://travis-ci.org/pivotal/projectmonitor/builds.json'
-      project.should have(0).errors_on(:feed_url)
+      project.should be_valid
     end
   end
 
