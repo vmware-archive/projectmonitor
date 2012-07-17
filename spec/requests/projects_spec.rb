@@ -1,20 +1,15 @@
 require "spec_helper"
 
-feature "Admin Projects" do
+feature "projects", :js => true do
+  let!(:project) { FactoryGirl.create(:travis_project, account: "pivotal", project: "projectmonitor", tracker_project_id: "123", tracker_auth_token: "garbage") }
+
   before do
-    visit root_path
-
+    log_in
+    visit "/"
     click_link "manage projects"
-
-    user = FactoryGirl.create(:user, password: "monkey")
-
-    fill_in "login", with: user.login
-    fill_in "password", with: "monkey"
-
-    click_button "Log In"
   end
 
-  scenario "admin creates a project", :js => true do
+  scenario "admin creates a project" do
     click_link "Add Project"
 
     select "Travis Project", :from => "Project Type"
@@ -35,10 +30,10 @@ feature "Admin Projects" do
     page.should have_content("Project was successfully created")
   end
 
-  scenario "admin edits a project", :js => true do
-    travis_project = FactoryGirl.create(:travis_project, account: "pivotal", project: "projectmonitor", tracker_project_id: "123", tracker_auth_token: "garbage")
-
-    visit "/projects/#{travis_project.id}/edit"
+  scenario "admin edits a project" do
+    within "#project-#{project.id}" do
+      click_link "Edit"
+    end
 
     new_account = "pivotal2"
     new_project = "projectmonitor2"
@@ -50,8 +45,8 @@ feature "Admin Projects" do
 
     page.should have_content("Project was successfully updated")
 
-    travis_project.reload
-    travis_project.account.should == new_account
-    travis_project.project.should == new_project
+    project.reload
+    project.account.should == new_account
+    project.project.should == new_project
   end
 end
