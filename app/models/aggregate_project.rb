@@ -1,5 +1,4 @@
 class AggregateProject < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
   has_many :projects
 
   before_destroy { |record| record.projects.update_all :aggregate_project_id => nil }
@@ -48,10 +47,6 @@ class AggregateProject < ActiveRecord::Base
 
   def recent_online_statuses(count = Project::RECENT_STATUS_COUNT)
     ProjectStatus.online(projects, count)
-  end
-
-  def status_url
-    aggregate_project_path(self)
   end
 
   def red_since
