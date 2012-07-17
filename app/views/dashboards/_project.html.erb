@@ -7,16 +7,20 @@
     <div class="information">
       <h1><%= link_to(project.code, project.url) %></h1>
       <div class="status-bar">
-        <div class="publish-date"><%= project.time_since_last_build %></div>
-        <div class="history">
-          <ol>
-            <% project.recent_online_statuses(status_count_for(projects_count)).each do |status| %>
-              <li class="<%= status.in_words %>">
-                <%= link_to status.in_words, status.url %>
-              </li>
-            <% end %>
-          </ol>
-        </div>
+        <% if project.is_a? AggregateProject %>
+          <div class="aggregate">Aggregate</div>
+        <% else %>
+          <div class="publish-date"><%= project.time_since_last_build %></div>
+          <div class="history">
+            <ol>
+              <% project.recent_online_statuses(status_count_for(projects_count)).each do |status| %>
+                <li class="<%= status.in_words %>">
+                  <%= link_to status.in_words, status.url %>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+        <% end %>
       </div>
     </div>
 

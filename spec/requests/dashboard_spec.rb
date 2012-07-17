@@ -110,7 +110,7 @@ feature "Dashboard" do
     end
 
     scenario "user sees current velocity number when velocity history present" do
-      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [3,2], current_velocity: 1)
+      FactoryGirl.create(:project_with_tracker_integration, last_ten_velocities: [3, 2], current_velocity: 1)
       visit root_path
       page.should have_content("Velocity 1")
     end
@@ -134,6 +134,18 @@ feature "Dashboard" do
       FactoryGirl.create(:project)
       visit root_path
       page.should_not have_css(".chart")
+    end
+  end
+
+  context "aggregate projects" do
+    scenario "user does not see the build history and last build time" do
+      FactoryGirl.create(:aggregate_project)
+      visit root_path
+      within "li.aggregate" do
+        page.should_not have_css(".publish-date")
+        page.should_not have_css(".history")
+        page.should have_content("Aggregate")
+      end
     end
   end
 end
