@@ -16,23 +16,6 @@ describe AggregateProject do
   describe "callbacks" do
     subject { aggregate_project }
 
-    describe "location" do
-      before do
-        aggregate_project.location = location
-        aggregate_project.save
-      end
-
-      context "without a location" do
-        let(:location) { '' }
-        its(:location) { should be_nil }
-      end
-
-      context "with a location" do
-        let(:location) { 'New York' }
-        its(:location) { should == location }
-      end
-    end
-
     describe "before_destroy" do
       let(:project) { projects(:socialitis) }
       let!(:aggregate_project) { FactoryGirl.create :aggregate_project, :projects => [project] }
