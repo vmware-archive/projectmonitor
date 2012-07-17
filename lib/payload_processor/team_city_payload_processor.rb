@@ -49,7 +49,7 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
     if start_date_attribute.present?
       Time.parse(start_date_attribute.value).localtime
     else
-      Clock.now.localtime
+      Time.now.localtime
     end
   end
 

@@ -6,9 +6,9 @@ describe "projects/new" do
   end
 
   it "should include the server time" do
-    Clock.now = Time.parse("Wed Oct 26 17:02:10 -0700 2011")
+    Time.stub(:now).and_return(Time.parse("Wed Oct 26 17:02:10 -0700 2011"))
     render
-    rendered.should include("Server time is #{Clock.now.to_s}")
+    rendered.should include("Server time is #{Time.now.to_s}")
   end
 end
 
