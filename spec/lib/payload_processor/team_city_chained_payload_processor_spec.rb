@@ -75,7 +75,7 @@ describe TeamCityChainedPayloadProcessor do
     end
   end
 
-  describe "building status" do
+  describe "parse_building_status" do
     let(:payload) {
       <<-XML
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
