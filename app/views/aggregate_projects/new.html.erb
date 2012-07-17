@@ -4,6 +4,6 @@
 
 <%= error_messages_for :aggregate_project %>
 
-<%= form_for(@aggregate_project, :as => :aggregate_project, :url => aggregate_projects_path) do |f| %>
+<%= form_for @aggregate_project do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>
