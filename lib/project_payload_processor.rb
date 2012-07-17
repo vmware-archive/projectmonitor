@@ -20,7 +20,7 @@ class ProjectPayloadProcessor
 
   def fetch_building_status
     building_status = parse_building_status
-    project.update_attribute(:building, building_status.building?)
+    project.update_attribute(:building, building_status)
   end
 
   def perform

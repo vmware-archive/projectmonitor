@@ -1,11 +1,9 @@
 class LegacyTeamCityPayloadProcessor < ProjectPayloadProcessor
   def parse_building_status
-    building_status = BuildingStatus.new(false)
     document = Nokogiri::XML.parse(payload)
     p_element = document.css("Build")
-    return building_status if p_element.empty?
-    building_status.building = p_element.attribute('activity').value == 'Building'
-    building_status
+    return false if p_element.empty?
+    p_element.attribute('activity').value == 'Building'
   end
 
   def parse_project_status

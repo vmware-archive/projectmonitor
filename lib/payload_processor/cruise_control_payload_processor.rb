@@ -2,13 +2,13 @@ class CruiseControlPayloadProcessor < ProjectPayloadProcessor
   private
 
   def parse_building_status
-    building_status = BuildingStatus.new(false)
+    building = false
     if payload && building_payload = payload.last
       document = Nokogiri::XML(building_payload.downcase)
       project_element = document.at_xpath("/projects/project[@name='#{project.project_name.downcase}']")
-      building_status.building = project_element && project_element['activity'] == "building"
+      building = project_element && project_element['activity'] == "building"
     end
-    building_status
+    building
   end
 
   def parse_project_status

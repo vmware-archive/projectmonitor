@@ -9,7 +9,7 @@ class TeamCityChildProject
   end
 
   def building?
-    live_building_status.building? || children.any?(&:building?)
+    (live_builds.present? && live_builds.first[:running]) || children.any?(&:building?)
   end
 
   def red?
@@ -37,11 +37,6 @@ class TeamCityChildProject
     live_builds.reject { |status|
       status[:status] == 'UNKNOWN' || (status[:running] && status[:status] == 'SUCCESS')
     }
-  end
-
-  def live_building_status
-    most_recent_build = live_builds.first
-    BuildingStatus.new( most_recent_build ? most_recent_build[:running] : false )
   end
 
   def live_builds
