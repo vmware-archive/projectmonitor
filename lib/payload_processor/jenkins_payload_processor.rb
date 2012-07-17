@@ -24,7 +24,7 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
       if status.url = find(latest_build, 'link')
         status.url = status.url.first.attribute('href').value
         pub_date = Time.parse(find(latest_build, 'published').first.content)
-        status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+        status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
       end
       status
     end

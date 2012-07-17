@@ -18,7 +18,7 @@ class CruiseControlPayloadProcessor < ProjectPayloadProcessor
       status.success = !!(find(document, 'title').to_s =~ /success/)
       if (pub_date = find(document, 'pubdate')).present?
         pub_date = Time.parse(pub_date.text)
-        status.published_at = (pub_date == Time.at(0) ? Clock.now : pub_date).localtime
+        status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
       end
       if url = find(document, 'item/link')
         status.url = url.text
