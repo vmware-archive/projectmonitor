@@ -18,18 +18,13 @@ class ProjectPayloadProcessor
     document.css("#{path}") if document
   end
 
-  def fetch_building_status
-    building_status = parse_building_status
-    project.update_attribute(:building, building_status)
-  end
-
   def perform
     project.processor.new(project, payload).process
   end
 
   def process
     fetch_new_statuses
-    fetch_building_status
+    project.update_attribute(:building, parse_building_status)
   end
 
   def parse_project_status

@@ -40,19 +40,4 @@ shared_examples_for 'a project that updates only the most recent status' do
       end
     end
   end
-
-  describe "#fetch_building_status" do
-    before do
-      UrlRetriever.stub(:retrieve_content_at).and_return(xml)
-    end
-
-    let(:building_status) { double('building status') }
-    let(:xml) { double('xml') }
-
-    it "returns the result of parse_building_status" do
-      project.should_receive(:parse_building_status).with(xml).and_return(building_status)
-      project.fetch_building_status.should == building_status
-    end
-
-  end
 end
