@@ -1,8 +1,12 @@
 FactoryGirl.define do
+  sequence :login do |n|
+    "#{Faker::Name.name.downcase.gsub(/[^a-z0-9\.-_@]/, '')}_#{n}"
+  end
+
   factory :user do
-    login { Faker::Name.first_name.downcase.gsub(/[^a-z0-9\.-_@]/, '') }
+    login
     email { Faker::Internet.email }
-    password { "monkey" }
+    password "monkey"
     password_confirmation { password }
   end
 end
