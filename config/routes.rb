@@ -5,8 +5,13 @@ CiMonitor::Application.routes.draw do
   match 'projects/validate_tracker_project'
   match 'version' => 'versions#show'
 
-  resources :users, only: [:new, :create]
-  resource :session, only: [:create, :destroy]
+  resources :users, :only => [:new, :create]
+  resource :openid, :only => [:new, :success] do
+    member do
+      get :success
+    end
+  end
+  resource :session, :only => [:create, :destroy]
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
     resource :status, only: :create, controller: "status"
     member do
