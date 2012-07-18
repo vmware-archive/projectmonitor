@@ -5,7 +5,7 @@ describe TeamCityProject do
 
   describe 'validations' do
     it { should validate_presence_of(:url) }
-    it { should validate_presence_of(:build_id) }
+    it { should validate_presence_of(:build_type_id) }
   end
 
   describe "#project_name" do
@@ -22,7 +22,7 @@ describe TeamCityProject do
   describe "#build_status_url" do
     before do
       subject.url = "foo.bar.com:3434"
-      subject.build_id = "bt9"
+      subject.build_type_id = "bt9"
     end
 
     it "should be the same as feed url" do
@@ -42,15 +42,15 @@ describe TeamCityProject do
     end
   end
 
-  describe '#build_id' do
+  describe '#build_type_id' do
     subject { FactoryGirl.build(:team_city_project) }
 
-    it 'should read the build_id from the feed URL' do
+    it 'should read the build_type_id from the feed URL' do
       subject.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9'
-      subject.build_id.should == "bt9"
+      subject.build_type_id.should == "bt9"
 
       subject.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt43'
-      subject.build_id.should == "bt43"
+      subject.build_type_id.should == "bt43"
     end
   end
 end
