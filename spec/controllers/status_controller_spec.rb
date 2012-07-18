@@ -78,5 +78,46 @@ describe StatusController do
         ProjectStatus.last.published_at.should_not be_nil
       end
     end
+
+    context "TeamCity project" do
+      let!(:project) { TeamCityRestProject.create(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" ) }
+      let(:payload) do
+       {"buildStatus"=>"Running", "buildResult"=>"success", "notifyType"=>"buildFinished",
+       "buildRunner"=>"Command Line",
+       "buildFullName"=>"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity",
+       "buildName"=>"projectmonitor_ci_test_teamcity",
+       "buildId"=>"13", "buildTypeId"=>"bt2",
+       "projectName"=>"projectmonitor_ci_test_teamcity",
+       "projectId"=>"project2", "buildNumber"=>"13",
+       "agentName"=>"Default Agent",
+       "agentOs"=>"Linux, version 2.6.18-xenU-ec2-v1.5",
+       "agentHostname"=>"localhost",
+       "triggeredBy"=>"ci",
+       "message"=>"Build projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished.  This is build number 13, has a status of \"Running\" and was triggered by ci",
+       "text"=>"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished. Status: Running"}
+      end
+
+      subject { post :create, {project_id: project.id, "build" => payload} }
+
+      it "should create a new status" do
+        expect { subject }.to change(ProjectStatus, :count).by(1)
+      end
+
+      it "creates only one new status" do
+        expect {
+          subject
+          subject
+        }.to change(ProjectStatus, :count).by(1)
+      end
+
+      it "should have all the attributes" do
+        subject
+        ProjectStatus.last.should be_success
+        ProjectStatus.last.project_id.should == project.id
+        ProjectStatus.last.build_id.should == 13
+        ProjectStatus.last.published_at.should_not be_nil
+      end
+
+    end
   end
 end
