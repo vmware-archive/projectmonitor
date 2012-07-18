@@ -6,7 +6,7 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
     if payload && building_payload = payload.last
       document = Nokogiri::XML.parse(building_payload.downcase)
       p_element = document.xpath("//project[@name=\"#{project.project_name.downcase}\"]")
-      return building_status if p_element.empty?
+      return building if p_element.empty?
       building = p_element.attribute('activity').value == 'building'
     end
     building
@@ -27,6 +27,42 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
         status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
       end
       status
+    end
+  end
+
+  def parse_project_status_from_json
+    status = ProjectStatus.new(:online => false, :success => false)
+    if parse_payload!
+      status.build_id = payload["build"]["number"]
+      status.published_at = Time.now
+      status.url = payload["build"]["url"]
+      # use STATUS + PHASE
+    end
+    status
+  end
+
+  def parse_building_status_from_json
+    building = false
+    if parse_payload!
+      building = payload["build"]["phase"] == "STARTED"
+    end
+    # use STATUS + PHASE
+    building
+  end
+
+  def parse_payload!
+    @parsed ||=
+      begin
+        self.payload = Array.wrap(JSON.parse(payload.keys.first)).first if payload
+        true
+      rescue JSON::ParserError
+        false
+      end
+  end
+
+  def detect_json?
+    if payload.respond_to?(:keys) && parse_payload!
+      payload["build"].keys.select{|k| k.match(/phase/)}.any? rescue false
     end
   end
 end

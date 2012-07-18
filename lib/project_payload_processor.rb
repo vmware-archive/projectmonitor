@@ -7,7 +7,11 @@ class ProjectPayloadProcessor
   end
 
   def fetch_new_statuses
-    parsed_status = parse_project_status
+    parsed_status = if detect_json?
+      parse_project_status_from_json
+    else
+      parse_project_status
+    end
     if parsed_status
       parsed_status.online = true
       project.statuses.create!(parsed_status.attributes) unless project.status.match?(parsed_status)
@@ -18,13 +22,26 @@ class ProjectPayloadProcessor
     document.css("#{path}") if document
   end
 
+  def fetch_building_status
+    building_status = if detect_json?
+      parse_building_status_from_json
+    else
+      parse_building_status
+    end
+    project.update_attribute(:building, building_status)
+  end
+
   def perform
     project.processor.new(project, payload).process
   end
 
+  def detect_json?
+    false
+  end
+
   def process
     fetch_new_statuses
-    project.update_attribute(:building, parse_building_status)
+    fetch_building_status
   end
 
   def parse_project_status
