@@ -36,7 +36,6 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
       status.build_id = payload["build"]["number"]
       status.published_at = Time.now
       status.url = payload["build"]["url"]
-      # use STATUS + PHASE
     end
     status
   end
@@ -46,7 +45,6 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
     if parse_payload!
       building = payload["build"]["phase"] == "STARTED"
     end
-    # use STATUS + PHASE
     building
   end
 
