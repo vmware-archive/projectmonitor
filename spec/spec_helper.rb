@@ -13,7 +13,6 @@ RSpec.configure do |config|
   config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :users, :aggregate_projects
 
   config.include AuthenticatedTestHelper
-  config.include ObjectMother
 
   config.extend VCR::RSpec::Macros
 
