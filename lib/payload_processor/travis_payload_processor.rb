@@ -12,14 +12,24 @@ class TravisPayloadProcessor < ProjectPayloadProcessor
 
   def parse_project_status
     status = ProjectStatus.new(:online => false, :success => false)
-    begin
-      if json = JSON.parse(payload).first
-        status.success = json["result"].to_i == 0
-        status.url = project.feed_url.gsub(".json", "/#{json["id"]}")
-        published_at = json["finished_at"]
-        status.published_at = Time.parse(published_at).localtime if published_at.present?
-      end
-    rescue JSON::ParserError; end
+    if parse_payload!
+      status.success = payload["result"].to_i == 0
+      status.url = project.feed_url.gsub(".json", "/#{payload["id"]}")
+      published_at = payload["finished_at"]
+      status.build_id = payload["id"]
+      status.published_at = Time.parse(published_at).localtime if published_at.present?
+    end
     status
+  end
+
+  def parse_payload!
+    @parsed ||=
+      begin
+        self.payload = payload.fetch("payload", payload) if payload.respond_to?(:fetch)
+        self.payload = Array.wrap(JSON.parse(payload)).first if payload
+        true
+      rescue JSON::ParserError
+        false
+      end
   end
 end

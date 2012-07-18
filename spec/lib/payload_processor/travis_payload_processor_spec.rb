@@ -67,6 +67,10 @@ describe TravisPayloadProcessor do
       it "should return the published date of the checkin" do
         subject.latest_status.published_at.should == Time.parse(example.as_json.first["finished_at"])
       end
+
+      it "should return the build id" do
+        subject.latest_status.build_id.should == example.as_json.first["id"]
+      end
     end
 
     describe "when build failed" do
@@ -78,6 +82,10 @@ describe TravisPayloadProcessor do
 
       it "should return the published date of the checkin" do
         subject.latest_status.published_at.should == Time.parse(example.as_json.first["finished_at"])
+      end
+
+      it "should return the build id" do
+        subject.latest_status.build_id.should == example.as_json.first["id"]
       end
     end
   end
