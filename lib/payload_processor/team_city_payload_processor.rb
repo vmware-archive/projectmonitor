@@ -2,7 +2,7 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
 
   def fetch_new_statuses
     if detect_json?
-      parse_status_as_json
+      parse_project_status_from_json
     else
       build_live_statuses.each do |parsed_status|
         parsed_status.save! unless project.statuses.find_by_url(parsed_status.url)
@@ -57,17 +57,28 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
     end
   end
 
-  def parse_status_as_json
-    status = project.statuses.new(:online => false, :success => false)
+  def parse_project_status_from_json
+    status = project.statuses.new(:online => true, :success => false)
+    case payload["buildResult"]
+    when "success"
+      status.success = true
+    when "failure"
+      status.success = false
+    else
+      return
+    end
     status.build_id = payload["buildId"]
     status.published_at = Time.now
-    status.success = payload["buildResult"] == "success"
     status.url = project.feed_url
     status.save!
   end
 
+  def parse_building_status_from_json
+    payload["buildResult"] == "running" && payload["notifyType"] == "buildStarted"
+  end
+
   def detect_json?
-    if payload.respond_to?(:keys) && self.payload = payload["build"]
+    if payload.respond_to?(:keys) && self.payload = payload.fetch("build", payload)
       payload.keys.select{|k| k.match(/buildStatus/)}.any? rescue false
     end
   end
