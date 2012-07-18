@@ -5,5 +5,5 @@
 <%= error_messages_for :aggregate_project %>
 
 <%= form_for @aggregate_project do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render 'form', :f => f %>
 <% end %>
