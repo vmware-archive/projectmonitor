@@ -31,12 +31,12 @@ FactoryGirl.define do
   factory :team_city_rest_project, class: TeamCityRestProject do
     name { Faker::Name.name }
     url "example.com"
-    build_id "bt456"
+    build_type_id "bt456"
   end
 
   factory :team_city_project, class: TeamCityProject do
     name { Faker::Name.name }
     url "foo.bar.com:1234"
-    build_id "bt567"
+    build_type_id "bt567"
   end
 end
