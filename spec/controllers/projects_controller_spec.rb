@@ -5,7 +5,7 @@ describe ProjectsController do
   describe "without a logged in user" do
     describe "status" do
       let(:project) { projects(:socialitis) }
-      before { get :status, :id => project.id, :projects_count => 8 }
+      before { get :status, :id => project.id, :tiles_count => 8 }
 
       it "should render dashboards/_project" do
         response.should render_template("dashboards/_project")
