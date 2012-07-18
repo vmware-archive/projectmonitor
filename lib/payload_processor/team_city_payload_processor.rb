@@ -1,8 +1,12 @@
 class TeamCityPayloadProcessor < ProjectPayloadProcessor
 
   def fetch_new_statuses
-    build_live_statuses.each do |parsed_status|
-      parsed_status.save! unless project.statuses.find_by_url(parsed_status.url)
+    if detect_json?
+      parse_status_as_json
+    else
+      build_live_statuses.each do |parsed_status|
+        parsed_status.save! unless project.statuses.find_by_url(parsed_status.url)
+      end
     end
   end
 
@@ -53,5 +57,19 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
     end
   end
 
+  def parse_status_as_json
+    status = project.statuses.new(:online => false, :success => false)
+    status.build_id = payload["buildId"]
+    status.published_at = Time.now
+    status.success = payload["buildResult"] == "success"
+    status.url = project.feed_url
+    status.save!
+  end
+
+  def detect_json?
+    if payload.respond_to?(:keys) && self.payload = payload["build"]
+      payload.keys.select{|k| k.match(/buildStatus/)}.any? rescue false
+    end
+  end
 
 end
