@@ -144,5 +144,16 @@ feature "dashboard" do
         page.should have_content("Aggregate")
       end
     end
+
+    scenario "user sees the projects for an aggregate project" do
+      project = FactoryGirl.create(:project)
+      aggregate_project = FactoryGirl.create(:aggregate_project, projects: [project])
+      visit root_path
+      click_on(aggregate_project.code)
+
+      within('li.project') do
+        page.should have_content(project.code)
+      end
+    end
   end
 end
