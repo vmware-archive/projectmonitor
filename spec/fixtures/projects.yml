@@ -3,69 +3,82 @@ jenkins_project:
   type: JenkinsProject
   feed_url: http://www.example.com/job/example/rssAll
   enabled: true
+  code: JPP
 pivots:
   name: Pivots
   type: CruiseControlProject
   feed_url: http://ci.pivotallabs.com:3333/projects/pivots.rss
   enabled: true
+  code: PIV
 socialitis:
   name: Socialitis
   type: CruiseControlProject
   feed_url: http://ci.pivotallabs.com:3333/projects/socialitis.rss
   enabled: true
+  code: SOC
 never_green:
   name: Lumos
   type: CruiseControlProject
   feed_url: http://lumos-ci:3333/projects/lumos.rss
   enabled: true
+  code: XUM
 offline:
   name: Offline
   type: CruiseControlProject
   feed_url: http://gnip-ci:3333/projects/gnip.rss
   enabled: true
+  code: XXX
 disabled:
   name: Core Bundle
   type: CruiseControlProject
   feed_url: http://core_bundle-ci:3333/projects/core_bundle.rss
   enabled: false
+  code: CORE
 many_builds:
   name: Many Builds
   type: CruiseControlProject
   feed_url: http://many_builds-ci:3333/projects/many_builds.rss
   enabled: true
+  code: MANY
 red_currently_building:
   name: Red Currently Building
   type: CruiseControlProject
   feed_url: http://red_currently_building-ci:3333/projects/red_currently_building.rss
   enabled: true
+  code: ALRE
   building: true
 green_currently_building:
   name: Green Currently Building
   type: CruiseControlProject
   feed_url: http://green_currently_building-ci:3333/projects/green_currently_building.rss
   enabled: true
+  code: CBGR
   building: true
 never_built:
   name: Never built
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/never.rss
   enabled: true
+  code: NBL
 internal_project1:
   name: Aggregated Internal Project 1
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/internal_project1.rss
   enabled: true
+  code: AIP
   aggregate_project: internal_projects_aggregate
 internal_project2:
   name: Aggregated Internal Project 2
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/internal_project2.rss
   enabled: true
+  code: AIPO
   aggregate_project: internal_projects_aggregate
 internal_project3:
   name: Aggregated Internal Project with Different Tag
   type: CruiseControlProject
   feed_url: http://never-ci:3333/projects/internal_project3.rss
   enabled: true
+  code: OPEC
   aggregate_project: internal_projects_aggregate
 

@@ -75,14 +75,14 @@ describe DashboardGrid do
         Project.destroy_all
         AggregateProject.destroy_all
 
-        FactoryGirl.create(:project, name: "Other 1")
-        FactoryGirl.create(:project, name: "Other 2")
-        FactoryGirl.create(:project, location: "Boston", name: "Boston 1")
-        FactoryGirl.create(:project, location: "Boston", name: "Boston 2")
-        FactoryGirl.create(:project, location: "Boston", name: "Boston 3")
-        FactoryGirl.create(:project, location: "San Francisco", name: "San Francisco 1")
-        FactoryGirl.create(:project, location: "Atlanta", name: "Atlanta 1")
-        FactoryGirl.create(:project, location: "Atlanta", name: "Atlanta 2")
+        FactoryGirl.create(:project, name: "Other 1", code: "OTH1")
+        FactoryGirl.create(:project, name: "Other 2", code: "OTH2")
+        FactoryGirl.create(:project, location: "Boston", name: "Boston 1", code: "BOS1")
+        FactoryGirl.create(:project, location: "Boston", name: "Boston 2", code: "BOS2")
+        FactoryGirl.create(:project, location: "Boston", name: "Boston 3", code: "BUCK")
+        FactoryGirl.create(:project, location: "San Francisco", name: "San Francisco 1", code: "SF1")
+        FactoryGirl.create(:project, location: "Atlanta", name: "Atlanta 1", code: "ATL1")
+        FactoryGirl.create(:project, location: "Atlanta", name: "Atlanta 2", code: "ATL2")
 
         projects = DashboardGrid.generate(view: "locations")
 
@@ -116,7 +116,7 @@ describe DashboardGrid do
     end
 
     it "sorts the projects in alphabetical order" do
-      generated_projects.should == generated_projects.sort_by(&:name)
+      generated_projects.should == generated_projects.sort_by(&:code)
     end
 
     it "should include enabled projects" do
