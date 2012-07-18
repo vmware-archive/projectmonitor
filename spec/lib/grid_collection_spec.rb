@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe ::GridCollection do
+  let(:null_project) { double(:null_project) }
+  before { NullProject.stub(:new).and_return(null_project) }
+
   context "without tile count" do
     subject { GridCollection.new collection }
 
@@ -10,7 +13,7 @@ describe ::GridCollection do
       its(:count) { should == 15}
 
       it "should make all the elements NullProject" do
-        subject.all?{ |element| element.is_a? NullProject }.should be_true
+        subject.all?{ |element| element == null_project }.should be_true
       end
     end
 
@@ -20,7 +23,7 @@ describe ::GridCollection do
       its(:count) { should == 15}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 12
+        subject.select{ |element| element == null_project }.count.should == 12
         subject[0...3].should == collection
       end
     end
@@ -31,7 +34,7 @@ describe ::GridCollection do
       its(:count) { should == 15}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 0
+        subject.select{ |element| element == null_project }.count.should == 0
         subject.should == collection
       end
     end
@@ -42,7 +45,7 @@ describe ::GridCollection do
       its(:count) { should == 24}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 8
+        subject.select{ |element| element == null_project }.count.should == 8
         subject[0...16].should == collection
       end
     end
@@ -53,7 +56,7 @@ describe ::GridCollection do
       its(:count) { should == 24}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 0
+        subject.select{ |element| element == null_project }.count.should == 0
         subject.should == collection
       end
     end
@@ -65,7 +68,7 @@ describe ::GridCollection do
       its(:count) { should == 48}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == (48 - 25)
+        subject.select{ |element| element == null_project }.count.should == (48 - 25)
         subject[0...25].should == collection
       end
     end
@@ -76,7 +79,7 @@ describe ::GridCollection do
       its(:count) { should == 48}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 0
+        subject.select{ |element| element == null_project }.count.should == 0
         subject.should == collection
       end
     end
@@ -87,7 +90,7 @@ describe ::GridCollection do
       its(:count) { should == 63}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == (63 - 49)
+        subject.select{ |element| element == null_project }.count.should == (63 - 49)
         subject[0...49].should == collection
       end
     end
@@ -98,7 +101,7 @@ describe ::GridCollection do
       its(:count) { should == 63}
 
       it "should pad the collection with NullProject objects" do
-        subject.select{ |element| element.is_a? NullProject }.count.should == 0
+        subject.select{ |element| element == null_project }.count.should == 0
         subject.should == collection
       end
     end
@@ -135,10 +138,8 @@ describe ::GridCollection do
       end
 
       context "more_than the passed collection count" do
-        let(:null_project) { double(:null_project) }
         let(:collection) { [1, 2] }
         let(:tile_count) { 4 }
-        before { NullProject.stub(:new).and_return(null_project) }
         its(:size) { should == tile_count }
         it { should == [1,2,null_project,null_project] }
       end
