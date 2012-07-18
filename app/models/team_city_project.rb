@@ -2,7 +2,7 @@ class TeamCityProject < Project
   FEED_URL_REGEXP = %r{https?://(.*)/guestAuth/cradiator\.html\?buildTypeId=(.*)$}
 
   validates :url, presence: true
-  validates :build_id, presence: true
+  validates :build_type_id, presence: true
 
   def url
     feed_url =~ FEED_URL_REGEXP
@@ -10,16 +10,16 @@ class TeamCityProject < Project
   end
 
   def url=(url)
-    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_id}"
+    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_type_id}"
   end
 
-  def build_id
+  def build_type_id
     feed_url =~ FEED_URL_REGEXP
     $2
   end
 
-  def build_id=(build_id)
-    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_id}"
+  def build_type_id=(build_type_id)
+    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_type_id}"
   end
 
   def build_status_url

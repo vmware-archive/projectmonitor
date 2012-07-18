@@ -40,15 +40,15 @@ describe TeamCityRestProject do
     end
   end
 
-  describe '#build_id' do
+  describe '#build_type_id' do
     subject { FactoryGirl.build(:team_city_rest_project) }
 
-    it 'should read the build_id from the feed URL' do
+    it 'should read the build_type_id from the feed URL' do
       subject.feed_url = "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt123)"
-      subject.build_id.should == "bt123"
+      subject.build_type_id.should == "bt123"
 
       subject.feed_url = "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)"
-      subject.build_id.should == "bt456"
+      subject.build_type_id.should == "bt456"
     end
   end
 end
