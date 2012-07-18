@@ -11,7 +11,7 @@ class DashboardGrid
     @request_params = request_params
     @tags = request_params[:tags]
     @locations = request_params[:view]
-    @projects = find_projects.sort_by { |p| p.name.to_s.downcase }
+    @projects = find_projects.sort_by { |p| p.code }
   end
 
   def generate
