@@ -3,10 +3,9 @@ class TravisPayloadProcessor < ProjectPayloadProcessor
 
   def parse_building_status
     building = false
-    begin
-      json = JSON.parse(payload).first
-      building = json["state"] == "started" if json
-    rescue JSON::ParserError; end
+    if parse_payload!
+      building = payload["state"] == "started" if payload
+    end
     building
   end
 
