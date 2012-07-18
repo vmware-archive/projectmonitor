@@ -5,7 +5,7 @@ class AggregateProjectsController < ApplicationController
   layout "dashboard", only: [ :show ]
 
   def show
-    @projects = GridCollection.new(@aggregate_project.projects.enabled)
+    @tiles = GridCollection.new(@aggregate_project.projects.enabled)
     render :template => 'dashboards/index'
   end
 
@@ -25,7 +25,7 @@ class AggregateProjectsController < ApplicationController
   def status
     @aggregate_project = ProjectDecorator.new(AggregateProject.find(params[:id]))
 
-    render :partial => "dashboards/project", :locals => { :project => @aggregate_project, :projects_count => params[:projects_count].to_i }
+    render :partial => "dashboards/project", :locals => { :project => @aggregate_project, :tiles_count => params[:tiles_count].to_i }
   end
 
   def update

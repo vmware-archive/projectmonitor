@@ -1,5 +1,5 @@
 var ProjectRefresh = (function () {
-  var projects, projectsCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
+  var projects, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
 
   function showAsBuilding (selector) {
     (function f(i) {
@@ -15,7 +15,7 @@ var ProjectRefresh = (function () {
   return {
     init : function () {
       projects = $('.project:not(.empty-project)');
-      projectsCount = parseInt($('body').data('tiles-count'), 10);
+      tilesCount = parseInt($('body').data('tiles-count'), 10);
       $('li.building').each(function (i, li) {
         showAsBuilding(li);
       });
@@ -32,7 +32,7 @@ var ProjectRefresh = (function () {
         $.ajax({
           url: '/'+project_type+'s/'+project_id+'/status',
           data: {
-            projects_count: projectsCount
+            tiles_count: tilesCount
           },
           dataType: 'html',
           success: function(response) {

@@ -21,10 +21,10 @@ describe('ProjectRefresh.init', function() {
       ProjectRefresh.init();
       jasmine.Clock.tick(30001);
       expect(ajaxRequests.length).toEqual(4);
-      expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=15");
-      expect(ajaxRequests[1].url).toBe("/projects/2/status?projects_count=15");
-      expect(ajaxRequests[2].url).toBe("/projects/3/status?projects_count=15");
-      expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?projects_count=15");
+      expect(ajaxRequests[0].url).toBe("/projects/1/status?tiles_count=15");
+      expect(ajaxRequests[1].url).toBe("/projects/2/status?tiles_count=15");
+      expect(ajaxRequests[2].url).toBe("/projects/3/status?tiles_count=15");
+      expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?tiles_count=15");
     });
   });
 
@@ -36,7 +36,7 @@ describe('ProjectRefresh.init', function() {
     it("should send the correct number of projects", function() {
       ProjectRefresh.init();
       jasmine.Clock.tick(30001);
-      expect(ajaxRequests[0].url).toBe("/projects/1/status?projects_count=48");
+      expect(ajaxRequests[0].url).toBe("/projects/1/status?tiles_count=48");
     });
   });
 

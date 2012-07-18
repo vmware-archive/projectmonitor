@@ -5,8 +5,8 @@ class DashboardsController < ApplicationController
   respond_to :rss, :only => :builds
 
   def index
-    @projects = DashboardGrid.generate params
-    respond_with @projects
+    @tiles = DashboardGrid.generate params
+    respond_with @tiles
   end
 
   def builds
