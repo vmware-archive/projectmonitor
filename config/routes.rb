@@ -1,7 +1,7 @@
 CiMonitor::Application.routes.draw do
   match 'login' => 'sessions#new'
   match 'logout' => 'sessions#destroy'
-  match 'builds.rss' => "dashboards#builds", :format => :rss
+  match 'builds.rss' => "dashboards#builds", format: :rss
   match 'projects/validate_tracker_project'
   match 'version' => 'versions#show'
 
