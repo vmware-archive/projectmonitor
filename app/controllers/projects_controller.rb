@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
 
   def status
     @project = ProjectDecorator.new(Project.find(params[:id]))
-    render :partial => "dashboards/project", :locals => { :project => @project, :tiles_count => params[:tiles_count].to_i }
+    render :partial => @project, :locals => {:tiles_count => params[:tiles_count].to_i}
   end
 
   def update
