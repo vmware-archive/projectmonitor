@@ -71,38 +71,21 @@ describe AggregateProject do
   end
 
   describe "#code" do
+    let(:project) { AggregateProject.new(name: "My Cool Project", code: code) }
     subject { project.code }
 
     context "code set but empty" do
-      before do
-        project.code = ""
-      end
-
-      context "name set" do
-        let(:project) { Project.new(name: "My Cool Project") }
-        it { should == "myco" }
-      end
-
-      context "name not set" do
-        let(:project) { Project.new }
-        it { should be_nil }
-      end
+      let(:code) { "" }
+      it { should == "myco" }
     end
 
     context "code not set" do
-      context "name set" do
-        let(:project) { AggregateProject.new(name: "My Cool Project") }
-        it { should == "myco" }
-      end
-
-      context "name not set" do
-        let(:project) { AggregateProject.new }
-        it { should be_nil }
-      end
+      let(:code) { nil }
+      it { should == "myco" }
     end
 
     context "code is set" do
-      let(:project) { AggregateProject.new(code: "code") }
+      let(:code) { "code" }
       it { should == "code" }
     end
   end
