@@ -54,7 +54,7 @@ module AuthenticatedSystem
   end
 
   def not_logged_in_url
-    AuthConfig.openid? ? new_openid_path : login_path
+    login_path
   end
 
   # Redirect as appropriate when an access request fails.
