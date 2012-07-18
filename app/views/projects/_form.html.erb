@@ -9,9 +9,6 @@
 </p>
 
 <p>
-  <%- project_types = [["",""]]; [CruiseControlProject,JenkinsProject,TeamCityRestProject,TeamCityProject,TeamCityChainedProject,TravisProject].each do |type_class| %>
-    <%- project_types << [type_class.name.titleize, type_class.name, {"data-feed-url-fields"=>type_class.feed_url_fields.join(",")}] %>
-    <%- end %>
   <%= f.label :type, "Project Type" %>
   <%= f.select :type, project_types %>
 </p>
