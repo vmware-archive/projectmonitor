@@ -88,7 +88,7 @@ describe DashboardGrid do
 
         projects.select { |p| p.is_a?(Location) }.count.should == 4
         projects.select { |p| p.is_a?(Project) }.count.should == 8
-        projects.select { |p| p.nil? }.count.should == 51
+        projects.select { |p| p.is_a? NullProject }.count.should == 51
         projects.count.should == 63
 
         projects.map(&:to_s).should == [
@@ -109,7 +109,7 @@ describe DashboardGrid do
   context "with multiple projects" do
     fixtures :projects, :aggregate_projects
 
-    let(:generated_projects) { DashboardGrid.generate.compact }
+    let(:generated_projects) { DashboardGrid.generate.reject{|p| p.is_a? NullProject } }
 
     before do
       generated_projects.size.should > 1

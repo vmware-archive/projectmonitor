@@ -8,7 +8,7 @@ class GridCollection < SimpleDelegator
     validate_size
 
     if array.size < @upper_limit
-      @entries = array + Array.new(@upper_limit - array.size)
+      @entries = array + Array.new(@upper_limit - array.size) { NullProject.new }
     else
       @entries = array[0...@upper_limit]
     end

@@ -141,4 +141,8 @@ class Project < ActiveRecord::Base
   def processor
     raise NotImplementedError, "Must implement processor in subclasses"
   end
+
+  def to_partial_path
+    "dashboards/project"
+  end
 end
