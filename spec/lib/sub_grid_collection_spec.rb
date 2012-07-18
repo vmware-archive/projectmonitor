@@ -11,6 +11,9 @@ describe ::SubGridCollection do
 
   context "with tile_count" do
     let(:collection) { [] }
+    let(:null_project) { double(:null_project) }
+    before { NullProject.stub(:new).and_return(null_project) }
+
     subject { SubGridCollection.new collection, tile_count }
 
     context "greater than passed collection count" do
@@ -36,14 +39,14 @@ describe ::SubGridCollection do
       let(:collection) { [1, 2] }
       let(:tile_count) { 4 }
       its(:size) { should == tile_count }
-      it { should == [1,2,nil,nil] }
+      it { should == [1,2,null_project,null_project] }
     end
 
     context "pads the row when extra slots" do
       let(:collection) { [1,2,3,4,5] }
       let(:tile_count) { 4 }
       its(:size) { should == 8 }
-      it { should == [1,2,3,4,5,nil,nil,nil] }
+      it { should == [1,2,3,4,5,null_project,null_project,null_project] }
     end
 
     context "is not present" do

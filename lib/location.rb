@@ -6,4 +6,8 @@ class Location
   def to_s
     @location || "Other"
   end
+
+  def to_partial_path
+    "dashboards/location"
+  end
 end
