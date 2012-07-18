@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "UrlRetriever#retrieve_content_at" do
+describe "UrlRetriever" do
 
   describe "#retrieve_content_at" do
     context "simple uri" do
