@@ -83,4 +83,8 @@ class AggregateProject < ActiveRecord::Base
   def as_json(options = {})
     super(:only => :id, :methods => :tag_list)
   end
+
+  def to_partial_path
+    "dashboards/aggregate_project"
+  end
 end
