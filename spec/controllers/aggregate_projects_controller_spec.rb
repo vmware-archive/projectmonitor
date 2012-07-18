@@ -20,7 +20,7 @@ describe AggregateProjectsController do
       before { get :status, :id => aggregate_project.to_param }
 
       it "should render dashboards/_project" do
-        response.should render_template("dashboards/_project")
+        response.should render_template("dashboards/_aggregate_project")
       end
     end
   end
