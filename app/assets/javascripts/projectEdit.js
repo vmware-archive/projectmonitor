@@ -21,6 +21,10 @@ var ProjectEdit = {};
 
     clearTrackerSetupValidations();
 
+    if (authToken === '' && projectId === '') {
+      return;
+    }
+
     if (authToken === '' || projectId === '') {
       e.stopPropagation();
       e.preventDefault();
