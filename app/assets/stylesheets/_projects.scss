@@ -269,6 +269,24 @@ ol.projects {
       }
     }
 
+    &.success {
+      .velocity-block {
+        @include linear-gradient(top, $dark-green 0.05em, $very-light-green 0.05em);
+      }
+    }
+
+    &.failure {
+      .velocity-block {
+        @include linear-gradient(top, $red 0.05em, $very-light-red 0.05em);
+      }
+    }
+
+    &.offline, &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
+      .velocity-block {
+        @include linear-gradient(top, $dark-grey 0.05em, $very-light-grey 0.05em);
+      }
+    }
+
     .velocity-block {
       float: right;
       border-left: solid 2px;

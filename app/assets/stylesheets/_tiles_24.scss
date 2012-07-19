@@ -139,37 +139,13 @@
       }
     }
 
-    &.success {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-green 96%, $very-dark-green 97%, $very-light-green 5%);
-      }
-    }
-
-    &.failure {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-red 96%, $very-dark-red 97%, $very-light-red 5%);
-      }
-    }
-
-    &.offline {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-grey 96%, $very-dark-grey 97%, $very-light-grey 5%);
-      }
-    }
-
-    &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-very-light-grey 96%, $very-dark-grey 97%, $very-very-light-grey 5%);
-      }
-    }
-
     .velocity-block {
-      background-size: 16px;
+      background-size: 100% 0.9em;
       width: 180px;
 
       .error {
         font-size: 1.1em;
-        margin-top: 70px;
+        margin-top: 75px;
       }
 
       .velocity {
