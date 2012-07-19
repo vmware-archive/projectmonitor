@@ -14,8 +14,8 @@ describe DashboardsController do
       controller.stub(:respond_with)
     end
 
-    let(:tag) { 'location' }
-    subject { get :index, :tag => tag }
+    let(:tags) { 'location' }
+    subject { get :index, :tags => tags }
 
     it 'should render_template :index' do
       get :index, :format => :html
@@ -23,12 +23,12 @@ describe DashboardsController do
     end
 
     it 'gets a collection of displayable projects by tag' do
-      Project.should_receive(:displayable).with(tag)
+      Project.should_receive(:displayable).with(tags)
       subject
     end
 
     it 'gets a collection of aggregate projects by tag' do
-      AggregateProject.should_receive(:displayable).with(tag)
+      AggregateProject.should_receive(:displayable).with(tags)
       subject
     end
 
