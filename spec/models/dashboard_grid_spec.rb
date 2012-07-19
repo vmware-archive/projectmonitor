@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe DashboardGrid do
-  let(:project) { Project.new }
-  let(:aggregate_project) { AggregateProject.new }
+  let(:project) { FactoryGirl.build :project }
+  let(:aggregate_project) { FactoryGirl.build :aggregate_project }
 
   context "no tags" do
     before do
