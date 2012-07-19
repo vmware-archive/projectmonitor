@@ -4,12 +4,12 @@
   $success-font-size: 3.5em;
   $success-line-height: 38px;
   $success-padding-left: 7px;
-  // $success-top: -38px;
+  $success-top: -44px;
 
   $failure-font-size: 3.0em;
   $failure-line-height: 33px;
   $failure-padding-left: 5px;
-  // $failure-top: 100px;
+  $failure-top: -39px;
 
   $history-margin-vertical: 8px;
   $history-margin-history: 3px;
@@ -31,33 +31,37 @@
     .history {
       ol {
         li {
-          display:block;
-          float:left;
           width: $history-width;
-          height:$history-height;
+          height: $history-height;
           margin: $history-margin-vertical $history-margin-history;
-          position: relative;
-          background:$very-very-light-grey;
-        }
+          line-height: 25px;
 
-        li.success:before {
-          content: $success-unicode-glyph;
-          font-size: $success-font-size;
-          line-height: $success-line-height;
-          padding-left: $success-padding-left;
-        }
+          &.success {
+            span {
+              font-size: $success-font-size;
+              line-height: $success-line-height;
+              padding-left: $success-padding-left;
+            }
 
-        li.failure:before {
-          content: $failure-unicode-glyph;
-          font-size: $failure-font-size;
-          line-height: $failure-line-height;
-          padding-left: $failure-padding-left;
+            a {
+              top: $success-top;
+            }
+          }
+
+          &.failure {
+            span {
+              font-size: $failure-font-size;
+              line-height: $failure-line-height;
+              padding-left: $failure-padding-left;
+            }
+
+            a {
+              top: $failure-top;
+            }
+          }
         }
 
         a {
-          overflow: hidden;
-          font-size: 0;
-          display: block;
           width: $history-width;
           height: $history-height;
         }
