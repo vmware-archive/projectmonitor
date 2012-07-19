@@ -39,6 +39,32 @@ ol.projects {
       height: 100%;
     }
 
+    .history {
+      ol {
+        li {
+          font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+          text-decoration: none;
+          background: $transparent-white center no-repeat;
+          display:block;
+          float:left;
+
+          &.success span:before {
+            content: $success-unicode-glyph;
+          }
+
+          &.failure span:before {
+            content: $failure-unicode-glyph;
+          }
+
+          a {
+            font-size: 0;
+            display: block;
+            position: relative;
+          }
+        }
+      }
+    }
+
     &.success {
       background: $green;
       .information .status-bar {
@@ -60,32 +86,6 @@ ol.projects {
 
       &.aggregate .information {
         @include linear-gradient(0deg, $green 50%, $dark-green 51%);
-      }
-
-      .history {
-        ol {
-          li {
-            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
-            text-decoration: none;
-            background: $transparent-white center no-repeat;
-            display:block;
-            float:left;
-
-            &.success span:before {
-              content: $success-unicode-glyph;
-            }
-
-            &.failure span:before {
-              content: $failure-unicode-glyph;
-            }
-
-            a {
-              font-size: 0;
-              display: block;
-              position: relative;
-            }
-          }
-        }
       }
     }
 
@@ -113,14 +113,6 @@ ol.projects {
 
       &.aggregate .information {
         @include linear-gradient(0deg, $red 50%, $dark-red 51%);
-      }
-
-      .history {
-        ol {
-          li {
-            background: $very-very-light-red no-repeat center;
-          }
-        }
       }
     }
 
@@ -173,14 +165,6 @@ ol.projects {
             span {
               background: $dark-grey;
             }
-          }
-        }
-      }
-
-      .history {
-        ol {
-          li {
-            background: $very-very-light-grey;
           }
         }
       }
