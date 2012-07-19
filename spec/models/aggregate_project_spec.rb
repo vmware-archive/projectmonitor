@@ -68,6 +68,50 @@ describe AggregateProject do
       subject { AggregateProject.for_location(location) }
       it { should =~ [included_project] }
     end
+
+
+    describe '.displayable' do
+      subject { AggregateProject.displayable tags }
+
+      let!(:tagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:pivots)], enabled: true }
+      let!(:untagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:socialitis)], enabled: true }
+
+      context "when supplying tags" do
+        let(:tags) { "southeast, northwest" }
+
+        it "should find tagged with tags" do
+          scope = double
+          AggregateProject.stub(:enabled) { scope }
+          scope.should_receive(:all_with_tags).with(tags)
+          subject
+        end
+
+        context "when displayable projects are tagged" do
+          before do
+            tagged_project.update_attributes(tag_list: tags)
+            untagged_project.update_attributes(tag_list: [])
+          end
+
+          it "should return scoped projects" do
+            subject.should include tagged_project
+            subject.should_not include untagged_project
+          end
+        end
+
+      end
+
+      context "when not supplying tags" do
+        let(:tags) { nil }
+
+        it "should return scoped projects" do
+          subject.should include tagged_project
+          subject.should include untagged_project
+        end
+      end
+
+    end
+
+
   end
 
   describe "#code" do
@@ -157,10 +201,10 @@ describe AggregateProject do
       aggregate_project.projects << projects(:pivots)
       aggregate_project.projects << projects(:offline)
       aggregate_project.projects << Project.create(name: 'No status',
-                                    feed_url: 'http://ci.pivotallabs.com:3333/projects/pivots.rss')
+                                                   feed_url: 'http://ci.pivotallabs.com:3333/projects/pivots.rss')
       aggregate_project.reload.statuses.should == [projects(:pivots).latest_status,
-                              projects(:socialitis).latest_status,
-                              projects(:offline).latest_status,]
+                                                   projects(:socialitis).latest_status,
+                                                   projects(:offline).latest_status,]
     end
   end
 
