@@ -5,10 +5,11 @@ class ProjectStatus < ActiveRecord::Base
 
   belongs_to :project
 
-  scope :online, lambda{ |*args|
-    count = args.slice!(-1)
-    project_ids = args.flatten.collect {|p| p.id }
-    where(:project_id => project_ids, :online => true).where('published_at is NOT NULL').reverse_chronological.limit(count)
+  scope :online, lambda{ |projects, limit|
+    where(:project_id => Array(projects).map(&:id), :online => true)
+      .where('published_at is NOT NULL')
+      .reverse_chronological
+      .limit(limit)
   }
 
   scope :reverse_chronological, order('published_at DESC')
