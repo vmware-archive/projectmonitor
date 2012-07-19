@@ -167,37 +167,13 @@
       }
     }
 
-    &.success {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-green 95%, $very-dark-green 96%, $very-light-green 5%);
-      }
-    }
-
-    &.failure {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-red 95%, $very-dark-red 96%, $very-light-red 5%);
-      }
-    }
-
-    &.offline {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-light-grey 95%, $very-dark-grey 96%, $very-light-grey 5%);
-      }
-    }
-
-    &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
-      .velocity-block {
-        @include linear-gradient(90deg, $very-very-light-grey 95%, $very-dark-grey 96%, $very-very-light-grey 5%);
-      }
-    }
-
     .velocity-block {
-      background-size: 11px;
+      background-size: 100% 0.5em;
       width: 96px;
 
       .error {
         font-size: .8em;
-        margin-top: 44px;
+        margin-top: 43px;
       }
 
       .velocity {
@@ -220,7 +196,7 @@
       }
 
       .chart {
-        padding-top: 32px;
+        padding-top: 30px;
 
         dd {
           height: 35px;
