@@ -45,7 +45,7 @@ class Project < ActiveRecord::Base
   end
 
   def latest_status
-    ProjectStatus.where(project_id: id).reverse_chronological.limit(1).first
+    statuses.except(:order).reverse_chronological.limit(1).first
   end
 
   def status
