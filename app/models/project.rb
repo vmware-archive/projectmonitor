@@ -30,6 +30,12 @@ class Project < ActiveRecord::Base
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
 
+  def self.displayable tags = nil
+    scope = standalone.enabled
+    return scope.find_tagged_with(tags) if tags
+    scope
+  end
+
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
   end
