@@ -2,14 +2,14 @@
   $information-width: 190px;
 
   $success-font-size: 2.0em;
-  $success-line-height: 16px;
-  $success-padding-left: 4px;
-  // $success-top: 100px;
+  $success-line-height: 22px;
+  $success-padding-left: 3px;
+  $success-top: -29px;
 
   $failure-font-size: 1.7em;
   $failure-line-height: 15px;
   $failure-padding-left: 3px;
-  // $failure-top: 100px;
+  $failure-top: -26px;
 
   $history-margin-horizontal: 4px;
   $history-margin-vertical: 5px;
@@ -36,37 +36,37 @@
     .history {
       ol {
         li {
-          display:block;
-          float:left;
           width: $history-width;
-          height:$history-height;
+          height: $history-height;
           margin: $history-margin-vertical $history-margin-history;
-          position: relative;
-          background:$very-very-light-grey;
-        }
+          line-height: 25px;
 
-        li.success:before {
-          content: $success-unicode-glyph;
-          font-size: $success-font-size;
-          line-height: $success-line-height;
-          padding-left: $success-padding-left;
-          position: absolute;
-          top:3px;
-        }
+          &.success {
+            span {
+              font-size: $success-font-size;
+              line-height: $success-line-height;
+              padding-left: $success-padding-left;
+            }
 
-        li.failure:before {
-          content: $failure-unicode-glyph;
-          font-size: $failure-font-size;
-          line-height: $failure-line-height;
-          padding-left: $failure-padding-left;
-          position: absolute;
-          top:2px;
+            a {
+              top: $success-top;
+            }
+          }
+
+          &.failure {
+            span {
+              font-size: $failure-font-size;
+              line-height: $failure-line-height;
+              padding-left: $failure-padding-left;
+            }
+
+            a {
+              top: $failure-top;
+            }
+          }
         }
 
         a {
-          overflow: hidden;
-          font-size: 0;
-          display: block;
           width: $history-width;
           height: $history-height;
         }

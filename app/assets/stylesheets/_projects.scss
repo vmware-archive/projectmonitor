@@ -11,12 +11,10 @@ $information-width: 420px !default;
 $success-font-size: 1.4em !default;
 $success-line-height: 36px !default;
 $success-padding-left: 6px !default;
-$success-top: -38px !default;
 
 $failure-font-size: 1.3em !default;
 $failure-line-height: -1px !default;
 $failure-padding-left: 3px !default;
-$failure-top: -36px !default;
 
 //Variables for history elements
 $history-margin-vertical: 8px !default;
@@ -67,7 +65,25 @@ ol.projects {
       .history {
         ol {
           li {
-            background: $very-very-light-green center no-repeat;
+            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+            text-decoration: none;
+            background: $transparent-white center no-repeat;
+            display:block;
+            float:left;
+
+            &.success span:before {
+              content: $success-unicode-glyph;
+            }
+
+            &.failure span:before {
+              content: $failure-unicode-glyph;
+            }
+
+            a {
+              font-size: 0;
+              display: block;
+              position: relative;
+            }
           }
         }
       }
@@ -244,27 +260,6 @@ ol.projects {
         .aggregate {
           font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
           font-weight: normal;
-        }
-      }
-    }
-
-    .history {
-      ol {
-        li {
-          line-height: 32px;
-          font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
-          text-decoration: none;
-          a {
-            position: relative;
-          }
-        }
-
-        li.success a {
-          top: $success-top;
-        }
-
-        li.failure a {
-          top: $failure-top;
         }
       }
     }

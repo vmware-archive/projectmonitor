@@ -1,6 +1,8 @@
 @import "bourbon";
 
 /* Variables */
+$transparent-white: transparentize(white, 0.25);
+
 $very-very-light-green: #d2e9dc;
 $very-light-green: #b9dcc8;
 $light-green: #a9d5bb;
