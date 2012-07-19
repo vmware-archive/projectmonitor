@@ -42,7 +42,9 @@ describe "UrlRetriever" do
 
       subject { UrlRetriever.retrieve_content_at("http://localhost:8111/") }
 
-      it { expect{ subject }.to raise_error(Net::HTTPError) }
+      it "raises an error" do
+        expect{ subject }.to raise_error(Net::HTTPError)
+      end
     end
   end
 end
