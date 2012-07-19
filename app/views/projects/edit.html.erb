@@ -9,5 +9,5 @@
 <% end %>
 
 <div style="margin-left: 30px;">
-  <%= link_to 'Remove Project -', project_path(@project), :confirm => 'Are you sure?', :method => :delete, :class => "button" %>
+  <%= link_to 'Remove Project -', project_path(@project), data: { confirm: 'Are you sure?' }, method: :delete, class: "button" %>
 </div>
