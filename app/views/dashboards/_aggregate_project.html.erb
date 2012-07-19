@@ -1,4 +1,4 @@
-<li class="<%= aggregate_project.css_class %> <%= aggregate_project.building? ? "building" : "" %>" id="<%= aggregate_project.css_id %>" data-id="<%= aggregate_project.id %>">
+<li class="<%= aggregate_project.css_class %> <%= "building" if aggregate_project.building? %>" id="<%= aggregate_project.css_id %>" data-id="<%= aggregate_project.id %>">
   <div class="information">
     <h1><%= link_to(aggregate_project.code, aggregate_project.status_url) %></h1>
     <div class="status-bar">
