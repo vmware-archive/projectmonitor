@@ -5,8 +5,8 @@ class DashboardsController < ApplicationController
   respond_to :rss, :only => :builds
 
   def index
-    projects = Project.displayable(params[:tag])
-    aggregate_projects = AggregateProject.displayable(params[:tag])
+    projects = Project.displayable(params[:tags])
+    aggregate_projects = AggregateProject.displayable(params[:tags])
 
     @tiles = DashboardGrid.arrange projects + aggregate_projects, params.slice(:tiles_count, :view)
     respond_with @tiles
