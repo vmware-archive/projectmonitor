@@ -7,6 +7,19 @@ describe("project edit", function() {
       setFixtures(fixtures);
     });
 
+    describe("when both projectId and authToken are missing", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+      });
+
+      it("should not validate anything", function() {
+        $('input#project_tracker_project_id').val("").change();
+        $('input#project_tracker_auth_token').val("").change();
+        expect($('#project_tracker_project_id_error')).not.toExist();
+        expect($('#project_tracker_auth_token_error')).not.toExist();
+      });
+    });
+
     describe("when both projectId and authToken are present", function() {
       describe("should validate length of input field", function () {
         describe("when valid", function() {
@@ -100,6 +113,20 @@ describe("project edit", function() {
     });
 
     describe("when clicking submit", function() {
+      describe("when neither the auth token nor project id are present", function() {
+        beforeEach(function() {
+          $('input#project_tracker_project_id').val("");
+          $('input#project_tracker_auth_token').val("");
+          ProjectEdit.init();
+          $('input[type=submit]').click();
+        });
+
+        it("should not show any error messages", function() {
+          expect($('#project_tracker_auth_token_error')).not.toExist();
+          expect($('#project_tracker_project_id_error')).not.toExist();
+        });
+      });
+
       describe("when the auth token and project id are present", function() {
         beforeEach(function() {
           $('input#project_tracker_project_id').val("590337");
