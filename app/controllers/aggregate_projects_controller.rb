@@ -5,7 +5,8 @@ class AggregateProjectsController < ApplicationController
   layout "dashboard", only: [ :show ]
 
   def show
-    @tiles = GridCollection.new(@aggregate_project.projects.enabled)
+    projects = @aggregate_project.projects.enabled
+    @tiles = DashboardGrid.arrange projects
     render 'dashboards/index'
   end
 

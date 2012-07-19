@@ -7,6 +7,12 @@ class AggregateProject < ActiveRecord::Base
   scope :with_statuses, joins(:projects => :statuses).uniq
   scope :for_location, lambda { |location| where(:location => location) }
 
+  def self.displayable tags = nil
+    scope = enabled
+    return scope.all_with_tags(tags) if tags
+    scope
+  end
+
   acts_as_taggable
   validates :name, presence: true
 
