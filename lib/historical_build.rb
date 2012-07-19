@@ -5,22 +5,31 @@ class HistoricalBuild
     self.index = index
   end
 
-  delegate :url, to: :status
-
   def box_opacity
     1.0 - (box_opacity_step * index)
   end
 
   def indicator_opacity
-    (1.0 - (indicator_opacity_step * index)) / box_opacity
+    ((1.0 - (indicator_opacity_step * index)) / box_opacity).round(3)
   end
 
   def result
     status.in_words
   end
 
+  def url
+    status.url
+  end
+
   private
 
-  delegate :box_opacity_step, :indicator_opacity_step, to: :build_history
+  def box_opacity_step
+    build_history.box_opacity_step
+  end
+
+  def indicator_opacity_step
+    build_history.indicator_opacity_step
+  end
+
   attr_accessor :build_history, :status, :index
 end

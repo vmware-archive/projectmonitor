@@ -1,3 +1,5 @@
+require File.expand_path("../historical_build", __FILE__)
+
 class BuildHistory
   def initialize(statuses)
     self.statuses = statuses
