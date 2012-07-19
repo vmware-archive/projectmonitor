@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    klass = params[:project][:type].constantize
+    klass = params[:project][:type].present? ? params[:project][:type].constantize : Project
     @project = klass.new(params[:project])
     if @project.save
       redirect_to projects_url, notice: 'Project was successfully created.'
