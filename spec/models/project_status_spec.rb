@@ -30,7 +30,7 @@ describe ProjectStatus do
         pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true, :published_at => 1.day.ago)
         pivots_offline_status = pivots.statuses.create!(:success => false, :online => false, :published_at => 1.day.ago)
 
-        results = ProjectStatus.online(socialitis, pivots, 3)
+        results = ProjectStatus.online([socialitis, pivots], 3)
         results.should include socialitis_online_status
         results.should include pivots_online_status1
         results.should include pivots_online_status2
@@ -47,7 +47,7 @@ describe ProjectStatus do
         pivots_online_status1 = pivots.statuses.create!(:success => false, :online => true, :published_at => 20.days.ago)
         pivots_online_status2 = pivots.statuses.create!(:success => false, :online => true, :published_at => 5.days.ago)
 
-        results = ProjectStatus.online(socialitis, pivots, 3)
+        results = ProjectStatus.online([socialitis, pivots], 3)
         results.should == [pivots_online_status2, socialitis_online_status, pivots_online_status1]
       end
     end
@@ -64,7 +64,7 @@ describe ProjectStatus do
   it "should default to not online" do
     @project_status.should_not be_online
   end
-  
+
   describe "in_words" do
     it "returns success for a successful status" do
       status = project_statuses(:socialitis_status_green_01)
