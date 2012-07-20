@@ -41,11 +41,11 @@
   seconds
   %em
     If blank, will use #{Project::DEFAULT_POLLING_INTERVAL} seconds.
-    %br/
+    %br
     - if @project.next_poll_at
       Will poll in
       %span#time_left= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"
-%hr/
+%hr
 %h3 Tracker Setup
 %p
   = f.label :tracker_project_id, "Tracker project id"
@@ -53,7 +53,7 @@
 %p
   = f.label :tracker_auth_token, "Tracker auth token"
   = f.text_field :tracker_auth_token
-%hr/
+%hr
 %h3 Lobot Setup
 %p
   = f.label :ec2_instance_id, "EC2 Instance ID"

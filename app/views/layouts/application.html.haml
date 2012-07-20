@@ -11,8 +11,8 @@
       #top_right
         - if current_user.present?
           Hello, #{current_user.login}
-          \#{link_to "(log out)", logout_path, :class=>'smaller_text'}
-          %br/
+          = link_to "(log out)", logout_path, :class=>'smaller_text'
+          %br
           = link_to "Projects", projects_path
           |
           - if AuthConfig.password?
