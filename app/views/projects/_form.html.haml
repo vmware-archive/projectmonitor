@@ -1,142 +1,96 @@
-<p>
-  <%= f.label :code %>
-  <%= f.text_field :code, maxlength: 4 %>
-</p>
-
-<p>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-</p>
-
-<p>
-  <%= f.label :type, "Project Type" %>
-  <%= f.select :type, project_types %>
-</p>
-
-<div id="field_container">
-  <%- if f.object.type.present? %>
-    <%- f.object.class.feed_url_fields.each do |field| %>
-      <p>
-      <%= f.label field.gsub(' ','').underscore, field %>
-      <%= f.text_field field.gsub(' ','').underscore %>
-      </p>
-    <%- end %>
-  <%- end %>
-</div>
-
-<p>
-  <%= f.label :auth_username, "Feed Username" %>
-  <%= f.text_field :auth_username, :size=>40 %>
-  <em>Basic or digest authentication</em>
-</p>
-
-<p>
-  <%= f.label :auth_password, "Feed Password" %>
-  <%= f.password_field :auth_password, size: 40, value: f.object.auth_password %>
-  <em>Basic or digest authentication</em>
-</p>
-
-<p>
-  <%= f.label :enabled, "Enabled?" %>
-  <%= f.check_box :enabled %>
-</p>
-
-<p>
-  <%= f.label :location, "Location" %>
-  <%= f.text_field :location, :size=>20, :maxlength=>20 %>
-</p>
-
-<p>
-  <%= f.label :aggregate_project_id, "Aggregate Project" %>
-  <%= collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda { |ap| !ap.enabled? }, :include_blank => true}) %>
-</p>
-
-<p>
-  <%= f.label :tag_list, "Tags" %>
-  <%= f.text_field :tag_list, :size=>40 %>
-  <em>
+%p
+  = f.label :code
+  = f.text_field :code, maxlength: 4
+%p
+  = f.label :name
+  = f.text_field :name
+%p
+  = f.label :type, "Project Type"
+  = f.select :type, project_types
+#field_container
+  - if f.object.type.present?
+    - f.object.class.feed_url_fields.each do |field|
+      %p
+        = f.label field.gsub(' ','').underscore, field
+        = f.text_field field.gsub(' ','').underscore
+%p
+  = f.label :auth_username, "Feed Username"
+  = f.text_field :auth_username, :size=>40
+  %em Basic or digest authentication
+%p
+  = f.label :auth_password, "Feed Password"
+  = f.password_field :auth_password, size: 40, value: f.object.auth_password
+  %em Basic or digest authentication
+%p
+  = f.label :enabled, "Enabled?"
+  = f.check_box :enabled
+%p
+  = f.label :location, "Location"
+  = f.text_field :location, :size=>20, :maxlength=>20
+%p
+  = f.label :aggregate_project_id, "Aggregate Project"
+  = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda { |ap| !ap.enabled? }, :include_blank => true})
+%p
+  = f.label :tag_list, "Tags"
+  = f.text_field :tag_list, :size=>40
+  %em
     Separate with commas
-  </em>
-</p>
-
-<p>
-  <%= f.label :polling_interval, "Polling Interval" %>
-  <%= f.text_field :polling_interval, :size=>3 %> seconds
-  <em>
-    If blank, will use <%= Project::DEFAULT_POLLING_INTERVAL %> seconds.
-    <br/>
-    <% if @project.next_poll_at %>
-        Will poll in <span id='time_left'><%= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"%></span>
-    <% end %>
-  </em>
-</p>
-
-<hr/>
-
-<h3>Tracker Setup</h3>
-
-<p>
-  <%= f.label :tracker_project_id, "Tracker project id" %>
-  <%= f.text_field :tracker_project_id %>
-</p>
-<p>
-  <%= f.label :tracker_auth_token, "Tracker auth token" %>
-  <%= f.text_field :tracker_auth_token %>
-</p>
-
-<hr/>
-
-<h3>Lobot Setup</h3>
-
-<p>
-  <%= f.label :ec2_instance_id, "EC2 Instance ID" %>
-  <%= f.text_field :ec2_instance_id %>
-</p>
-<p>
-  <%= f.label :ec2_elastic_ip, "EC2 Elastic IP Address" %>
-  <%= f.text_field :ec2_elastic_ip %>
-</p>
-<p>
-  <%= f.label :ec2_access_key_id, "EC2 Access Key ID" %>
-  <%= f.text_field :ec2_access_key_id %>
-</p>
-<p>
-  <%= f.label :ec2_secret_access_key, "EC2 Secret Access Key" %>
-  <%= f.password_field :ec2_secret_access_key %>
-</p>
-
-<p>
-  <%= label_tag :schedule, "Schedule" %>
-  <span id="schedules">
-    <%= f.check_box :ec2_monday %>
-    <%= f.label :ec2_monday, "Mon" %>
-    <%= f.check_box :ec2_tuesday %>
-    <%= f.label :ec2_tuesday, "Tue" %>
-    <%= f.check_box :ec2_wednesday %>
-    <%= f.label :ec2_wednesday, "Wed" %>
-    <%= f.check_box :ec2_thursday %>
-    <%= f.label :ec2_thursday, "Thur" %>
-    <%= f.check_box :ec2_friday %>
-    <%= f.label :ec2_friday, "Fri" %>
-    <%= f.check_box :ec2_saturday %>
-    <%= f.label :ec2_saturday, "Sat" %>
-    <%= f.check_box :ec2_sunday %>
-    <%= f.label :ec2_sunday, "Sun" %>
-  </span>
-</p>
-
-<p>
-  <%= f.label :ec2_start_time, "Start Time" %>
-  <%= time_select :project, :ec2_start_time, :minute_step => 5 %>
-</p>
-
-<p>
-  <%= f.label :ec2_end_time, "End Time" %>
-  <%= time_select :project, :ec2_end_time, :minute_step => 5 %>
-</p>
-
-<em>Server time is <%= Time.now %></em>
-
-<p style="text-align: right; margin-bottom: 0;">
-  <%= submit_tag @project.new_record? ? "Create" : "Update" %>
-</p>
+%p
+  = f.label :polling_interval, "Polling Interval"
+  = f.text_field :polling_interval, :size=>3
+  seconds
+  %em
+    If blank, will use #{Project::DEFAULT_POLLING_INTERVAL} seconds.
+    %br/
+    - if @project.next_poll_at
+      Will poll in
+      %span#time_left= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"
+%hr/
+%h3 Tracker Setup
+%p
+  = f.label :tracker_project_id, "Tracker project id"
+  = f.text_field :tracker_project_id
+%p
+  = f.label :tracker_auth_token, "Tracker auth token"
+  = f.text_field :tracker_auth_token
+%hr/
+%h3 Lobot Setup
+%p
+  = f.label :ec2_instance_id, "EC2 Instance ID"
+  = f.text_field :ec2_instance_id
+%p
+  = f.label :ec2_elastic_ip, "EC2 Elastic IP Address"
+  = f.text_field :ec2_elastic_ip
+%p
+  = f.label :ec2_access_key_id, "EC2 Access Key ID"
+  = f.text_field :ec2_access_key_id
+%p
+  = f.label :ec2_secret_access_key, "EC2 Secret Access Key"
+  = f.password_field :ec2_secret_access_key
+%p
+  = label_tag :schedule, "Schedule"
+  %span#schedules
+    = f.check_box :ec2_monday
+    = f.label :ec2_monday, "Mon"
+    = f.check_box :ec2_tuesday
+    = f.label :ec2_tuesday, "Tue"
+    = f.check_box :ec2_wednesday
+    = f.label :ec2_wednesday, "Wed"
+    = f.check_box :ec2_thursday
+    = f.label :ec2_thursday, "Thur"
+    = f.check_box :ec2_friday
+    = f.label :ec2_friday, "Fri"
+    = f.check_box :ec2_saturday
+    = f.label :ec2_saturday, "Sat"
+    = f.check_box :ec2_sunday
+    = f.label :ec2_sunday, "Sun"
+%p
+  = f.label :ec2_start_time, "Start Time"
+  = time_select :project, :ec2_start_time, :minute_step => 5
+%p
+  = f.label :ec2_end_time, "End Time"
+  = time_select :project, :ec2_end_time, :minute_step => 5
+%em
+  Server time is #{Time.now}
+%p{:style => "text-align: right; margin-bottom: 0;"}
+  = submit_tag @project.new_record? ? "Create" : "Update"

@@ -1,31 +1,18 @@
-<%= link_to '&larr; Back to Projects'.html_safe, projects_path %>
-
-<h1>Add User</h1>
-
-<%= error_messages_for :user %>
-
-<%= form_for @user do |f| -%>
-  <p>
-    <%= f.label :login %>
-    <%= f.text_field :login %>
-  </p>
-
-  <p>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </p>
-
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </p>
-
-  <p>
-    <%= f.label :password_confirmation, "Confirm Password" %>
-    <%= f.password_field :password_confirmation %>
-  </p>
-
-  <p style="text-align: right; margin-bottom: 0;">
-    <%= submit_tag 'Create' %>
-  </p>
-<% end -%>
+= link_to '&larr; Back to Projects'.html_safe, projects_path
+%h1 Add User
+= error_messages_for :user
+= form_for @user do |f|
+  %p
+    = f.label :login
+    = f.text_field :login
+  %p
+    = f.label :email
+    = f.text_field :email
+  %p
+    = f.label :password
+    = f.password_field :password
+  %p
+    = f.label :password_confirmation, "Confirm Password"
+    = f.password_field :password_confirmation
+  %p{:style => "text-align: right; margin-bottom: 0;"}
+    = submit_tag 'Create'
