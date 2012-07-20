@@ -1,44 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Project Monitor</title>
-    <%= stylesheet_link_tag "application" %>
-    <%= yield :head %>
-  </head>
-  <body>
-
-    <div id="header">
-      <%= link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/') %>
-      <%= link_to(image_tag('ci-logo.png'), '/') %>
-      <div id="top_right">
-        <% if current_user.present? %>
-          Hello, <%= current_user.login %>
-          <%= link_to "(log out)", logout_path, :class=>'smaller_text' %>
-          <br />
-          <%= link_to "Projects", projects_path %>
+!!!
+%html
+  %head
+    %title Project Monitor
+    = stylesheet_link_tag "application"
+    = yield :head
+  %body
+    #header
+      = link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/')
+      = link_to(image_tag('ci-logo.png'), '/')
+      #top_right
+        - if current_user.present?
+          Hello, #{current_user.login}
+          \#{link_to "(log out)", logout_path, :class=>'smaller_text'}
+          %br/
+          = link_to "Projects", projects_path
           |
-          <% if AuthConfig.password? %>
-            <%= link_to "Add User", new_user_path %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="page <%= params[:controller] %> <%= params[:action] %>">
-      <% if flash[:error] %>
-        <div id="flash_error">
-          <%= flash[:error] %>
-        </div>
-      <% end %>
-
-      <% if flash[:notice] %>
-        <div id="flash_notice">
-          <%= flash[:notice] %>
-        </div>
-      <% end %>
-
-      <%= yield %>
-    </div>
-    <%= javascript_include_tag "application" %>
-  </body>
-</html>
+          - if AuthConfig.password?
+            = link_to "Add User", new_user_path
+    %div{:class => "page #{params[:controller]} #{params[:action]}"}
+      - if flash[:error]
+        #flash_error
+          = flash[:error]
+      - if flash[:notice]
+        #flash_notice
+          = flash[:notice]
+      = yield
+    = javascript_include_tag "application"

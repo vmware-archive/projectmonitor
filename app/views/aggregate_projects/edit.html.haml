@@ -1,12 +1,7 @@
-<%= link_to '&larr; Back to Projects'.html_safe, projects_path %>
-<h1>Edit Aggregate Project</h1>
-
-<%= error_messages_for :aggregate_project %>
-
-<%= form_for @aggregate_project do |f| %>
-  <%= render 'form', :f => f %>
-<% end %>
-
-<div style="margin-left: 30px;">
-  <%= link_to 'Remove Aggregate Project -', aggregate_project_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "button" %>
-</div>
+= link_to '&larr; Back to Projects'.html_safe, projects_path
+%h1 Edit Aggregate Project
+= error_messages_for :aggregate_project
+= form_for @aggregate_project do |f|
+  = render 'form', :f => f
+%div{:style => "margin-left: 30px;"}
+  = link_to 'Remove Aggregate Project -', aggregate_project_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "button"

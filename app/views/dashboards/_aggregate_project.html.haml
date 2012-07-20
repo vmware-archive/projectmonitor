@@ -1,11 +1,6 @@
-<li class="<%= aggregate_project.css_class %> <%= "building" if aggregate_project.building? %>" id="<%= aggregate_project.css_id %>" data-id="<%= aggregate_project.id %>">
-  <div class="information">
-    <h1><%= link_to(aggregate_project.code, aggregate_project.status_url) %></h1>
-    <div class="status-bar">
-      <div class="aggregate">Aggregate</div>
-    </div>
-  </div>
-
-  <div class="velocity-block">
-  </div>
-</li>
+%li{:class => "#{aggregate_project.css_class} #{"building" if aggregate_project.building?}", "data-id" => aggregate_project.id, :id => aggregate_project.css_id}
+  .information
+    %h1= link_to(aggregate_project.code, aggregate_project.status_url)
+    .status-bar
+      .aggregate Aggregate
+  .velocity-block

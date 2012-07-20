@@ -1,29 +1,18 @@
-<li class="<%= project.css_class %> <%= "building" if project.building? %>" id="<%= project.css_id %>" data-id="<%= project.id %>">
-  <div class="information">
-    <h1><%= link_to(project.code, project.status_url) %></h1>
-    <div class="status-bar">
-      <div class="publish-date"><%= project.time_since_last_build %></div>
-      <div class="history">
-        <%= build_history project, tiles_count %>
-      </div>
-    </div>
-  </div>
-
-  <div class="velocity-block">
-    <% if project.tracker_project? %>
-      <% if project.tracker_online? %>
-        <div class="velocity">
-          <span class="label">Velocity</span>
-          <% unless project.last_ten_velocities.empty? %>
-            <span class="value"><%= project.current_velocity %></span>
-          <% end %>
-        </div>
-        <%= tracker_histogram project %>
-      <% else %>
-        <div class="error">
+%li{:class => "#{project.css_class} #{"building" if project.building?}", "data-id" => project.id, :id => project.css_id}
+  .information
+    %h1= link_to(project.code, project.status_url)
+    .status-bar
+      .publish-date= project.time_since_last_build
+      .history
+        = build_history project, tiles_count
+  .velocity-block
+    - if project.tracker_project?
+      - if project.tracker_online?
+        .velocity
+          %span.label Velocity
+          - unless project.last_ten_velocities.empty?
+            %span.value= project.current_velocity
+        = tracker_histogram project
+      - else
+        .error
           No Connection
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</li>
