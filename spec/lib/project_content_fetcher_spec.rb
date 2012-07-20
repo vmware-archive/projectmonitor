@@ -24,7 +24,7 @@ describe ProjectContentFetcher do
         let(:message) { "error" }
         it "adds an error status" do
           UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new(message, 500)
-          project.statuses.should_receive(:create).with(error: "HTTP Error retrieving status for project '##{project.id}': #{message}")
+          project.statuses.should_receive(:create!)
           subject
         end
       end
@@ -43,7 +43,7 @@ describe ProjectContentFetcher do
           end
 
           it "creates a status with the error message" do
-            project.statuses.should_receive(:create)
+            project.statuses.should_receive(:create!)
             StatusFetcher.retrieve_status_for(project)
             subject
           end
