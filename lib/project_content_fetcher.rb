@@ -22,14 +22,14 @@ class ProjectContentFetcher
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
   rescue Net::HTTPError => e
     error = "HTTP Error retrieving status for project '##{project.id}': #{e.message}"
-    project.statuses.create(:error => error) unless project.status.error == error
+    project.statuses.create!(error: error, published_at: Time.now, online: false) unless project.status.error == error
     nil
   end
 
   def fetch_building_status
     content = UrlRetriever.retrieve_content_at(build_status_url, auth_username, auth_password)
   rescue Net::HTTPError => e
-    project.update_attribute(:building, false)
+    project.update_attributes!(building: false)
     nil
   end
 
