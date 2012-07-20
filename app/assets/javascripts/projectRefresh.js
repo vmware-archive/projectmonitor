@@ -1,11 +1,12 @@
 var ProjectRefresh = (function () {
-  var projects, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
+  var projectSelectors, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
 
-  function showAsBuilding (selector) {
+  function showAsBuilding (projectSelector) {
+    var $projectEl = $(projectSelector);
     (function f(i) {
       if (i < (pollIntervalSeconds / fadeIntervalSeconds) - 1) {
+        $projectEl.fadeTo(1000, 0.5).fadeTo(1000, 1);
         setTimeout(function() {
-          $(selector).fadeTo(1000, 0.5).fadeTo(1000, 1);
           f(i + 1);
         }, fadeIntervalSeconds * 1000);
       }
@@ -14,33 +15,35 @@ var ProjectRefresh = (function () {
 
   return {
     init : function () {
-      projects = $('.project:not(.empty-project)');
+      projectSelectors = $.map($('.project:not(.empty-project)'), function(projectElement) {
+        return '#' + $(projectElement).attr('id');
+      });
       tilesCount = parseInt($('body').data('tiles-count'), 10);
+
       $('li.building').each(function (i, li) {
         showAsBuilding(li);
       });
+
       setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
 
     refresh : function () {
-      projects.each(function(i, el) {
-        var $el = $(el),
-            projectCssId = $el.attr('id'),
-            project_id = $el.data('id'),
-            project_type = $el.hasClass('aggregate') ? 'aggregate_project' : 'project',
-            $projectEl = $('#' + projectCssId);
+      $.each(projectSelectors, function(i, projectSelector) {
+        var $projectEl = $(projectSelector),
+            project_id = $projectEl.data('id'),
+            project_type = $projectEl.hasClass('aggregate') ? 'aggregate_project' : 'project';
 
         $.ajax({
-          url: '/'+project_type+'s/'+project_id+'/status',
+          url: '/' + project_type + 's/' + project_id + '/status',
+          dataType: 'html',
           data: {
             tiles_count: tilesCount
           },
-          dataType: 'html',
+          timeout: (pollIntervalSeconds - 1) * 1000,
           success: function(response) {
-            $projectEl.replaceWith(response);
-            if ($(response).hasClass('building')) {
-              showAsBuilding('#' + projectCssId);
-              $('#' + projectCssId).fadeTo(1000, 0.5).fadeTo(1000, 1);
+            $projectEl = $projectEl.replaceWith(response);
+            if ($projectEl.hasClass('building')) {
+              showAsBuilding(projectSelector);
             }
           },
           error: function() {

@@ -74,5 +74,22 @@ describe('ProjectRefresh.init', function() {
       expect($("#aggregate_project_4")).toHaveClass("server-unreachable");
     });
   });
+
+  describe("when a request times out", function() {
+    beforeEach(function() {
+      ProjectRefresh.init();
+      jasmine.Clock.tick(30001);
+      mostRecentAjaxRequest().responseTimeout();
+    });
+
+    it("leaves the contents of the element alone", function() {
+      expect($("#aggregate_project_4").text()).toContain("Aggregate Project");
+    });
+
+    it("adds the 'server-unreachable' class to the element", function() {
+      expect($("#aggregate_project_4")).toHaveClass("success");
+      expect($("#aggregate_project_4")).toHaveClass("server-unreachable");
+    });
+  });
 });
 
