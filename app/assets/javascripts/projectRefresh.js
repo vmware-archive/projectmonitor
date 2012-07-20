@@ -1,11 +1,11 @@
 var ProjectRefresh = (function () {
   var projects, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
 
-  function showAsBuilding (selector) {
+  function showAsBuilding ($selector) {
     (function f(i) {
       if (i < (pollIntervalSeconds / fadeIntervalSeconds) - 1) {
         setTimeout(function() {
-          $(selector).fadeTo(1000, 0.5).fadeTo(1000, 1);
+          $selector.fadeTo(1000, 0.5).fadeTo(1000, 1);
           f(i + 1);
         }, fadeIntervalSeconds * 1000);
       }
@@ -17,7 +17,7 @@ var ProjectRefresh = (function () {
       projects = $('.project:not(.empty-project)');
       tilesCount = parseInt($('body').data('tiles-count'), 10);
       $('li.building').each(function (i, li) {
-        showAsBuilding(li);
+        showAsBuilding($(li));
       });
       setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
@@ -27,7 +27,8 @@ var ProjectRefresh = (function () {
         var $el = $(el),
             projectCssId = $el.attr('id'),
             project_id = $el.data('id'),
-            project_type = $el.hasClass('aggregate') ? 'aggregate_project' : 'project';
+            project_type = $el.hasClass('aggregate') ? 'aggregate_project' : 'project',
+            $projectEl = $('#' + projectCssId);
 
         $.ajax({
           url: '/'+project_type+'s/'+project_id+'/status',
@@ -36,14 +37,14 @@ var ProjectRefresh = (function () {
           },
           dataType: 'html',
           success: function(response) {
-            $('#' + projectCssId).replaceWith(response);
+            $projectEl.replaceWith(response);
             if ($(response).hasClass('building')) {
-              showAsBuilding('#' + projectCssId);
-              $('#' + projectCssId).fadeTo(1000, 0.5).fadeTo(1000, 1);
+              showAsBuilding($projectEl);
+              $projectEl.fadeTo(1000, 0.5).fadeTo(1000, 1);
             }
           },
           error: function() {
-            $el.addClass('server-unreachable');
+            $projectEl.addClass('server-unreachable');
           }
         });
       });
