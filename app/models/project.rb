@@ -22,6 +22,7 @@ class Project < ActiveRecord::Base
   validates_length_of :location, :maximum => 20, :allow_blank => true
 
   before_save :check_next_poll
+  after_create :fetch_statuses
 
   attr_accessible :aggregate_project_id,
     :feed_url, :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
@@ -150,5 +151,11 @@ class Project < ActiveRecord::Base
 
   def to_partial_path
     "dashboards/project"
+  end
+
+  private
+
+  def fetch_statuses
+    Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 1)
   end
 end
