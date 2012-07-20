@@ -9,15 +9,15 @@
     #footer
       .left
         Layout:
-        \#{link_to "15", root_path(tiles_count: 15), class: "projects_path"}
+        = link_to "15", root_path(tiles_count: 15), class: "projects_path"
         |
-        \#{link_to "24", root_path(tiles_count: 24), class: "projects_path"}
+        = link_to "24", root_path(tiles_count: 24), class: "projects_path"
         |
-        \#{link_to "48", root_path(tiles_count: 48), class: "projects_path"}
+        = link_to "48", root_path(tiles_count: 48), class: "projects_path"
         |
-        \#{link_to "63", root_path(tiles_count: 63), class: "projects_path"}
+        = link_to "63", root_path(tiles_count: 63), class: "projects_path"
         |
-        \#{link_to "locations", root_path(view: "locations"), class: "projects_path"}
+        = link_to "locations", root_path(view: "locations"), class: "projects_path"
       .right
         - if current_user
           = link_to "log out", logout_path, class: "projects_path"
