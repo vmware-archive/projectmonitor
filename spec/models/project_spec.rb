@@ -16,6 +16,18 @@ describe Project do
     it { should ensure_length_of(:location).is_at_most(20) }
   end
 
+  describe "job queuing" do
+    it "queues a higher priority job to fetch statuses for a newly created project" do
+      project = FactoryGirl.build(:project)
+      enqueued_job = double(:enqueued_job)
+
+      StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
+      Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 1)
+
+      project.save
+    end
+  end
+
   describe 'scopes' do
     describe "standalone" do
       it "should return non aggregated projects" do
