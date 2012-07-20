@@ -1,39 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Project Monitor</title>
-    <%= stylesheet_link_tag "dashboard" %>
-    <script type="text/javascript" src="http://fast.fonts.com/jsapi/14aea2b8-37b7-4a31-afb9-e44414bef419.js"></script>
-  </head>
-  <body class="dashboard tiles_<%= @tiles.size %>" data-tiles-count="<%= @tiles.size %>">
-    <%= yield %>
-
-    <div id="footer">
-      <div class="left">
+!!!
+%html
+  %head
+    %title Project Monitor
+    = stylesheet_link_tag "dashboard"
+    %script{:src => "http://fast.fonts.com/jsapi/14aea2b8-37b7-4a31-afb9-e44414bef419.js", :type => "text/javascript"}
+  %body{:class => "dashboard tiles_#{@tiles.size}", "data-tiles-count" => @tiles.size}
+    = yield
+    #footer
+      .left
         Layout:
-        <%= link_to "15", root_path(tiles_count: 15), class: "projects_path" %>
+        \#{link_to "15", root_path(tiles_count: 15), class: "projects_path"}
+        |
+        \#{link_to "24", root_path(tiles_count: 24), class: "projects_path"}
+        |
+        \#{link_to "48", root_path(tiles_count: 48), class: "projects_path"}
+        |
+        \#{link_to "63", root_path(tiles_count: 63), class: "projects_path"}
+        |
+        \#{link_to "locations", root_path(view: "locations"), class: "projects_path"}
+      .right
+        - if current_user
+          = link_to "log out", logout_path, class: "projects_path"
           |
-        <%= link_to "24", root_path(tiles_count: 24), class: "projects_path" %>
-          |
-        <%= link_to "48", root_path(tiles_count: 48), class: "projects_path" %>
-          |
-        <%= link_to "63", root_path(tiles_count: 63), class: "projects_path" %>
-          |
-        <%= link_to "locations", root_path(view: "locations"), class: "projects_path" %>
-      </div>
-
-      <div class="right">
-        <% if current_user %>
-          <%= link_to "log out", logout_path, class: "projects_path" %>
-          |
-        <% end %>
-        <div id='indicator'>
-          <%= image_tag "indicator.gif", :title => "indicator", :alt => "indicator" %>
-        </div>
-        <%= link_to "manage projects", projects_path, class: "projects_path" %>
-      </div>
-    </div>
-
-    <%= javascript_include_tag "dashboard" %>
-  </body>
-</html>
+        #indicator
+          = image_tag "indicator.gif", :title => "indicator", :alt => "indicator"
+        = link_to "manage projects", projects_path, class: "projects_path"
+    = javascript_include_tag "dashboard"

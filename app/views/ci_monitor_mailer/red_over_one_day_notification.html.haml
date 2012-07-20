@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <div>
-        The following projects have been red for over one day:
-        <ul>
-            <% @projects.each do |project| %>
-                <li>
-                    <%= project.name %>
-                    <%= link_to("(view)", project.status.url) if project.status.online? && project.status.url %>
-                </li>
-            <% end %>
-        </ul>
-    </div>
-    <div>
-        Please check it out.
-    </div>
-  </body>
-</html>
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %div
+      The following projects have been red for over one day:
+      %ul
+        - @projects.each do |project|
+          %li
+            = project.name
+            = link_to("(view)", project.status.url) if project.status.online? && project.status.url
+    %div
+      Please check it out.
