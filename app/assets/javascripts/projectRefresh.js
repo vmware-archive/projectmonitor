@@ -1,11 +1,11 @@
 var ProjectRefresh = (function () {
   var projects, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
 
-  function showAsBuilding ($selector) {
+  function showAsBuilding (selector) {
     (function f(i) {
       if (i < (pollIntervalSeconds / fadeIntervalSeconds) - 1) {
         setTimeout(function() {
-          $selector.fadeTo(1000, 0.5).fadeTo(1000, 1);
+          $(selector).fadeTo(1000, 0.5).fadeTo(1000, 1);
           f(i + 1);
         }, fadeIntervalSeconds * 1000);
       }
@@ -17,7 +17,7 @@ var ProjectRefresh = (function () {
       projects = $('.project:not(.empty-project)');
       tilesCount = parseInt($('body').data('tiles-count'), 10);
       $('li.building').each(function (i, li) {
-        showAsBuilding($(li));
+        showAsBuilding(li);
       });
       setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
@@ -39,8 +39,8 @@ var ProjectRefresh = (function () {
           success: function(response) {
             $projectEl.replaceWith(response);
             if ($(response).hasClass('building')) {
-              showAsBuilding($projectEl);
-              $projectEl.fadeTo(1000, 0.5).fadeTo(1000, 1);
+              showAsBuilding('#' + projectCssId);
+              $('#' + projectCssId).fadeTo(1000, 0.5).fadeTo(1000, 1);
             }
           },
           error: function() {
