@@ -51,8 +51,8 @@ class AggregateProject < ActiveRecord::Base
     projects.any?(&:building?)
   end
 
-  def recent_online_statuses(count = Project::RECENT_STATUS_COUNT)
-    ProjectStatus.online(projects, count)
+  def recent_statuses(count = Project::RECENT_STATUS_COUNT)
+    ProjectStatus.recent(projects, count)
   end
 
   def red_since

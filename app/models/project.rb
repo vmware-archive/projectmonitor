@@ -92,8 +92,8 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def recent_online_statuses(count = RECENT_STATUS_COUNT)
-    ProjectStatus.online(self, count)
+  def recent_statuses(count = RECENT_STATUS_COUNT)
+    ProjectStatus.recent(self, count)
   end
 
   def set_next_poll!

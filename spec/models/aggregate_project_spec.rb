@@ -184,12 +184,12 @@ describe AggregateProject do
     end
   end
 
-  describe '#recent_online_statuses' do
+  describe '#recent_statuses' do
     it "should return the most recent statuses across projects" do
       aggregate_project.projects << projects(:pivots)
       aggregate_project.projects << projects(:socialitis)
-      aggregate_project.recent_online_statuses.should include project_statuses(:pivots_status)
-      aggregate_project.recent_online_statuses.should include project_statuses(:socialitis_status_green_01)
+      aggregate_project.recent_statuses.should include project_statuses(:pivots_status)
+      aggregate_project.recent_statuses.should include project_statuses(:socialitis_status_green_01)
     end
   end
 
