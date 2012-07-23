@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TravisPayloadProcessor do
-  let(:project) { TravisProject.create(name: "foo", feed_url: "http://travis-ci.org/account/project/builds.json") }
+  let(:project) { FactoryGirl.create(:travis_project) }
   let(:payload) { TravisExample.new(json).read }
 
   subject do

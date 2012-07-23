@@ -1,36 +1,26 @@
 class TeamCityProject < Project
-  FEED_URL_REGEXP = %r{https?://(.*)/guestAuth/cradiator\.html\?buildTypeId=(.*)$}
 
-  validates :url, presence: true
-  validates :build_type_id, presence: true
+  attr_accessible :team_city_base_url, :team_city_build_id
+  validates :team_city_base_url, presence: true
+  validates :team_city_build_id, presence: true, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}
 
-  def url
-    feed_url =~ FEED_URL_REGEXP
-    $1
+  def self.feed_url_fields
+    ["Teamcity Base URL","Teamcity Build ID"]
   end
 
-  def url=(url)
-    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_type_id}"
-  end
-
-  def build_type_id
-    feed_url =~ FEED_URL_REGEXP
-    $2
-  end
-
-  def build_type_id=(build_type_id)
-    self.feed_url = "http://#{url}/guestAuth/cradiator.html?buildTypeId=#{build_type_id}"
+  def feed_url
+    "http://#{team_city_base_url}/guestAuth/cradiator.html?buildTypeId=#{team_city_build_id}"
   end
 
   def build_status_url
     feed_url
   end
 
-  def self.feed_url_fields
-    ["URL","Build ID"]
-  end
-
   def processor
     LegacyTeamCityPayloadProcessor
+  end
+
+  def project_name
+    feed_url
   end
 end

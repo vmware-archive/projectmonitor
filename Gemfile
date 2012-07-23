@@ -67,7 +67,7 @@ group :test, :development do
   gem "awesome_print"
   gem "jslint_on_rails", git: "git://github.com/psionides/jslint_on_rails.git", tag: "1.1.1"
   gem "rspec-rails", "~> 2.10.0"
-  gem "shoulda-matchers", "~> 1.0.0"
+  gem "shoulda-matchers"
   gem "capybara", "~> 1.1.2"
   gem "jasmine", "~> 1.2.0"
   gem "factory_girl_rails"

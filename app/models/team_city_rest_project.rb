@@ -1,34 +1,23 @@
 class TeamCityRestProject < Project
 
-  URL_FORMAT = %r{http://(.*)/app/rest/builds\?locator=running:all,buildType:\(id:(bt\d*)\)}
-  URL_MESSAGE = "should look like ('[...]' is optional): http://*/app/rest/builds?locator=running:all,buildType:(id:bt*)[,user:*][,personal:true|false|any]"
+  attr_accessible :team_city_rest_base_url, :team_city_rest_build_type_id
+  validates :team_city_rest_base_url, presence: true
+  validates :team_city_rest_build_type_id, presence: true, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}
 
-  validates_format_of :feed_url, :with => URL_FORMAT, :message => URL_MESSAGE
+  def self.feed_url_fields
+    ["Teamcity Rest Base URL", "Teamcity Rest Build Type ID"]
+  end
 
   def build_status_url
     feed_url
   end
 
-  def self.feed_url_fields
-    ["URL","Build Type ID"]
+  def feed_url
+    "http://#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id})"
   end
 
-  def url
-    feed_url =~ URL_FORMAT
-    $1
-  end
-
-  def url=(url)
-    self.feed_url = "http://#{url}/app/rest/builds?locator=running:all,buildType:(id:#{build_type_id})"
-  end
-
-  def build_type_id
-    feed_url =~ URL_FORMAT
-    $2
-  end
-
-  def build_type_id=(build_type_id)
-    self.feed_url = "http://#{url}/app/rest/builds?locator=running:all,buildType:(id:#{build_type_id})"
+  def project_name
+    feed_url
   end
 
   def processor

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TeamCityPayloadProcessor do
-  let(:project) { TeamCityRestProject.create(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" ) }
+  let(:project) { FactoryGirl.create(:team_city_rest_project) }
 
   subject do
     ProjectPayloadProcessor.new(project, payload).perform
