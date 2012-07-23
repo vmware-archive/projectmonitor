@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe JenkinsPayloadProcessor do
-  let(:project) { JenkinsProject.create(name: "foo", feed_url: "http://foo.bar.com:3434/job/CiMonitor/rssAll") }
+  let(:project) do
+    FactoryGirl.create(
+      :jenkins_project,
+      jenkins_build_name: "CiMonitor")
+  end
   let(:payload) { [JenkinsAtomExample.new(atom).read, nil] }
 
   subject do

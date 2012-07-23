@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectContentFetcher do
-  let(:project) { TeamCityRestProject.create!(name: "my_team_city_rest_project", feed_url:  "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" ) }
+  let(:project) { FactoryGirl.create(:team_city_rest_project) }
   let(:project_content_fetcher) { ProjectContentFetcher.new(project) }
   subject { project_content_fetcher.fetch }
   describe "#fetch" do
@@ -64,7 +64,7 @@ describe ProjectContentFetcher do
     end
 
     context "when the project has a feed_url and a build_status_url" do
-      let(:project) { JenkinsProject.create!(:name => "my_jenkins_project", :feed_url => "http://foo.bar.com:3434/job/example_project/rssAll") }
+      let(:project) { FactoryGirl.create(:jenkins_project) }
       let(:build_url) {"http://foo.com"}
       before do
         UrlRetriever.stub(:retrieve_content_at)

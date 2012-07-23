@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "TeamCity status updates" do
 
   context "when a build is in progress then successful after failure" do
-    let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
-    let(:project) { TeamCityRestProject.create(:name => "my_teamcity_project", :feed_url => rest_url) }
+    let(:project) { FactoryGirl.create(:team_city_rest_project) }
     let(:building_in_progress_after_failure_xml) {
       <<-XML.strip_heredoc
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -52,8 +51,7 @@ describe "TeamCity status updates" do
   end
 
   context "when a build is in progress and failing, then finishes" do
-    let(:rest_url) { "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" }
-    let(:project) { TeamCityRestProject.create(:name => "my_teamcity_project", :feed_url => rest_url) }
+    let(:project) { FactoryGirl.create(:team_city_rest_project) }
     let(:failing_build_in_progress_xml) {
       <<-XML.strip_heredoc
         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

@@ -24,8 +24,8 @@ describe ProjectsController do
           post :create, :project => {
             :name => 'name',
             :type => JenkinsProject.name,
-            :url => 'http://www.example.com',
-            :build_name => 'example'
+            :jenkins_base_url => 'http://www.example.com',
+            :jenkins_build_name => 'example'
           }
         end
 

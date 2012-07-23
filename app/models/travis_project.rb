@@ -1,42 +1,26 @@
 class TravisProject < Project
-  FEED_URL_REGEXP = %r{^https?://travis-ci.org/([\w-]*)/([\w-]*)/builds\.json$}
 
-  validates :account, :project, :presence => true
+  attr_accessible :travis_github_account, :travis_repository
+  validates :travis_github_account, :travis_repository, :presence => true
 
-  attr_accessible :account, :project
-
-  def account
-    feed_url =~ FEED_URL_REGEXP
-    $1
-  end
-  
-  def account=(account)
-    self.feed_url = "http://travis-ci.org/#{account}/#{project}/builds.json"
+  def self.feed_url_fields
+    ["Travis Github Account", "Travis Repository"]
   end
 
-  def project
-    feed_url =~ FEED_URL_REGEXP
-    $2
-  end
-
-  def project=(project)
-    self.feed_url = "http://travis-ci.org/#{account}/#{project}/builds.json"
-  end
-
-  def project_name
-    return nil if feed_url.nil?
-    feed_url.split("/").last(2).first
+  def feed_url
+    "http://travis-ci.org/#{travis_github_account}/#{travis_repository}/builds.json"
   end
 
   def build_status_url
     feed_url
   end
 
-  def self.feed_url_fields
-    ["Account", "Project"]
+  def project_name
+    travis_github_account
   end
 
   def processor
     TravisPayloadProcessor
   end
+
 end
