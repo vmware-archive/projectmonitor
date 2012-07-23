@@ -156,8 +156,8 @@ describe Project do
       it "should return the successful project" do
         project = projects(:socialitis)
         project.statuses = []
-        @happy_status = project.statuses.create!(:online => true, :success => true)
-        @sad_status = project.statuses.create!(:online => true, :success => false)
+        @happy_status = project.statuses.create!(:success => true)
+        @sad_status = project.statuses.create!(:success => false)
         project.last_green.should == @happy_status
       end
     end
@@ -167,14 +167,6 @@ describe Project do
 
       it "should return the most recent status" do
         project.status.should == project.statuses.find(:first)
-      end
-
-      describe "with no retrieved statuses" do
-        it "should return an offline status" do
-          project.statuses.destroy_all
-          project.status.should_not be_nil
-          project.status.should_not be_online
-        end
       end
     end
 
@@ -232,14 +224,6 @@ describe Project do
       project.should be_green
     end
 
-    it "should be false/false if the project's current status is offline" do
-      project = projects(:pivots)
-      project.statuses.create!(:online => false, published_at: Time.now)
-      project.reload
-      project.should_not be_green
-      project.should_not be_red
-    end
-
     it "should be false/false if the project has no statuses" do
       project.statuses.should be_empty
       project.should_not be_red
@@ -250,8 +234,8 @@ describe Project do
     describe "#latest_status" do
       let(:project) { FactoryGirl.create :project, name: "my_project" }
 
-      let!(:recent_status_created_a_while_ago) { project.statuses.create(:success => true, :online => true, :published_at => 5.minutes.ago, :created_at => 10.minutes.ago) }
-      let!(:old_status_created_recently) { project.statuses.create(:success => true, :online => false, :published_at => 20.minutes.ago, :created_at => 4.minutes.ago) }
+      let!(:recent_status_created_a_while_ago) { project.statuses.create(:success => true, :published_at => 5.minutes.ago, :created_at => 10.minutes.ago) }
+      let!(:old_status_created_recently) { project.statuses.create(:success => true, :published_at => 20.minutes.ago, :created_at => 4.minutes.ago) }
 
       it "should return the most recent status" do
         project.latest_status.should == recent_status_created_a_while_ago
@@ -264,7 +248,7 @@ describe Project do
         red_since = project.red_since
 
         3.times do |i|
-          project.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes)
+          project.statuses.create!(:success => false, :published_at => Time.now + (i+1)*5.minutes)
         end
 
         project = Project.find(project.id)
@@ -288,35 +272,16 @@ describe Project do
         project.statuses.should be_empty
         project.red_since.should be_nil
       end
-
-      it "should ignore offline statuses" do
-        project = projects(:pivots)
-        project.should be_green
-
-        broken_at = Time.now.utc
-        3.times do
-          project.statuses.create!(:online => false)
-          broken_at += 5.minutes
-        end
-
-        project.statuses.create!(:online => true, :success => false, :published_at => broken_at)
-
-        project = Project.find(project.id)
-
-        # Argh.  What is the assert_approximately_equal matcher for rspec?
-        # And why is the documentation for it so hard to find?
-        project.red_since.to_s(:db).should == broken_at.to_s(:db)
-      end
     end
 
     describe "#breaking build" do
       context "without any green builds" do
-        it "should return the first red online build" do
+        it "should return the first red build" do
           project = projects(:socialitis)
           project.statuses.destroy_all
-          first_red = project.statuses.create!(:online => true, :success => false)
-          project.statuses.create!(:online => true, :success => false)
-          project.statuses.create!(:online => false, :success => false)
+          first_red = project.statuses.create!(:success => false)
+          project.statuses.create!(:success => false)
+          project.statuses.create!(:success => false)
           project.breaking_build.should == first_red
         end
       end
@@ -327,7 +292,7 @@ describe Project do
         project = projects(:socialitis)
         project.red_build_count.should == 1
 
-        project.statuses.create(:online => true, :success => false)
+        project.statuses.create(:success => false)
         project.red_build_count.should == 2
       end
 
@@ -341,24 +306,6 @@ describe Project do
       it "should not blow up for a project that has never been green" do
         project = projects(:never_green)
         project.red_build_count.should == project.statuses.count
-      end
-
-      it "should return zero for an offline project" do
-        project = projects(:offline)
-        project.should_not be_online
-
-        project.red_build_count.should == 0
-      end
-
-      it "should ignore offline statuses" do
-        project = projects(:never_green)
-        old_red_build_count = project.red_build_count
-
-        3.times do
-          project.statuses.create(:online => false)
-        end
-        project.statuses.create(:online => true, :success => false)
-        project.red_build_count.should == old_red_build_count + 1
       end
     end
 
@@ -507,6 +454,21 @@ describe Project do
       it { should =~ ['travis_github_account', 'travis_repository'] }
     end
 
+    describe "#offline!" do
+      it "marks a project as offline" do
+        project = FactoryGirl.build :project, online: true
+        project.should be_online
+
+        project.offline!
+        project.reload.should_not be_online
+      end
+
+      it "saves the project" do
+        project = projects(:pivots)
+        project.should_receive(:save!)
+        project.offline!
+      end
+    end
   end
 
 end

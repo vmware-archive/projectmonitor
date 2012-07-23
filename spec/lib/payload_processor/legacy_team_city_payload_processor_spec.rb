@@ -96,6 +96,8 @@ describe LegacyTeamCityPayloadProcessor do
   describe "with invalid xml" do
     let(:payload) { "<foo><bar>baz</bar></foo>" }
     it { should_not be_building }
-    its(:latest_status) { should_not be_success }
+    it "should not create a status" do
+      expect { subject }.not_to change(ProjectStatus, :count)
+    end
   end
 end

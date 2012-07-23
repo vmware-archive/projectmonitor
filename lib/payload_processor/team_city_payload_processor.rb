@@ -4,9 +4,14 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
     if detect_json?
       parse_project_status_from_json
     else
-      build_live_statuses.each do |parsed_status|
-        parsed_status.save! unless project.statuses.find_by_url(parsed_status.url)
-      end
+      parse_project_status
+    end
+  end
+
+  def parse_project_status
+    build_live_statuses.each do |parsed_status|
+      parsed_status.save! unless project.statuses.find_by_url(parsed_status.url)
+      project.online!
     end
   end
 
@@ -14,7 +19,6 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
     live_status_hashes.map { |status_hash|
       ProjectStatus.new(
         :project => project,
-        :online => true,
         :success => status_hash[:status] == 'SUCCESS',
         :url => status_hash[:url],
         :published_at => status_hash[:published_at],
@@ -58,7 +62,7 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status_from_json
-    status = project.statuses.new(:online => true, :success => false)
+    status = project.statuses.new(:success => false)
     case payload["buildResult"]
     when "success"
       status.success = true

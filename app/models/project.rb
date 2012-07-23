@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
   after_create :fetch_statuses
 
   attr_accessible :aggregate_project_id,
-    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
+    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list, :online,
     :auth_password, :auth_username,
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
@@ -51,16 +51,20 @@ class Project < ActiveRecord::Base
     latest_status || ProjectStatus.new
   end
 
-  def online?
-    status.online?
-  end
-
   def green?
-    status.online? && status.success?
+    online? && status.success?
   end
 
   def red?
-    status.online? && !status.success?
+    online? && !status.success?
+  end
+
+  def offline!
+     update_attributes!(online: false) if online?
+  end
+
+  def online!
+     update_attributes!(online: true) unless online?
   end
 
   def red_since
@@ -69,7 +73,7 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.count(:conditions => ["online = ? AND id >= ?", true, breaking_build.id])
+    statuses.count(:conditions => ["id >= ?", breaking_build.id])
   end
 
   def feed_url
@@ -115,9 +119,9 @@ class Project < ActiveRecord::Base
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      statuses.where(:online => true, :success => false).last
+      statuses.where(:success => false).last
     else
-      statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, last_green.id])
+      statuses.find(:last, :conditions => ["success = ? AND id > ?", false, last_green.id])
     end
   end
 

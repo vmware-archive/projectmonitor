@@ -105,6 +105,8 @@ describe TravisPayloadProcessor do
   describe "with invalid json" do
     let(:payload) { "{jdskfld;fd;shg}" }
     it { should_not be_building }
-    its(:latest_status) { should_not be_success }
+    it "should not create a status" do
+      expect { subject }.not_to change(ProjectStatus, :count)
+    end
   end
 end
