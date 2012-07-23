@@ -20,10 +20,6 @@ class ProjectPayloadProcessor
     end
   end
 
-  def find(document, path)
-    document.css("#{path}") if document
-  end
-
   def fetch_building_status
     building_status = if detect_json?
       parse_building_status_from_json

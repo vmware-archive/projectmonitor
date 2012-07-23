@@ -17,13 +17,13 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
 
     if payload && project_payload = payload.first
       if latest_build = Nokogiri::XML.parse(project_payload.downcase).css('feed entry:first').first
-        if title = find(latest_build, 'title')
+        if title = latest_build.css('title')
           status.success = !!(title.first.content.downcase =~ /success|stable|back to normal/)
         end
       end
-      if status.url = find(latest_build, 'link')
+      if latest_build && status.url = latest_build.css('link')
         status.url = status.url.first.attribute('href').value
-        pub_date = Time.parse(find(latest_build, 'published').first.content)
+        pub_date = Time.parse(latest_build.css('published').first.content)
         status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
       end
       status
