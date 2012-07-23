@@ -15,12 +15,12 @@ class CruiseControlPayloadProcessor < ProjectPayloadProcessor
     status = ProjectStatus.new(:success => false)
     if payload && project_payload = payload.first
       document = Nokogiri::XML(project_payload.downcase)
-      status.success = !!(find(document, 'title').to_s =~ /success/)
-      if (pub_date = find(document, 'pubdate')).present?
+      status.success = !!(document.css('title').to_s =~ /success/)
+      if (pub_date = document.css('pubdate')).present?
         pub_date = Time.parse(pub_date.text)
         status.published_at = (pub_date == Time.at(0) ? Time.now : pub_date).localtime
       end
-      if url = find(document, 'item/link')
+      if url = document.css('item/link')
         status.url = url.text
       end
     end
