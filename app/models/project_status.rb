@@ -4,7 +4,7 @@ class ProjectStatus < ActiveRecord::Base
 
   belongs_to :project
 
-  scope :online, lambda{ |projects, limit|
+  scope :recent, lambda{ |projects, limit|
     where(:project_id => Array(projects).map(&:id))
     .where('published_at is NOT NULL')
     .reverse_chronological

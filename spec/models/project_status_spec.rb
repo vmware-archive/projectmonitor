@@ -6,19 +6,18 @@ describe ProjectStatus do
   end
 
   describe 'scopes' do
-    describe "#recent_statuses" do
-      it "should only return online statuses" do
+    describe "#recent" do
+      it "finds statuses with a published_at date" do
         project = projects(:socialitis)
         project.statuses.delete_all
         status = project.statuses.create!(:success => false, :published_at => 1.day.ago)
-        online_without_published_at_status = project.statuses.create!(:success => false, :published_at => nil)
-        offline_status = project.statuses.create!(:success => false, :published_at => 3.days.ago)
+        status_without_published_at = project.statuses.create!(:success => false, :published_at => nil)
 
-        ProjectStatus.online(project, 3).should include(status)
-        ProjectStatus.online(project, 3).should_not include(online_without_published_at_status)
+        ProjectStatus.recent(project, 3).should include(status)
+        ProjectStatus.recent(project, 3).should_not include(status_without_published_at)
       end
 
-      it "should return statuses across multiple projects" do
+      it "finds statuses across multiple projects" do
         socialitis = projects(:socialitis)
         socialitis.statuses.delete_all
         socialitis_status = socialitis.statuses.create!(:success => false, :published_at => 1.day.ago)
@@ -26,12 +25,11 @@ describe ProjectStatus do
         pivots.statuses.delete_all
         pivots_status = pivots.statuses.create!(:success => false, :published_at => 1.day.ago)
 
-        results = ProjectStatus.online([socialitis, pivots], 3)
-        results.should include socialitis_status
-        results.should include pivots_status
+        results = ProjectStatus.recent([socialitis, pivots], 3)
+        results.should include(socialitis_status, pivots_status)
       end
 
-      it "should be ordered by published date" do
+      it "finds statuses ordered by published_at date" do
         socialitis = projects(:socialitis)
         socialitis.statuses.delete_all
         socialitis_status = socialitis.statuses.create!(:success => false, :published_at => 10.days.ago)
@@ -40,7 +38,7 @@ describe ProjectStatus do
         pivots_status1 = pivots.statuses.create!(:success => false, :published_at => 20.days.ago)
         pivots_status2 = pivots.statuses.create!(:success => false, :published_at => 5.days.ago)
 
-        results = ProjectStatus.online([socialitis, pivots], 3)
+        results = ProjectStatus.recent([socialitis, pivots], 3)
         results.should == [pivots_status2, socialitis_status, pivots_status1]
       end
     end
