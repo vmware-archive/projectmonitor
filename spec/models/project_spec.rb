@@ -334,7 +334,6 @@ describe Project do
         projects(:never_built).should_not be_building
       end
     end
-
   end
 
   describe "#needs_poll?" do
@@ -351,7 +350,6 @@ describe Project do
     it "should return true if next_poll_at is null" do
       project.needs_poll?.should be_true
     end
-  end
 
   describe "#set_next_poll!" do
     epsilon = 2
