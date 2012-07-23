@@ -10,7 +10,7 @@ class TravisPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status
-    status = ProjectStatus.new(:online => false, :success => false)
+    status = ProjectStatus.new(:success => false)
     if parse_payload!
       status.success = payload["result"].to_i == 0
       status.url = project.feed_url.gsub(".json", "/#{payload["id"]}")
