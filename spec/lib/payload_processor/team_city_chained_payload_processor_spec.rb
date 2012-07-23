@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TeamCityChainedPayloadProcessor do
-  let(:project) { TeamCityChainedProject.create(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" ) }
+  let(:project) { FactoryGirl.create(:team_city_chained_project) }
   let(:children) { [] }
   before { project.stub(:children).and_return(children) }
 

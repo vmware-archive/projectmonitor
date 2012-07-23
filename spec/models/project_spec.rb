@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project do
-  let(:project) { Project.new(name: "my_project", feed_url: "http://localhost:8111/123job/123/rssAll", type: "Project") }
+  let(:project) { FactoryGirl.build(:jenkins_project) }
 
   describe "factories" do
     it "should be valid for project" do
@@ -11,7 +11,6 @@ describe Project do
 
   describe "validations" do
     it { should validate_presence_of :name }
-    it { should validate_presence_of :feed_url }
     it { should validate_presence_of :type }
     it { should ensure_length_of(:location).is_at_most(20) }
   end
@@ -39,13 +38,13 @@ describe Project do
     end
 
     describe "enabled" do
-      it "should return only enabled projects" do
-        project.update_attribute(:enabled, false)
-        project.should be_persisted
+      let!(:disabled_project) { FactoryGirl.create(:jenkins_project, enabled: false) }
 
+      it "should return only enabled projects" do
         Project.enabled.should include projects(:pivots)
         Project.enabled.should include projects(:socialitis)
-        Project.enabled.should_not include project
+
+        Project.enabled.should_not include disabled_project
       end
     end
 
@@ -63,25 +62,21 @@ describe Project do
 
     describe "for_location" do
       let(:location) { "Jamaica" }
-      let!(:included_project) { Project.create!(project.attributes.merge location: location) }
-      let!(:excluded_project1) { Project.create!(project.attributes) }
-      let!(:excluded_project2) { Project.create!(project.attributes.merge location: "Miami") }
+      let!(:included_project) { FactoryGirl.create(:jenkins_project, location: location) }
+      let!(:excluded_project) { FactoryGirl.create(:jenkins_project, location: 'Elbonia') }
 
       subject { Project.for_location(location) }
-      it { should =~ [included_project] }
+      it { should include included_project }
+      it { should_not include excluded_project }
     end
 
     describe "unknown_location" do
-      let(:included_project) { Project.create!(project.attributes) }
-      let(:excluded_project) { Project.create!(project.attributes.merge location: "Miami") }
-      before do
-        Project.destroy_all # Remove fixtures
-        included_project
-        excluded_project
-      end
+      let!(:included_project) { FactoryGirl.create(:jenkins_project, location: nil) }
+      let!(:excluded_project) { FactoryGirl.create(:jenkins_project, location: 'Miami') }
 
       subject { Project.unknown_location }
-      it { should =~ [included_project] }
+      it { should include included_project }
+      it { should_not include excluded_project }
     end
 
     describe '.displayable' do
@@ -393,109 +388,84 @@ describe Project do
       end
     end
 
-    describe "#build_status_url" do
-      it "should use the host name from the RSS URL, including the port" do
-        project.build_status_url.should =~ /^#{Regexp.escape("http://localhost:8111")}/
+  end
+
+  describe "#needs_poll?" do
+    it "should return true if current time >= next_poll_at" do
+      project.next_poll_at = 5.minutes.ago
+      project.needs_poll?.should be_true
     end
 
-    it "should end with the appropriate location" do
-      project.build_status_url.should =~ /#{Regexp.escape("XmlStatusReport.aspx")}$/
+    it "should return false when current time < next_poll_at" do
+      project.next_poll_at = 5.minutes.from_now
+      project.needs_poll?.should be_false
     end
 
-    it "should not blow up if the RSS URL is not set (and the project is therefore invalid)" do
-      project.feed_url = nil
-      project.build_status_url.should be_nil
+    it "should return true if next_poll_at is null" do
+      project.needs_poll?.should be_true
     end
   end
 
-  describe "#project_name" do
-                                               it "should return nil when feed_url is nil" do
-                                                 project.feed_url = nil
-                                                 project.project_name.should be_nil
-                                               end
-
-        it "should just use the feed URL" do
-          project.project_name.should == project.feed_url
-        end
-    end
-
-    describe "#needs_poll?" do
-      it "should return true if current time >= next_poll_at" do
-        project.next_poll_at = 5.minutes.ago
-        project.needs_poll?.should be_true
+  describe "#set_next_poll!" do
+    epsilon = 2
+    context "with a project poll interval set" do
+      before do
+        project.polling_interval = 25
       end
 
-      it "should return false when current time < next_poll_at" do
-        project.next_poll_at = 5.minutes.from_now
-        project.needs_poll?.should be_false
-      end
-
-      it "should return true if next_poll_at is null" do
-        project.needs_poll?.should be_true
+      it "should set the next_poll_at to Time.now + the project poll interval" do
+        project.set_next_poll!
+        (project.reload.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
       end
     end
 
-    describe "#set_next_poll!" do
-      epsilon = 2
-      context "with a project poll interval set" do
-        before do
-          project.polling_interval = 25
-        end
-
-        it "should set the next_poll_at to Time.now + the project poll interval" do
-          project.set_next_poll!
-          (project.reload.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
-        end
-      end
-
-      context "without a project poll interval set" do
-        it "should set the next_poll_at to Time.now + the system default interval" do
-          project.set_next_poll!
-          (project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
-        end
+    context "without a project poll interval set" do
+      it "should set the next_poll_at to Time.now + the system default interval" do
+        project.set_next_poll!
+        (project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
       end
     end
-
-    describe "#has_auth?" do
-      it "returns true if either username or password exists" do
-        project.auth_username = "uname"
-        project.has_auth?.should be_true
-
-        project.auth_username = nil
-        project.auth_password = "pwd"
-        project.has_auth?.should be_true
-      end
-
-      it "returns false if both username and password are blank" do
-        project.auth_username = ""
-        project.auth_password = nil
-        project.has_auth?.should be_false
-      end
-    end
-
-    describe "#destroy" do
-      it "should destroy related statuses" do
-        project = projects(:pivots)
-        project.statuses.count.should_not == 0
-        status_id = project.statuses.first.id
-        project.destroy
-        proc { ProjectStatus.find(status_id)}.should raise_exception(ActiveRecord::RecordNotFound)
-      end
-    end
-
-    describe "validation" do
-      it "has a valid Factory" do
-        FactoryGirl.build(:project).should be_valid
-      end
-    end
-
-    describe "#as_json" do
-      subject { Project.new }
-
-      it "should return only public attributes" do
-        subject.as_json['project'].keys.should == ['id', :tag_list]
-      end
-    end
-
   end
+
+  describe "#has_auth?" do
+    it "returns true if either username or password exists" do
+      project.auth_username = "uname"
+      project.has_auth?.should be_true
+
+      project.auth_username = nil
+      project.auth_password = "pwd"
+      project.has_auth?.should be_true
+    end
+
+    it "returns false if both username and password are blank" do
+      project.auth_username = ""
+      project.auth_password = nil
+      project.has_auth?.should be_false
+    end
+  end
+
+  describe "#destroy" do
+    it "should destroy related statuses" do
+      project = projects(:pivots)
+      project.statuses.count.should_not == 0
+      status_id = project.statuses.first.id
+      project.destroy
+      proc { ProjectStatus.find(status_id)}.should raise_exception(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  describe "validation" do
+    it "has a valid Factory" do
+      FactoryGirl.build(:project).should be_valid
+    end
+  end
+
+  describe "#as_json" do
+    subject { Project.new }
+
+    it "should return only public attributes" do
+      subject.as_json['project'].keys.should == ['id', :tag_list]
+    end
+  end
+
 end

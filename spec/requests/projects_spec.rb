@@ -1,7 +1,7 @@
 require "spec_helper"
 
 feature "projects", :js => true do
-  let!(:project) { FactoryGirl.create(:travis_project, account: "pivotal", project: "projectmonitor", tracker_project_id: "123", tracker_auth_token: "garbage") }
+  let!(:project) { FactoryGirl.create(:travis_project, travis_github_account: "pivotal", travis_repository: "projectmonitor") }
 
   before do
     log_in
@@ -9,7 +9,7 @@ feature "projects", :js => true do
     click_link "manage projects"
   end
 
-  scenario "admin creates a project" do
+  scenario "admin creates a Travis project" do
     click_link "Add Project"
 
     select "Travis Project", :from => "Project Type"
@@ -19,11 +19,11 @@ feature "projects", :js => true do
 
     click_button "Create"
 
-    page.should have_content("Account can't be blank")
-    page.should have_content("Project can't be blank")
+    page.should have_content("Travis github account can't be blank")
+    page.should have_content("Travis repository can't be blank")
 
-    fill_in "Account", :with => "pivotal"
-    fill_in "Project", :with => "projectmonitor"
+    fill_in "Travis Github Account", :with => "pivotal"
+    fill_in "Travis Repository", :with => "projectmonitor"
 
     click_button "Create"
 
@@ -38,15 +38,15 @@ feature "projects", :js => true do
     new_account = "pivotal2"
     new_project = "projectmonitor2"
 
-    fill_in "Account", :with => new_account
-    fill_in "Project", :with => new_project
+    fill_in "Travis Github Account", :with => new_account
+    fill_in "Travis Repository", :with => new_project
 
     click_button "Update"
 
     page.should have_content("Project was successfully updated")
 
     project.reload
-    project.account.should == new_account
-    project.project.should == new_project
+    project.travis_github_account.should == new_account
+    project.travis_repository.should == new_project
   end
 end
