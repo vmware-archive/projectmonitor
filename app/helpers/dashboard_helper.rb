@@ -1,7 +1,7 @@
 module DashboardHelper
 
   def build_history(project, tiles_count)
-    build_history = BuildHistory.new(project.recent_online_statuses(status_count_for(tiles_count)))
+    build_history = BuildHistory.new(project.recent_statuses(status_count_for(tiles_count)))
 
     content_tag(:ol) do
       build_history.each_build do |build|
