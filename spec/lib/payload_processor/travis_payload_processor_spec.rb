@@ -15,6 +15,7 @@ describe TravisPayloadProcessor do
       context "when latest build is successful" do
         let(:json) { "success.json" }
         it { should be_green }
+        it { should be_online }
 
         it "doesn't add a duplicate of the existing status" do
           latest_status = subject.latest_status
@@ -27,6 +28,7 @@ describe TravisPayloadProcessor do
       context "when latest build has failed" do
         let(:json) { "failure.json" }
         it { should be_red }
+        it { should be_online }
       end
     end
 
@@ -38,6 +40,7 @@ describe TravisPayloadProcessor do
         payload = TravisExample.new("building.json").read
         TravisPayloadProcessor.new(project,payload).perform
         project.reload.should be_green
+        project.should be_online
         project.statuses.should == statuses
       end
 
@@ -48,6 +51,7 @@ describe TravisPayloadProcessor do
         payload = TravisExample.new("building.json").read
         TravisPayloadProcessor.new(project,payload).perform
         project.reload.should be_red
+        project.should be_online
         project.statuses.should == statuses
       end
     end
@@ -58,8 +62,10 @@ describe TravisPayloadProcessor do
     let(:payload) { example.read }
 
     describe "when build was successful" do
-      let(:json)  { "success.json" }
+      let(:json) { "success.json" }
+
       its(:latest_status) { should be_success }
+
       it "should return the link to the checkin" do
         subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
       end
@@ -75,7 +81,9 @@ describe TravisPayloadProcessor do
 
     describe "when build failed" do
       let(:json) { "failure.json" }
+
       its(:latest_status) { should_not be_success }
+
       it "should return the link to the checkin" do
         subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
       end
@@ -93,7 +101,10 @@ describe TravisPayloadProcessor do
   describe "building status" do
     let(:payload) { TravisExample.new(json).read }
     let(:json) { "building.json" }
+
     it { should be_building }
+    it { should be_online }
+
     it "should set building to false on the project when it is not building" do
       subject.should be_building
       payload = TravisExample.new("failure.json").read
@@ -104,7 +115,10 @@ describe TravisPayloadProcessor do
 
   describe "with invalid json" do
     let(:payload) { "{jdskfld;fd;shg}" }
+
     it { should_not be_building }
+    it { should_not be_online }
+
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)
     end
