@@ -13,7 +13,7 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status
-    status = ProjectStatus.new(:online => false, :success => false)
+    status = ProjectStatus.new(:success => false)
 
     if payload && project_payload = payload.first
       if latest_build = Nokogiri::XML.parse(project_payload.downcase).css('feed entry:first').first
@@ -31,7 +31,7 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status_from_json
-    status = ProjectStatus.new(:online => false, :success => false)
+    status = ProjectStatus.new(:success => false)
     if parse_payload!
       status.build_id = payload["build"]["number"]
       status.published_at = Time.now

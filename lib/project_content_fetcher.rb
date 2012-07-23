@@ -21,8 +21,7 @@ class ProjectContentFetcher
   def fetch_status
     content = UrlRetriever.retrieve_content_at(feed_url, auth_username, auth_password)
   rescue Net::HTTPError => e
-    error = "HTTP Error retrieving status for project '##{project.id}': #{e.message}"
-    project.statuses.create!(error: error, published_at: Time.now, online: false) unless project.status.error == error
+    project.offline!
     nil
   end
 

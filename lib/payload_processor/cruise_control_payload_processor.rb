@@ -12,7 +12,7 @@ class CruiseControlPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status
-    status = ProjectStatus.new(:online => false, :success => false)
+    status = ProjectStatus.new(:success => false)
     if payload && project_payload = payload.first
       document = Nokogiri::XML(project_payload.downcase)
       status.success = !!(find(document, 'title').to_s =~ /success/)

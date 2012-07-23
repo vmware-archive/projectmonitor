@@ -216,7 +216,7 @@ describe AggregateProject do
       red_since = socialitis.red_since
 
       3.times do |i|
-        socialitis.statuses.create!(:success => false, :online => true, :published_at => Time.now + (i+1)*5.minutes )
+        socialitis.statuses.create!(:success => false, :published_at => Time.now + (i+1)*5.minutes )
       end
 
       aggregate_project.projects << socialitis
@@ -244,25 +244,6 @@ describe AggregateProject do
       aggregate_project.projects << @project
       aggregate_project.red_since.should be_nil
     end
-
-    it "should ignore offline statuses" do
-      project = projects(:pivots)
-      project.should be_green
-
-      broken_at = Time.now.utc
-      3.times do
-        project.statuses.create!(:online => false)
-        broken_at += 5.minutes
-      end
-
-      project.statuses.create!(:online => true, :success => false, :published_at => broken_at)
-
-      aggregate_project.projects << project
-
-      ap = AggregateProject.find(aggregate_project.id)
-
-      ap.red_since.to_s(:db).should == broken_at.to_s(:db)
-    end
   end
 
   describe "#red_build_count" do
@@ -271,7 +252,7 @@ describe AggregateProject do
       aggregate_project.projects << project
       aggregate_project.red_build_count.should == 1
 
-      project.statuses.create(:online => true, :success => false)
+      project.statuses.create(:success => false)
       aggregate_project.red_build_count.should == 2
     end
 
@@ -288,26 +269,6 @@ describe AggregateProject do
       aggregate_project.projects << project
       aggregate_project.red_build_count.should == aggregate_project.statuses.count
     end
-
-    it "should return zero for an offline project" do
-      project = projects(:offline)
-      aggregate_project.projects << project
-      aggregate_project.should_not be_online
-
-      aggregate_project.red_build_count.should == 0
-    end
-
-    it "should ignore offline statuses" do
-      project = projects(:never_green)
-      aggregate_project.projects << project
-      old_red_build_count = aggregate_project.red_build_count
-
-      3.times do
-        project.statuses.create(:online => false)
-      end
-      project.statuses.create(:online => true, :success => false)
-      aggregate_project.red_build_count.should == old_red_build_count + 1
-    end
   end
 
   describe "#breaking_build" do
@@ -316,11 +277,11 @@ describe AggregateProject do
         project = projects(:red_currently_building)
         other_project = projects(:socialitis)
 
-        project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
-        status = project.statuses.create(:online => true, :success => false, :published_at => Time.now)
+        project.statuses.create(:success => true, :published_at => 1.day.ago)
+        status = project.statuses.create(:success => false, :published_at => Time.now)
 
-        other_project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
-        bad_status = other_project.statuses.create(:online => true, :success => false, :published_at => nil)
+        other_project.statuses.create(:success => true, :published_at => 1.day.ago)
+        bad_status = other_project.statuses.create(:success => false, :published_at => nil)
         aggregate_project.projects << project
         aggregate_project.projects << other_project
         aggregate_project.breaking_build.should == status
