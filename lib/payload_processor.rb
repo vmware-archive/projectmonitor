@@ -1,4 +1,4 @@
-class ProjectPayloadProcessor
+class PayloadProcessor
   attr_accessor :project, :payload
 
   def initialize(project, payload)

@@ -6,7 +6,7 @@ describe TravisPayload do
   let(:travis_payload) { TravisPayload.new(project).tap{|p| p.status_content = status_content} }
 
   subject do
-    ProjectPayloadProcessor.new(project, travis_payload).process
+    PayloadProcessor.new(project, travis_payload).process
     project.reload
   end
 
@@ -39,11 +39,11 @@ describe TravisPayload do
       it "remains green when existing status is green" do
         content = TravisExample.new("success.json").read
         travis_payload.status_content = content
-        ProjectPayloadProcessor.new(project,travis_payload).process
+        PayloadProcessor.new(project,travis_payload).process
         statuses = project.recent_statuses
         content = TravisExample.new("building.json").read
         travis_payload.status_content = content
-        ProjectPayloadProcessor.new(project,travis_payload).process
+        PayloadProcessor.new(project,travis_payload).process
         project.reload.should be_green
         project.should be_online
         project.recent_statuses.should == statuses
@@ -52,11 +52,11 @@ describe TravisPayload do
       it "remains red when existing status is red" do
         content = TravisExample.new("failure.json").read
         travis_payload.status_content = content
-        ProjectPayloadProcessor.new(project,travis_payload).process
+        PayloadProcessor.new(project,travis_payload).process
         statuses = project.recent_statuses
         content = TravisExample.new("building.json").read
         travis_payload.status_content = content
-        ProjectPayloadProcessor.new(project,travis_payload).process
+        PayloadProcessor.new(project,travis_payload).process
         project.reload.should be_red
         project.should be_online
         project.recent_statuses.should == statuses
@@ -116,7 +116,7 @@ describe TravisPayload do
     it "should set building to false on the project when it is not building" do
       subject.should be_building
       travis_payload.status_content = TravisExample.new("failure.json").read
-      ProjectPayloadProcessor.new(project,travis_payload).process
+      PayloadProcessor.new(project,travis_payload).process
       project.reload.should_not be_building
     end
   end

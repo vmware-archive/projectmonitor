@@ -47,8 +47,8 @@ describe StatusFetcher do
     let(:project) { double(Project) }
 
     it "fetches content" do
-      processor = double(ProjectPayloadProcessor, perform: nil)
-      ProjectPayloadProcessor.stub(new: processor)
+      processor = double(PayloadProcessor, perform: nil)
+      PayloadProcessor.stub(new: processor)
 
       fetcher = double(ProjectContentFetcher)
       ProjectContentFetcher.should_receive(:new).with(project).and_return(fetcher)
@@ -62,8 +62,8 @@ describe StatusFetcher do
       fetcher = double(ProjectContentFetcher, fetch: payload)
       ProjectContentFetcher.stub(new: fetcher)
 
-      processor = double(ProjectPayloadProcessor)
-      ProjectPayloadProcessor.should_receive(:new).with(project, payload).and_return(processor)
+      processor = double(PayloadProcessor)
+      PayloadProcessor.should_receive(:new).with(project, payload).and_return(processor)
       processor.should_receive(:process)
 
       StatusFetcher.retrieve_status_for project

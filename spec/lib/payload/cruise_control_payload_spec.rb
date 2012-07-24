@@ -4,7 +4,7 @@ describe CruiseControlPayload do
   let(:project) { FactoryGirl.create(:cruise_control_project, cruise_control_rss_feed_url: "http://foo.bar.com:3434/projects/Socialitis.rss") }
 
   subject do
-    ProjectPayloadProcessor.new(project, payload).process
+    PayloadProcessor.new(project, payload).process
     project.reload
   end
 
@@ -31,11 +31,11 @@ describe CruiseControlPayload do
       it "remains green when existing status is green" do
         status_content = CCRssExample.new("success.rss").read
         payload.status_content = status_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_green
         project.statuses.should == statuses
       end
@@ -43,11 +43,11 @@ describe CruiseControlPayload do
       it "remains red when existing status is red" do
         status_content = CCRssExample.new("failure.rss").read
         payload.status_content = status_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_red
         project.statuses.should == statuses
       end

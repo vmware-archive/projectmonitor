@@ -5,7 +5,7 @@ describe LegacyTeamCityPayload do
   let(:payload) { LegacyTeamCityPayload.new(project) }
 
   subject do
-    ProjectPayloadProcessor.new(project, payload).process
+    PayloadProcessor.new(project, payload).process
     project.reload
   end
 
@@ -35,11 +35,11 @@ describe LegacyTeamCityPayload do
       it "remains green when existing status is green" do
         status_content = TeamcityCradiatorXmlExample.new("success.xml").read
         payload.status_content = status_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_green
         project.statuses.should == statuses
       end
@@ -47,11 +47,11 @@ describe LegacyTeamCityPayload do
       it "remains red when existing status is red" do
         status_content = TeamcityCradiatorXmlExample.new("failure.xml").read
         payload.status_content = status_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_red
         project.statuses.should == statuses
       end
@@ -104,7 +104,7 @@ describe LegacyTeamCityPayload do
       subject.should be_building
       build_content = BuildingStatusExample.new("team_city_not_building.xml").read
       payload.build_status_content = build_content
-      ProjectPayloadProcessor.new(project,payload).process
+      PayloadProcessor.new(project,payload).process
       project.reload.should_not be_building
     end
   end

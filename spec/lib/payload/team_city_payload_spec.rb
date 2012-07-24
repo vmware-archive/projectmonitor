@@ -5,7 +5,7 @@ describe TeamCityPayload do
   let(:payload) { TeamCityXmlPayload.new(project).tap{|p|p.status_content = content} }
 
   subject do
-    ProjectPayloadProcessor.new(project, payload).process
+    PayloadProcessor.new(project, payload).process
     project.reload
   end
 
@@ -41,7 +41,7 @@ describe TeamCityPayload do
         XML
         payload = TeamCityXmlPayload.new(project)
         payload.status_content = content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         content = <<-XML
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -50,7 +50,7 @@ describe TeamCityPayload do
           </builds>
         XML
         payload.status_content = content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_green
         project.statuses.should == statuses
       end
@@ -64,7 +64,7 @@ describe TeamCityPayload do
         XML
         payload = TeamCityXmlPayload.new(project)
         payload.status_content = content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         statuses = project.statuses
         content = <<-XML
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -74,7 +74,7 @@ describe TeamCityPayload do
         XML
         payload = TeamCityXmlPayload.new(project)
         payload.status_content = content
-        ProjectPayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project,payload).process
         project.reload.should be_red
         project.statuses.should == statuses
       end
