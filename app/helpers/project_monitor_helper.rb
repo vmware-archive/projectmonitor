@@ -1,4 +1,4 @@
-module CiMonitorHelper
+module ProjectMonitorHelper
   def static_status_messages_for(project)
     messages = []
     if project.online?
