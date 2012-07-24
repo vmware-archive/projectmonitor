@@ -32,7 +32,8 @@ describe "TeamCity status updates" do
       project.should have(0).statuses
       project.should_not be_building
 
-      ProjectContentFetcher.any_instance.stub(:fetch).and_return(building_in_progress_after_failure_xml)
+      payload = Payload.for_project(project, :xml).tap{|p| p.status_content = building_in_progress_after_failure_xml}
+      ProjectContentFetcher.any_instance.stub(:fetch).and_return(payload)
       StatusFetcher.retrieve_status_for(project)
       project.reload
 
@@ -40,7 +41,8 @@ describe "TeamCity status updates" do
       project.latest_status.should_not be_success
       project.should be_building
 
-      ProjectContentFetcher.any_instance.stub(:fetch).and_return(success_after_build_in_progress_xml)
+      payload = Payload.for_project(project, :xml).tap{|p| p.status_content = success_after_build_in_progress_xml}
+      ProjectContentFetcher.any_instance.stub(:fetch).and_return(payload)
       StatusFetcher.retrieve_status_for(project)
       project.reload
 
@@ -77,14 +79,16 @@ describe "TeamCity status updates" do
       project.should have(0).statuses
       project.should_not be_building
 
-      ProjectContentFetcher.any_instance.stub(:fetch).and_return(failing_build_in_progress_xml)
+      payload = Payload.for_project(project, :xml).tap{|p| p.status_content = failing_build_in_progress_xml}
+      ProjectContentFetcher.any_instance.stub(:fetch).and_return(payload)
       StatusFetcher.retrieve_status_for(project)
       project.reload
 
       project.should have(1).statuses
       project.should be_building
 
-      ProjectContentFetcher.any_instance.stub(:fetch).and_return(failed_build)
+      payload = Payload.for_project(project, :xml).tap{|p| p.status_content = failed_build}
+      ProjectContentFetcher.any_instance.stub(:fetch).and_return(payload)
       StatusFetcher.retrieve_status_for(project)
       project.reload
 

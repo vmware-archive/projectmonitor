@@ -58,13 +58,13 @@ describe StatusFetcher do
     end
 
     it "processes content" do
-      payload = double("foo")
+      payload = double("foo", status_is_processable?: true)
       fetcher = double(ProjectContentFetcher, fetch: payload)
       ProjectContentFetcher.stub(new: fetcher)
 
       processor = double(ProjectPayloadProcessor)
       ProjectPayloadProcessor.should_receive(:new).with(project, payload).and_return(processor)
-      processor.should_receive(:perform)
+      processor.should_receive(:process)
 
       StatusFetcher.retrieve_status_for project
     end

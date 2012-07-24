@@ -15,8 +15,12 @@ class TravisProject < Project
     travis_github_account
   end
 
-  def processor
-    TravisPayloadProcessor
+  def payload
+    TravisPayload
+  end
+
+  def payload_fetch_format
+    :json
   end
 
 end
