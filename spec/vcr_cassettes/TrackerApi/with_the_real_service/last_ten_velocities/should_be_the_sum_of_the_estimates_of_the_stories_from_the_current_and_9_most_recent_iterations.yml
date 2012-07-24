@@ -82,7 +82,7 @@ http_interactions:
         jx7Szx0++s6xcJZxVQ077G190r0HMy5Mut+Y/wC8MOlYYwUAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:07 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:07 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -169,7 +169,7 @@ http_interactions:
         ZuZmVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:07 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:07 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -256,7 +256,7 @@ http_interactions:
         x255VQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:08 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:08 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -343,7 +343,7 @@ http_interactions:
         4X5hVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:09 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:09 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -430,7 +430,7 @@ http_interactions:
         T4ixWu9VAgAA
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:09 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:09 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -517,7 +517,7 @@ http_interactions:
         ZkzTjFUCAAA=
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:10 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:10 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -604,7 +604,7 @@ http_interactions:
         XAYzVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:11 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:11 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/590337
@@ -687,7 +687,7 @@ http_interactions:
         MZrOQ3r0kH7q8NF3ioWzjJtqWGFv6xPvPZhxX9J5Yf4F+R41YmIFAAA=
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:11 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:11 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/iterations/done
@@ -770,7 +770,7 @@ http_interactions:
         1RLI8TIPFmTlZYbF6FzDwgY6eVjAanLcVtv9YBtSD6TfX2TRrszWEgAA
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:12 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:12 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/iterations/current
@@ -844,7 +844,7 @@ http_interactions:
         XsAVVt/R66U9Ez7PkoZIZw1sWElfJ0xz3kKC/9uKMG+EAQAA
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:12 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:12 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories
@@ -924,7 +924,7 @@ http_interactions:
         uzjFfZRI3nQfYXH1ujo7Ftz4bycHfwE3WAueDQ4AAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:13 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:13 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943813
@@ -1001,7 +1001,7 @@ http_interactions:
         T4ixWu9VAgAA
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:13 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:13 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943819
@@ -1078,7 +1078,7 @@ http_interactions:
         ZkzTjFUCAAA=
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:14 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:14 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943821
@@ -1155,7 +1155,7 @@ http_interactions:
         XAYzVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:14 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:14 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943805
@@ -1232,7 +1232,7 @@ http_interactions:
         x255VQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:15 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:15 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943809
@@ -1309,7 +1309,7 @@ http_interactions:
         4X5hVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:15 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:15 GMT
 - request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/590337/stories/32943803
@@ -1386,5 +1386,5 @@ http_interactions:
         ZuZmVQIAAA==
     http_version: !binary |-
       MS4x
-  recorded_at: Tue, 17 Jul 2012 21:11:16 GMT
+  recorded_at: Tue, 24 Jul 2012 21:11:16 GMT
 recorded_with: VCR 2.2.2
