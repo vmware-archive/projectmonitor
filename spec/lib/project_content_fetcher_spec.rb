@@ -4,6 +4,7 @@ describe ProjectContentFetcher do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
   let(:project_content_fetcher) { ProjectContentFetcher.new(project) }
   subject { project_content_fetcher.fetch }
+
   describe "#fetch" do
     context "when the project only has a feed_url" do
       before do
@@ -24,7 +25,7 @@ describe ProjectContentFetcher do
         let(:message) { "error" }
         it "adds an error status" do
           UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new(message, 500)
-          project.statuses.should_receive(:create!)
+          project.should_receive(:offline!)
           subject
         end
       end
@@ -43,19 +44,7 @@ describe ProjectContentFetcher do
           end
 
           it "creates a status with the error message" do
-            project.statuses.should_receive(:create!)
-            StatusFetcher.retrieve_status_for(project)
-            subject
-          end
-        end
-
-        context "a status exists with the error that is returned" do
-          before do
-            project_status.stub(:error).and_return "HTTP Error retrieving status for project '##{project.id}': can't do it"
-          end
-
-          it "does not create a duplicate status" do
-            project.statuses.should_not_receive(:create)
+            project.should_receive(:offline!)
             StatusFetcher.retrieve_status_for(project)
             subject
           end
@@ -79,12 +68,6 @@ describe ProjectContentFetcher do
       it "retrieves content using the build_status_url" do
         project_content_fetcher.should_receive :fetch_building_status
         subject
-      end
-
-      it "combines the content from both urls" do
-        project_content_fetcher.stub(:fetch_status) { 1 }
-        project_content_fetcher.stub(:fetch_building_status) { 2 }
-        subject.should == [1,2]
       end
 
       describe "#retrieve_status_for" do
