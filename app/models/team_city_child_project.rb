@@ -20,8 +20,12 @@ class TeamCityChildProject
     [live_status_hash[:published_at], *children.map(&:last_build_time)].max
   end
 
-  def processor
-    TeamCityPayloadProcessor
+  def payload
+    TeamCityPayload
+  end
+
+  def payload_fetch_format
+    :xml
   end
 
   def live_status_hash
@@ -29,6 +33,7 @@ class TeamCityChildProject
   end
 
   private
+
   def live_status_hashes
     live_builds.reject { |status|
       status[:status] == 'UNKNOWN' || (status[:running] && status[:status] == 'SUCCESS')

@@ -29,5 +29,4 @@ class JenkinsProject < Project
   def payload_fetch_format
     :xml
   end
-
 end

@@ -22,8 +22,11 @@ class CruiseControlProject < Project
     end.join
   end
 
-  def processor
-    CruiseControlPayloadProcessor
+  def payload
+    CruiseControlPayload
   end
 
+  def payload_fetch_format
+    :xml
+  end
 end

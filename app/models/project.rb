@@ -149,8 +149,8 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement build_url_from_fields in subclasses"
   end
 
-  def processor
-    raise NotImplementedError, "Must implement processor in subclasses"
+  def payload
+    raise NotImplementedError, "Must implement payload in subclasses"
   end
 
   def to_partial_path
