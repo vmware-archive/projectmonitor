@@ -1,44 +1,40 @@
 class ProjectStatus < ActiveRecord::Base
   SUCCESS = 'success'
   FAILURE = 'failure'
-  OFFLINE = 'offline'
 
   belongs_to :project
 
-  scope :online, lambda{ |projects, limit|
-    where(:project_id => Array(projects).map(&:id), :online => true)
-      .where('published_at is NOT NULL')
-      .reverse_chronological
-      .limit(limit)
-  }
+  validates :success, inclusion: { in: [true, false] }
+  validates :build_id, presence: true
 
-  scope :reverse_chronological, order('published_at DESC')
+  def self.recent(projects, limit)
+    where(project_id: Array(projects).map(&:id)).
+      where('build_id IS NOT NULL').
+      reverse_chronological.
+      limit(limit)
+  end
 
-  def match?(status)
-    if online?
-      all_attributes_match?(status)
-    else
-      !status.online?
-    end
+  def self.reverse_chronological
+    order('build_id DESC')
+  end
+
+  def self.latest
+    reverse_chronological.first
+  end
+
+  def self.green
+    where(success: true)
+  end
+
+  def self.red
+    where(success: false)
   end
 
   def in_words
-    if online?
-      if success?
-        SUCCESS
-      else
-        FAILURE
-      end
+    if success?
+      SUCCESS
     else
-      OFFLINE
-    end
-  end
-
-  private
-
-  def all_attributes_match?(other)
-    [:online, :success, :published_at, :url].all? do |attribute|
-      other.send(attribute) == self.send(attribute)
+      FAILURE
     end
   end
 end

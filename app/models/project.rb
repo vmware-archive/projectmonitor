@@ -1,8 +1,8 @@
 class Project < ActiveRecord::Base
-  RECENT_STATUS_COUNT = 10
+  RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
 
-  has_many :statuses, :class_name => "ProjectStatus", :order => "id DESC", :limit => RECENT_STATUS_COUNT, :dependent => :destroy
+  has_many :statuses, :class_name => "ProjectStatus", :dependent => :destroy
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
   after_create :fetch_statuses
 
   attr_accessible :aggregate_project_id,
-    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
+    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
     :auth_password, :auth_username,
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
@@ -44,23 +44,39 @@ class Project < ActiveRecord::Base
   end
 
   def latest_status
-    statuses.except(:order).reverse_chronological.limit(1).first
+    statuses.latest
+  end
+
+  def recent_statuses(count = RECENT_STATUS_COUNT)
+    ProjectStatus.recent(self, count)
   end
 
   def status
     latest_status || ProjectStatus.new
   end
 
-  def online?
-    status.online?
-  end
-
   def green?
-    status.online? && status.success?
+    online? && status.success?
   end
 
   def red?
-    status.online? && !status.success?
+    online? && !status.success?
+  end
+
+  def offline!
+    update_attributes!(online: false) if online?
+  end
+
+  def online!
+    update_attributes!(online: true) unless online?
+  end
+
+  def building!
+    update_attributes!(building: true) unless building?
+  end
+
+  def not_building!
+    update_attributes!(building: false) if building?
   end
 
   def red_since
@@ -69,7 +85,7 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.count(:conditions => ["online = ? AND id >= ?", true, breaking_build.id])
+    statuses.count(:conditions => ["id >= ?", breaking_build.id])
   end
 
   def feed_url
@@ -86,10 +102,6 @@ class Project < ActiveRecord::Base
 
   def to_s
     name
-  end
-
-  def recent_online_statuses(count = RECENT_STATUS_COUNT)
-    ProjectStatus.online(self, count)
   end
 
   def set_next_poll!
@@ -110,14 +122,14 @@ class Project < ActiveRecord::Base
   end
 
   def last_green
-    @last_green ||= statuses.where(:success => true).first
+    @last_green ||= recent_statuses.green.first
   end
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      statuses.where(:online => true, :success => false).last
+      recent_statuses.red.last
     else
-      statuses.find(:last, :conditions => ["online = ? AND success = ? AND id > ?", true, false, last_green.id])
+      recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
     end
   end
 
@@ -145,7 +157,11 @@ class Project < ActiveRecord::Base
     "dashboards/project"
   end
 
-private
+  def has_status?(status)
+    statuses.where(build_id: status.build_id).any?
+  end
+
+  private
 
   def self.project_attribute_prefix
     name.match(/(.*)Project/)[1].underscore

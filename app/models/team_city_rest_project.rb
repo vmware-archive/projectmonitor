@@ -16,7 +16,11 @@ class TeamCityRestProject < Project
     feed_url
   end
 
-  def processor
-    TeamCityPayloadProcessor
+  def payload
+    TeamCityPayload
+  end
+
+  def payload_fetch_format
+    :xml
   end
 end

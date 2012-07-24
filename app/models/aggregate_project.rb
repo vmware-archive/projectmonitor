@@ -44,15 +44,15 @@ class AggregateProject < ActiveRecord::Base
   alias_method :latest_status, :status
 
   def statuses
-    projects.map(&:latest_status).reject(&:nil?).sort_by(&:id)
+    projects.map(&:latest_status).reject(&:nil?).sort_by(&:build_id)
   end
 
   def building?
     projects.any?(&:building?)
   end
 
-  def recent_online_statuses(count = Project::RECENT_STATUS_COUNT)
-    ProjectStatus.online(projects, count)
+  def recent_statuses(count = Project::RECENT_STATUS_COUNT)
+    ProjectStatus.recent(projects, count)
   end
 
   def red_since
@@ -69,21 +69,21 @@ class AggregateProject < ActiveRecord::Base
 
   def breaking_build
     return statuses.first if never_been_green?
-    reds = projects.collect do |p|
+    red_statuses = projects.collect do |p|
       last_green = p.last_green
       if last_green
-        p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at IS NOT NULL AND id > ?", true, false, last_green.id])
+        p.breaking_build
       else
         p.statuses.first
       end
     end
-    reds.compact.sort_by(&:published_at).first
+    red_statuses.compact.reject{|status| status.published_at.nil? }.sort_by(&:published_at).first
   end
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
-    red_project.statuses.count(:conditions => ["online = ? AND id >= ?", true, red_project.breaking_build.id])
+    red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
   end
 
   def self.all_with_tags(tags)
