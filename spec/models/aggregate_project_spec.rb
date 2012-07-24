@@ -211,12 +211,12 @@ describe AggregateProject do
   describe "#red_since" do
     let(:aggregate_project) { aggregate_projects(:empty_aggregate) }
 
-    it "should return #published_at for the red status after the most recent green status" do
+    it "returns #published_at for the red status after the most recent green status" do
       socialitis = projects(:socialitis)
       red_since = socialitis.red_since
 
       3.times do |i|
-        socialitis.statuses.create!(:success => false, :published_at => Time.now + (i+1)*5.minutes )
+        socialitis.statuses.create!(success: false, build_id: i, published_at: Time.now + (i+1)*5.minutes )
       end
 
       aggregate_project.projects << socialitis
@@ -252,7 +252,7 @@ describe AggregateProject do
       aggregate_project.projects << project
       aggregate_project.red_build_count.should == 1
 
-      project.statuses.create(:success => false)
+      project.statuses.create(success: false, build_id: 100)
       aggregate_project.red_build_count.should == 2
     end
 
@@ -277,11 +277,11 @@ describe AggregateProject do
         project = projects(:red_currently_building)
         other_project = projects(:socialitis)
 
-        project.statuses.create(:success => true, :published_at => 1.day.ago)
-        status = project.statuses.create(:success => false, :published_at => Time.now)
+        project.statuses.create(success: true, published_at: 1.day.ago, build_id: 100)
+        status = project.statuses.create(success: false, published_at: Time.now, build_id: 102)
 
-        other_project.statuses.create(:success => true, :published_at => 1.day.ago)
-        bad_status = other_project.statuses.create(:success => false, :published_at => nil)
+        other_project.statuses.create(success: true, published_at: 1.day.ago, build_id: 101)
+        bad_status = other_project.statuses.create(success: false, published_at: nil, build_id: 99)
         aggregate_project.projects << project
         aggregate_project.projects << other_project
         aggregate_project.breaking_build.should == status
@@ -293,8 +293,8 @@ describe AggregateProject do
       let(:once_been_green_project) { projects(:socialitis) }
 
       before do
-        once_been_green_project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
-        @earliest_red_build_status = never_been_green_project.statuses.create(:online => true, :success => false, :published_at => 2.days.ago)
+        once_been_green_project.statuses.create(success: true, published_at: 1.day.ago, build_id: 101)
+        @earliest_red_build_status = never_been_green_project.statuses.create(success: false, published_at: 2.days.ago, build_id: 100)
 
         aggregate_project.projects << never_been_green_project
         aggregate_project.projects << once_been_green_project

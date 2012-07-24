@@ -8,15 +8,15 @@
   </author>
   <id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id>
   <entry>
-    <title>40withegg #1 (FAILURE)</title>
-    <link type="text/html" rel="alternate" href="http://localhost:8080/job/40withegg/1/"></link>
+    <title>40withegg #4 (FAILURE)</title>
+    <link type="text/html" rel="alternate" href="http://localhost:8080/job/40withegg/4/"></link>
     <id>tag:jenkins.dev.java.net,2009:40withegg:2009-12-16_20-14-07</id>
     <published>2009-12-18T04:14:07Z</published>
     <updated>2009-12-18T04:14:07Z</updated>
   </entry>
   <entry>
-    <title>40withegg #4 (SUCCESS)</title>
-    <link type="text/html" rel="alternate" href="http://localhost:8080/job/40withegg/4/"></link>
+    <title>40withegg #1 (SUCCESS)</title>
+    <link type="text/html" rel="alternate" href="http://localhost:8080/job/40withegg/1/"></link>
     <id>tag:jenkins.dev.java.net,2009:40withegg:2009-12-16_20-48-24</id>
     <published>2009-12-17T04:48:24Z</published>
     <updated>2009-12-17T04:48:24Z</updated>

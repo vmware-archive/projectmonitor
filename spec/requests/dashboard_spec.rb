@@ -89,7 +89,7 @@ feature "dashboard" do
   end
 
   context "the build RSS feed" do
-    let!(:project) { FactoryGirl.create(:project, code: "MyCode", statuses: [ProjectStatus.new]) }
+    let!(:project) { FactoryGirl.create(:project, code: "MyCode", statuses: [ProjectStatus.new(build_id: 1)]) }
     before { visit '/builds.rss' }
 
     scenario "user sees an RSS feed of current builds statuses" do
