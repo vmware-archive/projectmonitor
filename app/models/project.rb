@@ -80,6 +80,10 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement build_status_url in subclasses"
   end
 
+  def self.project_specific_attributes
+    columns.map(&:name).grep(/#{project_attribute_prefix}_/)
+  end
+
   def to_s
     name
   end
@@ -129,10 +133,6 @@ class Project < ActiveRecord::Base
     super(:only => :id, :methods => :tag_list)
   end
 
-  def self.feed_url_fields
-    raise NotImplementedError, "Must implement feed_url_fields in subclasses"
-  end
-
   def self.build_url_from_fields(params)
     raise NotImplementedError, "Must implement build_url_from_fields in subclasses"
   end
@@ -145,9 +145,14 @@ class Project < ActiveRecord::Base
     "dashboards/project"
   end
 
-  private
+private
+
+  def self.project_attribute_prefix
+    name.match(/(.*)Project/)[1].underscore
+  end
 
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 1)
   end
+
 end

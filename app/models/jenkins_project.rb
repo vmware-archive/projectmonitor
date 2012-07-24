@@ -4,10 +4,6 @@ class JenkinsProject < Project
   validates  :jenkins_base_url, :jenkins_build_name, presence: true
   validates :jenkins_base_url, presence: true, format: {with: /\Ahttps?:/i, message: "must begin with http or https"}
 
-  def self.feed_url_fields
-    ["Jenkins Base URL","Jenkins Build Name"]
-  end
-
   def feed_url
     "#{jenkins_base_url}/job/#{jenkins_build_name}/rssAll"
   end

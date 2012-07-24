@@ -4,8 +4,8 @@ class TeamCityProject < Project
   validates :team_city_base_url, presence: true
   validates :team_city_build_id, presence: true, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}
 
-  def self.feed_url_fields
-    ["Teamcity Base URL","Teamcity Build ID"]
+  def self.project_specific_attributes
+    ['team_city_base_url', 'team_city_build_id']
   end
 
   def feed_url
@@ -23,4 +23,5 @@ class TeamCityProject < Project
   def project_name
     feed_url
   end
+
 end
