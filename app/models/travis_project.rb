@@ -22,5 +22,4 @@ class TravisProject < Project
   def payload_fetch_format
     :json
   end
-
 end

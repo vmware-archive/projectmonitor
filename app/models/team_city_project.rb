@@ -16,12 +16,15 @@ class TeamCityProject < Project
     feed_url
   end
 
-  def processor
-    LegacyTeamCityPayloadProcessor
-  end
-
   def project_name
     feed_url
   end
 
+  def payload
+    LegacyTeamCityPayload
+  end
+
+  def payload_fetch_format
+    :xml
+  end
 end
