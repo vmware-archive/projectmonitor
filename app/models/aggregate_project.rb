@@ -44,7 +44,7 @@ class AggregateProject < ActiveRecord::Base
   alias_method :latest_status, :status
 
   def statuses
-    projects.map(&:latest_status).reject(&:nil?).sort_by(&:id)
+    projects.map(&:latest_status).reject(&:nil?).sort_by(&:build_id)
   end
 
   def building?
@@ -69,15 +69,15 @@ class AggregateProject < ActiveRecord::Base
 
   def breaking_build
     return statuses.first if never_been_green?
-    reds = projects.collect do |p|
+    red_statuses = projects.collect do |p|
       last_green = p.last_green
       if last_green
-        p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at IS NOT NULL AND id > ?", true, false, last_green.id])
+        p.breaking_build
       else
         p.statuses.first
       end
     end
-    reds.compact.sort_by(&:published_at).first
+    red_statuses.compact.reject{|status| status.published_at.nil? }.sort_by(&:published_at).first
   end
 
   def red_build_count

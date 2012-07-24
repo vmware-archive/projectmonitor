@@ -4,17 +4,30 @@ class ProjectStatus < ActiveRecord::Base
 
   belongs_to :project
 
-  scope :recent, lambda{ |projects, limit|
-    where(:project_id => Array(projects).map(&:id))
-    .where('published_at is NOT NULL')
-    .reverse_chronological
-    .limit(limit)
-  }
+  validates :success, inclusion: { in: [true, false] }
+  validates :build_id, presence: true
 
-  scope :reverse_chronological, order('published_at DESC')
+  def self.recent(projects, limit)
+    where(project_id: Array(projects).map(&:id)).
+      where('build_id IS NOT NULL').
+      reverse_chronological.
+      limit(limit)
+  end
 
-  def match?(status)
-    all_attributes_match?(status)
+  def self.reverse_chronological
+    order('build_id DESC')
+  end
+
+  def self.latest
+    reverse_chronological.first
+  end
+
+  def self.green
+    where(success: true)
+  end
+
+  def self.red
+    where(success: false)
   end
 
   def in_words
@@ -22,14 +35,6 @@ class ProjectStatus < ActiveRecord::Base
       SUCCESS
     else
       FAILURE
-    end
-  end
-
-  private
-
-  def all_attributes_match?(other)
-    [:success, :published_at, :url].all? do |attribute|
-      other.send(attribute) == self.send(attribute)
     end
   end
 end
