@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CiMonitorHelper do
+describe ProjectMonitorHelper do
   before do
     @status = stub(ProjectStatus, :published_at => publish_time)
     @project = stub(Project, :status => @status)
