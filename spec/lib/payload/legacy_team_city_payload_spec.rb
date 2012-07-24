@@ -1,15 +1,17 @@
 require 'spec_helper'
-describe LegacyTeamCityPayloadProcessor do
+describe LegacyTeamCityPayload do
   let(:project) { FactoryGirl.create(:team_city_project) }
-  let(:payload) { TeamcityCradiatorXmlExample.new(xml).read }
+  let(:content) { TeamcityCradiatorXmlExample.new(xml).read }
+  let(:payload) { LegacyTeamCityPayload.new(project) }
 
   subject do
-    ProjectPayloadProcessor.new(project, payload).perform
+    ProjectPayloadProcessor.new(project, payload).process
     project.reload
   end
 
   describe "project status" do
     context "when not currently building" do
+      before { payload.status_content = content }
 
       context "when latest build is successful" do
         let(:xml) { "success.xml" }
@@ -31,21 +33,25 @@ describe LegacyTeamCityPayloadProcessor do
 
     context "when building" do
       it "remains green when existing status is green" do
-        payload = TeamcityCradiatorXmlExample.new("success.xml").read
-        LegacyTeamCityPayloadProcessor.new(project,payload).perform
+        status_content = TeamcityCradiatorXmlExample.new("success.xml").read
+        payload.status_content = status_content
+        ProjectPayloadProcessor.new(project,payload).process
         statuses = project.statuses
-        payload = BuildingStatusExample.new("team_city_building.xml").read
-        LegacyTeamCityPayloadProcessor.new(project,payload).perform
+        build_content = BuildingStatusExample.new("team_city_building.xml").read
+        payload.build_status_content = build_content
+        ProjectPayloadProcessor.new(project,payload).process
         project.reload.should be_green
         project.statuses.should == statuses
       end
 
       it "remains red when existing status is red" do
-        payload = TeamcityCradiatorXmlExample.new("failure.xml").read
-        LegacyTeamCityPayloadProcessor.new(project,payload).perform
+        status_content = TeamcityCradiatorXmlExample.new("failure.xml").read
+        payload.status_content = status_content
+        ProjectPayloadProcessor.new(project,payload).process
         statuses = project.statuses
-        payload = BuildingStatusExample.new("team_city_building.xml").read
-        LegacyTeamCityPayloadProcessor.new(project,payload).perform
+        build_content = BuildingStatusExample.new("team_city_building.xml").read
+        payload.build_status_content = build_content
+        ProjectPayloadProcessor.new(project,payload).process
         project.reload.should be_red
         project.statuses.should == statuses
       end
@@ -54,11 +60,15 @@ describe LegacyTeamCityPayloadProcessor do
 
   describe "saving data" do
     let(:example) { TeamcityCradiatorXmlExample.new(xml) }
-    let(:payload) { example.read }
+    let(:content) { example.read }
+
+    before { payload.status_content = content }
 
     describe "when build was successful" do
       let(:xml)  { "success.xml" }
+
       its(:latest_status) { should be_success }
+
       it "should return the link to the checkin" do
         subject.latest_status.url.should == example.first_css("Build").attribute("webUrl").value
       end
@@ -70,7 +80,9 @@ describe LegacyTeamCityPayloadProcessor do
 
     describe "when build failed" do
       let(:xml) { "failure.xml" }
+
       its(:latest_status) { should_not be_success }
+
       it "should return the link to the checkin" do
         subject.latest_status.url.should == example.first_css("Build").attribute('webUrl').value
       end
@@ -82,20 +94,27 @@ describe LegacyTeamCityPayloadProcessor do
   end
 
   describe "building status" do
-    let(:payload) { BuildingStatusExample.new(xml).read }
+    let(:build_content) { BuildingStatusExample.new(xml).read }
     let(:xml) { "team_city_building.xml" }
+    before { payload.build_status_content = build_content }
+
     it { should be_building }
+
     it "should set building to false on the project when it is not building" do
       subject.should be_building
-      payload = BuildingStatusExample.new("team_city_not_building.xml").read
-      LegacyTeamCityPayloadProcessor.new(project,payload).perform
+      build_content = BuildingStatusExample.new("team_city_not_building.xml").read
+      payload.build_status_content = build_content
+      ProjectPayloadProcessor.new(project,payload).process
       project.reload.should_not be_building
     end
   end
 
   describe "with invalid xml" do
-    let(:payload) { "<foo><bar>baz</bar></foo>" }
+    let(:content) { "<foo><bar>baz</bar></foo>" }
+    before { payload.status_content = content }
+
     it { should_not be_building }
+
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)
     end

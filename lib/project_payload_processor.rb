@@ -6,47 +6,37 @@ class ProjectPayloadProcessor
     self.payload = payload
   end
 
-  def fetch_new_statuses
-    parsed_status = if detect_json?
-      parse_project_status_from_json
-    else
-      parse_project_status
-    end
-    if parsed_status
-      unless project.status.match?(parsed_status)
-        project.statuses.create!(parsed_status.attributes)
-        project.online!
-      end
-    end
-  end
-
-  def fetch_building_status
-    building_status = if detect_json?
-      parse_building_status_from_json
-    else
-      parse_building_status
-    end
-    project.update_attribute(:building, building_status)
-  end
-
-  def perform
-    project.processor.new(project, payload).process
-  end
-
-  def detect_json?
-    false
-  end
-
   def process
-    fetch_new_statuses
-    fetch_building_status
+    create_statuses
+    update_building_status
   end
 
-  def parse_project_status
-    raise NotImplementedError
+  private
+
+  def create_statuses
+    return unless payload.status_is_processable?
+
+    project.online!
+    statuses_from_payloads.each do |status|
+      project.statuses.create!(status.attributes) unless project.has_status?(status)
+    end
   end
 
-  def parse_building_status
-    raise NotImplementedError
+  def update_building_status
+    return unless payload.build_status_is_processable?
+    project.update_attributes!(building: payload.building?)
+  end
+
+  def statuses_from_payloads
+    payload.each_status do |payload_status|
+      status = ProjectStatus.new
+      status.success = payload_status.success
+      status.url = payload_status.url
+      status.build_id = payload_status.build_id
+      status.published_at = payload_status.published_at
+      next unless status.valid?
+
+      status
+    end.compact
   end
 end
