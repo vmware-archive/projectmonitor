@@ -468,4 +468,45 @@ describe Project do
     end
   end
 
+  describe '.project_specific_attributes' do
+    subject { project_class.project_specific_attributes }
+
+    context "when a CruiseControlProject" do
+      let(:project_class) { CruiseControlProject }
+
+      it { should =~ ['cruise_control_rss_feed_url'] }
+    end
+
+    context "when a JenkinsProject" do
+      let(:project_class) { JenkinsProject }
+
+      it { should =~ ['jenkins_base_url', 'jenkins_build_name'] }
+    end
+
+    context "when a TeamCityProject" do
+      let(:project_class) { TeamCityProject }
+
+      it { should =~ ['team_city_base_url', 'team_city_build_id'] }
+    end
+
+    context "when a TeamCityRestProject" do
+      let(:project_class) { TeamCityRestProject }
+
+      it { should =~ ['team_city_rest_base_url', 'team_city_rest_build_type_id'] }
+    end
+
+    context "when a TeamCityChainedProject" do
+      let(:project_class) { TeamCityChainedProject }
+
+      it { should =~ ['team_city_rest_base_url', 'team_city_rest_build_type_id'] }
+    end
+
+    context "when a TravisProject" do
+      let(:project_class) { TravisProject }
+
+      it { should =~ ['travis_github_account', 'travis_repository'] }
+    end
+
+  end
+
 end

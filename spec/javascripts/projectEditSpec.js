@@ -171,30 +171,39 @@ describe("project edit", function() {
 
   describe("Feed URL fields", function() {
     beforeEach(function() {
-      setFixtures("<select id='project_type'>" +
-                  "<option value=''></option>" +
-                  "<option value='foo' data-feed-url-fields='url,name'>Foo</option>" +
-                  "<option value='bar' data-feed-url-fields='Baz'>Bar</option>" +
-                  "</select>" +
-                  "<div id='field_container'></div>");
-      expect($('#feed_url_url')).not.toExist();
-      expect($('#feed_url_name')).not.toExist();
+      setFixtures('' +
+        '<select id="project_type" name="project[type]"><option value=""></option>' +
+        '  <option value="CruiseControlProject">Cruise Control Project</option>' +
+        '  <option value="JenkinsProject">Jenkins Project</option>' +
+        '</select>' +
+        '<div id="field_container">' +
+        '  <fieldset id="CruiseControlProject">' +
+        '    <p>' +
+        '      <label for="project_cruise_control_rss_feed_url">Rss Feed Url</label>' +
+        '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
+        '    </p>' +
+        '  </fieldset>' +
+        '  <fieldset class="hide" id="JenkinsProject">' +
+        '    <p>' +
+        '      <label for="project_jenkins_base_url">Base URL</label>' +
+        '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
+        '    </p>' +
+        '  </fieldset>' +
+        '</div>');
       ProjectEdit.init();
-      $('#project_type').val('foo');
+      $('#project_type').val('JenkinsProject');
       $('#project_type').change();
     });
 
-    it("renders the fields passed in data-feed-url-fields when selected", function() {
-      expect($('#field_container #feed_url_url')).toExist();
-      expect($('#feed_url_name')).toExist();
+    it("makes the Jenkins project fieldset visible", function() {
+      expect($('fieldset#JenkinsProject')).toExist();
+      expect($('fieldset#JenkinsProject').hasClass('hide')).toBeFalsy();
+      expect($('#project_jenkins_base_url').attr('disabled')).toBeFalsy();
     });
 
-    it("clears the old fields and renders the new fields on change", function() {
-      $('#project_type').val('bar');
-      $('#project_type').change();
-      expect($('#field_container #feed_url_url')).not.toExist();
-      expect($('#feed_url_name')).not.toExist();
-      expect($('#feed_url_Baz')).toExist();
+    it("makes the Cruise Control project fieldset invisible", function() {
+      expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
+      expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
     });
   });
 });

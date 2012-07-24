@@ -4,10 +4,6 @@ class TeamCityRestProject < Project
   validates :team_city_rest_base_url, presence: true
   validates :team_city_rest_build_type_id, presence: true, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}
 
-  def self.feed_url_fields
-    ["Teamcity Rest Base URL", "Teamcity Rest Build Type ID"]
-  end
-
   def build_status_url
     feed_url
   end

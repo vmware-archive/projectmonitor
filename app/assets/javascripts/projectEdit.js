@@ -56,17 +56,14 @@ var ProjectEdit = {};
 
   o.validateFeedUrl = function () {
     var container = $('#field_container');
-    container.empty();
-    fields = $('option[value=' + $(this).val() + ']').data('feed-url-fields');
-    if(fields) {
-      fields = fields.split(',');
-      $(fields).each(function(field){
-        var name = fields[field];
-        var label = '<p><label for="feed_url_' + name + '">' + name + '</label>';
-        var input = '<input size="40" name="feed_url[' + name + ']" id="feed_url_' + name + '"></p>';
-        container.append($(label + input));
-      });
-    }
+
+    var $disabled_fieldsets = $('fieldset:not(#' + $(this).val() + ')', container);
+    $disabled_fieldsets.addClass('hide');
+    $(':input', $disabled_fieldsets).attr('disabled', true);
+
+    var $enabled_fieldset = $('#' + $(this).val());
+    $enabled_fieldset.removeClass('hide');
+    $(':input', $enabled_fieldset).attr('disabled', false);
   };
 
   o.init = function () {

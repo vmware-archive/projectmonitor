@@ -3,10 +3,6 @@ class TravisProject < Project
   attr_accessible :travis_github_account, :travis_repository
   validates :travis_github_account, :travis_repository, :presence => true
 
-  def self.feed_url_fields
-    ["Travis Github Account", "Travis Repository"]
-  end
-
   def feed_url
     "http://travis-ci.org/#{travis_github_account}/#{travis_repository}/builds.json"
   end
