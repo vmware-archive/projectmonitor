@@ -326,6 +326,23 @@ describe AggregateProject do
         aggregate_project.breaking_build.should == status
       end
     end
+
+    context "when one of the projects has never been green" do
+      let(:never_been_green_project) { projects(:red_currently_building) }
+      let(:once_been_green_project) { projects(:socialitis) }
+
+      before do
+        once_been_green_project.statuses.create(:online => true, :success => true, :published_at => 1.day.ago)
+        @earliest_red_build_status = never_been_green_project.statuses.create(:online => true, :success => false, :published_at => 2.days.ago)
+
+        aggregate_project.projects << never_been_green_project
+        aggregate_project.projects << once_been_green_project
+      end
+
+      it "should return the earliest red build status" do
+        aggregate_project.breaking_build.should == @earliest_red_build_status
+      end
+    end
   end
 
 

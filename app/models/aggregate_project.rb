@@ -69,9 +69,13 @@ class AggregateProject < ActiveRecord::Base
 
   def breaking_build
     return statuses.first if never_been_green?
-    reds = []
-    projects.each do |p|
-      reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at IS NOT NULL AND id > ?", true, false, p.last_green.id])
+    reds = projects.collect do |p|
+      last_green = p.last_green
+      if last_green
+        p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at IS NOT NULL AND id > ?", true, false, last_green.id])
+      else
+        p.statuses.first
+      end
     end
     reds.compact.sort_by(&:published_at).first
   end
