@@ -22,8 +22,12 @@ class JenkinsProject < Project
     end.join
   end
 
-  def processor
-    JenkinsPayloadProcessor
+  def payload
+    JenkinsPayload
+  end
+
+  def payload_fetch_format
+    :xml
   end
 
 end

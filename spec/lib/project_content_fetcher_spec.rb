@@ -4,6 +4,7 @@ describe ProjectContentFetcher do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
   let(:project_content_fetcher) { ProjectContentFetcher.new(project) }
   subject { project_content_fetcher.fetch }
+
   describe "#fetch" do
     context "when the project only has a feed_url" do
       before do
@@ -67,12 +68,6 @@ describe ProjectContentFetcher do
       it "retrieves content using the build_status_url" do
         project_content_fetcher.should_receive :fetch_building_status
         subject
-      end
-
-      it "combines the content from both urls" do
-        project_content_fetcher.stub(:fetch_status) { 1 }
-        project_content_fetcher.stub(:fetch_building_status) { 2 }
-        subject.should == [1,2]
       end
 
       describe "#retrieve_status_for" do
