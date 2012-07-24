@@ -2,4 +2,15 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  helpers:
+    label:
+      project:
+        jenkins_base_url: "Base URL"
+        jenkins_build_name: "Build Name"
+        travis_github_account: "Github Account"
+        travis_repository: "Repository"
+        cruise_control_rss_feed_url: "Feed URL"
+        team_city_base_url: "Base URL"
+        team_city_build_id: "Build ID"
+        team_city_rest_base_url: "Base URL"
+        team_city_rest_build_type_id: "Build Type ID"

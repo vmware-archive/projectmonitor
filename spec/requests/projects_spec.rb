@@ -22,8 +22,8 @@ feature "projects", :js => true do
     page.should have_content("Travis github account can't be blank")
     page.should have_content("Travis repository can't be blank")
 
-    fill_in "Travis Github Account", :with => "pivotal"
-    fill_in "Travis Repository", :with => "projectmonitor"
+    fill_in "Github Account", :with => "pivotal"
+    fill_in "Repository", :with => "projectmonitor"
 
     click_button "Create"
 
@@ -38,8 +38,8 @@ feature "projects", :js => true do
     new_account = "pivotal2"
     new_project = "projectmonitor2"
 
-    fill_in "Travis Github Account", :with => new_account
-    fill_in "Travis Repository", :with => new_project
+    fill_in "Github Account", :with => new_account
+    fill_in "Repository", :with => new_project
 
     click_button "Update"
 
