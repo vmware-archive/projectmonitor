@@ -9,13 +9,13 @@ class ProjectStatus < ActiveRecord::Base
 
   def self.recent(projects, limit)
     where(project_id: Array(projects).map(&:id)).
-      where('build_id IS NOT NULL').
       reverse_chronological.
       limit(limit)
   end
 
   def self.reverse_chronological
-    order('build_id DESC')
+    where('build_id IS NOT NULL').
+      order('build_id DESC')
   end
 
   def self.latest
