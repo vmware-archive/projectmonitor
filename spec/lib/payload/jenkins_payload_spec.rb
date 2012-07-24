@@ -6,7 +6,7 @@ describe JenkinsPayload do
   let(:jenkins_payload) { JenkinsPayload.for_format(:xml).new(project) }
 
   subject do
-    ProjectPayloadProcessor.new(project, jenkins_payload).process
+    PayloadProcessor.new(project, jenkins_payload).process
     project.reload
   end
 
@@ -31,11 +31,11 @@ describe JenkinsPayload do
       it "remains green when existing status is green" do
         content = JenkinsAtomExample.new("success.atom").read
         jenkins_payload.status_content = content
-        ProjectPayloadProcessor.new(project,jenkins_payload).process
+        PayloadProcessor.new(project,jenkins_payload).process
         statuses = project.statuses
         content = BuildingStatusExample.new("jenkins_cimonitor_building.atom").read
         jenkins_payload.build_status_content = content
-        ProjectPayloadProcessor.new(project,jenkins_payload).process
+        PayloadProcessor.new(project,jenkins_payload).process
         project.reload.should be_green
         project.statuses.should == statuses
       end
@@ -43,11 +43,11 @@ describe JenkinsPayload do
       it "remains red when existing status is red" do
         content = JenkinsAtomExample.new("failure.atom").read
         jenkins_payload.status_content = content
-        ProjectPayloadProcessor.new(project,jenkins_payload).process
+        PayloadProcessor.new(project,jenkins_payload).process
         statuses = project.statuses
         content = BuildingStatusExample.new("jenkins_cimonitor_building.atom").read
         jenkins_payload.build_status_content = content
-        ProjectPayloadProcessor.new(project,jenkins_payload).process
+        PayloadProcessor.new(project,jenkins_payload).process
         project.reload.should be_red
         project.statuses.should == statuses
       end
