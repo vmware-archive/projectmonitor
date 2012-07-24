@@ -29,7 +29,7 @@ module StatusFetcher
     def retrieve_status_for(project)
       payload = ProjectContentFetcher.new(project).fetch
       if payload && payload.status_is_processable?
-        ProjectPayloadProcessor.new(project, payload).process
+        PayloadProcessor.new(project, payload).process
       end
     end
 
