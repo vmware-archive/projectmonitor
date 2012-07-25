@@ -1,4 +1,8 @@
 class CruiseControlPayload < Payload
+  def self.for_format(format)
+    CruiseControlPayload
+  end
+
   def success
     title = @content.css('title')
     return unless title.present?
