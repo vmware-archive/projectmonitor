@@ -468,4 +468,24 @@ describe Project do
       it { should be_false }
     end
   end
+
+  describe '#status_url' do
+    let(:project) { Project.new }
+    subject { project.status_url }
+
+    context "when the project does have a status url" do
+      let(:status) { ProjectStatus.new(url: 'http://www.example.com') }
+      let(:status_url) { status.url }
+      before do
+        project.stub(:latest_status).and_return(status)
+      end
+
+      it { should == status_url }
+    end
+
+    context "when the project does not have a status url" do
+      it { should == nil }
+    end
+  end
+
 end

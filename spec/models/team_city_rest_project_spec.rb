@@ -28,4 +28,11 @@ describe TeamCityRestProject do
   its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)" }
   its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)" }
 
+  describe '#status_url' do
+    let(:project) { FactoryGirl.build(:team_city_rest_project) }
+    subject { project.status_url }
+
+    it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
+  end
+
 end

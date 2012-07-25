@@ -63,10 +63,6 @@ class AggregateProject < ActiveRecord::Base
     projects.all? { |p| p.last_green.blank? }
   end
 
-  def status_url
-    Rails.application.routes.url_helpers.aggregate_project_path(self)
-  end
-
   def breaking_build
     return statuses.first if never_been_green?
     red_statuses = projects.collect do |p|

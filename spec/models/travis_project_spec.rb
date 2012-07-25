@@ -21,4 +21,11 @@ describe TravisProject do
   its(:project_name) { should == 'account' }
   its(:build_status_url) { should == 'http://travis-ci.org/account/project/builds.json' }
 
+  describe '#status_url' do
+    let(:project) { FactoryGirl.build(:travis_project) }
+    subject { project.status_url }
+
+    it { should == 'http://travis-ci.org/account/project' }
+  end
+
 end
