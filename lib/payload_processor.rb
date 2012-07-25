@@ -14,29 +14,34 @@ class PayloadProcessor
   private
 
   def create_statuses
-    return unless payload.status_is_processable?
-
-    project.online!
-    statuses_from_payloads.each do |status|
-      project.statuses.create!(status.attributes) unless project.has_status?(status)
+    if payload.status_is_processable?
+      project.online!
+      create_statuses_from_payload
+    else
+      project.offline!
     end
   end
 
   def update_building_status
-    return unless payload.build_status_is_processable?
-    project.update_attributes!(building: payload.building?)
+    if payload.build_status_is_processable?
+      project.update_attributes!(building: payload.building?)
+    else
+      project.not_building!
+    end
   end
 
-  def statuses_from_payloads
+  def create_statuses_from_payload
     payload.each_status do |payload_status|
-      status = ProjectStatus.new
-      status.success = payload_status.success
-      status.url = payload_status.url
-      status.build_id = payload_status.build_id
-      status.published_at = payload_status.published_at
-      next unless status.valid?
+      status = ProjectStatus.new(
+        success: payload_status.success,
+        url: payload_status.url,
+        build_id: payload_status.build_id,
+        published_at: payload_status.published_at
+      )
 
-      status
-    end.compact
+      if status.valid? && !project.has_status?(status)
+        project.statuses.create!(status.attributes)
+      end
+    end
   end
 end
