@@ -28,9 +28,7 @@ module StatusFetcher
 
     def retrieve_status_for(project)
       payload = ProjectContentFetcher.new(project).fetch
-      if payload && payload.status_is_processable?
-        PayloadProcessor.new(project, payload).process
-      end
+      PayloadProcessor.new(project, payload).process
     end
 
     def retrieve_velocity_for(project)

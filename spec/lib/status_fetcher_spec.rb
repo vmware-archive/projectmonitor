@@ -47,7 +47,7 @@ describe StatusFetcher do
     let(:project) { double(Project) }
 
     it "fetches content" do
-      processor = double(PayloadProcessor, perform: nil)
+      processor = double(PayloadProcessor, process: nil)
       PayloadProcessor.stub(new: processor)
 
       fetcher = double(ProjectContentFetcher)
@@ -58,7 +58,7 @@ describe StatusFetcher do
     end
 
     it "processes content" do
-      payload = double("foo", status_is_processable?: true)
+      payload = double("foo")
       fetcher = double(ProjectContentFetcher, fetch: payload)
       ProjectContentFetcher.stub(new: fetcher)
 
