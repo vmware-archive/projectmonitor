@@ -12,6 +12,10 @@ class TeamCityRestProject < Project
     "http://#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id})"
   end
 
+  def status_url
+    "http://#{team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{team_city_rest_build_type_id}"
+  end
+
   def project_name
     feed_url
   end
