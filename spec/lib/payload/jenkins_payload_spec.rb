@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe JenkinsPayload do
-  let(:project) { FactoryGirl.create(:jenkins_project, jenkins_build_name: "CiMonitor") }
+  let(:project) { FactoryGirl.create(:jenkins_project, jenkins_build_name: "ProjectMonitor") }
   let(:status_content) { JenkinsAtomExample.new(atom).read }
   let(:jenkins_payload) { JenkinsPayload.for_format(:xml).new(project) }
 
@@ -33,7 +33,7 @@ describe JenkinsPayload do
         jenkins_payload.status_content = content
         PayloadProcessor.new(project,jenkins_payload).process
         statuses = project.statuses
-        content = BuildingStatusExample.new("jenkins_cimonitor_building.atom").read
+        content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         PayloadProcessor.new(project,jenkins_payload).process
         project.reload.should be_green
@@ -45,7 +45,7 @@ describe JenkinsPayload do
         jenkins_payload.status_content = content
         PayloadProcessor.new(project,jenkins_payload).process
         statuses = project.statuses
-        content = BuildingStatusExample.new("jenkins_cimonitor_building.atom").read
+        content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         PayloadProcessor.new(project,jenkins_payload).process
         project.reload.should be_red
@@ -60,12 +60,12 @@ describe JenkinsPayload do
     before { jenkins_payload.build_status_content = build_content }
 
     context "when building" do
-      let(:atom) { "jenkins_cimonitor_building.atom" }
+      let(:atom) { "jenkins_projectmonitor_building.atom" }
       it { should be_building }
     end
 
     context "when not building" do
-      let(:atom) { "jenkins_cimonitor_not_building.atom" }
+      let(:atom) { "jenkins_projectmonitor_not_building.atom" }
       it { should_not be_building }
     end
   end

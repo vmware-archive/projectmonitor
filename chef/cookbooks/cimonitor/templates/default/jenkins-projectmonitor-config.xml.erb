@@ -17,7 +17,7 @@
         <string>uploadpack</string>
         <string>git-upload-pack</string>
         <string>url</string>
-        <string>git://github.com/pivotal/cimonitor.git</string>
+        <string>git://github.com/pivotal/projectmonitor.git</string>
         <string>tagopt</string>
         <string></string>
       </org.spearce.jgit.transport.RemoteConfig>
@@ -52,11 +52,7 @@
     </jenkins.triggers.SCMTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
-  <builders>
-    <jenkins.tasks.Shell>
-      <command>./cruise_build.sh</command>
-    </jenkins.tasks.Shell>
-  </builders>
+  <builders/>
   <publishers/>
   <buildWrappers/>
 </project>
