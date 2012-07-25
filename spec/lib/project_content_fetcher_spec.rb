@@ -2,15 +2,19 @@ require 'spec_helper'
 
 describe ProjectContentFetcher do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
+  let(:payload) { double(Payload).as_null_object }
   let(:project_content_fetcher) { ProjectContentFetcher.new(project) }
-  subject { project_content_fetcher.fetch }
+
+  before do
+    Payload.stub(for_project: payload)
+    UrlRetriever.stub(:retrieve_content_at).and_return("foo", "bar")
+    project.stub(feed_url: "foo", auth_username: nil, auth_password: nil)
+  end
 
   describe "#fetch" do
-    context "when the project only has a feed_url" do
-      before do
-        UrlRetriever.stub(:retrieve_content_at)
-      end
+    subject { project_content_fetcher.fetch }
 
+    context "when the project only has a feed_url" do
       it "retrieves content using the feed_url" do
         project_content_fetcher.should_receive :fetch_status
         subject
@@ -21,44 +25,25 @@ describe ProjectContentFetcher do
         subject
       end
 
-      context "and retrieving on feed_url causes HTTPError" do
-        let(:message) { "error" }
-        it "adds an error status" do
-          UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new(message, 500)
-          project.should_receive(:offline!)
-          subject
-        end
+      it "sets #status_content on the payload" do
+        payload.should_receive(:status_content=).with("foo")
+        subject
       end
 
-      context "project status can not be retrieved from remote source" do
-        let(:project_status) { double('project_status', error: "") }
-        before do
-          UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new("can't do it", 500)
-          project.stub(:status).and_return project_status
+      context "and retrieving on feed_url causes HTTPError" do
+        it "marks project as offline and not building" do
+          UrlRetriever.stub(:retrieve_content_at).with("foo",nil, nil).and_raise Net::HTTPError.new("error", 500)
+          project.should_receive(:offline!)
+          project.should_receive(:not_building!)
           subject
-        end
-
-        context "a status does not exist with the error that is returned" do
-          before do
-            project_status.stub(:error).and_return "another error"
-          end
-
-          it "creates a status with the error message" do
-            project.should_receive(:offline!)
-            StatusFetcher.retrieve_status_for(project)
-            subject
-          end
         end
       end
     end
 
     context "when the project has a feed_url and a build_status_url" do
       let(:project) { FactoryGirl.create(:jenkins_project) }
-      let(:build_url) {"http://foo.com"}
-      before do
-        UrlRetriever.stub(:retrieve_content_at)
-        project.stub(:build_status_url).and_return(build_url)
-      end
+
+      before { project.stub(build_status_url: "bar") }
 
       it "retrieves content using the feed_url" do
         project_content_fetcher.should_receive :fetch_status
@@ -70,31 +55,35 @@ describe ProjectContentFetcher do
         subject
       end
 
-      describe "#retrieve_status_for" do
-        let(:content) { double(:content) }
-        let(:building_status) { false }
-        let(:status) { double(:status, :building? => building_status )}
+      it "sets #status_content on the payload" do
+        payload.should_receive(:status_content=).with("foo")
+        subject
+      end
 
-        subject do
-          project.building
+      it "sets #build_status_content on the payload" do
+        payload.should_receive(:build_status_content=).with("bar")
+        subject
+      end
+
+      context "and retrieving on feed_url causes HTTPError" do
+        it "marks project as offline" do
+          UrlRetriever.stub(:retrieve_content_at).with("foo",nil,nil).and_raise(Net::HTTPError.new("error", 500))
+
+          project.should_receive(:offline!)
+          project.should_not_receive(:not_building!)
+
+          subject
         end
+      end
 
-        context "project status can be retrieved from the remote source" do
-          before do
-            UrlRetriever.stub(:retrieve_content_at)
-            StatusFetcher.retrieve_status_for project
-          end
+      context "and retrieving on build_status_url causes HTTPError" do
+        it "marks project as not building" do
+          UrlRetriever.stub(:retrieve_content_at).with("bar",nil,nil).and_raise(Net::HTTPError.new("error", 500))
 
-          it { should == building_status }
-        end
+          project.should_not_receive(:offline!)
+          project.should_receive(:not_building!)
 
-        context "project status can not be retrieved" do
-          before do
-            UrlRetriever.stub(:retrieve_content_at).and_raise Net::HTTPError.new("can't do it", 500)
-            StatusFetcher.retrieve_status_for project
-          end
-
-          it { should be_false }
+          subject
         end
       end
     end
