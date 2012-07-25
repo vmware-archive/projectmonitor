@@ -224,12 +224,6 @@ Pivotal Tracker project ID and a Pivotal Tracker API key in the admin section.
 
 Click 'manage projects' at the lower right to edit project details.
 
-## Notifications
-
-ProjectMonitor can inform you of builds that have been red for more than 24 hours. Set up cron to daily execute:
-
-    RAILS_ENV=production rake cimonitor:red_over_one_day_notification > red_over_one_day_notification.log 2>&1
-
 ## Tags
 
 You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
