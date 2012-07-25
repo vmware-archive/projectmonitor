@@ -111,7 +111,7 @@ to change this setting, you can edit `config/initializers/delayed_job_config.rb`
 
 Execute:
 
-    nohup script/server -e production &> cimonitor.log
+    nohup rails server -e production &> projectmonitor.log
 
 ## Configuration
 
@@ -129,7 +129,7 @@ edit projects. Otherwise, use the following steps to add users by hand.
 
 Your first user must be created at the command line.
 
-    script/console production
+    rails c production
     User.create!(login: 'john', name: 'John Doe', email: 'jdoe@example.com', password: 'password', password_confirmation: 'password')
 
 After that, you can login to ProjectMonitor with the username and password you
@@ -168,12 +168,12 @@ choosing the number of tiles you want at the lower left.
 
 ### Auto-start for Ubuntu
 
-In order to have cimonitor starts when the machine boots, modify the startup
+In order to have projectmonitor start when the machine boots, modify the startup
 scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
 10.04 server (change paths & userids as needed):
 
     # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
-    su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/cimonitor/current; bundle exec thin -e production start -c /home/pivotal/cimonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
+    su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
 
 ## Display
 
