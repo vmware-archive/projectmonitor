@@ -9,9 +9,10 @@ namespace :cimonitor do
     end
   end
 
+  desc "Immediately update the status for all active projects"
   task :force_update => :environment do
     print "Doing forced update of all projects..."
-    Project.find_each do |project|
+    Project.enabled.find_each do |project|
       StatusFetcher.retrieve_status_for(project)
       StatusFetcher.retrieve_velocity_for(project)
     end
