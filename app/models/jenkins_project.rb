@@ -22,6 +22,10 @@ class JenkinsProject < Project
     end.join
   end
 
+  def status_url
+    jenkins_base_url
+  end
+
   def payload
     JenkinsPayload
   end

@@ -36,4 +36,11 @@ describe JenkinsProject do
     it { should include 'cc.xml' }
   end
 
+  describe '#status_url' do
+    let(:project) { FactoryGirl.build(:jenkins_project) }
+    subject { project.status_url }
+
+    it { should == 'http://www.example.com' }
+  end
+
 end
