@@ -7,11 +7,11 @@ class CruiseControlXmlPayload < Payload
   private
 
   def convert_content!(content)
-    [Nokogiri::XML(content.downcase)]
+    [Nokogiri::XML.parse(content.downcase)]
   end
 
   def convert_build_content!(content)
-    Nokogiri::XML(content.downcase)
+    Nokogiri::XML.parse(content.downcase)
   end
 
   def parse_success(content)
