@@ -1,12 +1,12 @@
 class TeamCityChainedProject < TeamCityRestProject
   include TeamCityProjectWithChildren
 
-  def payload
-    TeamCityChainedPayload
+  def fetch_payload
+    TeamCityChainedXmlPayload.new(self)
   end
 
-  def payload_fetch_format
-    :xml
+  def webhook_payload
+    TeamCityChainedXmlPayload.new(self)
   end
 
   private

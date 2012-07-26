@@ -3,13 +3,14 @@ require 'spec_helper'
 describe PayloadProcessor do
   let(:project) { double(Project).as_null_object }
   let(:payload) { double(Payload).as_null_object }
+  let(:status) { double(ProjectStatus).as_null_object }
   let(:processor) { PayloadProcessor.new(project, payload) }
 
   describe "#process" do
     context "when the payload has processable statuses" do
       before do
         payload.stub(status_is_processable?: true)
-        payload.stub(:each_status).and_yield(payload)
+        payload.stub(:each_status).and_yield(status)
       end
 
       it "sets the project as online" do
@@ -18,44 +19,39 @@ describe PayloadProcessor do
       end
 
       it "initializes a ProjectStatus for every payload status" do
-        payload.stub(:each_status).and_yield(payload).and_yield(payload)
-        status1 = double(ProjectStatus).as_null_object
-        status2 = double(ProjectStatus).as_null_object
+        status = double(ProjectStatus, valid?: true).as_null_object
+        project.stub(has_status?: false)
+        payload.stub(:each_status).and_yield(status).and_yield(status)
 
-        ProjectStatus.should_receive(:new).twice.and_return(status1, status2)
+        project.statuses.should_receive(:"<<").twice
 
         processor.process
       end
 
       context "and ProjectStatus is valid" do
-        let(:attributes) { double(:attributes) }
-        before do
-          status = double(ProjectStatus, valid?: true, attributes: attributes)
-          ProjectStatus.stub(new: status)
-        end
+        let(:status) { double(ProjectStatus, valid?: true) }
+        before { ProjectStatus.stub(new: status) }
 
         it "add a status to the project if the project does not have a matching status" do
           project.stub(has_status?: false)
-          project.statuses.should_receive(:create!).with(attributes)
+          project.statuses.should_receive(:"<<").with(status)
           processor.process
         end
 
         it "does not add the status to the project if a matching status exists" do
           project.stub(has_status?: true)
-          project.statuses.should_not_receive(:create!)
+          project.statuses.should_not_receive(:"<<")
           processor.process
         end
       end
 
       context "and ProjectStatus is not valid" do
-        before do
-          status = double(ProjectStatus, valid?: false)
-          ProjectStatus.stub(new: status)
-        end
+        let(:status) { double(ProjectStatus, valid?: false) }
+        before { ProjectStatus.stub(new: status) }
 
         it "does not the status to the project" do
           project.stub(has_status?: false)
-          project.statuses.should_not_receive(:create!)
+          project.statuses.should_not_receive(:"<<")
           processor.process
         end
       end

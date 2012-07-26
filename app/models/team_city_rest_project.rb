@@ -20,11 +20,11 @@ class TeamCityRestProject < Project
     feed_url
   end
 
-  def payload
-    TeamCityPayload
+  def fetch_payload
+    TeamCityXmlPayload.new(self)
   end
 
-  def payload_fetch_format
-    :xml
+  def webhook_payload
+    TeamCityJsonPayload.new(self)
   end
 end

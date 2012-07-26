@@ -3,10 +3,9 @@ require 'spec_helper'
 describe ProjectContentFetcher do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
   let(:payload) { double(Payload).as_null_object }
-  let(:project_content_fetcher) { ProjectContentFetcher.new(project) }
+  let(:project_content_fetcher) { ProjectContentFetcher.new(project, payload) }
 
   before do
-    Payload.stub(for_project: payload)
     UrlRetriever.stub(:retrieve_content_at).and_return("foo", "bar")
     project.stub(feed_url: "foo", auth_username: nil, auth_password: nil)
   end

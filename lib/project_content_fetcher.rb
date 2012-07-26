@@ -1,7 +1,7 @@
 class ProjectContentFetcher
-  def initialize(project)
+  def initialize(project, payload)
     self.project = project
-    self.payload = Payload.for_project(project)
+    self.payload = payload
   end
 
   def fetch

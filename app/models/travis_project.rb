@@ -19,12 +19,12 @@ class TravisProject < Project
     travis_github_account
   end
 
-  def payload
-    TravisPayload
+  def fetch_payload
+    TravisJsonPayload.new(self)
   end
 
-  def payload_fetch_format
-    :json
+  def webhook_payload
+    TravisJsonPayload.new(self)
   end
 
 private
