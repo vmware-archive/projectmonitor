@@ -6,7 +6,7 @@ class JenkinsJsonPayload < Payload
   private
 
   def convert_content!(content)
-    [Array.wrap(JSON.parse(content.keys.first)).first]
+    Array.wrap(JSON.parse(content.keys.first))
   rescue JSON::ParserError
     self.processable = false
     self.build_processable = false
