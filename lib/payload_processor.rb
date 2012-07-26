@@ -36,6 +36,6 @@ class PayloadProcessor
         project.statuses << status
       end
     end
-    project.save
+    project.save!
   end
 end

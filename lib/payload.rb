@@ -24,13 +24,6 @@ class Payload
     @build_status_content = convert_build_content!(content)
   end
 
-  def content(content)
-    self.status_content = content
-    self.build_status_content = content
-
-    self
-  end
-
   def status_is_processable?
     has_status_content? && !!processable
   end
