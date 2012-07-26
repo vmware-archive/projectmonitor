@@ -5,30 +5,23 @@ class Payload
     self.build_processable = true
   end
 
-  def self.for_project(project, format=nil)
-    project.payload.for_format(format || project.payload_fetch_format).new(project)
-  end
-
   def each_status
-    status_content.map do |s|
-      payload = self.class.new(project)
-      payload.content = s
-      yield payload
+    status_content.each do |content|
+      yield ProjectStatus.new(
+        success: parse_success(content),
+        url: parse_url(content),
+        build_id: parse_build_id(content),
+        published_at: parse_published_at(content)
+      )
     end
   end
 
   def status_content=(content)
-    @status_content = content
-    convert_content!
-
-    self
+    @status_content = convert_content!(content)
   end
 
   def build_status_content=(content)
-    @build_status_content = content
-    convert_build_content!
-
-    self
+    @build_status_content = convert_build_content!(content)
   end
 
   def content(content)
@@ -46,33 +39,9 @@ class Payload
     has_build_status_content? && !!build_processable
   end
 
-  def success
-    raise NotImplementedError
-  end
-
-  def url
-    raise NotImplementedError
-  end
-
-  def build_id
-    raise NotImplementedError
-  end
-
-  def published_at
-    raise NotImplementedError
-  end
-
   def building?
     raise NotImplementedError
   end
-
-  def convert_content!
-  end
-
-  def convert_build_content!
-  end
-
-  attr_writer :content
 
   private
 
@@ -82,6 +51,14 @@ class Payload
 
   def has_build_status_content?
     build_status_content.present?
+  end
+
+  def convert_content!(content)
+    content
+  end
+
+  def convert_build_content!(content)
+    content
   end
 
   attr_accessor :project, :processable, :build_processable

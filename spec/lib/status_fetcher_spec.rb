@@ -44,21 +44,21 @@ describe StatusFetcher do
   end
 
   describe "#retrieve_status_for" do
-    let(:project) { double(Project) }
+    let(:payload) { double(Payload) }
+    let(:project) { double(Project, fetch_payload: payload) }
 
     it "fetches content" do
       processor = double(PayloadProcessor, process: nil)
       PayloadProcessor.stub(new: processor)
 
       fetcher = double(ProjectContentFetcher)
-      ProjectContentFetcher.should_receive(:new).with(project).and_return(fetcher)
+      ProjectContentFetcher.should_receive(:new).with(project, payload).and_return(fetcher)
       fetcher.should_receive(:fetch)
 
       StatusFetcher.retrieve_status_for project
     end
 
     it "processes content" do
-      payload = double("foo")
       fetcher = double(ProjectContentFetcher, fetch: payload)
       ProjectContentFetcher.stub(new: fetcher)
 

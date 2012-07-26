@@ -1,8 +1,12 @@
 require 'spec_helper'
 
-describe TeamCityPayload do
-  let(:project) { FactoryGirl.create(:team_city_rest_project) }
-  let(:payload) { TeamCityXmlPayload.new(project).tap{|p|p.status_content = content} }
+describe TeamCityChainedXmlPayload do
+  let(:project) { FactoryGirl.create(:team_city_chained_project) }
+  let(:children) { [] }
+  let(:payload) { TeamCityChainedXmlPayload.new(project) }
+  before do
+    project.stub(:children).and_return(children)
+  end
 
   subject do
     PayloadProcessor.new(project, payload).process
@@ -11,6 +15,8 @@ describe TeamCityPayload do
 
   describe "project status" do
     context "when not currently building" do
+      before { payload.status_content = content }
+
       let(:content) {
         <<-XML.strip_heredoc
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -39,7 +45,7 @@ describe TeamCityPayload do
             <build id="1" number="1" status="SUCCESS" webUrl="/1" startDate="#{5.minutes.ago}" />
           </builds>
         XML
-        payload = TeamCityXmlPayload.new(project)
+        payload = TeamCityChainedXmlPayload.new(project)
         payload.status_content = content
         PayloadProcessor.new(project,payload).process
         statuses = project.statuses
@@ -49,6 +55,7 @@ describe TeamCityPayload do
             <build id="1" number="1" status="FAILURE" webUrl="/1" running="true"/>
           </builds>
         XML
+        payload = TeamCityChainedXmlPayload.new(project)
         payload.status_content = content
         PayloadProcessor.new(project,payload).process
         project.reload.should be_green
@@ -62,7 +69,7 @@ describe TeamCityPayload do
             <build id="1" number="1" status="FAILURE" webUrl="/1" startDate="#{5.minutes.ago}" />
           </builds>
         XML
-        payload = TeamCityXmlPayload.new(project)
+        payload = TeamCityChainedXmlPayload.new(project)
         payload.status_content = content
         PayloadProcessor.new(project,payload).process
         statuses = project.statuses
@@ -72,7 +79,7 @@ describe TeamCityPayload do
             <build id="1" number="1" status="FAILURE" webUrl="/1" running="true"/>
           </builds>
         XML
-        payload = TeamCityXmlPayload.new(project)
+        payload = TeamCityChainedXmlPayload.new(project)
         payload.status_content = content
         PayloadProcessor.new(project,payload).process
         project.reload.should be_red
@@ -81,7 +88,7 @@ describe TeamCityPayload do
     end
   end
 
-  describe "building status" do
+  describe "parse_building_status" do
     let(:content) {
       <<-XML
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -92,20 +99,44 @@ describe TeamCityPayload do
           </builds>
       XML
     }
+    before { payload.status_content = content }
 
     context "with a valid response that the project is building" do
+      let(:children) { [ double('child project', red?: true, last_build_time: Time.now) ] }
       let(:project_is_running) { true }
       it { should be_building }
+      children.each {|child| child.should_not_receive(:building?) }
     end
 
     context "with a valid response that the project is not building" do
       let(:project_is_running) { false }
-      it { should_not be_building }
+
+      context "and with no children" do
+        it { should_not be_building }
+      end
+
+      context "and with children" do
+        context "which are building" do
+          let(:children) { [ double('child_project', building?: true, red?: true, last_build_time: Time.now) ] }
+          it { should be_building }
+        end
+
+        context "which are not building" do
+          let(:children) { [ double('child_project', building?: false, red?: true, last_build_time: Time.now) ] }
+          it { should_not be_building }
+        end
+      end
     end
 
     context "with an invalid response" do
       let(:content) { "<foo><bar>baz</bar></foo>" }
+      before { payload.status_content = content }
+
       it { should_not be_building }
+
+      it "should not create a status" do
+        expect { subject }.not_to change(ProjectStatus, :count)
+      end
     end
   end
 end

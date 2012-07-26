@@ -20,12 +20,12 @@ class TeamCityChildProject
     [live_status_hash[:published_at], *children.map(&:last_build_time)].max
   end
 
-  def payload
-    TeamCityPayload
+  def fetch_payload
+    TeamCityXmlPayload.new(self)
   end
 
-  def payload_fetch_format
-    :xml
+  def webhook_payload
+    TeamCityJsonPayload.new(self)
   end
 
   def live_status_hash

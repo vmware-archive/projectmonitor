@@ -31,17 +31,11 @@ class PayloadProcessor
   end
 
   def create_statuses_from_payload
-    payload.each_status do |payload_status|
-      status = ProjectStatus.new(
-        success: payload_status.success,
-        url: payload_status.url,
-        build_id: payload_status.build_id,
-        published_at: payload_status.published_at
-      )
-
+    payload.each_status do |status|
       if status.valid? && !project.has_status?(status)
-        project.statuses.create!(status.attributes)
+        project.statuses << status
       end
     end
+    project.save
   end
 end
