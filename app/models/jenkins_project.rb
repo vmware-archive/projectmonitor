@@ -26,11 +26,11 @@ class JenkinsProject < Project
     jenkins_base_url
   end
 
-  def payload
-    JenkinsPayload
+  def fetch_payload
+    JenkinsXmlPayload.new(self)
   end
 
-  def payload_fetch_format
-    :xml
+  def webhook_payload
+    JenkinsJsonPayload.new(self)
   end
 end

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe TravisPayload do
+describe TravisJsonPayload do
   let(:project) { FactoryGirl.create(:travis_project) }
   let(:status_content) { TravisExample.new(json).read }
-  let(:travis_payload) { TravisPayload.new(project).tap{|p| p.status_content = status_content} }
+  let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = status_content} }
 
   subject do
     PayloadProcessor.new(project, travis_payload).process
@@ -34,7 +34,7 @@ describe TravisPayload do
     end
 
     context "when building" do
-      let(:travis_payload) { TravisPayload.new(project) }
+      let(:travis_payload) { TravisJsonPayload.new(project) }
 
       it "remains green when existing status is green" do
         content = TravisExample.new("success.json").read
@@ -66,7 +66,7 @@ describe TravisPayload do
 
   describe "saving data" do
     let(:example) { TravisExample.new(json) }
-    let(:travis_payload) { TravisPayload.new(project).tap{|p| p.status_content = example.read } }
+    let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = example.read } }
 
     describe "when build was successful" do
       let(:json) { "success.json" }
@@ -107,7 +107,7 @@ describe TravisPayload do
 
   describe "building status" do
     let(:status_content) { TravisExample.new(json).read }
-    let(:travis_payload) { TravisPayload.new(project).tap{|p| p.status_content = status_content } }
+    let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = status_content } }
     let(:json) { "building.json" }
 
     it { should be_building }

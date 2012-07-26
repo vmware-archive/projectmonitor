@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CruiseControlPayload do
+describe CruiseControlXmlPayload do
   let(:project) { FactoryGirl.create(:cruise_control_project, cruise_control_rss_feed_url: "http://foo.bar.com:3434/projects/Socialitis.rss") }
 
   subject do
@@ -11,7 +11,7 @@ describe CruiseControlPayload do
   describe "project status" do
     context "when not currently building" do
       let(:status_content) { CCRssExample.new(rss).read }
-      let(:payload) { CruiseControlPayload.new(project) }
+      let(:payload) { CruiseControlXmlPayload.new(project) }
       before { payload.status_content = status_content }
 
       context "when build was successful" do
@@ -26,7 +26,7 @@ describe CruiseControlPayload do
     end
 
     context "when building" do
-      let(:payload) { CruiseControlPayload.new(project) }
+      let(:payload) { CruiseControlXmlPayload.new(project) }
 
       it "remains green when existing status is green" do
         status_content = CCRssExample.new("success.rss").read
@@ -58,7 +58,7 @@ describe CruiseControlPayload do
 
   describe "building status" do
     let(:build_content) { BuildingStatusExample.new(xml).read }
-    let(:payload) { CruiseControlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new(project) }
     before { payload.build_status_content = build_content }
 
     context "when building" do
@@ -75,7 +75,7 @@ describe CruiseControlPayload do
   describe "saving data" do
     let(:example) { CCRssExample.new(xml) }
     let(:status_content) { example.read }
-    let(:payload) { CruiseControlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new(project) }
     before { payload.status_content = status_content }
 
     describe "when build was successful" do
@@ -109,7 +109,7 @@ describe CruiseControlPayload do
 
   describe "with invalid xml" do
     let(:status_content) { "<foo><bar>baz</bar></foo>" }
-    let(:payload) { CruiseControlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new(project) }
     before { payload.status_content = status_content }
 
     it { should_not be_building }

@@ -27,7 +27,7 @@ module StatusFetcher
     end
 
     def retrieve_status_for(project)
-      payload = ProjectContentFetcher.new(project).fetch
+      payload = ProjectContentFetcher.new(project, project.fetch_payload).fetch
       PayloadProcessor.new(project, payload).process
     end
 
