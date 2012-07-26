@@ -8,7 +8,7 @@ class LegacyTeamCityXmlPayload < Payload
   private
 
   def convert_content!(content)
-    Nokogiri::XML.parse(content).css('Build').to_a.first(50)
+    Nokogiri::XML.parse(content).css('Build').to_a
   end
 
   def convert_build_content!(content)

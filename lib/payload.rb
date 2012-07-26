@@ -17,7 +17,7 @@ class Payload
   end
 
   def status_content=(content)
-    @status_content = convert_content!(content)
+    @status_content = convert_content!(content).first(Project::RECENT_STATUS_COUNT)
   end
 
   def build_status_content=(content)
