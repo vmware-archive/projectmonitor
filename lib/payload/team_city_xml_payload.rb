@@ -10,7 +10,7 @@ class TeamCityXmlPayload < Payload
   private
 
   def convert_content!(content)
-    Nokogiri::XML.parse(content).css('build').to_a.first(50)
+    Nokogiri::XML.parse(content).css('build').to_a
   end
 
   def parse_success(content)

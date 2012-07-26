@@ -9,7 +9,7 @@ class JenkinsXmlPayload < Payload
 
   def convert_content!(content)
     if content
-      Nokogiri::XML.parse(content.downcase).css('feed entry')
+      Nokogiri::XML.parse(content.downcase).css('feed entry').to_a
     else
       self.processable = false
       []
