@@ -19,10 +19,11 @@ class TravisJsonPayload < Payload
 
   def convert_content!(content)
     status_content = unwrap_params_hash(content)
-    [Array.wrap(JSON.parse(status_content)).first]
+    Array.wrap(JSON.parse(status_content))
 
   rescue JSON::ParserError
     self.processable = false
+    []
   end
 
   def parse_success(content)
