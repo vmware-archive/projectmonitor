@@ -196,11 +196,11 @@ When inside the console, run the creating a new user step above. You should then
 
 You need to hit an authenticated endpoint to run the scheduler. 
 
-  POST http://localhost:3000/projects/update_projects
+    POST http://localhost:3000/projects/update_projects
 
 You can create a cron entry to hit this:
 
-  curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:Unpakt99
+    curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:Unpakt99
 
 
 ## Display
