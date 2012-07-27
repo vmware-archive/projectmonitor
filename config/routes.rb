@@ -3,6 +3,7 @@ CiMonitor::Application.routes.draw do
   match 'logout' => 'sessions#destroy'
   match 'builds.rss' => "dashboards#builds", format: :rss
   match 'projects/validate_tracker_project'
+  match 'projects/update_projects'
   match 'version' => 'versions#show'
 
   resources :users, :only => [:new, :create]
