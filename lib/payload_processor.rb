@@ -7,16 +7,16 @@ class PayloadProcessor
   end
 
   def process
-    create_statuses
+    add_statuses
     update_building_status
   end
 
   private
 
-  def create_statuses
+  def add_statuses
     if payload.status_is_processable?
       project.online!
-      create_statuses_from_payload
+      add_statuses_from_payload
     else
       project.offline!
     end
@@ -30,12 +30,11 @@ class PayloadProcessor
     end
   end
 
-  def create_statuses_from_payload
+  def add_statuses_from_payload
     payload.each_status do |status|
       if status.valid? && !project.has_status?(status)
         project.statuses << status
       end
     end
-    project.save!
   end
 end

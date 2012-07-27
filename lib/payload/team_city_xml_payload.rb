@@ -38,3 +38,4 @@ class TeamCityXmlPayload < Payload
     end
   end
 end
+# status[:status] == 'UNKNOWN' || (status[:running] && status[:status] == 'SUCCESS')
