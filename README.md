@@ -175,6 +175,34 @@ scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
     # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
     su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
 
+## Deployment
+
+### Heroku
+
+To get running on Heroku, after you have cloned and bundled, run the following commands:
+
+NB: These instructions are for the basic authentication strategy. 
+
+    heroku create
+    heroku push heroku master
+    heroku run rake db:migrate
+    heroku config:add REST_AUTH_SITE_KEY=<unique, private and long alphanumeric key, e.g. abcd1234edfg78910>
+    heroku config:add REST_AUTH_DIGEST_STRETCHES<count of number of times to apply the digest, 10 recommended>
+    heroku run console 
+
+When inside the console, run the creating a new user step above. You should then be able to access your server and start using it.
+
+## Cron
+
+You need to hit an authenticated endpoint to run the scheduler. 
+
+    POST http://localhost:3000/projects/update_projects
+
+You can create a cron entry to hit this:
+
+    curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:Unpakt99
+
+
 ## Display
 
 Just open a browser on `/`. The page will refresh every 30 seconds. When it
