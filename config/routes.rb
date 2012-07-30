@@ -6,6 +6,7 @@ CiMonitor::Application.routes.draw do
   match 'projects/update_projects'
   match 'version' => 'versions#show'
 
+  resource :configuration, only: [:show, :create], controller: "configuration"
   resources :users, :only => [:new, :create]
   resource :openid, :only => [:new, :success] do
     member do
