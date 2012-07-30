@@ -28,9 +28,9 @@ describe TeamCityChildBuilder do
     end
   end
 
-  it "assigns the correct build_id to all children builds" do
+  it "assigns the correct team_city_rest_build_type_id to all children builds" do
     [3,5,9].each do |i|
-      parsed.collect(&:build_id).should(
+      parsed.collect(&:team_city_rest_build_type_id).should(
         include("bt#{i}")
       )
     end
