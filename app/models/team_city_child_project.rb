@@ -1,6 +1,6 @@
 class TeamCityChildProject
   include TeamCityProjectWithChildren
-  attr_accessor :feed_url, :auth_username, :auth_password, :build_id
+  attr_accessor :feed_url, :auth_username, :auth_password, :team_city_rest_build_type_id
 
   def initialize(opts)
     opts.each do |attr,value|

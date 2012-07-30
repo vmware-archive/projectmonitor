@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe TeamCityChildProject do
-  let(:feed_url) { "http://localhost:8111/app/rest/builds?locator=running:all,buildType:(id:#{build_id})" }
-  let(:build_id) { "bt1" }
+  let(:feed_url) { "http://localhost:8111/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id})" }
+  let(:team_city_rest_build_type_id) { "bt1" }
   let(:project) {
     TeamCityChildProject.new(
       :feed_url => feed_url,
       :auth_username => "john",
       :auth_password => "secret",
-      :build_id => build_id
+      :team_city_rest_build_type_id => team_city_rest_build_type_id
     )
   }
 

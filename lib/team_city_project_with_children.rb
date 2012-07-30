@@ -9,7 +9,7 @@ module TeamCityProjectWithChildren
   private
   def build_type_url
     uri = URI(feed_url)
-    "#{uri.scheme}://#{uri.host}:#{uri.port}/httpAuth/app/rest/buildTypes/id:#{build_id}"
+    "#{uri.scheme}://#{uri.host}:#{uri.port}/httpAuth/app/rest/buildTypes/id:#{team_city_rest_build_type_id}"
   end
 
   def build_type_fetcher
