@@ -18,4 +18,14 @@ namespace :cimonitor do
     end
     puts " done."
   end
+
+  desc "Export the configuration to a yml file"
+  task :export => :environment do |task, args|
+    puts ConfigExport.export
+  end
+
+  desc "Import the configuration from a yml file"
+  task :import => :environment do |task, args|
+    ConfigExport.import STDIN.read
+  end
 end
