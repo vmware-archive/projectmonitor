@@ -175,6 +175,35 @@ scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
     # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
     su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
 
+### Importing and Exporting Configurations
+
+You can export your configuration for posterity or to be transferred to another
+host:
+
+    rake cimonitor:export > ${your_configuration.yml}
+
+Or using heroku:
+
+    heroku run rake cimonitor:export --app projectmonitor-staging > ${your_configuration.yml}
+
+Or you can download it using the configuration endpoint, using curl (or your web browser):
+
+    curl --user ${username}:${password} ${your_project_monitor_host}/configuration > ${your_configuration.yml}
+
+NOTE: That heroku doesn't treat STDERR and STDOUT differently so you may get
+some warnings at the beginning of the generated file that you'll have to remove
+manually.
+
+It can be imported in a similar way:
+
+    rake cimonitor:import < ${your_configuration.yml}
+
+On heroku or another host which doesn't allow you to directly load files or
+read from stdin, you'll need to post the file to the configuration endpoint
+like so:
+
+    curl --user ${username}:${password} -F "content=@-" ${your_project_monitor_host}/configuration < ${your_configuration.yml}
+
 ## Deployment
 
 ### Heroku
