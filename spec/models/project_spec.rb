@@ -79,6 +79,18 @@ describe Project do
       it { should_not include excluded_project }
     end
 
+    describe '.updateable' do
+      subject { Project.updateable }
+
+      let!(:never_updated) { FactoryGirl.create(:jenkins_project, next_poll_at: nil) }
+      let!(:updated_recently) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.ago) }
+      let!(:causality_violator) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.from_now) }
+
+      it { should include never_updated }
+      it { should include updated_recently }
+      it { should_not include causality_violator }
+    end
+
     describe '.displayable' do
       subject { Project.displayable tags }
 
@@ -329,22 +341,6 @@ describe Project do
         project.building = false
         project.has_building_children = true
       end.should be_building
-    end
-  end
-
-  describe "#needs_poll?" do
-    it "should return true if current time >= next_poll_at" do
-      project.next_poll_at = 5.minutes.ago
-      project.needs_poll?.should be_true
-    end
-
-    it "should return false when current time < next_poll_at" do
-      project.next_poll_at = 5.minutes.from_now
-      project.needs_poll?.should be_false
-    end
-
-    it "should return true if next_poll_at is null" do
-      project.needs_poll?.should be_true
     end
   end
 
