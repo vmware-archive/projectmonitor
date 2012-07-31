@@ -21,8 +21,7 @@ module StatusFetcher
 
   class << self
     def fetch_all
-      projects = Project.all.select(&:needs_poll?)
-      projects.each do |project|
+      Project.updateable.each do |project|
         Delayed::Job.enqueue StatusFetcher::Job.new(project)
       end
     end
