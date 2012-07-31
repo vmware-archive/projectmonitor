@@ -1,4 +1,14 @@
 class AmazonService
+
+  def self.schedule(date)
+    end_time = date.to_s(:db_time)
+    start_time = (date - 7.minutes).to_s(:db_time)
+    day = date.to_s(:db_day).downcase
+
+    process_instances(:start, day, end_time, start_time)
+    process_instances(:end, day, end_time, start_time)
+  end
+
   def initialize(access_key_id, secret_access_key)
     @ec2 = AWS::EC2.new(:access_key_id => access_key_id, :secret_access_key => secret_access_key, :ssl_ca_file => '/etc/ssl/certs/ca-certificates.crt')
   end
@@ -24,15 +34,6 @@ class AmazonService
     instance.stop
   end
 
-  def self.schedule(date)
-    end_time = date.to_s(:db_time)
-    start_time = (date - 7.minutes).to_s(:db_time)
-    day = date.to_s(:db_day).downcase
-
-    process_instances(:start, day, end_time, start_time)
-    process_instances(:end, day, end_time, start_time)
-  end
-
   private
 
   def self.process_instances(method, day, end_time, start_time)
@@ -48,4 +49,5 @@ class AmazonService
       end
     end
   end
+
 end
