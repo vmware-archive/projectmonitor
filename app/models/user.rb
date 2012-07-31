@@ -21,17 +21,9 @@ class User < ActiveRecord::Base
   attr_accessible :login, :email, :name, :password, :password_confirmation
 
   def self.authenticate(login, password)
-    return nil if login.blank? || password.blank?
+    return if login.blank? || password.blank?
     u = find_by_login(login.downcase) # need to get the salt
     u && u.authenticated?(password) ? u : nil
-  end
-
-  def login=(value)
-    self[:login] = value && value.downcase
-  end
-
-  def email=(value)
-    self[:email] = value && value.downcase
   end
 
   def self.find_or_create_from_google_openid(fetch_response)
@@ -51,6 +43,14 @@ class User < ActiveRecord::Base
     user.password = user.password_confirmation = SecureRandom.hex(16)
     user.save!
     user
+  end
+
+  def login=(value)
+    self[:login] = value && value.downcase
+  end
+
+  def email=(value)
+    self[:email] = value && value.downcase
   end
 
 end

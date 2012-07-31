@@ -1,40 +1,43 @@
 class ProjectStatus < ActiveRecord::Base
-  SUCCESS = 'success'
-  FAILURE = 'failure'
 
   belongs_to :project
 
   validates :success, inclusion: { in: [true, false] }
   validates :build_id, presence: true
 
-  def self.recent(projects, limit)
-    where(project_id: Array(projects).map(&:id)).
-      reverse_chronological.
-      limit(limit)
-  end
+  class << self
 
-  def self.reverse_chronological
-    where('build_id IS NOT NULL').
-      order('build_id DESC')
-  end
+    def recent(projects, limit)
+      where(project_id: Array(projects).map(&:id)).
+        reverse_chronological.
+        limit(limit)
+    end
 
-  def self.latest
-    reverse_chronological.first
-  end
+    def reverse_chronological
+      where('build_id IS NOT NULL').
+        order('build_id DESC')
+    end
 
-  def self.green
-    where(success: true)
-  end
+    def latest
+      reverse_chronological.first
+    end
 
-  def self.red
-    where(success: false)
+    def green
+      where(success: true)
+    end
+
+    def red
+      where(success: false)
+    end
+
   end
 
   def in_words
     if success?
-      SUCCESS
+      'success'
     else
-      FAILURE
+      'failure'
     end
   end
+
 end

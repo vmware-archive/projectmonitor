@@ -344,7 +344,7 @@ describe Project do
     end
   end
 
-  describe "#set_next_poll!" do
+  describe "#set_next_poll" do
     epsilon = 2
     context "with a project poll interval set" do
       before do
@@ -352,15 +352,15 @@ describe Project do
       end
 
       it "should set the next_poll_at to Time.now + the project poll interval" do
-        project.set_next_poll!
-        (project.reload.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
+        project.set_next_poll
+        (project.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
       end
     end
 
     context "without a project poll interval set" do
       it "should set the next_poll_at to Time.now + the system default interval" do
-        project.set_next_poll!
-        (project.reload.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
+        project.set_next_poll
+        (project.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
       end
     end
   end

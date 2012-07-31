@@ -15,6 +15,3 @@ end
 task :stop_workers => :environment do  | t, args |
   exec %[script/delayed_job stop]
 end
-
-
-

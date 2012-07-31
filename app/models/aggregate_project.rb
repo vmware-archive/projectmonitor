@@ -6,28 +6,29 @@ class AggregateProject < ActiveRecord::Base
   scope :enabled, where(enabled: true)
   scope :with_statuses, joins(:projects => :statuses).uniq
   scope :for_location, lambda { |location| where(:location => location) }
-
-  def self.displayable tags = nil
+  scope :displayable, lambda { |tags|
     scope = enabled
     return scope.all_with_tags(tags) if tags
     scope
-  end
+  }
 
   acts_as_taggable
   validates :name, presence: true
+
+  def self.all_with_tags(tags)
+    enabled.joins(:projects).find_tagged_with tags, match_all: true
+  end
 
   def red?
     projects.any?(&:red?)
   end
 
   def green?
-    return false if projects.empty?
-    projects.all?(&:green?)
+    projects.present? && projects.all?(&:green?)
   end
 
   def online?
-    return false if projects.empty?
-    projects.all?(&:online?)
+    projects.present? && projects.all?(&:online?)
   end
 
   def tracker_project?
@@ -80,10 +81,6 @@ class AggregateProject < ActiveRecord::Base
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
     red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
-  end
-
-  def self.all_with_tags(tags)
-    enabled.joins(:projects).find_tagged_with tags, match_all: true
   end
 
   def as_json(options = {})
