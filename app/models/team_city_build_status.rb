@@ -31,10 +31,11 @@ class TeamCityBuildStatus
   end
 
   private
+
   def fetch
     if build_response
-      @building = build_response["running"] == "true"
-      @green = build_response["status"] == "SUCCESS"
+      @building = build_response['running'] == 'true'
+      @green = build_response['status'] == 'SUCCESS'
       @online = true
     else
       @online = false

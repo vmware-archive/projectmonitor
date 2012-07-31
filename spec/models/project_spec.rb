@@ -202,6 +202,12 @@ describe Project do
       project.should_not be_red
       project.should_not be_green
     end
+
+    it "should return true if a child is failing" do
+      Project.new do |project|
+        project.has_failing_children = true
+      end.should be_red
+    end
   end
 
   describe "#latest_status" do
@@ -316,6 +322,13 @@ describe Project do
 
     it "should return false for a project that has never been built" do
       projects(:never_built).should_not be_building
+    end
+
+    it "should return true if a child is building" do
+      Project.new do |project|
+        project.building = false
+        project.has_building_children = true
+      end.should be_building
     end
   end
 
@@ -434,22 +447,6 @@ describe Project do
       let(:project_class) { TravisProject }
 
       it { should =~ ['travis_github_account', 'travis_repository'] }
-    end
-  end
-
-  describe "#offline!" do
-    it "marks a project as offline" do
-      project = FactoryGirl.build :project, online: true
-      project.should be_online
-
-      project.offline!
-      project.reload.should_not be_online
-    end
-
-    it "saves the project" do
-      project = projects(:pivots)
-      project.should_receive(:save!)
-      project.offline!
     end
   end
 

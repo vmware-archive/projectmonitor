@@ -1,6 +1,6 @@
 class TravisJsonPayload < Payload
   def building?
-    status_content.first["state"] == "started"
+    status_content.first['state'] == 'started'
   end
 
   def build_status_is_processable?
@@ -27,20 +27,19 @@ class TravisJsonPayload < Payload
   end
 
   def parse_success(content)
-    return if content["state"] == "started"
-    content["result"].to_i == 0
+    return if content['state'] == 'started'
+    content['result'].to_i == 0
   end
 
   def parse_url(content)
-    project.feed_url.gsub(".json", "/#{content["id"]}")
   end
 
   def parse_build_id(content)
-    content["id"]
+    content['id']
   end
 
   def parse_published_at(content)
-    published_at = content["finished_at"]
+    published_at = content['finished_at']
     Time.parse(published_at).localtime if published_at.present?
   end
 end

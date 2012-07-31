@@ -1,8 +1,14 @@
 class JenkinsXmlPayload < Payload
+
+  def initialize(build_name)
+    super()
+    @build_name = build_name
+  end
+
   def building?
-    p_element = build_status_content.xpath("//project[@name=\"#{project.project_name.downcase}\"]")
-    return false if p_element.empty?
-    p_element.attribute('activity').value == 'building'
+    selector = XPath.descendant(:project)[XPath.attr(:name) == @build_name.downcase].to_s
+    p_element = build_status_content.xpath selector
+    p_element.present? && p_element.attribute('activity').value == 'building'
   end
 
   private
@@ -46,4 +52,5 @@ class JenkinsXmlPayload < Payload
     pub_date = Time.parse(content.css('published').first.content)
     (pub_date == Time.at(0) ? Time.now : pub_date).localtime
   end
+
 end

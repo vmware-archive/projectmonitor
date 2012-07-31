@@ -20,14 +20,14 @@ class TravisProject < Project
   end
 
   def fetch_payload
-    TravisJsonPayload.new(self)
+    TravisJsonPayload.new
   end
 
   def webhook_payload
-    TravisJsonPayload.new(self)
+    TravisJsonPayload.new
   end
 
-private
+  private
 
   def base_url
     "http://travis-ci.org/#{travis_github_account}/#{travis_repository}"

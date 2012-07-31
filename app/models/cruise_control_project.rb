@@ -13,20 +13,17 @@ class CruiseControlProject < Project
   end
 
   def build_status_url
-    return nil if feed_url.nil?
+    return if feed_url.nil?
 
     url_components = URI.parse(feed_url)
-    ["#{url_components.scheme}://#{url_components.host}"].tap do |url|
-      url << ":#{url_components.port}" if url_components.port
-      url << "/XmlStatusReport.aspx"
-    end.join
+    "#{url_components.scheme}://#{url_components.host}:#{url_components.port}/XmlStatusReport.aspx"
   end
 
   def fetch_payload
-    CruiseControlXmlPayload.new(self)
+    CruiseControlXmlPayload.new(name)
   end
 
   def webhook_payload
-    CruiseControlXmlPayload.new(self)
+    CruiseControlXmlPayload.new(name)
   end
 end

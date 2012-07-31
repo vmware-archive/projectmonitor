@@ -1,6 +1,8 @@
 class Payload
-  def initialize(project)
-    self.project = project
+
+  attr_writer :dependent_content
+
+  def initialize
     self.processable = true
     self.build_processable = true
   end
@@ -14,6 +16,9 @@ class Payload
         published_at: parse_published_at(content)
       )
     end
+  end
+
+  def each_child(project)
   end
 
   def status_content=(content)
@@ -46,6 +51,10 @@ class Payload
     build_status_content.present?
   end
 
+  def has_dependent_content?
+    dependent_content.present?
+  end
+
   def convert_content!(content)
     content
   end
@@ -54,6 +63,6 @@ class Payload
     content
   end
 
-  attr_accessor :project, :processable, :build_processable
-  attr_reader :status_content, :build_status_content
+  attr_accessor :processable, :build_processable
+  attr_reader :status_content, :build_status_content, :dependent_content
 end
