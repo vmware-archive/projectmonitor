@@ -13,6 +13,14 @@ class Project < ActiveRecord::Base
   scope :with_statuses, joins(:statuses).uniq
   scope :for_location, lambda { |location| where(location: location) }
   scope :unknown_location, where("location IS NULL OR location = ''")
+  scope :updateable, lambda {
+    enabled.where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
+  }
+  scope :displayable, lambda {|tags|
+    scope = standalone.enabled
+    return scope.find_tagged_with(tags) if tags
+    scope
+  }
 
   acts_as_taggable
 
@@ -30,11 +38,6 @@ class Project < ActiveRecord::Base
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time
 
-  def self.displayable tags = nil
-    scope = standalone.enabled
-    return scope.find_tagged_with(tags) if tags
-    scope
-  end
 
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
@@ -96,10 +99,6 @@ class Project < ActiveRecord::Base
 
   def set_next_poll
     self.next_poll_at = Time.now + (polling_interval || Project::DEFAULT_POLLING_INTERVAL)
-  end
-
-  def needs_poll?
-    next_poll_at.nil? || next_poll_at <= Time.now
   end
 
   def building?

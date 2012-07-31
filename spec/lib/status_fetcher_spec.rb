@@ -19,26 +19,17 @@ end
 describe StatusFetcher do
   describe "#fetch_all" do
     context "some projects don't need to be polled" do
-      let(:project) { stub(:project, needs_poll?: true) }
-      let(:non_polling_project) { stub(:project, needs_poll?: false) }
-      let(:projects) { [project, non_polling_project] }
-
+      let(:project) { stub(:project) }
+      let(:projects) { [project] }
       let(:job_for_project) { stub(:delayed_job) }
-      let(:job_for_non_polling_project) { stub(:unexpected_delayed_job) }
 
       before do
-        Project.stub(:all).and_return projects
+        Project.stub(:updateable).and_return projects
         StatusFetcher::Job.stub(:new).with(project).and_return job_for_project
-        StatusFetcher::Job.stub(:new).with(non_polling_project).and_return job_for_non_polling_project
       end
 
       it "enqueues a job for each polling project" do
         Delayed::Job.should_receive(:enqueue).with job_for_project
-        StatusFetcher.fetch_all
-      end
-
-      it "does not enqueue a job for a project which doesn't need to poll" do
-        Delayed::Job.should_not_receive(:enqueue).with job_for_non_polling_project
         StatusFetcher.fetch_all
       end
     end
