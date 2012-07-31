@@ -7,7 +7,8 @@ describe StatusFetcher::Job do
     it "retrieves statuses from the StatusFetcher" do
       StatusFetcher.should_receive(:retrieve_status_for).with project
       StatusFetcher.should_receive(:retrieve_velocity_for).with project
-      project.should_receive(:set_next_poll!)
+      project.should_receive(:set_next_poll)
+      project.should_receive(:save!)
 
       StatusFetcher::Job.new(project).perform
     end
@@ -47,25 +48,8 @@ describe StatusFetcher do
     let(:payload) { double(Payload) }
     let(:project) { double(Project, fetch_payload: payload) }
 
-    it "fetches content" do
-      processor = double(PayloadProcessor, process: nil)
-      PayloadProcessor.stub(new: processor)
-
-      fetcher = double(ProjectContentFetcher)
-      ProjectContentFetcher.should_receive(:new).with(project, payload).and_return(fetcher)
-      fetcher.should_receive(:fetch)
-
-      StatusFetcher.retrieve_status_for project
-    end
-
-    it "processes content" do
-      fetcher = double(ProjectContentFetcher, fetch: payload)
-      ProjectContentFetcher.stub(new: fetcher)
-
-      processor = double(PayloadProcessor)
-      PayloadProcessor.should_receive(:new).with(project, payload).and_return(processor)
-      processor.should_receive(:process)
-
+    it 'asks the project updater to update the project' do
+      ProjectUpdater.should_receive(:update).with(project)
       StatusFetcher.retrieve_status_for project
     end
   end

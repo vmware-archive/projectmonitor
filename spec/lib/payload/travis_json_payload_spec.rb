@@ -3,11 +3,11 @@ require 'spec_helper'
 describe TravisJsonPayload do
   let(:project) { FactoryGirl.create(:travis_project) }
   let(:status_content) { TravisExample.new(json).read }
-  let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = status_content} }
+  let(:travis_payload) { TravisJsonPayload.new.tap{|p| p.status_content = status_content} }
 
   subject do
     PayloadProcessor.new(project, travis_payload).process
-    project.reload
+    project
   end
 
   describe "project status" do
@@ -34,7 +34,7 @@ describe TravisJsonPayload do
     end
 
     context "when building" do
-      let(:travis_payload) { TravisJsonPayload.new(project) }
+      let(:travis_payload) { TravisJsonPayload.new }
 
       it "remains green when existing status is green" do
         content = TravisExample.new("success.json").read
@@ -44,7 +44,7 @@ describe TravisJsonPayload do
         content = TravisExample.new("building.json").read
         travis_payload.status_content = content
         PayloadProcessor.new(project,travis_payload).process
-        project.reload.should be_green
+        project.should be_green
         project.should be_online
         project.recent_statuses.should == statuses
       end
@@ -57,7 +57,7 @@ describe TravisJsonPayload do
         content = TravisExample.new("building.json").read
         travis_payload.status_content = content
         PayloadProcessor.new(project,travis_payload).process
-        project.reload.should be_red
+        project.should be_red
         project.should be_online
         project.recent_statuses.should == statuses
       end
@@ -65,49 +65,34 @@ describe TravisJsonPayload do
   end
 
   describe "saving data" do
-    let(:example) { TravisExample.new(json) }
-    let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = example.read } }
+    let(:example) { TravisExample.new("success.json") }
+    let(:travis_payload) { TravisJsonPayload.new.tap{|p| p.status_content = example.read } }
+
+    # it "should return the link to the checkin" do
+      # subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
+    # end
+
+    it "should return the published date of the checkin" do
+      subject.latest_status.published_at.should == Time.parse(example.as_json.first["finished_at"])
+    end
+
+    it "should return the build id" do
+      subject.latest_status.build_id.should == example.as_json.first["id"]
+    end
 
     describe "when build was successful" do
-      let(:json) { "success.json" }
-
       its(:latest_status) { should be_success }
-
-      it "should return the link to the checkin" do
-        subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
-      end
-
-      it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(example.as_json.first["finished_at"])
-      end
-
-      it "should return the build id" do
-        subject.latest_status.build_id.should == example.as_json.first["id"]
-      end
     end
 
     describe "when build failed" do
-      let(:json) { "failure.json" }
-
+      let(:example) { TravisExample.new("failure.json") }
       its(:latest_status) { should_not be_success }
-
-      it "should return the link to the checkin" do
-        subject.latest_status.url.should == project.feed_url.gsub(".json", "/#{example.as_json.first["id"]}")
-      end
-
-      it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(example.as_json.first["finished_at"])
-      end
-
-      it "should return the build id" do
-        subject.latest_status.build_id.should == example.as_json.first["id"]
-      end
     end
   end
 
   describe "building status" do
     let(:status_content) { TravisExample.new(json).read }
-    let(:travis_payload) { TravisJsonPayload.new(project).tap{|p| p.status_content = status_content } }
+    let(:travis_payload) { TravisJsonPayload.new.tap{|p| p.status_content = status_content } }
     let(:json) { "building.json" }
 
     it { should be_building }
@@ -117,7 +102,7 @@ describe TravisJsonPayload do
       subject.should be_building
       travis_payload.status_content = TravisExample.new("failure.json").read
       PayloadProcessor.new(project,travis_payload).process
-      project.reload.should_not be_building
+      project.should_not be_building
     end
   end
 

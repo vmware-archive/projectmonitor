@@ -5,13 +5,13 @@ describe CruiseControlXmlPayload do
 
   subject do
     PayloadProcessor.new(project, payload).process
-    project.reload
+    project
   end
 
   describe "project status" do
     context "when not currently building" do
       let(:status_content) { CCRssExample.new(rss).read }
-      let(:payload) { CruiseControlXmlPayload.new(project) }
+      let(:payload) { CruiseControlXmlPayload.new(project.name) }
       before { payload.status_content = status_content }
 
       context "when build was successful" do
@@ -26,7 +26,7 @@ describe CruiseControlXmlPayload do
     end
 
     context "when building" do
-      let(:payload) { CruiseControlXmlPayload.new(project) }
+      let(:payload) { CruiseControlXmlPayload.new(project.name) }
 
       it "remains green when existing status is green" do
         status_content = CCRssExample.new("success.rss").read
@@ -36,7 +36,7 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         PayloadProcessor.new(project,payload).process
-        project.reload.should be_green
+        project.should be_green
         project.statuses.should == statuses
       end
 
@@ -48,7 +48,7 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         PayloadProcessor.new(project,payload).process
-        project.reload.should be_red
+        project.should be_red
         project.statuses.should == statuses
       end
     end
@@ -58,7 +58,7 @@ describe CruiseControlXmlPayload do
 
   describe "building status" do
     let(:build_content) { BuildingStatusExample.new(xml).read }
-    let(:payload) { CruiseControlXmlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new('Socialitis') }
     before { payload.build_status_content = build_content }
 
     context "when building" do
@@ -75,7 +75,7 @@ describe CruiseControlXmlPayload do
   describe "saving data" do
     let(:example) { CCRssExample.new(xml) }
     let(:status_content) { example.read }
-    let(:payload) { CruiseControlXmlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new(project.name) }
     before { payload.status_content = status_content }
 
     describe "when build was successful" do
@@ -109,7 +109,7 @@ describe CruiseControlXmlPayload do
 
   describe "with invalid xml" do
     let(:status_content) { "<foo><bar>baz</bar></foo>" }
-    let(:payload) { CruiseControlXmlPayload.new(project) }
+    let(:payload) { CruiseControlXmlPayload.new(project.name) }
     before { payload.status_content = status_content }
 
     it { should_not be_building }

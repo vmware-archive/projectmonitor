@@ -4,7 +4,8 @@ module StatusFetcher
       retrieve_status
       retrieve_velocity
 
-      project.set_next_poll!
+      project.set_next_poll
+      project.save!
     end
 
     private
@@ -27,8 +28,7 @@ module StatusFetcher
     end
 
     def retrieve_status_for(project)
-      payload = ProjectContentFetcher.new(project, project.fetch_payload).fetch
-      PayloadProcessor.new(project, payload).process
+      ProjectUpdater.update(project)
     end
 
     def retrieve_velocity_for(project)

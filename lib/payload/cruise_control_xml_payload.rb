@@ -1,7 +1,14 @@
 class CruiseControlXmlPayload < Payload
+
+  def initialize(project_name)
+    super()
+    @project_name = project_name
+  end
+
   def building?
-    project_element = build_status_content.at_xpath("/projects/project[@name='#{project.project_name.downcase}']")
-    project_element && project_element['activity'] == "building"
+    selector = XPath.descendant(:projects).descendant(:project)[XPath.attr(:name) == @project_name.downcase].to_s
+    project_element = build_status_content.at_xpath selector
+    project_element.present? && project_element['activity'] == 'building'
   end
 
   private
@@ -38,4 +45,5 @@ class CruiseControlXmlPayload < Payload
       (pub_date == Time.at(0) ? Time.now : pub_date).localtime
     end
   end
+
 end

@@ -2,11 +2,11 @@ require 'spec_helper'
 describe LegacyTeamCityXmlPayload do
   let(:project) { FactoryGirl.create(:team_city_project) }
   let(:content) { TeamcityCradiatorXmlExample.new(xml).read }
-  let(:payload) { LegacyTeamCityXmlPayload.new(project) }
+  let(:payload) { LegacyTeamCityXmlPayload.new }
 
   subject do
     PayloadProcessor.new(project, payload).process
-    project.reload
+    project
   end
 
   describe "project status" do
@@ -40,7 +40,7 @@ describe LegacyTeamCityXmlPayload do
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
         PayloadProcessor.new(project,payload).process
-        project.reload.should be_green
+        project.should be_green
         project.statuses.should == statuses
       end
 
@@ -52,7 +52,7 @@ describe LegacyTeamCityXmlPayload do
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
         PayloadProcessor.new(project,payload).process
-        project.reload.should be_red
+        project.should be_red
         project.statuses.should == statuses
       end
     end
@@ -105,7 +105,7 @@ describe LegacyTeamCityXmlPayload do
       build_content = BuildingStatusExample.new("team_city_not_building.xml").read
       payload.build_status_content = build_content
       PayloadProcessor.new(project,payload).process
-      project.reload.should_not be_building
+      project.should_not be_building
     end
   end
 

@@ -14,7 +14,7 @@ describe PayloadProcessor do
       end
 
       it "sets the project as online" do
-        project.should_receive(:online!)
+        project.should_receive(:online=).with(true)
         processor.process
       end
 
@@ -66,7 +66,7 @@ describe PayloadProcessor do
       end
 
       it "sets the project as offline" do
-        project.should_receive(:offline!)
+        project.should_receive(:online=).with(false)
         processor.process
       end
     end
@@ -78,7 +78,7 @@ describe PayloadProcessor do
         building = double(Boolean)
         payload.stub(building?: building)
 
-        project.should_receive(:update_attributes!).with(building: building)
+        project.should_receive(:building=).with(building)
 
         processor.process
       end
@@ -88,7 +88,7 @@ describe PayloadProcessor do
       before { payload.stub(build_status_is_processable?: false) }
 
       it "sets the project as not building" do
-        project.should_receive(:not_building!)
+        project.should_receive(:building=).with(false)
         processor.process
       end
     end

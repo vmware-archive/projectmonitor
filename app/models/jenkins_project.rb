@@ -13,13 +13,10 @@ class JenkinsProject < Project
   end
 
   def build_status_url
-    return nil if feed_url.nil?
+    return if feed_url.nil?
 
     url_components = URI.parse(feed_url)
-    ["#{url_components.scheme}://#{url_components.host}"].tap do |url|
-      url << ":#{url_components.port}" if url_components.port
-      url << "/cc.xml"
-    end.join
+    "#{url_components.scheme}://#{url_components.host}:#{url_components.port}/cc.xml"
   end
 
   def status_url
@@ -27,10 +24,11 @@ class JenkinsProject < Project
   end
 
   def fetch_payload
-    JenkinsXmlPayload.new(self)
+    JenkinsXmlPayload.new(jenkins_build_name)
   end
 
   def webhook_payload
-    JenkinsJsonPayload.new(self)
+    JenkinsJsonPayload.new
   end
+
 end

@@ -21,10 +21,10 @@ class TeamCityProject < Project
   end
 
   def fetch_payload
-    LegacyTeamCityXmlPayload.new(self)
+    LegacyTeamCityXmlPayload.new
   end
 
   def webhook_payload
-    LegacyTeamCityXmlPayload.new(self)
+    LegacyTeamCityXmlPayload.new
   end
 end

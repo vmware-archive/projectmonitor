@@ -15,19 +15,15 @@ class PayloadProcessor
 
   def add_statuses
     if payload.status_is_processable?
-      project.online!
+      project.online = true
       add_statuses_from_payload
     else
-      project.offline!
+      project.online = false
     end
   end
 
   def update_building_status
-    if payload.build_status_is_processable?
-      project.update_attributes!(building: payload.building?)
-    else
-      project.not_building!
-    end
+    project.building = payload.build_status_is_processable? && payload.building?
   end
 
   def add_statuses_from_payload
@@ -37,4 +33,5 @@ class PayloadProcessor
       end
     end
   end
+
 end
