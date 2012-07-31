@@ -38,6 +38,9 @@ class Project < ActiveRecord::Base
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time
 
+  def self.project_specific_attributes
+    columns.map(&:name).grep(/#{project_attribute_prefix}_/)
+  end
 
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
@@ -84,17 +87,8 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement build_status_url in subclasses"
   end
 
-  def self.project_specific_attributes
-    columns.map(&:name).grep(/#{project_attribute_prefix}_/)
-  end
-
   def to_s
     name
-  end
-
-  def set_next_poll!
-    set_next_poll
-    save!
   end
 
   def set_next_poll
@@ -131,10 +125,6 @@ class Project < ActiveRecord::Base
 
   def as_json(options = {})
     super(:only => :id, :methods => :tag_list)
-  end
-
-  def self.build_url_from_fields(params)
-    raise NotImplementedError, "Must implement build_url_from_fields in subclasses"
   end
 
   def payload

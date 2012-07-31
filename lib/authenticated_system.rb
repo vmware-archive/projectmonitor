@@ -163,7 +163,7 @@ module AuthenticatedSystem
   # and they should be changed at each login
 
   def valid_remember_cookie?
-    return nil unless @current_user
+    return unless @current_user
     (@current_user.remember_token?) &&
         (cookies[:auth_token] == @current_user.remember_token)
   end
