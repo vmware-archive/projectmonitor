@@ -1,6 +1,6 @@
 class JenkinsJsonPayload < Payload
   def building?
-    status_content.first["build"]["phase"] == "STARTED"
+    status_content.first['build']['phase'] == 'STARTED'
   end
 
   private
@@ -15,15 +15,15 @@ class JenkinsJsonPayload < Payload
 
   def parse_success(content)
     # TODO: find actual return code for success
-    content["build"]["phase"] == "SUCCESS"
+    content['build']['phase'] == 'SUCCESS'
   end
 
   def parse_url(content)
-    content["build"]["url"]
+    content['build']['url']
   end
 
   def parse_build_id(content)
-    content["build"]["number"]
+    content['build']['number']
   end
 
   def parse_published_at(content)

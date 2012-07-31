@@ -34,6 +34,7 @@ class AmazonService
   end
 
   private
+
   def self.process_instances(method, day, end_time, start_time)
     projects = Project.
       where(:"ec2_#{method}_time" => (start_time...end_time)).

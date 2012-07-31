@@ -17,7 +17,7 @@ class LegacyTeamCityXmlPayload < Payload
 
   def parse_success(content)
     return if content.attribute('activity').value == 'Building'
-    content.attribute('lastBuildStatus').value == "NORMAL"
+    content.attribute('lastBuildStatus').value == 'NORMAL'
   end
 
   def parse_url(content)

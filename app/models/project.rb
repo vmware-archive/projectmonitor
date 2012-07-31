@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
 
@@ -60,23 +61,7 @@ class Project < ActiveRecord::Base
   end
 
   def red?
-    online? && !status.success?
-  end
-
-  def offline!
-    update_attributes!(online: false) if online?
-  end
-
-  def online!
-    update_attributes!(online: true) unless online?
-  end
-
-  def building!
-    update_attributes!(building: true) unless building?
-  end
-
-  def not_building!
-    update_attributes!(building: false) if building?
+    online? && !status.success? || has_failing_children?
   end
 
   def red_since
@@ -115,6 +100,10 @@ class Project < ActiveRecord::Base
 
   def needs_poll?
     next_poll_at.nil? || next_poll_at <= Time.now
+  end
+
+  def building?
+    super || has_building_children?
   end
 
   def status_url
@@ -159,6 +148,13 @@ class Project < ActiveRecord::Base
 
   def has_status?(status)
     statuses.where(build_id: status.build_id).any?
+  end
+
+  def has_dependencies?
+    false
+  end
+
+  def dependent_build_info_url
   end
 
   private

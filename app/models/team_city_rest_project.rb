@@ -21,10 +21,11 @@ class TeamCityRestProject < Project
   end
 
   def fetch_payload
-    TeamCityXmlPayload.new(self)
+    TeamCityXmlPayload.new
   end
 
   def webhook_payload
-    TeamCityJsonPayload.new(self)
+    TeamCityJsonPayload.new
   end
+
 end
