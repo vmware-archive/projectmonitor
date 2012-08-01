@@ -38,7 +38,7 @@ module DashboardHelper
   def historical_build_indicator(result, url, box_opacity, indicator_opacity)
     content_tag(:li, :class => result, :style => "opacity: #{box_opacity}") do
       content_tag(:span, :style => "opacity: #{indicator_opacity}") do
-        concat link_to result, url
+        concat link_to result, url || '#'
       end
     end
   end

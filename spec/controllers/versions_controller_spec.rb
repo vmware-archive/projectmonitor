@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-class VersionsController
-  silence_warnings do
-    DEFAULT_VERSION = '-1 (for testing)'
-  end
-end
-
 describe VersionsController do
   context 'routing' do
     it 'should route GET /version to VersionsController#show' do
@@ -15,27 +9,23 @@ describe VersionsController do
 
   context 'with a VERSION file in the Rails root' do
     let(:version) { '123' }
-
-    it 'should find the file' do
-      get :show
-      response.body.should_not == VersionsController::DEFAULT_VERSION
+    before do
+      File.stub(:exists?).with(VersionsController::VERSION_PATH).and_return(true)
+      File.stub(:read).with(VersionsController::VERSION_PATH).and_return(version)
     end
 
     it 'returns the current version' do
-      File.stub(:read).with(VersionsController::VERSION_PATH).and_return(version)
       get :show
       response.body.should == version
-    end
-
-    it 'should route GET /version to VersionsController#show' do
-      { get: '/version' }.should route_to(:controller => 'versions', :action => 'show')
     end
   end
 
   context 'with no VERSION file in the Rails root' do
+    before do
+      File.stub(:exists?).with(VersionsController::VERSION_PATH).and_return(false)
+    end
 
     it 'returns the current version' do
-      File.stub(:read).and_raise(Errno::ENOENT)
       get :show
       response.body.should == VersionsController::DEFAULT_VERSION
     end

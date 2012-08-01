@@ -144,7 +144,7 @@ describe AmazonService do
       end
 
       it "should not start the project of a different day" do
-        @start_project.update_attribute(:ec2_tuesday, false)
+        @start_project.update_attributes(:ec2_tuesday => false)
         AWS::EC2.should_not_receive(:new)
 
         AmazonService.schedule(@time)
@@ -177,7 +177,7 @@ describe AmazonService do
       end
 
       it "should not end the project of a different day" do
-        @end_project.update_attribute(:ec2_tuesday, false)
+        @end_project.update_attributes(:ec2_tuesday => false)
         @instance_mock.should_not_receive(:stop)
 
         AmazonService.schedule(@time)
