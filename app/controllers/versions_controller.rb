@@ -9,8 +9,10 @@ class VersionsController < ApplicationController
   private
 
   def version
-    File.read(VERSION_PATH)
-  rescue Errno::ENOENT
-    DEFAULT_VERSION
+    if File.exists?(VERSION_PATH)
+      File.read(VERSION_PATH)
+    else
+      DEFAULT_VERSION
+    end
   end
 end
