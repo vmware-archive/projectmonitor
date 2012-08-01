@@ -24,9 +24,9 @@ describe TeamCityRestProject do
     # end
   # end
 
-  its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)" }
-  its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)" }
-  its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456)" }
+  its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
 
   describe '#status_url' do
     let(:project) { FactoryGirl.build(:team_city_rest_project) }
