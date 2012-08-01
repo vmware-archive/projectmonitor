@@ -9,7 +9,7 @@ class TeamCityRestProject < Project
   end
 
   def feed_url
-    "http://#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id})"
+    "http://#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id}),personal:false"
   end
 
   def status_url
