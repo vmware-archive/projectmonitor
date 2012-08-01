@@ -1,10 +1,31 @@
 describe("project edit", function() {
   describe("validations on pivotal tracker setup", function() {
     beforeEach(function() {
-      var fixtures = "<input id='project_tracker_auth_token' type='text' />" +
+      var fixtures = "<fieldset id='tracker_setup'><input id='project_tracker_online'/>" +
+        "<input id='project_tracker_auth_token' type='text' />" +
+        "<span id='project_tracker_auth_token_status'>" +
+        "<span class='success hide' /><span class='failure hide' /></span>" +
         "<input id='project_tracker_project_id' type='text' />" +
-        "<input type='submit'/ >";
+        "<span id='project_tracker_project_id_status'>" +
+        "<span class='success hide' /><span class='failure hide' /></span>" +
+        "<span id='tracker_status'>" +
+        "<span class='success hide' /><span class='pending hide' />" +
+        "<span class='failure hide' /><span class='unconfigured hide' />" +
+        "</span>" +
+        "<input type='submit'/ ></fieldset>";
       setFixtures(fixtures);
+    });
+
+    describe("when the project is online", function () {
+      beforeEach(function() {
+        $('#project_tracker_online').val("1");
+        ProjectEdit.init();
+      });
+
+      it("should not validate anything and show success", function() {
+        expect($('.success')).not.toHaveClass('hide');
+        expect($('.pending, .failure, .unconfigured')).toHaveClass('hide');
+      });
     });
 
     describe("when both projectId and authToken are missing", function() {
@@ -13,10 +34,8 @@ describe("project edit", function() {
       });
 
       it("should not validate anything", function() {
-        $('input#project_tracker_project_id').val("").change();
-        $('input#project_tracker_auth_token').val("").change();
-        expect($('#project_tracker_project_id_error')).not.toExist();
-        expect($('#project_tracker_auth_token_error')).not.toExist();
+        expect($('#tracker_status .unconfigured')).not.toHaveClass('hide');
+        expect($('.success, .failure, .pending')).toHaveClass('hide');
       });
     });
 
@@ -33,8 +52,8 @@ describe("project edit", function() {
           it("should show the success div", function () {
             $('input#project_tracker_project_id').val("590337").change();
             $('input#project_tracker_auth_token').val("881c7bc3264a00d280225ea409225fe8").change();
-            expect($('#project_tracker_auth_token_success')).toExist();
-            expect($('#project_tracker_auth_token_error')).not.toExist();
+            expect($(' .success')).not.toHaveClass('hide');
+            expect($('.success, .failure, .pending')).toHaveClass('hide');
           });
         });
 
@@ -50,10 +69,9 @@ describe("project edit", function() {
             it("should show the error div", function () {
               $('input#project_tracker_project_id').val("1111111").change();
               $('input#project_tracker_auth_token').val("2222222").change();
-              expect($('#project_tracker_auth_token_success')).not.toExist();
-              expect($('#project_tracker_auth_token_error')).toExist();
-              expect($('#project_tracker_project_id_error')).not.toExist();
-              expect($('#project_tracker_project_id_success')).not.toExist();
+              expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
+              expect($('#project_tracker_project_id_status .failure')).toHaveClass('hide');
+              expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
             });
           });
 
@@ -68,10 +86,9 @@ describe("project edit", function() {
             it("should show the error div", function () {
               $('input#project_tracker_project_id').val("1111111").change();
               $('input#project_tracker_auth_token').val("2222222").change();
-              expect($('#project_tracker_project_id_success')).not.toExist();
-              expect($('#project_tracker_project_id_error')).toExist();
-              expect($('#project_tracker_auth_token_success')).not.toExist();
-              expect($('#project_tracker_auth_token_error')).not.toExist();
+              expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
+              expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
+              expect($('#project_tracker_auth_token_status .failure')).toHaveClass('hide');
             });
           });
         });
@@ -88,10 +105,9 @@ describe("project edit", function() {
 
       it("should show the auth token error", function() {
         $('input#project_tracker_project_id').val("1111111").change();
-        expect($('#project_tracker_auth_token_success')).not.toExist();
-        expect($('#project_tracker_project_id_success')).not.toExist();
-        expect($('#project_tracker_project_id_error')).not.toExist();
-        expect($('#project_tracker_auth_token_error')).toExist();
+        expect($('#project_tracker_project_id_status .failure')).toHaveClass('hide');
+        expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
+        expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
       });
     });
 
@@ -105,10 +121,9 @@ describe("project edit", function() {
 
       it("should show the project id error", function() {
         $('input#project_tracker_auth_token').val("2222222").change();
-        expect($('#project_tracker_auth_token_success')).not.toExist();
-        expect($('#project_tracker_auth_token_error')).not.toExist();
-        expect($('#project_tracker_project_id_success')).not.toExist();
-        expect($('#project_tracker_project_id_error')).toExist();
+        expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
+        expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
+        expect($('#project_tracker_auth_token_status .failure')).toHaveClass('hide');
       });
     });
 
@@ -122,8 +137,8 @@ describe("project edit", function() {
         });
 
         it("should not show any error messages", function() {
-          expect($('#project_tracker_auth_token_error')).not.toExist();
-          expect($('#project_tracker_project_id_error')).not.toExist();
+          expect($('.failure')).toHaveClass('hide');
+          expect($('#tracker_status .unconfigured')).not.toHaveClass('hide');
         });
       });
 
@@ -136,8 +151,7 @@ describe("project edit", function() {
         });
 
         it("should not show any error messages", function() {
-          expect($('#project_tracker_auth_token_error')).not.toExist();
-          expect($('#project_tracker_project_id_error')).not.toExist();
+          expect($('.failure')).toHaveClass('hide');
         });
       });
 
@@ -150,7 +164,8 @@ describe("project edit", function() {
         });
 
         it("should show the auth token error", function() {
-          expect($('#project_tracker_auth_token_error')).toExist();
+          expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
+          expect($('#tracker_status .failure')).not.toHaveClass('hide');
         });
       });
 
@@ -163,7 +178,8 @@ describe("project edit", function() {
         });
 
         it("should show the project id error", function() {
-          expect($('#project_tracker_project_id_error')).toExist();
+          expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
+          expect($('#tracker_status .failure')).not.toHaveClass('hide');
         });
       });
     });
@@ -171,7 +187,7 @@ describe("project edit", function() {
 
   describe("Feed URL fields", function() {
     beforeEach(function() {
-      setFixtures('' +
+      setFixtures(
         '<select id="project_type" name="project[type]"><option value=""></option>' +
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
