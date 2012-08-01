@@ -66,7 +66,7 @@ end
 
 group :test, :development do
   gem "awesome_print"
-  gem "jslint_on_rails", git: "git://github.com/psionides/jslint_on_rails.git", tag: "1.1.1"
+  gem "jshint_on_rails"
   # NOTE: rake jasmine:ci is not compatible with newer versions of rspec, until
   # this: https://github.com/pivotal/jasmine-gem/issues/94 is resolved lock
   # down rspec
