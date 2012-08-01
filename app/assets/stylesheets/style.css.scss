@@ -19,8 +19,24 @@
   color: #000000;
 }
 
+#tracker_setup {
+  .success {
+    color: $very-dark-green;
+    font-weight: bold;
+  }
+  .failure {
+    color: $very-dark-red;
+  }
+  .pending {
+    background: url("/assets/ajax-loader.gif");
+    width: 128px;
+    height: 15px;
+    display: inline-block;
+  }
+}
+
 .hide {
-  display: none;
+  display: none !important;
 }
 
 a,
@@ -289,10 +305,10 @@ form em {
 .projects.edit, .projects.new {
   #project_tracker_project_id_error, #project_tracker_auth_token_error {
     display: inline;
-    color: red;
+    color: $very-dark-red;
   }
   #project_tracker_project_id_success,#project_tracker_auth_token_success {
     display: inline;
-    color: green;
+    color: $very-dark-green;
   }
 }

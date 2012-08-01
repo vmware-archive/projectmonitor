@@ -1,37 +1,45 @@
 var ProjectEdit = {};
 (function (o) {
+
   var clearTrackerSetupValidations = function (result) {
-    $('div#project_tracker_auth_token_success').remove();
-    $('div#project_tracker_project_id_success').remove();
-    $('div#project_tracker_auth_token_error').remove();
-    $('div#project_tracker_project_id_error').remove();
+    $('#tracker_setup span span').addClass('hide');
   };
 
-  var showAuthTokenError = function (e) {
-    $('<div id="project_tracker_auth_token_error">X</div>').insertAfter("input#project_tracker_auth_token");
+  var showAuthTokenError = function () {
+    $('#project_tracker_auth_token_status .failure').removeClass('hide');
+    $('#tracker_status .failure').removeClass('hide').text("Error in auth token");
   };
 
-  var showProjectIdError = function (e) {
-    $('<div id="project_tracker_project_id_error">X</div>').insertAfter("input#project_tracker_project_id");
+  var showProjectIdError = function () {
+    $('#project_tracker_project_id_status .failure').removeClass('hide');
+    $('#tracker_status .failure').removeClass('hide').text("Error in project ID");
   };
 
-  o.validateTrackerSetup = function (e) {
+  var showTrackerSuccess = function () {
+    $('#project_tracker_project_id_status .success').removeClass('hide');
+    $('#project_tracker_auth_token_status .success').removeClass('hide');
+    $('#tracker_status .success').removeClass('hide');
+  }
+
+  o.validateTrackerSetup = function () {
     var authToken = $('input#project_tracker_auth_token').val();
     var projectId = $('input#project_tracker_project_id').val();
 
     clearTrackerSetupValidations();
 
     if (authToken === '' && projectId === '') {
-      return;
-    }
+      $('#tracker_status .unconfigured').removeClass('hide');
 
-    if (authToken === '' || projectId === '') {
-      e.stopPropagation();
-      e.preventDefault();
+    } else if (authToken === '') {
+      showAuthTokenError();
+      return false;
 
-      if (authToken === '') { showAuthTokenError(e); }
-      if (projectId === '') { showProjectIdError(e); }
+    } else if (projectId === '') {
+      showProjectIdError();
+      return false;
+
     } else {
+      $('#tracker_status .pending').removeClass('hide');
       $.ajax({
         url: "/projects/validate_tracker_project",
         type: "post",
@@ -40,10 +48,11 @@ var ProjectEdit = {};
           project_id: projectId
         },
         success: function(result) {
-          $('<div id="project_tracker_auth_token_success">OK</div>').insertAfter("input#project_tracker_auth_token");
-          $('<div id="project_tracker_project_id_success">OK</div>').insertAfter("input#project_tracker_project_id");
+          $('#tracker_status .pending').addClass('hide');
+          showTrackerSuccess();
         },
         error: function(result) {
+          $('#tracker_status .pending').addClass('hide');
           if (result.status == 401) {
             showAuthTokenError();
           } else if (result.status == 404) {
@@ -66,11 +75,24 @@ var ProjectEdit = {};
     $(':input', $enabled_fieldset).attr('disabled', false);
   };
 
+  var handleParameterChange = function (event) {
+    if (o.validateTrackerSetup() === false) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  };
+
   o.init = function () {
-    $('#project_tracker_auth_token').change(o.validateTrackerSetup);
-    $('#project_tracker_project_id').change(o.validateTrackerSetup);
-    $('input[type=submit]').click(o.validateTrackerSetup);
+    $('#project_tracker_auth_token').change(handleParameterChange);
+    $('#project_tracker_project_id').change(handleParameterChange);
+    $('input[type=submit]').click(handleParameterChange);
     $('#project_type').change(o.validateFeedUrl);
+
+    if ($('#project_tracker_online').val() === "1") {
+      showTrackerSuccess();
+    } else {
+      o.validateTrackerSetup();
+    }
   };
 
 })(ProjectEdit);
