@@ -17,4 +17,4 @@ rescue LoadError
   STDERR.puts "Run `rake gems:install` to install delayed_job"
 end
 
-task :default => [:jslint, "jasmine:ci"]
+task :default => [:jshint, "jasmine:ci"]
