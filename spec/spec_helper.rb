@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'vcr_setup'
@@ -21,4 +21,6 @@ RSpec.configure do |config|
   config.before do
     AuthConfig.reset!
   end
+
+  config.order = 'random'
 end
