@@ -79,7 +79,11 @@ describe ProjectsController do
       it { should redirect_to projects_url }
     end
 
-    describe "validate_tracker_project" do
+    describe "#validate_build_info" do
+
+    end
+
+    describe "#validate_tracker_project" do
       let(:status) { :ok }
 
       subject { response }
@@ -92,8 +96,30 @@ describe ProjectsController do
       it { should be_success }
     end
 
+    describe "#validate_build_info" do
+      subject { response }
+
+      before do
+        JenkinsProject.should_receive(:new).and_return(project)
+        ProjectUpdater.should_receive(:update).with(project)
+        get :validate_build_info, :project => {:type => "JenkinsProject"}
+      end
+
+      context "project is online" do
+        let(:project) { double(:project, online: true) }
+
+        it { should be_success }
+      end
+
+      context "project is offline" do
+        let(:project) { double(:project, online: false) }
+
+        its(:status) { should == 403 }
+      end
+    end
+
     describe "#update_projects" do
-     context "The queue is empty" do
+      context "The queue is empty" do
         before do
           Delayed::Job.should_receive(:count) { stub(zero?: true) }
           StatusFetcher.should_receive(:fetch_all)
@@ -102,8 +128,8 @@ describe ProjectsController do
           post :update_projects, { auth_token: "12354" }
           response.should be_success
         end
-     end
-     context "The queue is not empty" do
+      end
+      context "The queue is not empty" do
         before do
           Delayed::Job.should_receive(:count) { stub(zero?: false) }
           StatusFetcher.should_not_receive(:fetch_all)
@@ -114,6 +140,6 @@ describe ProjectsController do
         end
       end
     end
-  
+
   end
 end
