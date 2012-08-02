@@ -196,25 +196,17 @@ describe("project edit", function() {
         '<div id="build_setup">' +
         '  <div id="field_container">' +
         '    <fieldset id="CruiseControlProject">' +
-        '      <p>' +
-        '        <label for="project_cruise_control_rss_feed_url">Rss Feed Url</label>' +
-        '        <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
-        '      </p>' +
+        '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
         '    </fieldset>' +
         '    <fieldset class="hide" id="JenkinsProject">' +
-        '      <p>' +
-        '        <label for="project_jenkins_base_url">Base URL</label>' +
-        '        <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
-        '      </p>' +
-        '      <p>' +
-        '        <label for="project_jenkins_build_name">Build Name</label>' +
-        '        <input id="project_jenkins_build_name" name="project[jenkins_build_name]" size="30" type="text">' +
-        '      </p>' +
+        '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
+        '      <input id="project_jenkins_build_name" name="project[jenkins_build_name]" size="30" type="text">' +
         '    </fieldset>' +
+        '    <input id="project_auth_username" name="project[auth_username]" size="40" type="text">' +
         '  </div>' +
         '  <input id="project_online" name="project[online]" type="hidden" value="1">' +
         '  <div id="build_status">' +
-        '    <span class="pending hide" />' +
+        '    <span class="hide" />' +
         '    <span class="unconfigured hide" />' +
         '    <span class="failure hide" />' +
         '    <span class="success hide" />' +
@@ -262,6 +254,7 @@ describe("project edit", function() {
           $('#project_jenkins_base_url').val("foobar").change();
           $('#project_jenkins_build_name').val("grok").change();
           $('#project_cruise_control_rss_feed_url').val("foobar").change();
+          $('#project_auth_username').val('alice').change();
         });
 
         it("should display the success message", function() {
@@ -296,6 +289,17 @@ describe("project edit", function() {
 
       it("should display the failure message", function() {
         expect($("#build_status .failure")).not.toHaveClass("hide");
+      });
+    });
+
+    describe("when the project type is blank but an input is filled in", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_auth_username').val('alice').change();
+      });
+
+      it("should display the unconfigured message", function() {
+        expect($("#build_status .unconfigured")).not.toHaveClass("hide");
       });
     });
 
