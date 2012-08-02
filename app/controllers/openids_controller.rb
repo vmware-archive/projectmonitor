@@ -38,7 +38,7 @@ class OpenidsController < ApplicationController
       redirect_to login_path
     else
       flash[:notice] = "Logged in successfully"
-      redirect_to projects_path
+      redirect_to edit_configuration_path
     end
   end
 

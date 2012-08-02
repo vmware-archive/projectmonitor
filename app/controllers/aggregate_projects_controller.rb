@@ -1,13 +1,20 @@
 class AggregateProjectsController < ApplicationController
-  before_filter :login_required, :except => [:show, :status]
+  before_filter :login_required, :except => [:show, :status, :index]
   before_filter :load_aggregate_project, :only => [:show, :edit, :update, :destroy]
 
-  layout "dashboard", only: [ :show ]
+  respond_to :json, only: [:index, :show]
 
-  def show
-    projects = @aggregate_project.projects.enabled
-    @tiles = DashboardGrid.arrange projects
-    render 'dashboards/index'
+  def index
+    aggregate_projects = AggregateProject.all
+    respond_to do |responder|
+      responder.html do
+        @tiles = DashboardGrid.arrange aggregate_projects
+        render 'dashboards/index', layout: 'dashboard'
+      end
+      responder.json do
+        respond_with aggregate_projects
+      end
+    end
   end
 
   def new
@@ -17,7 +24,7 @@ class AggregateProjectsController < ApplicationController
   def create
     @aggregate_project = AggregateProject.new(params[:aggregate_project])
     if @aggregate_project.save
-      redirect_to projects_url, notice: 'Aggregate project was successfully created.'
+      redirect_to edit_configuration_path, notice: 'Aggregate project was successfully created.'
     else
       render :new
     end
@@ -29,9 +36,13 @@ class AggregateProjectsController < ApplicationController
     render @aggregate_project, :tiles_count => params[:tiles_count].to_i
   end
 
+  def show
+    respond_with AggregateProject.find(params[:id])
+  end
+
   def update
     if @aggregate_project.update_attributes(params[:aggregate_project])
-      redirect_to projects_url, notice: 'Aggregate project was successfully updated.'
+      redirect_to edit_configuration_path, notice: 'Aggregate project was successfully updated.'
     else
       render :edit
     end
@@ -39,7 +50,7 @@ class AggregateProjectsController < ApplicationController
 
   def destroy
     @aggregate_project.destroy
-    redirect_to projects_url, notice: 'Aggregate project was successfully destroyed.'
+    redirect_to edit_configuration_path, notice: 'Aggregate project was successfully destroyed.'
   end
 
   private

@@ -60,6 +60,17 @@ describe Project do
       end
     end
 
+    describe "with_aggregate_project" do
+      subject do
+        Project.with_aggregate_project(aggregate_projects(:internal_projects_aggregate)) do
+          Project.all
+        end
+      end
+
+      it { should include projects(:internal_project1) }
+      it { should_not include projects(:socialitis) }
+    end
+
     describe "for_location" do
       let(:location) { "Jamaica" }
       let!(:included_project) { FactoryGirl.create(:jenkins_project, location: location) }
@@ -399,11 +410,10 @@ describe Project do
   end
 
   describe "#as_json" do
-    subject { Project.new }
+    subject { ProjectDecorator.new(Project.new(name: "foo")).as_json['project'].keys }
 
-    it "should return only public attributes" do
-      subject.as_json['project'].keys.should == ['id', :tag_list]
-    end
+    it { should include :tag_list }
+    it { should_not include %w[auth_username auth_password tracker_auth_token deprecated_feed_url deprecated_latest_status_id] }
   end
 
   describe '.project_specific_attributes' do

@@ -48,7 +48,7 @@ describe OpenidsController do
 
       get :success
 
-      response.should redirect_to(projects_path)
+      response.should redirect_to(edit_configuration_path)
       current_user.name.should == "First Last"
       current_user.login.should == "email"
       current_user.email.should == "email@example.com"
