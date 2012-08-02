@@ -2,15 +2,15 @@ describe("project edit", function() {
   describe("validations on pivotal tracker setup", function() {
     beforeEach(function() {
       var fixtures = "<fieldset id='tracker_setup'><input id='project_tracker_online'/>" +
-        "<input id='project_tracker_auth_token' type='text' />" +
+        "<input id='project_tracker_auth_token' type='text'/>" +
         "<span id='project_tracker_auth_token_status'>" +
-        "<span class='success hide' /><span class='failure hide' /></span>" +
-        "<input id='project_tracker_project_id' type='text' />" +
+        "<span class='success hide'/><span class='failure hide' /></span>" +
+        "<input id='project_tracker_project_id' type='text'/>" +
         "<span id='project_tracker_project_id_status'>" +
-        "<span class='success hide' /><span class='failure hide' /></span>" +
+        "<span class='success hide'/><span class='failure hide' /></span>" +
         "<span id='tracker_status'>" +
-        "<span class='success hide' /><span class='pending hide' />" +
-        "<span class='failure hide' /><span class='unconfigured hide' />" +
+        "<span class='success hide'/><span class='pending hide' />" +
+        "<span class='failure hide'/><span class='unconfigured hide' />" +
         "</span>" +
         "<input type='submit'/ ></fieldset>";
       setFixtures(fixtures);
@@ -72,6 +72,7 @@ describe("project edit", function() {
               expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
               expect($('#project_tracker_project_id_status .failure')).toHaveClass('hide');
               expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
+              expect($('#tracker_status .failure')).not.toHaveClass('hide');
             });
           });
 
@@ -89,6 +90,25 @@ describe("project edit", function() {
               expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
               expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
               expect($('#project_tracker_auth_token_status .failure')).toHaveClass('hide');
+              expect($('#tracker_status .failure')).not.toHaveClass('hide');
+            });
+          });
+
+          describe("when some other kind of error occurs", function() {
+            beforeEach(function() {
+              spyOn($, 'ajax').andCallFake(function (opts) {
+                opts.error({status: 500});
+              });
+              ProjectEdit.init();
+            });
+
+            it("should show the error div", function () {
+              $('input#project_tracker_project_id').val("1111111").change();
+              $('input#project_tracker_auth_token').val("2222222").change();
+              expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
+              expect($('#project_tracker_project_id_status .failure')).toHaveClass('hide');
+              expect($('#project_tracker_auth_token_status .failure')).toHaveClass('hide');
+              expect($('#tracker_status .failure')).not.toHaveClass('hide');
             });
           });
         });
@@ -204,12 +224,12 @@ describe("project edit", function() {
         '    </fieldset>' +
         '    <input id="project_auth_username" name="project[auth_username]" size="40" type="text">' +
         '  </div>' +
-        '  <input id="project_online" name="project[online]" type="hidden" value="1">' +
+        '  <input id="project_online" name="project[online]" type="hidden"/>' +
         '  <div id="build_status">' +
-        '    <span class="hide" />' +
-        '    <span class="unconfigured hide" />' +
-        '    <span class="failure hide" />' +
-        '    <span class="success hide" />' +
+        '    <span class="hide"/>' +
+        '    <span class="unconfigured hide"/>' +
+        '    <span class="failure hide"/>' +
+        '    <span class="success hide"/>' +
         '  </div>' +
         '</div>');
     });
