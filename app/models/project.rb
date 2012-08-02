@@ -151,15 +151,6 @@ class Project < ActiveRecord::Base
   def dependent_build_info_url
   end
 
-  def as_json(options = nil)
-    super(options || {except: [:auth_username,
-                               :auth_password,
-                               :tracker_auth_token,
-                               :deprecated_feed_url,
-                               :deprecated_latest_status_id],
-                      methods: :tag_list})
-  end
-
   private
 
   def self.project_attribute_prefix

@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
         render 'dashboards/index', layout: 'dashboard'
       end
       responder.json do
-        respond_with projects
+        respond_with ProjectFeedDecorator.decorate projects
       end
     end
   end
