@@ -18,6 +18,13 @@ describe ProjectsController do
       log_in users(:valid_edward)
     end
 
+    context "when nested under an aggregate project" do
+      it "should scope by aggregate_project_id" do
+        Project.should_receive(:with_aggregate_project).with('1')
+        get :index, aggregate_project_id: 1
+      end
+    end
+
     describe "create" do
       context "when the project was successfully created" do
         subject do
@@ -38,7 +45,7 @@ describe ProjectsController do
           flash[:notice].should == 'Project was successfully created.'
         end
 
-        it { should redirect_to projects_path }
+        it { should redirect_to edit_configuration_path }
       end
 
       context "when the project was not successfully created" do
@@ -55,7 +62,7 @@ describe ProjectsController do
           flash[:notice].should == 'Project was successfully updated.'
         end
 
-        it { should redirect_to projects_url }
+        it { should redirect_to edit_configuration_path }
       end
 
       context "when the project was not successfully updated" do
@@ -76,11 +83,7 @@ describe ProjectsController do
         flash[:notice].should == 'Project was successfully destroyed.'
       end
 
-      it { should redirect_to projects_url }
-    end
-
-    describe "#validate_build_info" do
-
+      it { should redirect_to edit_configuration_path }
     end
 
     describe "#validate_tracker_project" do

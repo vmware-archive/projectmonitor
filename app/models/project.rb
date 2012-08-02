@@ -43,6 +43,10 @@ class Project < ActiveRecord::Base
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
   end
 
+  def self.with_aggregate_project aggregate_project_id, &block
+    with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
+  end
+
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
   end
@@ -128,10 +132,6 @@ class Project < ActiveRecord::Base
     tracker_project_id.present? && tracker_auth_token.present?
   end
 
-  def as_json(options = {})
-    super(:only => :id, :methods => :tag_list)
-  end
-
   def payload
     raise NotImplementedError, "Must implement payload in subclasses"
   end
@@ -149,6 +149,15 @@ class Project < ActiveRecord::Base
   end
 
   def dependent_build_info_url
+  end
+
+  def as_json(options = nil)
+    super(options || {except: [:auth_username,
+                               :auth_password,
+                               :tracker_auth_token,
+                               :deprecated_feed_url,
+                               :deprecated_latest_status_id],
+                      methods: :tag_list})
   end
 
   private

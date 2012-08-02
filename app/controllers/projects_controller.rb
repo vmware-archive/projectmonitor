@@ -1,10 +1,21 @@
 class ProjectsController < ApplicationController
-  before_filter :login_required, :except => :status
+  before_filter :login_required, :except => [:show, :status, :index]
   before_filter :load_project, :only => [:edit, :update, :destroy]
+  around_filter :scope_by_aggregate_project
+
+  respond_to :json, only: [:index, :show]
 
   def index
-    @projects = Project.find(:all, :order => 'name')
-    @aggregate_projects = AggregateProject.order(:name)
+    projects = Project.all
+    respond_to do |responder|
+      responder.html do
+        @tiles = DashboardGrid.arrange projects
+        render 'dashboards/index', layout: 'dashboard'
+      end
+      responder.json do
+        respond_with projects
+      end
+    end
   end
 
   def new
@@ -13,9 +24,9 @@ class ProjectsController < ApplicationController
 
   def create
     klass = params[:project][:type].present? ? params[:project][:type].constantize : Project
-    @project = klass.new(params[:project])
+    @project = klass.create(params[:project])
     if @project.save
-      redirect_to projects_url, notice: 'Project was successfully created.'
+      redirect_to edit_configuration_path, notice: 'Project was successfully created.'
     else
       render :new
     end
@@ -26,9 +37,13 @@ class ProjectsController < ApplicationController
     render :partial => @project, :locals => {:tiles_count => params[:tiles_count].to_i}
   end
 
+  def show
+    respond_with Project.find(params[:id])
+  end
+
   def update
     if @project.update_attributes(params[:project])
-      redirect_to projects_url, notice: 'Project was successfully updated.'
+      redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
     else
       render :edit
     end
@@ -36,7 +51,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to projects_url, notice: 'Project was successfully destroyed.'
+    redirect_to edit_configuration_path, notice: 'Project was successfully destroyed.'
   end
 
   def validate_build_info
@@ -64,4 +79,15 @@ class ProjectsController < ApplicationController
   def load_project
     @project = Project.find(params[:id])
   end
+
+  def scope_by_aggregate_project
+    if aggregate_project_id = params[:aggregate_project_id]
+      Project.with_aggregate_project aggregate_project_id do
+        yield
+      end
+    else
+      yield
+    end
+  end
+
 end
