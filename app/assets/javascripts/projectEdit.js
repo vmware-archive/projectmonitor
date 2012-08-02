@@ -82,6 +82,11 @@ var ProjectEdit = {};
   o.validateFeedUrl = function () {
     $('.success, .failure, .unconfigured', '#build_status').addClass('hide');
 
+    if ($('#project_type').val() === "") {
+      $('#build_status .unconfigured').removeClass('hide');
+      return;
+    }
+
     var $inputs = $('#build_setup :input:not(.hide):enabled');
     if ($inputs.is('[value=""]')) {
       if ($inputs.is('[value!=""]')) {
