@@ -105,7 +105,7 @@ describe ProjectsController do
       before do
         JenkinsProject.should_receive(:new).and_return(project)
         ProjectUpdater.should_receive(:update).with(project)
-        get :validate_build_info, :project => {:type => "JenkinsProject"}
+        post :validate_build_info, :project => {:type => "JenkinsProject"}
       end
 
       context "project is online" do

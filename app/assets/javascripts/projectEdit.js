@@ -21,6 +21,10 @@ var ProjectEdit = {};
     $('#tracker_status .success').removeClass('hide');
   }
 
+  var showGenericError = function () {
+    $('#tracker_status .failure').removeClass('hide').text("Error");
+  }
+
   o.validateTrackerSetup = function () {
     var authToken = $('input#project_tracker_auth_token').val();
     var projectId = $('input#project_tracker_project_id').val();
@@ -57,6 +61,8 @@ var ProjectEdit = {};
             showAuthTokenError();
           } else if (result.status == 404) {
             showProjectIdError();
+          } else {
+            showGenericError();
           }
         }
       });
@@ -126,16 +132,22 @@ var ProjectEdit = {};
     $('#project_type').change(o.handleProjectTypeChange);
     $('#build_setup :input').change(o.validateFeedUrl);
 
-    if ($('#project_online').val() === "1") {
-      showBuildStatusSuccess();
-    } else {
-      o.validateFeedUrl();
+    var $project_online = $('#project_online');
+    if ($project_online.length !== 0) {
+      if ($project_online.val() === "1") {
+        showBuildStatusSuccess();
+      } else {
+        o.validateFeedUrl();
+      }
     }
 
-    if ($('#project_tracker_online').val() === "1") {
-      showTrackerSuccess();
-    } else {
-      o.validateTrackerSetup();
+    var $tracker_online = $('#project_tracker_online');
+    if ($tracker_online.length !== 0) {
+      if ($tracker_online.val() === "1") {
+        showTrackerSuccess();
+      } else {
+        o.validateTrackerSetup();
+      }
     }
   };
 
