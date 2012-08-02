@@ -188,38 +188,127 @@ describe("project edit", function() {
   describe("Feed URL fields", function() {
     beforeEach(function() {
       setFixtures(
-        '<select id="project_type" name="project[type]"><option value=""></option>' +
+        '<select id="project_type" name="project[type]">' +
+        '  <option value=""></option>' +
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
         '</select>' +
-        '<div id="field_container">' +
-        '  <fieldset id="CruiseControlProject">' +
-        '    <p>' +
-        '      <label for="project_cruise_control_rss_feed_url">Rss Feed Url</label>' +
-        '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
-        '    </p>' +
-        '  </fieldset>' +
-        '  <fieldset class="hide" id="JenkinsProject">' +
-        '    <p>' +
-        '      <label for="project_jenkins_base_url">Base URL</label>' +
-        '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
-        '    </p>' +
-        '  </fieldset>' +
+        '<div id="build_setup">' +
+        '  <div id="field_container">' +
+        '    <fieldset id="CruiseControlProject">' +
+        '      <p>' +
+        '        <label for="project_cruise_control_rss_feed_url">Rss Feed Url</label>' +
+        '        <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
+        '      </p>' +
+        '    </fieldset>' +
+        '    <fieldset class="hide" id="JenkinsProject">' +
+        '      <p>' +
+        '        <label for="project_jenkins_base_url">Base URL</label>' +
+        '        <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
+        '      </p>' +
+        '      <p>' +
+        '        <label for="project_jenkins_build_name">Build Name</label>' +
+        '        <input id="project_jenkins_build_name" name="project[jenkins_build_name]" size="30" type="text">' +
+        '      </p>' +
+        '    </fieldset>' +
+        '  </div>' +
+        '  <input id="project_online" name="project[online]" type="hidden" value="1">' +
+        '  <div id="build_status">' +
+        '    <span class="pending hide" />' +
+        '    <span class="unconfigured hide" />' +
+        '    <span class="failure hide" />' +
+        '    <span class="success hide" />' +
+        '  </div>' +
         '</div>');
-      ProjectEdit.init();
-      $('#project_type').val('JenkinsProject');
-      $('#project_type').change();
     });
 
-    it("makes the Jenkins project fieldset visible", function() {
-      expect($('fieldset#JenkinsProject')).toExist();
-      expect($('fieldset#JenkinsProject').hasClass('hide')).toBeFalsy();
-      expect($('#project_jenkins_base_url').attr('disabled')).toBeFalsy();
+    describe("changing available inputs", function () {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_type').val('JenkinsProject').change();
+      });
+
+      it("makes the Jenkins project fieldset visible", function() {
+        expect($('fieldset#JenkinsProject')).toExist();
+        expect($('fieldset#JenkinsProject').hasClass('hide')).toBeFalsy();
+        expect($('#project_jenkins_base_url').attr('disabled')).toBeFalsy();
+      });
+
+      it("makes the Cruise Control project fieldset invisible", function() {
+        expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
+        expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
+      });
     });
 
-    it("makes the Cruise Control project fieldset invisible", function() {
-      expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
-      expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
+    describe("when the project is already marked as online", function() {
+      beforeEach(function() {
+        $('#project_online').val("1");
+        ProjectEdit.init();
+      });
+
+      it("should display the success message", function() {
+        expect($("#build_status .success")).not.toHaveClass("hide");
+      });
+    })
+
+    describe("when all the build configuration inputs are present", function() {
+      describe("and they are valid", function() {
+        beforeEach(function() {
+          spyOn($, 'ajax').andCallFake(function (opts) {
+            opts.success();
+          });
+          ProjectEdit.init();
+          $('#project_type').val('JenkinsProject').change();
+          $('#project_jenkins_base_url').val("foobar").change();
+          $('#project_jenkins_build_name').val("grok").change();
+          $('#project_cruise_control_rss_feed_url').val("foobar").change();
+        });
+
+        it("should display the success message", function() {
+          expect($("#build_status .success")).not.toHaveClass("hide");
+        });
+      });
+
+      describe("and they are invalid", function() {
+        beforeEach(function() {
+          spyOn($, 'ajax').andCallFake(function (opts) {
+            opts.error({status: 404});
+          });
+          ProjectEdit.init();
+          $('#project_type').val('JenkinsProject').change();
+          $('#project_jenkins_base_url').val("foobar").change();
+          $('#project_jenkins_build_name').val("grok").change();
+        });
+
+        it("should display the failure message", function() {
+          expect($("#build_status .failure")).not.toHaveClass("hide");
+        });
+      });
+    });
+
+    describe("when some of the build configuration inputs are blank", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_type').val('JenkinsProject').change();
+        $('#project_jenkins_base_url').val("").change();
+        $('#project_jenkins_build_name').val("foobar").change();
+      });
+
+      it("should display the failure message", function() {
+        expect($("#build_status .failure")).not.toHaveClass("hide");
+      });
+    });
+
+    describe("when all of the build configuration inputs are blank", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_type').val('JenkinsProject').change();
+        $('#project_jenkins_base_url').val("").change();
+      });
+
+      it("should display the unconfigured message", function() {
+        expect($("#build_status .unconfigured")).not.toHaveClass("hide");
+      });
     });
   });
 });

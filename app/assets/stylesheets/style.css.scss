@@ -19,13 +19,14 @@
   color: #000000;
 }
 
-#tracker_setup {
+#build_setup, #tracker_setup {
   .success {
     color: $very-dark-green;
     font-weight: bold;
   }
   .failure {
     color: $very-dark-red;
+    font-weight: bold;
   }
   .pending {
     background: url("/assets/ajax-loader.gif");

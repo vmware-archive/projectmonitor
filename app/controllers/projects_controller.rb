@@ -39,6 +39,12 @@ class ProjectsController < ApplicationController
     redirect_to projects_url, notice: 'Project was successfully destroyed.'
   end
 
+  def validate_build_info
+    project = params[:project][:type].constantize.new(params[:project])
+    ProjectUpdater.update(project)
+    head project.online ? :ok : 403
+  end
+
   def validate_tracker_project
     status = TrackerProjectValidator.validate(params)
     head status
