@@ -84,7 +84,7 @@ feature "dashboard" do
 
     scenario "user sees a JSON collection of current build statuses" do
       builds = JSON.parse(page.source)
-      builds.should include(JSON.parse(project.to_json))
+      builds.should include(JSON.parse(ProjectDecorator.new(project).to_json))
     end
   end
 

@@ -83,10 +83,6 @@ class AggregateProject < ActiveRecord::Base
     red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
   end
 
-  def as_json(options = {})
-    super(:only => :id, :methods => :tag_list)
-  end
-
   def to_partial_path
     "dashboards/aggregate_project"
   end

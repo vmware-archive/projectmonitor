@@ -7,7 +7,7 @@ CiMonitor::Application.routes.draw do
   match 'projects/update_projects'
   match 'version' => 'versions#show'
 
-  resource :configuration, only: [:show, :create], controller: "configuration"
+  resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
   resource :openid, :only => [:new, :success] do
     member do
@@ -15,16 +15,17 @@ CiMonitor::Application.routes.draw do
     end
   end
   resource :session, :only => [:create, :destroy]
-  resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
+  resources :projects do
     resource :status, only: :create, controller: "status"
     member do
       get :status
     end
   end
-  resources :aggregate_projects, only: [:show, :new, :create, :edit, :update, :destroy] do
+  resources :aggregate_projects do
     member do
       get :status
     end
+    resources :projects, only: [:index]
   end
   resources :messages, only: [:index, :new, :create, :edit, :update, :destroy] do
     get :load_message

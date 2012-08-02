@@ -4,14 +4,10 @@ describe AggregateProjectsController do
   describe "with no logged in user" do
     describe "show" do
       let(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
-      before { get :show, :id => aggregate_project.to_param }
+      before { get :show, id: aggregate_project.to_param, format: 'json' }
 
       it "should be_success" do
         response.should be_success
-      end
-
-      it "should render dashboards/index" do
-        response.should render_template("dashboards/index")
       end
     end
 
@@ -36,7 +32,7 @@ describe AggregateProjectsController do
           flash[:notice].should == 'Aggregate project was successfully created.'
         end
 
-        it { should redirect_to projects_path }
+        it { should redirect_to edit_configuration_path }
       end
 
       context "when the aggregate project was not successfully created" do
@@ -53,7 +49,7 @@ describe AggregateProjectsController do
           flash[:notice].should == 'Aggregate project was successfully updated.'
         end
 
-        it { should redirect_to projects_url }
+        it { should redirect_to edit_configuration_path }
       end
 
       context "when the aggregate project was not successfully updated" do
@@ -74,7 +70,7 @@ describe AggregateProjectsController do
         flash[:notice].should == 'Aggregate project was successfully destroyed.'
       end
 
-      it { should redirect_to projects_url }
+      it { should redirect_to edit_configuration_path }
     end
   end
 end

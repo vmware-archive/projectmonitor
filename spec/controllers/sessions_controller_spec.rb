@@ -73,7 +73,7 @@ describe SessionsController do
 
             it 'redirects to the home page' do
               do_create
-              response.should redirect_to(projects_path)
+              response.should redirect_to(edit_configuration_path)
             end
 
             it "does not reset my session" do
@@ -193,7 +193,7 @@ describe SessionsController do
 
     it "should redirect to projects page after login" do
       post :create, :login => 'john', :password => 'password'
-      response.should redirect_to(projects_path)
+      response.should redirect_to(edit_configuration_path)
     end
 
     it "should log the user in" do
@@ -201,7 +201,7 @@ describe SessionsController do
       controller.send(:current_user).name.should == 'John Doe'
     end
   end
-  
+
   it "should redirect to root after logout" do
     login_as :quentin
     delete :destroy
