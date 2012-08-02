@@ -2,7 +2,7 @@ var ProjectEdit = {};
 (function (o) {
 
   var clearTrackerSetupValidations = function (result) {
-    $('#tracker_setup span span').addClass('hide');
+    $('.success, .failure, .unconfigured', '#tracker_setup').addClass('hide');
   };
 
   var showAuthTokenError = function () {
@@ -63,16 +63,49 @@ var ProjectEdit = {};
     }
   };
 
-  o.validateFeedUrl = function () {
-    var container = $('#field_container');
+  o.handleProjectTypeChange = function () {
+    var $container = $('#field_container');
 
-    var $disabled_fieldsets = $('fieldset:not(#' + $(this).val() + ')', container);
+    var $disabled_fieldsets = $('fieldset:not(#' + $(this).val() + ')', $container);
     $disabled_fieldsets.addClass('hide');
     $(':input', $disabled_fieldsets).attr('disabled', true);
 
     var $enabled_fieldset = $('#' + $(this).val());
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
+  };
+
+  var showBuildStatusSuccess = function () {
+    $('#build_status .success').removeClass('hide');
+  }
+
+  o.validateFeedUrl = function () {
+    $('.success, .failure, .unconfigured', '#build_status').addClass('hide');
+
+    var $inputs = $('#build_setup :input:not(.hide):enabled');
+    if ($inputs.is('[value=""]')) {
+      if ($inputs.is('[value!=""]')) {
+        $('#build_status .failure').removeClass('hide');
+      } else {
+        $('#build_status .unconfigured').removeClass('hide');
+      }
+      return;
+    }
+
+    $('#build_status .pending').removeClass('hide');
+    $.ajax({
+      url: "/projects/validate_build_info",
+      type: "post",
+      data: $('form').serialize(),
+      success: function (result) {
+        $('#build_status .pending').addClass('hide');
+        showBuildStatusSuccess();
+      },
+      error: function (result) {
+        $('#build_status .pending').addClass('hide');
+        $('#build_status .failure').removeClass('hide');
+      }
+    });
   };
 
   var handleParameterChange = function (event) {
@@ -83,10 +116,16 @@ var ProjectEdit = {};
   };
 
   o.init = function () {
-    $('#project_tracker_auth_token').change(handleParameterChange);
-    $('#project_tracker_project_id').change(handleParameterChange);
-    $('input[type=submit]').click(handleParameterChange);
-    $('#project_type').change(o.validateFeedUrl);
+    $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
+      .change(handleParameterChange);
+    $('#project_type').change(o.handleProjectTypeChange);
+    $('#build_setup :input').change(o.validateFeedUrl);
+
+    if ($('#project_online').val() === "1") {
+      showBuildStatusSuccess();
+    } else {
+      o.validateFeedUrl();
+    }
 
     if ($('#project_tracker_online').val() === "1") {
       showTrackerSuccess();
