@@ -5,10 +5,15 @@ $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
 
+html {
+  height: 100%;
+}
+
 body.dashboard {
   background-color: #2A271F;
-  max-width: $ninesixty-grid-width;
   padding: 14px;
+  height: 95%;
+  width: 95%;
 
   #footer {
     color: white;
@@ -23,6 +28,7 @@ body.dashboard {
     .right {
       display: inline-block;
       float: right;
+      margin-right: 50px;
 
       #indicator {
         float:left;
@@ -48,4 +54,8 @@ body.dashboard {
   &.tiles_63 {
     @include fluid-grid-system(7);
   }
+}
+
+.clear {
+  clear: both;
 }

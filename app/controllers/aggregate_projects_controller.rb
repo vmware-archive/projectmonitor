@@ -5,16 +5,7 @@ class AggregateProjectsController < ApplicationController
   respond_to :json, only: [:index, :show]
 
   def index
-    aggregate_projects = AggregateProject.all
-    respond_to do |responder|
-      responder.html do
-        @tiles = DashboardGrid.arrange aggregate_projects
-        render 'dashboards/index', layout: 'dashboard'
-      end
-      responder.json do
-        respond_with aggregate_projects
-      end
-    end
+    respond_with AggregateProject.all
   end
 
   def new

@@ -20,31 +20,6 @@ feature "dashboard" do
       page.should have_css(".tiles_15 ol.projects")
     end
 
-    scenario "user toggles the location view" do
-      15.times { FactoryGirl.create(:project, location: "Jamaica") }
-      5.times { FactoryGirl.create(:project, location: "New York") }
-      5.times { FactoryGirl.create(:project, location: "San Francisco") }
-      2.times { FactoryGirl.create(:project) }
-
-      visit root_path
-
-      page.should have_no_content("Jamaica")
-      page.should have_no_content("New York")
-      page.should have_no_content("San Francisco")
-
-      click_link "locations"
-
-      page.should have_content("Jamaica")
-      page.should have_content("New York")
-      page.should have_content("San Francisco")
-
-      click_link "48"
-
-      page.should have_no_content("Jamaica")
-      page.should have_no_content("New York")
-      page.should have_no_content("San Francisco")
-    end
-
     context "with no building projects" do
       let!(:project) { FactoryGirl.create(:project) }
 

@@ -12,7 +12,6 @@ describe Project do
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :type }
-    it { should ensure_length_of(:location).is_at_most(20) }
   end
 
   describe "job queuing" do
@@ -71,25 +70,6 @@ describe Project do
       it { should_not include projects(:socialitis) }
     end
 
-    describe "for_location" do
-      let(:location) { "Jamaica" }
-      let!(:included_project) { FactoryGirl.create(:jenkins_project, location: location) }
-      let!(:excluded_project) { FactoryGirl.create(:jenkins_project, location: 'Elbonia') }
-
-      subject { Project.for_location(location) }
-      it { should include included_project }
-      it { should_not include excluded_project }
-    end
-
-    describe "unknown_location" do
-      let!(:included_project) { FactoryGirl.create(:jenkins_project, location: nil) }
-      let!(:excluded_project) { FactoryGirl.create(:jenkins_project, location: 'Miami') }
-
-      subject { Project.unknown_location }
-      it { should include included_project }
-      it { should_not include excluded_project }
-    end
-
     describe '.updateable' do
       subject { Project.updateable }
 
@@ -110,7 +90,7 @@ describe Project do
 
         it "should find tagged with tags" do
           scope = double
-          Project.stub_chain(:standalone, :enabled) { scope }
+          Project.stub(:enabled) { scope }
           scope.should_receive(:find_tagged_with).with(tags)
           subject
         end

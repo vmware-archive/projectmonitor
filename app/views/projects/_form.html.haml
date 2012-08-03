@@ -36,9 +36,6 @@
   = f.label :enabled, "Enabled?"
   = f.check_box :enabled
 %p
-  = f.label :location, "Location"
-  = f.text_field :location, :size=>20, :maxlength=>20
-%p
   = f.label :aggregate_project_id, "Aggregate Project"
   = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda { |ap| !ap.enabled? }, :include_blank => true})
 %p

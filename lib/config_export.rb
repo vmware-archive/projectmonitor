@@ -22,7 +22,6 @@ module ConfigExport
                           ec2_instance_id
                           ec2_elastic_ip
                           code
-                          location
                           tracker_project_id
                           tracker_auth_token
                           cruise_control_rss_feed_url
