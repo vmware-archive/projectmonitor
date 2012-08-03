@@ -6,16 +6,7 @@ class ProjectsController < ApplicationController
   respond_to :json, only: [:index, :show]
 
   def index
-    projects = Project.all
-    respond_to do |responder|
-      responder.html do
-        @tiles = DashboardGrid.arrange projects
-        render 'dashboards/index', layout: 'dashboard'
-      end
-      responder.json do
-        respond_with ProjectFeedDecorator.decorate projects
-      end
-    end
+    respond_with ProjectFeedDecorator.decorate Project.all
   end
 
   def new
@@ -33,8 +24,9 @@ class ProjectsController < ApplicationController
   end
 
   def status
+    @tiles_count = (params[:tiles_count].presence || 15).to_i
     @project = ProjectDecorator.new(Project.find(params[:id]))
-    render :partial => @project, :locals => {:tiles_count => params[:tiles_count].to_i}
+    render :partial => @project, :locals => {:tiles_count => @tiles_count}
   end
 
   def show

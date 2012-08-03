@@ -59,17 +59,6 @@ describe AggregateProject do
       end
     end
 
-    describe "for_location" do
-      let(:location) { "Jamaica" }
-      let!(:included_project) { AggregateProject.create!(aggregate_project.attributes.merge location: location) }
-      let!(:excluded_project1) { AggregateProject.create!(aggregate_project.attributes) }
-      let!(:excluded_project2) { AggregateProject.create!(aggregate_project.attributes.merge location: "Miami") }
-
-      subject { AggregateProject.for_location(location) }
-      it { should =~ [included_project] }
-    end
-
-
     describe '.displayable' do
       subject { AggregateProject.displayable tags }
 

@@ -11,13 +11,11 @@ class Project < ActiveRecord::Base
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
   scope :with_statuses, joins(:statuses).uniq
-  scope :for_location, lambda { |location| where(location: location) }
-  scope :unknown_location, where("location IS NULL OR location = ''")
   scope :updateable, lambda {
     enabled.where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
   }
   scope :displayable, lambda {|tags|
-    scope = standalone.enabled
+    scope = enabled
     return scope.find_tagged_with(tags) if tags
     scope
   }
@@ -26,13 +24,12 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true
   validates :type, presence: true
-  validates_length_of :location, :maximum => 20, :allow_blank => true
 
   before_save :check_next_poll
   after_create :fetch_statuses
 
   attr_accessible :aggregate_project_id,
-    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
+    :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
     :auth_password, :auth_username,
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,

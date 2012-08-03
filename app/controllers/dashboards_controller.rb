@@ -5,10 +5,21 @@ class DashboardsController < ApplicationController
   respond_to :rss, :only => :builds
 
   def index
-    projects = Project.displayable(params[:tags])
-    aggregate_projects = AggregateProject.displayable(params[:tags])
+    @tiles_count = (params[:tiles_count].presence || 15).to_i
 
-    @tiles = DashboardGrid.arrange projects + aggregate_projects, params.slice(:tiles_count, :view)
+    aggregate_projects = []
+    projects = if aggregate_project_id = params[:aggregate_project_id]
+                 AggregateProject.find(aggregate_project_id).projects
+               else
+                 aggregate_projects = AggregateProject.displayable(params[:tags])
+                 Project.standalone
+               end
+    projects =  projects.displayable(params[:tags]).all
+
+    @tiles = ProjectDecorator.decorate(projects | aggregate_projects)
+      .sort_by{|p| p.code.downcase }
+      .take(@tiles_count)
+
     respond_with @tiles
   end
 
