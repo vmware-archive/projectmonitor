@@ -23,9 +23,11 @@ describe ProjectDecorator do
 
   describe "#css_class" do
     subject { ProjectDecorator.new(project).css_class }
-    let(:project) { double :project, red?: red, green?: green }
+    let(:project) { double :project, red?: red, green?: green, yellow?: yellow, online?: online }
     let(:red) { false }
     let(:green) { false }
+    let(:yellow) { false }
+    let(:online) { true }
 
     context "project is red" do
       let(:red) { true }
@@ -37,8 +39,13 @@ describe ProjectDecorator do
       it { should == "project success"}
     end
 
-    context "project is neither red nor green" do
-      let(:project) { double :project, red?: false, green?: false }
+    context "project is yellow" do
+      let(:yellow) { true }
+      it { should == "project indeterminate"}
+    end
+
+    context "project is offline" do
+      let(:online) { false }
       it { should == "project offline"}
     end
 

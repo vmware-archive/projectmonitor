@@ -145,12 +145,34 @@ describe AggregateProject do
   end
 
   describe "#green?" do
-    it "should be green iff all projects are green" do
+    it "should be green if all projects are green" do
       aggregate_project.should_not be_green
       aggregate_project.projects << projects(:green_currently_building)
       aggregate_project.should be_green
       aggregate_project.projects << projects(:pivots)
       aggregate_project.should be_green
+    end
+  end
+
+  describe "#yellow?" do
+    context "aggregate project doesn't have any projects" do
+      subject { AggregateProject.new.yellow? }
+      it { should be_false }
+    end
+
+    context "aggregate has one yellow project " do
+      subject { AggregateProject.new(:projects => [
+          Project.new.tap{|p| p.stub(yellow?: true)}]).yellow? }
+      it { should be_true }
+    end
+
+    context "aggregate has one yellow and one red project " do
+      subject do
+        AggregateProject.new(:projects => [
+          Project.new.tap{|p| p.stub(yellow?: true)},
+          Project.new.tap{|p| p.stub(yellow?: false)}]).yellow?
+      end
+      it { should be_false }
     end
   end
 

@@ -71,8 +71,12 @@ class Project < ActiveRecord::Base
     online? && status.success?
   end
 
+  def yellow?
+    online? && !red? && !green?
+  end
+
   def red?
-    online? && !status.success? || has_failing_children?
+    online? && latest_status.try(:success?) == false || has_failing_children?
   end
 
   def tracker_configured?

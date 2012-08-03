@@ -205,31 +205,49 @@ describe Project do
     end
   end
 
-  describe "#red? and #green?" do
-    it "should be true/false if the project's current status is not success" do
-      project = projects(:socialitis)
-      project.status.success.should be_false
-      project.should be_red
-      project.should_not be_green
+  describe "#red?, #green? and #yellow?" do
+    subject { project }
+
+    context "the project has a failure status" do
+      let(:project) { FactoryGirl.create(:jenkins_project, online: true) }
+      let!(:status) { ProjectStatus.create!(project: project, success: false, build_id: 1) }
+
+      its(:red?) { should be_true }
+      its(:green?) { should be_false }
+      its(:yellow?) { should be_false }
     end
 
-    it "should be false/true if the project's current status is success" do
-      project = projects(:pivots)
-      project.status.success.should be_true
-      project.should_not be_red
-      project.should be_green
+    context "the project has a child with a failure status" do
+      let(:project) { Project.new(online: true).tap {|p| p.has_failing_children = true}}
+
+      its(:red?) { should be_true }
+      its(:green?) { should be_false }
+      its(:yellow?) { should be_false }
     end
 
-    it "should be false/false if the project has no statuses" do
-      project.statuses.should be_empty
-      project.should_not be_red
-      project.should_not be_green
+    context "the project has a success status" do
+      let(:project) { FactoryGirl.create(:project, online: true) }
+      let!(:status) { ProjectStatus.create!(project: project, success: true, build_id: 1) }
+
+      its(:red?) { should be_false }
+      its(:green?) { should be_true }
+      its(:yellow?) { should be_false }
     end
 
-    it "should return true if a child is failing" do
-      Project.new do |project|
-        project.has_failing_children = true
-      end.should be_red
+    context "the project has no statuses" do
+      let(:project) { Project.new(online: true) }
+
+      its(:red?) { should be_false }
+      its(:green?) { should be_false }
+      its(:yellow?) { should be_true }
+    end
+
+    context "the project is offline" do
+      let(:project) { Project.new(online: false) }
+
+      its(:red?) { should be_false }
+      its(:green?) { should be_false }
+      its(:yellow?) { should be_false }
     end
   end
 
