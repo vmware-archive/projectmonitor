@@ -16,6 +16,8 @@ class ProjectDecorator < ApplicationDecorator
       ' failure'
     elsif green?
       ' success'
+    elsif yellow?
+      ' indeterminate'
     else
       ' offline'
     end
