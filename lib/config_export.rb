@@ -8,19 +8,6 @@ module ConfigExport
                           polling_interval
                           aggregate_project_id
                           deprecated_latest_status_id
-                          ec2_monday
-                          ec2_tuesday
-                          ec2_wednesday
-                          ec2_thursday
-                          ec2_friday
-                          ec2_saturday
-                          ec2_sunday
-                          ec2_start_time
-                          ec2_end_time
-                          ec2_access_key_id
-                          ec2_secret_access_key
-                          ec2_instance_id
-                          ec2_elastic_ip
                           code
                           tracker_project_id
                           tracker_auth_token
