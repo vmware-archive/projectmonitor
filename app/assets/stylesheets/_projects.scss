@@ -27,13 +27,13 @@ $statusbar-font-size: 30px !default;
 
 ol.projects {
   list-style: none;
-
-  li.empty-project {
-    background: image_url("icons/empty_tile_x.png") center no-repeat;
-  }
+  display: block;
+  height: 98%;
+  width: 98%;
+  overflow: hidden;
 
   li.project {
-    float:left;
+    float: left;
 
     > div {
       height: 100%;

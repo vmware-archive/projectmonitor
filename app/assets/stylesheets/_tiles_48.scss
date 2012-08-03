@@ -20,12 +20,10 @@
 
   $statusbar-font-size: 30px;
 
+  background: image_url("icons/empty_tile_x_48.png");
+
   > li {
     @include grid(2);
-  }
-
-  li.empty-project {
-    background: image_url("icons/empty_tile_x_48.png") center no-repeat;
   }
 
   li.project {

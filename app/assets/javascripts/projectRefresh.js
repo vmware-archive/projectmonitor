@@ -15,7 +15,7 @@ var ProjectRefresh = (function () {
 
   return {
     init : function () {
-      projectSelectors = $.map($('.project:not(.empty-project)'), function(projectElement) {
+      projectSelectors = $.map($('.project'), function(projectElement) {
         return '#' + $(projectElement).attr('id');
       });
       tilesCount = parseInt($('body').data('tiles-count'), 10);

@@ -5,7 +5,6 @@ class AggregateProject < ActiveRecord::Base
 
   scope :enabled, where(enabled: true)
   scope :with_statuses, joins(:projects => :statuses).uniq
-  scope :for_location, lambda { |location| where(:location => location) }
   scope :displayable, lambda { |tags|
     scope = enabled
     return scope.all_with_tags(tags) if tags

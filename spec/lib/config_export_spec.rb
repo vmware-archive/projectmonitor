@@ -47,7 +47,6 @@ describe ConfigExport do
               'ec2_instance_id' => nil,
               'ec2_elastic_ip' => nil,
               'code' => nil,
-              'location' => nil,
               'tracker_project_id' => nil,
               'tracker_auth_token' => nil,
               'cruise_control_rss_feed_url' => nil,
