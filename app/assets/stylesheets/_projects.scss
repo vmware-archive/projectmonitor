@@ -116,6 +116,32 @@ ol.projects {
       }
     }
 
+    &.indeterminate {
+      background: $yellow;
+      .information {
+        .status-bar {
+          background: $light-yellow;
+          border-top: solid $very-dark-yellow 2px;
+        }
+
+      }
+      .velocity-block {
+        background: $very-light-yellow;
+        border-color: $very-dark-yellow;
+
+        .chart {
+          dd {
+            span {
+              background: $dark-yellow;
+            }
+          }
+        }
+      }
+
+      &.aggregate .information {
+        @include linear-gradient(0deg, $yellow 50%, $dark-yellow 51%);
+      }
+    }
 
     &.offline {
       background: $grey;

@@ -23,6 +23,10 @@ class AggregateProject < ActiveRecord::Base
     projects.any?(&:red?)
   end
 
+  def yellow?
+    projects.present? && projects.all?(&:yellow?)
+  end
+
   def green?
     projects.present? && projects.all?(&:green?)
   end
