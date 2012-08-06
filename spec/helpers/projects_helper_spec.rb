@@ -8,9 +8,9 @@ describe ProjectsHelper do
       should == [['', ''],
                  ['Cruise Control Project', 'CruiseControlProject'],
                  ['Jenkins Project', 'JenkinsProject'],
-                 ['Team City Rest Project', 'TeamCityRestProject'],
-                 ['Team City Project', 'TeamCityProject'],
-                 ['Team City Chained Project', 'TeamCityChainedProject'],
+                 ['Team City Project', 'TeamCityRestProject'],
+                 ['Team City Project with Dependencies', 'TeamCityChainedProject'],
+                 ['Legacy Team City (<= v6) Project', 'TeamCityProject'],
                  ['Travis Project', 'TravisProject']]
     end
   end

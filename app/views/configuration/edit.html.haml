@@ -16,7 +16,7 @@
       %td= h project.code
       %td= h project.name
       %td
-        = content_tag 'span', project.class.name.titleize, :title=>"#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}"
+        = content_tag 'span', t("project_types.#{project.class.name.underscore}"), :title=>"#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}"
         = image_tag("icons/lock.png", :style => "position:relative; top: 3px;") if project.has_auth?
       %td{:style => "text-align: center;"}
         - if project.enabled?
