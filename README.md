@@ -248,7 +248,8 @@ can also be set explicitly.  There are views available for 15 tiles, 24 tiles,
 ### Tile colors
 
 Tiles are green for green projects, red for red projects, and light gray if the
-project's build server cannot be reached.
+project's build server cannot be reached. If the build server is online but no
+builds have been run then the tile will appear in yellow.
 
 ### Project Ticker Codes
 
