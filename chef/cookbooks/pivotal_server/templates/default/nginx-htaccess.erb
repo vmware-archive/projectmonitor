@@ -1,3 +1,0 @@
-<% node["nginx_settings"]["basic_auth_users"].each do |user| %>
-<%= "#{user["username"]}:#{user["password"].crypt("AA")}" %>
-<% end %>
