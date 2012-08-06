@@ -19,9 +19,7 @@ gem "foreman"
 gem "bourbon"
 # NOTE: Newer versions of draper are currently incompatible with this codebase
 gem "draper", "< 0.13"
-gem "awesome_print"
 gem "pivotal-tracker"
-gem "heroku_san"
 gem "airbrake"
 gem "haml"
 
@@ -47,15 +45,6 @@ group :assets do
   gem "uglifier"
 end
 
-group :development do
-  gem "heroku"
-  gem "capistrano"
-  gem "capistrano-ext"
-  gem "soloist"
-  gem "pivotal_git_scripts"
-  gem "rails-erd"
-end
-
 group :test do
   gem "headless"
   gem "vcr"
@@ -63,6 +52,7 @@ group :test do
 end
 
 group :test, :development do
+  gem "heroku_san"
   gem "awesome_print"
   gem "jshint_on_rails"
   # NOTE: rake jasmine:ci is not compatible with newer versions of rspec, until
