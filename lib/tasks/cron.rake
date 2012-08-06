@@ -3,8 +3,6 @@ task :cron => :environment do |t, args|
   if Delayed::Job.present?
     StatusFetcher.fetch_all
   end
-
-  AmazonService.schedule(Time.zone.now)
 end
 
 task :start_workers, [:worker_count] => :environment do | t, args |
