@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  layout "dashboard"
+  layout 'dashboard'
 
   respond_to :html, :json, :only => :index
   respond_to :rss, :only => :builds
@@ -16,9 +16,9 @@ class DashboardsController < ApplicationController
                end
     projects =  projects.displayable(params[:tags]).all
 
-    @tiles = ProjectDecorator.decorate(projects | aggregate_projects)
-      .sort_by{|p| p.code.downcase }
+    tiles = projects.concat(aggregate_projects).sort_by { |p| p.code.downcase }
       .take(@tiles_count)
+    @tiles = ProjectDecorator.decorate tiles
 
     respond_with @tiles
   end

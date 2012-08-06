@@ -2,11 +2,6 @@ class ProjectDecorator < ApplicationDecorator
 
   delegate :to_s, :to => :model
 
-  # FIXME: decorate should work without this
-  def self.decorate(collection)
-    collection.map {|item| super item}
-  end
-
   def as_json(options = {})
     model.as_json(only: :id, methods: :tag_list)
   end
