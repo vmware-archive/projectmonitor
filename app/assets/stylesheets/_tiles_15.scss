@@ -19,8 +19,6 @@
 
   $statusbar-font-size: 30px;
 
-  background: image_url("icons/empty_tile_x_15.png");
-
   > li {
     @include grid(4);
   }
