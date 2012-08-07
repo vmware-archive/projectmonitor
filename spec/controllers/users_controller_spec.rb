@@ -3,12 +3,12 @@ require 'spec_helper'
 describe UsersController do
   it "requires login" do
     get :new
-    response.should redirect_to(login_path)
+    response.should redirect_to(new_user_session_path)
   end
 
   describe "logged in as a user" do
     let(:user) { FactoryGirl.create(:user) }
-    before { log_in(user) }
+    before { sign_in(user) }
 
     it "shows a login page" do
       get :new

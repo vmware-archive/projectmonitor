@@ -19,6 +19,21 @@ displaying the status of the builds of various open source projects - both of
 projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 (such as Rails).
 
+## Upgrading
+
+ProjectMonitor has recently moved to
+[Devise](https://github.com/plataformatec/devise/) for authentication. This
+means that any existing users will have invalid passwords. If you don't want
+all your users to have to reset their passwords, you can alter the following
+configuration settings to support legacy passwords:
+
+    devise_encryptor: :legacy
+    devise_pepper: <rest_auth_site_key>
+    devise_stretches: <rest_auth_digest_stretches>
+
+The values for `rest_auth_site_key` and `rest_auth_digest_stretches` can be found
+in your `config/auth.yml`. This file is no longer needed.
+
 ## Installation
 
 ### Get the code
@@ -31,9 +46,8 @@ ProjectMonitor is a Rails application. To get the code, execute the following:
 
 ### Initial Setup
 
-We have provided example files for `database.yml`, `auth.yml`, and
-`site_keys.rb`.  Run the following to automatically generate these files for
-you:
+We have provided an example file for `database.yml`. Run the following to 
+automatically generate these files for you:
 
     rake setup
 
@@ -50,29 +64,26 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
-### Auth support
+### Authentication support
 
-Adding, editing and removing projects through the UI requires authentication.
+Project monitor uses Devise to provide both database backed authentication and
+Google OAuth2 logins.
 
-If you have not run `rake setup`, copy `auth.yml.example` to `auth.yml`.
+#### Password authentication
 
-    cp config/auth.yml.example config/auth.yml
+Regular password authentication is enabled by default and can be switched off
+by setting the `password_auth_enabled` setting to `false`. To ensure strong
+password encryption you should adjust the value for `password_auth_pepper` and
+`password_auth_stretches` appropriately.
 
-The site can be configured to use Google OpenId or to use the
-RestfulAuthentication plugin.
+#### Google OAuth2 setup
 
-#### Google OpenId setup
+To use Google OAuth2 authentication you need Google apps setup for your domain
+and the following configuration options specified:
 
-This setup requires you to have Google apps set up for your domain. 
-
-In your `config/auth.yml` set the `auth_strategy` to `openid`. Then set the
-`openid_identifier`, `openid_realm`, and `openid_return_to` fields as
-appropriate for your domain.
-
-#### Restful Authentication (`password`) setup 
-
-In the `config/auth.yml` set the `auth_strategy` to `password`, and edit the
-`rest_auth_site_key` to be something secret.
+    oauth2_enabled: true
+    oauth2_apphost: 'MY_APP_ID'
+    oauth2_secret: 'MY_SECRET'
 
 ### Set up cron
 

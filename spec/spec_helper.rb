@@ -10,17 +10,13 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :users, :aggregate_projects
+  config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :aggregate_projects
 
-  config.include AuthenticatedTestHelper
+  config.include Devise::TestHelpers, :type => :controller
 
   config.extend VCR::RSpec::Macros
 
   config.treat_symbols_as_metadata_keys_with_true_values = true
-
-  config.before do
-    AuthConfig.reset!
-  end
 
   config.order = 'random'
 end

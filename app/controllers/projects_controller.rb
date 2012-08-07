@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :login_required, :except => [:show, :status, :index]
+  before_filter :authenticate_user!, :except => [:show, :status, :index]
   before_filter :load_project, :only => [:edit, :update, :destroy]
   around_filter :scope_by_aggregate_project
 

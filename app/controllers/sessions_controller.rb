@@ -1,33 +1,20 @@
-class SessionsController < ApplicationController
-  include AuthenticatedSystem
+class SessionsController < Devise::SessionsController
 
+  # Handle the case where legacy passwords are stored for a user attempting to
+  # authenticate
   def create
-    logout_keeping_session!
-    user = User.authenticate(params[:login], params[:password])
-    if user
-      self.current_user = user
-      new_cookie_flag = (params[:remember_me] == "1")
-      handle_remember_cookie! new_cookie_flag
-      redirect_to edit_configuration_path
-      flash[:notice] = "Logged in successfully"
+    super
+  rescue BCrypt::Errors::InvalidHash
+    flash[:error] = "The system has been upgraded, your password needs to be reset before logging in."
+    redirect_to new_user_password_path
+  end
+
+  def new
+    if Rails.configuration.password_auth_enabled
+      super
     else
-      note_failed_signin
-      @login = params[:login]
-      @remember_me = params[:remember_me]
-      render :new
+      redirect_to user_omniauth_authorize_url(:google_oauth2)
     end
   end
 
-  def destroy
-    logout_killing_session!
-    flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/')
-  end
-
-  protected
-
-  def note_failed_signin
-    flash[:error] = "Couldn't log you in as '#{params[:login]}'"
-    logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
-  end
 end
