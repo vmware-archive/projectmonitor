@@ -1,6 +1,5 @@
 CiMonitor::Application.routes.draw do
-  match 'login' => 'sessions#new'
-  match 'logout' => 'sessions#destroy'
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
   match 'builds.rss' => "dashboards#builds", format: :rss
   match 'projects/validate_tracker_project'
   match 'projects/validate_build_info'
@@ -9,12 +8,6 @@ CiMonitor::Application.routes.draw do
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
-  resource :openid, :only => [:new, :success] do
-    member do
-      get :success
-    end
-  end
-  resource :session, :only => [:create, :destroy]
   resources :projects do
     resource :status, only: :create, controller: "status"
     member do

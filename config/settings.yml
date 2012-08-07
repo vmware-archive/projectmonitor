@@ -1,0 +1,58 @@
+#
+# NOTE: Don't edit this file, it serves as a simple example and a repository
+# for defaults. Instead overwrite the required settings for your environment in
+# config/settings.local.yml
+#
+# See the README.md for more details.
+#
+defaults: &defaults
+  mailer_sender: "projectmonitor-support@example.com"
+
+  #
+  # Should we allow authentication with passwords against the database?
+  #
+  password_auth_enabled: true
+
+  # The pepper used to generate encrypted passwords
+  password_auth_pepper: '880281d3d0d854cef9478ca074765355a903d89beda9d710437156104a3d3d98dc638233d153f84ebf2e8670958669b02e033f99428ec1c1ccf183d056fcecce'
+  password_auth_stretches: 10
+
+  #
+  # If you want support for legacy passwords, add the lines below to your
+  # settings.local.yml and replace the values shown with the equivalently named
+  # values from your config/auth.yml
+  #
+  # password_auth_encryptor: :legacy
+  # password_auth_pepper: <rest_auth_site_key>
+  # password_auth_stretches: <rest_auth_digest_stretches>
+
+  #
+  # Should we authenticate people using OAuth2?
+  #
+  oauth2_enabled: true
+
+  #
+  # Google OAuth2 settings
+  #
+  oauth2_apphost: 'MY_APP_ID'
+  oauth2_secret: 'MY_SECRET'
+
+  #
+  # This is the hostname that will appear for links in the reset password
+  # email.
+  #
+  emailer_host:
+    host: 'localhost:3000'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  oauth2_enabled: true
+  # Reduce the amount of work done by devise to slightly improve testing
+  # performance
+  password_auth_stretches: 1
+
+production:
+  <<: *defaults

@@ -235,25 +235,36 @@ a:hover.button {
 }
 
 form {
+
   background-color: #eeeeee;
   margin: 30px;
   padding: 30px;
   width: 38em;
-}
 
-form label {
-  width: 9em;
-  display: inline-table;
-  vertical-align: top;
-  font-weight: bold;
-  text-align: right;
-  margin-right: 2em;
-}
+  label {
+    width: 9em;
+    display: inline-table;
+    vertical-align: top;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 2em;
+  }
 
-form em {
-  margin-top: .4em;
-  margin-left: 12em;
-  display: block;
+  em {
+    margin-top: .4em;
+    margin-left: 12em;
+    display: block;
+  }
+
+  .options {
+    margin-left: 11em;
+  }
+
+  .submit {
+    text-align: right;
+    margin-bottom: 0
+  }
+
 }
 
 #schedules label {
