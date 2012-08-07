@@ -1,56 +1,33 @@
-require 'openid'
-require 'openid/extensions/ax'
+require Rails.root.join('lib', 'devise', 'encryptors', 'legacy')
 
 class User < ActiveRecord::Base
-  include Authentication
-  include Authentication::ByPassword
+  devise_options = [:database_authenticatable,
+    :recoverable, :rememberable, :trackable, :validatable, :omniauthable]
+  devise_options << :encryptable if Rails.configuration.respond_to?(:devise_encryptor)
+  devise *devise_options
 
-  validates_presence_of     :login
-  validates_length_of       :login,    :within => 2..40
-  validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
+  attr_accessible :login, :name, :email, :password, :password_confirmation, :remember_me
 
-  validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
-  validates_length_of       :name,     :maximum => 100
+  validates :login, presence: true, length: 2..40, uniqueness: true
+  validates_length_of :name, :maximum => 100
+  validates :email, presence: true, length: 6..100, uniqueness: true
 
-  validates_presence_of     :email
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
-  validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
-
-  attr_accessible :login, :email, :name, :password, :password_confirmation
-
-  def self.authenticate(login, password)
-    return if login.blank? || password.blank?
-    u = find_by_login(login.downcase) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(login) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
   end
 
-  def self.find_or_create_from_google_openid(fetch_response)
-    email = fetch_response.get_single('http://axschema.org/contact/email')
-    first_name = fetch_response.get_single('http://axschema.org/namePerson/first')
-    last_name = fetch_response.get_single('http://axschema.org/namePerson/last')
-
-    email_parts = email.split('@')
-    login = email_parts.first
-
-    user = User.find_by_login(login) || User.new(:login => login)
-    full_name = "#{first_name} #{last_name}"
-    user.name = full_name.blank? ? "" : full_name
-    user.email = email
-
-    # todo - this is a bit of a hack for now...
-    user.password = user.password_confirmation = SecureRandom.hex(16)
-    user.save!
-    user
-  end
-
-  def login=(value)
-    self[:login] = value && value.downcase
-  end
-
-  def email=(value)
-    self[:email] = value && value.downcase
+  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
+    user || User.create!(name: data["name"],
+                        email: data["email"],
+                        login: data["email"].split('@').first,
+                        password: Devise.friendly_token[0,20])
   end
 
 end

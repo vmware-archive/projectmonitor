@@ -15,7 +15,7 @@ describe ProjectsController do
 
   describe "with a logged in user" do
     before do
-      log_in users(:valid_edward)
+      sign_in FactoryGirl.create(:user)
     end
 
     context "when nested under an aggregate project" do

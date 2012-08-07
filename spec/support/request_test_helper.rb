@@ -6,10 +6,10 @@ module RequestTestHelper
 
     user = FactoryGirl.create(:user, password: "monkey")
 
-    fill_in "login", with: user.login
-    fill_in "password", with: "monkey"
+    fill_in "user_login", with: user.login
+    fill_in "user_password", with: "monkey"
 
-    click_button "Log In"
+    click_button "Sign in"
   end
 end
 

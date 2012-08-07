@@ -1,5 +1,5 @@
 class ConfigurationController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate_user!
 
   respond_to :text, only: :show
 

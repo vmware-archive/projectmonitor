@@ -14,6 +14,7 @@ module CiMonitor
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.from_file 'settings.yml'
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/payload)
@@ -49,5 +50,8 @@ module CiMonitor
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.paths << Rails.root.join('app','assets','skins')
+
+    # Allow setting of mail options from the configuration
+    config.action_mailer.default_url_options = Rails.configuration.emailer_host.to_hash.symbolize_keys
   end
 end
