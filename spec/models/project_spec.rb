@@ -482,4 +482,19 @@ describe Project do
     end
   end
 
+  describe "#generate_guid" do
+    let(:project) { FactoryGirl.build(:project) }
+
+    it "calls generate_guid" do
+      project.should_receive :generate_guid
+      project.save!
+    end
+
+    it "generates random GUID" do
+      project.save!
+      (project.guid).should_not be_nil
+      (project.guid).should_not be_empty
+    end
+  end
+
 end

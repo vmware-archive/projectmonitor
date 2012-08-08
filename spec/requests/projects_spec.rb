@@ -5,8 +5,6 @@ feature "projects", :js => true do
 
   before do
     log_in
-    visit "/"
-    click_link "manage projects"
   end
 
   scenario "admin creates a Travis project" do

@@ -27,6 +27,7 @@ class Project < ActiveRecord::Base
 
   before_save :check_next_poll
   after_create :fetch_statuses
+  before_create :generate_guid
 
   attr_accessible :aggregate_project_id,
     :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
@@ -160,6 +161,10 @@ class Project < ActiveRecord::Base
 
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 1)
+  end
+
+  def generate_guid
+    self.guid = SecureRandom.uuid
   end
 
 end
