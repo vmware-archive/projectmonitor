@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def new
-    if Rails.configuration.password_auth_enabled
+    if config_for(:password_auth_enabled)
       super
     else
       redirect_to user_omniauth_authorize_url(:google_oauth2)
