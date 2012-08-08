@@ -15,4 +15,10 @@ describe ProjectsHelper do
     end
   end
 
+  describe "#project_webhooks_url" do
+    subject { helper.project_webhooks_url(project) }
+    let(:project) { FactoryGirl.build(:project) }
+    before { project.save }
+    it { should include project.guid }
+  end
 end
