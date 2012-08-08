@@ -28,7 +28,7 @@ describe StatusController do
       }'
       end
 
-      subject { post :create, project_id: project.id, payload: payload }
+      subject { post :create, project_id: project.guid, payload: payload }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -57,7 +57,7 @@ describe StatusController do
           "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}' => nil }
       end
 
-      subject { post :create, {project_id: project.id}.merge(payload) }
+      subject { post :create, {project_id: project.guid}.merge(payload) }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -97,7 +97,7 @@ describe StatusController do
        "text"=>"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished. Status: Running"}
       end
 
-      subject { post :create, {project_id: project.id, "build" => payload} }
+      subject { post :create, {project_id: project.guid, "build" => payload} }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
