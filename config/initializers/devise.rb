@@ -24,10 +24,11 @@ Devise.setup do |config|
     options = {access_type: 'offline', approval_prompt: ''}
     if ENV['HEROKU']
       heroku_cert_path = '/usr/lib/ssl/certs/ca-certificates.crt'
-      options[:scope] = 'email, offline_access'
+      options[:scope] = 'userinfo.profile,userinfo.email'
       options[:client_options] = {ssl: {ca_path: heroku_cert_path}}
+    else
+      options[:client_options] = config_for(:client_options)
     end
-
     config.omniauth :google_oauth2, config_for(:oauth2_apphost), config_for(:oauth2_secret), options
   end
 end
