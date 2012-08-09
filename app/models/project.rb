@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
+  serialize :tracker_validation_status, Hash
 
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)

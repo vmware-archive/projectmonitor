@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe TrackerProjectValidator do
   describe "validate" do
-    let(:params) { {auth_token: auth_token, project_id: project_id} }
+    let(:project) { FactoryGirl.create(:project) }
+    let(:params) { {auth_token: auth_token, project_id: project_id, id: project.id } }
 
-    subject { TrackerProjectValidator.validate params }
+    subject do
+      TrackerProjectValidator.validate params
+      project.reload.tracker_validation_status[:status]
+    end
 
     context "with a valid token and valid project id" do
       let(:auth_token) { '881c7bc3264a00d280225ea409225fe8' }
