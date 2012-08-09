@@ -7,31 +7,6 @@
 %p
   = f.label :type, "Project Type"
   = f.select :type, project_types
-%fieldset#build_setup
-  #field_container
-    - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
-      - enabled = f.object.type == project_type.name
-      %fieldset{ id: project_type,  class: "#{'hide' unless enabled}" }
-        - project_type.project_specific_attributes.each do |field|
-          %p
-            = f.label field
-            = f.text_field field, :disabled => !enabled
-  %p
-    = f.label :auth_username, "Feed Username"
-    = f.text_field :auth_username, :size=>40
-    %em Basic or digest authentication
-  %p
-    = f.label :auth_password, "Feed Password"
-    = f.password_field :auth_password, size: 40, value: f.object.auth_password
-    %em Basic or digest authentication
-  %p
-    = f.label :online, "CI status"
-    = f.hidden_field :online
-    %span#build_status
-      %span.success.hide OK
-      %span.pending.hide &nbsp;
-      %span.unconfigured.hide Unconfigured
-      %span.failure.hide Error
 %p
   = f.label :enabled, "Enabled?"
   = f.check_box :enabled
@@ -43,16 +18,51 @@
   = f.text_field :tag_list, :size=>40
   %em
     Separate with commas
-%p
-  = f.label :polling_interval, "Polling Interval"
-  = f.text_field :polling_interval, :size=>3
-  seconds
-  %em
-    If blank, will use #{Project::DEFAULT_POLLING_INTERVAL} seconds.
-    %br
-    - if @project.next_poll_at
-      Will poll in
-      %span#time_left= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"
+%hr
+%fieldset#build_setup
+  %h2 Build Setup
+  = f.label :webhooks_enabled, "Payload Strategy"
+  = f.radio_button :webhooks_enabled, true
+  = f.label :webhooks_enabled_true, "Webhooks"
+  = f.radio_button :webhooks_enabled, false
+  = f.label :webhooks_enabled_false, "Polling"
+  %fieldset#webhooks
+    = "Your webhooks URL is #{project_webhooks_url(f.object)}."
+  %fieldset#polling
+    #field_container
+      - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
+        - enabled = f.object.type == project_type.name
+        %fieldset{ id: project_type,  class: "#{'hide' unless enabled}" }
+          - project_type.project_specific_attributes.each do |field|
+            %p
+              = f.label field
+              = f.text_field field, :disabled => !enabled
+    %p
+      = f.label :auth_username, "Feed Username"
+      = f.text_field :auth_username, :size=>40
+      %em Basic or digest authentication
+    %p
+      = f.label :auth_password, "Feed Password"
+      = f.password_field :auth_password, size: 40, value: f.object.auth_password
+      %em Basic or digest authentication
+    %p
+      = f.label :online, "CI status"
+      = f.hidden_field :online
+      %span#build_status
+        %span.success.hide OK
+        %span.pending.hide &nbsp;
+        %span.unconfigured.hide Unconfigured
+        %span.failure.hide Error
+    %p
+      = f.label :polling_interval, "Polling Interval"
+      = f.text_field :polling_interval, :size=>3
+      seconds
+      %em
+        If blank, will use #{Project::DEFAULT_POLLING_INTERVAL} seconds.
+        %br
+        - if @project.next_poll_at
+          Will poll in
+          %span#time_left= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"
 %hr
 %fieldset#tracker_setup
   %h3 Tracker Setup

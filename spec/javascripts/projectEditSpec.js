@@ -335,4 +335,24 @@ describe("project edit", function() {
       });
     });
   });
+  describe("toggling payload strategy", function() {
+    beforeEach(function() {
+      setFixtures('<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+                  '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+                  '<fieldset id="webhooks" /><fieldset id="polling" />')
+      ProjectEdit.init();
+    });
+    it("should toggle webhooks and polling when checked", function() {
+      expect($('#webhooks')).not.toHaveClass('hide');
+      expect($('#polling')).toHaveClass('hide');
+      $('input#project_webhooks_enabled_false').val('checked', 'checked').change();
+      $('input#project_webhooks_enabled_true').val('checked', '').change();
+      expect($('#webhooks')).not.toHaveClass('hide');
+      expect($('#polling')).toHaveClass('hide');
+      $('input#project_webhooks_enabled_false').val('checked', '').change();
+      $('input#project_webhooks_enabled_true').val('checked', 'checked').change();
+      expect($('#webhooks')).not.toHaveClass('hide');
+      expect($('#polling')).toHaveClass('hide');
+    });
+  });
 });

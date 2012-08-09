@@ -9,11 +9,19 @@ describe TeamCityRestProject do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:team_city_rest_base_url) }
-    it { should validate_presence_of(:team_city_rest_build_type_id) }
+    context "when webhooks are enabled" do
+      subject { Project.new(webhooks_enabled: true)}
+      it { should_not validate_presence_of(:team_city_rest_base_url) }
+      it { should_not validate_presence_of(:team_city_rest_build_type_id) }
+    end
 
-    it { should allow_value('bt123', 'bt1').for(:team_city_rest_build_type_id) }
-    it { should_not allow_value('x123', "karate chop!\nbt123").for(:team_city_rest_build_type_id) }
+    context "when webhooks are not enabled" do
+      it { should validate_presence_of(:team_city_rest_base_url) }
+      it { should validate_presence_of(:team_city_rest_build_type_id) }
+
+      it { should allow_value('bt123', 'bt1').for(:team_city_rest_build_type_id) }
+      it { should_not allow_value('x123', "karate chop!\nbt123").for(:team_city_rest_build_type_id) }
+    end
   end
 
   # FIXME: This is effectively broken as you cannot set the feed_url using the GUI!

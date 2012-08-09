@@ -1,7 +1,7 @@
 class TravisProject < Project
 
   attr_accessible :travis_github_account, :travis_repository
-  validates :travis_github_account, :travis_repository, :presence => true
+  validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
   def feed_url
     "#{base_url}/builds.json"

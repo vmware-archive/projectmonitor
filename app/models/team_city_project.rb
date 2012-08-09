@@ -1,8 +1,8 @@
 class TeamCityProject < Project
 
   attr_accessible :team_city_base_url, :team_city_build_id
-  validates :team_city_base_url, presence: true
-  validates :team_city_build_id, presence: true, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}
+  validates_presence_of :team_city_build_id, :team_city_base_url, unless: ->(project) { project.webhooks_enabled }
+  validates :team_city_build_id, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}, unless: ->(project) { project.webhooks_enabled }
 
   def self.project_specific_attributes
     ['team_city_base_url', 'team_city_build_id']

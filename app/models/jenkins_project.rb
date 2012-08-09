@@ -1,8 +1,8 @@
 class JenkinsProject < Project
 
   attr_accessible :jenkins_base_url, :jenkins_build_name
-  validates  :jenkins_base_url, :jenkins_build_name, presence: true
-  validates :jenkins_base_url, presence: true, format: {with: /\Ahttps?:/i, message: "must begin with http or https"}
+  validates_presence_of :jenkins_base_url, :jenkins_build_name, unless: ->(project) { project.webhooks_enabled }
+  validates :jenkins_base_url, format: {with: /\Ahttps?:/i, message: "must begin with http or https"}, unless: ->(project) { project.webhooks_enabled }
 
   def feed_url
     "#{jenkins_base_url}/job/#{jenkins_build_name}/rssAll"

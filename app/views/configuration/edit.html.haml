@@ -8,7 +8,7 @@
     %th Enabled?
     %th Aggregate
     %th Tags
-    %th Webhook URL
+    %th Webhooks
     %th Actions
     %th Remove
   - for project in @projects
@@ -25,7 +25,7 @@
           %span{:style => "color: #AA1224;"} ✕
       %td{:style => "text-align: center;"}= project.aggregate_project.present? ? project.aggregate_project.name : ""
       %td.tag_list= project.tag_list
-      %td= project_webhooks_url(project)
+      %td= project.webhooks_enabled ? project_webhooks_url(project) : "✕"
       %td
         = link_to 'Edit', edit_project_path(project), :class => "button"
       %td

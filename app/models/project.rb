@@ -12,7 +12,7 @@ class Project < ActiveRecord::Base
   scope :standalone, enabled.where(:aggregate_project_id => nil)
   scope :with_statuses, joins(:statuses).uniq
   scope :updateable, lambda {
-    enabled.where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
+    enabled.where("webhooks_enabled IS NOT true").where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
   }
   scope :displayable, lambda {|tags|
     scope = enabled
@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time,
-    :tracker_online
+    :tracker_online, :webhooks_enabled
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
