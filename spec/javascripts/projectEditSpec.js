@@ -213,7 +213,7 @@ describe("project edit", function() {
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
         '</select>' +
-        '<div id="build_setup">' +
+        '<div id="polling">' +
         '  <div id="field_container">' +
         '    <fieldset id="CruiseControlProject">' +
         '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
