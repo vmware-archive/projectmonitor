@@ -9,18 +9,25 @@ describe CruiseControlProject do
   end
 
   describe "validations" do
-    it { should validate_presence_of(:cruise_control_rss_feed_url) }
-
-    it do
-      should allow_value("http://example.com/proj.rss",
-                         "https://example.com/proj.rss",
-                         "HTTP://example.com/proj.rss").for(:cruise_control_rss_feed_url)
+    context "when webhooks are enabled" do
+      subject { Project.new(webhooks_enabled: true)}
+      it { should_not validate_presence_of(:cruise_control_rss_feed_url) }
     end
 
-    it do
-      should_not allow_value("ttp://example.com/proj.rss",
-                             "sql injection\nhttps://example.com/proj.rss").for(:cruise_control_rss_feed_url)
+    context "when webhooks are not enabled" do
+      it { should validate_presence_of(:cruise_control_rss_feed_url) }
 
+      it do
+        should allow_value("http://example.com/proj.rss",
+                           "https://example.com/proj.rss",
+                           "HTTP://example.com/proj.rss").for(:cruise_control_rss_feed_url)
+      end
+
+      it do
+        should_not allow_value("ttp://example.com/proj.rss",
+                               "sql injection\nhttps://example.com/proj.rss").for(:cruise_control_rss_feed_url)
+
+      end
     end
   end
 

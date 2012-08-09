@@ -126,11 +126,25 @@ var ProjectEdit = {};
     }
   };
 
+  o.toggleWebhooks = function () {
+    if ($('input#project_webhooks_enabled_true:checked').length > 0) {
+      $('fieldset#webhooks').removeClass('hide');
+      $('fieldset#polling').addClass('hide');
+    }
+    else if ($('input#project_webhooks_enabled_false:checked').length > 0) {
+      $('fieldset#webhooks').addClass('hide');
+      $('fieldset#polling').removeClass('hide');
+    }
+  };
+
   o.init = function () {
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
       .change(handleParameterChange);
     $('#project_type').change(o.handleProjectTypeChange);
     $('#build_setup :input').change(o.validateFeedUrl);
+    $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
+
+    if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 
     var $project_online = $('#project_online');
     if ($project_online.length !== 0) {
@@ -150,6 +164,5 @@ var ProjectEdit = {};
       }
     }
   };
-
 })(ProjectEdit);
 
