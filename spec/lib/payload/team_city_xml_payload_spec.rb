@@ -111,6 +111,38 @@ describe TeamCityXmlPayload do
     end
   end
 
+  describe "unknown status" do
+    it "remains green when existing status is green" do
+      project.online = true
+      project.save!
+      content = <<-XML.strip_heredoc
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <builds count="1">
+              <build id="1" number="1" status="SUCCESS" webUrl="/1" startDate="#{5.minutes.ago}" />
+            </builds>
+      XML
+      payload = TeamCityXmlPayload.new
+      payload.status_content = content
+      PayloadProcessor.new(project,payload).process
+
+      project.reload.should be_green
+      statuses = project.statuses
+
+      content = <<-XML
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <builds count="1">
+              <build id="2" number="2" status="UNKNOWN" webUrl="/2" />
+            </builds>
+      XML
+      payload = TeamCityXmlPayload.new
+      payload.status_content = content
+      PayloadProcessor.new(project,payload).process
+
+      project.reload.should be_green
+      project.statuses.should == statuses
+    end
+  end
+
   describe '#each_child' do
     let(:content) { nil }
     before do
