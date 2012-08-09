@@ -33,7 +33,10 @@ describe TeamCityXmlPayload do
       end
 
       context "when building" do
-        it "remains green when existing status is green" do
+        it "turns a green build red when in progress" do
+          project.online = true
+          project.save!
+
           content = <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
@@ -43,20 +46,25 @@ describe TeamCityXmlPayload do
           payload = TeamCityXmlPayload.new
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
-          statuses = project.statuses
+
+          project.reload.should be_green
+
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
-              <build id="1" number="1" status="FAILURE" webUrl="/1" running="true"/>
+              <build id="3" number="3" status="FAILURE" webUrl="/1" running="true"/>
             </builds>
           XML
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
-          project.should be_green
-          project.statuses.should == statuses
+
+          project.reload.should be_red
         end
 
         it "remains red when existing status is red" do
+          project.online = true
+          project.save!
+
           content = <<-XML.strip_heredoc
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
@@ -66,18 +74,19 @@ describe TeamCityXmlPayload do
           payload = TeamCityXmlPayload.new
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
-          statuses = project.statuses
+
+          project.reload.should be_red
+
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             <builds count="1">
-              <build id="1" number="1" status="FAILURE" webUrl="/1" running="true"/>
+              <build id="2" number="2" status="SUCCESS" webUrl="/1" running="true"/>
             </builds>
           XML
-          payload = TeamCityXmlPayload.new
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
-          project.should be_red
-          project.statuses.should == statuses
+
+          project.reload.should be_red
         end
       end
     end
