@@ -10,7 +10,7 @@ notifications:
   email:
     - common-effort@pivotallabs.com
   webhooks:
-    - http://projectmonitor-staging.pivotallabs.com/projects/236/status
+    - http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status
 
 rvm:
   - 1.9.3
