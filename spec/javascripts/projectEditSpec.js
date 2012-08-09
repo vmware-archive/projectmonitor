@@ -44,7 +44,7 @@ describe("project edit", function() {
         describe("when valid", function() {
           beforeEach(function() {
             spyOn($, 'ajax').andCallFake(function (opts) {
-              opts.success({},"",{status: 200});
+              opts.success();
             });
             ProjectEdit.init();
           });

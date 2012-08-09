@@ -1,7 +1,6 @@
 var ProjectEdit = {};
 (function (o) {
-  var trackerInterval;
-  var trackerIntervalActive = false;
+
   var clearTrackerSetupValidations = function (result) {
     $('.success, .failure, .unconfigured', '#tracker_setup').addClass('hide');
   };
@@ -49,28 +48,15 @@ var ProjectEdit = {};
         url: "/projects/validate_tracker_project",
         type: "post",
         data: {
-          id: document.location.pathname.split("/")[2],
           auth_token: authToken,
           project_id: projectId
         },
-        success: function(data, status, result) {
-          if (result.status == 202) {
-            if (trackerIntervalActive === false) {
-              trackerInterval = window.setInterval(o.validateTrackerSetup, 1000);
-              trackerIntervalActive = true;
-            }
-          }
-          else if (result.status == 200) {
-            $('#tracker_status .pending').addClass('hide');
-            window.clearInterval(trackerInterval);
-            trackerIntervalActive = false;
-            showTrackerSuccess();
-          }
+        success: function(result) {
+          $('#tracker_status .pending').addClass('hide');
+          showTrackerSuccess();
         },
         error: function(result) {
           $('#tracker_status .pending').addClass('hide');
-          window.clearInterval(trackerInterval);
-          trackerIntervalActive = false;
           if (result.status == 401) {
             showAuthTokenError();
           } else if (result.status == 404) {
@@ -153,7 +139,7 @@ var ProjectEdit = {};
 
   o.init = function () {
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
-    .change(handleParameterChange);
+      .change(handleParameterChange);
     $('#project_type').change(o.handleProjectTypeChange);
     $('#build_setup :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
