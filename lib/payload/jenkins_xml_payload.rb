@@ -1,7 +1,7 @@
 class JenkinsXmlPayload < Payload
 
   def initialize(build_name)
-    super()
+    super
     @build_name = build_name
   end
 
