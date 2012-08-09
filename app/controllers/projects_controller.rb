@@ -60,7 +60,7 @@ class ProjectsController < ApplicationController
       project.tracker_validation_status[:project_id] == params[:project_id]
       status = project.tracker_validation_status[:status]
     else
-      TrackerProjectValidator.delay.validate(params)
+      TrackerProjectValidator.delay(priority: 1).validate(params)
       project.tracker_validation_status = {auth_token: params[:auth_token], project_id: params[:project_id], status: :accepted}
       project.save!
     end
