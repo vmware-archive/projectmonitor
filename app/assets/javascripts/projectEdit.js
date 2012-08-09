@@ -86,35 +86,35 @@ var ProjectEdit = {};
   }
 
   o.validateFeedUrl = function () {
-    $('.success, .failure, .unconfigured', '#build_status').addClass('hide');
+    $('.success, .failure, .unconfigured', '#polling').addClass('hide');
 
     if ($('#project_type').val() === "") {
       $('#build_status .unconfigured').removeClass('hide');
       return;
     }
 
-    var $inputs = $('#build_setup :input:not(.hide):enabled');
+    var $inputs = $('#polling :input:not(.hide):enabled');
     if ($inputs.is('[value=""]')) {
       if ($inputs.is('[value!=""]')) {
-        $('#build_status .failure').removeClass('hide');
+        $('#polling .failure').removeClass('hide');
       } else {
-        $('#build_status .unconfigured').removeClass('hide');
+        $('#polling .unconfigured').removeClass('hide');
       }
       return;
     }
 
-    $('#build_status .pending').removeClass('hide');
+    $('#polling .pending').removeClass('hide');
     $.ajax({
       url: "/projects/validate_build_info",
       type: "post",
       data: $('form').serialize(),
       success: function (result) {
-        $('#build_status .pending').addClass('hide');
+        $('#polling .pending').addClass('hide');
         showBuildStatusSuccess();
       },
       error: function (result) {
-        $('#build_status .pending').addClass('hide');
-        $('#build_status .failure').removeClass('hide');
+        $('#polling .pending').addClass('hide');
+        $('#polling .failure').removeClass('hide');
       }
     });
   };
@@ -141,7 +141,7 @@ var ProjectEdit = {};
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
       .change(handleParameterChange);
     $('#project_type').change(o.handleProjectTypeChange);
-    $('#build_setup :input').change(o.validateFeedUrl);
+    $('#polling :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
