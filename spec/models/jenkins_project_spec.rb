@@ -9,19 +9,27 @@ describe JenkinsProject do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :jenkins_base_url }
-    it { should validate_presence_of :jenkins_build_name }
-
-    it do
-      should allow_value("http://example.com",
-                         "https://example.com",
-                         "HTTP://example.com").for(:jenkins_base_url)
+    context "when webhooks are enabled" do
+      subject { Project.new(webhooks_enabled: true)}
+      it { should_not validate_presence_of(:jenkins_base_url) }
+      it { should_not validate_presence_of(:jenkins_build_name) }
     end
 
-    it do
-      should_not allow_value("ttp://example.com",
-                             "sql injection\nhttps://example.com").for(:jenkins_base_url)
+    context "when webhooks are not enabled" do
+      it { should validate_presence_of :jenkins_base_url }
+      it { should validate_presence_of :jenkins_build_name }
 
+      it do
+        should allow_value("http://example.com",
+                           "https://example.com",
+                           "HTTP://example.com").for(:jenkins_base_url)
+      end
+
+      it do
+        should_not allow_value("ttp://example.com",
+                               "sql injection\nhttps://example.com").for(:jenkins_base_url)
+
+      end
     end
   end
 

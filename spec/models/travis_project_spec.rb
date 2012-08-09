@@ -13,8 +13,16 @@ describe TravisProject do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :travis_github_account }
-    it { should validate_presence_of :travis_repository }
+    context "when webhooks are enabled" do
+      subject { Project.new(webhooks_enabled: true)}
+      it { should_not validate_presence_of(:travis_github_account) }
+      it { should_not validate_presence_of(:travis_repository) }
+    end
+
+    context "when webhooks are not enabled" do
+      it { should validate_presence_of :travis_github_account }
+      it { should validate_presence_of :travis_repository }
+    end
   end
 
   its(:feed_url) { should == 'http://travis-ci.org/account/project/builds.json' }

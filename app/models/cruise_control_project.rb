@@ -1,7 +1,7 @@
 class CruiseControlProject < Project
 
   attr_accessible :cruise_control_rss_feed_url
-  validates :cruise_control_rss_feed_url, presence: true, format: {with: /\Ahttps?:\/\/.*\.rss\Z/i, message: 'should end with ".rss"'}
+  validates :cruise_control_rss_feed_url, presence: true, format: {with: /\Ahttps?:\/\/.*\.rss\Z/i, message: 'should end with ".rss"'}, unless: ->(project) { project.webhooks_enabled }
 
   def feed_url
     cruise_control_rss_feed_url

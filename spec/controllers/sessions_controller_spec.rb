@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe SessionsController do
-  before { @request.env['devise.mapping'] = Devise.mappings[:user] }
+  before do
+    @request.env['devise.mapping'] = Devise.mappings[:user]
+  end
 
   describe '#new' do
     context 'when password authentication is enabled' do
