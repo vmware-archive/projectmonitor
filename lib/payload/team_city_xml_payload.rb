@@ -27,6 +27,7 @@ class TeamCityXmlPayload < Payload
 
   def parse_success(content)
     return if content.attribute('running').present? && content.attribute('status').value != 'FAILURE'
+    return if content.attribute('status').value == 'UNKNOWN'
     content.attribute('status').value == 'SUCCESS'
   end
 

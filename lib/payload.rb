@@ -9,6 +9,7 @@ class Payload
 
   def each_status
     status_content.each do |content|
+      next if parse_success(content) == nil
       yield ProjectStatus.new(
         success: parse_success(content),
         url: parse_url(content),
