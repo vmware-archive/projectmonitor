@@ -1,5 +1,11 @@
 class ConvertLocationsToTags < ActiveRecord::Migration
   Project = Class.new ActiveRecord::Base
+  TeamCityRestProject = Class.new ActiveRecord::Base
+  TeamCityProject = Class.new ActiveRecord::Base
+  TravisProject = Class.new ActiveRecord::Base
+  JenkinsProject = Class.new ActiveRecord::Base
+  CruiseControlProject = Class.new ActiveRecord::Base
+
 
   def up
     Project.where('location IS NOT NULL').find_each do |project|
