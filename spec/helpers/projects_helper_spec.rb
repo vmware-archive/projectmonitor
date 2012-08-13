@@ -25,7 +25,7 @@ describe ProjectsHelper do
     context "when the project lacks a guid" do
       let!(:project) { FactoryGirl.create(:project) }
       before { project.update_attribute(:guid, nil)}
-      it { should be_nil }
+      it { should == "not yet configured" }
     end
   end
 end
