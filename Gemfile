@@ -24,6 +24,7 @@ gem "omniauth-google-oauth2"
 gem "pivotal-tracker"
 gem "rails"
 gem "rake"
+gem "xpath"
 
 group :production do
   gem "therubyracer"
