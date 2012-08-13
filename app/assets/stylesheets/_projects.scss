@@ -30,7 +30,6 @@ ol.projects {
   display: block;
   height: 99%;
   width: 99%;
-  overflow: hidden;
 
   li.project {
     float: left;
@@ -256,7 +255,6 @@ ol.projects {
         .name {
           font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
           font-weight: normal;
-          overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           text-transform: capitalize;
