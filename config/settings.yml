@@ -29,7 +29,7 @@ defaults: &defaults
   #
   # Should we authenticate people using OAuth2?
   #
-  oauth2_enabled: true
+  oauth2_enabled: false
 
   #
   # Google OAuth2 settings
