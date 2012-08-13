@@ -4,6 +4,7 @@ module ProjectUpdater
 
     def update(project)
       update_status(project)
+      project.last_refreshed_at = Time.now
     end
 
   private
