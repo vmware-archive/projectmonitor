@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
                  aggregate_projects = AggregateProject.displayable(params[:tags])
                  Project.standalone
                end
-    projects =  projects.displayable(params[:tags]).all
+    projects =  projects.displayable(params[:tags])
 
     tiles = projects.concat(aggregate_projects).sort_by { |p| p.code.downcase }
       .take(@tiles_count)
