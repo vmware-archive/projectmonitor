@@ -46,14 +46,6 @@ body.dashboard {
     color: white;
     text-decoration: none;
   }
-
-  &.tiles_15, &.tiles_24, &.tiles_48 {
-    @include fluid-grid-system(12);
-  }
-
-  &.tiles_63 {
-    @include fluid-grid-system(7);
-  }
 }
 
 .clear {
