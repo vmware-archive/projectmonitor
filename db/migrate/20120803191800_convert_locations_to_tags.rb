@@ -1,20 +1,9 @@
-class Project < ActiveRecord::Base
-  acts_as_taggable
-end
-class TeamCityChainedProject < Project
-end
-class TeamCityProject < Project
-end
-class TeamCityRestProject < Project
-end
-class JenkinsProject < Project
-end
-class TravisProject < Project
-end
-class CruiseControlProject < Project
-end
- 
 class ConvertLocationsToTags < ActiveRecord::Migration
+  Project = Class.new ActiveRecord::Base do
+    acts_as_taggable
+    self.inheritance_column = nil
+  end
+
   def up
     Project.where('location IS NOT NULL').find_each do |project|
       new_tag_list = (project.tag_list + [project.location.gsub(/\s+/, '_')]).uniq
