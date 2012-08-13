@@ -35,11 +35,4 @@ FactoryGirl.define do
     team_city_rest_base_url "example.com"
     team_city_rest_build_type_id "bt456"
   end
-
-  factory :team_city_chained_project, class: TeamCityChainedProject do
-    name { Faker::Name.name }
-    team_city_rest_base_url "example2.com"
-    team_city_rest_build_type_id "bt12398"
-  end
-
 end

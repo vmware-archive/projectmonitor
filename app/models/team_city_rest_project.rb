@@ -29,4 +29,7 @@ class TeamCityRestProject < Project
     TeamCityJsonPayload.new
   end
 
+  def has_dependencies?
+    true
+  end
 end

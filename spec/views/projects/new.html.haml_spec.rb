@@ -18,7 +18,6 @@ describe "projects/new" do
     rendered.should have_css('fieldset#JenkinsProject.hide')
     rendered.should have_css('fieldset#TeamCityRestProject.hide')
     rendered.should have_css('fieldset#TeamCityProject.hide')
-    rendered.should have_css('fieldset#TeamCityChainedProject.hide')
     rendered.should have_css('fieldset#TravisProject.hide')
   end
 
