@@ -9,7 +9,6 @@ describe ProjectsHelper do
                  ['Cruise Control Project', 'CruiseControlProject'],
                  ['Jenkins Project', 'JenkinsProject'],
                  ['Team City Project', 'TeamCityRestProject'],
-                 ['Team City Project with Dependencies', 'TeamCityChainedProject'],
                  ['Legacy Team City (<= v6) Project', 'TeamCityProject'],
                  ['Travis Project', 'TravisProject']]
     end

@@ -434,12 +434,6 @@ describe Project do
       it { should =~ ['team_city_rest_base_url', 'team_city_rest_build_type_id'] }
     end
 
-    context "when a TeamCityChainedProject" do
-      let(:project_class) { TeamCityChainedProject }
-
-      it { should =~ ['team_city_rest_base_url', 'team_city_rest_build_type_id'] }
-    end
-
     context "when a TravisProject" do
       let(:project_class) { TravisProject }
 
