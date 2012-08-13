@@ -11,6 +11,8 @@ module ProjectsHelper
     if project.guid.present?
       original_url = project_status_url(project)
       guid_url = original_url.gsub(project.id.to_s, project.guid.to_s)
+    else
+      "not yet configured"
     end
   end
 end
