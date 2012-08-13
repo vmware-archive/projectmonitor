@@ -27,7 +27,7 @@ Devise.setup do |config|
       options[:scope] = 'userinfo.profile,userinfo.email'
       options[:client_options] = {ssl: {ca_path: heroku_cert_path}}
     else
-      options[:client_options] = config_for(:client_options)
+      config_for(:client_options) {|v| options[:client_options] = v}
     end
     config_for(:restrict_to_domain) {|v| options[:hd] = v}
     config.omniauth :google_oauth2, config_for(:oauth2_apphost), config_for(:oauth2_secret), options
