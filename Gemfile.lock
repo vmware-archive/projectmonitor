@@ -319,3 +319,4 @@ DEPENDENCIES
   thin
   uglifier
   vcr
+  xpath
