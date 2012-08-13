@@ -49,11 +49,9 @@ class ExtractFieldsFromProjectFeedUrl < ActiveRecord::Migration
         project.update_attributes!(:team_city_base_url => matches[1], :team_city_build_id => matches[2])
       end
 
-      [TeamCityRestProject, TeamCityChainedProject].each do |model|
-        model.find_each do |project|
-          matches = project.feed_url.match %r{http://(.*)/app/rest/builds\?locator=running:all,buildType:\(id:(bt\d*)\)}
-          project.update_attributes!(:team_city_rest_base_url => matches[1], :team_city_rest_build_type_id => matches[2])
-        end
+      TeamCityRestProject.find_each do |project|
+        matches = project.feed_url.match %r{http://(.*)/app/rest/builds\?locator=running:all,buildType:\(id:(bt\d*)\)}
+        project.update_attributes!(:team_city_rest_base_url => matches[1], :team_city_rest_build_type_id => matches[2])
       end
 
       rename_column :projects, :feed_url, :deprecated_feed_url
