@@ -9,8 +9,7 @@ module ProjectsHelper
 
   def project_webhooks_url(project)
     if project.guid.present?
-      original_url = project_status_url(project)
-      guid_url = original_url.gsub(project.id.to_s, project.guid.to_s)
+      project_status_url(project.guid)
     else
       unless project.new_record?
         project.generate_guid
