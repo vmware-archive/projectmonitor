@@ -153,6 +153,10 @@ class Project < ActiveRecord::Base
   def dependent_build_info_url
   end
 
+  def generate_guid
+    self.guid = SecureRandom.uuid
+  end
+
   private
 
   def self.project_attribute_prefix
@@ -162,9 +166,4 @@ class Project < ActiveRecord::Base
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 1)
   end
-
-  def generate_guid
-    self.guid = SecureRandom.uuid
-  end
-
 end
