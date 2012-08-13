@@ -17,14 +17,17 @@ describe ProjectsHelper do
 
   describe "#project_webhooks_url" do
     subject { helper.project_webhooks_url(project) }
+
     context "when the project has a guid" do
       let(:project) { FactoryGirl.build(:project) }
       before { project.save }
       it { should include project.guid }
     end
+
     context "when the project lacks a guid" do
       let!(:project) { FactoryGirl.create(:project) }
-      before { project.update_attribute(:guid, nil)}
+      before { project.tap {|p| p.guid = nil}.save! }
+
       it "should display a message and generate a guid" do
         project.should_receive :generate_guid
         project.should_receive :save!
