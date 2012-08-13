@@ -10,7 +10,7 @@ describe DashboardsController do
     context 'when an aggregate project id is specified' do
       before do
         AggregateProject.stub(:find).and_return(aggregate_project)
-        aggregate_project.stub_chain(:projects, :displayable, :all).and_return(projects)
+        aggregate_project.stub_chain(:projects, :displayable).and_return(projects)
         projects.stub_chain(:concat, :sort_by).and_return(projects)
       end
 
@@ -40,7 +40,7 @@ describe DashboardsController do
 
       before do
         AggregateProject.stub(:displayable).and_return(aggregate_projects)
-        Project.stub_chain(:standalone, :displayable, :all).and_return(projects)
+        Project.stub_chain(:standalone, :displayable).and_return(projects)
         projects.stub_chain(:concat, :sort_by).and_return(projects)
       end
 
