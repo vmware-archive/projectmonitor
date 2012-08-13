@@ -47,6 +47,13 @@ describe StatusController do
         ProjectStatus.last.project_id.should == project.id
         ProjectStatus.last.published_at.should == Time.parse("2012-07-17T14:18:52Z")
       end
+
+      it "should update last_refreshed_at" do
+        project.last_refreshed_at.should be_nil
+        subject
+        project.reload.last_refreshed_at.should_not be_nil
+      end
+
     end
 
     context "Jenkins project" do

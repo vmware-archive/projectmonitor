@@ -26,6 +26,8 @@
   = f.label :webhooks_enabled_true, "Webhooks"
   = f.radio_button :webhooks_enabled, false
   = f.label :webhooks_enabled_false, "Polling"
+  - if f.object.last_refreshed_at.present?
+    Project last refreshed at #{f.object.last_refreshed_at}
   %fieldset#webhooks
     = "Your webhooks URL is #{project_webhooks_url(f.object)}."
   %fieldset#polling
