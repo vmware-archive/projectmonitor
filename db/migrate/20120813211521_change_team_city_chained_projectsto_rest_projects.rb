@@ -1,8 +1,10 @@
 class ChangeTeamCityChainedProjectstoRestProjects < ActiveRecord::Migration
+  Project = Class.new ActiveRecord::Base do
+    self.inheritance_column = nil
+  end
+
   def up
-    execute <<-SQL
-        UPDATE projects set type = "TeamCityRestProject" where type = "TeamCityChainedProject";
-    SQL
+    Project.where(type: "TeamCityChainedProject").update_all(type: "TeamCityRestProject")
   end
 
   def down
