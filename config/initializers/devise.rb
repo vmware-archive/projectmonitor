@@ -29,6 +29,7 @@ Devise.setup do |config|
     else
       options[:client_options] = config_for(:client_options)
     end
+    config_for(:restrict_to_domain) {|v| options[:hd] = v}
     config.omniauth :google_oauth2, config_for(:oauth2_apphost), config_for(:oauth2_secret), options
   end
 end
