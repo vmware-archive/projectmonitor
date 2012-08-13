@@ -69,6 +69,28 @@ describe ProjectsController do
         before { put :update, :id => projects(:jenkins_project), :project => { :name => nil } }
         it { should render_template :edit }
       end
+
+      describe "posting empty feed password" do
+        [nil, '', "", []].each do |empty|
+          before { put :update, :id => project.id, :project => { :name => "new name", auth_password: empty } }
+          subject { response }
+          context "when there is already a feed password" do
+            let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'google') }
+            it "should preserve the feed password" do
+              subject
+              project.reload.auth_password.should == 'google'
+            end
+          end
+        end
+      end
+      describe "posting valid feed password" do
+        before { put :update, :id => project.id, :project => { :name => "new name", auth_password: 'google' } }
+        let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'froogle') }
+        it "should update the feed password" do
+          subject
+          project.reload.auth_password.should == 'google'
+        end
+      end
     end
 
     describe "destroy" do

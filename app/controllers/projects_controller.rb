@@ -34,6 +34,9 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if @project.auth_password.present? && (params[:project][:auth_password].nil? || params[:project][:auth_password].empty?)
+      params[:project].delete(:auth_password)
+    end
     if @project.update_attributes(params[:project])
       redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
     else
