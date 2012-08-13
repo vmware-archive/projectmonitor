@@ -43,7 +43,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def status
-    statuses.last
+    statuses.last || ProjectStatus.new
   end
   alias_method :latest_status, :status
 
