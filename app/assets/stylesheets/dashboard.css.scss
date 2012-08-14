@@ -20,6 +20,10 @@ body.dashboard {
     vertical-align: bottom;
     clear: both;
 
+    a {
+      display: inline-block;
+    }
+
     .left {
       display: inline-block;
       float: left;
@@ -49,5 +53,6 @@ body.dashboard {
 }
 
 .clear {
+  height:75px;
   clear: both;
 }
