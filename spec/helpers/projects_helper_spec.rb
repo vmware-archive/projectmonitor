@@ -9,7 +9,7 @@ describe ProjectsHelper do
                  ['Cruise Control Project', 'CruiseControlProject'],
                  ['Jenkins Project', 'JenkinsProject'],
                  ['Team City Project', 'TeamCityRestProject'],
-                 ['Legacy Team City (<= v6) Project', 'TeamCityProject'],
+                 ['Team City Project (version <= 6)', 'TeamCityProject'],
                  ['Travis Project', 'TravisProject']]
     end
   end

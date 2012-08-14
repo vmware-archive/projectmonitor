@@ -17,6 +17,6 @@ en:
   project_types:
     cruise_control_project: "Cruise Control Project"
     jenkins_project: "Jenkins Project"
-    team_city_project: "Legacy Team City (<= v6) Project"
+    team_city_project: "Team City Project (version <= 6)"
     team_city_rest_project: "Team City Project"
     travis_project: "Travis Project"
