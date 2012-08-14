@@ -240,8 +240,7 @@ You need to hit an authenticated endpoint to run the scheduler.
 
 You can create a cron entry to hit this:
 
-    curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:Unpakt99
-
+    curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:password
 
 ## Display
 
