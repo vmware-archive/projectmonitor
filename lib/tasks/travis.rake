@@ -3,9 +3,6 @@ namespace :travis do
   task :setup do
     puts 'Creating config/database.yml'
     system("cp config/database.yml.travis config/database.yml") and puts "... done"
-
-    puts 'Config/auth.yml'
-    system("cp config/auth.yml.example config/auth.yml") and puts "... done"
   end
 
   desc "Run specs"
