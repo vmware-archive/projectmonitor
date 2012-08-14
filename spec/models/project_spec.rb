@@ -20,7 +20,7 @@ describe Project do
       enqueued_job = double(:enqueued_job)
 
       StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
-      Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 1)
+      Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
 
       project.save
     end

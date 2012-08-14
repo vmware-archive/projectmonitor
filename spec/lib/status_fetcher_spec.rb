@@ -29,7 +29,7 @@ describe StatusFetcher do
       end
 
       it "enqueues a job for each polling project" do
-        Delayed::Job.should_receive(:enqueue).with job_for_project
+        Delayed::Job.should_receive(:enqueue).with job_for_project, priority: 1
         StatusFetcher.fetch_all
       end
     end
