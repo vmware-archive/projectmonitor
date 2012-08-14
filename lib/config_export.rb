@@ -1,5 +1,6 @@
 module ConfigExport
-  PROJECT_ATTRIBUTES = %w[name
+  PROJECT_ATTRIBUTES = %w[guid
+                          name
                           deprecated_feed_url
                           auth_username
                           auth_password
@@ -19,7 +20,8 @@ module ConfigExport
                           team_city_rest_base_url
                           team_city_rest_build_type_id
                           travis_github_account
-                          travis_repository]
+                          travis_repository
+                          webhooks_enabled]
   AGGREGATE_PROJECT_ATTRIBUTES = %w[id name enabled]
 
   class << self
@@ -39,14 +41,27 @@ module ConfigExport
     def import(config)
       config = YAML.load(config)
 
-      cached_agg = {}
-      config['aggregate_projects'].each do |aggregate_project|
-        cached_agg[aggregate_project['id']] = AggregateProject.create!(aggregate_project.except('id'))
-      end
+      Project.transaction do
+        cached_agg = {}
+        config['aggregate_projects'].each do |aggregate_project|
+          cached_agg[aggregate_project['id']] = AggregateProject.create!(aggregate_project.except('id'))
+        end
 
-      config['projects'].each do |project_attributes|
-        project_attributes['type'].constantize.create!(project_attributes) do |project|
+        config['projects'].each do |project_attributes|
+          guid = project_attributes['guid']
+
+          model_class = project_attributes['type'].constantize
+          project = if guid.present?
+                      model_class.where(guid: guid).first_or_initialize
+                    else
+                      model_class.new
+                    end
+
+          project_attributes.each do |key, value|
+            project.send("#{key}=", value)
+          end
           project.aggregate_project_id = cached_agg[project_attributes['aggregate_project_id']].try(:id)
+          project.save(validate: false)
         end
       end
     end
