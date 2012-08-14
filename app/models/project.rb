@@ -165,6 +165,6 @@ class Project < ActiveRecord::Base
   end
 
   def fetch_statuses
-    Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 1)
+    Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
   end
 end
