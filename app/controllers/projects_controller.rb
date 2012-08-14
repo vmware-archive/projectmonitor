@@ -37,10 +37,20 @@ class ProjectsController < ApplicationController
     if @project.auth_password.present? && (params[:project][:auth_password].nil? || params[:project][:auth_password].empty?)
       params[:project].delete(:auth_password)
     end
-    if @project.update_attributes(params[:project])
-      redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
-    else
-      render :edit
+    Project.transaction do
+      if params[:project][:type] && @project.type != params[:project][:type]
+        @project = @project.becomes(params[:project][:type].constantize)
+        if project = Project.where(id: @project.id)
+          project.update_all(type: params[:project][:type])
+        end
+      end
+
+      if @project.update_attributes(params[:project])
+        redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
+      else
+        render :edit
+        raise ActiveRecord::Rollback
+      end
     end
   end
 
