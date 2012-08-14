@@ -9,16 +9,20 @@ class TravisJsonPayload < Payload
 
   private
 
-  def unwrap_params_hash(content)
-    if content.respond_to?(:key?) && content.key?('payload')
-      content['payload']
-    else
-      content
-    end
+  def unwrap_webhook_content(content)
+    content['payload']
+  end
+
+  def unwrap_polled_content(content)
+    content
   end
 
   def convert_content!(content)
-    status_content = unwrap_params_hash(content)
+    status_content = if content.respond_to?(:key?) && content.key?('payload')
+                       unwrap_webhook_content(content)
+                     else
+                       unwrap_polled_content(content)
+                     end
     Array.wrap(JSON.parse(status_content))
 
   rescue JSON::ParserError
