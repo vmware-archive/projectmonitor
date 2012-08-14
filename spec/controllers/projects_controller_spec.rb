@@ -70,25 +70,53 @@ describe ProjectsController do
         it { should render_template :edit }
       end
 
-      describe "posting empty feed password" do
-        [nil, '', "", []].each do |empty|
-          before { put :update, :id => project.id, :project => { :name => "new name", auth_password: empty } }
-          subject { response }
-          context "when there is already a feed password" do
-            let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'google') }
-            it "should preserve the feed password" do
-              subject
-              project.reload.auth_password.should == 'google'
+
+      describe "feed password" do
+
+        describe "posting empty feed password" do
+          [nil, '', "", []].each do |empty|
+            before { put :update, :id => project.id, :project => { :name => "new name", auth_password: empty } }
+            subject { response }
+            context "when there is already a feed password" do
+              let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'google') }
+              it "should preserve the feed password" do
+                subject
+                project.reload.auth_password.should == 'google'
+              end
             end
           end
         end
+
+        describe "posting valid feed password" do
+          before { put :update, :id => project.id, :project => { :name => "new name", auth_password: 'google' } }
+          let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'froogle') }
+          it "should update the feed password" do
+            subject
+            project.reload.auth_password.should == 'google'
+          end
+        end
+
       end
-      describe "posting valid feed password" do
-        before { put :update, :id => project.id, :project => { :name => "new name", auth_password: 'google' } }
-        let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'froogle') }
-        it "should update the feed password" do
-          subject
-          project.reload.auth_password.should == 'google'
+
+      describe "changing STI type" do
+        subject { put :update, "id"=> project.id, "project" => project_params }
+        let!(:project) { FactoryGirl.create(:team_city_project) }
+
+        context "when the parameters are valid" do
+          let(:project_params) { {"type"=>"JenkinsProject", name: "foobar", "jenkins_base_url"=>"http://foo", "jenkins_build_name"=>"NAMe"} }
+          it "should validate as the new type and save the record" do
+            subject
+            (Project.find(project.id).is_a? JenkinsProject).should be_true
+          end
+        end
+
+        context "when the parameters are not valid" do
+
+          let(:project_params) { {"type"=>"JenkinsProject", "jenkins_build_name"=>"NAMe"} }
+          it "should validate as the new type and save the record" do
+            subject
+            (Project.find(project.id).is_a? TeamCityProject).should be_true
+          end
         end
       end
     end
