@@ -13,7 +13,7 @@
           Hello, #{current_user.login}
           = link_to "(log out)", destroy_user_session_path, class: 'smaller_text', method: :delete
           %br
-          = link_to "Projects", projects_path
+          = link_to "Projects", edit_configuration_path
           - if config_for(:password_auth_enabled)
             |
             = link_to "Add User", new_user_path
