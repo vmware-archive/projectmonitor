@@ -52,6 +52,12 @@ defaults: &defaults
   #   - 192.168.1.1
   #     127.0.0.1
   #     203.24.97.1
+  #
+  # If you have a load balancer in front of the application server (for
+  # instance on Heroku https://devcenter.heroku.com/articles/ssl-endpoint) set
+  # this to true so that filtering does not consider the proxy's ip address.
+  #
+  # ip_whitelist_request_proxied: true
 
 development:
   <<: *defaults
