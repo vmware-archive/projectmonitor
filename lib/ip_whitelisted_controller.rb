@@ -11,7 +11,13 @@ module IPWhitelistedController
   private
 
   def restrict_ip_address
-    head 403 unless ConfigHelper.get(:ip_whitelist).include?(request.env['REMOTE_ADDR'])
+    client_ip_address = if ConfigHelper.get(:ip_whitelist_request_proxied)
+        (request.env['HTTP_X_FORWARDED_FOR'] || '').split(',').first.try(:strip)
+      else
+        request.env['REMOTE_ADDR']
+      end
+
+    head 403 unless ConfigHelper.get(:ip_whitelist).include?(client_ip_address)
   end
 
 end

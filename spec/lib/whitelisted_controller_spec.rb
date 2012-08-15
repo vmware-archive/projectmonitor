@@ -21,21 +21,88 @@ describe IPWhitelistedController, type: :controller do
       end
       subject { get :index }
 
-      context 'and the request ip address is in the whitelist' do
+      context 'when configured as a proxied request' do
         before do
-          request.env['REMOTE_ADDR'] = allow_ip_address
-          subject
+          ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(true)
         end
 
-        it 'should return success' do
-          response.should be_success
+        context 'and the HTTP_X_FORWARDED_FOR request ip address is in the whitelist' do
+          before do
+            request.env['HTTP_X_FORWARDED_FOR'] = allow_ip_address
+            subject
+          end
+
+          it 'should return success' do
+            response.should be_success
+          end
+        end
+
+        context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as the client' do
+          before do
+            request.env['HTTP_X_FORWARDED_FOR'] = "#{allow_ip_address}, 127.0.0.1, 203.1.1.0"
+            subject
+          end
+
+          it 'should return success' do
+            response.should be_success
+          end
+        end
+
+        context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as proxy' do
+          before do
+            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, #{allow_ip_address}"
+            subject
+          end
+
+          it 'should return a 403 access denied response' do
+            response.code.should eq('403')
+          end
+        end
+
+        context 'and the HTTP_X_FORWARDED_FOR request ip address is NOT in the whitelist' do
+          before do
+            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1"
+            subject
+          end
+
+          it 'should return a 403 access denied response' do
+            response.code.should eq('403')
+          end
+        end
+
+        context 'and the HTTP_X_FORWARDED_FOR request ip address is empty' do
+          it 'should return a 403 access denied response' do
+            subject
+            response.code.should eq('403')
+          end
         end
       end
 
-      context 'and the request ip address is NOT in the whitelist' do
-        it 'should return a 403 access denied response' do
-          subject
-          response.code.should eq('403')
+      context 'when not configured as a proxied request' do
+        before do
+          ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(false)
+        end
+
+        context 'and the REMOTE_ADDR request ip address is in the whitelist' do
+          before do
+            request.env['REMOTE_ADDR'] = allow_ip_address
+            subject
+          end
+
+          it 'should return success' do
+            response.should be_success
+          end
+        end
+
+        context 'and the REMOTE_ADDR request ip address is NOT in the whitelist' do
+          before do
+            request.env['REMOTE_ADDR'] = '127.0.0.1'
+            subject
+          end
+
+          it 'should return a 403 access denied response' do
+            response.code.should eq('403')
+          end
         end
       end
     end
