@@ -4,8 +4,7 @@ class ConfigHelper
 
     key = key.to_s
     if ENV.key?(key)
-      ENV[key] == "false" ? v = false : v = ENV[key]
-      handle_value.(v)
+      handle_value.(ENV[key] && YAML.load(ENV[key]))
     elsif Rails.configuration.respond_to?(key)
       handle_value.(Rails.configuration.send(key))
     end
