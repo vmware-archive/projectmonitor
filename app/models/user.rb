@@ -3,7 +3,7 @@ require Rails.root.join('lib', 'devise', 'encryptors', 'legacy')
 class User < ActiveRecord::Base
   devise_options = [:database_authenticatable,
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable]
-  devise_options << :encryptable if config_for(:devise_encryptor)
+  devise_options << :encryptable if ConfigHelper.get(:devise_encryptor)
   devise *devise_options
 
   attr_accessible :login, :name, :email, :password, :password_confirmation, :remember_me
