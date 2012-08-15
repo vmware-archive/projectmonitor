@@ -14,7 +14,7 @@
           = link_to "(log out)", destroy_user_session_path, class: 'smaller_text', method: :delete
           %br
           = link_to "Projects", edit_configuration_path
-          - if config_for(:password_auth_enabled)
+          - if ConfigHelper.get(:password_auth_enabled)
             |
             = link_to "Add User", new_user_path
     %div{:class => "page #{params[:controller]} #{params[:action]}"}
