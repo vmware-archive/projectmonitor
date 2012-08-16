@@ -11,7 +11,7 @@ class TravisProject < Project
     feed_url
   end
 
-  def status_url
+  def current_build_url
     base_url
   end
 

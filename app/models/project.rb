@@ -111,7 +111,7 @@ class Project < ActiveRecord::Base
     super || has_building_children?
   end
 
-  def status_url
+  def current_build_url
   end
 
   def last_green

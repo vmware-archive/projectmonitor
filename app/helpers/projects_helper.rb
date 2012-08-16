@@ -25,8 +25,8 @@ module ProjectsHelper
   end
 
   def project_status_link(project)
-    if project.status_url.present?
-      link_to(project.code, project.status_url)
+    if (current_build_url = project.current_build_url).present?
+      link_to(project.code, current_build_url)
     else
       project.code
     end

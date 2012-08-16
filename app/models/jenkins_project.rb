@@ -19,7 +19,7 @@ class JenkinsProject < Project
     "#{url_components.scheme}://#{url_components.host}:#{url_components.port}/cc.xml"
   end
 
-  def status_url
+  def current_build_url
     jenkins_base_url
   end
 
