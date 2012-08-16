@@ -13,11 +13,14 @@ namespace :cimonitor do
   task :force_update => :environment do
     print "Doing forced update of all projects..."
     Project.enabled.each do |project|
+      next if project.webhooks_enabled
+
       begin
         StatusFetcher.retrieve_status_for(project)
         StatusFetcher.retrieve_velocity_for(project)
+        project.save!
       rescue => e
-        puts "Failed to update project '#{project}', reason: #{e.message}"
+        puts "Failed to update project '#{project}', #{e.class}: #{e.message}"
       end
     end
     puts " done."
