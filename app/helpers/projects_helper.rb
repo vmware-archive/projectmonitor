@@ -1,5 +1,10 @@
 module ProjectsHelper
-  PROJECT_TYPE_NAMES = [CruiseControlProject, JenkinsProject, TeamCityRestProject, TeamCityProject, TravisProject]
+  PROJECT_TYPE_NAMES = [CruiseControlProject,
+                        JenkinsProject,
+                        SemaphoreProject,
+                        TeamCityRestProject,
+                        TeamCityProject,
+                        TravisProject]
 
   def project_types
     [['', '']] + PROJECT_TYPE_NAMES.map do |type_class|

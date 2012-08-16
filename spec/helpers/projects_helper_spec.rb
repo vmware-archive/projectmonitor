@@ -8,6 +8,7 @@ describe ProjectsHelper do
       should == [['', ''],
                  ['Cruise Control Project', 'CruiseControlProject'],
                  ['Jenkins Project', 'JenkinsProject'],
+                 ['Semaphore Project', 'SemaphoreProject'],
                  ['Team City Project', 'TeamCityRestProject'],
                  ['Team City Project (version <= 6)', 'TeamCityProject'],
                  ['Travis Project', 'TravisProject']]
