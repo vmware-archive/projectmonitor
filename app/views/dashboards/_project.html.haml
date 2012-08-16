@@ -1,10 +1,6 @@
 %li{:class => "#{project.css_class} #{"building" if project.building?}", "data-id" => project.id, :id => project.css_id}
   .information
-    %h1
-      - if project.status_url
-        = link_to(project.code, project.status_url)
-      - else
-        = project.code
+    %h1= project_status_link(project)
     .status-bar
       .publish-date= project.time_since_last_build
       .history

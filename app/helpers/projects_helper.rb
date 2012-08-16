@@ -23,4 +23,13 @@ module ProjectsHelper
       "not yet configured"
     end
   end
+
+  def project_status_link(project)
+    if project.status_url.present?
+      link_to(project.code, project.status_url)
+    else
+      project.code
+    end
+  end
+
 end
