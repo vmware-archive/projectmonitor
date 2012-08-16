@@ -38,6 +38,18 @@ class TravisExample < FixtureFile
   end
 end
 
+class JenkinsJsonExample < FixtureFile
+  def initialize(filename)
+    super("jenkins_json_examples", filename)
+  end
+end
+
+class TeamCityJsonExample < FixtureFile
+  def initialize(filename)
+    super("teamcity_json_examples", filename)
+  end
+end
+
 class JenkinsAtomExample < FixtureFile
   def initialize(filename)
     super("jenkins_atom_examples", filename)
