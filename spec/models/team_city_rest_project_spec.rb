@@ -36,9 +36,9 @@ describe TeamCityRestProject do
   its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
   its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
 
-  describe '#status_url' do
+  describe '#current_build_url' do
     let(:project) { FactoryGirl.build(:team_city_rest_project) }
-    subject { project.status_url }
+    subject { project.current_build_url }
 
     it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
   end

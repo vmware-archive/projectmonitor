@@ -13,7 +13,7 @@ class TeamCityRestProject < Project
     "http://#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id}),personal:false"
   end
 
-  def status_url
+  def current_build_url
     "http://#{team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{team_city_rest_build_type_id}"
   end
 

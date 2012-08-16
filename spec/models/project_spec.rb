@@ -457,9 +457,9 @@ describe Project do
     end
   end
 
-  describe '#status_url' do
+  describe '#current_build_url' do
     let(:project) { Project.new }
-    subject { project.status_url }
+    subject { project.current_build_url }
 
     it { should be_nil }
   end

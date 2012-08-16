@@ -11,14 +11,14 @@ describe 'dashboards/_project' do
   end
 
   context 'when the project has a status url' do
-    let(:status_url) { 'http://localhost:3000' }
+    let(:current_build_url) { 'http://localhost:3000' }
     before do
-      project.stub(:status_url).and_return(status_url)
+      project.stub(:current_build_url).and_return(current_build_url)
     end
 
     it 'should have a link to the project status page' do
       subject
-      rendered.should have_css(%{h1:contains("#{project.code}") > a[href = "#{status_url}"]})
+      rendered.should have_css(%{h1:contains("#{project.code}") > a[href = "#{current_build_url}"]})
     end
   end
 
