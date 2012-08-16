@@ -4,7 +4,7 @@ module UrlRetriever
     http_client = HTTPClient.new
 
     if username.present?
-      http_client.set_auth(url, username, password)
+      http_client.set_auth(nil, username, password)
     end
 
     message = http_client.get(url)
