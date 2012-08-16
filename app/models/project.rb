@@ -112,7 +112,6 @@ class Project < ActiveRecord::Base
   end
 
   def status_url
-    latest_status.try(:url)
   end
 
   def last_green
