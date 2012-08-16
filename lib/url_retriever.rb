@@ -25,7 +25,11 @@ module UrlRetriever
 
     def http(uri)
       Net::HTTP.new(uri.host, uri.port).tap do |http|
-        http.use_ssl = (uri.scheme == 'https')
+        if uri.scheme == 'https'
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http.ca_file = File.join(File.expand_path(File.dirname(__FILE__)), '../lib/cert')
+        end
         http.read_timeout = 30
         http.open_timeout = 30
       end

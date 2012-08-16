@@ -35,4 +35,9 @@ FactoryGirl.define do
     team_city_rest_base_url "example.com"
     team_city_rest_build_type_id "bt456"
   end
+
+  factory :semaphore_project, class: SemaphoreProject do
+    name { Faker::Name.name }
+    semaphore_api_url 'https://semaphoreapp.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh'
+  end
 end

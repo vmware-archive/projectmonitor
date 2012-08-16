@@ -14,9 +14,11 @@ en:
         team_city_build_id: "Build ID"
         team_city_rest_base_url: "Base URL"
         team_city_rest_build_type_id: "Build Type ID"
+        semaphore_api_url: "Semaphore API URL"
   project_types:
     cruise_control_project: "Cruise Control Project"
     jenkins_project: "Jenkins Project"
+    semaphore_project: "Semaphore Project"
     team_city_project: "Team City Project (version <= 6)"
     team_city_rest_project: "Team City Project"
     travis_project: "Travis Project"

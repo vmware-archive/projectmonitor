@@ -97,3 +97,9 @@ class TeamcityRESTExample < FixtureFile
     as_xml.at_css(selector)
   end
 end
+
+class SemaphoreExample < FixtureFile
+  def initialize(filename)
+    super("semaphore_examples", filename)
+  end
+end
