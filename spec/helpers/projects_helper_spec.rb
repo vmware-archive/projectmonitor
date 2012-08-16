@@ -35,4 +35,26 @@ describe ProjectsHelper do
       end
     end
   end
+
+  describe '#project_status_link' do
+    context 'the status_url is not blank' do
+      let(:code) { double }
+      let(:url) { double }
+      let(:project) { double(:project, status_url: url, code: code)}
+
+      it 'renders a link to the status_url using the link helper' do
+        helper.should_receive(:link_to).with(code, url)
+        helper.project_status_link(project)
+      end
+    end
+
+    context 'the status_url is blank' do
+      let(:project) { double(:project, status_url: '', code: 'AOG') }
+
+      it 'returns the project code' do
+        helper.project_status_link(project).should == 'AOG'
+      end
+    end
+  end
+
 end
