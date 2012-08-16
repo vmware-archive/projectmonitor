@@ -3,18 +3,14 @@ class JenkinsJsonPayload < Payload
     status_content.first['build']['phase'] == 'STARTED'
   end
 
-  private
-
   def convert_content!(content)
-    Array.wrap(JSON.parse(content.keys.first))
+    [JSON.parse(Rack::Utils.parse_nested_query(content)['payload'])]
   rescue JSON::ParserError
-    self.processable = false
-    self.build_processable = false
+    self.processable = self.build_processable = false
     []
   end
 
   def parse_success(content)
-    # TODO: find actual return code for success
     content['build']['phase'] == 'SUCCESS'
   end
 

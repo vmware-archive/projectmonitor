@@ -22,6 +22,10 @@ class Payload
   def each_child(project)
   end
 
+  def webhook_status_content=(content)
+    @status_content = convert_webhook_content!(content).first(Project::RECENT_STATUS_COUNT)
+  end
+
   def status_content=(content)
     @status_content = convert_content!(content).first(Project::RECENT_STATUS_COUNT)
   end
@@ -42,8 +46,6 @@ class Payload
     raise NotImplementedError
   end
 
-  private
-
   def has_status_content?
     status_content.present?
   end
@@ -60,8 +62,12 @@ class Payload
     content
   end
 
+  def convert_webhook_content!(content)
+    convert_content!(content)
+  end
+
   def convert_build_content!(content)
-    content
+    convert_content!(content)
   end
 
   attr_accessor :processable, :build_processable

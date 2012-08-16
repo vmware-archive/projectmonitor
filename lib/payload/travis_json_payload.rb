@@ -7,26 +7,14 @@ class TravisJsonPayload < Payload
     status_is_processable?
   end
 
-  private
-
-  def unwrap_webhook_content(content)
-    content['payload']
-  end
-
-  def unwrap_polled_content(content)
-    content
+  def convert_webhook_content!(content)
+    convert_content!(Rack::Utils.parse_nested_query(content)['payload'] || '')
   end
 
   def convert_content!(content)
-    status_content = if content.respond_to?(:key?) && content.key?('payload')
-                       unwrap_webhook_content(content)
-                     else
-                       unwrap_polled_content(content)
-                     end
-    Array.wrap(JSON.parse(status_content))
-
+    Array.wrap(JSON.parse(content))
   rescue JSON::ParserError
-    self.processable = false
+    self.processable = self.build_processable = false
     []
   end
 

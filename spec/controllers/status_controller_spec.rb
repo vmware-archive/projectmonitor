@@ -59,12 +59,12 @@ describe StatusController do
     context "Jenkins project" do
       let!(:project) { FactoryGirl.create(:project) }
       let(:payload) do
-        { '{"name":"projectmonitor_ci_test",
-          "url":"job/projectmonitor_ci_test/",
-          "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}' => nil }
+        '{"name":"projectmonitor_ci_test",
+        "url":"job/projectmonitor_ci_test/",
+        "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}'
       end
 
-      subject { post :create, {project_id: project.guid}.merge(payload) }
+      subject { post :create, project_id: project.guid, payload: payload }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)

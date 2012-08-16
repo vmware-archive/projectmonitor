@@ -4,10 +4,11 @@ class TeamCityJsonPayload < Payload
     status_content.first['buildResult'] == 'running' && status_content.first['notifyType'] == 'buildStarted'
   end
 
-  private
-
   def convert_content!(content)
-    [content['build']]
+    [Rack::Utils.parse_nested_query(content)['build']].compact
+  rescue TypeError
+    self.processable = self.build_processable = false
+    []
   end
 
   def parse_success(content)
