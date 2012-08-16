@@ -41,7 +41,7 @@ describe UrlRetriever do
       subject { UrlRetriever.retrieve_content_at(url, 'user', 'pass') }
 
       it 'sets the authentication parameters' do
-        http_client.should_receive(:set_auth).with(url, 'user', 'pass')
+        http_client.should_receive(:set_auth).with(nil, 'user', 'pass')
         subject
       end
     end
