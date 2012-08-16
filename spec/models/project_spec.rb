@@ -461,19 +461,7 @@ describe Project do
     let(:project) { Project.new }
     subject { project.status_url }
 
-    context "when the project does have a status url" do
-      let(:status) { ProjectStatus.new(url: 'http://www.example.com') }
-      let(:status_url) { status.url }
-      before do
-        project.stub(:latest_status).and_return(status)
-      end
-
-      it { should == status_url }
-    end
-
-    context "when the project does not have a status url" do
-      it { should == nil }
-    end
+    it { should be_nil }
   end
 
   describe "#generate_guid" do
