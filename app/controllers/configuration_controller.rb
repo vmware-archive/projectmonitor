@@ -4,10 +4,10 @@ class ConfigurationController < ApplicationController
   respond_to :text, only: :show
 
   def show
-    headers['Content-type'] = 'text/plain'
+    headers['Content-Type'] = 'text/plain'
     headers['Content-Disposition'] = %{attachment; filename="configuration.yml"}
     headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-    respond_with ConfigExport.export
+    render text: ConfigExport.export
   end
 
   def create
