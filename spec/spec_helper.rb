@@ -19,4 +19,10 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.order = 'random'
+
+  # TODO: This fixes a bug in RSpec, see here:
+  # https://github.com/rspec/rspec-rails/issues/252
+  def (ActionDispatch::Integration::Session).fixture_path
+    RSpec.configuration.fixture_path
+  end
 end
