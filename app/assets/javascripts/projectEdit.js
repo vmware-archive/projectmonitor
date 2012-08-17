@@ -107,9 +107,11 @@ var ProjectEdit = {};
       return;
     }
 
-    var $inputs = $('#polling :input:not(.hide):enabled');
+    var $inputs = $('#polling :input:not(.hide):not(.optional):enabled');
     if ($inputs.is('[value=""]')) {
       if ($inputs.is('[value!=""]')) {
+        // TODO: This should probably show something like 'Some fields are
+        // missing' rather than an error
         $('#polling .failure').removeClass('hide');
       } else {
         $('#polling .unconfigured').removeClass('hide');

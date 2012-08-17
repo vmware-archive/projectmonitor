@@ -220,9 +220,10 @@ describe("project edit", function() {
         '    </fieldset>' +
         '    <fieldset class="hide" id="JenkinsProject">' +
         '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
-        '      <input id="project_jenkins_build_name" name="project[jenkins_build_name]" size="30" type="text">' +
+        '      <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
         '    </fieldset>' +
-        '    <input id="project_auth_username" name="project[auth_username]" size="40" type="text">' +
+        '    <input id="project_auth_username" name="project[auth_username]" type="text">' +
+        '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
         '  </div>' +
         '  <input id="project_online" name="project[online]" type="hidden"/>' +
         '  <div id="build_status">' +
