@@ -32,4 +32,10 @@ module ProjectsHelper
     end
   end
 
+  def project_refreshed_at(project)
+    if (refreshed_at = project.last_refreshed_at).present?
+      t('helpers.projects.last_refreshed_at', time: l(refreshed_at, format: :short), date: l(refreshed_at.to_date, format: :short))
+    end
+  end
+
 end

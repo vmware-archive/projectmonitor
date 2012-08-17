@@ -2,7 +2,15 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  time:
+    formats:
+      short: "%I:%M %p"
+  date:
+    formats:
+      short: "%m/%d/%Y"
   helpers:
+    projects:
+      last_refreshed_at: "Project last refreshed at %{time} on %{date}"
     label:
       project:
         jenkins_base_url: "Base URL"
