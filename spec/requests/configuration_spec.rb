@@ -4,13 +4,13 @@ feature 'configuration export' do
   let(:archived_project_name) { Faker::Name.name }
 
   before do
-    FactoryGirl.create(:aggregate_project)
-    FactoryGirl.create(:jenkins_project, name: archived_project_name)
-
     log_in
   end
 
   scenario 'obtain a configuration export' do
+    FactoryGirl.create(:aggregate_project)
+    FactoryGirl.create(:jenkins_project, name: archived_project_name)
+
     visit configuration_path(format: 'txt')
 
     configuration = YAML.load page.source
