@@ -58,7 +58,8 @@ module ConfigExport
                     end
 
           project_attributes.each do |key, value|
-            project.send("#{key}=", value)
+            setter_method = "#{key}="
+            project.send(setter_method, value) if project.respond_to?(setter_method)
           end
           project.aggregate_project_id = cached_agg[project_attributes['aggregate_project_id']].try(:id)
           project.save(validate: false)

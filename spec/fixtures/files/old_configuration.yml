@@ -1,0 +1,44 @@
+---
+aggregate_projects:
+- id: 6
+  name: Tracker
+  enabled: true
+  tag_list: []
+projects:
+- name: Tracker
+  deprecated_feed_url: http://tracker-ci-b.denver.pivotallabs.com:3333/projects/Tracker.rss
+  auth_username: ''
+  auth_password: ''
+  enabled: true
+  type: CruiseControlProject
+  polling_interval:
+  aggregate_project_id: 6
+  deprecated_latest_status_id: 772322
+  ec2_monday: false
+  ec2_tuesday: false
+  ec2_wednesday: false
+  ec2_thursday: false
+  ec2_friday: false
+  ec2_saturday: false
+  ec2_sunday: false
+  ec2_start_time: 2000-01-01 22:00:00.000000000 Z
+  ec2_end_time: 2000-01-01 22:00:00.000000000 Z
+  ec2_access_key_id: ''
+  ec2_secret_access_key: ''
+  ec2_instance_id: ''
+  ec2_elastic_ip: ''
+  code: ''
+  location: Denver
+  tracker_project_id: ''
+  tracker_auth_token: ''
+  cruise_control_rss_feed_url: http://tracker-ci-b.denver.pivotallabs.com:3333/projects/Tracker.rss
+  jenkins_base_url:
+  jenkins_build_name:
+  team_city_base_url:
+  team_city_build_id:
+  team_city_rest_base_url:
+  team_city_rest_build_type_id:
+  travis_github_account:
+  travis_repository:
+  tag_list:
+  - internal

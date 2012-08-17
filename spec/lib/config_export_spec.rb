@@ -40,4 +40,14 @@ describe ConfigExport do
     end
   end
 
+  context 'given an old configuration file with obsolete fields' do
+    it 'should import the records' do
+      expect do
+        expect do
+          ConfigExport.import File.read('spec/fixtures/files/old_configuration.yml')
+        end.to change(AggregateProject, :count).by(1)
+      end.to change(Project, :count).by(1)
+    end
+  end
+
 end
