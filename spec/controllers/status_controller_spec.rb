@@ -64,7 +64,10 @@ describe StatusController do
         "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}'
       end
 
-      subject { post :create, project_id: project.guid, payload: payload }
+      subject do
+        request.env['RAW_POST_DATA'] = payload
+        post :create, project_id: project.guid
+      end
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -140,7 +143,8 @@ describe StatusController do
       end
 
       after do
-        post :create, project_id: project.guid, "payload" => payload
+        request.env['RAW_POST_DATA'] = payload
+        post :create, project_id: project.guid
       end
 
       it 'should set last_refreshed_at' do
