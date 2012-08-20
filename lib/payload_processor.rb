@@ -28,9 +28,8 @@ class PayloadProcessor
 
   def add_statuses_from_payload
     payload.each_status do |status|
-      if status.valid? && !project.has_status?(status)
-        project.statuses << status
-      end
+      next if project.has_status?(status)
+      project.statuses << status
     end
   end
 

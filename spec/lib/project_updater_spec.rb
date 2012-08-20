@@ -21,12 +21,6 @@ describe ProjectUpdater do
       subject
     end
 
-    it 'should update the last_update_at time on the project' do
-      project.last_refreshed_at.should be_nil
-      subject
-      project.last_refreshed_at.should_not be_nil
-    end
-
     it 'should fetch the feed_url' do
       UrlRetriever.should_receive(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password)
       subject

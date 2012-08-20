@@ -126,5 +126,47 @@ describe StatusController do
       end
 
     end
+
+    context 'when processing the payload succeeded' do
+      let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
+
+      let(:payload) do
+        '{"name":"projectmonitor_ci_test",
+        "url":"job/projectmonitor_ci_test/",
+        "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}'
+      end
+      before do
+        Project.stub(:find_by_guid).and_return(project)
+      end
+
+      after do
+        post :create, project_id: project.guid, "payload" => payload
+      end
+
+      it 'should set last_refreshed_at' do
+        project.should_receive(:last_refreshed_at=)
+      end
+
+      it 'should save the project' do
+        project.should_receive(:save!)
+      end
+    end
+
+    context 'when processing the payload failed' do
+
+      let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
+
+      before do
+        Project.stub(:find_by_guid).and_return(project)
+      end
+
+      it 'should save the project with its original last_refreshed_at date' do
+        project.should_receive(:save!)
+        project.should_not_receive(:last_refreshed_at=)
+
+        post :create, project_id: project.guid, "payload" => 'invalid_post_content'
+      end
+
+    end
   end
 end
