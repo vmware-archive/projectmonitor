@@ -12,7 +12,7 @@ class SemaphorePayload < Payload
   end
 
   def parse_url(content)
-    content['build_url']
+    parsed_url = content['build_url']
   end
 
   def parse_build_id(content)

@@ -16,6 +16,7 @@ class PayloadProcessor
   def add_statuses
     if payload.status_is_processable?
       project.online = true
+      project.parsed_url = payload.parsed_url if payload.parsed_url.present?
       add_statuses_from_payload
     else
       project.online = false

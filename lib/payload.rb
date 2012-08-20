@@ -1,6 +1,7 @@
 class Payload
 
   attr_writer :dependent_content
+  attr_accessor :parsed_url
 
   def initialize
     self.processable = true

@@ -45,10 +45,15 @@ describe JenkinsProject do
   end
 
   describe '#current_build_url' do
-    let(:project) { FactoryGirl.build(:jenkins_project) }
     subject { project.current_build_url }
+    context "webhooks are enabled" do
+      let(:project) { FactoryGirl.build(:jenkins_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
+      it { should == 'foo.gov'}
+    end
+    context "webhooks are disabled" do
+      let(:project) { FactoryGirl.build(:jenkins_project) }
 
-    it { should == 'http://www.example.com' }
+      it { should == 'http://www.example.com' }
+    end
   end
-
 end
