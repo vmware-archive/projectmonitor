@@ -4,7 +4,7 @@ class JenkinsJsonPayload < Payload
   end
 
   def convert_content!(content)
-    [JSON.parse(Rack::Utils.parse_nested_query(content)['payload'])]
+    [JSON.parse(content)]
   rescue JSON::ParserError
     self.processable = self.build_processable = false
     []
