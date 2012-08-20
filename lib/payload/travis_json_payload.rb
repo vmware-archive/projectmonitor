@@ -24,6 +24,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_url(content)
+    parsed_url = content['build_url']
   end
 
   def parse_build_id(content)

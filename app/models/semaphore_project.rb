@@ -3,6 +3,14 @@ class SemaphoreProject < Project
   attr_accessible :semaphore_api_url
   validates_presence_of :semaphore_api_url
 
+  def current_build_url
+    if webhooks_enabled?
+      parsed_url
+    else
+      feed_url
+    end
+  end
+
   def feed_url
     semaphore_api_url
   end

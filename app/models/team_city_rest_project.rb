@@ -14,7 +14,11 @@ class TeamCityRestProject < Project
   end
 
   def current_build_url
-    "http://#{team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{team_city_rest_build_type_id}"
+    if webhooks_enabled?
+      parsed_url
+    else
+      "http://#{team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{team_city_rest_build_type_id}"
+    end
   end
 
   def project_name

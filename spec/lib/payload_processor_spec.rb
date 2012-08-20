@@ -77,4 +77,15 @@ describe PayloadProcessor do
       end
     end
   end
+
+  describe "parse_url" do
+    before do
+      payload.stub(:status_is_processable?) { true }
+      payload.stub(:parsed_url) { 'http://www.example.com' }
+    end
+    it "should set the project parsed_url" do
+      project.should_receive(:parsed_url=).with('http://www.example.com')
+      processor.process
+    end
+  end
 end

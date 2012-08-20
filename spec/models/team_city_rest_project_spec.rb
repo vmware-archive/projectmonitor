@@ -26,10 +26,10 @@ describe TeamCityRestProject do
 
   # FIXME: This is effectively broken as you cannot set the feed_url using the GUI!
   # context "TeamCity REST API feed with both the personal and user option" do
-    # it "should be valid" do
-      # project.feed_url = "#{rest_url},user:some_user123,personal:true"
-      # project.should be_valid
-    # end
+  # it "should be valid" do
+  # project.feed_url = "#{rest_url},user:some_user123,personal:true"
+  # project.should be_valid
+  # end
   # end
 
   its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
@@ -37,10 +37,17 @@ describe TeamCityRestProject do
   its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
 
   describe '#current_build_url' do
-    let(:project) { FactoryGirl.build(:team_city_rest_project) }
     subject { project.current_build_url }
+    context "webhooks are disabled" do
+      let(:project) { FactoryGirl.build(:team_city_rest_project) }
 
-    it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
+      it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
+    end
+
+    context "webhooks are enabled" do
+      let(:project) { FactoryGirl.build(:team_city_rest_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
+
+      it { should == 'foo.gov' }
+    end
   end
-
 end

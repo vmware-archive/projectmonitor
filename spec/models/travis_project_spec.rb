@@ -30,10 +30,16 @@ describe TravisProject do
   its(:build_status_url) { should == 'http://travis-ci.org/account/project/builds.json' }
 
   describe '#current_build_url' do
-    let(:project) { FactoryGirl.build(:travis_project) }
     subject { project.current_build_url }
+    context "webhooks are enabled" do
+      let(:project) { FactoryGirl.build(:travis_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
+      it { should == 'foo.gov'}
+    end
+    context "webhooks are disabled" do
+      let(:project) { FactoryGirl.build(:travis_project) }
 
     it { should == 'http://travis-ci.org/account/project' }
+    end
   end
 
 end

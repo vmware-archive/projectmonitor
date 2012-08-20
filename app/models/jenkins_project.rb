@@ -20,7 +20,11 @@ class JenkinsProject < Project
   end
 
   def current_build_url
-    jenkins_base_url
+    if webhooks_enabled?
+      parsed_url
+    else
+      jenkins_base_url
+    end
   end
 
   def fetch_payload
