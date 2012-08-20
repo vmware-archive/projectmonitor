@@ -30,7 +30,7 @@ class PayloadProcessor
   def add_statuses_from_payload
     payload.each_status do |status|
       next if project.has_status?(status)
-      project.statuses << status
+      project.statuses.push status
     end
   end
 
