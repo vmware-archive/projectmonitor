@@ -2,7 +2,8 @@ class SemaphorePayload < Payload
 
   def convert_content!(content)
     [JSON.parse(content)]
-  rescue JSON::ParserError
+  rescue => e
+    error_text << e.message
     self.processable = self.build_processable = false
     []
   end

@@ -323,3 +323,11 @@ form {
     color: $very-dark-green;
   }
 }
+.projects td {
+  .last_status.failed a {
+    color: $very-dark-red;
+  }
+  .last_status.successful a {
+    color: $very-dark-green;
+  }
+}

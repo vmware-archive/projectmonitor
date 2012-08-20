@@ -34,6 +34,10 @@ describe StatusController do
         expect { subject }.to change(ProjectStatus, :count).by(1)
       end
 
+      it "should log a payload log" do
+        expect { subject }.to change(PayloadLogEntry, :count).by(1)
+      end
+
       it "creates only one new status" do
         expect {
           subject

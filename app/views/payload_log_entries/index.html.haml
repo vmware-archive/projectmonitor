@@ -1,0 +1,12 @@
+%h1 Payload Log for #{@project.name}
+%table.projects
+  %th Date
+  %th Status
+  %th Method
+  %th Message
+  - @payload_log_entries.each do |entry|
+    %tr
+      %td= entry.created_at
+      %td= entry.status
+      %td= entry.method
+      %td= entry.error_text

@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
     class_name: "ProjectStatus",
     dependent: :destroy,
     before_add: :update_refreshed_at
+  has_many :payload_log_entries
+
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
