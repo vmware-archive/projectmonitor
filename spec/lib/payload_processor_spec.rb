@@ -28,32 +28,16 @@ describe PayloadProcessor do
         processor.process
       end
 
-      context "and ProjectStatus is valid" do
-        let(:status) { double(ProjectStatus, valid?: true) }
-        before { ProjectStatus.stub(new: status) }
-
-        it "add a status to the project if the project does not have a matching status" do
-          project.stub(has_status?: false)
-          project.statuses.should_receive(:"<<").with(status)
-          processor.process
-        end
-
-        it "does not add the status to the project if a matching status exists" do
-          project.stub(has_status?: true)
-          project.statuses.should_not_receive(:"<<")
-          processor.process
-        end
+      it "add a status to the project if the project does not have a matching status" do
+        project.stub(has_status?: false)
+        project.statuses.should_receive(:"<<").with(status)
+        processor.process
       end
 
-      context "and ProjectStatus is not valid" do
-        let(:status) { double(ProjectStatus, valid?: false) }
-        before { ProjectStatus.stub(new: status) }
-
-        it "does not the status to the project" do
-          project.stub(has_status?: false)
-          project.statuses.should_not_receive(:"<<")
-          processor.process
-        end
+      it "does not add the status to the project if a matching status exists" do
+        project.stub(has_status?: true)
+        project.statuses.should_not_receive(:"<<")
+        processor.process
       end
     end
 

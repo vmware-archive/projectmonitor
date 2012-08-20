@@ -9,8 +9,7 @@ class StatusController < ApplicationController
 
     PayloadProcessor.new(project, payload).process
 
-    project.update_attributes!(last_refreshed_at: Time.now)
-
+    project.save!
     head :ok
   end
 end
