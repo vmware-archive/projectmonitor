@@ -3,7 +3,10 @@ class Project < ActiveRecord::Base
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
 
-  has_many :statuses, :class_name => "ProjectStatus", :dependent => :destroy
+  has_many :statuses,
+    class_name: "ProjectStatus",
+    dependent: :destroy,
+    before_add: :update_refreshed_at
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
@@ -27,7 +30,6 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
 
   before_save :check_next_poll
-  before_save :update_refreshed_at
   after_create :fetch_statuses
   before_create :generate_guid
 
@@ -49,10 +51,6 @@ class Project < ActiveRecord::Base
 
   def check_next_poll
     set_next_poll if changed.include?('polling_interval')
-  end
-
-  def update_refreshed_at
-    self.last_refreshed_at = Time.now if online?
   end
 
   def code
@@ -168,7 +166,12 @@ class Project < ActiveRecord::Base
     name.match(/(.*)Project/)[1].underscore
   end
 
+  def update_refreshed_at(status)
+    self.last_refreshed_at = Time.now if online?
+  end
+
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
   end
+
 end

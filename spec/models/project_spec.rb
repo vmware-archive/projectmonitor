@@ -15,25 +15,23 @@ describe Project do
   end
 
   describe "callbacks" do
-    context 'update_refreshed_at' do
-      before do
-        project.save
+    before do
+      project.statuses << FactoryGirl.build(:project_status)
+    end
+
+    context 'when the project is online' do
+      let(:project) { FactoryGirl.build(:jenkins_project).tap {|p| p.online = true } }
+
+      it 'should set the last_refreshed_at' do
+        project.last_refreshed_at.should be_present
       end
+    end
 
-      context 'when the project is online' do
-        let(:project) { FactoryGirl.build(:jenkins_project).tap {|p| p.online = true } }
+    context 'when the project is offline' do
+      let(:project) { FactoryGirl.build(:jenkins_project) }
 
-        it 'should set the last_refreshed_at' do
-          project.last_refreshed_at.should be_present
-        end
-      end
-
-      context 'when the project is offline' do
-        let(:project) { FactoryGirl.build(:jenkins_project) }
-
-        it 'should set the last_refreshed_at' do
-          project.last_refreshed_at.should be_nil
-        end
+      it 'should not set the last_refreshed_at' do
+        project.last_refreshed_at.should be_nil
       end
     end
   end

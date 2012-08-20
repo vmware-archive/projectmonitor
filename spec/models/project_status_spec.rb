@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe ProjectStatus do
+  describe 'factories' do
+    it 'should be valid project_status' do
+      FactoryGirl.build(:project_status).should be_valid
+    end
+  end
+
   describe ".recent" do
     let(:project) { FactoryGirl.create(:jenkins_project) }
     let!(:status2) { project.statuses.create(build_id: 2, published_at: 3.years.ago) }
