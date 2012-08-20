@@ -7,7 +7,9 @@ class StatusController < ApplicationController
     payload = project.webhook_payload
     payload.webhook_status_content = request.body.read
 
-    PayloadProcessor.new(project, payload).process
+    log = PayloadProcessor.new(project, payload).process
+    log.method = "webhooks"
+    log.save!
 
     project.save!
     head :ok

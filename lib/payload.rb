@@ -1,11 +1,12 @@
 class Payload
 
   attr_writer :dependent_content
-  attr_accessor :parsed_url
+  attr_accessor :parsed_url, :error_text
 
   def initialize
     self.processable = true
     self.build_processable = true
+    self.error_text = []
   end
 
   def each_status

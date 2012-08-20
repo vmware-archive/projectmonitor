@@ -15,7 +15,9 @@ module ProjectUpdater
         fetch_status(project, payload)
         fetch_building_status(project, payload) unless project.feed_url == project.build_status_url
 
-        PayloadProcessor.new(project, payload).process
+        log = PayloadProcessor.new(project, payload).process
+        log.method = "polling"
+        log.save!
 
         if project.has_dependencies?
           fetch_dependent_project_info(project, payload)
@@ -25,6 +27,7 @@ module ProjectUpdater
       rescue Net::HTTPError => e
         project.online = false
         project.building = false
+        project.payload_log_entries.build(error_text: e.message, method: "polling", status: "failed")
       end
     end
 

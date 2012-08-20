@@ -4,7 +4,7 @@ describe ProjectUpdater do
 
   let(:project) { FactoryGirl.build(:jenkins_project) }
   let(:net_exception) { Net::HTTPError.new('Server error', 500) }
-  let(:payload_processor) { double(PayloadProcessor, process: nil) }
+  let(:payload_processor) { double(PayloadProcessor, process: PayloadLogEntry.new) }
   let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil, 'dependent_content=' => nil) }
 
   describe '.update' do
@@ -26,9 +26,18 @@ describe ProjectUpdater do
       subject
     end
 
+    it 'should create a payload log entry' do
+      expect { subject }.to change(PayloadLogEntry, :count).by(1)
+    end
+
     context 'when fetching the status fails' do
       before do
         UrlRetriever.stub(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password).and_raise(net_exception)
+      end
+
+      it 'should create a payload log entry' do
+        expect { subject; project.save! }.to change(PayloadLogEntry, :count).by(1)
+        PayloadLogEntry.last.status.should == "failed"
       end
 
       it 'should set the project to offline' do

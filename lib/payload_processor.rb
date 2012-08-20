@@ -9,9 +9,16 @@ class PayloadProcessor
   def process
     add_statuses
     update_building_status
+    payload_log
   end
 
   private
+
+  def payload_log
+    success = payload.status_is_processable? || payload.build_status_is_processable?
+    status = success ? "successful" : "failed"
+    project.payload_log_entries.build(status: status, error_text: payload.error_text.join(' '))
+  end
 
   def add_statuses
     if payload.status_is_processable?

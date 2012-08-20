@@ -6,6 +6,7 @@
     %th Name
     %th Project Type
     %th Enabled?
+    %th Last Status
     %th Aggregate
     %th Tags
     %th Webhooks
@@ -23,6 +24,12 @@
           ✓
         - else
           %span{:style => "color: #AA1224;"} ✕
+      - if latest = project.payload_log_entries.latest
+        %td
+          %span.last_status{class: latest.status}
+            = link_to latest, project_payload_log_entries_path(project)
+      - else
+        %td None
       %td{:style => "text-align: center;"}= project.aggregate_project.present? ? project.aggregate_project.name : ""
       %td.tag_list= project.tag_list
       %td= project.webhooks_enabled ? project_webhooks_url(project) : "✕"

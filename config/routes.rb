@@ -9,6 +9,7 @@ CiMonitor::Application.routes.draw do
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
   resources :projects do
+    resources :payload_log_entries, only: :index
     resource :status, only: :create, controller: "status"
     member do
       get :status
