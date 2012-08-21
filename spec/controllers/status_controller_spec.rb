@@ -96,22 +96,31 @@ describe StatusController do
     context "TeamCity Rest project" do
       let!(:project) { FactoryGirl.create(:team_city_rest_project) }
       let(:payload) do
-       {"buildStatus"=>"Running", "buildResult"=>"success", "notifyType"=>"buildFinished",
-       "buildRunner"=>"Command Line",
-       "buildFullName"=>"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity",
-       "buildName"=>"projectmonitor_ci_test_teamcity",
-       "buildId"=>"13", "buildTypeId"=>"bt2",
-       "projectName"=>"projectmonitor_ci_test_teamcity",
-       "projectId"=>"project2", "buildNumber"=>"13",
-       "agentName"=>"Default Agent",
-       "agentOs"=>"Linux, version 2.6.18-xenU-ec2-v1.5",
-       "agentHostname"=>"localhost",
-       "triggeredBy"=>"ci",
-       "message"=>"Build projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished.  This is build number 13, has a status of \"Running\" and was triggered by ci",
-       "text"=>"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished. Status: Running"}
+        '{"build" : {
+          "buildStatus": "Running",
+          "buildResult": "success",
+          "notifyType": "buildFinished",
+          "buildRunner": "Command Line",
+          "buildFullName": "My Awesome Project :: RUN IT",
+          "buildName": "RUN IT",
+          "buildId": "13",
+          "buildTypeId": "bt2",
+          "projectName": "My Awesome Project",
+          "projectId": "project2",
+          "buildNumber": "7",
+          "agentName": "Default Agent",
+          "agentOs": "Mac OS X, version 10.7.4",
+          "agentHostname": "localhost",
+          "triggeredBy": "Dude",
+          "message": "Build My Awesome Project :: RUN IT has finished. This is build number 7, has a status of \"Running\" and was triggered by Dude",
+          "text": "My Awesome Project :: RUN IT has finished. Status: Running"
+        }}'
       end
 
-      subject { post :create, {project_id: project.guid, "build" => payload} }
+      subject do
+        request.env['RAW_POST_DATA'] = payload
+        post :create, project_id: project.guid
+      end
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
