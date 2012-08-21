@@ -13,7 +13,7 @@ describe TeamCityJsonPayload do
     context 'when content is valid' do
       let(:expected_content) { double }
       before do
-        Rack::Utils.stub(:parse_nested_query).and_return('build' => expected_content)
+        JSON.stub(:parse).and_return(double(:[] => expected_content))
       end
 
       it { should == [expected_content] }
@@ -21,7 +21,7 @@ describe TeamCityJsonPayload do
 
     context 'when content is corrupt / badly encoded' do
       before do
-        Rack::Utils.stub(:parse_nested_query).and_raise(TypeError)
+        JSON.stub(:parse).and_raise(JSON::ParserError)
       end
 
       it 'should be marked as unprocessable' do

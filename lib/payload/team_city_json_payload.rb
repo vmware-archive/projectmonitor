@@ -5,7 +5,7 @@ class TeamCityJsonPayload < Payload
   end
 
   def convert_content!(content)
-    [Rack::Utils.parse_nested_query(content)['build']].compact
+    [JSON.parse(content)["build"]]
   rescue => e
     log_error(e)
     self.processable = self.build_processable = false
