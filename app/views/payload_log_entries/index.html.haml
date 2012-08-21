@@ -10,8 +10,9 @@
       %td= entry.status
       %td= entry.method
       %td
-        = link_to "show stacktrace", '#', id: "showTrace"
-        .stacktrace.hide
-          %pre
-            = entry.error_text
-          = link_to "hide stacktrace", '#', id: "hideTrace"
+        - if entry.error_text.present?
+          = link_to "show stacktrace", '#', id: "showTrace"
+          .stacktrace.hide
+            %pre
+              = entry.error_text
+            = link_to "hide stacktrace", '#', id: "hideTrace"
