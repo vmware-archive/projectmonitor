@@ -6,7 +6,7 @@ class JenkinsJsonPayload < Payload
   def convert_content!(content)
     [JSON.parse(content)]
   rescue => e
-    error_text << e.message
+    log_error(e)
     self.processable = self.build_processable = false
     []
   end

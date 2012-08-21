@@ -14,7 +14,7 @@ class TravisJsonPayload < Payload
   def convert_content!(content)
     Array.wrap(JSON.parse(content))
   rescue => e
-    error_text << e.message
+    log_error(e)
     self.processable = self.build_processable = false
     []
   end

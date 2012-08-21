@@ -24,10 +24,14 @@ module ProjectUpdater
           update_children(project, payload)
         end
 
-      rescue Net::HTTPError => e
+      rescue => e
         project.online = false
         project.building = false
-        project.payload_log_entries.build(error_text: e.message, method: "polling", status: "failed")
+        error_text = []
+        error_text << e.class.name
+        error_text << e.message
+        error_text << e.backtrace.join("\n")
+        project.payload_log_entries.build(error_text: error_text, method: "polling", status: "failed")
       end
     end
 

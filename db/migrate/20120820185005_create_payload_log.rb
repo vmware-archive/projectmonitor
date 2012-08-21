@@ -5,7 +5,7 @@ class CreatePayloadLog < ActiveRecord::Migration
       t.integer :project_id
       t.string :status
       t.string :method
-      t.string :error_text
+      t.text :error_text
     end
   end
 

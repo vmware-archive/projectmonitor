@@ -9,4 +9,9 @@
       %td= entry.created_at
       %td= entry.status
       %td= entry.method
-      %td= entry.error_text
+      %td
+        = link_to "show stacktrace", '#', id: "showTrace"
+        .stacktrace.hide
+          %pre
+            = entry.error_text
+          = link_to "hide stacktrace", '#', id: "hideTrace"
