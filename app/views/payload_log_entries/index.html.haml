@@ -11,6 +11,7 @@
       %td= entry.method
       %td
         - if entry.error_text.present?
+          = entry.error_text.truncate(50)
           = link_to "show stacktrace", '#', id: "showTrace"
           .stacktrace.hide
             %pre
