@@ -4,9 +4,9 @@
 //= require underscore
 //= require projectMonitor
 //= require projectEdit
-//= require stacktraceHide
+//= require backtraceHide
 
 $(function() {
   ProjectEdit.init();
-  StacktraceHide.init();
+  BacktraceHide.init();
 });

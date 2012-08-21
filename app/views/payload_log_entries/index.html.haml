@@ -15,8 +15,8 @@
           = entry.error_text.truncate(50)
       %td
         - if entry.backtrace.present?
-          = link_to "show stacktrace", '#', id: "showTrace"
-          .stacktrace.hide
+          = link_to "show backtrace", '#', id: "showTrace"
+          .backtrace.hide
             %pre
               = entry.backtrace
-            = link_to "hide stacktrace", '#', id: "hideTrace"
+            = link_to "hide backtrace", '#', id: "hideTrace"

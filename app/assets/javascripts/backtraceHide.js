@@ -1,14 +1,14 @@
-var StacktraceHide = {};
+var BacktraceHide = {};
 (function(o) {
   o.init = function () {
     $('#showTrace').click(function () {
-      $('.stacktrace').removeClass('hide');
+      $('.backtrace').removeClass('hide');
       $('#showTrace').addClass('hide');
     });
 
     $('#hideTrace').click(function () {
-      $('.stacktrace').addClass('hide');
+      $('.backtrace').addClass('hide');
       $('#showTrace').removeClass('hide');
     });
   };
-})(StacktraceHide);
+})(BacktraceHide);
