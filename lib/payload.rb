@@ -1,12 +1,11 @@
 class Payload
 
   attr_writer :dependent_content
-  attr_accessor :parsed_url, :error_text
+  attr_accessor :parsed_url, :error_text, :backtrace
 
   def initialize
     self.processable = true
     self.build_processable = true
-    self.error_text = []
   end
 
   def each_status
@@ -73,9 +72,8 @@ class Payload
   end
 
   def log_error(e)
-    error_text << e.class.name
-    error_text << e.message
-    error_text << e.backtrace.join("\n")
+    self.error_text = "#{e.class}: #{e.message}"
+    self.backtrace = "#{e.message}\n#{e.backtrace.join("\n")}"
   end
 
   attr_accessor :processable, :build_processable

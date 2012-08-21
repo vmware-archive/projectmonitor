@@ -4,6 +4,7 @@
   %th Status
   %th Method
   %th Message
+  %th Backtrace
   - @payload_log_entries.each do |entry|
     %tr
       %td= entry.created_at
@@ -12,8 +13,10 @@
       %td
         - if entry.error_text.present?
           = entry.error_text.truncate(50)
+      %td
+        - if entry.backtrace.present?
           = link_to "show stacktrace", '#', id: "showTrace"
           .stacktrace.hide
             %pre
-              = entry.error_text
+              = entry.backtrace
             = link_to "hide stacktrace", '#', id: "hideTrace"
