@@ -4,7 +4,6 @@ class TeamCityRestProject < Project
   validates_presence_of :team_city_rest_build_type_id, :team_city_rest_base_url, unless: ->(project) { project.webhooks_enabled }
   validates :team_city_rest_build_type_id, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}, unless: ->(project) { project.webhooks_enabled }
 
-
   def build_status_url
     feed_url
   end
@@ -19,6 +18,10 @@ class TeamCityRestProject < Project
     else
       "http://#{team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{team_city_rest_build_type_id}"
     end
+  end
+
+  def dependent_build_info_url
+    "http://#{team_city_rest_base_url}/httpAuth/app/rest/buildTypes/id:#{team_city_rest_build_type_id}"
   end
 
   def project_name
@@ -36,4 +39,5 @@ class TeamCityRestProject < Project
   def has_dependencies?
     true
   end
+
 end

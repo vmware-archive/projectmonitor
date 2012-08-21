@@ -35,6 +35,7 @@ describe TeamCityRestProject do
   its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
   its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
   its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:dependent_build_info_url) { should == "http://example.com/httpAuth/app/rest/buildTypes/id:bt456" }
 
   describe '#current_build_url' do
     subject { project.current_build_url }
