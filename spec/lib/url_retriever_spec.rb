@@ -1,50 +1,50 @@
 require 'spec_helper'
 
-describe UrlRetriever do
+describe "UrlRetriever" do
 
-  let(:http_client) { double }
-  let(:url) { 'http://host/path.html?parameter=value' }
-  let(:body) { double }
+  describe "#retrieve_content_at" do
+    context "simple uri" do
+      let(:stubbed_response) { stub(:code => '200', :body => "mock body") }
 
-  before do
-    HTTPClient.stub(:new).and_return(http_client)
-    http_client.stub(:get).and_return(double(:message, code: 200, body: body))
-  end
-
-  describe '#retrieve_content_at' do
-    subject { UrlRetriever.retrieve_content_at(url) }
-
-    context 'when no user credentials have been provided' do
-      it 'calls get with the url' do
-        http_client.should_receive(:get).with(url)
-        subject
-      end
-
-      it 'returns the message body' do
-        subject.should == body
-      end
-    end
-
-    context 'when the server returns a failure status code' do
       before do
-        http_client.stub(:get).and_return(double(:message, code: 500, body: nil))
+        Net::HTTP.stub!(:new).and_return(stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object)
+        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(stub('HTTP::Get stub').as_null_object)
       end
 
-      it 'raises an HTTP exception' do
-        expect do
-          subject
-        end.to raise_error(Net::HTTPError)
-      end
+      subject { UrlRetriever.retrieve_content_at('http://host/path.html?parameter=value') }
+
+      it { should == "mock body" }
     end
 
-    context 'when user credentials have been provided' do
-      subject { UrlRetriever.retrieve_content_at(url, 'user', 'pass') }
+    context "basic auth uri" do
+      let(:http_get) { stub('HTTP::Get stub') }
+      let(:stubbed_response) { stub(:code => '200', :body => "mock body") }
 
-      it 'sets the authentication parameters' do
-        http_client.should_receive(:set_auth).with(nil, 'user', 'pass')
-        subject
+      before do
+        stubbed_response.should_receive(:[]).with('www-authenticate').and_return(nil)
+        http_get.should_receive(:basic_auth).with('user', 'pass')
+        Net::HTTP.stub!(:new).and_return(stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object)
+        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(http_get)
       end
+
+      subject { UrlRetriever.retrieve_content_at('http://host/path.html?parameter=value', 'user', 'pass') }
+
+      it { should == "mock body" }
     end
 
+    context "non-responsive server" do
+      let(:net_http) { double(:net_http).as_null_object }
+
+      before do
+        Net::HTTP.stub(:new).and_return(net_http)
+        net_http.should_receive(:start).and_raise(Errno::ECONNREFUSED)
+      end
+
+      subject { UrlRetriever.retrieve_content_at("http://localhost:8111/") }
+
+      it "raises an error" do
+        expect{ subject }.to raise_error(Net::HTTPError)
+      end
+    end
   end
 end
