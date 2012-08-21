@@ -72,6 +72,12 @@ class Payload
     convert_content!(content)
   end
 
+  def log_error(e)
+    error_text << e.class.name
+    error_text << e.message
+    error_text << e.backtrace.join("\n")
+  end
+
   attr_accessor :processable, :build_processable
   attr_reader :status_content, :build_status_content, :dependent_content
 end
