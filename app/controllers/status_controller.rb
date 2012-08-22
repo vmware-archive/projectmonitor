@@ -5,6 +5,7 @@ class StatusController < ApplicationController
     project = Project.find_by_guid(params.delete(:project_id))
 
     payload = project.webhook_payload
+    payload.remote_addr = request.env["REMOTE_ADDR"]
     payload.webhook_status_content = request.body.read
 
     log = PayloadProcessor.new(project, payload).process

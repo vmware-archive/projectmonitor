@@ -12,6 +12,14 @@ class TeamCityProject < Project
     "http://#{team_city_base_url}/guestAuth/cradiator.html?buildTypeId=#{team_city_build_id}"
   end
 
+  def current_build_url
+    if webhooks_enabled?
+      parsed_url
+    else
+      "#{team_city_base_url}/viewType.html?buildTypeId=#{team_city_build_id}"
+    end
+  end
+
   def build_status_url
     feed_url
   end

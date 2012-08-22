@@ -12,11 +12,15 @@ class JenkinsJsonPayload < Payload
   end
 
   def parse_success(content)
-    content['build']['phase'] == 'SUCCESS'
+    return if content["build"]["phase"] == "STARTED"
+    content["build"]["status"] == "SUCCESS"
   end
 
   def parse_url(content)
-    content['build']['url']
+    job_path = content['build']['url'].split('/')
+    job_path = "#{job_path[0]}/#{job_path[1]}"
+    self.parsed_url = "http://#{remote_addr}:8080/#{job_path}/lastBuild"
+    "http://#{remote_addr}:8080/#{content['build']['url']}"
   end
 
   def parse_build_id(content)

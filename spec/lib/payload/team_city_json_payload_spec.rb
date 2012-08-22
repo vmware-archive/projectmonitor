@@ -71,12 +71,6 @@ describe TeamCityJsonPayload do
     end
   end
 
-  describe '#parse_url' do
-    subject { payload.parse_url(converted_content) }
-
-    it { should be_nil }
-  end
-
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
     it { should == '1' }
