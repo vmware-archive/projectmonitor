@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
     :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time,
-    :tracker_online, :webhooks_enabled, :last_refreshed_at
+    :tracker_online, :webhooks_enabled
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
