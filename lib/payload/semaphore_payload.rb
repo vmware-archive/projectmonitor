@@ -17,7 +17,8 @@ class SemaphorePayload < Payload
   end
 
   def parse_url(content)
-    self.parsed_url = content['build_url']
+    self.parsed_url = content['build_url'].split('builds').first
+    content['build_url']
   end
 
   def parse_build_id(content)
