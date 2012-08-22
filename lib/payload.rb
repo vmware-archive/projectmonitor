@@ -1,7 +1,7 @@
 class Payload
 
   attr_writer :dependent_content
-  attr_accessor :parsed_url, :error_text, :backtrace
+  attr_accessor :parsed_url, :error_text, :backtrace, :remote_addr
 
   def initialize
     self.processable = true
@@ -25,6 +25,7 @@ class Payload
 
   def webhook_status_content=(content)
     @status_content = convert_webhook_content!(content).first(Project::RECENT_STATUS_COUNT)
+    @build_status_content = @status_content
   end
 
   def status_content=(content)

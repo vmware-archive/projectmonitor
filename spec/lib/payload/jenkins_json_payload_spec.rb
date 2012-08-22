@@ -48,7 +48,7 @@ describe JenkinsJsonPayload do
   describe '#parse_url' do
     subject { payload.parse_url(converted_content) }
 
-    it { should == 'job/projectmonitor_ci_test/7/' }
+    it { should include 'job/projectmonitor_ci_test/7/' }
   end
 
   describe '#parse_build_id' do

@@ -58,6 +58,12 @@ describe StatusController do
         project.reload.last_refreshed_at.should_not be_nil
       end
 
+      it "should update parsed_url" do
+        project.parsed_url.should be_nil
+        subject
+        project.reload.parsed_url.should == 'http://www.google.com'
+      end
+
     end
 
     context "Jenkins project" do
@@ -65,7 +71,9 @@ describe StatusController do
       let(:payload) do
         '{"name":"projectmonitor_ci_test",
         "url":"job/projectmonitor_ci_test/",
-        "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}'
+        "build":{"number":7,"phase":"FINISHED",
+        "status":"FAILURE",
+        "url":"job/projectmonitor_ci_test/7/"}}'
       end
 
       subject do
@@ -91,6 +99,13 @@ describe StatusController do
         ProjectStatus.last.build_id.should == 7
         ProjectStatus.last.published_at.should_not be_nil
       end
+
+      it "should update parsed_url" do
+        project.parsed_url.should be_nil
+        subject
+        project.reload.parsed_url.should include 'job/projectmonitor_ci_test/'
+      end
+
     end
 
     context "TeamCity Rest project" do
@@ -141,6 +156,11 @@ describe StatusController do
         ProjectStatus.last.published_at.should_not be_nil
       end
 
+      it "should update parsed_url" do
+        project.parsed_url.should be_nil
+        subject
+        project.reload.parsed_url.should include 'bt2'
+      end
     end
 
     context 'when processing the payload succeeded' do
@@ -149,8 +169,11 @@ describe StatusController do
       let(:payload) do
         '{"name":"projectmonitor_ci_test",
         "url":"job/projectmonitor_ci_test/",
-        "build":{"number":7,"phase":"STARTED","url":"job/projectmonitor_ci_test/7/"}}'
+        "build":{"number":7,"phase":"FINISHED",
+        "status":"FAILURE",
+        "url":"job/projectmonitor_ci_test/7/"}}'
       end
+
       before do
         Project.stub(:find_by_guid).and_return(project)
       end
