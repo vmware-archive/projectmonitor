@@ -16,7 +16,7 @@ module ProjectUpdater
         fetch_building_status(project, payload) unless project.feed_url == project.build_status_url
 
         log = PayloadProcessor.new(project, payload).process
-        log.method = "polling"
+        log.method = "Polling"
         log.save!
 
         if project.has_dependencies?
@@ -29,7 +29,7 @@ module ProjectUpdater
         project.building = false
         error_text = "#{e.class}: #{e.message}"
         backtrace = "#{e.message}\n#{e.backtrace.join("\n")}"
-        project.payload_log_entries.build(error_text: error_text, method: "polling", status: "failed", backtrace: backtrace)
+        project.payload_log_entries.build(error_text: error_text, method: "Polling", status: "failed", backtrace: backtrace)
       end
     end
 
