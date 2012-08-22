@@ -1,5 +1,9 @@
 class SemaphorePayload < Payload
 
+  def building?
+    false
+  end
+
   def convert_content!(content)
     [JSON.parse(content)]
   rescue => e
