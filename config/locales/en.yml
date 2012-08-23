@@ -23,6 +23,8 @@ en:
         team_city_rest_base_url: "Base URL"
         team_city_rest_build_type_id: "Build Type ID"
         semaphore_api_url: "Semaphore API URL"
+        tddium_auth_token: "Tddium Authentication Token"
+        tddium_project_name: "Tddium Project Name"
   project_types:
     cruise_control_project: "Cruise Control Project"
     jenkins_project: "Jenkins Project"
@@ -30,3 +32,4 @@ en:
     team_city_project: "Team City Project (version <= 6)"
     team_city_rest_project: "Team City Project"
     travis_project: "Travis Project"
+    tddium_project: "Tddium Project"

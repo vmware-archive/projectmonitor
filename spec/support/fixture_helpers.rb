@@ -28,6 +28,12 @@ class CCRssExample < FixtureFile
   end
 end
 
+class TddiumExample < FixtureFile
+  def initialize(filename)
+    super("tddium_examples", filename)
+  end
+end
+
 class TravisExample < FixtureFile
   def initialize(filename)
     super("travis_examples", filename)

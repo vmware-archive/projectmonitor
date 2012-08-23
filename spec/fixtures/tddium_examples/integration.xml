@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was copied from an actual, live web request to serve as an integration test. -->
+<Projects>
+  <Project
+    name="projectmonitor_ci_test (master)"
+      webUrl="https://api.tddium.com/1/reports/72225"
+      lastBuildLabel="72225"
+      lastBuildTime="2012-08-22 14:30:02"
+      lastBuildStatus="Success"
+    activity="Sleeping"/>
+  <Project
+    name="projectmonitor_ci_test_teamcity (master)"
+      webUrl="https://api.tddium.com/1/reports/72472"
+      lastBuildLabel="72472"
+      lastBuildTime="2012-08-22 20:24:50"
+      lastBuildStatus="Failure"
+    activity="Sleeping"/>
+  <Project
+    name="vim-config (master)"
+      webUrl="https://api.tddium.com/dashboard"
+    activity="Sleeping"/>
+</Projects>
