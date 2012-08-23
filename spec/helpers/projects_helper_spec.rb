@@ -11,7 +11,8 @@ describe ProjectsHelper do
                  ['Semaphore Project', 'SemaphoreProject'],
                  ['Team City Project', 'TeamCityRestProject'],
                  ['Team City Project (version <= 6)', 'TeamCityProject'],
-                 ['Travis Project', 'TravisProject']]
+                 ['Travis Project', 'TravisProject'],
+                 ['Tddium Project', 'TddiumProject']]
     end
   end
 

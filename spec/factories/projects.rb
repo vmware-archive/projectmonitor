@@ -40,4 +40,11 @@ FactoryGirl.define do
     name { Faker::Name.name }
     semaphore_api_url 'https://semaphoreapp.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh'
   end
+
+  factory :tddium_project, class: TddiumProject do
+    name { Faker::Name.name }
+    tddium_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
+    tddium_project_name 'Test Project A'
+  end
+
 end
