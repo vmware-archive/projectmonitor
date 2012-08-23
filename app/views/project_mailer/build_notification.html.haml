@@ -1,0 +1,6 @@
+!!!
+%html
+  %body
+    %h1 #{@project.name} is now #{@project.color}
+    %p
+      = link_to "Build completed at #{@project.latest_status.published_at}", @project.latest_status.url
