@@ -1,7 +1,7 @@
 class Payload
 
   attr_writer :dependent_content
-  attr_accessor :parsed_url, :error_text, :backtrace, :remote_addr
+  attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr
 
   def initialize
     self.processable = true
@@ -73,7 +73,8 @@ class Payload
   end
 
   def log_error(e)
-    self.error_text = "#{e.class}: #{e.message}"
+    self.error_type = e.class.to_s
+    self.error_text = e.message
     self.backtrace = "#{e.message}\n#{e.backtrace.join("\n")}"
   end
 

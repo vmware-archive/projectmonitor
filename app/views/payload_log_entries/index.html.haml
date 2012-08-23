@@ -11,8 +11,8 @@
       %td= entry.status
       %td= entry.method
       %td
-        - if entry.error_text.present?
-          = entry.error_text.truncate(50)
+          - if entry.error_text.present?
+          = (entry.error_type.to_s + ': ' + entry.error_text).truncate(50)
       %td{id: "td#{index}"}
         - if entry.backtrace.present?
           = link_to "show backtrace", '#', class: "showTrace"
