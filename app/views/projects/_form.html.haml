@@ -54,6 +54,9 @@
         %span.pending.hide &nbsp;
         %span.unconfigured.hide Unconfigured
         %span.failure.hide Error
+      %br
+      %label
+      %input{ class: 'refresh', type: 'button', value: 'Refresh' }
     %p
       = f.label :polling_interval, "Polling Interval"
       = f.text_field :polling_interval, :size=>3, class: 'optional'

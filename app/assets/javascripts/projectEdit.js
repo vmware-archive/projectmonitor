@@ -159,6 +159,7 @@ var ProjectEdit = {};
     $('#project_type').change(o.handleProjectTypeChange);
     $('#polling :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
+    $('#polling input.refresh').click(o.validateFeedUrl);
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 
