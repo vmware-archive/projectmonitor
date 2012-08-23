@@ -145,26 +145,57 @@ describe ProjectsController do
       end
     end
 
-    describe "#validate_build_info" do
-      subject { response }
+    describe '#validate_build_info' do
+      before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
+      let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
 
-      before do
-        JenkinsProject.should_receive(:new).and_return(project)
-        ProjectUpdater.should_receive(:update).with(project)
-        post :validate_build_info, :project => {:type => "JenkinsProject"}
+      context 'when the payload is invalid' do
+
+        let(:log_entry) { PayloadLogEntry.new(status: 'failed', error_type: 'MockExceptionClass', error_text: error_text) }
+        let(:error_text) { 'Mock error description'}
+
+        context 'should set success flag to true' do
+          subject { parsed_response['status'] }
+          it { should be_false }
+        end
+
+        context 'should set error_class to correct exception' do
+          subject { parsed_response['error_type'] }
+          it { should == 'MockExceptionClass' }
+        end
+
+        context 'should set error_text to correct text' do
+          subject { parsed_response['error_text'] }
+          context 'with a short description' do
+            it { should == 'Mock error description' }
+          end
+
+          context 'with a long description' do
+            let(:error_text) { 'a'*50000 }
+            it { should == 'a'*10000 }
+          end
+        end
       end
 
-      context "project is online" do
-        let(:project) { double(:project, online: true) }
+      context 'when the payload is valid' do
+        let(:log_entry) { PayloadLogEntry.new(status: 'successful', error_type: nil, error_text: '') }
 
-        it { should be_success }
+        context 'should set success flag to false' do
+          subject { parsed_response['status'] }
+          it { should be_true }
+        end
+
+        context 'should set error_class to nil' do
+          subject { parsed_response['error_type'] }
+          it { should be_nil }
+        end
+
+        context 'should set error_text to empty string' do
+          subject { parsed_response['error_text'] }
+          it { should == '' }
+        end
       end
 
-      context "project is offline" do
-        let(:project) { double(:project, online: false) }
-
-        its(:status) { should == 403 }
-      end
     end
 
     describe "#update_projects" do

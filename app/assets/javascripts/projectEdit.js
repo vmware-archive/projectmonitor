@@ -125,12 +125,18 @@ var ProjectEdit = {};
       type: "post",
       data: $('form').serialize(),
       success: function (result) {
-        $('#polling .pending').addClass('hide');
-        showBuildStatusSuccess();
+        if (result.status) {
+          $('#polling .pending').addClass('hide');
+          showBuildStatusSuccess();
+        }
+        else {
+          $('#polling .pending').addClass('hide');
+          $('#polling .failure').removeClass('hide').attr("title",result.error_type + ": '" + result.error_text + "'");
+        }
       },
       error: function (result) {
         $('#polling .pending').addClass('hide');
-        $('#polling .failure').removeClass('hide');
+        $('#polling .failure').removeClass('hide').attr("title","Server Error");
       }
     });
   };
