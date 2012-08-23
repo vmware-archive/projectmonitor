@@ -4,11 +4,7 @@ class SemaphoreProject < Project
   validates_presence_of :semaphore_api_url, unless: ->(project) { project.webhooks_enabled }
 
   def current_build_url
-    if webhooks_enabled?
-      parsed_url
-    else
-      feed_url
-    end
+    parsed_url
   end
 
   def feed_url
