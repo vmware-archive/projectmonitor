@@ -37,11 +37,8 @@ class Project < ActiveRecord::Base
 
   attr_accessible :aggregate_project_id,
     :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
-    :auth_password, :auth_username,
-    :tracker_auth_token, :tracker_project_id,
-    :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
-    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time,
-    :tracker_online, :webhooks_enabled
+    :auth_password, :auth_username, :tracker_auth_token, :tracker_project_id, :tracker_online,
+    :webhooks_enabled, :notification_email, :send_error_notifications, :send_build_notifications
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
@@ -81,6 +78,13 @@ class Project < ActiveRecord::Base
 
   def red?
     online? && latest_status.try(:success?) == false || has_failing_children?
+  end
+
+  def color
+    return "white" unless online?
+    return "green" if green?
+    return "red" if red?
+    return "yellow" if yellow?
   end
 
   def tracker_configured?

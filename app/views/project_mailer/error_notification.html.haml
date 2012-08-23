@@ -1,0 +1,10 @@
+!!!
+%html
+  %body
+    %h1 Error fetching #{@log.method} payload for #{@project.name}
+    %p
+      = @log.error_type
+    %p
+      = @log.error_text
+    %p
+      = @log.backtrace
