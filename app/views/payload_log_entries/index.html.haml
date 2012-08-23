@@ -5,18 +5,18 @@
   %th Method
   %th Message
   %th Backtrace
-  - @payload_log_entries.each do |entry|
-    %tr
+  - @payload_log_entries.each_with_index do |entry, index|
+    %tr{:class => cycle("odd", "even")}
       %td= entry.created_at
       %td= entry.status
       %td= entry.method
       %td
         - if entry.error_text.present?
           = entry.error_text.truncate(50)
-      %td
+      %td{id: "td#{index}"}
         - if entry.backtrace.present?
-          = link_to "show backtrace", '#', id: "showTrace"
-          .backtrace.hide
+          = link_to "show backtrace", '#', class: "showTrace"
+          .backtrace.hide{id: "bt#{index}"}
             %pre
               = entry.backtrace
-            = link_to "hide backtrace", '#', id: "hideTrace"
+            = link_to "hide backtrace", '#', class: "hideTrace"
