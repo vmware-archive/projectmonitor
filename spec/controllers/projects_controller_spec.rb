@@ -213,29 +213,5 @@ describe ProjectsController do
       end
 
     end
-
-    describe "#update_projects" do
-      context "The queue is empty" do
-        before do
-          Delayed::Job.should_receive(:count) { stub(zero?: true) }
-          StatusFetcher.should_receive(:fetch_all)
-        end
-        it "should fetch statuses" do
-          post :update_projects, { auth_token: "12354" }
-          response.should be_success
-        end
-      end
-      context "The queue is not empty" do
-        before do
-          Delayed::Job.should_receive(:count) { stub(zero?: false) }
-          StatusFetcher.should_not_receive(:fetch_all)
-        end
-        it "should fetch statuses" do
-          post :update_projects, { auth_token: "12354" }
-          response.response_code.should == 409
-        end
-      end
-    end
-
   end
 end

@@ -14,23 +14,21 @@ class ProjectPoller
 
   def initialize
     @workloads = {}
-    @poll_period = 5
+    @poll_period = 5.seconds
+    @tracker_poll_period = 10.minutes
     @connection_timeout = 15
     @inactivity_timeout = 15
     @max_follow_redirects = 10
-  end
-
-  def daemonize
-    fork do
-      ActiveRecord::Base.connection.reconnect!
-      run
-    end
   end
 
   def run
     EM.run do
       EM.add_periodic_timer(@poll_period) do
         poll_projects
+      end
+
+      EM.add_periodic_timer(@tracker_poll_period) do
+        poll_tracker
       end
     end
   end
@@ -41,26 +39,49 @@ class ProjectPoller
 
   private
 
+  def poll_tracker
+    Project.tracker_updateable.find_each do |project|
+      workload = PollerWorkload.new(ProjectTrackerWorkloadHandler.new(project))
+
+      workload.unfinished_job_descriptions.each do |job_id, description|
+        request = create_tracker_request(project, description)
+        add_workload_handlers(project, workload, job_id, request)
+      end
+    end
+  end
+
   def poll_projects
     Project.updateable.find_each do |project|
       workload = find_or_create_workload(project)
 
       workload.unfinished_job_descriptions.each do |job_id, description|
-        add_workload_handler(project, workload, job_id, description)
+        request = create_ci_request(project, description)
+        add_workload_handlers(project, workload, job_id, request)
       end
     end
   end
 
-  def add_workload_handler(project, workload, job_id, url)
-    connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
+  def create_tracker_request(project, url)
+    create_request(url, head: {'X-TrackerToken' => project.tracker_auth_token})
+  end
 
-    get_options = {redirects: @max_follow_redirects}
+  def create_ci_request(project, url)
+    get_options = {}
     if project.auth_username
       get_options[:head] = {'authorization' => [project.auth_username, project.auth_password]}
     end
 
-    request = connection.get get_options
+    create_request(url, get_options)
+  end
 
+  def create_request(url, options = {})
+    connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
+
+    get_options = {redirects: @max_follow_redirects}.merge(options)
+    connection.get get_options
+  end
+
+  def add_workload_handlers(project, workload, job_id, request)
     request.callback do |client|
       workload.store(job_id, client.response)
       remove_workload(project) if workload.complete?

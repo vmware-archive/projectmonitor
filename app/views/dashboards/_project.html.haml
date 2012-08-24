@@ -10,8 +10,7 @@
       - if project.tracker_online?
         .velocity
           %span.label Velocity
-          - unless project.last_ten_velocities.empty?
-            %span.value= project.current_velocity
+          %span.value= project.current_velocity
         = tracker_histogram project
       - else
         .error

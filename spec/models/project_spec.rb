@@ -44,18 +44,6 @@ describe Project do
     end
   end
 
-  # describe "job queuing" do
-    # it "queues a higher priority job to fetch statuses for a newly created project" do
-      # project = FactoryGirl.build(:project)
-      # enqueued_job = double(:enqueued_job)
-
-      # StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
-      # Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
-
-      # project.save
-    # end
-  # end
-
   describe 'scopes' do
     describe "standalone" do
       it "should return non aggregated projects" do
@@ -112,6 +100,20 @@ describe Project do
       it { should_not include causality_violator }
     end
 
+    describe '.tracker_updateable' do
+      subject { Project.tracker_updateable }
+
+      let!(:updateable1) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:updateable2) { FactoryGirl.create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:not_updateable1) { FactoryGirl.create(:jenkins_project, tracker_project_id: '1') }
+      let!(:not_updateable2) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf') }
+
+      it { should include updateable1 }
+      it { should include updateable2 }
+      it { should_not include not_updateable1 }
+      it { should_not include not_updateable2 }
+    end
+
     describe '.displayable' do
       subject { Project.displayable tags }
 
@@ -148,6 +150,13 @@ describe Project do
         end
       end
 
+    end
+  end
+
+  describe '.mark_for_immediate_poll' do
+    it 'should set the next_poll_at to nil for all projects' do
+      Project.should_receive(:update_all).with(next_poll_at: nil)
+      Project.mark_for_immediate_poll
     end
   end
 

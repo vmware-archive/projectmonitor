@@ -1,0 +1,1919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iterations type="array">
+  <iteration>
+    <id type="integer">185</id>
+    <number type="integer">185</number>
+    <start type="datetime">2012/06/04 00:00:00 EDT</start>
+    <finish type="datetime">2012/06/11 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">186</id>
+    <number type="integer">186</number>
+    <start type="datetime">2012/06/11 00:00:00 EDT</start>
+    <finish type="datetime">2012/06/18 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">187</id>
+    <number type="integer">187</number>
+    <start type="datetime">2012/06/18 00:00:00 EDT</start>
+    <finish type="datetime">2012/06/25 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">23682995</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/23682995</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Move to ruby queuing on CIMonitor rather than cron</name>
+        <created_at type="datetime">2012/01/19 12:12:13 EST</created_at>
+        <updated_at type="datetime">2012/06/18 09:29:04 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/18 09:29:04 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">24520793</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/24520793</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Remove the iframe and allow each project/message to refresh themselves</name>
+        <created_at type="datetime">2012/02/06 13:52:30 EST</created_at>
+        <updated_at type="datetime">2012/06/18 09:29:11 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/18 09:29:11 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">16155415</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/16155415</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>a project should display as gray when it is scheduled to be off an unavailable</name>
+        <created_at type="datetime">2011/07/22 21:05:56 EDT</created_at>
+        <updated_at type="datetime">2012/06/18 09:29:15 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/18 09:29:15 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28555667</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28555667</url>
+        <current_state>accepted</current_state>
+        <name>The refresh rate in javascript was set to 30 mins</name>
+        <created_at type="datetime">2012/04/24 16:13:56 EDT</created_at>
+        <updated_at type="datetime">2012/06/18 09:29:22 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/18 09:29:21 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28734849</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28734849</url>
+        <current_state>accepted</current_state>
+        <name>Remove or impove needs poll</name>
+        <created_at type="datetime">2012/04/27 09:29:57 EDT</created_at>
+        <updated_at type="datetime">2012/06/18 09:30:06 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/18 09:30:06 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31543873</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31543873</url>
+        <current_state>accepted</current_state>
+        <name>Fix rake &amp; rake jasmine on latest version of firefox</name>
+        <created_at type="datetime">2012/06/20 14:28:14 EDT</created_at>
+        <updated_at type="datetime">2012/06/21 15:31:18 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/21 15:31:15 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">188</id>
+    <number type="integer">188</number>
+    <start type="datetime">2012/06/25 00:00:00 EDT</start>
+    <finish type="datetime">2012/07/02 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">31656529</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31656529</url>
+        <current_state>accepted</current_state>
+        <name>ProjectsMonitor does not reload when project list or revision changes</name>
+        <created_at type="datetime">2012/06/22 10:03:17 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:23:12 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:23:12 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28556019</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28556019</url>
+        <current_state>accepted</current_state>
+        <name>The refresh is getting called but not redrawing the project's boxes.</name>
+        <created_at type="datetime">2012/04/24 16:20:30 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:23:17 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:23:17 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28545487</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28545487</url>
+        <current_state>accepted</current_state>
+        <name>Blank locations with empty string show up blank</name>
+        <created_at type="datetime">2012/04/24 14:00:36 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:31:23 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:31:20 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28378145</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28378145</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Layout for 63 tiles</name>
+        <created_at type="datetime">2012/04/20 14:49:24 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:40:57 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:40:57 EDT</accepted_at>
+        <labels>design</labels>
+      </story>
+      <story>
+        <id type="integer">26020473</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/26020473</url>
+        <current_state>accepted</current_state>
+        <name>Tags for projects are not shown on the dashboard </name>
+        <created_at type="datetime">2012/03/06 13:51:36 EST</created_at>
+        <updated_at type="datetime">2012/06/25 10:47:49 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:47:45 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">6010414</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/6010414</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>use AuthConfig for RestfulAuth config</name>
+        <created_at type="datetime">2010/11/02 18:25:48 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:51:41 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:51:41 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">16155195</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/16155195</url>
+        <estimate type="integer">0</estimate>
+        <current_state>accepted</current_state>
+        <name>A user should be able to add ec2 credentials to a project</name>
+        <created_at type="datetime">2011/07/22 20:46:08 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 10:52:00 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 10:52:00 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31620097</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31620097</url>
+        <current_state>accepted</current_state>
+        <name>Update build list for projectmonitor.herokuapp.com</name>
+        <created_at type="datetime">2012/06/21 16:18:13 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 11:01:17 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 11:01:17 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28555721</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28555721</url>
+        <current_state>accepted</current_state>
+        <name>The status fetcher rake task is not working</name>
+        <created_at type="datetime">2012/04/24 16:14:49 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 12:16:19 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 12:16:19 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">8426901</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/8426901</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Add &quot;single project&quot; mode display</name>
+        <created_at type="datetime">2011/01/10 03:06:13 EST</created_at>
+        <updated_at type="datetime">2012/06/25 12:19:53 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 12:19:51 EDT</accepted_at>
+        <labels>need context to accept</labels>
+      </story>
+      <story>
+        <id type="integer">2457155</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/2457155</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Allow configurability of polling frequency</name>
+        <created_at type="datetime">2010/02/10 14:07:04 EST</created_at>
+        <updated_at type="datetime">2012/06/25 12:20:02 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 12:20:02 EDT</accepted_at>
+        <labels>need context to accept</labels>
+      </story>
+      <story>
+        <id type="integer">16155255</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/16155255</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>A user should be able to enter an instance id and an elastic IP address for their CI build</name>
+        <created_at type="datetime">2011/07/22 20:51:32 EDT</created_at>
+        <updated_at type="datetime">2012/06/25 14:30:11 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/25 14:30:11 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31775105</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>release</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31775105</url>
+        <current_state>accepted</current_state>
+        <name>switch to allocations work</name>
+        <created_at type="datetime">2012/06/25 15:46:05 EDT</created_at>
+        <updated_at type="datetime">2012/06/29 16:16:50 EDT</updated_at>
+        <accepted_at type="datetime">2012/06/29 16:16:50 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">189</id>
+    <number type="integer">189</number>
+    <start type="datetime">2012/07/02 00:00:00 EDT</start>
+    <finish type="datetime">2012/07/09 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">29626937</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/29626937</url>
+        <current_state>accepted</current_state>
+        <name>TeamCity builds report error/failures as success</name>
+        <created_at type="datetime">2012/05/15 09:35:21 EDT</created_at>
+        <updated_at type="datetime">2012/07/02 10:35:18 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/02 10:35:18 EDT</accepted_at>
+        <labels>cb,delayed acceptance,teamcity updates</labels>
+      </story>
+      <story>
+        <id type="integer">31771491</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31771491</url>
+        <current_state>accepted</current_state>
+        <name>change the web client polling to 30 seconds</name>
+        <created_at type="datetime">2012/06/25 15:02:42 EDT</created_at>
+        <updated_at type="datetime">2012/07/02 12:17:23 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/02 12:17:23 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31771469</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31771469</url>
+        <current_state>accepted</current_state>
+        <name>change CI machine polling to 30 seconds</name>
+        <created_at type="datetime">2012/06/25 15:02:27 EDT</created_at>
+        <updated_at type="datetime">2012/07/02 13:45:53 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/02 13:45:51 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28359531</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28359531</url>
+        <current_state>accepted</current_state>
+        <name>Document deployment of the ProjectMonitor to heroku</name>
+        <created_at type="datetime">2012/04/20 10:08:51 EDT</created_at>
+        <updated_at type="datetime">2012/07/02 13:56:04 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/02 13:55:23 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">672434</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/672434</url>
+        <current_state>accepted</current_state>
+        <name>Set up airbrake</name>
+        <created_at type="datetime">2009/05/08 20:03:36 EDT</created_at>
+        <updated_at type="datetime">2012/07/02 14:12:16 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/02 14:12:16 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31744845</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31744845</url>
+        <current_state>accepted</current_state>
+        <name>create an demo env at projectmonitor-staging.herokuapp.com</name>
+        <created_at type="datetime">2012/06/25 10:30:22 EDT</created_at>
+        <updated_at type="datetime">2012/07/03 14:33:43 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 14:33:41 EDT</accepted_at>
+        <labels>waiting</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">8173653</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/02 10:07:56 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8176981</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/02 11:29:41 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8173681</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/02 10:08:11 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8200293</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/03 09:23:23 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8205859</id>
+            <position type="integer">5</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/03 12:08:41 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">9608153</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/9608153</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>From the dashboard display status of the Status Fetch for the project</name>
+        <created_at type="datetime">2011/02/04 16:03:06 EST</created_at>
+        <updated_at type="datetime">2012/07/03 16:07:29 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 16:07:27 EDT</accepted_at>
+        <labels>delayed acceptance</labels>
+      </story>
+      <story>
+        <id type="integer">31621571</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31621571</url>
+        <current_state>accepted</current_state>
+        <name>Hitting back button triggers json view in Chrome</name>
+        <created_at type="datetime">2012/06/21 16:41:41 EDT</created_at>
+        <updated_at type="datetime">2012/07/03 16:09:24 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 16:09:22 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">31028391</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31028391</url>
+        <current_state>accepted</current_state>
+        <name>Disabled project should not show up when showing tagged projects</name>
+        <created_at type="datetime">2012/06/11 16:03:59 EDT</created_at>
+        <updated_at type="datetime">2012/07/03 16:10:47 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 16:10:47 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">29556143</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/29556143</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Show current velocity</name>
+        <created_at type="datetime">2012/05/14 11:24:36 EDT</created_at>
+        <updated_at type="datetime">2012/07/03 16:14:59 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 16:14:57 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">25538819</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/25538819</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Redesign the project card content and layout </name>
+        <created_at type="datetime">2012/02/26 22:52:55 EST</created_at>
+        <updated_at type="datetime">2012/07/03 16:15:33 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 16:15:33 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">7668121</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/04 12:15:37 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7668125</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/04 12:15:45 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7668131</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/04 12:16:00 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7668133</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/04 12:16:02 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7686829</id>
+            <position type="integer">5</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/05 09:25:10 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7686831</id>
+            <position type="integer">6</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/05 09:25:21 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7686833</id>
+            <position type="integer">7</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/05 09:25:25 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">7686837</id>
+            <position type="integer">8</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/06/05 09:25:28 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32139079</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32139079</url>
+        <current_state>accepted</current_state>
+        <name>Remove inventory / number of unaccepted stories</name>
+        <created_at type="datetime">2012/07/02 15:41:37 EDT</created_at>
+        <updated_at type="datetime">2012/07/03 17:16:52 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/03 17:16:52 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">28668679</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28668679</url>
+        <current_state>accepted</current_state>
+        <name>Missing builds and build times</name>
+        <created_at type="datetime">2012/04/26 09:55:27 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 09:28:01 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 09:28:01 EDT</accepted_at>
+        <labels>cb,delayed acceptance,teamcity updates</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">6978771</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/04/26 09:55:27 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">6978773</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/04/26 09:55:27 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">31746123</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31746123</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>New design should properly wrap display on non-TV sized displays</name>
+        <created_at type="datetime">2012/06/25 10:46:43 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 09:46:35 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 09:46:33 EDT</accepted_at>
+        <labels>design</labels>
+      </story>
+      <story>
+        <id type="integer">32323199</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32323199</url>
+        <estimate type="integer">0</estimate>
+        <current_state>accepted</current_state>
+        <name>&quot;No Connection&quot; should not appear in the tracker box</name>
+        <created_at type="datetime">2012/07/05 16:47:57 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 09:47:38 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 09:47:38 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">29486307</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/29486307</url>
+        <current_state>accepted</current_state>
+        <name>Redirect to projects path when user logs in with OpenID</name>
+        <created_at type="datetime">2012/05/11 17:47:36 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 09:48:00 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 09:47:59 EDT</accepted_at>
+        <labels>delayed acceptance,login</labels>
+      </story>
+      <story>
+        <id type="integer">28573987</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28573987</url>
+        <estimate type="integer">0</estimate>
+        <current_state>accepted</current_state>
+        <name>Make &quot;Log In&quot; link far more prominent</name>
+        <created_at type="datetime">2012/04/24 20:12:46 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 09:48:31 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 09:48:30 EDT</accepted_at>
+        <labels>login</labels>
+      </story>
+      <story>
+        <id type="integer">28855173</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/28855173</url>
+        <current_state>accepted</current_state>
+        <name>Support TeamCity 7 building for projects with dependents</name>
+        <created_at type="datetime">2012/04/30 16:50:24 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 11:03:30 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 11:03:29 EDT</accepted_at>
+        <labels>cb,delayed acceptance,need context to accept,teamcity updates</labels>
+      </story>
+      <story>
+        <id type="integer">32359457</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32359457</url>
+        <current_state>accepted</current_state>
+        <name>Spike on using webhooks for build updates from CI servers</name>
+        <created_at type="datetime">2012/07/06 09:43:21 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 11:35:42 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 11:35:41 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32326451</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32326451</url>
+        <current_state>accepted</current_state>
+        <name>deploy to pivotal internal production</name>
+        <created_at type="datetime">2012/07/05 17:40:59 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 14:01:23 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 14:01:23 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8252693</id>
+            <position type="integer">1</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/07/05 17:40:59 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32371059</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32371059</url>
+        <current_state>accepted</current_state>
+        <name>Don't show 0 velocity immediately after tracker token added</name>
+        <created_at type="datetime">2012/07/06 12:29:40 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 15:04:34 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 15:04:32 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32287139</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32287139</url>
+        <estimate type="integer">3</estimate>
+        <current_state>accepted</current_state>
+        <name>Add support for TravisCI builds</name>
+        <created_at type="datetime">2012/07/05 09:03:14 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 15:16:15 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 15:16:15 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8252019</id>
+            <position type="integer">1</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/07/05 17:05:07 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32376995</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32376995</url>
+        <current_state>accepted</current_state>
+        <name>Document that delayed job workers will need to be restarted after a deploy</name>
+        <created_at type="datetime">2012/07/06 13:56:17 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 17:12:46 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 17:12:45 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32377451</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32377451</url>
+        <current_state>accepted</current_state>
+        <name>Release notes for new build</name>
+        <created_at type="datetime">2012/07/06 14:03:58 EDT</created_at>
+        <updated_at type="datetime">2012/07/06 19:19:29 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/06 19:19:28 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">190</id>
+    <number type="integer">190</number>
+    <start type="datetime">2012/07/09 00:00:00 EDT</start>
+    <finish type="datetime">2012/07/16 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">32116183</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32116183</url>
+        <estimate type="integer">3</estimate>
+        <current_state>accepted</current_state>
+        <name>Show historical velocity</name>
+        <created_at type="datetime">2012/07/02 10:33:51 EDT</created_at>
+        <updated_at type="datetime">2012/07/09 11:34:49 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/09 11:34:48 EDT</accepted_at>
+        <labels>tracker integration</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">8205949</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/03 12:13:41 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8205983</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/03 12:14:02 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8205987</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/03 12:14:11 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8249005</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/05 14:52:37 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32417895</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32417895</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Give 0-velocity iterations still get a very small bump at the bottom of the chart</name>
+        <created_at type="datetime">2012/07/08 13:30:39 EDT</created_at>
+        <updated_at type="datetime">2012/07/10 11:26:57 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/10 11:26:57 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">32417829</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32417829</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Show build history chronologically left to right</name>
+        <created_at type="datetime">2012/07/08 13:19:48 EDT</created_at>
+        <updated_at type="datetime">2012/07/10 11:27:10 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/10 11:27:10 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">32532813</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32532813</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Display point total on mouse-over of histogram bar</name>
+        <created_at type="datetime">2012/07/10 11:27:53 EDT</created_at>
+        <updated_at type="datetime">2012/07/10 11:49:22 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/10 11:49:22 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32371363</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32371363</url>
+        <current_state>accepted</current_state>
+        <name>Projects showing as green even though the most recent build is a failure and vice versa</name>
+        <created_at type="datetime">2012/07/06 12:32:44 EDT</created_at>
+        <updated_at type="datetime">2012/07/10 12:12:35 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/10 12:12:35 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8270403</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/06 14:47:38 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32448035</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32448035</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Show current weeks point total within Tracker histogram chart</name>
+        <created_at type="datetime">2012/07/09 09:51:12 EDT</created_at>
+        <updated_at type="datetime">2012/07/10 15:28:40 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/10 15:28:40 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">32469665</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32469665</url>
+        <current_state>accepted</current_state>
+        <name>Review outstanding pull requests</name>
+        <created_at type="datetime">2012/07/09 14:07:09 EDT</created_at>
+        <updated_at type="datetime">2012/07/11 14:02:06 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/11 14:02:06 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32669619</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32669619</url>
+        <current_state>accepted</current_state>
+        <name>update README</name>
+        <created_at type="datetime">2012/07/12 09:47:02 EDT</created_at>
+        <updated_at type="datetime">2012/07/12 10:04:32 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/12 10:04:32 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8374643</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/12 09:47:02 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8374749</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/12 09:52:49 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8374857</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/12 10:00:58 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32671787</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32671787</url>
+        <current_state>accepted</current_state>
+        <name>Update Rails</name>
+        <created_at type="datetime">2012/07/12 10:04:52 EDT</created_at>
+        <updated_at type="datetime">2012/07/12 10:04:54 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/12 10:04:54 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">191</id>
+    <number type="integer">191</number>
+    <start type="datetime">2012/07/16 00:00:00 EDT</start>
+    <finish type="datetime">2012/07/23 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">31029225</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/31029225</url>
+        <current_state>accepted</current_state>
+        <name>CPU spiked when cimonitor is open for a long time</name>
+        <created_at type="datetime">2012/06/11 16:16:23 EDT</created_at>
+        <updated_at type="datetime">2012/07/16 15:35:50 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/16 15:35:50 EDT</accepted_at>
+        <labels>waiting</labels>
+      </story>
+      <story>
+        <id type="integer">32454761</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32454761</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Display error when incorrect Tracker access token</name>
+        <created_at type="datetime">2012/07/09 11:11:50 EDT</created_at>
+        <updated_at type="datetime">2012/07/18 15:09:31 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/18 15:09:31 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">32868057</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32868057</url>
+        <current_state>accepted</current_state>
+        <name>change &quot;NO CONNECTION&quot; to #7c7c79</name>
+        <created_at type="datetime">2012/07/16 16:25:41 EDT</created_at>
+        <updated_at type="datetime">2012/07/18 16:54:37 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/18 16:54:37 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32840575</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32840575</url>
+        <current_state>accepted</current_state>
+        <name>Code Husbandry</name>
+        <created_at type="datetime">2012/07/16 11:15:48 EDT</created_at>
+        <updated_at type="datetime">2012/07/19 15:25:46 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/19 15:25:44 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8444553</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:39:04 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8450369</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:20:29 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8456837</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 17:01:37 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8456889</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 17:02:50 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8456893</id>
+            <position type="integer">5</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 17:03:12 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8456845</id>
+            <position type="integer">6</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 17:02:02 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444311</id>
+            <position type="integer">7</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:31:15 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444323</id>
+            <position type="integer">8</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:31:47 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444325</id>
+            <position type="integer">9</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:32:19 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444065</id>
+            <position type="integer">10</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:24:25 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451507</id>
+            <position type="integer">11</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:58:31 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8448837</id>
+            <position type="integer">12</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 12:32:04 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451097</id>
+            <position type="integer">13</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:42:43 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8448945</id>
+            <position type="integer">14</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 12:34:36 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8448857</id>
+            <position type="integer">15</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 12:32:52 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444809</id>
+            <position type="integer">16</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:45:35 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451613</id>
+            <position type="integer">17</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 14:01:56 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451123</id>
+            <position type="integer">18</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:43:29 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451147</id>
+            <position type="integer">19</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:44:16 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8445223</id>
+            <position type="integer">20</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:55:15 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444609</id>
+            <position type="integer">21</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:40:54 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8452977</id>
+            <position type="integer">22</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 14:40:03 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444033</id>
+            <position type="integer">23</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:23:04 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451263</id>
+            <position type="integer">24</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:48:50 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451373</id>
+            <position type="integer">25</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:53:13 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8445487</id>
+            <position type="integer">26</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 12:01:26 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8453071</id>
+            <position type="integer">27</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 14:44:38 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444037</id>
+            <position type="integer">28</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:23:21 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451273</id>
+            <position type="integer">29</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:49:31 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451309</id>
+            <position type="integer">30</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:50:43 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8444423</id>
+            <position type="integer">31</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:34:49 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8443841</id>
+            <position type="integer">32</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 11:15:48 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451175</id>
+            <position type="integer">33</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:45:15 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8451367</id>
+            <position type="integer">34</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 13:52:53 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8445495</id>
+            <position type="integer">35</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/16 12:01:40 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">33114405</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33114405</url>
+        <current_state>accepted</current_state>
+        <name>Chrome freezing causing inaccurate builds</name>
+        <created_at type="datetime">2012/07/20 09:56:23 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 11:38:57 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 11:38:56 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33116829</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33116829</url>
+        <current_state>accepted</current_state>
+        <name>screen not refreshing</name>
+        <created_at type="datetime">2012/07/20 10:35:35 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 11:39:08 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 11:39:07 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32907123</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32907123</url>
+        <current_state>accepted</current_state>
+        <name>Editing an aggregate project blows up</name>
+        <created_at type="datetime">2012/07/17 09:19:47 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 11:47:37 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 11:47:37 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32907629</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32907629</url>
+        <current_state>accepted</current_state>
+        <name>Feed URL field should still be pre-populated</name>
+        <created_at type="datetime">2012/07/17 09:25:19 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 11:49:17 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 11:49:16 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32619159</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32619159</url>
+        <current_state>accepted</current_state>
+        <name>Displaying error on validation of tracker access token throws 500 when project requires SSL</name>
+        <created_at type="datetime">2012/07/11 14:05:14 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 13:37:57 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 13:37:57 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32930907</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32930907</url>
+        <current_state>accepted</current_state>
+        <name>Don't force users to enter tracker projects</name>
+        <created_at type="datetime">2012/07/17 14:26:58 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 13:38:05 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 13:38:05 EDT</accepted_at>
+        <labels>recommend-high-priority</labels>
+      </story>
+      <story>
+        <id type="integer">32456531</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32456531</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Display error if unable to reach Tracker</name>
+        <created_at type="datetime">2012/07/09 11:30:58 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 13:38:09 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 13:38:08 EDT</accepted_at>
+        <labels>tracker integration</labels>
+      </story>
+      <story>
+        <id type="integer">32857897</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32857897</url>
+        <current_state>accepted</current_state>
+        <name>Should sort based on code instead of name</name>
+        <created_at type="datetime">2012/07/16 14:27:14 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 13:38:34 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 13:38:34 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32907485</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32907485</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>increase number of horizontal lines in the Velocity view to 17</name>
+        <created_at type="datetime">2012/07/17 09:22:46 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 16:49:51 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 16:49:51 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32864963</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32864963</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>new build history time fade</name>
+        <created_at type="datetime">2012/07/16 15:45:50 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 16:49:52 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 16:49:52 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32869861</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32869861</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>increase size of dot in build history to match mock</name>
+        <created_at type="datetime">2012/07/16 16:47:35 EDT</created_at>
+        <updated_at type="datetime">2012/07/20 16:49:52 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/20 16:49:52 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">192</id>
+    <number type="integer">192</number>
+    <start type="datetime">2012/07/23 00:00:00 EDT</start>
+    <finish type="datetime">2012/07/30 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">32749189</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32749189</url>
+        <current_state>accepted</current_state>
+        <name>Location cards should not have status updates</name>
+        <created_at type="datetime">2012/07/13 11:48:55 EDT</created_at>
+        <updated_at type="datetime">2012/07/23 10:56:42 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/23 10:56:42 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33210951</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33210951</url>
+        <current_state>accepted</current_state>
+        <name>switch from comparing statuses in match using published_at to using build id</name>
+        <created_at type="datetime">2012/07/23 10:59:22 EDT</created_at>
+        <updated_at type="datetime">2012/07/25 14:44:10 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/25 14:44:10 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33135153</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33135153</url>
+        <current_state>accepted</current_state>
+        <name>Make online a boolean not delegated to statuses</name>
+        <created_at type="datetime">2012/07/20 15:22:32 EDT</created_at>
+        <updated_at type="datetime">2012/07/26 11:56:36 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/26 11:56:36 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8564139</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/20 16:57:02 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8564197</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/20 16:57:32 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8564201</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/20 16:57:42 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8564207</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/20 16:57:53 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8564381</id>
+            <position type="integer">5</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/20 17:03:45 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8610427</id>
+            <position type="integer">6</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/24 09:24:25 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8616345</id>
+            <position type="integer">7</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/24 12:48:33 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8610489</id>
+            <position type="integer">8</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/24 09:26:33 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32915181</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32915181</url>
+        <current_state>accepted</current_state>
+        <name>Remove duplication between TeamCityPayloadProcessor and TeamCityChildProject</name>
+        <created_at type="datetime">2012/07/17 11:05:26 EDT</created_at>
+        <updated_at type="datetime">2012/07/27 15:37:45 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/27 15:37:43 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">193</id>
+    <number type="integer">193</number>
+    <start type="datetime">2012/07/30 00:00:00 EDT</start>
+    <finish type="datetime">2012/08/06 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">33308927</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33308927</url>
+        <current_state>accepted</current_state>
+        <name>Better docs</name>
+        <created_at type="datetime">2012/07/24 16:22:00 EDT</created_at>
+        <updated_at type="datetime">2012/07/30 15:54:50 EDT</updated_at>
+        <accepted_at type="datetime">2012/07/30 15:54:50 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32545023</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32545023</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Use Travis json API instead of XML</name>
+        <created_at type="datetime">2012/07/10 14:00:07 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 15:56:17 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 15:56:17 EDT</accepted_at>
+        <labels>travis-ci</labels>
+      </story>
+      <story>
+        <id type="integer">32392481</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32392481</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Show failing aggregate build status as soon as a component build fails</name>
+        <created_at type="datetime">2012/07/06 18:31:41 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 15:59:15 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 15:59:12 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33114101</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33114101</url>
+        <current_state>accepted</current_state>
+        <name>Linking to incorrect TravisCI build</name>
+        <created_at type="datetime">2012/07/20 09:52:16 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 16:46:42 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 16:46:42 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33132007</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33132007</url>
+        <current_state>accepted</current_state>
+        <name>Unable to create Team City Projects</name>
+        <created_at type="datetime">2012/07/20 14:28:36 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:05:35 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:05:35 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33666673</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33666673</url>
+        <current_state>accepted</current_state>
+        <name>Certain project names can cause project monitor to 500</name>
+        <created_at type="datetime">2012/07/31 16:02:21 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:06:35 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:06:35 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32360467</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32360467</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Add default build URL placeholder to projects page</name>
+        <created_at type="datetime">2012/07/06 09:59:37 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:07:55 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:07:53 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8319431</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/10 10:14:15 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8319439</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/10 10:14:37 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8612859</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/24 10:43:39 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8612871</id>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/24 10:43:51 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32473847</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32473847</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Support project configuration through a config.yml</name>
+        <created_at type="datetime">2012/07/09 14:40:52 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:17:14 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:17:14 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8664493</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/26 09:30:43 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8720317</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/30 11:45:24 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32913207</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32913207</url>
+        <current_state>accepted</current_state>
+        <name>Clicking a Jenkins Project should take you to the current project, not the build for the latest status</name>
+        <created_at type="datetime">2012/07/17 10:41:03 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:20:15 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:20:15 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33729007</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33729007</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Improve visibility of tracker connection test</name>
+        <created_at type="datetime">2012/08/01 13:57:50 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:20:32 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:20:32 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33729383</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33729383</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Add connection test for ci integration</name>
+        <created_at type="datetime">2012/08/01 14:03:24 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:20:37 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:20:37 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33728059</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33728059</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Get project as json</name>
+        <created_at type="datetime">2012/08/01 13:46:09 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:37:09 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:37:08 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33367697</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33367697</url>
+        <current_state>accepted</current_state>
+        <name>When a project has no previous build status it generates an invalid link when refreshed</name>
+        <created_at type="datetime">2012/07/25 13:53:10 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:43:14 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:43:14 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33123129</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33123129</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Force refresh of newly created project</name>
+        <created_at type="datetime">2012/07/20 11:58:29 EDT</created_at>
+        <updated_at type="datetime">2012/08/02 17:52:58 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/02 17:52:58 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33845587</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33845587</url>
+        <current_state>accepted</current_state>
+        <name>Remove &quot;location&quot;</name>
+        <created_at type="datetime">2012/08/03 09:45:11 EDT</created_at>
+        <updated_at type="datetime">2012/08/03 17:26:00 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/03 17:26:00 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33844827</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33844827</url>
+        <current_state>accepted</current_state>
+        <name>Remove Lobot Setup</name>
+        <created_at type="datetime">2012/08/03 09:31:17 EDT</created_at>
+        <updated_at type="datetime">2012/08/03 17:40:44 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/03 17:40:44 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">194</id>
+    <number type="integer">194</number>
+    <start type="datetime">2012/08/06 00:00:00 EDT</start>
+    <finish type="datetime">2012/08/13 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">33370961</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33370961</url>
+        <current_state>accepted</current_state>
+        <name>An online project without a status will initially appear as failing</name>
+        <created_at type="datetime">2012/07/25 14:38:42 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 11:09:29 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 11:09:29 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33139177</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33139177</url>
+        <current_state>accepted</current_state>
+        <name>Offiline projects should not show as building</name>
+        <created_at type="datetime">2012/07/20 16:38:46 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 11:09:43 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 11:09:43 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32454655</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32454655</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Leverage web hooks for CI status</name>
+        <created_at type="datetime">2012/07/09 11:10:30 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 11:31:54 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 11:31:54 EDT</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">8380081</id>
+            <position type="integer">1</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/07/12 13:18:41 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8380151</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/12 13:20:17 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">32461319</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32461319</url>
+        <current_state>accepted</current_state>
+        <name>Speed up Travis CI run</name>
+        <created_at type="datetime">2012/07/09 12:26:39 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 14:12:04 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 14:12:02 EDT</accepted_at>
+        <labels>travis-ci</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">8306595</id>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/09 17:48:15 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8306593</id>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/09 17:47:59 EDT</created_at>
+          </task>
+          <task>
+            <id type="integer">8322035</id>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/07/10 11:35:32 EDT</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">33671637</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33671637</url>
+        <current_state>accepted</current_state>
+        <name>TeamCity Personal builds appear in build timeline</name>
+        <created_at type="datetime">2012/07/31 17:04:47 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 14:47:31 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 14:47:19 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33952887</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33952887</url>
+        <current_state>accepted</current_state>
+        <name>Rip out &quot;scaffold&quot; background</name>
+        <created_at type="datetime">2012/08/06 14:09:13 EDT</created_at>
+        <updated_at type="datetime">2012/08/06 14:47:19 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/06 14:47:19 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">195</id>
+    <number type="integer">195</number>
+    <start type="datetime">2012/08/13 00:00:00 EDT</start>
+    <finish type="datetime">2012/08/20 00:00:00 EDT</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">33845029</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33845029</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Use random token as opposed to ID in webhook url</name>
+        <created_at type="datetime">2012/08/03 09:34:51 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 09:51:09 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 09:51:09 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">32911155</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32911155</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <name>Remove hand-rolled Authentication</name>
+        <created_at type="datetime">2012/07/17 10:18:25 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 09:52:32 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 09:52:32 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34207529</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34207529</url>
+        <current_state>accepted</current_state>
+        <name>Migrating up from before the migration that converted locations to tags fails</name>
+        <created_at type="datetime">2012/08/10 09:51:05 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 10:09:39 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 10:09:38 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34216991</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34216991</url>
+        <current_state>accepted</current_state>
+        <name>New project displays empty webhooks URL</name>
+        <created_at type="datetime">2012/08/10 12:30:08 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 10:13:38 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 10:13:38 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33956165</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33956165</url>
+        <current_state>accepted</current_state>
+        <name>TeamCity Canceled builds appear in build timeline</name>
+        <created_at type="datetime">2012/08/06 14:49:43 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 11:23:44 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 11:23:44 EDT</accepted_at>
+        <labels>teamcity</labels>
+      </story>
+      <story>
+        <id type="integer">34316913</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34316913</url>
+        <current_state>accepted</current_state>
+        <name>production deploy</name>
+        <created_at type="datetime">2012/08/13 14:07:19 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 15:57:19 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 15:57:19 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34174939</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34174939</url>
+        <current_state>accepted</current_state>
+        <name>feed passwords are obfuscated in the rendered page, but visible in the source code inspector</name>
+        <created_at type="datetime">2012/08/09 17:07:42 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 18:04:36 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 18:04:36 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34293823</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34293823</url>
+        <current_state>accepted</current_state>
+        <name>Layout not scrollable when all projects don't fit on screen</name>
+        <created_at type="datetime">2012/08/13 09:50:14 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 18:04:56 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 18:04:55 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34318369</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34318369</url>
+        <current_state>accepted</current_state>
+        <name>New stylesheet doesn't display a row of 3 projects</name>
+        <created_at type="datetime">2012/08/13 14:22:58 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 18:05:34 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 18:05:34 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34317333</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34317333</url>
+        <current_state>accepted</current_state>
+        <name>tags are blowuppy</name>
+        <created_at type="datetime">2012/08/13 14:11:57 EDT</created_at>
+        <updated_at type="datetime">2012/08/13 19:44:41 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/13 19:44:41 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33210701</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33210701</url>
+        <current_state>accepted</current_state>
+        <name>/builds.rss feed broken</name>
+        <created_at type="datetime">2012/07/23 10:57:26 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 09:36:39 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 09:36:39 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34385335</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34385335</url>
+        <current_state>accepted</current_state>
+        <name>Unable to login to production instance of ProjectMontitor</name>
+        <created_at type="datetime">2012/08/14 13:29:16 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 14:21:22 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 14:21:22 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34334163</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34334163</url>
+        <current_state>accepted</current_state>
+        <name>Back to projects link results in blank screen</name>
+        <created_at type="datetime">2012/08/13 17:57:55 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 15:45:08 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 15:45:08 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34370583</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34370583</url>
+        <current_state>accepted</current_state>
+        <name>Can't click 15 48 63 all projects on the 15 view</name>
+        <created_at type="datetime">2012/08/14 10:08:24 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 17:11:06 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 17:11:05 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33140853</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33140853</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <name>Show what versions the different team city projects support</name>
+        <created_at type="datetime">2012/07/20 17:05:41 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 17:11:57 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 17:11:56 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34318333</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34318333</url>
+        <current_state>accepted</current_state>
+        <name>Some projects are showing offline, but they actually aren't</name>
+        <created_at type="datetime">2012/08/13 14:22:44 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 17:14:56 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 17:14:56 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34293559</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34293559</url>
+        <current_state>accepted</current_state>
+        <name>OAuth2 might be allowing any Google account to login</name>
+        <created_at type="datetime">2012/08/13 09:48:39 EDT</created_at>
+        <updated_at type="datetime">2012/08/14 17:19:02 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/14 17:19:02 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34299983</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34299983</url>
+        <current_state>accepted</current_state>
+        <name>Error &quot;cp: config/auth.yml.example: No such file or directory&quot; when running rake setup</name>
+        <created_at type="datetime">2012/08/13 11:01:30 EDT</created_at>
+        <updated_at type="datetime">2012/08/15 14:37:06 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/15 14:37:06 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34305201</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34305201</url>
+        <current_state>accepted</current_state>
+        <name>projects imported via yml won't have guids</name>
+        <created_at type="datetime">2012/08/13 11:52:42 EDT</created_at>
+        <updated_at type="datetime">2012/08/15 14:39:16 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/15 14:39:16 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33965581</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33965581</url>
+        <current_state>accepted</current_state>
+        <name>Validations broken when changing the type of a project</name>
+        <created_at type="datetime">2012/08/06 17:08:11 EDT</created_at>
+        <updated_at type="datetime">2012/08/15 14:40:23 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/15 14:40:23 EDT</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34216953</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34216953</url>
+        <current_state>accepted</current_state>
+        <name>Fresh install of projectmonitor displays non-functional OAuth2 link</name>
+        <created_at type="datetime">2012/08/10 12:29:26 EDT</created_at>
+        <updated_at type="datetime">2012/08/15 14:44:11 EDT</updated_at>
+        <accepted_at type="datetime">2012/08/15 14:44:09 EDT</accepted_at>
+      </story>
+    </stories>
+  </iteration>
+</iterations>
