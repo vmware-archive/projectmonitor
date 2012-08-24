@@ -23,9 +23,6 @@ class Payload
     end
   end
 
-  def each_child(project)
-  end
-
   def webhook_status_content=(content)
     @status_content = convert_webhook_content!(content).first(Project::RECENT_STATUS_COUNT)
     @build_status_content = @status_content
@@ -70,6 +67,10 @@ class Payload
 
   def has_dependent_content?
     dependent_content.present?
+  end
+
+  def dependent_projects
+    []
   end
 
   def convert_content!(content)

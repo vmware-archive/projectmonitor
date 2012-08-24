@@ -1,4 +1,9 @@
 namespace :projectmonitor do
+  desc "Run the daemon that updates all the projects"
+  task :daemon => :environment do
+    ProjectPoller.new.daemonize
+  end
+
   desc "Update the status for each active project"
   task :fetch_statuses => :environment do
     if Delayed::Job.count.zero?
