@@ -28,7 +28,7 @@ module UrlRetriever
         if uri.scheme == 'https'
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          http.ca_file = File.join(File.expand_path(File.dirname(__FILE__)), '../lib/cert')
+          http.ca_file = File.join(File.expand_path(Rails.root), ConfigHelper.get(:certificate_bundle))
         end
         http.read_timeout = 30
         http.open_timeout = 30
