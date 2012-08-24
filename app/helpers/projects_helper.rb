@@ -38,4 +38,8 @@ module ProjectsHelper
     end
   end
 
+  def project_latest_error(project)
+    project.payload_log_entries.first.try { |l| "#{l.error_type}: '#{l.error_text}'" }
+  end
+
 end

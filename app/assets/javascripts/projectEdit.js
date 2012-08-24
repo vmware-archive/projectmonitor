@@ -174,7 +174,7 @@ var ProjectEdit = {};
       if ($project_online.val() === "1") {
         showBuildStatusSuccess();
       } else {
-        o.validateFeedUrl();
+        $('#polling .failure').removeClass('hide');
       }
     }
 
