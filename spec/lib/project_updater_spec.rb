@@ -4,7 +4,8 @@ describe ProjectUpdater do
 
   let(:project) { FactoryGirl.build(:jenkins_project) }
   let(:net_exception) { Net::HTTPError.new('Server error', 500) }
-  let(:payload_processor) { double(PayloadProcessor, process: PayloadLogEntry.new) }
+  let(:payload_log_entry) { PayloadLogEntry.new }
+  let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
   let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil, 'dependent_content=' => nil) }
 
   describe '.update' do
@@ -28,6 +29,12 @@ describe ProjectUpdater do
 
     it 'should create a payload log entry' do
       expect { subject }.to change(PayloadLogEntry, :count).by(1)
+    end
+
+    context 'when fetching the status succeeds' do
+      let(:payload_log_entry) { double(PayloadLogEntry, :save! => nil, :method= => nil) }
+      subject { ProjectUpdater.update(project) }
+      it('should return the log entry') { should == payload_log_entry }
     end
 
     context 'when fetching the status fails' do

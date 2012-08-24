@@ -63,7 +63,11 @@ class ProjectsController < ApplicationController
     project = params[:project][:type].constantize.new(params[:project])
     log_entry = ProjectUpdater.update(project)
 
-    render :json => {status: log_entry.status=='successful', error_type: log_entry.error_type, error_text: log_entry.error_text.to_s[0,10000] }
+    render :json => {
+      status: log_entry.status == 'successful',
+      error_type: log_entry.error_type,
+      error_text: log_entry.error_text.to_s[0,10000]
+    }
   end
 
   def validate_tracker_project

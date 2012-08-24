@@ -24,6 +24,7 @@ module ProjectUpdater
           update_children(project, payload)
         end
 
+        log
       rescue => e
         project.online = false
         project.building = false
