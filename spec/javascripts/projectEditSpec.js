@@ -262,13 +262,13 @@ describe("project edit", function() {
       it("should display the success message", function() {
         expect($("#build_status .success")).not.toHaveClass("hide");
       });
-    })
+    });
 
     describe("when all the build configuration inputs are present", function() {
-      describe("and they are valid", function() {
+      describe("and the tracker returns a parseable build status", function() {
         beforeEach(function() {
           spyOn($, 'ajax').andCallFake(function (opts) {
-            opts.success();
+            opts.success({status: true});
           });
           ProjectEdit.init();
           $('#project_type').val('JenkinsProject').change();
@@ -283,7 +283,26 @@ describe("project edit", function() {
         });
       });
 
-      describe("and they are invalid", function() {
+      describe("and the tracker does not return a parseable build status", function() {
+        beforeEach(function() {
+          spyOn($, 'ajax').andCallFake(function (opts) {
+            opts.success({status: false, error_type: "Error Type", error_text: "Error Text"});
+          });
+          ProjectEdit.init();
+          $('#project_type').val('JenkinsProject').change();
+          $('#project_jenkins_base_url').val("foobar").change();
+          $('#project_jenkins_build_name').val("grok").change();
+          $('#project_cruise_control_rss_feed_url').val("foobar").change();
+          $('#project_auth_username').val('alice').change();
+        });
+
+        it("should display the server's error message", function() {
+          expect($("#build_status .failure")).not.toHaveClass("hide");
+          expect($("#build_status .failure").attr('title')).toBe("Error Type: 'Error Text'");
+        });
+      });
+
+      describe("and the server does not respond correctly", function() {
         beforeEach(function() {
           spyOn($, 'ajax').andCallFake(function (opts) {
             opts.error({status: 404});
@@ -292,10 +311,14 @@ describe("project edit", function() {
           $('#project_type').val('JenkinsProject').change();
           $('#project_jenkins_base_url').val("foobar").change();
           $('#project_jenkins_build_name').val("grok").change();
+          $('#project_auth_username').val('user').change();
         });
 
         it("should display the failure message", function() {
           expect($("#build_status .failure")).not.toHaveClass("hide");
+        });
+        it("should add a tooltip indicating a server error", function() {
+          expect($('#build_status .failure').attr('title')).toBe('Server Error');
         });
       });
     });
