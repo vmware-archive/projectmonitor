@@ -76,6 +76,29 @@ describe PayloadProcessor do
         processor.process
       end
     end
+
+    context "when the payload has dependent content" do
+      let(:dependent_project) { double }
+
+      before do
+        payload.stub(:has_dependent_content?).and_return(true)
+        payload.stub(:dependent_projects).and_return([dependent_project])
+      end
+
+      it 'should check to see if a dependent project already exists' do
+        project.should_receive(:has_dependent_project?).with(dependent_project)
+        processor.process
+      end
+
+      context "and the dependent project doesn't exist" do
+        before { project.stub(:has_dependent_project?).and_return(false) }
+
+        it "should add the dependent project" do
+          project.dependent_project.should_receive(:push).with(dependent_project)
+          processor.process
+        end
+      end
+    end
   end
 
   describe "parse_url" do

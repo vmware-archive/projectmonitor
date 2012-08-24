@@ -25,8 +25,8 @@ describe TeamCityProject do
     end
   end
 
-  its(:feed_url) { should == "foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
-  its(:project_name) { should == "foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
-  its(:build_status_url) { should == "foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
+  its(:feed_url) { should == "http://foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
+  its(:project_name) { should == "http://foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
+  its(:build_status_url) { should be_nil }
 
 end

@@ -27,7 +27,7 @@ describe TravisProject do
 
   its(:feed_url) { should == 'http://travis-ci.org/account/project/builds.json' }
   its(:project_name) { should == 'account' }
-  its(:build_status_url) { should == 'http://travis-ci.org/account/project/builds.json' }
+  its(:build_status_url) { should be_nil }
 
   describe '#current_build_url' do
     subject { project.current_build_url }

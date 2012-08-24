@@ -32,10 +32,10 @@ describe TeamCityRestProject do
   # end
   # end
 
-  its(:feed_url) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:project_name) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:build_status_url) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:dependent_build_info_url) { should == "example.com/httpAuth/app/rest/buildTypes/id:bt456" }
+  its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:build_status_url) { should be_nil }
+  its(:dependent_build_info_url) { should == "http://example.com/httpAuth/app/rest/buildTypes/id:bt456" }
 
   describe '#current_build_url' do
     subject { project.current_build_url }
@@ -49,6 +49,16 @@ describe TeamCityRestProject do
       let(:project) { FactoryGirl.build(:team_city_rest_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
 
       it { should == 'foo.gov' }
+    end
+  end
+
+  describe '#has_dependent_project?' do
+    let(:project) { TeamCityRestProject.new }
+    let(:dependent_project) { double(:project, team_city_rest_build_type_id: double) }
+
+    it 'should check if a dependent project exists by build type id' do
+      project.dependent_projects.should_receive(:exists?).with(team_city_rest_build_type_id: dependent_project.team_city_rest_build_type_id)
+      project.has_dependent_project?(dependent_project).should be_false
     end
   end
 end

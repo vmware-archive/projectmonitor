@@ -7,10 +7,6 @@ class TravisProject < Project
     "#{base_url}/builds.json"
   end
 
-  def build_status_url
-    feed_url
-  end
-
   def current_build_url
     base_url
   end
