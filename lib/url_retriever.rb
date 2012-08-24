@@ -21,6 +21,11 @@ module UrlRetriever
       end
     end
 
+    def prepend_scheme(uri)
+      uri.prepend('http://') unless uri.match %r{\A\S+://}
+      uri
+    end
+
     private
 
     def http(uri)
@@ -36,11 +41,11 @@ module UrlRetriever
     end
 
     def do_get(url)
-      uri = URI.parse(url)
+
+      uri = URI.parse(prepend_scheme(url))
       get = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
 
       yield(get) if block_given?
-
       res = http(uri).start { |web| web.request(get) }
       res
     rescue Errno::ECONNREFUSED
