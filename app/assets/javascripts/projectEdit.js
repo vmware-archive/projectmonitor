@@ -159,6 +159,14 @@ var ProjectEdit = {};
     }
   };
 
+  var showPasswordField = function () {
+    $('#new_password').removeClass('hide');
+    $('#change_password').addClass('hide');
+    $('#new_password input').focus();
+    $('#password_changed').val('true');
+    return false;
+  };
+
   o.init = function () {
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
     .change(handleParameterChange);
@@ -166,6 +174,7 @@ var ProjectEdit = {};
     $('#polling :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
     $('#polling input.refresh').click(o.validateFeedUrl);
+    $('#change_password a').click(showPasswordField);
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 

@@ -34,9 +34,12 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if @project.auth_password.present? && (params[:project][:auth_password].nil? || params[:project][:auth_password].empty?)
+    if params[:password_changed] != 'true'
       params[:project].delete(:auth_password)
+    else
+      params[:project][:auth_password] = nil unless params[:project][:auth_password].present?
     end
+
     Project.transaction do
       if params[:project][:type] && @project.type != params[:project][:type]
         @project = @project.becomes(params[:project][:type].constantize)
