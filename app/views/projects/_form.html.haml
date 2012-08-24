@@ -53,8 +53,18 @@
       %em Basic or digest authentication
     %p
       = f.label :auth_password, "Feed Password"
-      = f.password_field :auth_password, size: 40, class: 'optional'
-      %em Basic or digest authentication
+      %input{ id: 'password_changed', name: 'password_changed', type: 'hidden', value: 'false' }
+      - if f.object.auth_password.present?
+        %span#change_password
+          (saved on server)
+          = link_to 'change', "#"
+      - else
+        %span#change_password
+          (not set)
+          = link_to 'set', "#"
+      %span.hide#new_password
+        = f.password_field :auth_password, size: 40, class: 'optional'
+        %em Basic or digest authentication
     %p
       = f.label :online, "CI status"
       = f.hidden_field :online

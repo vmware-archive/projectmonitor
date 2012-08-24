@@ -72,27 +72,43 @@ describe ProjectsController do
 
 
       describe "feed password" do
+        let(:project) { projects(:socialitis).tap {|p| p.auth_password = 'existing password'} }
+        subject { project.auth_password }
+        before do
+          put :update, :id => projects(:socialitis).id, :password_changed => changed, :project => {:auth_password => new_password }
+          project.reload
+        end
 
-        describe "posting empty feed password" do
-          [nil, '', "", []].each do |empty|
-            before { put :update, :id => project.id, :project => { :name => "new name", auth_password: empty } }
-            subject { response }
-            context "when there is already a feed password" do
-              let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'google') }
-              it "should preserve the feed password" do
-                subject
-                project.reload.auth_password.should == 'google'
-              end
-            end
+        context 'when the password has been changed' do
+          let(:changed) { 'true' }
+
+          context 'when the new password is not present' do
+            let(:new_password) { nil }
+            it { should be_nil }
+          end
+          context 'when the new password is present but empty' do
+            let(:new_password) { '' }
+            it { should be_nil }
+          end
+          context 'when the new password is not empty' do
+            let(:new_password) { 'new password' }
+            it { should == new_password }
           end
         end
 
-        describe "posting valid feed password" do
-          before { put :update, :id => project.id, :project => { :name => "new name", auth_password: 'google' } }
-          let(:project) { FactoryGirl.create(:jenkins_project, auth_password: 'froogle') }
-          it "should update the feed password" do
-            subject
-            project.reload.auth_password.should == 'google'
+        context 'when the password has not been changed' do
+          let(:changed) { 'false' }
+
+          after { it {should == 'existing_password'} }
+
+          context 'when the new password is not present' do
+            let(:new_password) { nil }
+          end
+          context 'when the new password is present but empty' do
+            let(:new_password) { '' }
+          end
+          context 'when the new password is not empty' do
+            let(:new_password) { 'new_password' }
           end
         end
 
