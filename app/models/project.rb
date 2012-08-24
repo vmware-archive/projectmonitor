@@ -4,13 +4,13 @@ class Project < ActiveRecord::Base
   DEFAULT_POLLING_INTERVAL = 30
 
   has_many :statuses,
-    class_name: "ProjectStatus",
+    class_name: 'ProjectStatus',
     dependent: :destroy,
     before_add: :update_refreshed_at,
     after_add: :remove_outdated_status
   has_many :payload_log_entries
   has_many :dependent_projects,
-    class_name: "Project",
+    class_name: 'Project',
     foreign_key: :parent_project_id
   belongs_to :parent_project, class_name: "Project"
   belongs_to :aggregate_project
@@ -22,11 +22,16 @@ class Project < ActiveRecord::Base
   scope :primary, where(parent_project_id: nil)
   scope :standalone, where(aggregate_project_id: nil)
   scope :with_statuses, joins(:statuses).uniq
-  scope :updateable, lambda {
+
+  scope :updateable,
     enabled
     .where(webhooks_enabled: [nil, false])
     .where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
-  }
+
+  scope :tracker_updateable,
+    enabled.primary
+    .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
+
   scope :displayable, lambda {|tags|
     scope = enabled
     return scope.tagged_with(tags) if tags
@@ -58,6 +63,10 @@ class Project < ActiveRecord::Base
 
   def self.with_aggregate_project aggregate_project_id, &block
     with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
+  end
+
+  def self.mark_for_immediate_poll
+    update_all(next_poll_at: nil)
   end
 
   def check_next_poll
@@ -129,6 +138,18 @@ class Project < ActiveRecord::Base
   end
 
   def build_status_url
+  end
+
+  def tracker_project_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}"
+  end
+
+  def tracker_iterations_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/done?offset=-10"
+  end
+
+  def tracker_current_iteration_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current_backlog"
   end
 
   def to_s
