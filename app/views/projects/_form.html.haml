@@ -53,7 +53,7 @@
         %span.success.hide OK
         %span.pending.hide &nbsp;
         %span.unconfigured.hide Unconfigured
-        %span.failure.hide Error
+        %span.failure.hide{ :title => project_latest_error(@project) } Error
       %br
       %label
       %input{ class: 'refresh', type: 'button', value: 'Refresh' }
