@@ -9,17 +9,23 @@ class Project < ActiveRecord::Base
     before_add: :update_refreshed_at,
     after_add: :remove_outdated_status
   has_many :payload_log_entries
-
+  has_many :dependent_projects,
+    class_name: "Project",
+    foreign_key: :parent_project_id
+  belongs_to :parent_project, class_name: "Project"
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
   serialize :tracker_validation_status, Hash
 
-  scope :enabled, where(:enabled => true)
-  scope :standalone, enabled.where(:aggregate_project_id => nil)
+  scope :enabled, where(enabled: true)
+  scope :primary, where(parent_project_id: nil)
+  scope :standalone, where(aggregate_project_id: nil)
   scope :with_statuses, joins(:statuses).uniq
   scope :updateable, lambda {
-    enabled.where("webhooks_enabled IS NOT true").where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
+    enabled
+    .where(webhooks_enabled: [nil, false])
+    .where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
   }
   scope :displayable, lambda {|tags|
     scope = enabled
@@ -39,7 +45,6 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
 
   before_save :check_next_poll
-  after_create :fetch_statuses
   before_create :generate_guid
 
   attr_accessible :aggregate_project_id,
@@ -84,7 +89,7 @@ class Project < ActiveRecord::Base
   end
 
   def red?
-    online? && latest_status.try(:success?) == false || has_failing_children?
+    online? && latest_status.try(:success?) == false || dependent_projects.any?(&:red?)
   end
 
   def status_in_words
@@ -124,7 +129,6 @@ class Project < ActiveRecord::Base
   end
 
   def build_status_url
-    raise NotImplementedError, "Must implement build_status_url in subclasses"
   end
 
   def to_s
@@ -136,7 +140,7 @@ class Project < ActiveRecord::Base
   end
 
   def building?
-    super || has_building_children?
+    super || dependent_projects.any?(&:building?)
   end
 
   def current_build_url
@@ -148,10 +152,10 @@ class Project < ActiveRecord::Base
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      recent_statuses.red.last
-    else
-      recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
-    end
+                          recent_statuses.red.last
+                        else
+                          recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
+                        end
   end
 
   def has_auth?
@@ -170,6 +174,10 @@ class Project < ActiveRecord::Base
     statuses.where(build_id: status.build_id).any?
   end
 
+  def has_dependent_project?(project)
+    false
+  end
+
   def has_dependencies?
     false
   end
@@ -185,17 +193,17 @@ class Project < ActiveRecord::Base
     json = super # TODO: Remove before merge
     json["project_id"] = self.id
     json["build"] = super(
-        only: [:code, :id, :statuses, :building],
-        methods: ["time_since_last_build"],
-        root: false)
+      only: [:code, :id, :statuses, :building],
+      methods: ["time_since_last_build"],
+      root: false)
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
-    json["tracker"] = super(
+      json["tracker"] = super(
         only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
         root:false) if tracker_project_id?
-    json
+        json
   end
 
   def time_since_last_build
@@ -223,6 +231,10 @@ class Project < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def handler
+    ProjectWorkloadHandler.new(self)
   end
 
   private

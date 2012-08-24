@@ -20,10 +20,6 @@ class TeamCityProject < Project
     end
   end
 
-  def build_status_url
-    feed_url
-  end
-
   def project_name
     feed_url
   end

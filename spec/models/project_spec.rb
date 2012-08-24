@@ -9,6 +9,14 @@ describe Project do
     end
   end
 
+  describe 'associations' do
+    it { should have_many :statuses }
+    it { should have_many :payload_log_entries  }
+    it { should have_many :dependent_projects }
+    it { should belong_to :aggregate_project }
+    it { should belong_to :parent_project }
+  end
+
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :type }
@@ -60,20 +68,27 @@ describe Project do
     end
   end
 
-  describe "job queuing" do
-    it "queues a higher priority job to fetch statuses for a newly created project" do
-      project = FactoryGirl.build(:project)
-      status_job = double(:enqueued_job)
-      tag_job = double(:enqueued_job)
+  # describe "job queuing" do
+  # it "queues a higher priority job to fetch statuses for a newly created project" do
+  # project = FactoryGirl.build(:project)
+  # status_job = double(:enqueued_job)
+  # tag_job = double(:enqueued_job)
 
-      RemoveUnusedTags::Job.should_receive(:new).and_return(tag_job)
-      StatusFetcher::Job.should_receive(:new).with(project).and_return(status_job)
-      Delayed::Job.should_receive(:enqueue).with(tag_job, priority: 1)
-      Delayed::Job.should_receive(:enqueue).with(status_job, priority: 0)
+  # RemoveUnusedTags::Job.should_receive(:new).and_return(tag_job)
+  # StatusFetcher::Job.should_receive(:new).with(project).and_return(status_job)
+  # Delayed::Job.should_receive(:enqueue).with(tag_job, priority: 1)
+  # Delayed::Job.should_receive(:enqueue).with(status_job, priority: 0)
+  # describe "job queuing" do
+  # it "queues a higher priority job to fetch statuses for a newly created project" do
+  # project = FactoryGirl.build(:project)
+  # enqueued_job = double(:enqueued_job)
 
-      project.save
-    end
-  end
+  # StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
+  # Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
+
+  # project.save
+  # end
+  # end
 
   describe 'scopes' do
     describe "standalone" do
@@ -301,7 +316,8 @@ describe Project do
     end
 
     context "the project has a child with a failure status" do
-      let(:project) { Project.new(online: true).tap {|p| p.has_failing_children = true}}
+      let(:red_dependent) { Project.new.tap {|p| p.stub(:red?).and_return(true) } }
+      let(:project) { Project.new(online: true).tap {|p| p.dependent_projects = [red_dependent]}}
 
       its(:red?) { should be_true }
       its(:green?) { should be_false }
@@ -448,11 +464,22 @@ describe Project do
       projects(:never_built).should_not be_building
     end
 
-    it "should return true if a child is building" do
-      Project.new do |project|
-        project.building = false
-        project.has_building_children = true
-      end.should be_building
+    context 'when a child is building' do
+      let(:building_dependent) do
+        building_dependent = Project.new do |project|
+          project.building = true
+        end
+      end
+      let(:project) do
+        Project.new do |project|
+          project.dependent_projects = [building_dependent]
+          project.building = false
+        end
+      end
+
+      it "should return true if a child is building" do
+        project.should be_building
+      end
     end
   end
 
@@ -729,4 +756,13 @@ describe Project do
       end
     end
   end
+
+  describe '#has_dependent_project?' do
+    let(:project) { Project.new }
+
+    it 'should always return false' do
+      project.has_dependent_project?(nil).should be_false
+    end
+  end
+
 end
