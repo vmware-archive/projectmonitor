@@ -93,6 +93,14 @@ var ProjectEdit = {};
     var $enabled_fieldset = $('#' + $(this).val());
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
+
+    var $auth_fields = $('.auth_field');
+    if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
+      $auth_fields.addClass('hide');
+    }
+    else {
+      $auth_fields.removeClass('hide');
+    };
   };
 
   var showBuildStatusSuccess = function () {
