@@ -44,6 +44,7 @@ var ProjectEdit = {};
       return false;
 
     } else {
+      $('empty_fields').addClass('hide');
       $('#tracker_status .pending').removeClass('hide');
       $.ajax({
         url: "/projects/validate_tracker_project",
@@ -62,6 +63,7 @@ var ProjectEdit = {};
           }
           else if (result.status == 200) {
             $('#tracker_status .pending').addClass('hide');
+            $('.empty_fields').addClass('hide');
             window.clearInterval(trackerInterval);
             trackerIntervalActive = false;
             showTrackerSuccess();
@@ -69,6 +71,7 @@ var ProjectEdit = {};
         },
         error: function(result) {
           $('#tracker_status .pending').addClass('hide');
+          $('.empty_fields').addClass('hide');
           window.clearInterval(trackerInterval);
           trackerIntervalActive = false;
           if (result.status == 401) {
@@ -108,7 +111,7 @@ var ProjectEdit = {};
   }
 
   o.validateFeedUrl = function () {
-    $('.success, .failure, .unconfigured empty_fields', '#polling').addClass('hide');
+    $('.success, .failure, .unconfigured, .empty_fields', '#polling').addClass('hide');
 
     if ($('#project_type').val() === "") {
       $('#build_status .unconfigured').removeClass('hide');
