@@ -47,11 +47,11 @@
             %p
               = f.label field
               = f.text_field field, :disabled => !enabled
-    %p
+    %p{ class: 'auth_field' }
       = f.label :auth_username, "Feed Username"
       = f.text_field :auth_username, size: 40, class: 'optional'
       %em Basic or digest authentication
-    %p
+    %p{ class: 'auth_field' } 
       = f.label :auth_password, "Feed Password"
       %input{ id: 'password_changed', name: 'password_changed', type: 'hidden', value: 'false' }
       - if f.object.auth_password.present?
