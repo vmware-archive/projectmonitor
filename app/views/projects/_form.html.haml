@@ -37,7 +37,7 @@
     = f.radio_button :webhooks_enabled, false
   = project_refreshed_at(f.object)
   %fieldset#webhooks
-    = "Your webhooks URL is #{project_webhooks_url(f.object)}."
+    = project_webhooks_url(f.object)
   %fieldset#polling
     #field_container
       - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|

@@ -29,10 +29,10 @@ describe ProjectsHelper do
       let!(:project) { FactoryGirl.create(:project) }
       before { project.tap {|p| p.guid = nil}.save! }
 
-      it "should display a message and generate a guid" do
+      it "should generate a guid" do
         project.should_receive :generate_guid
         project.should_receive :save!
-        subject.should == "not yet configured"
+        subject.should == ""
       end
     end
   end
