@@ -100,7 +100,7 @@ var ProjectEdit = {};
     }
     else {
       $auth_fields.removeClass('hide');
-    };
+    }
   };
 
   var showBuildStatusSuccess = function () {
