@@ -108,7 +108,7 @@ var ProjectEdit = {};
   }
 
   o.validateFeedUrl = function () {
-    $('.success, .failure, .unconfigured', '#polling').addClass('hide');
+    $('.success, .failure, .unconfigured empty_fields', '#polling').addClass('hide');
 
     if ($('#project_type').val() === "") {
       $('#build_status .unconfigured').removeClass('hide');
@@ -118,9 +118,7 @@ var ProjectEdit = {};
     var $inputs = $('#polling :input:not(.hide):not(.optional):enabled');
     if ($inputs.is('[value=""]')) {
       if ($inputs.is('[value!=""]')) {
-        // TODO: This should probably show something like 'Some fields are
-        // missing' rather than an error
-        $('#polling .failure').removeClass('hide');
+        $('#polling .empty_fields').removeClass('hide');
       } else {
         $('#polling .unconfigured').removeClass('hide');
       }

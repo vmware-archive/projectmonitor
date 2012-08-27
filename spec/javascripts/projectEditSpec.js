@@ -331,8 +331,8 @@ describe("project edit", function() {
         $('#project_jenkins_build_name').val("foobar").change();
       });
 
-      it("should display the failure message", function() {
-        expect($("#build_status .failure")).not.toHaveClass("hide");
+      it("should display the Some Fields Empty message", function() {
+        expect($("#build_status .empty_fields")).not.toHaveClass("hide");
       });
     });
 
