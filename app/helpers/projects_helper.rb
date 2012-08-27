@@ -15,13 +15,13 @@ module ProjectsHelper
 
   def project_webhooks_url(project)
     if project.guid.present?
-      project_status_url(project.guid)
+      "Your webhooks URL is " + project_status_url(project.guid).to_s
     else
       unless project.new_record?
         project.generate_guid
         project.save!
       end
-      "not yet configured"
+      ""
     end
   end
 
