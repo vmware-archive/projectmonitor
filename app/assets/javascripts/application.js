@@ -5,6 +5,7 @@
 //= require projectMonitor
 //= require projectEdit
 //= require backtraceHide
+//= require autocomplete
 
 $(function() {
   ProjectEdit.init();

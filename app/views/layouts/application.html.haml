@@ -3,6 +3,7 @@
   %head
     %title Project Monitor
     = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
     = yield :head
   %body
     #header
@@ -25,4 +26,3 @@
         #flash_notice
           = flash[:notice]
       = yield
-    = javascript_include_tag "application"
