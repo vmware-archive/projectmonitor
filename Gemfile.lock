@@ -300,6 +300,7 @@ DEPENDENCIES
   jasmine
   jquery-rails
   jshint_on_rails
+  launchy
   mime-types
   mysql2
   nokogiri

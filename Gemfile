@@ -55,6 +55,7 @@ group :test do
 end
 
 group :test, :development do
+  gem "launchy"
   gem "heroku_san"
   gem "awesome_print"
   gem "jshint_on_rails"
