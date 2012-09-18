@@ -1,4 +1,10 @@
 class TeamCityXmlPayload < Payload
+
+  def initialize(project)
+    super()
+    @project = project
+  end
+
   def building?
     status_content.first.attribute('running').present?
   end
@@ -7,19 +13,21 @@ class TeamCityXmlPayload < Payload
     status_is_processable?
   end
 
-  def each_child(project)
-    return unless has_dependent_content?
-
-    selector = XPath.descendant(:'snapshot-dependency').to_s
-    child_build_ids = Nokogiri::XML(dependent_content).xpath(selector).collect {|d| d.attributes['id'].value }
-    child_build_ids.each do |child_id|
-      child_project = project.clone
-      child_project.team_city_rest_build_type_id = child_id
-      yield child_project
+  def dependent_projects
+    children_build_details.collect do |child_id|
+      @project.dup.tap do |child_project|
+        child_project.team_city_rest_build_type_id = child_id
+      end
     end
   end
 
   private
+
+  def children_build_details
+    return [] unless has_dependent_content?
+    selector = XPath.descendant(:'snapshot-dependency').to_s
+    Nokogiri::XML(dependent_content).xpath(selector).collect {|d| d.attributes['id'].value }
+  end
 
   def convert_content!(content)
     Nokogiri::XML.parse(content).css('build').to_a

@@ -29,7 +29,7 @@ describe ConfigurationController do
     end
 
     it 'should find all the projects' do
-      project_scope = double
+      project_scope = double.as_null_object
       project_scope.should_receive(:all)
       Project.should_receive(:order).with(:name).and_return(project_scope)
     end

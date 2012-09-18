@@ -9,6 +9,14 @@ describe Project do
     end
   end
 
+  describe 'associations' do
+    it { should have_many :statuses }
+    it { should have_many :payload_log_entries  }
+    it { should have_many :dependent_projects }
+    it { should belong_to :aggregate_project }
+    it { should belong_to :parent_project }
+  end
+
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :type }
@@ -33,18 +41,6 @@ describe Project do
       it 'should not set the last_refreshed_at' do
         project.last_refreshed_at.should be_nil
       end
-    end
-  end
-
-  describe "job queuing" do
-    it "queues a higher priority job to fetch statuses for a newly created project" do
-      project = FactoryGirl.build(:project)
-      enqueued_job = double(:enqueued_job)
-
-      StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
-      Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
-
-      project.save
     end
   end
 
@@ -104,6 +100,20 @@ describe Project do
       it { should_not include causality_violator }
     end
 
+    describe '.tracker_updateable' do
+      subject { Project.tracker_updateable }
+
+      let!(:updateable1) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:updateable2) { FactoryGirl.create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:not_updateable1) { FactoryGirl.create(:jenkins_project, tracker_project_id: '1') }
+      let!(:not_updateable2) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf') }
+
+      it { should include updateable1 }
+      it { should include updateable2 }
+      it { should_not include not_updateable1 }
+      it { should_not include not_updateable2 }
+    end
+
     describe '.displayable' do
       subject { Project.displayable tags }
 
@@ -140,6 +150,13 @@ describe Project do
         end
       end
 
+    end
+  end
+
+  describe '.mark_for_immediate_poll' do
+    it 'should set the next_poll_at to nil for all projects' do
+      Project.should_receive(:update_all).with(next_poll_at: nil)
+      Project.mark_for_immediate_poll
     end
   end
 
@@ -220,7 +237,8 @@ describe Project do
     end
 
     context "the project has a child with a failure status" do
-      let(:project) { Project.new(online: true).tap {|p| p.has_failing_children = true}}
+      let(:red_dependent) { Project.new.tap {|p| p.stub(:red?).and_return(true) } }
+      let(:project) { Project.new(online: true).tap {|p| p.dependent_projects = [red_dependent]}}
 
       its(:red?) { should be_true }
       its(:green?) { should be_false }
@@ -367,11 +385,22 @@ describe Project do
       projects(:never_built).should_not be_building
     end
 
-    it "should return true if a child is building" do
-      Project.new do |project|
-        project.building = false
-        project.has_building_children = true
-      end.should be_building
+    context 'when a child is building' do
+      let(:building_dependent) do
+        building_dependent = Project.new do |project|
+          project.building = true
+        end
+      end
+      let(:project) do
+        Project.new do |project|
+          project.dependent_projects = [building_dependent]
+          project.building = false
+        end
+      end
+
+      it "should return true if a child is building" do
+        project.should be_building
+      end
     end
   end
 
@@ -498,6 +527,14 @@ describe Project do
       project.save!
       (project.guid).should_not be_nil
       (project.guid).should_not be_empty
+    end
+  end
+
+  describe '#has_dependent_project?' do
+    let(:project) { Project.new }
+
+    it 'should always return false' do
+      project.has_dependent_project?(nil).should be_false
     end
   end
 

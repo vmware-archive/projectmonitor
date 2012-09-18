@@ -4,24 +4,35 @@ class Project < ActiveRecord::Base
   DEFAULT_POLLING_INTERVAL = 30
 
   has_many :statuses,
-    class_name: "ProjectStatus",
+    class_name: 'ProjectStatus',
     dependent: :destroy,
     before_add: :update_refreshed_at
   has_many :payload_log_entries
-
+  has_many :dependent_projects,
+    class_name: 'Project',
+    foreign_key: :parent_project_id
+  belongs_to :parent_project, class_name: "Project"
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
   serialize :tracker_validation_status, Hash
 
-  scope :enabled, where(:enabled => true)
-  scope :standalone, enabled.where(:aggregate_project_id => nil)
+  scope :enabled, where(enabled: true)
+  scope :primary, where(parent_project_id: nil)
+  scope :standalone, where(aggregate_project_id: nil)
   scope :with_statuses, joins(:statuses).uniq
-  scope :updateable, lambda {
-    enabled.where("webhooks_enabled IS NOT true").where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
-  }
+
+  scope :updateable,
+    enabled
+      .where(webhooks_enabled: [nil, false])
+      .where(['next_poll_at IS NULL OR next_poll_at <= ?', Time.now])
+
+  scope :tracker_updateable,
+    enabled.primary
+      .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
+
   scope :displayable, lambda {|tags|
-    scope = enabled
+    scope = primary.enabled
     return scope.find_tagged_with(tags) if tags
     scope
   }
@@ -32,7 +43,6 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
 
   before_save :check_next_poll
-  after_create :fetch_statuses
   before_create :generate_guid
 
   attr_accessible :aggregate_project_id,
@@ -46,6 +56,10 @@ class Project < ActiveRecord::Base
 
   def self.with_aggregate_project aggregate_project_id, &block
     with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
+  end
+
+  def self.mark_for_immediate_poll
+    update_all(next_poll_at: nil)
   end
 
   def check_next_poll
@@ -77,7 +91,7 @@ class Project < ActiveRecord::Base
   end
 
   def red?
-    online? && latest_status.try(:success?) == false || has_failing_children?
+    online? && latest_status.try(:success?) == false || dependent_projects.any?(&:red?)
   end
 
   def color
@@ -105,7 +119,18 @@ class Project < ActiveRecord::Base
   end
 
   def build_status_url
-    raise NotImplementedError, "Must implement build_status_url in subclasses"
+  end
+
+  def tracker_project_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}"
+  end
+
+  def tracker_iterations_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/done?offset=-10"
+  end
+
+  def tracker_current_iteration_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current_backlog"
   end
 
   def to_s
@@ -117,7 +142,7 @@ class Project < ActiveRecord::Base
   end
 
   def building?
-    super || has_building_children?
+    super || dependent_projects.any?(&:building?)
   end
 
   def current_build_url
@@ -155,6 +180,10 @@ class Project < ActiveRecord::Base
     statuses.where(build_id: status.build_id).any?
   end
 
+  def has_dependent_project?(project)
+    false
+  end
+
   def has_dependencies?
     false
   end
@@ -164,6 +193,10 @@ class Project < ActiveRecord::Base
 
   def generate_guid
     self.guid = SecureRandom.uuid
+  end
+
+  def handler
+    ProjectWorkloadHandler.new(self)
   end
 
   private
@@ -176,8 +209,13 @@ class Project < ActiveRecord::Base
     self.last_refreshed_at = Time.now if online?
   end
 
-  def fetch_statuses
-    Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
+  def url_with_scheme url
+    if url =~ %r{\Ahttps?://}
+      url
+    else
+      "http://#{url}"
+    end
   end
+
 
 end

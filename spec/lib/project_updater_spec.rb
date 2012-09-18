@@ -87,43 +87,48 @@ describe ProjectUpdater do
     end
 
     context 'when the project has dependent children' do
-      let(:child_payload) { double(Payload).as_null_object }
-      let(:child_project) { double(Project, feed_url: 'http://child-status.com', build_status_url: 'http://child-status.com', fetch_payload: child_payload).as_null_object }
+      let(:dependent_project) { double }
 
       before do
-        project.stub(:has_dependencies?).and_return(true)
-        payload.stub(:each_child).with(project).and_yield(child_project)
+        project.stub(:dependent_projects).and_return([dependent_project])
       end
 
-      it 'should fetch the dependent_build_info_url' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(project.dependent_build_info_url, project.auth_username, project.auth_password)
-        subject
-      end
-
-      it 'should update its children' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password)
-        subject
-      end
-
-      context 'and a child project is failing' do
+      context 'and is persisted' do
         before do
-          child_project.stub('red?').and_return(true)
+          project.stub(:persisted?).and_return(true)
         end
 
-        it 'should set has_failing_children' do
-          subject
-          project.has_failing_children.should be_true
+        context 'and has a dependent build info url' do
+          before do
+            project.stub(:dependent_build_info_url).and_return(true)
+          end
+
+          it 'should update the dependent children' do
+            ProjectUpdater.should_receive(:update_dependent).with(dependent_project)
+            subject
+          end
+        end
+
+        context 'and has no dependent build info url' do
+          before do
+            project.stub(:dependent_build_info_url).and_return(false)
+          end
+
+          it 'should not update the dependent children' do
+            ProjectUpdater.should_not_receive(:update_dependent)
+            subject
+          end
         end
       end
 
-      context 'and a child project is building' do
+      context 'and is not persisted' do
         before do
-          child_project.stub('building?').and_return(true)
+          project.stub(:persisted?).and_return(false)
         end
 
-        it 'should set has_building_children' do
+        it 'should not update the dependent children' do
+          ProjectUpdater.should_not_receive(:update_dependent)
           subject
-          project.has_building_children.should be_true
         end
       end
     end

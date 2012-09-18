@@ -3,28 +3,19 @@ module ProjectUpdater
   class << self
 
     def update(project)
-      update_status(project)
-    end
-
-  private
-
-    def update_status(project)
       payload = project.fetch_payload
 
       begin
         fetch_status(project, payload)
         fetch_building_status(project, payload) unless project.feed_url == project.build_status_url
 
+        update_dependents(project, payload)
+
         log = PayloadProcessor.new(project, payload).process
         log.method = "Polling"
         log.save!
 
-        if project.has_dependencies?
-          fetch_dependent_project_info(project, payload)
-          update_children(project, payload)
-        end
-
-        log
+		log
       rescue => e
         project.online = false
         project.building = false
@@ -33,16 +24,17 @@ module ProjectUpdater
       end
     end
 
-    def update_children(project, payload)
-      project.has_failing_children = false
-      project.has_building_children = false
+  private
 
-      payload.each_child(project) do |child_project|
-        update_status(child_project)
+    def update_dependent(project)
+      update(project)
+    end
 
-        project.has_failing_children ||= child_project.red?
-        project.has_building_children ||= child_project.building?
-      end
+    def update_dependents(project, payload)
+      return unless project.persisted? && project.dependent_build_info_url
+
+      fetch_dependent_project_info(project, payload)
+      project.dependent_projects.each {|p| update_dependent(p)}
     end
 
     def fetch_status(project, payload)

@@ -88,15 +88,6 @@ class ProjectsController < ApplicationController
     head status
   end
 
-  def update_projects
-    if Delayed::Job.count.zero?
-      StatusFetcher.fetch_all
-      render nothing: true
-    else
-      render nothing: true, status: 409
-    end
-  end
-
   private
 
   def load_project

@@ -8,6 +8,7 @@ class PayloadProcessor
 
   def process
     add_statuses
+    add_dependent_builds
     update_building_status
     payload_log
   end
@@ -18,6 +19,13 @@ class PayloadProcessor
     success = payload.status_is_processable? || payload.build_status_is_processable?
     status = success ? "successful" : "failed"
     project.payload_log_entries.build(status: status, error_type: payload.error_type, error_text: payload.error_text, backtrace: payload.backtrace)
+  end
+
+  def add_dependent_builds
+    payload.dependent_projects.each do |dependent_project|
+      next if project.has_dependent_project?(dependent_project)
+      project.dependent_projects.push dependent_project
+    end
   end
 
   def add_statuses
