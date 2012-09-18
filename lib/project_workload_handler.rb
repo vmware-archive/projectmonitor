@@ -43,6 +43,13 @@ private
     project.set_next_poll
     project.online = true
     project.save!
+
+  rescue => e
+    project.reload
+    project.payload_log_entries.build(error_text: "#{e.class}: #{e.message}", method: 'Polling', status: 'failed')
+    project.online = false
+    project.save!
+
   end
 
 end

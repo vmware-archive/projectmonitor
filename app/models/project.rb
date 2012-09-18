@@ -25,12 +25,12 @@ class Project < ActiveRecord::Base
 
   scope :updateable,
     enabled
-    .where(webhooks_enabled: [nil, false])
-    .where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
+  .where(webhooks_enabled: [nil, false])
+  .where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
 
   scope :tracker_updateable,
     enabled.primary
-    .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
+  .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
 
   scope :displayable, lambda {|tags|
     scope = enabled
@@ -285,5 +285,13 @@ class Project < ActiveRecord::Base
 
   def simple_statuses
     statuses.map(&:success)
+  end
+
+  def url_with_scheme url
+    if url =~ %r{\Ahttps?://}
+      url
+    else
+      "http://#{url}"
+    end
   end
 end
