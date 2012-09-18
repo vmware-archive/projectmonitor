@@ -19,9 +19,12 @@ class ProjectPoller
     @connection_timeout = 15
     @inactivity_timeout = 15
     @max_follow_redirects = 10
+    @pending = 0
   end
 
   def run
+    @run_once = false
+
     EM.run do
       EM.add_periodic_timer(@poll_period) do
         poll_projects
@@ -33,6 +36,15 @@ class ProjectPoller
     end
   end
 
+  def run_once
+    @run_once = true
+
+    EM.run do
+      poll_projects
+      poll_tracker
+    end
+  end
+
   def stop
     EM.stop_event_loop
   end
@@ -41,7 +53,7 @@ class ProjectPoller
 
   def poll_tracker
     Project.tracker_updateable.find_each do |project|
-      workload = PollerWorkload.new(ProjectTrackerWorkloadHandler.new(project))
+      workload = find_or_create_workload(project, ProjectTrackerWorkloadHandler.new(project))
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_tracker_request(project, description)
@@ -52,7 +64,7 @@ class ProjectPoller
 
   def poll_projects
     Project.updateable.find_each do |project|
-      workload = find_or_create_workload(project)
+      workload = find_or_create_workload(project, project.handler)
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_ci_request(project, description)
@@ -82,23 +94,36 @@ class ProjectPoller
   end
 
   def add_workload_handlers(project, workload, job_id, request)
+    begin_workload
+
     request.callback do |client|
       workload.store(job_id, client.response)
       remove_workload(project) if workload.complete?
+      finish_workload
     end
 
     request.errback do |client|
       workload.failed(client.error)
       remove_workload(project)
+      finish_workload
     end
   end
 
-  def find_or_create_workload(project)
-    @workloads[project] ||= PollerWorkload.new(project.handler)
+  def find_or_create_workload(project, handler)
+    @workloads[project] ||= PollerWorkload.new(handler)
   end
 
   def remove_workload(project)
     @workloads.delete(project)
+  end
+
+  def begin_workload
+    @pending += 1
+  end
+
+  def finish_workload
+    @pending -= 1
+    stop if @run_once && @pending.zero?
   end
 
 end

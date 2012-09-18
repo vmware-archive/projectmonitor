@@ -9,7 +9,7 @@ class TeamCityProject < Project
   end
 
   def feed_url
-    "#{team_city_base_url}/guestAuth/cradiator.html?buildTypeId=#{team_city_build_id}"
+    url_with_scheme "#{team_city_base_url}/guestAuth/cradiator.html?buildTypeId=#{team_city_build_id}"
   end
 
   def current_build_url
