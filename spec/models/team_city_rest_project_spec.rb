@@ -42,13 +42,13 @@ describe TeamCityRestProject do
     context "webhooks are disabled" do
       let(:project) { FactoryGirl.build(:team_city_rest_project) }
 
-      it { should == 'example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
+      it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
     end
 
     context "webhooks are enabled" do
       let(:project) { FactoryGirl.build(:team_city_rest_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
 
-      it { should == 'foo.gov' }
+      it { should == 'http://foo.gov' }
     end
   end
 

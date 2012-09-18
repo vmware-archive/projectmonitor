@@ -1,13 +1,13 @@
 namespace :cimonitor do
-  desc 'Start the project poller'
+  desc 'Start the long running project poller process'
   task :poller => :environment do
     ProjectPoller.new.run
   end
 
   desc 'Update the status for each active project'
   task :fetch_statuses => :environment do
-    if Delayed::Job.present? && !Delayed::Job.exists?("handler LIKE %!ruby/object:ProjectPoller%")
-      ProjectPoller.new.delay(priority: 0, max_run_time: 1.year).run
+    if Delayed::Job.present?
+      ProjectPoller.new.delay(priority: 0).run_once
     end
   end
 

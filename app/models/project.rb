@@ -209,4 +209,13 @@ class Project < ActiveRecord::Base
     self.last_refreshed_at = Time.now if online?
   end
 
+  def url_with_scheme url
+    if url =~ %r{\Ahttps?://}
+      url
+    else
+      "http://#{url}"
+    end
+  end
+
+
 end
