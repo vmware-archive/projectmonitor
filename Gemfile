@@ -25,6 +25,7 @@ gem "pivotal-tracker"
 gem "rails"
 gem "rake"
 gem "xpath"
+gem 'whenever', :require => false
 
 group :production do
   gem "therubyracer"
