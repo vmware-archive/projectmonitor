@@ -17,3 +17,4 @@ tags
 db/schema.rb
 *.log
 *.out
+.tddium*
