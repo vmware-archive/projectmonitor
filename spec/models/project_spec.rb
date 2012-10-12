@@ -15,8 +15,12 @@ describe Project do
   end
 
   describe "callbacks" do
+    let!(:count) { 14 }
+
     before do
-      project.statuses << FactoryGirl.build(:project_status)
+      count.times do
+        project.statuses << FactoryGirl.create(:project_status)
+      end
     end
 
     context 'when the project is online' do
@@ -25,13 +29,35 @@ describe Project do
       it 'should set the last_refreshed_at' do
         project.last_refreshed_at.should be_present
       end
-    end
 
-    context 'when the project is offline' do
-      let(:project) { FactoryGirl.build(:jenkins_project) }
+      context 'removing an outdated status upon adding a new status' do
+        context 'with less than 15 previous statuses' do
+          it "should not delete any statuses from the project" do
+            project.statuses.count.should == 14
+          end
+        end
 
-      it 'should not set the last_refreshed_at' do
-        project.last_refreshed_at.should be_nil
+        context 'when exactly 15 previous statuses' do
+          let(:count) { 15 }
+          it "should not delete any statuses from the project" do
+            project.statuses.count.should == 15
+          end
+        end
+
+        context 'when more than 15 previous statuses' do
+          let(:count) { 16 }
+          it "should not delete any statuses from the project" do
+            project.statuses.count.should == 15
+          end
+        end
+      end
+
+      context 'when the project is offline' do
+        let(:project) { FactoryGirl.build(:jenkins_project) }
+
+        it 'should not set the last_refreshed_at' do
+          project.last_refreshed_at.should be_nil
+        end
       end
     end
   end
