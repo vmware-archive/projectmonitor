@@ -2,7 +2,13 @@ require 'spec_helper'
 
 describe TddiumProject do
 
+  describe 'validations' do
+    it { should validate_presence_of(:tddium_project_name) }
+    it { should validate_presence_of(:tddium_auth_token) }
+  end
+
   subject { FactoryGirl.build(:tddium_project) }
+
   describe 'factories' do
     it { should be_valid }
   end
