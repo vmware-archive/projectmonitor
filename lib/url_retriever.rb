@@ -5,14 +5,14 @@ module UrlRetriever
 
   class << self
 
-    def retrieve_content_at(url, username = nil, password = nil)
+    def retrieve_content_at(url, username = nil, password = nil, verify_ssl = true)
       if username.present? && password.present?
-        response = do_get(url) { |get| get.basic_auth(username, password) }
+        response = do_get(url, verify_ssl) { |get| get.basic_auth(username, password) }
         if response['www-authenticate'].present?
-          response = do_get(url) { |get| digest_auth(get, response, username, password) }
+          response = do_get(url, verify_ssl) { |get| digest_auth(get, response, username, password) }
         end
       else
-        response = do_get(url)
+        response = do_get(url, verify_ssl)
       end
       if response.code.to_i == 200
         response.body
@@ -28,11 +28,15 @@ module UrlRetriever
 
     private
 
-    def http(uri)
+    def http(uri, verify_ssl)
       Net::HTTP.new(uri.host, uri.port).tap do |http|
         if uri.scheme == 'https'
           http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          if verify_ssl
+            http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          else
+            http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          end
           http.ca_file = File.join(File.expand_path(Rails.root), ConfigHelper.get(:certificate_bundle))
         end
         http.read_timeout = 30
@@ -40,13 +44,13 @@ module UrlRetriever
       end
     end
 
-    def do_get(url)
+    def do_get(url, verify_ssl)
 
       uri = URI.parse(prepend_scheme(url))
       get = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
 
       yield(get) if block_given?
-      res = http(uri).start { |web| web.request(get) }
+      res = http(uri, verify_ssl).start { |web| web.request(get) }
       res
     rescue Errno::ECONNREFUSED
       raise Net::HTTPError.new("Error: Could not connect to the remote server", nil)
