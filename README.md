@@ -315,6 +315,10 @@ To run a local development server and worker, run:
 
     foreman start
 
+## Deploying to Github
+
+Project Monitor has been moved under the "Pivotal" organization. Developers will need to request that their Github ID's are added as collaborators in order to have push privileges to the repo.
+
 ## Ideas /Improvements
 
 Got a burning idea that just needs to be implemented? Join the google group and share it with the team.
