@@ -23,7 +23,7 @@ describe ProjectUpdater do
     end
 
     it 'should fetch the feed_url' do
-      UrlRetriever.should_receive(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password)
+      UrlRetriever.should_receive(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
       subject
     end
 
@@ -39,7 +39,7 @@ describe ProjectUpdater do
 
     context 'when fetching the status fails' do
       before do
-        UrlRetriever.stub(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password).and_raise(net_exception)
+        UrlRetriever.stub(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_raise(net_exception)
       end
 
       it 'should create a payload log entry' do
@@ -65,13 +65,13 @@ describe ProjectUpdater do
       end
 
       it 'should fetch the build_status_url' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password)
+        UrlRetriever.should_receive(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
         subject
       end
 
       context 'and fetching the build status fails' do
         before do
-          UrlRetriever.stub(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password).and_raise(net_exception)
+          UrlRetriever.stub(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl).and_raise(net_exception)
         end
 
         it 'should set the project to offline' do
@@ -96,12 +96,12 @@ describe ProjectUpdater do
       end
 
       it 'should fetch the dependent_build_info_url' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(project.dependent_build_info_url, project.auth_username, project.auth_password)
+        UrlRetriever.should_receive(:retrieve_content_at).with(project.dependent_build_info_url, project.auth_username, project.auth_password, project.verify_ssl)
         subject
       end
 
       it 'should update its children' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password)
+        UrlRetriever.should_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
         subject
       end
 
