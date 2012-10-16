@@ -1,6 +1,5 @@
 class Project < ActiveRecord::Base
 
-  STATUSES_MAX = 16
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
 
@@ -180,7 +179,7 @@ class Project < ActiveRecord::Base
   end
 
   def remove_outdated_status(status)
-    statuses.first.destroy if statuses.count == STATUSES_MAX
+    statuses.order('created_at ASC').first.destroy if statuses.count == CiMonitor::Application.config.max_status + 1
   end
 
   def fetch_statuses
