@@ -55,4 +55,5 @@ CiMonitor::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  config.max_status = 15
 end

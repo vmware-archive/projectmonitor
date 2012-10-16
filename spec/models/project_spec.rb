@@ -15,12 +15,10 @@ describe Project do
   end
 
   describe "callbacks" do
-    let!(:count) { 14 }
+    let!(:count) {  CiMonitor::Application.config.max_status - 1 }
 
     before do
-      count.times do
-        project.statuses << FactoryGirl.create(:project_status)
-      end
+      project.statuses = FactoryGirl.create_list(:project_status, count)
     end
 
     context 'when the project is online' do
@@ -33,21 +31,21 @@ describe Project do
       context 'removing an outdated status upon adding a new status' do
         context 'with less than 15 previous statuses' do
           it "should not delete any statuses from the project" do
-            project.statuses.count.should == 14
+            project.statuses.count.should ==  CiMonitor::Application.config.max_status - 1
           end
         end
 
         context 'when exactly 15 previous statuses' do
-          let(:count) { 15 }
+          let(:count) {  CiMonitor::Application.config.max_status }
           it "should not delete any statuses from the project" do
-            project.statuses.count.should == 15
+            project.statuses.count.should == CiMonitor::Application.config.max_status
           end
         end
 
         context 'when more than 15 previous statuses' do
-          let(:count) { 16 }
+          let(:count) {  CiMonitor::Application.config.max_status }
           it "should not delete any statuses from the project" do
-            project.statuses.count.should == 15
+            project.statuses.count.should ==  CiMonitor::Application.config.max_status
           end
         end
       end
@@ -294,7 +292,7 @@ describe Project do
       project = projects(:socialitis)
       red_since = project.red_since
 
-      3.times do |i|
+      2.times do |i|
         project.statuses.create!(success: false, build_id: i, :published_at => Time.now + (i+1)*5.minutes)
       end
 
@@ -526,5 +524,4 @@ describe Project do
       (project.guid).should_not be_empty
     end
   end
-
 end
