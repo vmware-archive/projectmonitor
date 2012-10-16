@@ -50,8 +50,8 @@ module UrlRetriever
       get = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
 
       yield(get) if block_given?
-      res = http(uri, verify_ssl).start { |web| web.request(get) }
-      res
+      response = http(uri, verify_ssl).start { |web| web.request(get) }
+      response
     rescue Errno::ECONNREFUSED
       raise Net::HTTPError.new("Error: Could not connect to the remote server", nil)
     end
