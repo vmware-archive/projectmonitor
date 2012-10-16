@@ -9,7 +9,7 @@ var BacktraceHide = {};
     $('.hideTrace').click(function () {
       id = $($(this).parent()).attr('id').replace('b','s');
       $(this).parent().addClass('hide');
-      $(this).parent().parent().find('.showTrace#' + id).removeClass('hide');
+      $(this).parent().parent().find('.showTrace').removeClass('hide');
     });
   };
 })(BacktraceHide);
