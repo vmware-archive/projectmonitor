@@ -48,7 +48,11 @@
           - project_type.project_specific_attributes.each do |field|
             %p
               = f.label field
-              = f.text_field field, :disabled => !enabled
+              - if field == "tddium_project_name"
+                = f.text_field field, :disabled => !enabled, placeholder: "repo_name (branch_name)"
+              - else
+                = f.text_field field, :disabled => !enabled
+
     %p{ class: 'verify_ssl_field' }
       = f.label :verify_ssl, "Verify SSL Certificate?"
       = f.check_box :verify_ssl
