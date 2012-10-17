@@ -43,4 +43,19 @@ module ProjectsHelper
     project.payload_log_entries.first.try { |l| "#{l.error_type}: '#{l.error_text}'" }
   end
 
+  def project_last_status(project)
+    if latest = project.payload_log_entries.latest
+      if project.enabled?
+        content_tag(:span, class: "last_status #{latest.status}") do
+          content_tag(:a, latest, href: project_payload_log_entries_path(project))
+        end
+      else
+        content_tag(:span, class: "last_status #{latest.status}") do
+          content_tag(:p, "Disabled")
+        end
+      end
+    else
+      "None"
+    end
+  end
 end
