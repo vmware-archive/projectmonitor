@@ -58,4 +58,46 @@ describe ProjectsHelper do
     end
   end
 
+  describe "#project_last_status" do
+    let(:project) { double(:project) }
+    let(:enabled) { nil }
+
+
+    context "when there is payload log entries" do
+      let(:status) { double(:status) }
+
+      before do
+        project.stub(:enabled?).and_return(enabled)
+        project.stub_chain(:payload_log_entries, :latest, :status).and_return([status])
+      end
+
+      context "when the project is enabled" do
+        let(:enabled) { true }
+
+        it "should return a link to the latest status" do
+          helper.project_last_status(project).should have_selector("a")
+          helper.project_last_status(project).should_not include("Disabled")
+        end
+      end
+
+      context "when the project is disabled" do
+        let(:enabled) { false }
+
+        it "should return a paragraph selector with diabled as the text" do
+          helper.project_last_status(project).should have_selector("p")
+          helper.project_last_status(project).should include("Disabled")
+        end
+      end
+    end
+
+    context "when there are no payload log entries" do
+      before do
+        project.stub_chain(:payload_log_entries, :latest).and_return(nil)
+      end
+
+      it "should return the text None" do
+        helper.project_last_status(project).should == ("None")
+      end
+    end
+  end
 end
