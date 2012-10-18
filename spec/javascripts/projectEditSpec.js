@@ -212,8 +212,9 @@ describe("project edit", function() {
         '  <option value=""></option>' +
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
+        '  <option value="TddiumProject">TddiumProject</option>' +
         '</select>' +
-        '<div id="polling">' +
+        '<fieldset id="polling">' +
         '  <div id="field_container">' +
         '    <fieldset id="CruiseControlProject">' +
         '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
@@ -221,6 +222,10 @@ describe("project edit", function() {
         '    <fieldset class="hide" id="JenkinsProject">' +
         '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
         '      <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
+        '    </fieldset>' +
+        '    <fieldset class="hide" id="TddiumProject">' +
+        '      <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
+        '      <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
         '    </fieldset>' +
         '    <input id="project_auth_username" name="project[auth_username]" type="text">' +
         '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
@@ -232,7 +237,11 @@ describe("project edit", function() {
         '    <span class="failure hide"/>' +
         '    <span class="success hide"/>' +
         '  </div>' +
-        '</div>');
+        '</fieldset>' +
+        '<fieldset id="build_setup">' +
+        '  <input type="radio" id="project_webhooks_enabled_true"/>' +
+        '  <input type="radio" id="project_webhooks_enabled_false"/>' +
+        '</fieldset>');
     });
 
     describe("changing available inputs", function () {
@@ -250,6 +259,31 @@ describe("project edit", function() {
       it("makes the Cruise Control project fieldset invisible", function() {
         expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
         expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
+      });
+    });
+
+    describe("disable webhook and default to polling on projects that do not support webhooks", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_type').val('TddiumProject').change();
+      });
+
+      it("Tddium projects", function() {
+        expect($('#project_webhooks_enabled_true').attr('disabled')).toBeTruthy();
+        expect($('#project_webhooks_enabled_false').prop('checked')).toBeTruthy();
+      });
+    });
+
+    describe("when changing from webhooks to polling", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+        $('#project_type').val('JenkinsProject').change();
+        $('#project_webhooks_enabled_true').click();
+        $('#project_type').val('TddiumProject').change();
+      });
+      it("should dispaly the Tddium fieldset", function() {
+        expect($('fieldset#TddiumProject').hasClass('hide')).toBeFalsy();
+        expect($('fieldset#polling').hasClass('hide')).toBeFalsy();
       });
     });
 
