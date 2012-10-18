@@ -12,7 +12,7 @@ describe TddiumPayload do
     subject { payload.processable }
     before do
       payload.should_receive(:log_error)
-      payload.convert_content!(content)
+      payload.status_content = content
     end
 
     context 'with empty string' do
@@ -68,7 +68,7 @@ describe TddiumPayload do
         expect do
           subject
         end.to raise_error NotImplementedError
-      end 
+      end
     end
 
 

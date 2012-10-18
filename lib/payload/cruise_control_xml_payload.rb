@@ -14,11 +14,15 @@ class CruiseControlXmlPayload < Payload
   private
 
   def convert_content!(content)
-    [Nokogiri::XML.parse(content.downcase)]
+    parsed_xml = Nokogiri::XML.parse(content.downcase)
+    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
+    [parsed_xml]
   end
 
   def convert_build_content!(content)
-    Nokogiri::XML.parse(content.downcase)
+    parsed_xml = Nokogiri::XML.parse(content.downcase)
+    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
+    parsed_xml
   end
 
   def parse_success(content)
@@ -45,5 +49,4 @@ class CruiseControlXmlPayload < Payload
       (pub_date == Time.at(0) ? Time.now : pub_date).localtime
     end
   end
-
 end

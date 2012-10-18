@@ -52,8 +52,6 @@ describe CruiseControlXmlPayload do
         project.statuses.should == statuses
       end
     end
-
-
   end
 
   describe "building status" do
@@ -76,33 +74,51 @@ describe CruiseControlXmlPayload do
     let(:example) { CCRssExample.new(xml) }
     let(:status_content) { example.read }
     let(:payload) { CruiseControlXmlPayload.new(project.name) }
-    before { payload.status_content = status_content }
 
-    describe "when build was successful" do
-      let(:xml) { "success.rss" }
+    context "successful parsing" do
+      before { payload.status_content = status_content }
+      describe "when build was successful" do
+        let(:xml) { "success.rss" }
 
-      its(:latest_status) { should be_success }
+        its(:latest_status) { should be_success }
 
-      it "return the link to the checkin" do
-        subject.latest_status.url.should == CCRssExample.new("success.rss").xpath_content("/rss/channel/item/link")
+        it "return the link to the checkin" do
+          subject.latest_status.url.should == CCRssExample.new("success.rss").xpath_content("/rss/channel/item/link")
+        end
+
+        it "should return the published date of the checkin" do
+          subject.latest_status.published_at.should == Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate"))
+        end
       end
 
-      it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate"))
+      describe "when build failed" do
+        let(:xml) { "failure.rss" }
+
+        its(:latest_status) { should_not be_success }
+
+        it "return the link to the checkin" do
+          subject.latest_status.url.should == CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/link")
+        end
+
+        it "should return the published date of the checkin" do
+          subject.latest_status.published_at.should == Time.parse(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/pubDate"))
+        end
       end
     end
 
-    describe "when build failed" do
-      let(:xml) { "failure.rss" }
-
-      its(:latest_status) { should_not be_success }
-
-      it "return the link to the checkin" do
-        subject.latest_status.url.should == CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/link")
+    context "bad XML data" do
+      let(:wrong_status_content) { "some non xml content" }
+      describe "#status_content" do
+        it "should log errors" do
+          payload.should_receive("log_error")
+          payload.status_content = wrong_status_content
+        end
       end
-
-      it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/pubDate"))
+      describe "#build_status_content" do
+        it "should log errors" do
+          payload.should_receive("log_error")
+          payload.build_status_content = wrong_status_content
+        end
       end
     end
   end

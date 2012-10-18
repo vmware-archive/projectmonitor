@@ -8,11 +8,15 @@ class LegacyTeamCityXmlPayload < Payload
   private
 
   def convert_content!(content)
-    Nokogiri::XML.parse(content).css('Build').to_a
+    parsed_content = Nokogiri::XML.parse(content)
+    raise Payload::InvalidContentException, "Error converting content" unless parsed_content.root
+    parsed_content.css('Build').to_a
   end
 
   def convert_build_content!(content)
-    Nokogiri::XML.parse(content).css('Build')
+    parsed_content = Nokogiri::XML.parse(content)
+    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_content.root
+    parsed_content.css('Build')
   end
 
   def parse_success(content)

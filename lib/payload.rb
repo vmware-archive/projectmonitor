@@ -1,5 +1,8 @@
 class Payload
 
+  class InvalidContentException < ::Exception
+  end
+
   attr_writer :dependent_content
   attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr
 
@@ -29,11 +32,20 @@ class Payload
   end
 
   def status_content=(content)
-    @status_content = convert_content!(content).first(Project::RECENT_STATUS_COUNT)
+    begin
+      @status_content = convert_content!(content).first(Project::RECENT_STATUS_COUNT)
+    rescue InvalidContentException => e
+      log_error e
+      @status_content = []
+    end
   end
 
   def build_status_content=(content)
-    @build_status_content = convert_build_content!(content)
+    begin
+      @build_status_content = convert_build_content!(content)
+    rescue InvalidContentException => e
+      log_error e
+    end
   end
 
   def status_is_processable?
@@ -65,7 +77,11 @@ class Payload
   end
 
   def convert_webhook_content!(content)
-    convert_content!(content)
+    begin
+      convert_content!(content)
+    rescue InvalidContentException => e
+      log_error e
+    end
   end
 
   def convert_build_content!(content)
@@ -80,4 +96,7 @@ class Payload
 
   attr_accessor :processable, :build_processable
   attr_reader :status_content, :build_status_content, :dependent_content
+
 end
+
+
