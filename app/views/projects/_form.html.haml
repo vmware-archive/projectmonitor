@@ -35,6 +35,7 @@
   %p
     = f.label :webhooks_enabled_true, "Webhooks"
     = f.radio_button :webhooks_enabled, true
+
     = f.label :webhooks_enabled_false, "Polling"
     = f.radio_button :webhooks_enabled, false
   = project_refreshed_at(f.object)

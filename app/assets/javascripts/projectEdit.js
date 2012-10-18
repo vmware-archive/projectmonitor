@@ -88,7 +88,7 @@ var ProjectEdit = {};
 
   o.handleProjectTypeChange = function () {
     var $container = $('#field_container');
-
+    var $buildSetup = $('#build_setup');
     var $disabled_fieldsets = $('fieldset:not(#' + $(this).val() + ')', $container);
     $disabled_fieldsets.addClass('hide');
     $(':input', $disabled_fieldsets).attr('disabled', true);
@@ -96,6 +96,15 @@ var ProjectEdit = {};
     var $enabled_fieldset = $('#' + $(this).val());
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
+
+    if ($(this).val() == "TddiumProject") {
+       $buildSetup.find('#project_webhooks_enabled_false').click();
+       $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', true);
+    } else {
+      $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', false);
+      $buildSetup.find('#project_webhooks_enabled_false').prop('checked', false);
+    }
+
 
     var $auth_fields = $('.auth_field');
     if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
