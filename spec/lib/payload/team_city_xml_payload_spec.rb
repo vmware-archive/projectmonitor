@@ -30,6 +30,14 @@ describe TeamCityXmlPayload do
           let(:status) { 'FAILURE' }
           it { should be_red }
         end
+
+        context "with bad XML data" do
+          let(:content) { "some non xml content" }
+          it "should log erros" do
+            payload.should_receive("log_error")
+            payload.status_content = content
+          end
+        end
       end
 
       context "when building" do

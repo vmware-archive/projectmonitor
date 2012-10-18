@@ -7,9 +7,8 @@ class TeamCityJsonPayload < Payload
   def convert_content!(content)
     [JSON.parse(content)["build"]]
   rescue => e
-    log_error(e)
     self.processable = self.build_processable = false
-    []
+    raise Payload::InvalidContentException, e.message
   end
 
   def parse_success(content)

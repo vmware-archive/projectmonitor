@@ -107,6 +107,16 @@ describe LegacyTeamCityXmlPayload do
       PayloadProcessor.new(project,payload).process
       project.should_not be_building
     end
+
+    describe "#build_status_content" do
+      let(:wrong_status_content) { "some non xml content" }
+      context "invalid xml" do
+        it 'should log error message' do
+          payload.should_receive("log_error")
+          payload.build_status_content = wrong_status_content
+        end
+      end
+    end
   end
 
   describe "with invalid xml" do
@@ -117,6 +127,14 @@ describe LegacyTeamCityXmlPayload do
 
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)
+    end
+
+    context "bad XML data" do
+      let(:wrong_status_content) { "some non xml content" }
+      it "should log errors" do
+        payload.should_receive("log_error")
+        payload.status_content = wrong_status_content
+      end
     end
   end
 end

@@ -7,8 +7,8 @@ describe TravisJsonPayload do
   let(:content) { payload.status_content.first }
   let(:json) { "success.json" }
 
-  describe '#convert_content!' do
-    subject { payload.convert_content!(status_content) }
+  describe '#status_content' do
+    subject { payload.status_content = status_content }
 
     context 'when content is valid' do
       let(:expected_content) { double }
@@ -16,7 +16,10 @@ describe TravisJsonPayload do
         JSON.stub(:parse).and_return(expected_content)
       end
 
-      it{ should == [expected_content] }
+      it 'should parse content' do
+        subject
+        payload.status_content.should == [expected_content]
+      end
     end
 
     context 'when content is corrupt / badly encoded' do
@@ -27,6 +30,12 @@ describe TravisJsonPayload do
       it 'should be marked as unprocessable' do
         payload.processable.should be_false
         payload.build_processable.should be_false
+      end
+
+      let(:wrong_status_content) { "some non xml content" }
+      it "should log errors" do
+        payload.should_receive("log_error")
+        payload.status_content = wrong_status_content
       end
     end
   end

@@ -27,6 +27,14 @@ describe SemaphorePayload do
       it 'should be marked as unprocessable' do
         payload.processable.should be_false
       end
+
+      context "bad XML data" do
+        let(:wrong_status_content) { "some non xml content" }
+        it "should log errors" do
+          payload.should_receive("log_error")
+          payload.status_content = wrong_status_content
+        end
+      end
     end
   end
 

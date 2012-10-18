@@ -104,6 +104,15 @@ describe JenkinsXmlPayload do
     end
   end
 
+  describe "#build_status_content" do
+    let(:wrong_status_content) { "some non xml content" }
+    context "invalid xml" do
+      it 'should log error message' do
+        jenkins_payload.should_receive("log_error")
+        jenkins_payload.build_status_content = wrong_status_content
+      end
+    end
+  end
   describe "with invalid xml" do
     let(:status_content) { "<foo><bar>baz</bar></foo>" }
 
@@ -111,6 +120,14 @@ describe JenkinsXmlPayload do
 
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)
+    end
+
+    context "bad XML data" do
+      let(:wrong_status_content) { "some non xml content" }
+      it "should log errors" do
+        jenkins_payload.should_receive("log_error")
+        jenkins_payload.status_content = wrong_status_content
+      end
     end
   end
 end

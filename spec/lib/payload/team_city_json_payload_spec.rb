@@ -25,9 +25,18 @@ describe TeamCityJsonPayload do
       end
 
       it 'should be marked as unprocessable' do
-        subject
+        lambda {subject}.should raise_error Payload::InvalidContentException
         payload.processable.should be_false
         payload.build_processable.should be_false
+      end
+    end
+  end
+
+  describe "#status_content" do
+    context "invalid JSON" do
+      it "should log erros" do
+        payload.should_receive(:log_error)
+        payload.status_content = "non json content"
       end
     end
   end

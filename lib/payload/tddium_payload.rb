@@ -21,9 +21,8 @@ class TddiumPayload < Payload
       []
     end
   rescue => e
-    log_error(e)
     self.processable = self.build_processable = false
-    []
+    raise Payload::InvalidContentException, e.message
   end
 
   def convert_build_content!(content)

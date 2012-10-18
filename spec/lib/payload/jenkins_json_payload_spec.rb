@@ -7,8 +7,8 @@ describe JenkinsJsonPayload do
   let(:converted_content) { payload.convert_content!(status_content).first }
   let(:example_file) { "success.txt" }
 
-  describe '#convert_content!' do
-    subject { payload.convert_content!(status_content) }
+  describe '#status_content' do
+    subject { payload.status_content = status_content }
 
     context 'when content is valid' do
       let(:expected_content) { double }
@@ -16,7 +16,10 @@ describe JenkinsJsonPayload do
         JSON.stub(:parse).and_return(expected_content)
       end
 
-      it { should == [expected_content] }
+      it 'should parse content' do
+        subject
+        payload.status_content.should == [expected_content]
+      end
     end
 
     context 'when content is corrupt / badly encoded' do
