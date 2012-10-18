@@ -4,7 +4,7 @@ describe ProjectUpdater do
 
   let(:project) { FactoryGirl.build(:jenkins_project) }
   let(:net_exception) { Net::HTTPError.new('Server error', 500) }
-  let(:payload_log_entry) { PayloadLogEntry.new }
+  let(:payload_log_entry) { PayloadLogEntry.new(status: "successful") }
   let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
   let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil, 'dependent_content=' => nil) }
 
@@ -124,6 +124,16 @@ describe ProjectUpdater do
         it 'should set has_building_children' do
           subject
           project.has_building_children.should be_true
+        end
+      end
+
+      context 'and a parent project is failing' do
+        let(:payload_log_entry) { PayloadLogEntry.new(status: "failed") }
+        let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
+
+        it 'should not update dependent builds' do
+          UrlRetriever.should_not_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
+          subject
         end
       end
     end

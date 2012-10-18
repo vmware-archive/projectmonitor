@@ -19,7 +19,7 @@ module ProjectUpdater
         log.method = "Polling"
         log.save!
 
-        if project.has_dependencies?
+        if project.has_dependencies? && log.status == "successful"
           fetch_dependent_project_info(project, payload)
           update_children(project, payload)
         end
