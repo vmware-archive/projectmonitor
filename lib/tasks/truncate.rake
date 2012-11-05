@@ -15,7 +15,7 @@ namespace "truncate" do
 
    Project.all.map do |proj|
      latest_statuses = proj.statuses.order('created_at DESC').limit(count)
-     proj.statuses.where(['id NOT IN (?)', latest_statuses.collect(&:id)]).destroy_all
+     proj.statuses.where(['id NOT IN (?)', latest_statuses.collect(&:id)]).delete_all
     end
   end
 end
