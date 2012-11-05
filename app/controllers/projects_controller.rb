@@ -64,6 +64,12 @@ class ProjectsController < ApplicationController
 
   def validate_build_info
     project = params[:project][:type].constantize.new(params[:project])
+
+    if existing_project_missing_password?
+      existing_project = Project.find(params[:project][:id])
+      project.auth_password = existing_project.auth_password if existing_project
+    end
+
     log_entry = ProjectUpdater.update(project)
 
     render :json => {
@@ -113,4 +119,7 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def existing_project_missing_password?
+    params[:project][:id].present? && params[:project][:auth_password].empty?
+  end
 end

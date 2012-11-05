@@ -162,10 +162,10 @@ describe ProjectsController do
     end
 
     describe '#validate_build_info' do
-      before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
       let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
 
       context 'when the payload is invalid' do
+        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
 
         let(:log_entry) { PayloadLogEntry.new(status: 'failed', error_type: 'MockExceptionClass', error_text: error_text) }
         let(:error_text) { 'Mock error description'}
@@ -194,6 +194,7 @@ describe ProjectsController do
       end
 
       context 'when the payload is valid' do
+        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
         let(:log_entry) { PayloadLogEntry.new(status: 'successful', error_type: nil, error_text: '') }
 
         context 'should set success flag to false' do
@@ -212,6 +213,25 @@ describe ProjectsController do
         end
       end
 
+      context "for a project with a saved password" do
+        context "when a new password is entered in the form" do
+          let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "password") }
+
+          it "should grab the existing project password" do
+            Project.should_not_receive(:find).with(project.id.to_s)
+            post :validate_build_info, {project: project.attributes}
+          end
+        end
+
+        context "when a new password is not entered in the form" do
+          let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "") }
+
+          it "should use the saved password to fetch" do
+            Project.should_receive(:find).with(project.id.to_s)
+            post :validate_build_info, {project: project.attributes}
+          end
+        end
+      end
     end
 
     describe "#update_projects" do

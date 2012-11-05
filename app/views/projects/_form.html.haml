@@ -124,5 +124,7 @@
   %em
     Server time is #{Time.now}
 
+=f.hidden_field :id
+
 %p{:style => "text-align: right; margin-bottom: 0;"}
   = submit_tag @project.new_record? ? "Create" : "Update"
