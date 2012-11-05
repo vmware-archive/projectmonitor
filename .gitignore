@@ -14,7 +14,6 @@ log/*.log
 tmp/**/*
 .sass-cache/
 tags
-db/schema.rb
 *.log
 *.out
 .tddium*
