@@ -33,7 +33,7 @@ class TravisProject < Project
     if webhooks_enabled?
       parsed_url
     else
-      "http://travis-ci.org/#{travis_github_account}/#{travis_repository}"
+      "https://travis-ci.org/#{travis_github_account}/#{travis_repository}"
     end
   end
 
