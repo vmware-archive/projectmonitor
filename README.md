@@ -85,17 +85,18 @@ and the following configuration options specified:
     oauth2_apphost: 'MY_APP_ID'
     oauth2_secret: 'MY_SECRET'
 
-### Set up cron
+### Setup Cron with Whenever
 
-Add a cron job at whatever frequency you like for the following command:
+We have included a sample whenever gem config in config/schedule.rb. Refer to
+the [whenever documentation](https://github.com/javan/whenever) for instructions
+on how to integrate it with your deployment.
 
-    RAILS_ENV=production rake cimonitor:fetch_statuses > fetch_statuses.log 2>&1
+The default schedule clears log entries daily, and fetches project statuses every 3 minutes.
 
-This is what goes out and hits the individual builds. We find that if you do
-this too frequently it can swamp the builds. On the other hand, you don't want
-ProjectMonitor displaying stale information. At Pivotal we set it up to run
-every 3 minutes.  Also, make sure that you set your PATH correctly in crontab
-to include the 'bundle' executable.
+The fetch project task is what goes out and hits the individual builds. We find
+that if you do this too frequently it can swamp the builds. On the other hand,
+you don't want ProjectMonitor displaying stale information. At Pivotal we set
+it up to run every 3 minutes.
 
 ### Start workers
 
