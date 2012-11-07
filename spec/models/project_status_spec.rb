@@ -13,8 +13,8 @@ describe ProjectStatus do
     let!(:status1) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
 
     context "for just one project" do
-      it "returns statuses sorted by build id" do
-        ProjectStatus.recent(project, 2).should == [status2, status1]
+      it "returns statuses sorted by published_at" do
+        ProjectStatus.recent(project, 2).should == [status1, status2]
       end
 
       it "returns statuses that have a build_id" do
