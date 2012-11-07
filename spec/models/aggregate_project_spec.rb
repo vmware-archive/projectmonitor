@@ -289,7 +289,7 @@ describe AggregateProject do
         other_project = projects(:socialitis)
 
         project.statuses.create(success: true, published_at: 1.day.ago, build_id: 100)
-        status = project.statuses.create(success: false, published_at: Time.now, build_id: 102)
+        status = project.statuses.create(success: false, published_at: 2.minutes.ago, build_id: 102)
 
         other_project.statuses.create(success: true, published_at: 1.day.ago, build_id: 101)
         bad_status = other_project.statuses.create(success: false, published_at: nil, build_id: 99)
