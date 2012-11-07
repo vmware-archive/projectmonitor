@@ -1,8 +1,9 @@
 class DashboardsController < ApplicationController
   layout 'dashboard'
 
-  respond_to :html, :json, :only => :index
+  respond_to :html, :only => :index
   respond_to :rss, :only => :builds
+  respond_to :json, :only => [:github_status, :index]
 
   def index
     @tiles_count = (params[:tiles_count].presence || 15).to_i
@@ -28,5 +29,12 @@ class DashboardsController < ApplicationController
     respond_with @projects
   end
 
+  def github_status
+    status = '{"status":"bad"}'
+    begin
+      status = UrlRetriever.retrieve_content_at('https://status.github.com/status.json')
+    rescue Net::HTTPError => e
+    end
+    respond_with JSON.parse(status)
+  end
 end
-

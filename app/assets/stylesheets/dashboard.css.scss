@@ -11,9 +11,16 @@ html {
 
 body.dashboard {
   background-color: #2A271F;
-  padding: 14px 0 0 0px;
   height: 100%;
   width: 100%;
+
+  .github {
+    background: orange;
+    margin: 0;
+    text-align: center;
+    font-size: 39px;
+    display: none;
+  }
 
   #footer {
     color: white;
