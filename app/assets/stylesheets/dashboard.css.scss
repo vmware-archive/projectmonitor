@@ -20,6 +20,11 @@ body.dashboard {
     text-align: center;
     font-size: 39px;
     display: none;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 
   #footer {
