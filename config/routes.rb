@@ -5,6 +5,7 @@ CiMonitor::Application.routes.draw do
   match 'projects/validate_build_info'
   match 'projects/update_projects'
   match 'version' => 'versions#show'
+  match 'github_status' => 'dashboards#github_status', format: :json
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
