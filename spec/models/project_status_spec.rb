@@ -32,7 +32,7 @@ describe ProjectStatus do
       let!(:status3) { other_project.statuses.create(build_id: 3, published_at: 1.years.ago) }
 
       it "returns statuses for multiple projects" do
-        ProjectStatus.recent([project, other_project], 3).should == [status3, status2, status1]
+        ProjectStatus.recent([project, other_project], 3).should == [status3, status1, status2]
       end
     end
   end
@@ -43,7 +43,7 @@ describe ProjectStatus do
     let!(:status1) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
 
     it "returns the last status" do
-      project.statuses.latest.should == status2
+      project.statuses.latest.should == status1
     end
   end
 

@@ -279,11 +279,11 @@ describe Project do
 
   describe "#latest_status" do
     let(:project) { FactoryGirl.create :project, name: "my_project" }
-    let!(:recent_status_created_a_while_ago) { project.statuses.create(success: true, build_id: 3) }
-    let!(:old_status_created_recently) { project.statuses.create(success: true, build_id: 1) }
+    let!(:status) { project.statuses.create(success: true, build_id: 1) }
 
     it "returns the most recent status" do
-      project.latest_status.should == recent_status_created_a_while_ago
+      project.statuses.should_receive(:latest)
+      project.latest_status
     end
   end
 
