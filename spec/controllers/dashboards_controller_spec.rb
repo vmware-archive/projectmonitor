@@ -67,16 +67,19 @@ describe DashboardsController do
   end
 
   context 'when github status is checked' do
-    context 'when github is unreachable' do
-      let(:error) {Net::HTTPError.new("", nil)}
+    context 'and there is an error' do
+      context 'and the request throws an error' do
+        let(:error) { Net::HTTPError.new("", nil) }
 
-      before do
-        UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
-      end
+        before do
+          UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
+        end
 
-      it "returns 'bad'" do
-        get :github_status, format: :json
-        response.body.should == '{"status":"bad"}'
+
+        it "returns 'unreachable'" do
+          get :github_status, format: :json
+          response.body.should == '{"status":"unreachable"}'
+        end
       end
     end
 
