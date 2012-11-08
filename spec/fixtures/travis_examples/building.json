@@ -1,4 +1,4 @@
-{"builds":[{
+[{
    "id":1880199,
    "repository_id":14173,
    "number":"50",
@@ -26,4 +26,4 @@
    "message":"moving specialized classes into own package",
    "event_type":"push"
 }
-]}
+]
