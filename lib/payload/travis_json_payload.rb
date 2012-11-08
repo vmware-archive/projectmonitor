@@ -12,7 +12,8 @@ class TravisJsonPayload < Payload
   end
 
   def convert_content!(content)
-    Array.wrap(JSON.parse(content))
+    parsed_content = JSON.parse(content) || {}
+    Array.wrap(parsed_content["builds"] || parsed_content)
   rescue => e
     self.processable = self.build_processable = false
     raise Payload::InvalidContentException, e.message
