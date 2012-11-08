@@ -1,5 +1,5 @@
 var ProjectRefresh = (function () {
-  var projectSelectors, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3;
+  var projectSelectors, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   function showAsBuilding (projectSelector) {
     var $projectEl = $(projectSelector);
@@ -24,7 +24,7 @@ var ProjectRefresh = (function () {
         showAsBuilding(li);
       });
 
-      setTimeout(this.refresh, pollIntervalSeconds * 1000);
+      timeoutFunction = setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
 
     refresh : function () {
@@ -51,7 +51,11 @@ var ProjectRefresh = (function () {
           }
         });
       });
-      setTimeout(ProjectRefresh.refresh, pollIntervalSeconds * 1000);
+      timeoutFunction = setTimeout(ProjectRefresh.refresh, pollIntervalSeconds * 1000);
+    },
+
+    cleanupTimeout : function() {
+      clearTimeout(timeoutFunction);
     }
   };
 })();

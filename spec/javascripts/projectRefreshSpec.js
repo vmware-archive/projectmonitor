@@ -12,6 +12,10 @@ describe('ProjectRefresh.init', function() {
     jasmine.Clock.useMock();
   });
 
+  afterEach(function() {
+    ProjectRefresh.cleanupTimeout();
+  });
+
   describe("on a page with 15 projects", function() {
     beforeEach(function() {
       $("body").addClass("dashboard").data("tiles-count", "15");
@@ -31,13 +35,17 @@ describe('ProjectRefresh.init', function() {
   describe("on a page with 48 projects", function() {
     beforeEach(function() {
       $("body").addClass("dashboard").data("tiles-count", "48");
-      ajaxRequests = []
+      ajaxRequests = [];
     });
 
     it("should send the correct number of projects", function() {
       ProjectRefresh.init();
       jasmine.Clock.tick(30001);
-      expect(ajaxRequests[2].url).toBe("/projects/1/status?tiles_count=48");
+      expect(ajaxRequests.length).toEqual(4);
+      expect(ajaxRequests[0].url).toBe("/projects/1/status?tiles_count=48");
+      expect(ajaxRequests[1].url).toBe("/projects/2/status?tiles_count=48");
+      expect(ajaxRequests[2].url).toBe("/projects/3/status?tiles_count=48");
+      expect(ajaxRequests[3].url).toBe("/aggregate_projects/4/status?tiles_count=48");
     });
   });
 
