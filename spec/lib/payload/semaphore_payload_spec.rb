@@ -7,11 +7,14 @@ describe SemaphorePayload do
   let(:content) { payload.status_content.first }
   let(:json) { "success.json" }
 
+  let(:status_content_history) { SemaphoreExample.new(json_history).read }
+  let(:json_history) { "success_history.json" }
+
   describe '#convert_content!' do
     subject { payload.convert_content!(status_content) }
 
-    context 'when content is valid' do
-      let(:expected_content) { double }
+    context 'and content is valid' do
+      let(:expected_content) { double(:content, key?: false) }
       before do
         JSON.stub(:parse).and_return(expected_content)
       end
@@ -34,6 +37,13 @@ describe SemaphorePayload do
           payload.should_receive("log_error")
           payload.status_content = wrong_status_content
         end
+      end
+    end
+
+    context 'when the project has a branch history url' do
+      it "should return the builds array" do
+        history_content = payload.convert_content!(status_content_history)
+        history_content.count.should == 2
       end
     end
   end
