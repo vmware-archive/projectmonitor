@@ -11,7 +11,7 @@ describe TravisJsonPayload do
     subject { payload.status_content = status_content }
 
     context 'when content is valid' do
-      let(:expected_content) { double }
+      let(:expected_content) { double(:expected_content, "[]" => nil) }
       before do
         JSON.stub(:parse).and_return(expected_content)
       end

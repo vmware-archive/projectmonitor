@@ -1,4 +1,4 @@
-[{
+{"builds":[{
    "id":1879979,
    "repository_id":96210,
    "number":"64",
@@ -11,4 +11,4 @@
    "branch":"master",
    "message":"Switched from kumade to heroku_san",
    "event_type":"push"
-}]
+}]}
