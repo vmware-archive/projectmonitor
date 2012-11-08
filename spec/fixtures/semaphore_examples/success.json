@@ -1,1 +1,18 @@
-{"branch_name":"master","branch_url":"https://semaphoreapp.com/projects/123/branches/456","project_name":"Semaphore Project","build_url":"https://semaphoreapp.com/projects/123/branches/456/builds/1","build_number":1,"result":"passed","started_at":"2012-08-16T02:15:34-07:00","finished_at":"2012-08-16T02:16:46-07:00","commit":{"id":"2fd4e1c67a2d28fced849ee1bb76e7391b93eb12","url":"https://github.com/Pivotal/Semaphore_Project/commit/3fd4e1c67a2d28fced849ee1bb76e7391b93eb12","author_name":"Pivotal User","author_email":"pivotal_user@pivotallabs.com","message":"WIP adding daily summary report","timestamp":"2012-08-15T17:55:53-07:00"}}
+{
+   "branch_name":"master",
+   "branch_url":"https://semaphoreapp.com/projects/123/branches/456",
+   "project_name":"Semaphore Project",
+   "build_url":"https://semaphoreapp.com/projects/123/branches/456/builds/1",
+   "build_number":1,
+   "result":"passed",
+   "started_at":"2012-08-16T02:15:34-07:00",
+   "finished_at":"2012-08-16T02:16:46-07:00",
+   "commit":{
+      "id":"2fd4e1c67a2d28fced849ee1bb76e7391b93eb12",
+      "url":"https://github.com/Pivotal/Semaphore_Project/commit/3fd4e1c67a2d28fced849ee1bb76e7391b93eb12",
+      "author_name":"Pivotal User",
+      "author_email":"pivotal_user@pivotallabs.com",
+      "message":"WIP adding daily summary report",
+      "timestamp":"2012-08-15T17:55:53-07:00"
+   }
+}
