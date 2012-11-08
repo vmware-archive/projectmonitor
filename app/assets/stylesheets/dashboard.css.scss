@@ -15,7 +15,14 @@ body.dashboard {
   width: 100%;
 
   .github {
-    background: orange;
+    &.bad {
+      background: orange;
+    }
+
+    &.unreachable {
+      background: white;
+    }
+
     margin: 0;
     text-align: center;
     font-size: 39px;

@@ -30,10 +30,11 @@ class DashboardsController < ApplicationController
   end
 
   def github_status
-    status = '{"status":"bad"}'
+    status = nil
     begin
       status = UrlRetriever.retrieve_content_at('https://status.github.com/status.json')
-    rescue Net::HTTPError => e
+    rescue
+      status = '{"status":"unreachable"}'
     end
     respond_with JSON.parse(status)
   end

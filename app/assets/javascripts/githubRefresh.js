@@ -1,13 +1,11 @@
 var GithubRefresh = (function () {
-  var $githubTile, pollIntervalSeconds = 60, fadeIntervalSeconds = 3;
+  var $githubTile, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   return {
     init : function () {
       $githubTile = $('.github');
 
-      if($githubTile.length > 0) {
-        setTimeout(this.refresh, pollIntervalSeconds * 1000);
-      }
+      timeoutFunction = setTimeout(this.refresh, pollIntervalSeconds * 1000);
     },
 
     refresh : function () {
@@ -19,7 +17,16 @@ var GithubRefresh = (function () {
           if(status == 'good') {
             $githubTile.slideUp();
           }
+          else if(status == 'unreachable') {
+            $githubTile.find('a').text("GITHUB IS UNREACHABLE");
+            $githubTile.removeClass('bad');
+            $githubTile.addClass('unreachable');
+            $githubTile.slideDown();
+          }
           else {
+            $githubTile.find('a').text("GITHUB IS DOWN");
+            $githubTile.removeClass('unreachable');
+            $githubTile.addClass('bad');
             $githubTile.slideDown();
           }
         },
@@ -27,7 +34,11 @@ var GithubRefresh = (function () {
           $githubTile.slideDown();
         }
       });
-      setTimeout(GithubRefresh.refresh, pollIntervalSeconds * 1000);
+      timeoutFunction = setTimeout(GithubRefresh.refresh, pollIntervalSeconds * 1000);
+    },
+
+    cleanupTimeout : function () {
+      clearTimeout(timeoutFunction);
     }
   };
 })();
