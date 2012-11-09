@@ -39,7 +39,6 @@ feature "tag auto complete" do
     click_on 'Create'
 
     current_path.should == edit_configuration_path
-
     page.should have_content('bar')
     page.should have_content('baz')
   end

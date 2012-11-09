@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem "memcache-client"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
 gem "bourbon"
@@ -13,28 +12,29 @@ gem "devise-encryptable"
 # NOTE: Newer versions of draper are currently incompatible with this codebase
 gem "draper", "< 0.13"
 gem "dynamic_form"
+# NOTE: >= 1.0.0.beta.4 is required for connection timeout support
+gem "em-http-request", ">= 1.0.0.beta.4"
+gem "eventmachine"
 gem "foreman"
-gem "sass"
 gem "haml"
 gem "jquery-rails", ">= 2.1.3"
+gem "memcache-client"
 gem "mime-types"
 gem "nokogiri"
 gem "omniauth"
 gem "omniauth-google-oauth2"
+gem "pg"
 gem "pivotal-tracker", '0.5.8'
 gem "rails"
 gem "rake"
+gem "sass"
 gem "xpath"
-gem 'whenever', :require => false
-gem 'rails-backbone', ">= 0.9.10"
 gem 'coffee-filter'
 gem 'eco'
-gem 'pg'
-gem "eventmachine"
-# NOTE: >= 1.0.0.beta.4 is required for connection timeout support
-gem "em-http-request", ">= 1.0.0.beta.4"
-gem 'newrelic_rpm'
 gem 'hashie', '~>1.2' # TODO: We need to hardcode Hashie for now to avoid circular dependency in bundler update resolution
+gem 'newrelic_rpm'
+gem 'rails-backbone', ">= 0.9.10"
+gem 'whenever', :require => false
 
 group :production do
   gem "therubyracer"
