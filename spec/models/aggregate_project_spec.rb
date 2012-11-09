@@ -305,7 +305,7 @@ describe AggregateProject do
 
       before do
         once_been_green_project.statuses.create(success: true, published_at: 1.day.ago, build_id: 101)
-        @earliest_red_build_status = never_been_green_project.statuses.create(success: false, published_at: 2.days.ago, build_id: 100)
+        @earliest_red_build_status = never_been_green_project.statuses.create(success: false, published_at: 2.days.ago, build_id: 102)
 
         aggregate_project.projects << never_been_green_project
         aggregate_project.projects << once_been_green_project
