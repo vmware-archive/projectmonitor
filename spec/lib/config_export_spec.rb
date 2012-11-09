@@ -32,7 +32,7 @@ describe ConfigExport do
       aggregate_project.name.should == 'agg'
 
       solo_project.reload.name.should == 'Foo'
-      solo_project.tag_list.to_a.should =~ ["foo", "bar", "baz"]
+      solo_project.tag_list.sort.should == %w[foo bar baz].sort
 
       aggregated_project = Project.last
       aggregated_project.name.should == 'Led'

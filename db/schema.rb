@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016193850) do
+ActiveRecord::Schema.define(:version => 20121109165401) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -63,8 +63,6 @@ ActiveRecord::Schema.define(:version => 20121016193850) do
     t.integer  "build_id"
   end
 
-  add_index "project_statuses", ["project_id", "published_at"], :name => "index_project_statuses_on_project_id_and_others"
-
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "deprecated_feed_url"
@@ -108,6 +106,8 @@ ActiveRecord::Schema.define(:version => 20121016193850) do
     t.boolean  "send_build_notifications"
     t.boolean  "send_error_notifications"
     t.boolean  "verify_ssl",                                 :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
