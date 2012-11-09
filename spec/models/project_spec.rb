@@ -323,9 +323,9 @@ describe Project do
         it "should return the first red build" do
           project = projects(:socialitis)
           project.statuses.destroy_all
-          first_red = project.statuses.create!(success: false, build_id: 1)
-          project.statuses.create!(success: false, build_id: 2)
-          project.statuses.create!(success: false, build_id: 3)
+          first_red = project.statuses.create!(success: false, build_id: 1, published_at: 3.minutes.ago)
+          project.statuses.create!(success: false, build_id: 2, published_at: 2.minutes.ago)
+          project.statuses.create!(success: false, build_id: 3, published_at: 1.minutes.ago)
           project.breaking_build.should == first_red
         end
       end

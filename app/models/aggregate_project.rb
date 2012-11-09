@@ -74,7 +74,7 @@ class AggregateProject < ActiveRecord::Base
       if last_green
         p.breaking_build
       else
-        p.statuses.first
+        p.statuses.last
       end
     end
     red_statuses.compact.reject{|status| status.published_at.nil? }.sort_by(&:published_at).first

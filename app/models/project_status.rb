@@ -15,7 +15,7 @@ class ProjectStatus < ActiveRecord::Base
 
     def reverse_chronological
       where('build_id IS NOT NULL').
-        order('published_at DESC')
+        order('published_at DESC, build_id DESC')
     end
 
     def latest
