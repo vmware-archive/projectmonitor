@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20121109165401) do
     t.boolean  "verify_ssl",                                 :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stories_to_accept_count"
+    t.integer  "open_stories_count"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

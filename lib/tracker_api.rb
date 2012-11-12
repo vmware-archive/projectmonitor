@@ -12,6 +12,14 @@ class TrackerApi
     pt_project.current_velocity
   end
 
+  def stories_to_accept_count
+    iteration_stories.select { |story| story.current_state == "delivered" }.count
+  end
+
+  def open_stories_count
+    iteration_stories.select { |story| story.current_state == "unstarted" }.count
+  end
+
   def last_ten_velocities
     done = PivotalTracker::Iteration.done(pt_project).map(&:stories).reverse.take(9)
     current = PivotalTracker::Iteration.current(pt_project).stories.select{|story| story.current_state == "accepted"}
@@ -23,5 +31,9 @@ class TrackerApi
 
   def pt_project
     @pt_project ||= PivotalTracker::Project.find(@project.tracker_project_id)
+  end
+
+  def iteration_stories
+    @iteration_stories ||= PivotalTracker::Iteration.current(pt_project).stories
   end
 end

@@ -36,6 +36,8 @@ module StatusFetcher
       tracker = TrackerApi.new(project)
       project.current_velocity = tracker.current_velocity
       project.last_ten_velocities = tracker.last_ten_velocities
+      project.stories_to_accept_count = tracker.stories_to_accept_count
+      project.open_stories_count = tracker.open_stories_count
       project.tracker_online = true
     rescue RestClient::Exception
       project.tracker_online = false
