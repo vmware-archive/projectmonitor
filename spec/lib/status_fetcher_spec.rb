@@ -47,11 +47,18 @@ describe StatusFetcher do
 
   describe "#retrieve_velocity_for" do
     context "when the project is a tracker_project?" do
-      let(:project) { FactoryGirl.create :project, current_velocity: 5, tracker_project_id: 1, tracker_auth_token: "token" }
+      let(:project) { FactoryGirl.create :project, current_velocity: 5, stories_to_accept_count: 0, open_stories_count: 0, tracker_project_id: 1, tracker_auth_token: "token" }
       let(:current_velocity) { 20 }
+      let(:stories_to_accept_count) { 5 }
+      let(:open_stories_count) { 2 }
       let(:last_ten_velocities) { [1,2,3,4,5,6,7,8,9,10] }
 
-      let(:tracker_api) { double :tracker_api, :current_velocity => current_velocity, :last_ten_velocities => last_ten_velocities }
+      let(:tracker_api) { double :tracker_api, 
+                            current_velocity: current_velocity, 
+                            last_ten_velocities: last_ten_velocities,
+                            stories_to_accept_count: stories_to_accept_count,
+                            open_stories_count: open_stories_count
+      }
 
       before do
         TrackerApi.stub(:new).and_return tracker_api
@@ -65,6 +72,16 @@ describe StatusFetcher do
       it "should set the current_velocity on the project" do
         StatusFetcher.retrieve_velocity_for(project)
         project.current_velocity.should == current_velocity
+      end
+
+      it "should set the stories_to_accept_count on the project" do
+        StatusFetcher.retrieve_velocity_for(project)
+        project.stories_to_accept_count.should == stories_to_accept_count
+      end
+
+      it "should set the open_stories_count on the project" do
+        StatusFetcher.retrieve_velocity_for(project)
+        project.open_stories_count.should == open_stories_count
       end
 
       it "should set the online status to true" do
