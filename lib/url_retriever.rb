@@ -22,7 +22,7 @@ module UrlRetriever
     end
 
     def prepend_scheme(uri)
-      uri.prepend('http://') unless uri.match %r{\A\S+://}
+      uri = "http://#{uri}" unless uri.match %r{\A\S+://}
       uri
     end
 
