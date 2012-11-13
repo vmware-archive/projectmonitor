@@ -18,20 +18,14 @@ var GithubRefresh = (function () {
             $githubTile.slideUp();
           }
           else if(status == 'unreachable') {
-            $githubTile.find('a').text("GITHUB IS UNREACHABLE");
-            $githubTile.removeClass('bad');
-            $githubTile.addClass('unreachable');
-            $githubTile.slideDown();
+            GithubRefresh.markAsUnreachable();
           }
           else {
-            $githubTile.find('a').text("GITHUB IS DOWN");
-            $githubTile.removeClass('unreachable');
-            $githubTile.addClass('bad');
-            $githubTile.slideDown();
+            GithubRefresh.markAsDown();
           }
         },
         error: function(x,y,z) {
-          $githubTile.slideDown();
+          GithubRefresh.markAsUnreachable();
         }
       });
       timeoutFunction = setTimeout(GithubRefresh.refresh, pollIntervalSeconds * 1000);
@@ -39,6 +33,20 @@ var GithubRefresh = (function () {
 
     cleanupTimeout : function () {
       clearTimeout(timeoutFunction);
+    },
+
+    markAsUnreachable: function () {
+      $githubTile.find('a').text("GITHUB IS UNREACHABLE");
+      $githubTile.removeClass('bad');
+      $githubTile.addClass('unreachable');
+      $githubTile.slideDown();
+    },
+
+    markAsDown: function () {
+      $githubTile.find('a').text("GITHUB IS DOWN");
+      $githubTile.removeClass('unreachable');
+      $githubTile.addClass('bad');
+      $githubTile.slideDown();
     }
   };
 })();
