@@ -108,6 +108,16 @@
       %span.pending.hide &nbsp;
       %span.unconfigured.hide Unconfigured
       %span.failure.hide
+
+%hr
+%fieldset#code_climate_setup
+  %h3 Code Climate Setup
+  %p
+    = f.label :code_climate_api_token, "API Token"
+    = f.text_field :code_climate_api_token
+  %p
+    = f.label :code_climate_repo_id, "Repo ID"
+    = f.text_field :code_climate_repo_id
 %p
   %em
     Server time is #{Time.now}

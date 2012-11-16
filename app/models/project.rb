@@ -168,6 +168,15 @@ class Project < ActiveRecord::Base
     tracker_project_id.present? &&  tracker_auth_token.present?
   end
 
+  def code_climate_project?
+    code_climate_api_token.present? && code_climate_repo_id.present?
+  end
+
+  def gpa_change_from_previous
+    code_climate_current_gpa - code_climate_previous_gpa rescue nil
+  end
+
+
   def payload
     raise NotImplementedError, "Must implement payload in subclasses"
   end

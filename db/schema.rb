@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20130226164525) do
     t.string   "deprecated_feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",                                    :default => true
-    t.boolean  "building",                                   :default => false, :null => false
+    t.boolean  "enabled",                                                                  :default => true
+    t.boolean  "building",                                                                 :default => false, :null => false
     t.string   "type"
     t.integer  "aggregate_project_id"
     t.integer  "deprecated_latest_status_id"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20130226164525) do
     t.string   "deprecated_location",          :limit => 20
     t.string   "tracker_project_id"
     t.string   "tracker_auth_token"
-    t.integer  "current_velocity",                           :default => 0,     :null => false
+    t.integer  "current_velocity",                                                         :default => 0,     :null => false
     t.string   "last_ten_velocities"
     t.boolean  "tracker_online"
     t.string   "cruise_control_rss_feed_url"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20130226164525) do
     t.string   "team_city_rest_build_type_id"
     t.string   "travis_github_account"
     t.string   "travis_repository"
-    t.boolean  "online",                                     :default => false
+    t.boolean  "online",                                                                   :default => false
     t.string   "guid"
     t.boolean  "webhooks_enabled"
     t.string   "tracker_validation_status"
@@ -113,13 +113,17 @@ ActiveRecord::Schema.define(:version => 20130226164525) do
     t.string   "tddium_auth_token"
     t.string   "tddium_project_name"
     t.string   "notification_email"
-    t.boolean  "verify_ssl",                                 :default => true
+    t.boolean  "verify_ssl",                                                               :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stories_to_accept_count"
     t.integer  "open_stories_count"
     t.string   "build_branch"
-    t.integer  "failures",                                   :default => 0
+    t.integer  "failures",                                                                 :default => 0
+    t.string   "code_climate_api_token"
+    t.string   "code_climate_repo_id"
+    t.decimal  "code_climate_gpa_current",                   :precision => 8, :scale => 2
+    t.decimal  "code_climate_gpa_previous",                  :precision => 8, :scale => 2
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

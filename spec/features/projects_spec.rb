@@ -15,6 +15,10 @@ feature "projects" do
     select "Travis Project", :from => "Project Type"
     choose "project_webhooks_enabled_false"
     fill_in "project[name]", :with => "Project Monitor"
+    fill_in "Tracker project id", :with => "123"
+    fill_in "Tracker auth token", :with => "abc"
+    fill_in "project_code_climate_repo_id", with: "1234"
+    fill_in "project_code_climate_api_token", with: "4321"
 
     click_on "Create"
 
@@ -39,6 +43,8 @@ feature "projects" do
 
     fill_in "Github Account", :with => new_account
     fill_in "Repository", :with => new_project
+    fill_in "project_code_climate_repo_id", with: "6789"
+    fill_in "project_code_climate_api_token", with: "9876"
 
     click_button "Update"
 

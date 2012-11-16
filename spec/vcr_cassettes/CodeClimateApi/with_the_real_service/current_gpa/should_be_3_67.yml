@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://codeclimate.com/api/repos/50a5652f7e00a4722d00a16e.json?api_token=b5acc9a53efe672306c3d1dd7bb33e002aa84525
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/0.8.54
+      date:
+      - Fri, 16 Nov 2012 16:08:13 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      status:
+      - 200 OK
+      strict-transport-security:
+      - max-age=31536000
+      x-served-by:
+      - app01.c45591.blueboxgrid.com
+      x-revision:
+      - de8aaf5e096cf44e2841d58946f629083921f54c
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      etag:
+      - ! '"237c0b703231fe3bec1915a95ab85a36"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 7ac53b3fcffb74973084c6f6b535820b
+      x-runtime:
+      - '0.076309'
+      x-rack-cache:
+      - miss
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"50a5652f7e00a4722d00a16e","account_id":"50a5650256b10213ec00191e","name":"Projectmonitor","url":"git://github.com/pivotalcommon/projectmonitor.git","branch":"master","created_at":1353016623,"last_snapshot":{"id":"50a5653356b1022c0a00cff7","repo_id":"50a5652f7e00a4722d00a16e","commit_sha":"51b3ef4995aeb9efafcabbfe42bfd63a7b97ba80","committed_at":1352825436,"finished_at":1353016632,"gpa":3.67},"previous_snapshot":{"id":"50a565337e00a4459900c12f","repo_id":"50a5652f7e00a4722d00a16e","commit_sha":"7358d0c058a21dd3d9dba0c20aae455c2f38e875","committed_at":1352404184,"finished_at":1353016632,"gpa":3.67}}'
+    http_version: '1.1'
+  recorded_at: Fri, 16 Nov 2012 16:08:13 GMT
+recorded_with: VCR 2.2.4

@@ -50,5 +50,4 @@ FactoryGirl.define do
     tddium_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
     tddium_project_name 'Test Project A'
   end
-
 end
