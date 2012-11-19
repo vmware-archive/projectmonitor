@@ -27,5 +27,15 @@ describe('TagSwitcher.init', function() {
       expect(TagSwitcher.doRedirect).toHaveBeenCalledWith('?tags=nyc');
     });
   });
+
+  describe("when the empty tag is chosen", function() {
+    it("redirects to base url", function() {
+      TagSwitcher.init();
+      spyOn(TagSwitcher, "doRedirect");
+      $('#tag').val('');
+      $('#tag').trigger('change');
+      expect(TagSwitcher.doRedirect).toHaveBeenCalledWith('');
+    });
+  });
 });
 
