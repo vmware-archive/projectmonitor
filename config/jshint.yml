@@ -11,7 +11,7 @@ paths:
   - spec/javascripts/**/*[sS]pec.js
 
 exclude_paths:
-
+  - spec/javascripts/compiled/**/*[sS]pec.js
 
 # ------------ jshint options ------------
 # visit http://jshint.com/ for complete documentation
