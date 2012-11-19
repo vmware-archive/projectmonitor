@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
 
   respond_to :html, :only => :index
   respond_to :rss, :only => :builds
-  respond_to :json, :only => [:github_status, :index]
+  respond_to :json, :only => [:github_status, :heroku_status, :index]
 
   def index
     @tiles_count = (params[:tiles_count].presence || 15).to_i
@@ -33,6 +33,16 @@ class DashboardsController < ApplicationController
     status = nil
     begin
       status = UrlRetriever.retrieve_content_at('https://status.github.com/status.json')
+    rescue
+      status = '{"status":"unreachable"}'
+    end
+    respond_with JSON.parse(status)
+  end
+
+  def heroku_status
+    status = nil
+    begin
+      status = UrlRetriever.retrieve_content_at('https://status.heroku.com/api/v3/current-status')
     rescue
       status = '{"status":"unreachable"}'
     end
