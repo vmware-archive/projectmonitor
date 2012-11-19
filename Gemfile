@@ -75,4 +75,6 @@ group :test, :development do
   gem "ffaker"
   gem "debugger"
   gem "pry"
+  gem 'guard-coffeescript'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
