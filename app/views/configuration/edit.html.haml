@@ -1,4 +1,8 @@
-%h1 Projects
+%h1
+  = 'Projects'
+  = select_tag(:tag, options_for_select(@tags.insert(0, '')))
+
+= hidden_field_tag(:current_tag, params[:tags])
 = link_to 'Add Project +', new_project_path, :class => "button add_button"
 %table.projects
   %tr

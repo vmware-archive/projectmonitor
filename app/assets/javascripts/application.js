@@ -6,8 +6,10 @@
 //= require projectEdit
 //= require backtraceHide
 //= require autocomplete
+//= require tagSwitcher
 
 $(function() {
   ProjectEdit.init();
   BacktraceHide.init();
+  TagSwitcher.init();
 });
