@@ -94,4 +94,33 @@ describe DashboardsController do
       end
     end
   end
+
+  context 'when heroku status is checked' do
+    context 'and there is an error' do
+      context 'and the request throws an error' do
+        let(:error) { Net::HTTPError.new("", nil) }
+
+        before do
+          UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
+        end
+
+
+        it "returns 'unreachable'" do
+          get :heroku_status, format: :json
+          response.body.should == '{"status":"unreachable"}'
+        end
+      end
+    end
+
+    context 'when heroku is reachable' do
+      before do
+        UrlRetriever.should_receive(:retrieve_content_at).and_return('{"status":"minor-outage"}')
+      end
+
+      it "returns whatever status heroku returns" do
+        get :heroku_status, format: :json
+        response.body.should == '{"status":"minor-outage"}'
+      end
+    end
+  end
 end
