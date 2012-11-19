@@ -14,6 +14,8 @@ ProjectMonitor currently supports:
   * [Jenkins](http://jenkins-ci.org/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
   * [Travis CI](http://travis-ci.org/)
+  * [tddium](http://www.tddium.com/)
+  * [Semaphore](http://www.semaphoreapp.com/)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
 builds for all our client projects. We also have an instance of ProjectMonitor
