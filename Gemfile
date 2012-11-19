@@ -26,6 +26,7 @@ gem "rails"
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
+gem 'rails-backbone'
 
 group :production do
   gem "therubyracer"

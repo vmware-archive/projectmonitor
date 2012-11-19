@@ -58,6 +58,10 @@ GEM
     chronic (0.6.7)
     chunky_png (1.2.5)
     coderay (1.0.7)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.4.0)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -89,6 +93,7 @@ GEM
     draper (0.12.0)
       activesupport (>= 2.3.10)
     dynamic_form (1.1.4)
+    ejs (1.0.0)
     erubis (2.7.0)
     eventmachine (0.12.10)
     excon (0.15.5)
@@ -206,6 +211,10 @@ GEM
       activesupport (= 3.2.7)
       bundler (~> 1.0)
       railties (= 3.2.7)
+    rails-backbone (0.7.2)
+      coffee-script (~> 2.2.0)
+      ejs (~> 1.0.0)
+      railties (>= 3.1.0)
     railties (3.2.7)
       actionpack (= 3.2.7)
       activesupport (= 3.2.7)
@@ -314,6 +323,7 @@ DEPENDENCIES
   pivotal-tracker
   pry
   rails
+  rails-backbone
   rake
   rspec (< 2.11)
   rspec-rails

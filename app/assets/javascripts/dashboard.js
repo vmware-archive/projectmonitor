@@ -1,4 +1,3 @@
-//= require application
 //= require versionCheck
 //= require projectCheck
 //= require projectRefresh

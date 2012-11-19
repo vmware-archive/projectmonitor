@@ -2,11 +2,14 @@
 //= require jquery_ujs
 //= require jquery_ui
 //= require underscore
-//= require projectMonitor
-//= require projectEdit
-//= require backtraceHide
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/project_monitor
 //= require autocomplete
 //= require tagSwitcher
+//= require backtraceHide
+//= require projectEdit
 
 $(function() {
   ProjectEdit.init();
