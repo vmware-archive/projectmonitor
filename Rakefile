@@ -9,7 +9,7 @@ ENV['FIXTURES'] = Dir["#{fixtures_dir}/*.{yml,csv}"].map {|f| f.gsub(fixtures_di
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-CiMonitor::Application.load_tasks
+ProjectMonitor::Application.load_tasks
 
 begin
   require 'delayed/tasks'

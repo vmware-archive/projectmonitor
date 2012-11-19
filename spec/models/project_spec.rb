@@ -15,7 +15,7 @@ describe Project do
   end
 
   describe "callbacks" do
-    let!(:count) {  CiMonitor::Application.config.max_status - 1 }
+    let!(:count) {  ProjectMonitor::Application.config.max_status - 1 }
 
     before do
       project.statuses = FactoryGirl.create_list(:project_status, count)
@@ -31,21 +31,21 @@ describe Project do
       context 'removing an outdated status upon adding a new status' do
         context 'with less than 15 previous statuses' do
           it "should not delete any statuses from the project" do
-            project.statuses.count.should ==  CiMonitor::Application.config.max_status - 1
+            project.statuses.count.should ==  ProjectMonitor::Application.config.max_status - 1
           end
         end
 
         context 'when exactly 15 previous statuses' do
-          let(:count) {  CiMonitor::Application.config.max_status }
+          let(:count) {  ProjectMonitor::Application.config.max_status }
           it "should not delete any statuses from the project" do
-            project.statuses.count.should == CiMonitor::Application.config.max_status
+            project.statuses.count.should == ProjectMonitor::Application.config.max_status
           end
         end
 
         context 'when more than 15 previous statuses' do
-          let(:count) {  CiMonitor::Application.config.max_status }
+          let(:count) {  ProjectMonitor::Application.config.max_status }
           it "should not delete any statuses from the project" do
-            project.statuses.count.should ==  CiMonitor::Application.config.max_status
+            project.statuses.count.should ==  ProjectMonitor::Application.config.max_status
           end
         end
       end

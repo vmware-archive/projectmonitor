@@ -1,4 +1,4 @@
-CiMonitor::Application.routes.draw do
+ProjectMonitor::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
   match 'builds.rss' => "dashboards#builds", format: :rss
   match 'projects/validate_tracker_project'
