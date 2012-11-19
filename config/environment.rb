@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 ::SYSTEM_ADMIN_EMAIL = "Pivotal Project Monitor <pivotal-projectmonitor@example.com>"
 
 
-CiMonitor::Application.initialize!
+ProjectMonitor::Application.initialize!
 
 Time::DATE_FORMATS[:db_time] = "%H:%M"
 Time::DATE_FORMATS[:db_day] = "%A"
