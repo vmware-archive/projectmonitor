@@ -14,7 +14,7 @@ body.dashboard {
   height: 100%;
   width: 100%;
 
-  .github {
+  .github, .heroku {
     &.bad {
       background: orange;
     }
@@ -23,10 +23,11 @@ body.dashboard {
       background: white;
     }
 
-    margin: 0;
+    margin: 0 0 3px 0;
     text-align: center;
     font-size: 39px;
     display: none;
+    border-bottom: 1px solid black;
 
     a {
       text-decoration: none;
