@@ -181,6 +181,11 @@ the "Enable" checkbox.
 ProjectMonitor's main display page is at `/`. You can always get back there by
 choosing the number of tiles you want at the lower left.
 
+#### Semaphore
+When configuring [Semaphore](http://semaphoreapp.com), you should use the Branch History URL from the API section of your Project Settings page.
+
+This ensures that no build statuses will be missed.
+
 ### Auto-start for Ubuntu
 
 In order to have projectmonitor start when the machine boots, modify the startup
