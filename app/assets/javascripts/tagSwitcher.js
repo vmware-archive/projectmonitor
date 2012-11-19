@@ -13,7 +13,10 @@ var TagSwitcher = (function () {
 
     switchTags: function () {
       tag = $(this).val();
-      TagSwitcher.doRedirect("?tags=" + tag);
+      if(tag === '')
+        TagSwitcher.doRedirect('');
+      else
+        TagSwitcher.doRedirect("?tags=" + tag);
     },
 
     doRedirect: function (href) {
