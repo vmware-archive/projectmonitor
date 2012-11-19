@@ -27,6 +27,11 @@ class Project < ActiveRecord::Base
     scope
   }
 
+  scope :tagged, lambda { |tags|
+    return Project.find_tagged_with(tags) if tags
+    all
+  }
+
   acts_as_taggable
 
   validates :name, presence: true

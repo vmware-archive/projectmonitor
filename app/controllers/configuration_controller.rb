@@ -16,8 +16,9 @@ class ConfigurationController < ApplicationController
   end
 
   def edit
-    @projects = Project.order(:name).all
-    @aggregate_projects = AggregateProject.order(:name)
+    @projects = Project.order(:name).tagged(params[:tags])
+    @aggregate_projects = AggregateProject.order(:name).tagged(params[:tags])
+    @tags = Tag.all.map(&:name)
   end
 
 end
