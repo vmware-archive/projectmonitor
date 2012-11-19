@@ -11,17 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-  - spec/javascripts/vendor/jquery.js
-  - spec/javascripts/vendor/jquery-ujs.js
-  - public/javascripts/prototype.js
-  - public/javascripts/effects.js
-  - public/javascripts/controls.js
-  - public/javascripts/dragdrop.js
-  - public/javascripts/application.js
-  - vendor/assets/javascripts/spin.js
-  - vendor/assets/javascripts/underscore.js
-  - app/assets/javascripts/**/*.js
-  - public/javascripts/**/*.js
+  - assets/application.js
+  - assets/dashboard.js
 
 # stylesheets
 #

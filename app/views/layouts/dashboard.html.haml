@@ -3,6 +3,8 @@
   %head
     %title Project Monitor
     = stylesheet_link_tag "dashboard"
+    = javascript_include_tag "application"
+    = javascript_include_tag "dashboard"
     %script{:src => "http://fast.fonts.com/jsapi/14aea2b8-37b7-4a31-afb9-e44414bef419.js", :type => "text/javascript"}
   %body{:class => "dashboard tiles_#{@tiles_count}", "data-tiles-count" => @tiles_count}
     = yield
@@ -25,4 +27,3 @@
         #indicator
           = image_tag "indicator.gif", :title => "indicator", :alt => "indicator"
         = link_to "manage projects", edit_configuration_path, class: "projects_path"
-    = javascript_include_tag "dashboard"
