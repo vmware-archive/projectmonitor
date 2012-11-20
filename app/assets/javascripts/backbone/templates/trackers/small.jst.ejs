@@ -1,0 +1,25 @@
+<article class="tracker small">
+  <ol class="metrics">
+    <li>
+      velocity <span class="velocity"><%= velocity %></span>
+    </li>
+    <li>
+      variance <span class="variance"><%= variance %></span>
+    </li>
+  </ol>
+
+  <ol class="stories">
+    <li>
+      # of stories to accept <span class="delivered"><%= delivered %></span>
+    </li>
+    <li>
+      # of open stories <span class="open"><%= open %></span>
+    </li>
+  </ol>
+
+  <ol class="velocities">
+    <% _.each(velocities, function(velocity) { %>
+      <li><%= velocity %></li>
+    <% }); %>
+  </ol>
+</article>
