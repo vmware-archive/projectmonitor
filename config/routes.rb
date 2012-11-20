@@ -30,5 +30,7 @@ ProjectMonitor::Application.routes.draw do
     get :load_tweet
   end
 
+  match 'styleguide' => 'dashboards#styleguide'
+
   root :to => 'dashboards#index'
 end
