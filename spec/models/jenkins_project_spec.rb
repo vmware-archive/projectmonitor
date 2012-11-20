@@ -37,11 +37,29 @@ describe JenkinsProject do
   its(:project_name) { should == 'project' }
 
   describe "#build_status_url" do
-    let(:project) { FactoryGirl.build(:jenkins_project) }
     subject { project.build_status_url }
 
-    it { should match %r{\Ahttp://www.example.com} }
-    it { should include 'cc.xml' }
+    let(:project) { JenkinsProject.new(jenkins_base_url: base_url) }
+
+    context "when base_url is nil" do
+      let(:base_url) { nil }
+
+      it { should be_nil }
+    end
+
+    context "when the base_url is not nil" do
+      context "when the base_url has a scheme specified" do
+        let(:base_url) { "http://ci-server:8080" }
+
+        it { should == "http://ci-server:8080/cc.xml" }
+      end
+
+      context "when the base_url does not hav a scheme specified" do
+        let(:base_url) { "ci-server:8080" }
+
+        it { should == "ci-server:8080/cc.xml" }
+      end
+    end
   end
 
   describe '#current_build_url' do
