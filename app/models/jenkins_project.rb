@@ -2,7 +2,6 @@ class JenkinsProject < Project
 
   attr_accessible :jenkins_base_url, :jenkins_build_name
   validates_presence_of :jenkins_base_url, :jenkins_build_name, unless: ->(project) { project.webhooks_enabled }
-  validates :jenkins_base_url, format: {with: /\Ahttps?:/i, message: "must begin with http or https"}, unless: ->(project) { project.webhooks_enabled }
 
   def feed_url
     "#{jenkins_base_url}/job/#{jenkins_build_name}/rssAll"
@@ -13,10 +12,9 @@ class JenkinsProject < Project
   end
 
   def build_status_url
-    return if feed_url.nil?
+    return if jenkins_base_url.nil?
 
-    url_components = URI.parse(feed_url)
-    "#{url_components.scheme}://#{url_components.host}:#{url_components.port}/cc.xml"
+    "#{jenkins_base_url}/cc.xml"
   end
 
   def current_build_url
