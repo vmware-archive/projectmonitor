@@ -1,6 +1,8 @@
 ProjectMonitor.Views.Projects ||= {}
 
 class ProjectMonitor.Views.Projects.TwoTileView extends Backbone.View
+  tagName: 'li'
+
   template: JST["backbone/templates/projects/two_tile"]
 
   render: ->
