@@ -1,40 +1,45 @@
 require 'spec_helper'
 
 describe JenkinsProject do
-  subject { FactoryGirl.build(:jenkins_project) }
-
   describe 'factories' do
     subject { FactoryGirl.build(:jenkins_project) }
+
     it { should be_valid }
   end
 
   describe 'validations' do
+    subject { FactoryGirl.build(:jenkins_project, webhooks_enabled: webhooks_enabled)}
+
     context "when webhooks are enabled" do
-      subject { Project.new(webhooks_enabled: true)}
+      let(:webhooks_enabled) { true }
+
       it { should_not validate_presence_of(:jenkins_base_url) }
       it { should_not validate_presence_of(:jenkins_build_name) }
     end
 
     context "when webhooks are not enabled" do
+      let(:webhooks_enabled) { false }
+
       it { should validate_presence_of :jenkins_base_url }
       it { should validate_presence_of :jenkins_build_name }
-
-      it do
-        should allow_value("http://example.com",
-                           "https://example.com",
-                           "HTTP://example.com").for(:jenkins_base_url)
-      end
-
-      it do
-        should_not allow_value("ttp://example.com",
-                               "sql injection\nhttps://example.com").for(:jenkins_base_url)
-
-      end
     end
   end
 
-  its(:feed_url) { should == "http://www.example.com/job/project/rssAll" }
-  its(:project_name) { should == 'project' }
+  describe "#feed_url" do
+    subject { project.feed_url }
+
+    let(:project) { JenkinsProject.new(jenkins_base_url: "ci-server", jenkins_build_name: "specs") }
+
+    it { should == "ci-server/job/specs/rssAll" }
+  end
+
+  describe "#project_name" do
+    subject { project.project_name }
+
+    let(:project) { JenkinsProject.new(jenkins_build_name: "specs") }
+
+    it { should == "specs" }
+  end
 
   describe "#build_status_url" do
     subject { project.build_status_url }
@@ -64,14 +69,52 @@ describe JenkinsProject do
 
   describe '#current_build_url' do
     subject { project.current_build_url }
-    context "webhooks are enabled" do
-      let(:project) { FactoryGirl.build(:jenkins_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
-      it { should == 'foo.gov'}
-    end
-    context "webhooks are disabled" do
-      let(:project) { FactoryGirl.build(:jenkins_project) }
 
-      it { should == 'http://www.example.com' }
+    let(:project) { JenkinsProject.new(webhooks_enabled: webhooks_enabled,
+                                       jenkins_base_url: jenkins_base_url) }
+    let(:jenkins_base_url) { double(:jenkins_base_url) }
+    let(:parsed_url) { double(:parsed_url) }
+
+    before do
+      project.parsed_url = parsed_url
     end
+
+    context "webhooks are enabled" do
+      let(:webhooks_enabled) { true }
+
+      it { should == parsed_url }
+    end
+
+    context "webhooks are disabled" do
+      let(:webhooks_enabled) { false }
+
+      it { should == jenkins_base_url }
+    end
+  end
+
+  describe "#fetch_payload" do
+    subject { project.fetch_payload }
+
+    let(:project) { JenkinsProject.new(jenkins_build_name: "features") }
+    let(:xml_payload) { double(:xml_payload) }
+
+    before do
+      JenkinsXmlPayload.should_receive(:new).with("features").and_return(xml_payload)
+    end
+
+    it { should == xml_payload }
+  end
+
+  describe "#webhook_payload" do
+    subject { project.webhook_payload }
+
+    let(:project) { JenkinsProject.new }
+    let(:json_payload) { double(:json_payload) }
+
+    before do
+      JenkinsJsonPayload.should_receive(:new).and_return(json_payload)
+    end
+
+    it { should == json_payload }
   end
 end

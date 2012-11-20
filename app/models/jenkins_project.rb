@@ -1,7 +1,6 @@
 class JenkinsProject < Project
-
   attr_accessible :jenkins_base_url, :jenkins_build_name
-  validates_presence_of :jenkins_base_url, :jenkins_build_name, unless: ->(project) { project.webhooks_enabled }
+  validates_presence_of :jenkins_base_url, :jenkins_build_name, unless: :webhooks_enabled
 
   def feed_url
     "#{jenkins_base_url}/job/#{jenkins_build_name}/rssAll"
@@ -32,5 +31,4 @@ class JenkinsProject < Project
   def webhook_payload
     JenkinsJsonPayload.new
   end
-
 end
