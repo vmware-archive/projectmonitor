@@ -1,0 +1,13 @@
+<article class="build small">
+  <h1 class="name">
+    <%= name %>
+  </h1>
+  <aside class='history'>
+    <ol class="statuses">
+      <% _.each(statuses, function(status) { %>
+        <li class="<%= status ? 'success' : 'failure'%>" />
+      <% }); %>
+    </ol>
+    <div class="last-build"><%= last_build %></time>
+  </aside>
+</article>
