@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
   layout 'dashboard'
 
-  respond_to :html, :only => :index
+  respond_to :html, :only => [:index, :styleguide]
   respond_to :rss, :only => :builds
   respond_to :json, :only => [:github_status, :heroku_status, :index]
 
@@ -47,5 +47,8 @@ class DashboardsController < ApplicationController
       status = '{"status":"unreachable"}'
     end
     respond_with JSON.parse(status)
+  end
+
+  def styleguide
   end
 end

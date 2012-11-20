@@ -1,0 +1,30 @@
+.github
+  = link_to "GITHUB IS DOWN", 'http://status.github.com'
+.heroku
+  = link_to "HEROKU IS DOWN", 'http://status.heroku.com'
+
+%ol.projects
+:coffeescript
+  build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: "4d"}
+  tracker = new ProjectMonitor.Models.Tracker {velocity: 9, variance: 10, delivered: 9, open: 5, velocities: [12, 15, 20, 40, 10]}
+  new_relic = new ProjectMonitor.Models.NewRelic {times: [12, 15, 20, 40, 10]}
+  airbrake = new ProjectMonitor.Models.Airbrake {error_count: 9, last_error: "RuntimeError: Workflow"}
+  project = new ProjectMonitor.Models.Project {build: build, tracker: tracker, new_relic: new_relic, airbrake: airbrake}
+
+  one_tile_view = new ProjectMonitor.Views.Projects.OneTileView {model: project}
+  $html = one_tile_view.render().$el
+  $(".projects").append $html
+
+  two_tile_view = new ProjectMonitor.Views.Projects.TwoTileView {model: project}
+  $html = two_tile_view.render().$el
+  $(".projects").append $html
+
+  three_tile_view = new ProjectMonitor.Views.Projects.ThreeTileView {model: project}
+  $html = three_tile_view.render().$el
+  $(".projects").append $html
+
+  four_tile_view = new ProjectMonitor.Views.Projects.FourTileView {model: project}
+  $html = four_tile_view.render().$el
+  $(".projects").append $html
+
+.clear
