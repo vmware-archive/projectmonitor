@@ -1,0 +1,13 @@
+<article class="build tall">
+  <h1 class="name">
+    <%= @name %>
+  </h1>
+  <aside class='history'>
+    <ol class="statuses">
+      <% for status in @statuses: %>
+        <li class="<%= if status then 'success' else 'failure'%>" />
+      <% end %>
+    </ol>
+    <div class="last-build"><%= @last_build %></time>
+  </aside>
+</article>
