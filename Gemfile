@@ -28,6 +28,7 @@ gem "xpath"
 gem 'whenever', :require => false
 gem 'rails-backbone'
 gem 'coffee-filter'
+gem 'eco'
 
 group :production do
   gem "therubyracer"
