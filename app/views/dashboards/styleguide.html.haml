@@ -5,7 +5,7 @@
 %section
   %ol.tiles
 :coffeescript
-  build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: "4d"}
+  build = new ProjectMonitor.Models.Build {name: 'MV-C', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
   tracker = new ProjectMonitor.Models.Tracker {velocity: 9, variance: 10, delivered: 9, open: 5, velocities: [12, 15, 20, 40, 10]}
   new_relic = new ProjectMonitor.Models.NewRelic {times: [12, 15, 20, 40, 10]}
   airbrake = new ProjectMonitor.Models.Airbrake {error_count: 9, last_error: "RuntimeError: Workflow"}
