@@ -1,4 +1,23 @@
 describe "ProjectMonitor.Views.Builds.LargeView", ->
+  describe "status", ->
+    describe "when the build succeeded", ->
+      beforeEach ->
+        @build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: '4d', success: true}
+        @view = new ProjectMonitor.Views.Builds.LargeView {model: @build}
+        @$html = @view.render().$el
+
+      it "should have success class", ->
+        expect(@$html.find(".build")).toHaveClass("success")
+
+    describe "when the build failed", ->
+      beforeEach ->
+        @build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: '4d', success: false}
+        @view = new ProjectMonitor.Views.Builds.LargeView {model: @build}
+        @$html = @view.render().$el
+
+      it "should have failed class", ->
+        expect(@$html.find(".build")).toHaveClass("failure")
+
   describe "build", ->
     beforeEach ->
       @build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: '4d'}

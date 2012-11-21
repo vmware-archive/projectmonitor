@@ -1,4 +1,4 @@
-<article class="build small">
+<article class="build small <%= if @success then 'success' else 'failure'%>">
   <h1 class="name">
     <%= @name %>
   </h1>
