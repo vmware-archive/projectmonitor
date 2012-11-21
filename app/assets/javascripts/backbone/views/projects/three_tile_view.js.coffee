@@ -1,8 +1,7 @@
 ProjectMonitor.Views.Projects ||= {}
 
-class ProjectMonitor.Views.Projects.ThreeTileView extends Backbone.View
-  tagName: 'li'
-
+class ProjectMonitor.Views.Projects.ThreeTileView extends ProjectMonitor.Views.Projects.BaseView
+  className: "tile three-tile"
   template: JST["backbone/templates/projects/three_tile"]
 
   render: ->
