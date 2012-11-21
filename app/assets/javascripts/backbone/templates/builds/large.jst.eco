@@ -10,6 +10,7 @@
         <% for status in @statuses: %>
           <li class="<%= if status then 'success' else 'failure' %>">
             <a></a>
+          </li>
         <% end %>
       </ol>
     </div>

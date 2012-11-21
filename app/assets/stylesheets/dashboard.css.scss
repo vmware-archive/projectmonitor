@@ -4,6 +4,7 @@ $ninesixty-fluid-grid-width: 100%;
 $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
+@import '_build';
 
 html {
   height: 100%;
@@ -75,4 +76,17 @@ body.dashboard {
 .clear {
   height:75px;
   clear: both;
+}
+
+ol.tiles {
+  list-style-type: none;
+}
+
+.tile {
+  float: left;
+  width: 620px;
+  background-color: #2E2E29;
+  padding: 10px;
+  margin: 10px;
+  font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
 }
