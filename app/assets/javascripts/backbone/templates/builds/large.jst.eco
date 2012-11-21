@@ -4,12 +4,15 @@
 </h1>
 <% if !@aggregate: %>
   <aside class='history'>
-    <ol class="statuses">
-      <% for status in @statuses: %>
-        <li class="<%= if status then 'success' else 'failure' %>" />
-      <% end %>
-    </ol>
-    <div class="last-build"><%= @last_build %></time>
+    <div>
+      <span class="last-build"><%= @last_build %></span>
+      <ol class="statuses">
+        <% for status in @statuses: %>
+          <li class="<%= if status then 'success' else 'failure' %>">
+            <a></a>
+        <% end %>
+      </ol>
+    </div>
   </aside>
 <% end %>
 </article>
