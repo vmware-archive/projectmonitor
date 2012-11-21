@@ -1,7 +1,7 @@
 <article class="new-relic small">
   <ol class="times">
-    <% _.each(times, function(time) { %>
+    <% for time in @times: %>
       <li><%= time %></li>
-    <% }); %>
+    <% end %>
   </ol>
 </article>
