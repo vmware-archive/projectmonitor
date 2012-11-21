@@ -2,8 +2,8 @@
   = link_to "GITHUB IS DOWN", 'http://status.github.com'
 .heroku
   = link_to "HEROKU IS DOWN", 'http://status.heroku.com'
-
-%ol.projects
+%section
+  %ol.tiles
 :coffeescript
   build = new ProjectMonitor.Models.Build {name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: "4d"}
   tracker = new ProjectMonitor.Models.Tracker {velocity: 9, variance: 10, delivered: 9, open: 5, velocities: [12, 15, 20, 40, 10]}
@@ -13,18 +13,18 @@
 
   one_tile_view = new ProjectMonitor.Views.Projects.OneTileView {model: project}
   $html = one_tile_view.render().$el
-  $(".projects").append $html
+  $(".tiles").append $html
 
   two_tile_view = new ProjectMonitor.Views.Projects.TwoTileView {model: project}
   $html = two_tile_view.render().$el
-  $(".projects").append $html
+  $(".tiles").append $html
 
   three_tile_view = new ProjectMonitor.Views.Projects.ThreeTileView {model: project}
   $html = three_tile_view.render().$el
-  $(".projects").append $html
+  $(".tiles").append $html
 
   four_tile_view = new ProjectMonitor.Views.Projects.FourTileView {model: project}
   $html = four_tile_view.render().$el
-  $(".projects").append $html
+  $(".tiles").append $html
 
 .clear
