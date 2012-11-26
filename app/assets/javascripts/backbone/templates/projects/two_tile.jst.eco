@@ -1,4 +1,2 @@
 <section class="project">
-  <%- @build_view %>
-  <%- @tracker_view %>
-</section>
+tall</section>
