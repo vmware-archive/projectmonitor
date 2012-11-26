@@ -5,4 +5,4 @@ class ProjectMonitor.Views.Builds.TallView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
-    return this
+    @
