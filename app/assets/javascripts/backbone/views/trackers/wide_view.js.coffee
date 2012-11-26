@@ -5,4 +5,4 @@ class ProjectMonitor.Views.Trackers.WideView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
-    return this
+    @
