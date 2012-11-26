@@ -6,6 +6,7 @@ $ninesixty-grid-width: 1896px;
 @import 'projects';
 @import '_build';
 @import '_tracker';
+@import '_new_relic';
 
 html {
   height: 100%;
@@ -100,6 +101,7 @@ ol.tiles {
 
     article:nth-child(2) {
       float: right;
+      margin-bottom: 10px;
     }
 
     article:nth-child(3) {
@@ -111,10 +113,12 @@ ol.tiles {
 .four-tile {
   article:nth-child(1) {
     float: left;
+    margin-bottom: 10px;
   }
 
   article:nth-child(2) {
     float: right;
+    margin-bottom: 10px;
   }
 
   article:nth-child(3) {
@@ -126,7 +130,8 @@ ol.tiles {
   }
 }
 article.large, article.wide {
-  width: 620px;
+  width: 610px;
+  padding: 5px;
 }
 
 article.small, article.tall {
