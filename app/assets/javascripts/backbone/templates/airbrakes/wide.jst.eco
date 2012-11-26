@@ -1,4 +1,4 @@
-<article class="airbrake small <%= if @success then 'success' else 'failure'%>">
+<article class="airbrake wide <%= if @success then 'success' else 'failure'%>">
   <div class="title">Airbrake</div>
   <dl class="unresolved-errors">
     <dt>Unresolved errors</dt>
