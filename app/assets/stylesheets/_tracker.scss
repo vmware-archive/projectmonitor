@@ -1,0 +1,157 @@
+article.tracker {
+  margin: 0px;
+  padding: 0px;
+
+  @include linear-gradient(top, #99CBC6 90%, #81C1BA 10%);
+  background-size: 10px 10px;
+}
+
+article.tracker.wide {
+  height: 162px;
+  margin-top: 12px;
+  padding: 5px;
+
+  .title {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  dl.metrics, dl.stories {
+    float: left;
+    width: 200px;
+    background-color: #C8E4E1;
+    margin: 10px 0px 10px 10px;
+    padding: 5px;
+    border-top: 1px solid #48968C;
+    border-bottom: 1px solid #48968C;
+
+    dt {
+      float: left;
+      clear: left;
+      line-height: 18px;
+    }
+
+    dd {
+      font-size: 18px;
+      line-height: 18px;
+      float: right;
+    }
+  }
+
+  dl.stories {
+    /* clear: left; */
+  }
+
+  dl.velocities {
+    float: right;
+    height: 124px;
+    width: 380px;
+    border-bottom: 2px solid #48968C;
+
+    dd {
+      display:inline;
+      float: left;
+      margin-right: 2px;
+      position: relative;
+      height: 100%;
+      width: 35px;
+
+      span {
+        position: absolute;
+        width: 32px;
+        bottom: 0;
+        border-top-left-radius:1px;
+        border-top-right-radius:1px;
+        background-color: #5EA9A0;
+      }
+
+    }
+    dd:nth-child(10) span { opacity: 0.95; }
+    dd:nth-child(9)  span { opacity: 0.90; }
+    dd:nth-child(8)  span { opacity: 0.85; }
+    dd:nth-child(7)  span { opacity: 0.80; }
+    dd:nth-child(6)  span { opacity: 0.70; }
+    dd:nth-child(5)  span { opacity: 0.60; }
+    dd:nth-child(4)  span { opacity: 0.50; }
+    dd:nth-child(3)  span { opacity: 0.35; }
+    dd:nth-child(2)  span { opacity: 0.30; }
+    dd:nth-child(1)  span { opacity: 0.25; }
+  }
+}
+
+article.tracker.small {
+  height: 190px;
+  float: right;
+
+  .title {
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+
+  dl.metrics, dl.stories {
+    float: left;
+    width: 130px;
+    background-color: #C8E4E1;
+    margin: 10px 5px 10px 5px;
+    padding: 5px;
+    border-top: 1px solid #48968C;
+    border-bottom: 1px solid #48968C;
+
+    dt {
+      float: left;
+      clear: left;
+      line-height: 18px;
+      font-size: 10px;
+    }
+
+    dd {
+      font-size: 18px;
+      line-height: 18px;
+      float: right;
+    }
+  }
+
+  dl.stories {
+    /* clear: left; */
+    float: right;
+  }
+
+  dl.velocities {
+    float: right;
+    height: 90px;
+    width: 294px;
+    border-bottom: 2px solid #48968C;
+
+    dd {
+      display:inline;
+      float: left;
+      margin-right: 2px;
+      position: relative;
+      height: 100%;
+      width: 26px;
+
+      span {
+        position: absolute;
+        width: 25px;
+        bottom: 0;
+        border-top-left-radius:1px;
+        border-top-right-radius:1px;
+        background-color: #5EA9A0;
+      }
+
+    }
+    dd:nth-child(10) span { opacity: 0.95; }
+    dd:nth-child(9)  span { opacity: 0.90; }
+    dd:nth-child(8)  span { opacity: 0.85; }
+    dd:nth-child(7)  span { opacity: 0.80; }
+    dd:nth-child(6)  span { opacity: 0.70; }
+    dd:nth-child(5)  span { opacity: 0.60; }
+    dd:nth-child(4)  span { opacity: 0.50; }
+    dd:nth-child(3)  span { opacity: 0.35; }
+    dd:nth-child(2)  span { opacity: 0.30; }
+    dd:nth-child(1)  span { opacity: 0.25; }
+  }
+}
