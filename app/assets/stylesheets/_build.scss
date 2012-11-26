@@ -1,11 +1,47 @@
 article.build {
   margin: 0px;
   padding: 0px;
-  @include linear-gradient(top, $red 90%, $light-red 10%);
-  background-size: 1.5em;
+
+  h1 {
+    @include linear-gradient(top, $red 90%, $light-red 10%);
+    background-size: 10px 10px;
+  }
+
+  aside {
+    @include linear-gradient(top, $light-red 90%, $red 10%);
+    background-size: 10px 10px;
+  }
+
+  ol {
+    li {
+      &.success a:before {
+        content: $success-unicode-glyph;
+      }
+
+      &.failure a:before {
+        content: $failure-unicode-glyph;
+      }
+
+      a {
+        display: block;
+        position: relative;
+      }
+    }
+    li:nth-child(2) { opacity: 0.95; }
+    li:nth-child(3) { opacity: 0.90; }
+    li:nth-child(4) { opacity: 0.85; }
+    li:nth-child(5) { opacity: 0.80; }
+    li:nth-child(6) { opacity: 0.70; }
+    li:nth-child(7) { opacity: 0.60; }
+    li:nth-child(8) { opacity: 0.40; }
+    li:nth-child(9) { opacity: 0.35; }
+    li:nth-child(10) { opacity: 0.30; }
+  }
 }
 
+
 article.build.large {
+
   h1 {
     font-size: 200px;
     text-align: center;
@@ -41,37 +77,160 @@ article.build.large {
         text-align: center;
         margin: 14px 7px 7px 0px;
         line-height: 45px;
-
-        &.success a:before {
-          content: $success-unicode-glyph;
-        }
-
-        &.failure a:before {
-          content: $failure-unicode-glyph;
-        }
-
-        a {
-          display: block;
-          position: relative;
-        }
       }
-
-      li:nth-child(1) { 
-        background-color: #FAC0A9;
-        border: 2px solid rgba(202,54,52, 0.8);
-        margin-top: 13px;
-      }
-      li:nth-child(2) { opacity: 0.95; }
-      li:nth-child(3) { opacity: 0.90; }
-      li:nth-child(4) { opacity: 0.85; }
-      li:nth-child(5) { opacity: 0.80; }
-      li:nth-child(6) { opacity: 0.70; }
-      li:nth-child(7) { opacity: 0.60; }
-      li:nth-child(8) { opacity: 0.40; }
-      li:nth-child(9) { opacity: 0.35; }
-      li:nth-child(10) { opacity: 0.30; }
     }
   }
 }
 
 
+article.build.wide {
+  height: 186px;
+
+  h1 {
+    font-size: 136px;
+    text-align: center;
+    float: left;
+    line-height: 186px;
+    width: 400px;
+  }
+
+  aside {
+    float: left;
+    width: 220px;
+    height: 100%;
+    text-align: center;
+
+    > div {
+      padding-left: 16px;
+      span:first-child {
+        text-transform: uppercase;
+      }
+    }
+
+    span {
+      font-size: 20px;
+    }
+
+    .last-build {
+      line-height: 80px;
+      padding: 0px 16px;
+    }
+
+    ol {
+      float:left;
+      width: 220px;
+      margin-left: 14px;
+      /* padding: 12px 25px; */
+
+      li {
+        text-decoration: none;
+        background-color: $very-very-light-red;
+        display:block;
+        float:left;
+        font-size: 40px;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        margin: 2px 2px;
+        line-height: 35px;
+      }
+    }
+  }
+}
+
+article.build.tall {
+  /* height: 186px; */
+  width: 310px;
+
+  h1 {
+    font-size: 110px;
+    text-align: center;
+    line-height: 185px;
+    /* padding: 30px 0 30px; */
+  }
+
+  aside {
+    height: 185px;
+    text-align: center;
+
+    > div {
+      span:first-child {
+        text-transform: uppercase;
+      }
+    }
+
+    span {
+      font-size: 20px;
+    }
+
+    .last-build {
+      line-height: 80px;
+      padding: 0px 16px;
+    }
+
+    ol {
+      float:left;
+      width: 220px;
+      margin-left: 55px;
+      /* padding: 12px 25px; */
+
+      li {
+        text-decoration: none;
+        background-color: $very-very-light-red;
+        display:block;
+        float:left;
+        font-size: 40px;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        margin: 2px 2px;
+        line-height: 35px;
+      }
+    }
+  }
+}
+
+
+article.build.small {
+  width: 50%;
+
+  h1 {
+    font-size: 100px;
+    text-align: center;
+    line-height: 154px;
+  }
+
+  aside {
+    > div {
+      background-color: $light-red;
+      height: 32px;
+      border-top: 2px solid $very-dark-red;
+    }
+
+    .last-build {
+      line-height: 32px;
+      font-size: 18px;
+      float: left;
+      padding: 0px 4px 0px 20px;
+    }
+
+    ol {
+      height: 32px;
+      float: left;
+
+      li {
+        text-decoration: none;
+        background-color: $very-very-light-red;
+        display:block;
+        float:left;
+        font-size: 24px;
+        height: 22px;
+        width: 22px;
+        text-align: center;
+        margin: 3px 2px 2px 0px;
+        line-height: 22px;
+
+      }
+    }
+  }
+}
