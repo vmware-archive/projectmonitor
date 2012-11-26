@@ -11,4 +11,4 @@ class ProjectMonitor.Views.Projects.FourTileView extends ProjectMonitor.Views.Pr
       new_relic_view: (new ProjectMonitor.Views.NewRelics.SmallView model: @model.get("new_relic")).render().$el.html()
       airbrake_view: (new ProjectMonitor.Views.Airbrakes.SmallView model: @model.get("airbrake")).render().$el.html()
     $(@el).html(@template(model))
-    return this
+    @

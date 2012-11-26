@@ -8,4 +8,4 @@ class ProjectMonitor.Views.Projects.OneTileView extends ProjectMonitor.Views.Pro
     model =
       build_view: (new ProjectMonitor.Views.Builds.LargeView model: @model.get("build")).render().$el.html()
     $(@el).html(@template(model))
-    return this
+    @
