@@ -5,6 +5,7 @@ $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
 @import '_build';
+@import '_tracker';
 
 html {
   height: 100%;
@@ -90,3 +91,45 @@ ol.tiles {
   margin: 10px;
   font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
 }
+
+.three-tile {
+  section {
+    article:nth-child(1) {
+      float: left;
+    }
+
+    article:nth-child(2) {
+      float: right;
+    }
+
+    article:nth-child(3) {
+      float: right;
+    }
+  }
+}
+
+.four-tile {
+  article:nth-child(1) {
+    float: left;
+  }
+
+  article:nth-child(2) {
+    float: right;
+  }
+
+  article:nth-child(3) {
+    float: left;
+  }
+
+  article:nth-child(4) {
+    float: right;
+  }
+}
+article.large, article.wide {
+  width: 620px;
+}
+
+article.small, article.tall {
+  width: 305px;
+}
+
