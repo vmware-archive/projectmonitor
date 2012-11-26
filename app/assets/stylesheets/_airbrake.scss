@@ -1,0 +1,72 @@
+article.airbrake {
+  margin: 0px;
+  padding: 0px;
+
+  @include linear-gradient(top, #AAA499 90%, #928D81 10%);
+  background-size: 10px 10px;
+}
+
+article.airbrake.wide {
+  height: 180px;
+  float: right;
+
+  .title {
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+
+
+}
+
+article.airbrake.small {
+  height: 180px;
+  float: right;
+
+  .title {
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+
+  dl.unresolved-errors, dl.last-error {
+    float: left;
+    width: 275px;
+    height: 50px;
+    margin: 10px 10px 0px 10px;
+    padding: 5px;
+    border-top: 1px solid #9B978B;
+    border-bottom: 1px solid #9B978B;
+  }
+
+  dl.unresolved-errors {
+    line-height: 50px;
+    background-color: #C3C1B9;
+
+    dt {
+      float: left;
+      clear: left;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 11px;
+      padding-left: 5px;
+    }
+
+    dd {
+      font-size: 42px;
+      float: right;
+      padding-right: 5px;
+    }
+  }
+
+  dl.last-error {
+    background-color: #B8B4AA;
+    dd {
+      font-size: 12px;
+    }
+  }
+}
