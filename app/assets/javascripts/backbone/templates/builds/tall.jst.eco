@@ -3,11 +3,13 @@
     <%= @name %>
   </h1>
   <aside class='history'>
+    <div><span>Last build:</span><span class="last-build"><%= @last_build %></span></div>
     <ol class="statuses">
       <% for status in @statuses: %>
-        <li class="<%= if status then 'success' else 'failure'%>" />
+        <li class="<%= if status then 'success' else 'failure'%>" >
+          <a></a>
+        </li>
       <% end %>
     </ol>
-    <div class="last-build"><%= @last_build %></time>
   </aside>
 </article>
