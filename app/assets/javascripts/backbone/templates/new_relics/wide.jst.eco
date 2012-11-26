@@ -1,4 +1,4 @@
-<article class="new_relic small <%= if @success then 'success' else 'failure'%>">
+<article class="new_relic wide <%= if @success then 'success' else 'failure'%>">
   <div class="title">New Relic</div>
 
   <dl class="velocity-block times">
