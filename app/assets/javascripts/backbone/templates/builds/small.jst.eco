@@ -1,13 +1,19 @@
 <article class="build small <%= if @success then 'success' else 'failure'%>">
-  <h1 class="name">
-    <%= @name %>
-  </h1>
+<h1 class="name">
+  <%= @name %>
+</h1>
+<% if !@aggregate: %>
   <aside class='history'>
-    <ol class="statuses">
-      <% for status in @statuses: %>
-        <li class="<%= if status then 'success' else 'failure'%>" />
-      <% end %>
-    </ol>
-    <div class="last-build"><%= @last_build %></time>
+    <div>
+      <span class="last-build"><%= @last_build %></span>
+      <ol class="statuses">
+        <% for status in @statuses: %>
+          <li class="<%= if status then 'success' else 'failure' %>">
+            <a></a>
+          </li>
+        <% end %>
+      </ol>
+    </div>
   </aside>
+<% end %>
 </article>
