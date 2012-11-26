@@ -1,25 +1,25 @@
-<article class="tracker wide">
-  <ol class="metrics">
-    <li>
-      velocity <span class="velocity"><%= @velocity %></span>
-    </li>
-    <li>
-      variance <span class="variance"><%= @variance %></span>
-    </li>
-  </ol>
+<article class="tracker wide <%= if @success then 'success' else 'failure'%>">
+  <div class="title">Pivotal Tracker</div>
 
-  <ol class="stories">
-    <li>
-      # of stories to accept <span class="delivered"><%= @delivered %></span>
-    </li>
-    <li>
-      # of open stories <span class="open"><%= @open %></span>
-    </li>
-  </ol>
-
-  <ol class="velocities">
+  <dl class="velocity-block velocities">
     <% for velocity in @velocities: %>
-      <li><%= velocity %></li>
+      <dd>
+        <span style="height: <%= velocity %>%"></span>
+      </dd>
     <% end %>
-  </ol>
+  </dl>
+
+  <dl class="metrics">
+      <dt>velocity</dt>
+      <dd class="velocity"><%= @velocity %></dd>
+      <dt>variance</dt>
+      <dd class="variance"><%= @variance %>%</dd>
+  </dl>
+
+  <dl class="stories">
+      <dt># of stories to accept</dt>
+      <dd class="delivered"><%= @delivered %></dd>
+      <dt># of open stories</dt>
+      <dd class="open"><%= @open %></dd>
+  </dl>
 </article>
