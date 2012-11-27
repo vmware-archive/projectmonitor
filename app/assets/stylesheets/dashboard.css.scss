@@ -87,11 +87,19 @@ ol.tiles {
 
 .tile {
   float: left;
-  width: 620px;
+  width: 610px;
   background-color: #2E2E29;
   padding: 10px;
-  margin: 10px;
+  margin: 5px;
   font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+}
+
+.two-tile {
+  section {
+    article:nth-child(1) {
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .three-tile {
@@ -130,12 +138,15 @@ ol.tiles {
     float: right;
   }
 }
+
 article.large, article.wide {
   width: 610px;
-  padding: 5px;
 }
 
 article.small, article.tall {
-  width: 305px;
+  width: 300px;
 }
 
+article .container {
+  padding: 5px;
+}
