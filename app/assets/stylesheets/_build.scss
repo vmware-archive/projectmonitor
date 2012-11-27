@@ -1,3 +1,23 @@
+@mixin build_status($color) {
+  h1 {
+    @include linear-gradient(top, $color 90%, lighten($color, 10%) 10%);
+  }
+
+  aside {
+    background-color: lighten($color, 10%);
+  }
+  ol {
+    li {
+      background-color: lighten($color, 25%);
+    }
+  }
+}
+
+article.build.success       { @include build_status($green) }
+article.build.failure       { @include build_status($red) }
+article.build.offline       { @include build_status($grey) }
+article.build.indeterminate { @include build_status($yellow) }
+
 article.build {
   h1, aside {
     background-size: 10px 10px;
@@ -5,18 +25,12 @@ article.build {
 
   h1 {
     text-align: center;
-    @include linear-gradient(top, $red 90%, $light-red 10%);
-  }
-
-  aside {
-    background-color: $light-red;
   }
 
   ol {
     float: left;
 
     li {
-      background-color: $very-very-light-red;
       display:block;
       float:left;
       text-align: center;
