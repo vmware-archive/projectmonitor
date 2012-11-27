@@ -65,8 +65,7 @@ article.build {
 article.build.large {
   h1 {
     font-size: 200px;
-    padding: 30px 0 30px;
-    line-height: 230px;
+    line-height: 250px;
   }
 
   aside {
@@ -97,19 +96,19 @@ article.build.large {
 
 
 article.build.wide {
-  height: 180px;
+  height: 160px;
 
   h1 {
     font-size: 136px;
     float: left;
-    line-height: 180px;
-    width: 390px;
+    line-height: 160px;
+    width: 385px;
   }
 
   aside {
     float: left;
-    width: 220px;
-    height: 180px;
+    width: 215px;
+    height: 160px;
     text-align: center;
 
     > div {
@@ -124,13 +123,13 @@ article.build.wide {
     }
 
     .last-build {
-      line-height: 80px;
+      line-height: 73px;
       padding: 0px 16px;
     }
 
     ol {
       width: 220px;
-      margin-left: 14px;
+      margin-left: 10px;
 
       li {
         font-size: 40px;
@@ -147,14 +146,15 @@ article.build.tall {
   h1 {
     font-size: 100px;
     text-align: center;
-    line-height: 185px;
+    line-height: 165px;
   }
 
   aside {
-    height: 185px;
+    height: 165px;
     text-align: center;
 
     > div {
+      margin-left: 10px;
       span:first-child {
         text-transform: uppercase;
       }
@@ -165,13 +165,13 @@ article.build.tall {
     }
 
     .last-build {
-      line-height: 80px;
+      line-height: 60px;
       padding: 0px 16px;
     }
 
     ol {
       width: 220px;
-      margin-left: 55px;
+      margin-left: 50px;
 
       li {
         font-size: 40px;
@@ -188,7 +188,7 @@ article.build.tall {
 article.build.small {
   h1 {
     font-size: 100px;
-    line-height: 145px;
+    line-height: 125px;
   }
 
   aside {

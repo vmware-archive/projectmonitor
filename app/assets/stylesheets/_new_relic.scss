@@ -7,7 +7,7 @@ article.new_relic {
 }
 
 article.new_relic.wide {
-  height: 180px;
+  height: 160px;
 
   .title {
     font-size: 11px;
@@ -18,7 +18,7 @@ article.new_relic.wide {
   }
 
   dl.times {
-    height: 140px;
+    height: 120px;
     width: 543px;
     border-bottom: 2px solid #918735;
     padding-top: 10px;
@@ -46,7 +46,7 @@ article.new_relic.wide {
 }
 
 article.new_relic.small {
-  height: 180px;
+  height: 160px;
   float: right;
 
   .title {
@@ -59,12 +59,12 @@ article.new_relic.small {
 
   dl.times {
     float: right;
-    height: 140px;
+    height: 120px;
     width: 280px;
     border-bottom: 2px solid #918735;
     border-left: 2px solid #918735;
     padding-top: 10px;
-    margin-right: 10px;
+    margin-right: 5px;
 
     dd {
       display:inline;
