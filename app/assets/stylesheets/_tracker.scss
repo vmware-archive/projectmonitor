@@ -1,5 +1,5 @@
 article.tracker {
-  @include linear-gradient(top, #99CBC6 90%, #81C1BA 10%);
+  @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
   background-size: 10px 10px;
 
   .title {
@@ -9,9 +9,9 @@ article.tracker {
 
   dl.metrics, dl.stories {
     float: left;
-    background-color: #C8E4E1;
-    border-top: 1px solid #48968C;
-    border-bottom: 1px solid #48968C;
+    background-color: lighten($blue, 10%);
+    border-top: 1px solid darken($blue, 20%);
+    border-bottom: 1px solid darken($blue, 20%);
 
     dt {
       float: left;
@@ -25,7 +25,7 @@ article.tracker {
 
   dl.velocities {
     float: right;
-    border-bottom: 2px solid #48968C;
+    border-bottom: 2px solid darken($blue, 20%);
 
     dd {
       display:inline;
@@ -35,7 +35,7 @@ article.tracker {
       span {
         position: absolute;
         bottom: 0;
-        background-color: #5EA9A0;
+        background-color: darken($blue, 20%);
       }
 
     }
