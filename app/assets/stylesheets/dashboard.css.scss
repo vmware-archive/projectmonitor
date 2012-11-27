@@ -95,27 +95,23 @@ ol.tiles {
 }
 
 .two-tile {
-  section {
-    article:nth-child(1) {
-      margin-bottom: 10px;
-    }
+  article:nth-child(1) {
+    margin-bottom: 10px;
   }
 }
 
 .three-tile {
-  section {
-    article:nth-child(1) {
-      float: left;
-    }
+  article:nth-child(1) {
+    float: left;
+  }
 
-    article:nth-child(2) {
-      float: right;
-      margin-bottom: 10px;
-    }
+  article:nth-child(2) {
+    float: right;
+    margin-bottom: 10px;
+  }
 
-    article:nth-child(3) {
-      float: right;
-    }
+  article:nth-child(3) {
+    float: right;
   }
 }
 

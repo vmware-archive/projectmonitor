@@ -1,5 +1,3 @@
-<section class="project">
-  <% for subview in @subviews: %>
-  <%- subview %>
-  <% end %>
-</section>
+<% for subview in @subviews: %>
+<%- subview %>
+<% end %>

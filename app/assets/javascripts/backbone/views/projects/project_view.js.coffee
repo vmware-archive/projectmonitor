@@ -1,6 +1,8 @@
 ProjectMonitor.Views.Projects ||= {}
 
 class ProjectMonitor.Views.Projects.ProjectView extends Backbone.View
+  tagName: "li"
+  className: "project"
 
   render: ->
     view = switch @model.subviews.length
@@ -8,5 +10,5 @@ class ProjectMonitor.Views.Projects.ProjectView extends Backbone.View
       when 2 then new ProjectMonitor.Views.Projects.TwoTileView(model: @model)
       when 3 then new ProjectMonitor.Views.Projects.ThreeTileView(model: @model)
       else new ProjectMonitor.Views.Projects.FourTileView(model: @model)
-    $(@el).html(view.render().el)
+    @$el.html(view.render().$el)
     @
