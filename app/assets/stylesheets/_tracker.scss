@@ -53,7 +53,7 @@ article.tracker {
 }
 
 article.tracker.wide {
-  height: 180px;
+  float: left;
 
   .title {
     font-size: 20px;
@@ -61,7 +61,7 @@ article.tracker.wide {
 
   dl.metrics, dl.stories {
     width: 200px;
-    margin: 15px 0px 0px 5px;
+    margin: 4px 0px 0px 5px;
     padding: 5px;
 
     dt {
@@ -75,8 +75,9 @@ article.tracker.wide {
   }
 
   dl.velocities {
-    height: 140px;
+    height: 118px;
     width: 370px;
+    margin-bottom: 11px;
 
     dd {
       margin-right: 2px;
@@ -92,7 +93,7 @@ article.tracker.wide {
 }
 
 article.tracker.small {
-  height: 180px;
+  height: 160px;
   float: right;
 
   .title {
@@ -102,7 +103,7 @@ article.tracker.small {
   }
 
   dl.metrics, dl.stories {
-    width: 130px;
+    width: 125px;
     margin: 10px 5px 10px 5px;
     padding: 5px;
 
@@ -122,7 +123,7 @@ article.tracker.small {
   }
 
   dl.velocities {
-    height: 82px;
+    height: 62px;
     width: 280px;
     margin-right: 10px;
 

@@ -7,7 +7,7 @@ article.airbrake {
 }
 
 article.airbrake.wide {
-  height: 180px;
+  height: 160px;
 
   .title {
     font-size: 11px;
@@ -19,8 +19,8 @@ article.airbrake.wide {
 
   dl.unresolved-errors, dl.last-error {
     float: left;
-    width: 280px;
-    height: 130px;
+    width: 275px;
+    height: 110px;
     margin: 10px 0px 0px 0px;
     padding: 5px;
     border-top: 1px solid #9B978B;
@@ -48,7 +48,7 @@ article.airbrake.wide {
       font-size: 110px;
       float: right;
       padding-right: 5px;
-      line-height: 130px;
+      line-height: 110px;
     }
   }
 
@@ -61,7 +61,7 @@ article.airbrake.wide {
 }
 
 article.airbrake.small {
-  height: 180px;
+  height: 160px;
   float: right;
 
   .title {
@@ -74,8 +74,8 @@ article.airbrake.small {
 
   dl.unresolved-errors, dl.last-error {
     float: left;
-    width: 270px;
-    height: 50px;
+    width: 265px;
+    height: 45px;
     margin: 10px 10px 0px 10px;
     padding: 5px;
     border-top: 1px solid #9B978B;
@@ -83,7 +83,7 @@ article.airbrake.small {
   }
 
   dl.unresolved-errors {
-    line-height: 50px;
+    line-height: 45px;
     background-color: #C3C1B9;
 
     dt {
