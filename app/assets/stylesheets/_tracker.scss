@@ -7,9 +7,7 @@ article.tracker {
 }
 
 article.tracker.wide {
-  height: 162px;
-  margin-top: 12px;
-  padding: 5px;
+  height: 180px;
 
   .title {
     font-size: 20px;
@@ -20,7 +18,7 @@ article.tracker.wide {
     float: left;
     width: 200px;
     background-color: #C8E4E1;
-    margin: 10px 0px 10px 10px;
+    margin: 15px 0px 0px 5px;
     padding: 5px;
     border-top: 1px solid #48968C;
     border-bottom: 1px solid #48968C;
@@ -28,12 +26,12 @@ article.tracker.wide {
     dt {
       float: left;
       clear: left;
-      line-height: 18px;
+      line-height: 22px;
     }
 
     dd {
-      font-size: 18px;
-      line-height: 18px;
+      font-size: 22px;
+      line-height: 22px;
       float: right;
     }
   }
@@ -44,8 +42,8 @@ article.tracker.wide {
 
   dl.velocities {
     float: right;
-    height: 124px;
-    width: 380px;
+    height: 140px;
+    width: 370px;
     border-bottom: 2px solid #48968C;
 
     dd {
@@ -121,9 +119,10 @@ article.tracker.small {
 
   dl.velocities {
     float: right;
-    height: 90px;
-    width: 294px;
+    height: 82px;
+    width: 280px;
     border-bottom: 2px solid #48968C;
+    margin-right: 10px;
 
     dd {
       display:inline;
