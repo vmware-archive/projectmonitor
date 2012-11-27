@@ -260,7 +260,7 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.10.0)
     rubyzip (0.9.9)
-    sass (3.1.20)
+    sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
