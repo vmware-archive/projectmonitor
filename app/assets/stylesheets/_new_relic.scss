@@ -2,7 +2,7 @@ article.new_relic {
   margin: 0px;
   padding: 0px;
 
-  @include linear-gradient(top, #C7D36D 90%, #BFC664 10%);
+  @include linear-gradient(top, $yellow 90%, darken($yellow, 10%) 10%);
   background-size: 10px 10px;
 }
 
@@ -20,10 +20,10 @@ article.new_relic.wide {
   dl.times {
     height: 120px;
     width: 543px;
-    border-bottom: 2px solid #918735;
+    border-bottom: 2px solid darken($yellow, 30%);
+    border-left: 2px solid darken($yellow, 30%);
     padding-top: 10px;
     margin-left: 37px;
-    border-left: 2px solid #918735;
 
     dd {
       display:inline;
@@ -37,9 +37,7 @@ article.new_relic.wide {
         position: absolute;
         width: 50px;
         bottom: 0;
-        border-top-left-radius:1px;
-        border-top-right-radius:1px;
-        background-color: #ABB13E;
+        background-color: darken($yellow, 20%);
       }
     }
   }
@@ -61,8 +59,8 @@ article.new_relic.small {
     float: right;
     height: 120px;
     width: 280px;
-    border-bottom: 2px solid #918735;
-    border-left: 2px solid #918735;
+    border-bottom: 2px solid darken($yellow, 30%);
+    border-left: 2px solid darken($yellow, 30%);
     padding-top: 10px;
     margin-right: 5px;
 
@@ -78,9 +76,7 @@ article.new_relic.small {
         position: absolute;
         width: 25px;
         bottom: 0;
-        border-top-left-radius:1px;
-        border-top-right-radius:1px;
-        background-color: #ABB13E;
+        background-color: darken($yellow, 20%);
       }
     }
   }
