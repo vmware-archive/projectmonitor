@@ -8,7 +8,6 @@ article.new_relic {
 
 article.new_relic.wide {
   height: 180px;
-  float: right;
 
   .title {
     font-size: 11px;
@@ -19,11 +18,12 @@ article.new_relic.wide {
   }
 
   dl.times {
-    float: right;
     height: 140px;
-    width: 620px;
+    width: 543px;
     border-bottom: 2px solid #918735;
     padding-top: 10px;
+    margin-left: 37px;
+    border-left: 2px solid #918735;
 
     dd {
       display:inline;
@@ -60,9 +60,11 @@ article.new_relic.small {
   dl.times {
     float: right;
     height: 140px;
-    width: 294px;
+    width: 280px;
     border-bottom: 2px solid #918735;
+    border-left: 2px solid #918735;
     padding-top: 10px;
+    margin-right: 10px;
 
     dd {
       display:inline;

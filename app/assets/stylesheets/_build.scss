@@ -45,24 +45,25 @@ article.build.large {
     font-size: 200px;
     text-align: center;
     padding: 30px 0 30px;
+    line-height: 230px;
   }
 
   aside {
     > div {
       background-color: $light-red;
-      height: 80px;
+      height: 78px;
       border-top: 2px solid $very-dark-red;
     }
 
     .last-build {
-      line-height: 80px;
+      line-height: 78px;
       font-size: 30px;
       float: left;
       padding: 0px 16px;
     }
 
     ol {
-      height: 80px;
+      height: 78px;
       float: left;
 
       li {
@@ -83,20 +84,20 @@ article.build.large {
 
 
 article.build.wide {
-  height: 186px;
+  height: 180px;
 
   h1 {
     font-size: 136px;
     text-align: center;
     float: left;
-    line-height: 186px;
+    line-height: 180px;
     width: 390px;
   }
 
   aside {
     float: left;
     width: 220px;
-    height: 100%;
+    height: 180px;
     text-align: center;
 
     > div {
@@ -197,12 +198,12 @@ article.build.small {
   aside {
     > div {
       background-color: $light-red;
-      height: 32px;
+      height: 33px;
       border-top: 2px solid $very-dark-red;
     }
 
     .last-build {
-      line-height: 32px;
+      line-height: 33px;
       font-size: 18px;
       float: left;
       padding: 0px 4px 0px 20px;
