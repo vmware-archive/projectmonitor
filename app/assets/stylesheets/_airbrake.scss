@@ -2,7 +2,7 @@ article.airbrake {
   margin: 0px;
   padding: 0px;
 
-  @include linear-gradient(top, #AAA499 90%, #928D81 10%);
+  @include linear-gradient(top, $gray 90%, darken($gray, 10%) 10%);
   background-size: 10px 10px;
 }
 
@@ -23,12 +23,12 @@ article.airbrake.wide {
     height: 110px;
     margin: 10px 0px 0px 0px;
     padding: 5px;
-    border-top: 1px solid #9B978B;
-    border-bottom: 1px solid #9B978B;
+    border-top: 1px solid darken($gray, 20%);
+    border-bottom: 1px solid darken($gray, 20%);
   }
 
   dl.unresolved-errors {
-    background-color: #C3C1B9;
+    background-color: lighten($gray, 10%);
     margin-left: 10px;
     margin-right: 10px;
 
@@ -53,7 +53,7 @@ article.airbrake.wide {
   }
 
   dl.last-error {
-    background-color: #B8B4AA;
+    background-color: lighten($gray, 5%);
     dd {
       font-size: 18px;
     }
@@ -78,13 +78,13 @@ article.airbrake.small {
     height: 45px;
     margin: 10px 10px 0px 10px;
     padding: 5px;
-    border-top: 1px solid #9B978B;
-    border-bottom: 1px solid #9B978B;
+    border-top: 1px solid darken($gray, 20%);
+    border-bottom: 1px solid darken($gray, 20%);
   }
 
   dl.unresolved-errors {
+    background-color: lighten($gray, 10%);
     line-height: 45px;
-    background-color: #C3C1B9;
 
     dt {
       float: left;
@@ -103,7 +103,7 @@ article.airbrake.small {
   }
 
   dl.last-error {
-    background-color: #B8B4AA;
+    background-color: lighten($gray, 5%);
     dd {
       font-size: 12px;
     }
