@@ -10,8 +10,11 @@ describe "ProjectMonitor.Views.TrackerView", ->
     @view = new ProjectMonitor.Views.TrackerView {model: @tracker, size: "huge"}
     setFixtures(@view.render().$el)
 
-  it "should have an article", ->
-    expect($("article")).toExist()
+  it "should be an article", ->
+    expect(@view.tagName).toEqual("article")
+
+  it "should be an unnested article", ->
+    expect($("article article")).not.toExist()
 
   it "should have tracker class", ->
     expect($("article")).toHaveClass("tracker")
