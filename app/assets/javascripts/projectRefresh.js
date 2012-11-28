@@ -1,5 +1,5 @@
 var ProjectRefresh = (function () {
-  var projectSelectors, tilesCount, pollIntervalSeconds = 3000, fadeIntervalSeconds = 3, timeoutFunction;
+  var projectSelectors, tilesCount, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   function showAsBuilding (projectSelector) {
     var $projectEl = $(projectSelector);
