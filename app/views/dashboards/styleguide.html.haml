@@ -1,0 +1,62 @@
+.warnings
+  .github
+    = link_to "GITHUB IS DOWN", 'http://status.github.com'
+  .heroku
+    = link_to "HEROKU IS DOWN", 'http://status.heroku.com'
+%section
+  %ol.tiles
+:coffeescript
+  build_success = new ProjectMonitor.Models.Build {name: 'PROJ', aggregate: false, status: "success", statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
+  build_failure = new ProjectMonitor.Models.Build {name: 'SEMA', aggregate: false, status: "failure", statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
+  build_offline = new ProjectMonitor.Models.Build {name: 'NYC', aggregate: false, status: "offline", statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
+  build_indeterminate = new ProjectMonitor.Models.Build {name: 'COLO', aggregate: false, status: "indeterminate", statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
+  tracker = new ProjectMonitor.Models.Tracker {velocity: 9, variance: 10, delivered: 9, open: 5, velocities: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40]}
+  new_relic = new ProjectMonitor.Models.NewRelic {times: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40]}
+  airbrake = new ProjectMonitor.Models.Airbrake {error_count: 9, last_error: "RuntimeError: Workflow"}
+
+  large_build_view = -> new ProjectMonitor.Views.BuildView({model: build_offline, size: 'large'})
+  wide_build_view = -> new ProjectMonitor.Views.BuildView({model: build_success, size: 'wide'})
+  tall_build_view = -> new ProjectMonitor.Views.BuildView({model: build_failure, size: 'tall'})
+  small_build_view = -> new ProjectMonitor.Views.BuildView({model: build_indeterminate, size: 'small'})
+
+  wide_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'wide'})
+  small_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'small'})
+
+  wide_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "wide"})
+  small_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "small"})
+
+  wide_airbrake_view = -> new ProjectMonitor.Views.AirbrakeView({model: airbrake, size: "wide"})
+  small_airbrake_view = -> new ProjectMonitor.Views.AirbrakeView({model: airbrake, size: "small"})
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [large_build_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_tracker_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+
+  two_tile_build_new_relic_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_new_relic_view()]}}
+  $html = two_tile_build_new_relic_view.render().$el
+  $(".tiles").append $html
+
+  two_tile_build_airbrake_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_airbrake_view()]}}
+  $html = two_tile_build_airbrake_view.render().$el
+  $(".tiles").append $html
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_tracker_view(), small_new_relic_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_tracker_view(), small_airbrake_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_new_relic_view(), small_airbrake_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [small_build_view(), small_tracker_view(), small_new_relic_view(), small_airbrake_view()]}}
+  $html = view.render().$el
+  $(".tiles").append $html
+.clear

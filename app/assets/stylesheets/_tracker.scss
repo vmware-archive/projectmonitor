@@ -1,0 +1,148 @@
+article.tracker {
+  @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
+  background-size: 10px 10px;
+
+  .title {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .stats {
+    float: left;
+  }
+
+  dl.metrics, dl.stories {
+    float: left;
+    background-color: lighten($blue, 10%);
+    border-top: 1px solid darken($blue, 20%);
+    border-bottom: 1px solid darken($blue, 20%);
+
+    dt {
+      float: left;
+      clear: left;
+    }
+
+    dd {
+      float: right;
+    }
+  }
+
+  dl.velocities {
+    float: right;
+    border-bottom: 2px solid darken($blue, 20%);
+
+    dd {
+      display:inline;
+      float: left;
+      position: relative;
+
+      span {
+        position: absolute;
+        bottom: 0;
+        background-color: darken($blue, 20%);
+      }
+    }
+
+    dd:nth-child(10) span { opacity: 0.95; }
+    dd:nth-child(9)  span { opacity: 0.90; }
+    dd:nth-child(8)  span { opacity: 0.85; }
+    dd:nth-child(7)  span { opacity: 0.80; }
+    dd:nth-child(6)  span { opacity: 0.70; }
+    dd:nth-child(5)  span { opacity: 0.60; }
+    dd:nth-child(4)  span { opacity: 0.50; }
+    dd:nth-child(3)  span { opacity: 0.35; }
+    dd:nth-child(2)  span { opacity: 0.30; }
+    dd:nth-child(1)  span { opacity: 0.25; }
+  }
+}
+
+article.tracker.wide {
+  float: left;
+
+  .title {
+    font-size: 20px;
+  }
+
+  dl.metrics, dl.stories {
+    width: 200px;
+    margin: 4px 0px 0px 5px;
+    padding: 5px;
+
+    dt {
+      line-height: 22px;
+    }
+
+    dd {
+      font-size: 22px;
+      line-height: 22px;
+    }
+  }
+
+  dl.stories {
+    clear: left;
+  }
+
+  dl.velocities {
+    height: 118px;
+    width: 370px;
+    margin-bottom: 11px;
+
+    dd {
+      margin-right: 2px;
+      height: 100%;
+      width: 35px;
+
+      span {
+        width: 32px;
+        bottom: 0;
+      }
+    }
+  }
+}
+
+article.tracker.small {
+  height: 160px;
+  float: right;
+
+  .title {
+    font-size: 11px;
+    text-align: center;
+    padding-top: 5px;
+  }
+
+  dl.metrics, dl.stories {
+    width: 120px;
+    margin: 10px 5px 10px 5px;
+    padding: 5px;
+
+    dt {
+      line-height: 18px;
+      font-size: 10px;
+    }
+
+    dd {
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
+
+  dl.stories {
+    float: right;
+  }
+
+  dl.velocities {
+    height: 62px;
+    width: 280px;
+    margin-right: 5px;
+
+    dd {
+      margin-right: 2px;
+      height: 100%;
+      width: 26px;
+
+      span {
+        width: 25px;
+      }
+    }
+  }
+}

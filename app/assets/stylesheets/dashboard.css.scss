@@ -4,6 +4,10 @@ $ninesixty-fluid-grid-width: 100%;
 $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
+@import '_build';
+@import '_tracker';
+@import '_new_relic';
+@import '_airbrake';
 
 html {
   height: 100%;
@@ -14,24 +18,35 @@ body.dashboard {
   height: 100%;
   width: 100%;
 
+  .warnings {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+  }
+
   .github, .heroku {
+    text-align: center;
+    display: none;
+    border-bottom: 1px solid black;
+    height: 60px;
+    z-index: 1000;
+    margin-bottom: 3px;
+
     &.bad {
-      background: orange;
+      opacity: 0.94;
+      @include striped-background(orange, $gray);
     }
 
     &.unreachable {
-      background: white;
+      background-color: rgba(255, 255, 255, 0.9);
     }
-
-    margin: 0 0 3px 0;
-    text-align: center;
-    font-size: 39px;
-    display: none;
-    border-bottom: 1px solid black;
 
     a {
       text-decoration: none;
       color: black;
+      font-size: 60px;
+      line-height: 60px;
     }
   }
 
@@ -75,4 +90,70 @@ body.dashboard {
 .clear {
   height:75px;
   clear: both;
+}
+
+ol.tiles {
+  list-style-type: none;
+}
+
+.tile {
+  float: left;
+  width: 600px;
+  background-color: #2E2E29;
+  padding: 10px;
+  margin: 5px;
+  font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+}
+
+.two-tile {
+  article:nth-child(1) {
+    margin-bottom: 10px;
+  }
+}
+
+.three-tile {
+  article:nth-child(1) {
+    float: left;
+  }
+
+  article:nth-child(2) {
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  article:nth-child(3) {
+    float: right;
+  }
+}
+
+.four-tile {
+  article:nth-child(1) {
+    float: left;
+    margin-bottom: 10px;
+  }
+
+  article:nth-child(2) {
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  article:nth-child(3) {
+    float: left;
+  }
+
+  article:nth-child(4) {
+    float: right;
+  }
+}
+
+article.large, article.wide {
+  width: 600px;
+}
+
+article.small, article.tall {
+  width: 295px;
+}
+
+article .container {
+  padding: 5px;
 }

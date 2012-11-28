@@ -58,6 +58,9 @@ GEM
     chronic (0.6.7)
     chunky_png (1.2.5)
     coderay (1.0.7)
+    coffee-filter (0.1.1)
+      coffee-script (>= 2.2.0)
+      haml (>= 3.0.18)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -93,6 +96,11 @@ GEM
     draper (0.12.0)
       activesupport (>= 2.3.10)
     dynamic_form (1.1.4)
+    eco (1.0.0)
+      coffee-script
+      eco-source
+      execjs
+    eco-source (1.1.0.rc.1)
     ejs (1.0.0)
     erubis (2.7.0)
     eventmachine (0.12.10)
@@ -252,7 +260,7 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.10.0)
     rubyzip (0.9.9)
-    sass (3.1.20)
+    sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -304,6 +312,7 @@ DEPENDENCIES
   bourbon
   capybara
   choices
+  coffee-filter
   compass-rails
   daemons
   debugger
@@ -313,6 +322,7 @@ DEPENDENCIES
   devise-encryptable
   draper (< 0.13)
   dynamic_form
+  eco
   factory_girl_rails
   fakeweb
   fastthread

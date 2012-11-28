@@ -1,0 +1,20 @@
+<h1 class="name">
+  <%= @name %>
+</h1>
+<% if !@aggregate: %>
+  <aside class='history'>
+    <div>
+      <% if(_.include(['tall', 'wide'], @size)): %>
+        <span>Last build:</span>
+      <% end %>
+      <span class="last-build"><%= @last_build %></span>
+      <ol class="statuses">
+        <% for status in @statuses: %>
+          <li class="<%= if status then 'success' else 'failure' %>">
+            <a></a>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  </aside>
+<% end %>

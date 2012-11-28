@@ -34,6 +34,10 @@ $yellow: #D1D684;
 $dark-yellow: #AEB36E;
 $very-dark-yellow: #A2954B;
 
+$blue: #99CBC6;
+$gray: #AAA499;
+$black: #000000;
+
 /* History Constants */
 $success-unicode-glyph: "\2022"; // unicode bullet
 $failure-unicode-glyph: "\00D7"; // unicode 'x'
@@ -83,4 +87,10 @@ h2 {
   font-family: Helvetica, sans-serif;
   padding: 0;
   line-height: 1em;
+}
+
+@mixin striped-background($stripe1, $stripe2, $angle: -45deg, $size: 70px, $other-backgrounds: false) {
+  @include background-image(linear-gradient($angle, $stripe1 25%, $stripe2 25%, $stripe2 50%, $stripe1 50%, $stripe1 75%, $stripe2 75%, $stripe2), $other-backgrounds);
+  background-repeat: repeat;
+  @include background-size(unquote("#{$size} #{$size}"));
 }
