@@ -5,10 +5,8 @@ class ProjectMonitor.Views.NewRelicView extends Backbone.View
   template: JST["backbone/templates/new_relic"]
 
   initialize: (options) ->
-    @size = options.size
-    @$el.addClass("new_relic #{@size}")
+    @$el.addClass("new_relic #{options.size}")
 
   render: ->
-    @$el.empty()
-    $(@el).html(@template(@model.toJSON(), {size: @size} ))
+    @$el.html(@template(@model.toJSON()))
     @
