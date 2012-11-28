@@ -14,49 +14,49 @@
   new_relic = new ProjectMonitor.Models.NewRelic {times: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40]}
   airbrake = new ProjectMonitor.Models.Airbrake {error_count: 9, last_error: "RuntimeError: Workflow"}
 
-  large_build_view = new ProjectMonitor.Views.Builds.LargeView({model: build_offline})
-  wide_build_view = new ProjectMonitor.Views.Builds.WideView({model: build_success})
-  tall_build_view = new ProjectMonitor.Views.Builds.TallView({model: build_failure})
-  small_build_view = new ProjectMonitor.Views.Builds.SmallView({model: build_indeterminate})
+  large_build_view = -> new ProjectMonitor.Views.BuildView({model: build_offline, size: 'large'})
+  wide_build_view = -> new ProjectMonitor.Views.BuildView({model: build_success, size: 'wide'})
+  tall_build_view = -> new ProjectMonitor.Views.BuildView({model: build_failure, size: 'tall'})
+  small_build_view = -> new ProjectMonitor.Views.BuildView({model: build_indeterminate, size: 'small'})
 
-  wide_tracker_view = new ProjectMonitor.Views.Trackers.WideView({model: tracker})
-  small_tracker_view = new ProjectMonitor.Views.Trackers.SmallView({model: tracker})
+  wide_tracker_view = -> new ProjectMonitor.Views.Trackers.WideView({model: tracker})
+  small_tracker_view = -> new ProjectMonitor.Views.Trackers.SmallView({model: tracker})
 
-  wide_new_relic_view = new ProjectMonitor.Views.NewRelics.WideView({model: new_relic})
-  small_new_relic_view = new ProjectMonitor.Views.NewRelics.SmallView({model: new_relic})
+  wide_new_relic_view = -> new ProjectMonitor.Views.NewRelics.WideView({model: new_relic})
+  small_new_relic_view = -> new ProjectMonitor.Views.NewRelics.SmallView({model: new_relic})
 
-  wide_airbrake_view = new ProjectMonitor.Views.Airbrakes.WideView({model: airbrake})
-  small_airbrake_view = new ProjectMonitor.Views.Airbrakes.SmallView({model: airbrake})
+  wide_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.WideView({model: airbrake})
+  small_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.SmallView({model: airbrake})
 
-  one_tile_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [large_build_view]}}
-  $html = one_tile_view.render().$el
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [large_build_view()]}}
+  $html = view.render().$el
   $(".tiles").append $html
 
-  two_tile_build_tracker_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view, wide_tracker_view]}}
-  $html = two_tile_build_tracker_view.render().$el
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_tracker_view()]}}
+  $html = view.render().$el
   $(".tiles").append $html
 
-  two_tile_build_new_relic_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view, wide_new_relic_view]}}
+  two_tile_build_new_relic_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_new_relic_view()]}}
   $html = two_tile_build_new_relic_view.render().$el
   $(".tiles").append $html
 
-  two_tile_build_airbrake_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view, wide_airbrake_view]}}
+  two_tile_build_airbrake_view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [wide_build_view(), wide_airbrake_view()]}}
   $html = two_tile_build_airbrake_view.render().$el
   $(".tiles").append $html
 
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view, small_tracker_view, small_new_relic_view]}}
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_tracker_view(), small_new_relic_view()]}}
   $html = view.render().$el
   $(".tiles").append $html
 
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view, small_tracker_view, small_airbrake_view]}}
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_tracker_view(), small_airbrake_view()]}}
   $html = view.render().$el
   $(".tiles").append $html
 
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view, small_new_relic_view, small_airbrake_view]}}
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [tall_build_view(), small_new_relic_view(), small_airbrake_view()]}}
   $html = view.render().$el
   $(".tiles").append $html
 
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [small_build_view, small_tracker_view, small_new_relic_view, small_airbrake_view]}}
+  view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [small_build_view(), small_tracker_view(), small_new_relic_view(), small_airbrake_view()]}}
   $html = view.render().$el
   $(".tiles").append $html
 .clear

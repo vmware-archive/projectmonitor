@@ -1,3 +1,0 @@
-<% for subview in @subviews: %>
-<%- subview %>
-<% end %>
