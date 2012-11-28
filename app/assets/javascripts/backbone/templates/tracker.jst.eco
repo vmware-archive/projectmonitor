@@ -1,14 +1,7 @@
 <div class="container">
   <div class="title">Pivotal Tracker</div>
 
-  <dl class="velocity-block velocities">
-    <% for velocity in @velocities: %>
-      <dd>
-        <span style="height: <%= velocity %>%"></span>
-      </dd>
-    <% end %>
-  </dl>
-
+<div class="stats">
   <dl class="metrics">
       <dt>velocity</dt>
       <dd class="velocity"><%= @velocity %></dd>
@@ -21,5 +14,14 @@
       <dd class="delivered"><%= @delivered %></dd>
       <dt># of open stories</dt>
       <dd class="open"><%= @open %></dd>
+  </dl>
+  </div>
+
+  <dl class="velocity-block velocities">
+    <% for velocity in @velocities: %>
+      <dd>
+        <span style="height: <%= velocity %>%"></span>
+      </dd>
+    <% end %>
   </dl>
 </div>
