@@ -25,8 +25,8 @@
   wide_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "wide"})
   small_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "small"})
 
-  wide_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.WideView({model: airbrake})
-  small_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.SmallView({model: airbrake})
+  wide_airbrake_view = -> new ProjectMonitor.Views.AirbrakeView({model: airbrake, size: "wide"})
+  small_airbrake_view = -> new ProjectMonitor.Views.AirbrakeView({model: airbrake, size: "small"})
 
   view = new ProjectMonitor.Views.Projects.ProjectView {model: {subviews: [large_build_view()]}}
   $html = view.render().$el
