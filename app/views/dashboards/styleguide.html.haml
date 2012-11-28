@@ -22,8 +22,8 @@
   wide_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'wide'})
   small_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'small'})
 
-  wide_new_relic_view = -> new ProjectMonitor.Views.NewRelics.WideView({model: new_relic})
-  small_new_relic_view = -> new ProjectMonitor.Views.NewRelics.SmallView({model: new_relic})
+  wide_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "wide"})
+  small_new_relic_view = -> new ProjectMonitor.Views.NewRelicView({model: new_relic, size: "small"})
 
   wide_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.WideView({model: airbrake})
   small_airbrake_view = -> new ProjectMonitor.Views.Airbrakes.SmallView({model: airbrake})
