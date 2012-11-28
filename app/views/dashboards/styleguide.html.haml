@@ -19,8 +19,8 @@
   tall_build_view = -> new ProjectMonitor.Views.BuildView({model: build_failure, size: 'tall'})
   small_build_view = -> new ProjectMonitor.Views.BuildView({model: build_indeterminate, size: 'small'})
 
-  wide_tracker_view = -> new ProjectMonitor.Views.Trackers.WideView({model: tracker})
-  small_tracker_view = -> new ProjectMonitor.Views.Trackers.SmallView({model: tracker})
+  wide_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'wide'})
+  small_tracker_view = -> new ProjectMonitor.Views.TrackerView({model: tracker, size: 'small'})
 
   wide_new_relic_view = -> new ProjectMonitor.Views.NewRelics.WideView({model: new_relic})
   small_new_relic_view = -> new ProjectMonitor.Views.NewRelics.SmallView({model: new_relic})
