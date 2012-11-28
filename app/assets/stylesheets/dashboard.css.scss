@@ -18,24 +18,35 @@ body.dashboard {
   height: 100%;
   width: 100%;
 
+  .warnings {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+  }
+
   .github, .heroku {
+    text-align: center;
+    display: none;
+    border-bottom: 1px solid black;
+    height: 60px;
+    z-index: 1000;
+    margin-bottom: 3px;
+
     &.bad {
-      background: orange;
+      opacity: 0.94;
+      @include striped-background(orange, $gray);
     }
 
     &.unreachable {
-      background: white;
+      background-color: rgba(255, 255, 255, 0.9);
     }
-
-    margin: 0 0 3px 0;
-    text-align: center;
-    font-size: 39px;
-    display: none;
-    border-bottom: 1px solid black;
 
     a {
       text-decoration: none;
       color: black;
+      font-size: 60px;
+      line-height: 60px;
     }
   }
 

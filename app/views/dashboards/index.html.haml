@@ -1,7 +1,8 @@
-.github
-  = link_to "GITHUB IS DOWN", 'http://status.github.com'
-.heroku
-  = link_to "HEROKU IS DOWN", 'http://status.heroku.com'
+.warnings
+  .github
+    = link_to "GITHUB IS DOWN", 'http://status.github.com'
+  .heroku
+    = link_to "HEROKU IS DOWN", 'http://status.heroku.com'
 %ol.projects
   = render @tiles, tiles_count: @tiles_count
   .clear
