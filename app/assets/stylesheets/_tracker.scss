@@ -7,6 +7,10 @@ article.tracker {
     font-weight: bold;
   }
 
+  .stats {
+    float: left;
+  }
+
   dl.metrics, dl.stories {
     float: left;
     background-color: lighten($blue, 10%);
@@ -37,8 +41,8 @@ article.tracker {
         bottom: 0;
         background-color: darken($blue, 20%);
       }
-
     }
+
     dd:nth-child(10) span { opacity: 0.95; }
     dd:nth-child(9)  span { opacity: 0.90; }
     dd:nth-child(8)  span { opacity: 0.85; }
@@ -72,6 +76,10 @@ article.tracker.wide {
       font-size: 22px;
       line-height: 22px;
     }
+  }
+
+  dl.stories {
+    clear: left;
   }
 
   dl.velocities {
@@ -125,7 +133,7 @@ article.tracker.small {
   dl.velocities {
     height: 62px;
     width: 280px;
-    margin-right: 10px;
+    margin-right: 5px;
 
     dd {
       margin-right: 2px;
