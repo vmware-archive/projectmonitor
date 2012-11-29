@@ -4,8 +4,12 @@ class ProjectMonitor.Views.Projects.BaseTileView extends Backbone.View
   tagName: 'section'
   className: 'tile'
 
+  initialize: (options) ->
+    @subviews = options.subviews
+
+
   render: ->
     @$el.html("")
-    for subview in @model.subviews
+    for subview in @subviews
       @$el.append(subview.render().$el)
     @
