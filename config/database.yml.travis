@@ -1,11 +1,3 @@
-mysql: &mysql
-  adapter: mysql2
-  host: "localhost"
-  port: 3306
-  username: "root"
-  password: ""
-  charset: utf8
-
 postgres: &postgres
   adapter: postgresql
   host: localhost
@@ -15,7 +7,7 @@ postgres: &postgres
   encoding: unicode
 
 common: &common
-  <<: <%= ENV['DB']=="postgres" ? "*postgres" : "*mysql" %>
+  <<: *postgres
 
 development: &development
   <<: *common
