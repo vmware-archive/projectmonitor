@@ -6,106 +6,110 @@ article.airbrake {
   background-size: 10px 10px;
 }
 
-article.airbrake.wide {
-  height: 160px;
+.two-tile {
+  article.airbrake {
+    height: 160px;
 
-  .title {
-    font-size: 11px;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-
-  dl.unresolved-errors, dl.last-error {
-    float: left;
-    width: 275px;
-    height: 110px;
-    margin: 10px 0px 0px 0px;
-    padding: 5px;
-    border-top: 1px solid darken($gray, 20%);
-    border-bottom: 1px solid darken($gray, 20%);
-  }
-
-  dl.unresolved-errors {
-    background-color: lighten($gray, 10%);
-    margin-left: 10px;
-    margin-right: 10px;
-
-    dt {
-      float: left;
-      clear: left;
-      font-weight: bold;
+    .title {
+      font-size: 11px;
       text-transform: uppercase;
-      font-size: 15px;
-      padding-left: 5px;
-      width: 20px;
-      line-height: 20px;
-      margin-top: 41px;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 5px;
     }
 
-    dd {
-      font-size: 110px;
-      float: right;
-      padding-right: 5px;
-      line-height: 110px;
+    dl.unresolved-errors, dl.last-error {
+      float: left;
+      width: 275px;
+      height: 110px;
+      margin: 10px 0px 0px 0px;
+      padding: 5px;
+      border-top: 1px solid darken($gray, 20%);
+      border-bottom: 1px solid darken($gray, 20%);
     }
-  }
 
-  dl.last-error {
-    background-color: lighten($gray, 5%);
-    dd {
-      font-size: 18px;
+    dl.unresolved-errors {
+      background-color: lighten($gray, 10%);
+      margin-left: 10px;
+      margin-right: 10px;
+
+      dt {
+        float: left;
+        clear: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 15px;
+        padding-left: 5px;
+        width: 20px;
+        line-height: 20px;
+        margin-top: 41px;
+      }
+
+      dd {
+        font-size: 110px;
+        float: right;
+        padding-right: 5px;
+        line-height: 110px;
+      }
+    }
+
+    dl.last-error {
+      background-color: lighten($gray, 5%);
+      dd {
+        font-size: 18px;
+      }
     }
   }
 }
 
-article.airbrake.small {
-  height: 160px;
-  float: right;
+.three-tile, .four-tile {
+  article.airbrake {
+    height: 160px;
+    float: right;
 
-  .title {
-    font-size: 11px;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-
-  dl.unresolved-errors, dl.last-error {
-    float: left;
-    width: 265px;
-    height: 45px;
-    margin: 10px 10px 0px 10px;
-    padding: 5px;
-    border-top: 1px solid darken($gray, 20%);
-    border-bottom: 1px solid darken($gray, 20%);
-  }
-
-  dl.unresolved-errors {
-    background-color: lighten($gray, 10%);
-    line-height: 45px;
-
-    dt {
-      float: left;
-      clear: left;
-      font-weight: bold;
-      text-transform: uppercase;
+    .title {
       font-size: 11px;
-      padding-left: 5px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 5px;
     }
 
-    dd {
-      font-size: 42px;
-      float: right;
-      padding-right: 5px;
+    dl.unresolved-errors, dl.last-error {
+      float: left;
+      width: 265px;
+      height: 45px;
+      margin: 10px 10px 0px 10px;
+      padding: 5px;
+      border-top: 1px solid darken($gray, 20%);
+      border-bottom: 1px solid darken($gray, 20%);
     }
-  }
 
-  dl.last-error {
-    background-color: lighten($gray, 5%);
-    dd {
-      font-size: 12px;
+    dl.unresolved-errors {
+      background-color: lighten($gray, 10%);
+      line-height: 45px;
+
+      dt {
+        float: left;
+        clear: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding-left: 5px;
+      }
+
+      dd {
+        font-size: 42px;
+        float: right;
+        padding-right: 5px;
+      }
+    }
+
+    dl.last-error {
+      background-color: lighten($gray, 5%);
+      dd {
+        font-size: 12px;
+      }
     }
   }
 }

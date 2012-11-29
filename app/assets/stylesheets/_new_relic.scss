@@ -6,77 +6,81 @@ article.new_relic {
   background-size: 10px 10px;
 }
 
-article.new_relic.wide {
-  height: 160px;
+.two-tile {
+  article.new_relic {
+    height: 160px;
 
-  .title {
-    font-size: 11px;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 5px;
-  }
+    .title {
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 5px;
+    }
 
-  dl.times {
-    height: 120px;
-    width: 543px;
-    border-bottom: 2px solid darken($yellow, 30%);
-    border-left: 2px solid darken($yellow, 30%);
-    padding-top: 10px;
-    margin-left: 37px;
+    dl.times {
+      height: 120px;
+      width: 543px;
+      border-bottom: 2px solid darken($yellow, 30%);
+      border-left: 2px solid darken($yellow, 30%);
+      padding-top: 10px;
+      margin-left: 37px;
 
-    dd {
-      display:inline;
-      float: left;
-      margin-right: 2px;
-      position: relative;
-      height: 100%;
-      width: 52px;
+      dd {
+        display:inline;
+        float: left;
+        margin-right: 2px;
+        position: relative;
+        height: 100%;
+        width: 52px;
 
-      span {
-        position: absolute;
-        width: 50px;
-        bottom: 0;
-        background-color: darken($yellow, 20%);
+        span {
+          position: absolute;
+          width: 50px;
+          bottom: 0;
+          background-color: darken($yellow, 20%);
+        }
       }
     }
   }
 }
 
-article.new_relic.small {
-  height: 160px;
-  float: right;
-
-  .title {
-    font-size: 11px;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 5px;
-  }
-
-  dl.times {
+.three-tile, .four-tile {
+  article.new_relic{
+    height: 160px;
     float: right;
-    height: 120px;
-    width: 280px;
-    border-bottom: 2px solid darken($yellow, 30%);
-    border-left: 2px solid darken($yellow, 30%);
-    padding-top: 10px;
-    margin-right: 5px;
 
-    dd {
-      display:inline;
-      float: left;
-      margin-right: 2px;
-      position: relative;
-      height: 100%;
-      width: 26px;
+    .title {
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 5px;
+    }
 
-      span {
-        position: absolute;
-        width: 25px;
-        bottom: 0;
-        background-color: darken($yellow, 20%);
+    dl.times {
+      float: right;
+      height: 120px;
+      width: 280px;
+      border-bottom: 2px solid darken($yellow, 30%);
+      border-left: 2px solid darken($yellow, 30%);
+      padding-top: 10px;
+      margin-right: 5px;
+
+      dd {
+        display:inline;
+        float: left;
+        margin-right: 2px;
+        position: relative;
+        height: 100%;
+        width: 26px;
+
+        span {
+          position: absolute;
+          width: 25px;
+          bottom: 0;
+          background-color: darken($yellow, 20%);
+        }
       }
     }
   }

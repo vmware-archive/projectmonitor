@@ -4,9 +4,7 @@
 <% if !@aggregate: %>
   <aside class='history'>
     <div>
-      <% if(_.include(['tall', 'wide'], @size)): %>
-        <span>Last build:</span>
-      <% end %>
+      <span class="last-build-label">Last build:</span>
       <span class="last-build"><%= @last_build %></span>
       <ol class="statuses">
         <% for status in @statuses: %>
