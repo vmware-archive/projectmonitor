@@ -34,9 +34,9 @@ group :production do
   gem "therubyracer"
 end
 
-# group :postgres do
+group :postgres do
   gem "pg"
-# end
+end
 
 group :mysql do
   gem "mysql2"
