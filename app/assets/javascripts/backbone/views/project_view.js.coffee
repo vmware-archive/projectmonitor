@@ -1,6 +1,6 @@
-ProjectMonitor.Views.Projects ||= {}
+ProjectMonitor.Views ||= {}
 
-class ProjectMonitor.Views.Projects.ProjectView extends Backbone.View
+class ProjectMonitor.Views.ProjectView extends Backbone.View
   tagName: "li"
   className: "project"
 
@@ -12,10 +12,6 @@ class ProjectMonitor.Views.Projects.ProjectView extends Backbone.View
     @subviews.push(new ProjectMonitor.Views.AirbrakeView(model: new ProjectMonitor.Models.Airbrake(@model.get("airbrake")))) if @model.get("airbrake")
 
   render: ->
-    view = switch @subviews.length
-      when 1 then new ProjectMonitor.Views.Projects.OneTileView(subviews: @subviews)
-      when 2 then new ProjectMonitor.Views.Projects.TwoTileView(subviews: @subviews)
-      when 3 then new ProjectMonitor.Views.Projects.ThreeTileView(subviews: @subviews)
-      else new ProjectMonitor.Views.Projects.FourTileView(subviews: @subviews)
+    view = new ProjectMonitor.Views.TileView(subviews: @subviews)
     @$el.html(view.render().$el)
     @

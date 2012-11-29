@@ -15,42 +15,42 @@
   airbrake = {error_count: 9, last_error: "RuntimeError: Workflow"}
 
   project = new ProjectMonitor.Models.Project({build: build_success})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, tracker: tracker})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, new_relic: new_relic})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, airbrake: airbrake})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, tracker: tracker, new_relic: new_relic})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, tracker: tracker, airbrake: airbrake})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, new_relic: new_relic, airbrake: airbrake})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
   project = new ProjectMonitor.Models.Project({build: build_success, tracker: tracker, airbrake: airbrake, new_relic: new_relic})
-  view = new ProjectMonitor.Views.Projects.ProjectView {model: project}
+  view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".tiles").append $html
 
