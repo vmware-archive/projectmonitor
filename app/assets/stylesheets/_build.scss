@@ -62,156 +62,168 @@ article.build {
 }
 
 
-article.build.large {
-  h1 {
-    font-size: 200px;
-    line-height: 250px;
-  }
-
-  aside {
-    > div {
-      height: 80px;
+.one-tile {
+  article.build {
+    h1 {
+      font-size: 200px;
+      line-height: 250px;
     }
 
-    .last-build {
-      line-height: 78px;
-      font-size: 30px;
-      float: left;
-      padding: 0px 16px;
-    }
+    .last-build-label { display: none; }
 
-    ol {
-      height: 78px;
+    aside {
+      > div {
+        height: 80px;
+      }
 
-      li {
-        font-size: 50px;
-        height: 45px;
-        width: 45px;
-        margin: 14px 7px 7px 0px;
-        line-height: 45px;
+      .last-build {
+        line-height: 78px;
+        font-size: 30px;
+        float: left;
+        padding: 0px 16px;
+      }
+
+      ol {
+        height: 78px;
+
+        li {
+          font-size: 50px;
+          height: 45px;
+          width: 45px;
+          margin: 14px 7px 7px 0px;
+          line-height: 45px;
+        }
       }
     }
   }
 }
 
 
-article.build.wide {
-  height: 160px;
-
-  h1 {
-    font-size: 136px;
-    float: left;
-    line-height: 160px;
-    width: 385px;
-  }
-
-  aside {
-    float: left;
-    width: 215px;
+.two-tile {
+  article.build {
     height: 160px;
-    text-align: center;
 
-    > div {
-      padding-left: 16px;
-      span:first-child {
-        text-transform: uppercase;
-      }
-    }
-
-    span {
-      font-size: 20px;
-    }
-
-    .last-build {
-      line-height: 73px;
-      padding: 0px 16px;
-    }
-
-    ol {
-      width: 195px;
-
-      li {
-        font-size: 40px;
-        height: 35px;
-        width: 35px;
-        margin: 2px 2px;
-        line-height: 35px;
-      }
-    }
-  }
-}
-
-article.build.tall {
-  h1 {
-    font-size: 100px;
-    text-align: center;
-    line-height: 165px;
-  }
-
-  aside {
-    height: 165px;
-    text-align: center;
-
-    > div {
-      margin-left: 10px;
-      span:first-child {
-        text-transform: uppercase;
-      }
-    }
-
-    span {
-      font-size: 20px;
-    }
-
-    .last-build {
-      line-height: 60px;
-      padding: 0px 16px;
-    }
-
-    ol {
-      width: 220px;
-      margin-left: 35px;
-
-      li {
-        font-size: 40px;
-        height: 35px;
-        width: 35px;
-        margin: 2px 2px;
-        line-height: 35px;
-      }
-    }
-  }
-}
-
-
-article.build.small {
-  h1 {
-    font-size: 100px;
-    line-height: 125px;
-  }
-
-  aside {
-    > div {
-      height: 35px;
-    }
-
-    .last-build {
-      line-height: 33px;
-      font-size: 18px;
+    h1 {
+      font-size: 136px;
       float: left;
-      padding: 0px 4px 0px 20px;
+      line-height: 160px;
+      width: 385px;
     }
 
-    ol {
-      height: 32px;
+    aside {
+      float: left;
+      width: 215px;
+      height: 160px;
+      text-align: center;
 
-      li {
-        font-size: 24px;
-        height: 22px;
-        width: 22px;
-        margin: 3px 2px 2px 0px;
-        line-height: 22px;
+      > div {
+        padding-left: 16px;
+        span:first-child {
+          text-transform: uppercase;
+        }
+      }
 
+      span {
+        font-size: 20px;
+      }
+
+      .last-build {
+        line-height: 73px;
+        padding: 0px 16px;
+      }
+
+      ol {
+        width: 195px;
+
+        li {
+          font-size: 40px;
+          height: 35px;
+          width: 35px;
+          margin: 2px 2px;
+          line-height: 35px;
+        }
+      }
+    }
+  }
+}
+
+.three-tile {
+  article.build {
+    h1 {
+      font-size: 100px;
+      text-align: center;
+      line-height: 165px;
+    }
+
+    aside {
+      height: 165px;
+      text-align: center;
+
+      > div {
+        margin-left: 10px;
+        span:first-child {
+          text-transform: uppercase;
+        }
+      }
+
+      span {
+        font-size: 20px;
+      }
+
+      .last-build {
+        line-height: 60px;
+        padding: 0px 16px;
+      }
+
+      ol {
+        width: 220px;
+        margin-left: 35px;
+
+        li {
+          font-size: 40px;
+          height: 35px;
+          width: 35px;
+          margin: 2px 2px;
+          line-height: 35px;
+        }
+      }
+    }
+  }
+}
+
+
+.four-tile {
+  article.build {
+    h1 {
+      font-size: 100px;
+      line-height: 125px;
+    }
+
+    .last-build-label { display:none; }
+
+    aside {
+      > div {
+        height: 35px;
+      }
+
+      .last-build {
+        line-height: 33px;
+        font-size: 18px;
+        float: left;
+        padding: 0px 4px 0px 20px;
+      }
+
+      ol {
+        height: 32px;
+
+        li {
+          font-size: 24px;
+          height: 22px;
+          width: 22px;
+          margin: 3px 2px 2px 0px;
+          line-height: 22px;
+
+        }
       }
     }
   }

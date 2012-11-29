@@ -2,7 +2,7 @@ describe "ProjectMonitor.Views.BuildView", ->
   describe "common behavior", ->
     beforeEach ->
       @build = new ProjectMonitor.Models.Build {name: 'PROJ', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
-      @view = new ProjectMonitor.Views.BuildView(model: @build, size: "huge")
+      @view = new ProjectMonitor.Views.BuildView(model: @build)
 
     describe "status", ->
       describe "when the build succeeded", ->
@@ -28,9 +28,6 @@ describe "ProjectMonitor.Views.BuildView", ->
       it "should have an article", ->
         expect($("article")).toExist()
 
-      it "should include the size class", ->
-        expect($("article")).toHaveClass('huge')
-
       it "should include the build class", ->
         expect($("article")).toHaveClass('build')
 
@@ -55,31 +52,3 @@ describe "ProjectMonitor.Views.BuildView", ->
 
       it "should not include the history", ->
         expect($(".history")).not.toExist()
-
-  describe "when tall", ->
-    it "renders last build text", ->
-      build = new ProjectMonitor.Models.Build {name: 'PROJ', status: 'success', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
-      view = new ProjectMonitor.Views.BuildView(model: build, size: "tall")
-      setFixtures(view.render().$el)
-      expect($(".history").text()).toContain("Last build:")
-
-  describe "when wide", ->
-    it "renders last build text", ->
-      build = new ProjectMonitor.Models.Build {name: 'PROJ', status: 'success', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
-      view = new ProjectMonitor.Views.BuildView(model: build, size: "wide")
-      setFixtures(view.render().$el)
-      expect($(".history").text()).toContain("Last build:")
-
-  describe "when large", ->
-    it "does not render the last build text", ->
-      build = new ProjectMonitor.Models.Build {name: 'PROJ', status: 'success', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
-      view = new ProjectMonitor.Views.BuildView(model: build, size: "large")
-      setFixtures(view.render().$el)
-      expect($(".history").text()).not.toContain("Last build:")
-
-  describe "when small", ->
-    it "does not render the last build text", ->
-      build = new ProjectMonitor.Models.Build {name: 'PROJ', status: 'success', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
-      view = new ProjectMonitor.Views.BuildView(model: build, size: "small")
-      setFixtures(view.render().$el)
-      expect($(".history").text()).not.toContain("Last build:")

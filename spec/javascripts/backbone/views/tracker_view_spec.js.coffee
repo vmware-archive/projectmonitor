@@ -7,7 +7,7 @@ describe "ProjectMonitor.Views.TrackerView", ->
       open: 5
       velocities: [12, 15, 20, 40, 10]
 
-    @view = new ProjectMonitor.Views.TrackerView {model: @tracker, size: "huge"}
+    @view = new ProjectMonitor.Views.TrackerView {model: @tracker}
     setFixtures(@view.render().$el)
 
   it "should be an article", ->
@@ -18,9 +18,6 @@ describe "ProjectMonitor.Views.TrackerView", ->
 
   it "should have tracker class", ->
     expect($("article")).toHaveClass("tracker")
-
-  it "should have size class", ->
-    expect($("article")).toHaveClass("huge")
 
   it "should include the velocity", ->
     expect($(".velocity")).toHaveText(@tracker.get("velocity"))
