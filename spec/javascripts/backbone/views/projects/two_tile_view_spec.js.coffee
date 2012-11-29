@@ -6,7 +6,7 @@ describe "ProjectMonitor.Views.Projects.TwoTileView", ->
         new ProjectMonitor.Views.BuildView(model: build)
         new ProjectMonitor.Views.TrackerView(model: tracker)
       ]
-      view = new ProjectMonitor.Views.Projects.OneTileView(model: {subviews})
+      view = new ProjectMonitor.Views.Projects.TwoTileView(subviews: subviews)
       setFixtures(view.render().$el)
 
     it "should include build view", ->

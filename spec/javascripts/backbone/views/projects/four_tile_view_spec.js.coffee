@@ -10,7 +10,7 @@ describe "ProjectMonitor.Views.Projects.FourTileView", ->
         new ProjectMonitor.Views.NewRelicView(model: new_relic)
         new ProjectMonitor.Views.AirbrakeView(model: airbrake)
       ]
-      view = new ProjectMonitor.Views.Projects.OneTileView(model: {subviews})
+      view = new ProjectMonitor.Views.Projects.FourTileView(subviews: subviews)
       setFixtures(view.render().$el)
 
     it "should include build view", ->

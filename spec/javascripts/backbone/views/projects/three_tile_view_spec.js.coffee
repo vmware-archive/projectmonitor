@@ -8,7 +8,7 @@ describe "ProjectMonitor.Views.Projects.ThreeTileView", ->
         new ProjectMonitor.Views.TrackerView(model: tracker)
         new ProjectMonitor.Views.NewRelicView(model: new_relic)
       ]
-      view = new ProjectMonitor.Views.Projects.OneTileView(model: {subviews})
+      view = new ProjectMonitor.Views.Projects.ThreeTileView(subviews: subviews)
       setFixtures(view.render().$el)
 
     it "should include build view", ->
