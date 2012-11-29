@@ -146,12 +146,16 @@ ol.tiles {
   }
 }
 
-article.large, article.wide {
-  width: 600px;
+.one-tile, .two-tile {
+  article {
+    width: 600px;
+  }
 }
 
-article.small, article.tall {
-  width: 295px;
+.three-tile, .four-tile {
+  article {
+    width: 295px;
+  }
 }
 
 article .container {

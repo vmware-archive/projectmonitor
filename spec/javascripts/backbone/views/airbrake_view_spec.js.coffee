@@ -10,9 +10,6 @@ describe "ProjectMonitor.Views.AirbrakeView", ->
   it "should include the last error", ->
     expect($(".last-error")).toHaveText(@airbrake.get("last_error"))
 
-  it "should include the size class", ->
-    expect($("article")).toHaveClass('superbig')
-
   it "should have class airbrake", ->
     expect($("article")).toHaveClass('airbrake')
 

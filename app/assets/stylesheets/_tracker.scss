@@ -56,92 +56,96 @@ article.tracker {
   }
 }
 
-article.tracker.wide {
-  float: left;
+.two-tile {
+  article.tracker {
+    float: left;
 
-  .title {
-    font-size: 20px;
-  }
-
-  dl.metrics, dl.stories {
-    width: 200px;
-    margin: 4px 0px 0px 5px;
-    padding: 5px;
-
-    dt {
-      line-height: 22px;
+    .title {
+      font-size: 20px;
     }
 
-    dd {
-      font-size: 22px;
-      line-height: 22px;
+    dl.metrics, dl.stories {
+      width: 200px;
+      margin: 4px 0px 0px 5px;
+      padding: 5px;
+
+      dt {
+        line-height: 22px;
+      }
+
+      dd {
+        font-size: 22px;
+        line-height: 22px;
+      }
     }
-  }
 
-  dl.stories {
-    clear: left;
-  }
+    dl.stories {
+      clear: left;
+    }
 
-  dl.velocities {
-    height: 118px;
-    width: 370px;
-    margin-bottom: 11px;
+    dl.velocities {
+      height: 118px;
+      width: 370px;
+      margin-bottom: 11px;
 
-    dd {
-      margin-right: 2px;
-      height: 100%;
-      width: 35px;
+      dd {
+        margin-right: 2px;
+        height: 100%;
+        width: 35px;
 
-      span {
-        width: 32px;
-        bottom: 0;
+        span {
+          width: 32px;
+          bottom: 0;
+        }
       }
     }
   }
 }
 
-article.tracker.small {
-  height: 160px;
-  float: right;
-
-  .title {
-    font-size: 11px;
-    text-align: center;
-    padding-top: 5px;
-  }
-
-  dl.metrics, dl.stories {
-    width: 120px;
-    margin: 10px 5px 10px 5px;
-    padding: 5px;
-
-    dt {
-      line-height: 18px;
-      font-size: 10px;
-    }
-
-    dd {
-      font-size: 18px;
-      line-height: 18px;
-    }
-  }
-
-  dl.stories {
+.three-tile, .four-tile {
+  article.tracker {
+    height: 160px;
     float: right;
-  }
 
-  dl.velocities {
-    height: 62px;
-    width: 280px;
-    margin-right: 5px;
+    .title {
+      font-size: 11px;
+      text-align: center;
+      padding-top: 5px;
+    }
 
-    dd {
-      margin-right: 2px;
-      height: 100%;
-      width: 26px;
+    dl.metrics, dl.stories {
+      width: 120px;
+      margin: 10px 5px 10px 5px;
+      padding: 5px;
 
-      span {
-        width: 25px;
+      dt {
+        line-height: 18px;
+        font-size: 10px;
+      }
+
+      dd {
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+    dl.stories {
+      float: right;
+    }
+
+    dl.velocities {
+      height: 62px;
+      width: 280px;
+      margin-right: 5px;
+
+      dd {
+        margin-right: 2px;
+        height: 100%;
+        width: 26px;
+
+        span {
+          width: 25px;
+        }
       }
     }
   }

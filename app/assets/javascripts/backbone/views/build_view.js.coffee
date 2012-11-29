@@ -1,14 +1,11 @@
 ProjectMonitor.Views ||= {}
 
 class ProjectMonitor.Views.BuildView extends Backbone.View
+  className: "build"
   tagName: "article"
   template: JST["backbone/templates/build"]
 
-  initialize: (options) ->
-    @size = options.size
-    @$el.addClass("build #{@size}")
-
   render: ->
-    @$el.html(@template($.extend(@model.toJSON(), {size: @size})))
+    @$el.html(@template(@model.toJSON()))
     @$el.addClass(@model.get('status'))
     @
