@@ -94,4 +94,8 @@ class AggregateProject < ActiveRecord::Base
   def to_partial_path
     "dashboards/aggregate_project"
   end
+
+  def as_json(options = {})
+    json = super(root: false)
+  end
 end
