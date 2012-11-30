@@ -72,7 +72,7 @@ class Project < ActiveRecord::Base
   end
 
   def status
-    latest_status || ProjectStatus.new
+    latest_status || ProjectStatus.new(project: self)
   end
 
   def green?

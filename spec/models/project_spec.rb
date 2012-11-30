@@ -238,10 +238,24 @@ describe Project do
   end
 
   describe "#status" do
-    let(:project) { projects(:socialitis) }
+    context "when project has statuses" do
+      let(:project) { projects(:socialitis) }
 
-    it "returns the most recent status" do
-      project.status.should == project.recent_statuses.first
+      it "returns the most recent status" do
+        project.status.should == project.recent_statuses.first
+      end
+    end
+
+    context "when project has no statuses" do
+      let(:project) { Project.new }
+
+      it "returns new status" do
+        project.status.new_record?.should be_true
+      end
+
+      it "returns new status associated with the project" do
+        project.status.project.should == project
+      end
     end
   end
 
