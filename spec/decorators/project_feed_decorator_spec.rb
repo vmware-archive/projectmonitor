@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe ProjectFeedDecorator do
 
   describe "#as_json" do
