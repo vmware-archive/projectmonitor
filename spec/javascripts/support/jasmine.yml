@@ -41,6 +41,7 @@ stylesheets:
 #
 helpers:
   - helpers/**/*.js
+  - compiled/backbone/factories/*.js
 
 # spec_files
 #
