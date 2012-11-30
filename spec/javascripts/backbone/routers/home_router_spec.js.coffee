@@ -1,7 +1,7 @@
 describe "ProjectMonitor.Routers.HomeRouter", ->
   beforeEach ->
     spyOn(ProjectMonitor.Routers.HomeRouter.prototype, "index")
-    @router = new ProjectMonitor.Routers.HomeRouter();
+    @router = new ProjectMonitor.Routers.HomeRouter({tiles: BackboneFactory.create("tile")});
     try
       Backbone.history.start()
     catch e
