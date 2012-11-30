@@ -1,5 +1,7 @@
-hello
+.tiles
+:javascript
+  var projects = #{@projects.to_json};
 :coffeescript
   $ ->
-    new ProjectMonitor.Routers.HomeRouter()
+    new ProjectMonitor.Routers.HomeRouter({projects: projects})
     Backbone.history.start({pushState: true})
