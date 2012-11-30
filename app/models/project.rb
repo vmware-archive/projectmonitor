@@ -87,6 +87,18 @@ class Project < ActiveRecord::Base
     online? && latest_status.try(:success?) == false || has_failing_children?
   end
 
+  def status_in_words
+    if red?
+      'failure'
+    elsif green?
+      'success'
+    elsif yellow?
+      'indeterminate'
+    else
+      'offline'
+    end
+  end
+
   def color
     return "white" unless online?
     return "green" if green?

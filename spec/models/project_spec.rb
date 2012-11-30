@@ -565,6 +565,38 @@ describe Project do
     end
   end
 
+  describe "#status_in_words" do
+    subject { project.status_in_words }
+
+    let(:project) { FactoryGirl.build(:project) }
+    let(:red) { false }
+    let(:green) { false }
+    let(:yellow) { false }
+
+    before do
+      project.stub(red?: red, green?: green, yellow?: yellow)
+    end
+
+    context "when project is red" do
+      let(:red) { true }
+      it { should == "failure" }
+    end
+
+    context "when project is green" do
+      let(:green) { true }
+      it { should == "success" }
+    end
+
+    context "when project is yellow" do
+      let(:yellow) { true }
+      it { should == "indeterminate" }
+    end
+
+    context "when project none of the statuses" do
+      it { should == "offline" }
+    end
+  end
+
   describe "#time_since_last_build" do
     let(:project) { Project.new }
 
