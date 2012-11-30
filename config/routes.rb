@@ -32,6 +32,7 @@ ProjectMonitor::Application.routes.draw do
   end
 
   match 'styleguide' => 'dashboards#styleguide'
+  match 'home' => 'home#index', as: :home
 
   root :to => 'dashboards#index'
 end
