@@ -6,8 +6,8 @@ class ProjectMonitor.Views.HomeView extends Backbone.View
 
   initialize: (options) ->
     @subviews = []
-    for project in @collection.models
-      view = new ProjectMonitor.Views.ProjectView(model: project)
+    for tile in @collection.models
+      view = new ProjectMonitor.Views.TileView(model: tile)
       @subviews.push(view)
       @registerSubView(view)
 
