@@ -365,4 +365,13 @@ describe AggregateProject do
     end
   end
 
+  describe "#as_json" do
+    let(:aggregate_project) { AggregateProject.new(name: "Aggregate Project") }
+    let(:json) { JSON.parse(aggregate_project.to_json) }
+
+    it "should have basic properties" do
+      json["code"].should == aggregate_project.code
+      json["name"].should == aggregate_project.name
+    end
+  end
 end
