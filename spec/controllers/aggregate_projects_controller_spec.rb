@@ -9,6 +9,10 @@ describe AggregateProjectsController do
       it "should be_success" do
         response.should be_success
       end
+
+      it "should render aggregate project" do
+        response.body.should == aggregate_project.to_json
+      end
     end
 
     describe "status" do
