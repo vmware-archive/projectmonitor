@@ -215,6 +215,16 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def variance
+    if last_ten_velocities.any?
+      average = last_ten_velocities.inject(&:+) / Float(last_ten_velocities.length)
+      variance = (last_ten_velocities.inject(0.0) { |variance, velocity| variance + ((velocity - average)**2)}) / Float(last_ten_velocities.size)
+      variance.round(2)
+    else
+      0
+    end
+  end
+
   private
 
   def self.project_attribute_prefix

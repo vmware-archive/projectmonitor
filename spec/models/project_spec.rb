@@ -687,4 +687,22 @@ describe Project do
       end
     end
   end
+
+  describe "#variance" do
+    context "when project has velocities" do
+      let(:project) { FactoryGirl.build(:project_with_tracker_integration)}
+
+      it "should return correct variance" do
+        project.variance.should == 8.25
+      end
+    end
+
+    context "when project has no velocities" do
+      let(:project) { FactoryGirl.build(:project)}
+
+      it "should return correct variance" do
+        project.variance.should == 0
+      end
+    end
+  end
 end
