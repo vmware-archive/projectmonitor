@@ -580,9 +580,9 @@ describe Project do
   end
 
   describe "as_json" do
-    let(:project) { FactoryGirl.build(:project) }
-
     context "build" do
+      let(:project) { FactoryGirl.create(:project) }
+
       context "when there is no build history" do
         it "should have general build properties" do
           json = JSON.parse(project.to_json)
@@ -608,6 +608,20 @@ describe Project do
           json["build"]["statuses"].should == project.statuses.map(&:success)
           json["build"]["time_since_last_build"].should == project.time_since_last_build
         end
+      end
+    end
+
+    context "tracker" do
+      let(:project) { FactoryGirl.build(:project_with_tracker_integration) }
+
+      it "should have a tracker properties" do
+        json = JSON.parse(project.to_json)
+
+        json["tracker"]["current_velocity"].should == project.current_velocity
+        json["tracker"]["variance"].should == project.variance
+        json["tracker"]["last_ten_velocities"].should == project.last_ten_velocities
+        json["tracker"]["stories_to_accept_count"].should == project.stories_to_accept_count
+        json["tracker"]["open_stories_count"].should == project.open_stories_count
       end
     end
   end
@@ -690,7 +704,7 @@ describe Project do
 
   describe "#variance" do
     context "when project has velocities" do
-      let(:project) { FactoryGirl.build(:project_with_tracker_integration)}
+      let(:project) { FactoryGirl.create(:project_with_tracker_integration)}
 
       it "should return correct variance" do
         project.variance.should == 8.25
