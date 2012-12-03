@@ -8,6 +8,6 @@ class HomeController < ApplicationController
     standalone_projects =  Project.standalone.displayable(params[:tags])
     projects = standalone_projects.concat(aggregate_projects).sort_by { |p| p.code.downcase }
 
-    @tiles = projects
+    @projects = projects
   end
 end

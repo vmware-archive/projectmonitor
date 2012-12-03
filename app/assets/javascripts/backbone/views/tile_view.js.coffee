@@ -3,7 +3,6 @@ ProjectMonitor.Views ||= {}
 class ProjectMonitor.Views.TileView extends Backbone.View
   tagName: "li"
   className: "tile"
-  template: JST["backbone/templates/tile"]
 
   initialize: (options) ->
     @subviews = []
@@ -15,8 +14,8 @@ class ProjectMonitor.Views.TileView extends Backbone.View
     @$el.data(project_id: @model.get("project_id"))
 
   render: ->
-    @$el.html(@template({}))
-    $section = @$el.find("section")
+    $section = $("<section/>")
+    @$el.html($section)
     $section.addClass(['one-tile', 'two-tile', 'three-tile', 'four-tile'][@subviews.length - 1])
     for subview in @subviews
       $section.append(subview.render().$el)
