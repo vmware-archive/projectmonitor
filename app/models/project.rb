@@ -185,6 +185,19 @@ class Project < ActiveRecord::Base
     self.guid = SecureRandom.uuid
   end
 
+  def as_json(options={})
+    json = {}
+    json["project_id"] = self.id
+    json["build"] =
+      super(
+        only: [:code, :id, :statuses],
+        methods: [:time_since_last_build],
+        root: false)
+      .merge({status: status_in_words})
+      .merge({statuses: simple_statuses})
+    json
+  end
+
   def time_since_last_build
     return unless published_at = latest_status.try(:published_at)
 
@@ -218,5 +231,9 @@ class Project < ActiveRecord::Base
 
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
+  end
+
+  def simple_statuses
+    statuses.map(&:success)
   end
 end

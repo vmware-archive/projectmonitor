@@ -579,6 +579,39 @@ describe Project do
     end
   end
 
+  describe "as_json" do
+    let(:project) { FactoryGirl.build(:project) }
+
+    context "build" do
+      context "when there is no build history" do
+        it "should have general build properties" do
+          json = JSON.parse(project.to_json)
+
+          json["project_id"].should == project.id
+          json["build"]["code"].should == project.code
+          json["build"]["id"].should == project.id
+          json["build"]["status"].should == project.status_in_words
+          json["build"]["statuses"].should == []
+          json["build"]["time_since_last_build"].should be_nil
+        end
+      end
+
+      context "when there is build history" do
+        before do
+          project.statuses << FactoryGirl.build(:project_status, success: true, published_at: 5.days.ago)
+          project.save
+          project.time_since_last_build.should_not be_nil
+        end
+
+        it "should have status properties" do
+          json = JSON.parse(project.to_json)
+          json["build"]["statuses"].should == project.statuses.map(&:success)
+          json["build"]["time_since_last_build"].should == project.time_since_last_build
+        end
+      end
+    end
+  end
+
   describe "#status_in_words" do
     subject { project.status_in_words }
 

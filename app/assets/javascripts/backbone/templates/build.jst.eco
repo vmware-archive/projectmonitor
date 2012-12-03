@@ -5,7 +5,7 @@
   <aside class='history'>
     <div>
       <span class="last-build-label">Last build:</span>
-      <span class="last-build"><%= @last_build %></span>
+      <span class="last-build"><%= @time_since_last_build %></span>
       <ol class="statuses">
         <% for status in @statuses: %>
           <li class="<%= if status then 'success' else 'failure' %>">
