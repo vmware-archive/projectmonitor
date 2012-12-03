@@ -1,5 +1,6 @@
 BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
   {
+    project_id: 90890
     build:
       name: 'PROJ'
       aggregate: false
