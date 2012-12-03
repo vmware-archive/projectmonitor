@@ -1,7 +1,8 @@
 describe "ProjectMonitor.Views.BuildView", ->
   describe "common behavior", ->
     beforeEach ->
-      @build = new ProjectMonitor.Models.Build {name: 'PROJ', aggregate: false, statuses: [true, false, true, true, false, true, true, false, true, true], last_build: "4d"}
+      project = BackboneFactory.create("project")
+      @build = project.get("build")
       @view = new ProjectMonitor.Views.BuildView(model: @build)
 
     describe "status", ->
@@ -31,8 +32,8 @@ describe "ProjectMonitor.Views.BuildView", ->
       it "should include the build class", ->
         expect($("article")).toHaveClass('build')
 
-      it "should include the name", ->
-        expect($(".name")).toHaveText(@build.get("name"))
+      it "should include the code", ->
+        expect($(".code")).toHaveText(@build.get("code"))
 
       it "should include the history", ->
         expect($(".statuses li:nth-child(1)")).toHaveClass("success")
@@ -40,15 +41,15 @@ describe "ProjectMonitor.Views.BuildView", ->
         expect($(".statuses li:nth-child(3)")).toHaveClass("success")
 
       it "should include the last build time", ->
-        expect($(".last-build")).toHaveText("4d")
+        expect($(".time-since-last-build")).toHaveText("4d")
 
     describe "aggregate", ->
       beforeEach ->
         @build.set(aggregate: true)
         setFixtures(@view.render().$el)
 
-      it "should include the name", ->
-        expect($(".name")).toHaveText(@build.get("name"))
+      it "should include the code", ->
+        expect($(".code")).toHaveText(@build.get("code"))
 
       it "should not include the history", ->
         expect($(".history")).not.toExist()

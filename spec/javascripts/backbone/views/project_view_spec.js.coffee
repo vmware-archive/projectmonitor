@@ -1,9 +1,9 @@
-describe "ProjectMonitor.Views.TileView", ->
+describe "ProjectMonitor.Views.ProjectView", ->
   describe "one tile view", ->
     beforeEach ->
       @model = BackboneFactory.create('project')
 
-      view = new ProjectMonitor.Views.TileView(model: @model)
+      view = new ProjectMonitor.Views.ProjectView(model: @model)
       setFixtures(view.render().$el)
 
     it "should include build view", ->
@@ -11,23 +11,16 @@ describe "ProjectMonitor.Views.TileView", ->
 
   describe "four tile view", ->
     beforeEach ->
-      @model = BackboneFactory.create('project')
+      @model = BackboneFactory.create('complete_project')
 
-      view = new ProjectMonitor.Views.TileView(model: @model)
+      view = new ProjectMonitor.Views.ProjectView(model: @model)
       setFixtures(view.render().$el)
 
     it "should include the project id", ->
-      expect($("section").parent().data("project_id")).toEqual(987)
+      expect($("section").parent().data("project_id")).toEqual(@model.get("project_id"))
 
     it "should include build view", ->
       expect($("section")).toContain("article.build")
 
     it "should include tracker view", ->
       expect($("section")).toContain("article.tracker")
-
-    it "should include new_relic view", ->
-      expect($("section")).toContain("article.new_relic")
-
-    it "should include airbrake view", ->
-      expect($("section")).toContain("article.airbrake")
-

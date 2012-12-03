@@ -15,8 +15,8 @@ describe HomeController do
     end
 
     it "should render collection of projects as JSON" do
-      get :index, format: :json
-      response.body.should == (projects + aggregate_projects).to_json
+      get :index
+      assigns(:projects).should == (projects + aggregate_projects)
     end
 
     it 'gets a collection of aggregate projects by tag' do
