@@ -6,12 +6,17 @@ class ProjectMonitor.Views.ProjectView extends Backbone.View
 
   initialize: (options) ->
     @subviews = []
-    @subviews.push(new ProjectMonitor.Views.BuildView(model: new ProjectMonitor.Models.Build(@model.get("build")))) if @model.get("build")
-    @subviews.push(new ProjectMonitor.Views.TrackerView(model: new ProjectMonitor.Models.Tracker(@model.get("tracker")))) if @model.get("tracker")
-    @subviews.push(new ProjectMonitor.Views.NewRelicView(model: new ProjectMonitor.Models.NewRelic(@model.get("new_relic")))) if @model.get("new_relic")
-    @subviews.push(new ProjectMonitor.Views.AirbrakeView(model: new ProjectMonitor.Models.Airbrake(@model.get("airbrake")))) if @model.get("airbrake")
+    @subviews.push(new ProjectMonitor.Views.BuildView(model: @model.get("build"))) if @model.get("build")
+    @subviews.push(new ProjectMonitor.Views.TrackerView(model: @model.get("tracker"))) if @model.get("tracker")
+    @subviews.push(new ProjectMonitor.Views.NewRelicView(model: @model.get("new_relic"))) if @model.get("new_relic")
+    @subviews.push(new ProjectMonitor.Views.AirbrakeView(model: @model.get("airbrake"))) if @model.get("airbrake")
+    @.registerSubView(subview) for subview in @subviews
+    @$el.data(project_id: @model.get("project_id"))
 
   render: ->
-    view = new ProjectMonitor.Views.TileView(subviews: @subviews)
-    @$el.html(view.render().$el)
+    $section = $("<section/>")
+    @$el.html($section)
+    $section.addClass(['one-tile', 'two-tile', 'three-tile', 'four-tile'][@subviews.length - 1])
+    for subview in @subviews
+      $section.append(subview.render().$el)
     @
