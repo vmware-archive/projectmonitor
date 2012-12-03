@@ -1,5 +1,5 @@
 <h1 class="name">
-  <%= @name %>
+  <%= @code %>
 </h1>
 <% if !@aggregate: %>
   <aside class='history'>
