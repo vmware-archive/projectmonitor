@@ -1,4 +1,4 @@
-describe "ProjectMonitor.Model.Project", ->
+describe "ProjectMonitor.Models.Project", ->
   it "should include child models", ->
     project = new ProjectMonitor.Models.Project
       build: { name: 'Project Monitor', aggregate: false, statuses: [true, false, true], last_build: "4d" }
