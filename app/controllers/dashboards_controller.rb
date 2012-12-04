@@ -54,16 +54,18 @@ class DashboardsController < ApplicationController
 
     begin
       doc = Nokogiri::HTML(UrlRetriever.retrieve_content_at('http://status.rubygems.org/'))
-      page_status = doc.css('.current span').text
+      page_status = doc.css('.services td.status span')
 
-      status[:status] =
-        if page_status == "UP"
-          'good'
-        elsif page_status.blank?
-          'page broken'
-        else
-          'bad'
-        end
+      if page_status.any?
+        status[:status] =
+          if page_status.last.attributes["class"].value.split(' ').include?("status-up")
+            "good"
+          else
+            "bad"
+          end
+      else
+        status[:status] = 'page broken'
+      end
 
     rescue Nokogiri::SyntaxError => e
       status[:status] = 'page broken'
