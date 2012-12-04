@@ -10,5 +10,6 @@ class ProjectMonitor.Views.BuildView extends Backbone.View
 
   render: ->
     @$el.html(@template(@model.toJSON()))
+    @$el.removeClass("offline success failure indeterminate")
     @$el.addClass(@model.get('status'))
     @
