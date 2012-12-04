@@ -31,11 +31,15 @@ var ProjectCheck = function() {
 
     checkProjects: function() {
       makeRequest(function(data) {
-        if (!_.isEqual(data, projects)) {
+        if (!_.isEqual(ProjectCheck.mapIds(data), ProjectCheck.mapIds(projects))) {
           ProjectMonitor.Window.reload();
         }
         scheduleRefresh();
       });
+    },
+
+    mapIds: function(list) {
+      _.map(list, function(element){ return element.id; });
     }
   };
 }();
