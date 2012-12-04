@@ -19,9 +19,9 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       statuses: [true, false, true, true, false, true, true, false, true, true]
       time_since_last_build: "4d"
     tracker:
-      velocity: 4
+      current_velocity: 4
       variance: 10
-      delivered: 5
-      open: 9
-      velocities: [ 1, 2, 3, 4, 50, 60]
+      stories_to_accept_count: 5
+      open_stories_count: 9
+      last_ten_velocities: [ 1, 2, 3, 4, 50, 60, 70, 80, 90, 100]
   }

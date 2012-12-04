@@ -4,16 +4,16 @@
 <div class="stats">
   <dl class="metrics">
       <dt>velocity</dt>
-      <dd><%= @current_velocity %></dd>
+      <dd class="current-velocity"><%= @current_velocity %></dd>
       <dt>variance</dt>
       <dd class="variance"><%= @variance %>%</dd>
   </dl>
 
   <dl class="stories">
       <dt># of stories to accept</dt>
-      <dd><%= @stories_to_accept_count %></dd>
+      <dd class="stories-to-accept-count"><%= @stories_to_accept_count %></dd>
       <dt># of open stories</dt>
-      <dd><%= @open_stories_count %></dd>
+      <dd class="open-stories-count"><%= @open_stories_count %></dd>
   </dl>
   </div>
 
