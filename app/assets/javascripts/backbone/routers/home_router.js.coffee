@@ -8,4 +8,4 @@ class ProjectMonitor.Routers.HomeRouter extends Backbone.Router
 
   index: ->
     @view = new ProjectMonitor.Views.HomeView(collection: @projects)
-    $(".projects").html(@view.render().el)
+    $(".tiles").html(@view.render().el)
