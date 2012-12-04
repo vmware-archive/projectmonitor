@@ -39,7 +39,7 @@ var ProjectCheck = function() {
     },
 
     mapIds: function(list) {
-      _.map(list, function(element){ return element.id; });
+      return _.map(list, function(element){ return element.project_id; });
     }
   };
 }();
