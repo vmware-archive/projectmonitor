@@ -5,6 +5,9 @@ class ProjectMonitor.Views.TrackerView extends Backbone.View
   tagName: "article"
   template: JST["backbone/templates/tracker"]
 
+  initialize: (options) ->
+    @model.on("change", @render, @)
+
   render: ->
     @$el.html(@template($.extend(@model.toJSON(), {size: @size, normalized_velocities: @model.normalized_velocities()})))
     @
