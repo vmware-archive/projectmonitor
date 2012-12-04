@@ -13,6 +13,10 @@ class ProjectMonitor.Models.Project extends Backbone.Model
     @get("build").set(attributes.build) if attributes.build?
     @get("tracker").set(attributes.tracker) if attributes.tracker?
 
+  parse: (attributes, xhr) ->
+    @update(attributes)
+    @
+
   refresh: ->
     @fetch()
     setTimeout((=> @refresh()), @timeout)
