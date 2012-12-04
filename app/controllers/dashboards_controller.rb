@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
 
   respond_to :html, :only => [:index, :styleguide]
   respond_to :rss, :only => :builds
-  respond_to :json, :only => [:github_status, :heroku_status, :index]
+  respond_to :json, :only => [:github_status, :heroku_status, :rubygems_status, :index]
 
   def index
     @tiles_count = (params[:tiles_count].presence || 15).to_i
@@ -47,6 +47,31 @@ class DashboardsController < ApplicationController
       status = '{"status":"unreachable"}'
     end
     respond_with JSON.parse(status)
+  end
+
+  def rubygems_status
+    status = {}
+
+    begin
+      doc = Nokogiri::HTML(UrlRetriever.retrieve_content_at('http://status.rubygems.org/'))
+      page_status = doc.css('.current span').text
+
+      status[:status] =
+        if page_status == "UP"
+          'good'
+        elsif page_status.blank?
+          'page broken'
+        else
+          'bad'
+        end
+
+    rescue Nokogiri::SyntaxError => e
+      status[:status] = 'page broken'
+    rescue
+      status[:status] = 'unreachable'
+    end
+
+    respond_with status
   end
 
   def styleguide
