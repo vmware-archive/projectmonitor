@@ -104,7 +104,6 @@ describe DashboardsController do
           UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
         end
 
-
         it "returns 'unreachable'" do
           get :heroku_status, format: :json
           response.body.should == '{"status":"unreachable"}'
@@ -120,6 +119,74 @@ describe DashboardsController do
       it "returns whatever status heroku returns" do
         get :heroku_status, format: :json
         response.body.should == '{"status":"minor-outage"}'
+      end
+    end
+  end
+
+  context 'when rubygems status is checked' do
+    context 'and there is an error' do
+      context 'retrieving the content' do
+        let(:error) { Net::HTTPError.new("", nil) }
+
+        before do
+          UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
+        end
+
+        it "returns 'unreachable'" do
+          get :rubygems_status, format: :json
+          response.body.should == '{"status":"unreachable"}'
+        end
+      end
+
+      context 'parsing the content' do
+        context 'and the content is not valid HTML' do
+          let(:error) { Nokogiri::SyntaxError.new }
+
+          before do
+            UrlRetriever.should_receive(:retrieve_content_at).and_raise(error)
+          end
+
+          it "returns 'page broken'" do
+            get :rubygems_status, format: :json
+            response.body.should == '{"status":"page broken"}'
+          end
+        end
+
+        context 'and the content is different than we expect' do
+          before do
+            UrlRetriever.should_receive(:retrieve_content_at).and_return('<div class="current-status"> RubyGems.org Status: <strong>ANYTHING</strong></div>')
+          end
+
+          it "parses out the status from rubygems" do
+            get :rubygems_status, format: :json
+            response.body.should == '{"status":"page broken"}'
+          end
+
+        end
+      end
+    end
+
+    context 'when rubygems is reachable' do
+      context "and returns UP" do
+        before do
+          UrlRetriever.should_receive(:retrieve_content_at).and_return('<div class="current"> RubyGems.org Status: <span class="color color-up">UP</span></div>')
+        end
+
+        it "parses out the status from rubygems" do
+          get :rubygems_status, format: :json
+          response.body.should == '{"status":"good"}'
+        end
+      end
+
+      context "and returns PARTIAL" do
+        before do
+          UrlRetriever.should_receive(:retrieve_content_at).and_return('<div class="current"> RubyGems.org Status: <span class="color color-up">PARTIAL/span></div>')
+        end
+
+        it "parses out the status from rubygems" do
+          get :rubygems_status, format: :json
+          response.body.should == '{"status":"bad"}'
+        end
       end
     end
   end

@@ -25,7 +25,7 @@ body.dashboard {
     z-index: 1000;
   }
 
-  .github, .heroku {
+  .github, .heroku, .rubygems {
     text-align: center;
     display: none;
     border-bottom: 1px solid black;
@@ -40,6 +40,13 @@ body.dashboard {
 
     &.unreachable {
       background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    &.broken {
+      background-color: red;
+      a {
+        color: white;
+      }
     }
 
     a {
