@@ -11,7 +11,7 @@ var RubyGemsRefresh = (function () {
     refresh : function () {
       $.ajax({
         url: '/rubygems_status.json',
-        timeout: (pollIntervalSeconds - 1) * 1000,
+        timeout: 2000,
         success: function(response) {
       var status = response.status;
       if(status == 'bad') {
