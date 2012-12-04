@@ -239,7 +239,10 @@ class Project < ActiveRecord::Base
   end
 
   def remove_outdated_status(status)
-    statuses.order('created_at ASC').first.destroy if statuses.count == ProjectMonitor::Application.config.max_status + 1
+    if statuses.count > ProjectMonitor::Application.config.max_status
+      keepers = statuses.order('created_at DESC').limit(ProjectMonitor::Application.config.max_status)
+      ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
+    end
   end
 
   def fetch_statuses

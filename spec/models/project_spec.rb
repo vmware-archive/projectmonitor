@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project do
-  let(:project) { FactoryGirl.build(:jenkins_project) }
+  let(:project) { FactoryGirl.create(:jenkins_project) }
 
   describe "factories" do
     it "should be valid for project" do
@@ -18,7 +18,7 @@ describe Project do
     let!(:count) {  ProjectMonitor::Application.config.max_status - 1 }
 
     before do
-      project.statuses = FactoryGirl.create_list(:project_status, count)
+      project.statuses << FactoryGirl.create_list(:project_status, count, project: project)
     end
 
     context 'when the project is online' do
@@ -43,9 +43,9 @@ describe Project do
         end
 
         context 'when more than 15 previous statuses' do
-          let(:count) {  ProjectMonitor::Application.config.max_status }
-          it "should not delete any statuses from the project" do
-            project.statuses.count.should ==  ProjectMonitor::Application.config.max_status
+          let(:count) {  ProjectMonitor::Application.config.max_status + 10 }
+          it "should delete statuses from the project of statuses more than the max" do
+            project.statuses.count.should == ProjectMonitor::Application.config.max_status
           end
         end
       end
