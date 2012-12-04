@@ -18,3 +18,42 @@ describe "ProjectMonitor.Models.Project", ->
       new_relic: { times: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40] }
 
     expect(project.get("airbrake")).not.toBeDefined()
+
+  describe "#update", ->
+    beforeEach ->
+      @build_changed = jasmine.createSpy();
+
+    describe "when the project contains only build information", ->
+      beforeEach ->
+        @project = BackboneFactory.create("project")
+        @project.get("build").on("change", @build_changed)
+        attributes = { build: { code: "NEW PROJ"} }
+        @project.update(attributes)
+
+      it "should update build model", ->
+        expect(@project.get("build").get("code")).toEqual("NEW PROJ")
+
+      it "should fire build change event", ->
+        expect(@build_changed).toHaveBeenCalled();
+
+    describe "when the project contains build and tracker information", ->
+      beforeEach ->
+        @project = BackboneFactory.create("complete_project")
+        @tracker_changed = jasmine.createSpy()
+        @project.get("build").on("change", @build_changed)
+        @project.get("tracker").on("change", @tracker_changed)
+        attributes = { build: { code: "NEW PROJ"}, tracker: { velocity: 99} }
+        @project.update(attributes)
+
+      it "should update build model", ->
+        expect(@project.get("build").get("code")).toEqual("NEW PROJ")
+
+      it "should update tracker model", ->
+        expect(@project.get("tracker").get("velocity")).toEqual(99)
+
+      it "should fire build change event", ->
+        expect(@build_changed).toHaveBeenCalled();
+
+      it "should fire tracker change event", ->
+        expect(@tracker_changed).toHaveBeenCalled();
+
