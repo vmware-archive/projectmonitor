@@ -2,6 +2,7 @@ ProjectMonitor.Views ||= {}
 
 class ProjectMonitor.Views.HomeView extends Backbone.View
   tagName: "ol"
+  className: "projects"
   template: JST["backbone/templates/home"]
 
   initialize: (options) ->
