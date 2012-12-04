@@ -3,6 +3,7 @@
 //= require projectRefresh
 //= require githubRefresh
 //= require herokuRefresh
+//= require rubygemsRefresh
 
 $(function() {
   VersionCheck.init();
@@ -10,6 +11,7 @@ $(function() {
   ProjectRefresh.init();
   GithubRefresh.init();
   HerokuRefresh.init();
+  RubyGemsRefresh.init();
 
   $(document).bind("ajaxStart", function() {
     $('#indicator').removeClass('idle');

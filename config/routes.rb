@@ -7,6 +7,7 @@ ProjectMonitor::Application.routes.draw do
   match 'version' => 'versions#show'
   match 'github_status' => 'dashboards#github_status', format: :json
   match 'heroku_status' => 'dashboards#heroku_status', format: :json
+  match 'rubygems_status' => 'dashboards#rubygems_status', format: :json
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
