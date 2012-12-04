@@ -169,7 +169,7 @@ describe DashboardsController do
     context 'when rubygems is reachable' do
       context "and returns UP" do
         before do
-          UrlRetriever.should_receive(:retrieve_content_at).and_return('<div class="current"> RubyGems.org Status: <span class="color color-up">UP</span></div>')
+          UrlRetriever.should_receive(:retrieve_content_at).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>')
         end
 
         it "parses out the status from rubygems" do
@@ -178,9 +178,9 @@ describe DashboardsController do
         end
       end
 
-      context "and returns PARTIAL" do
+      context "and returns not UP" do
         before do
-          UrlRetriever.should_receive(:retrieve_content_at).and_return('<div class="current"> RubyGems.org Status: <span class="color color-up">PARTIAL/span></div>')
+          UrlRetriever.should_receive(:retrieve_content_at).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>')
         end
 
         it "parses out the status from rubygems" do
