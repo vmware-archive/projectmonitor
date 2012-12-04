@@ -53,3 +53,12 @@ describe "ProjectMonitor.Views.BuildView", ->
 
       it "should not include the history", ->
         expect($(".history")).not.toExist()
+
+  describe "when build model changes", ->
+    it "should render the view", ->
+      build = BackboneFactory.create("project").get("build")
+      spyOn(ProjectMonitor.Views.BuildView.prototype, "render")
+      view = new ProjectMonitor.Views.BuildView(model: build)
+      build.set({code: "NEW CODE"})
+      expect(ProjectMonitor.Views.BuildView.prototype.render).toHaveBeenCalled()
+
