@@ -579,20 +579,20 @@ describe Project do
     end
   end
 
-  describe "as_json" do
+  describe "#as_json" do
     context "build" do
       let(:project) { FactoryGirl.create(:project) }
 
       context "when there is no build history" do
         it "should have general build properties" do
-          json = JSON.parse(project.to_json)
+          hash = project.as_json
 
-          json["project_id"].should == project.id
-          json["build"]["code"].should == project.code
-          json["build"]["id"].should == project.id
-          json["build"]["status"].should == project.status_in_words
-          json["build"]["statuses"].should == []
-          json["build"]["time_since_last_build"].should be_nil
+          hash["project_id"].should == project.id
+          hash["build"]["code"].should == project.code
+          hash["build"]["id"].should == project.id
+          hash["build"]["status"].should == project.status_in_words
+          hash["build"]["statuses"].should == []
+          hash["build"]["time_since_last_build"].should be_nil
         end
       end
 
@@ -604,9 +604,9 @@ describe Project do
         end
 
         it "should have status properties" do
-          json = JSON.parse(project.to_json)
-          json["build"]["statuses"].should == project.statuses.map(&:success)
-          json["build"]["time_since_last_build"].should == project.time_since_last_build
+          hash = project.as_json
+          hash["build"]["statuses"].should == project.statuses.map(&:success)
+          hash["build"]["time_since_last_build"].should == project.time_since_last_build
         end
       end
     end
@@ -615,13 +615,13 @@ describe Project do
       let(:project) { FactoryGirl.build(:project_with_tracker_integration) }
 
       it "should have a tracker properties" do
-        json = JSON.parse(project.to_json)
+        hash = project.as_json
 
-        json["tracker"]["current_velocity"].should == project.current_velocity
-        json["tracker"]["variance"].should == project.variance
-        json["tracker"]["last_ten_velocities"].should == project.last_ten_velocities
-        json["tracker"]["stories_to_accept_count"].should == project.stories_to_accept_count
-        json["tracker"]["open_stories_count"].should == project.open_stories_count
+        hash["tracker"]["current_velocity"].should == project.current_velocity
+        hash["tracker"]["variance"].should == project.variance
+        hash["tracker"]["last_ten_velocities"].should == project.last_ten_velocities
+        hash["tracker"]["stories_to_accept_count"].should == project.stories_to_accept_count
+        hash["tracker"]["open_stories_count"].should == project.open_stories_count
       end
     end
   end
