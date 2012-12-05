@@ -59,45 +59,42 @@ describe AggregateProject do
       end
     end
 
-    describe '.displayable' do
-      subject { AggregateProject.displayable tags }
+    describe ".displayable" do
+      context "without tags" do
+        let(:displayable_aggregate) { AggregateProject.displayable }
 
-      let!(:tagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:pivots)], enabled: true }
-      let!(:untagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:socialitis)], enabled: true }
+        it "should return enabled projects" do
+          enabled = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true
+          disabled = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false
+
+          displayable_aggregate.should include enabled
+          displayable_aggregate.should_not include disabled
+        end
+
+        it "should not return aggregate projects that have no subprojects" do
+          empty_aggregate = create :aggregate_project, enabled: true
+          displayable_aggregate.should_not include empty_aggregate
+        end
+      end
 
       context "when supplying tags" do
-        let(:tags) { "southeast, northwest" }
+        let(:displayable_aggregate) { AggregateProject.displayable "red"}
 
-        it "should find tagged with tags" do
-          scope = double
-          AggregateProject.stub(:enabled) { scope }
-          scope.should_receive(:all_with_tags).with(tags)
-          subject
+        it "should return enabled projects with the requested tags" do
+          disabled_red_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false, tag_list: "red"
+          disabled_blue_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false, tag_list: "blue"
+          enabled_red_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true, tag_list: "red"
+          enabled_blue_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true, tag_list: "blue"
+
+          displayable_aggregate.should include enabled_red_project
+          displayable_aggregate.should_not include disabled_red_project, disabled_blue_project, enabled_blue_project
         end
 
-        context "when displayable projects are tagged" do
-          before do
-            tagged_project.update_attributes(tag_list: tags)
-            untagged_project.update_attributes(tag_list: [])
-          end
-
-          it "should return scoped projects" do
-            subject.should include tagged_project
-            subject.should_not include untagged_project
-          end
-        end
-
-      end
-
-      context "when not supplying tags" do
-        let(:tags) { nil }
-
-        it "should return scoped projects" do
-          subject.should include tagged_project
-          subject.should include untagged_project
+        it "should not return aggregate projects that have no subprojects" do
+          red_empty_aggregate = create :aggregate_project, enabled: true, tag_list: "red"
+          displayable_aggregate.should_not include red_empty_aggregate
         end
       end
-
     end
 
     describe '.tagged' do
