@@ -186,7 +186,7 @@ class Project < ActiveRecord::Base
   end
 
   def as_json(options={})
-    json = {}
+    json = super # TODO: Remove before merge
     json["project_id"] = self.id
     json["build"] = super(
         only: [:code, :id, :statuses],
