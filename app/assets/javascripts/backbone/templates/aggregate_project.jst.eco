@@ -1,5 +1,7 @@
-<article>
-  <h1 class="code">
-    <%= @code %>
-  </h1>
-</article>
+<section>
+  <article class="aggregate">
+    <h1 class="code">
+      <%= @code %>
+    </h1>
+  </article>
+</section>
