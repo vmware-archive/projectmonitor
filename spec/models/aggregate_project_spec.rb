@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe AggregateProject do
+  describe "factories" do
+    describe "complete_aggregate_project" do
+      let(:aggregate_project_with_project) { create(:aggregate_project_with_project) }
+
+      it "should have a name" do
+        aggregate_project_with_project.name.should_not be_nil
+      end
+
+      it "should have a code" do
+        aggregate_project_with_project.code.should_not be_nil
+      end
+
+      it "should be valid" do
+        aggregate_project_with_project.should be_valid
+      end
+
+      it "should have a sub project" do
+        aggregate_project_with_project.projects.should_not be_empty
+      end
+    end
+  end
 
   context "validations" do
     it { should validate_presence_of :name }
