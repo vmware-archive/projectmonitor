@@ -4,6 +4,8 @@ $ninesixty-fluid-grid-width: 100%;
 $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
+@import '_mixins';
+@import '_aggregate';
 @import '_build';
 @import '_tracker';
 @import '_new_relic';
@@ -106,6 +108,15 @@ ol.projects {
 }
 
 .project {
+  float: left;
+  width: 600px;
+  background-color: #2E2E29;
+  padding: 10px;
+  margin: 5px;
+  font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+}
+
+.aggregate_project {
   float: left;
   width: 600px;
   background-color: #2E2E29;

@@ -1,4 +1,4 @@
-<section>
+<section class="one-tile">
   <article class="aggregate">
     <h1 class="code">
       <%= @code %>

@@ -1,0 +1,14 @@
+@mixin build_status($color) {
+  h1 {
+    @include linear-gradient(top, $color 90%, lighten($color, 10%) 10%);
+  }
+
+  aside {
+    background-color: lighten($color, 10%);
+  }
+  ol {
+    li {
+      background-color: lighten($color, 25%);
+    }
+  }
+}
