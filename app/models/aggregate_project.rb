@@ -100,8 +100,8 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    options.merge!(root: false)
-    super(options).merge!("aggregate" => true)
+    options.merge!(root: false, except: [:status])
+    super(options).merge!("aggregate" => true, "status" => status_in_words)
   end
 
   def status_in_words
