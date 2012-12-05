@@ -72,6 +72,10 @@ class AggregateProject < ActiveRecord::Base
     projects.all? { |p| p.last_green.blank? }
   end
 
+  def build
+    projects.first
+  end
+
   def breaking_build
     return statuses.first if never_been_green?
     red_statuses = projects.collect do |p|

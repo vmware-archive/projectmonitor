@@ -339,6 +339,24 @@ describe AggregateProject do
     end
   end
 
+  describe "#build" do
+    context "when aggregate has no projects" do
+      let(:aggregate) { create(:aggregate_project) }
+
+      it "should return nil" do
+        aggregate.build.should be_nil
+      end
+    end
+
+    context "when aggreaget has one project" do
+      let(:aggregate) { create(:aggregate_project_with_project) }
+
+      it "should return first project" do
+        aggregate.build.should == aggregate.projects.first
+      end
+    end
+  end
+
   describe "#breaking_build" do
     context "when a project does not have a published_at date" do
       it "should be ignored" do
