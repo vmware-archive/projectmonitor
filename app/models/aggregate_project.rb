@@ -103,4 +103,16 @@ class AggregateProject < ActiveRecord::Base
     options.merge!(root: false)
     super(options).merge!("aggregate" => true)
   end
+
+  def status_in_words
+    if red?
+      'failure'
+    elsif green?
+      'success'
+    elsif yellow?
+      'indeterminate'
+    else
+      'offline'
+    end
+  end
 end

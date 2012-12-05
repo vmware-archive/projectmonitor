@@ -411,4 +411,36 @@ describe AggregateProject do
       hash["name"].should == aggregate_project.name
     end
   end
+
+  describe "#status_in_words" do
+    subject { aggregate.status_in_words }
+
+    let(:aggregate) { FactoryGirl.build(:aggregate_project) }
+    let(:red) { false }
+    let(:green) { false }
+    let(:yellow) { false }
+
+    before do
+      aggregate.stub(red?: red, green?: green, yellow?: yellow)
+    end
+
+    context "when aggregate project is red" do
+      let(:red) { true }
+      it { should == "failure" }
+    end
+
+    context "when aggregate project is green" do
+      let(:green) { true }
+      it { should == "success" }
+    end
+
+    context "when aggregate project is yellow" do
+      let(:yellow) { true }
+      it { should == "indeterminate" }
+    end
+
+    context "when aggregate project none of the statuses" do
+      it { should == "offline" }
+    end
+  end
 end
