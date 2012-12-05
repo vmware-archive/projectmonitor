@@ -11,7 +11,7 @@ describe "ProjectMonitor.Views.AggregateProjectView", ->
           setFixtures(@view.render().$el)
 
         it "should have success class", ->
-          expect($(".aggregate")).toHaveClass("success")
+          expect($("article")).toHaveClass("success")
 
       describe "when the build failed", ->
         beforeEach ->
@@ -19,7 +19,7 @@ describe "ProjectMonitor.Views.AggregateProjectView", ->
           setFixtures(@view.render().$el)
 
         it "should have failed class", ->
-          expect($(".aggregate")).toHaveClass("failure")
+          expect($("article")).toHaveClass("failure")
 
     describe "view", ->
       beforeEach ->
@@ -27,6 +27,9 @@ describe "ProjectMonitor.Views.AggregateProjectView", ->
 
       it "should have an article", ->
         expect($("article")).toExist()
+
+      it "should have a section", ->
+        expect($("section")).toExist()
 
       it "should include the code", ->
         expect($(".code")).toHaveText(@aggregate.get("code"))

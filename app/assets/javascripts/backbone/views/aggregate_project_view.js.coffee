@@ -2,7 +2,7 @@ ProjectMonitor.Views ||= {}
 
 class ProjectMonitor.Views.AggregateProjectView extends Backbone.View
   tagName: "li"
-  className: "aggregate"
+  className: "aggregate_project"
   template: JST["backbone/templates/aggregate_project"]
 
   initialize: (options) ->
@@ -10,6 +10,7 @@ class ProjectMonitor.Views.AggregateProjectView extends Backbone.View
 
   render: ->
     @$el.html(@template(@model.toJSON()))
-    @$el.removeClass("offline success failure indeterminate")
-    @$el.addClass(@model.get('status'))
+    article = @$el.find("article")
+    article.removeClass("offline success failure indeterminate")
+    article.addClass(@model.get('status'))
     @

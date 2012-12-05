@@ -7,7 +7,7 @@ describe "ProjectMonitor.Views.HomeView", ->
     expect(@view.render().$el.find("article").length).toEqual(2)
 
   it "should render aggregate tile", ->
-    expect(@view.render().$el).toContain("li.aggregate")
+    expect(@view.render().$el).toContain("li.aggregate_project")
 
   it "should render standalong tile", ->
     expect(@view.render().$el).toContain("li.project")
