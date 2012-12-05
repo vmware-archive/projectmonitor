@@ -1,0 +1,20 @@
+article.aggregate.success       { @include build_status($green) }
+article.aggregate.failure       { @include build_status($red) }
+article.aggregate.offline       { @include build_status($grey) }
+article.aggregate.indeterminate { @include build_status($yellow) }
+
+article.aggregate {
+  h1 {
+    background-size: 10px 10px;
+    text-align: center;
+  }
+}
+
+.one-tile {
+  article.aggregate {
+    h1 {
+      font-size: 200px;
+      line-height: 330px;
+    }
+  }
+}
