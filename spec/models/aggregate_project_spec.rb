@@ -410,6 +410,10 @@ describe AggregateProject do
       hash["code"].should == aggregate_project.code
       hash["name"].should == aggregate_project.name
     end
+
+    it "should have status" do
+      hash["status"].should == aggregate_project.status_in_words
+    end
   end
 
   describe "#status_in_words" do
