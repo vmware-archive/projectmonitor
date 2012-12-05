@@ -402,12 +402,13 @@ describe AggregateProject do
   end
 
   describe "#as_json" do
-    let(:aggregate_project) { AggregateProject.new(name: "Aggregate Project") }
-    let(:json) { JSON.parse(aggregate_project.to_json) }
+    let(:aggregate_project) { create(:aggregate_project_with_project) }
+    let(:hash) { aggregate_project.as_json }
 
     it "should have basic properties" do
-      json["code"].should == aggregate_project.code
-      json["name"].should == aggregate_project.name
+      hash["aggregate"].should be_true
+      hash["code"].should == aggregate_project.code
+      hash["name"].should == aggregate_project.name
     end
   end
 end

@@ -100,6 +100,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    json = super(root: false)
+    options.merge!(root: false)
+    super(options).merge!("aggregate" => true)
   end
 end
