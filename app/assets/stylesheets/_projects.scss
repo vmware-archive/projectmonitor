@@ -24,3 +24,320 @@ $history-width: 32px !default;
 $history-height: 32px !default;
 
 $statusbar-font-size: 30px !default;
+
+.dashboard {
+  ol.projects {
+    list-style: none;
+    display: block;
+    margin-top: 14px;
+
+    li.project {
+      float: left;
+
+      > div {
+        height: 100%;
+      }
+
+      .history {
+        ol {
+          li {
+            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+            text-decoration: none;
+            background: $transparent-white center no-repeat;
+            display:block;
+            float:left;
+
+            &.success span:before {
+              content: $success-unicode-glyph;
+            }
+
+            &.failure span:before {
+              content: $failure-unicode-glyph;
+            }
+
+            a {
+              font-size: 0;
+              display: block;
+              position: relative;
+            }
+          }
+        }
+      }
+
+      &.success {
+        background: $green;
+        .information .status-bar {
+          background: $light-green;
+          border-top: solid $very-dark-green 2px;
+
+        }
+        .velocity-block {
+          border-color: $very-dark-green;
+
+          .chart {
+            dd {
+              span {
+                background: $dark-green;
+              }
+            }
+          }
+        }
+
+        &.aggregate .information {
+          @include linear-gradient(0deg, $green 50%, $dark-green 51%);
+        }
+      }
+
+      &.failure {
+        background: $red;
+        .information {
+          .status-bar {
+            background: $light-red;
+            border-top: solid $very-dark-red 2px;
+          }
+
+        }
+        .velocity-block {
+          background: $very-light-red;
+          border-color: $very-dark-red;
+
+          .chart {
+            dd {
+              span {
+                background: $dark-red;
+              }
+            }
+          }
+        }
+
+        &.aggregate .information {
+          @include linear-gradient(0deg, $red 50%, $dark-red 51%);
+        }
+      }
+
+      &.indeterminate {
+        background: $yellow;
+        .information {
+          .status-bar {
+            background: $light-yellow;
+            border-top: solid $very-dark-yellow 2px;
+          }
+
+        }
+        .velocity-block {
+          background: $very-light-yellow;
+          border-color: $very-dark-yellow;
+
+          .chart {
+            dd {
+              span {
+                background: $dark-yellow;
+              }
+            }
+          }
+        }
+
+        &.aggregate .information {
+          @include linear-gradient(0deg, $yellow 50%, $dark-yellow 51%);
+        }
+      }
+
+      &.offline {
+        background: $grey;
+
+        .information {
+          .status-bar {
+            background: $grey;
+            border-top: solid $very-dark-grey 2px;
+          }
+        }
+
+        .velocity-block {
+          background: $very-light-grey;
+          border-color: $very-dark-grey;
+
+          .chart {
+            dd {
+              span {
+                background: $dark-grey;
+              }
+            }
+          }
+        }
+
+        &.aggregate .information{
+          @include linear-gradient(0deg, $grey 50%, $dark-grey 51%);
+        }
+      }
+
+
+      &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
+        background: $very-very-light-grey;
+
+        .information {
+          .status-bar {
+            background: $very-light-grey;
+            border-top: solid $dark-grey 2px;
+          }
+        }
+
+        .velocity-block {
+          background: $very-very-light-grey;
+          border-color: $dark-grey;
+
+          .chart {
+            dd {
+              span {
+                background: $dark-grey;
+              }
+            }
+          }
+        }
+
+        &.aggregate .information{
+          @include linear-gradient(0deg, $light-grey 50%, $grey 51%);
+        }
+      }
+
+      .information {
+        > div {
+          text-align: left;
+        }
+        float: left;
+
+        h1 {
+          font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
+          font-weight: normal;
+          text-transform: capitalize;
+          color: #2B2820;
+
+          a, a:hover, a:visited {
+            color: #2B2820;
+            text-decoration: none;
+          }
+        }
+
+        .status-bar {
+          .building-indicator {
+            float:left;
+            margin:3px 0;
+            width:80px;
+            text-align:center;
+
+            img {
+              width:30px;
+              height:30px;
+            }
+          }
+
+          .publish-date {
+            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+            font-weight: normal;
+            float: left;
+            text-align: center;
+            font-size:1px;
+          }
+
+          .inventory {
+            .healthy {
+              color: green;
+            }
+
+            .unhealthy {
+              color: red;
+            }
+
+            float: right;
+            margin-right: 20px;
+            font-size: 10px;
+          }
+
+          .name {
+            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+            font-weight: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-transform: capitalize;
+
+            a {
+              text-decoration: none;
+              color: black;
+            }
+          }
+
+          .aggregate {
+            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+            font-weight: normal;
+          }
+        }
+      }
+
+      &.success {
+        .velocity-block {
+          @include linear-gradient(top, $dark-green 0.05em, $very-light-green 0.05em);
+        }
+      }
+
+      &.failure {
+        .velocity-block {
+          @include linear-gradient(top, $red 0.05em, $very-light-red 0.05em);
+        }
+      }
+
+      &.offline, &.server-unreachable, &.server-unreachable.success, &.server-unreachable.failure {
+        .velocity-block {
+          @include linear-gradient(top, $dark-grey 0.05em, $very-light-grey 0.05em);
+        }
+      }
+
+      .velocity-block {
+        float: right;
+        border-left: solid 2px;
+        border-right: solid 2px;
+        float: left;
+        text-align: center;
+
+        .label {
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+          font-weight: normal;
+          text-transform: uppercase;
+          vertical-align: top;
+          color: #2B2820;
+        }
+
+        .error {
+          color: $disabled-grey;
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+          font-weight: normal;
+          text-transform: uppercase;
+          vertical-align: middle;
+        }
+
+        .value {
+          font-family: 'Avenir LT W01 65 Medium', Helvetica, sans-serif;
+          vertical-align: top;
+        }
+
+        .chart {
+          padding-left: 10px;
+          dd {
+            display:inline;
+            float: left;
+            margin-right: 2px;
+            position: relative;
+
+            span {
+              position: absolute;
+              bottom: 0;
+              border-top-left-radius:1px;
+              border-top-right-radius:1px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
