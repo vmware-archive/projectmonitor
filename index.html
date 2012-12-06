@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Project Monitor by Pivotal Labs</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Project Monitor</h1>
+        <p>Big Visible Chart CI aggregator</p>
+        <p class="view"><a href="https://github.com/pivotal/projectmonitor">View the Project on GitHub <small>pivotal/projectmonitor</small></a></p>
+        <ul>
+          <li><a href="https://github.com/pivotal/projectmonitor/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/pivotal/projectmonitor/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/pivotal/projectmonitor">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="http://travis-ci.org/pivotal/projectmonitor"><img src="https://secure.travis-ci.org/pivotal/projectmonitor.png?branch=master" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/pivotal/projectmonitor"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
+
+<h1>Description</h1>
+
+<p>ProjectMonitor is a CI display aggregator. It displays the status of multiple
+Continuous Integration builds on a single web page.  The intent is that you
+display the page on a big screen monitor or TV so that the status of all your
+projects' builds are highly visible/glanceable (a "Big Visible Chart").
+ProjectMonitor currently supports:</p>
+
+<ul>
+<li><a href="http://cruisecontrolrb.thoughtworks.com/">Cruise Control</a></li>
+<li><a href="http://jenkins-ci.org/">Jenkins</a></li>
+<li><a href="http://www.jetbrains.com/teamcity/">TeamCity</a></li>
+<li><a href="http://travis-ci.org/">Travis CI</a></li>
+<li><a href="http://www.tddium.com/">tddium</a></li>
+<li><a href="http://www.semaphoreapp.com/">Semaphore</a></li>
+</ul><p>We use ProjectMonitor internally at Pivotal Labs to display the status of the
+builds for all our client projects. We also have an instance of ProjectMonitor
+running at <a href="http://ci.pivotallabs.com">ci.pivotallabs.com</a> that we use for
+displaying the status of the builds of various open source projects - both of
+projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
+(such as Rails).</p>
+
+<h2>Upgrading</h2>
+
+<p>ProjectMonitor has recently moved to
+<a href="https://github.com/plataformatec/devise/">Devise</a> for authentication. This
+means that any existing users will have invalid passwords. If you don't want
+all your users to have to reset their passwords, you can alter the following
+configuration settings to support legacy passwords:</p>
+
+<pre><code>devise_encryptor: :legacy
+devise_pepper: &lt;rest_auth_site_key&gt;
+devise_stretches: &lt;rest_auth_digest_stretches&gt;
+</code></pre>
+
+<p>The values for <code>rest_auth_site_key</code> and <code>rest_auth_digest_stretches</code> can be found
+in your <code>config/auth.yml</code>. This file is no longer needed.</p>
+
+<h2>Installation</h2>
+
+<h3>Get the code</h3>
+
+<p>ProjectMonitor is a Rails application. To get the code, execute the following:</p>
+
+<pre><code>git clone git://github.com/pivotal/projectmonitor.git
+cd projectmonitor
+bundle install
+</code></pre>
+
+<h3>Initial Setup</h3>
+
+<p>We have provided an example file for <code>database.yml</code>. Run the following to 
+automatically generate these files for you:</p>
+
+<pre><code>rake setup
+</code></pre>
+
+<p>You likely need to edit the generated files.  See below.</p>
+
+<h3>Set up the database</h3>
+
+<p>You'll need a database. Create it with whatever name you want.  If you have not
+run <code>rake setup</code>, copy <code>database.yml.example</code> to <code>database.yml</code>.  Edit the
+production environment configuration so it's right for your database:</p>
+
+<pre><code>cp config/database.yml.example config/database.yml
+&lt;edit database.yml&gt;
+RAILS_ENV=production rake db:create
+RAILS_ENV=production rake db:migrate
+</code></pre>
+
+<h3>Authentication support</h3>
+
+<p>Project monitor uses Devise to provide both database backed authentication and
+Google OAuth2 logins.</p>
+
+<h4>Password authentication</h4>
+
+<p>Regular password authentication is enabled by default and can be switched off
+by setting the <code>password_auth_enabled</code> setting to <code>false</code>. To ensure strong
+password encryption you should adjust the value for <code>password_auth_pepper</code> and
+<code>password_auth_stretches</code> appropriately.</p>
+
+<h4>Google OAuth2 setup</h4>
+
+<p>To use Google OAuth2 authentication you need Google apps setup for your domain
+and the following configuration options specified:</p>
+
+<pre><code>oauth2_enabled: true
+oauth2_apphost: 'MY_APP_ID'
+oauth2_secret: 'MY_SECRET'
+</code></pre>
+
+<h3>Setup Cron with Whenever</h3>
+
+<p>We have included a sample whenever gem config in config/schedule.rb. Refer to
+the <a href="https://github.com/javan/whenever">whenever documentation</a> for instructions
+on how to integrate it with your deployment.</p>
+
+<p>The default schedule clears log entries daily, and fetches project statuses every 3 minutes.</p>
+
+<p>The fetch project task is what goes out and hits the individual builds. We find
+that if you do this too frequently it can swamp the builds. On the other hand,
+you don't want ProjectMonitor displaying stale information. At Pivotal we set
+it up to run every 3 minutes.</p>
+
+<h3>Start workers</h3>
+
+<p>The cron job above will add jobs to the queue, which workers will execute.  To
+start running the workers, use the following command:</p>
+
+<pre><code>rake start_workers
+</code></pre>
+
+<p>The default number of workers is 2, but if you wanted 3 you would call it like this:</p>
+
+<pre><code>rake start_workers[3]
+</code></pre>
+
+<p>These workers need only be started once per system reboot, and must be running
+for your project statuses to update.  To stop the workers, run this command:</p>
+
+<pre><code>rake stop_workers
+</code></pre>
+
+<p>The workers are implemented using the <a href="http://github.com/collectiveidea/delayed_job">delayed_job
+gem</a>.  The workers are configured
+to have a maximum timeout of 1 minute when polling project status.  If you want
+to change this setting, you can edit <code>config/initializers/delayed_job_config.rb</code></p>
+
+<h3>Start the application</h3>
+
+<p>Execute:</p>
+
+<pre><code>nohup rails server -e production &amp;&gt; projectmonitor.log
+</code></pre>
+
+<h2>Configuration</h2>
+
+<p>Each build that you want ProjectMonitor to display is called a "project" in
+ProjectMonitor. You need to login to set up projects.</p>
+
+<h3>Create a user</h3>
+
+<p>ProjectMonitor can use either the <a href="http://github.com/technoweenie/restful-authentication">Restful Authentication
+plugin</a>, or Google
+OpenId for user security. If you are using Google OpenId, users will be
+automatically provisioned.  All users from your domain will be permitted to
+edit projects. Otherwise, use the following steps to add users by hand.</p>
+
+<p>Your first user must be created at the command line.</p>
+
+<pre><code>rails c production
+User.create!(login: 'john', name: 'John Doe', email: 'jdoe@example.com', password: 'password', password_confirmation: 'password')
+</code></pre>
+
+<p>After that, you can login to ProjectMonitor with the username and password you
+specified and use the "New User" link to create additional users.</p>
+
+<h3>Log in</h3>
+
+<p>Open a browser on ProjectMonitor. Login by clicking on "Login" in the upper-right corner.</p>
+
+<h3>Add projects</h3>
+
+<p>Click on "Projects" in the upper-right corner. Click on "New Project" and enter
+the details for a build you want to display on ProjectMonitor. The "Name",
+"Project Type", and "Feed URL" are required. If your Feed URL is
+<a href="http://myhost.com:3333/projects/MyProject">http://myhost.com:3333/projects/MyProject</a>, then your RSS URL is probably
+<a href="http://myhost.com:3333/projects/MyProject.rss">http://myhost.com:3333/projects/MyProject.rss</a>.</p>
+
+<h4>TeamCity</h4>
+
+<p>To configure TeamCity:</p>
+
+<ul>
+<li>  Choose Team City Rest Project for the project type</li>
+<li>  URL looks like: http://teamcity:8111/app/rest/builds?locator=running:all,buildType:(id:bt*) where * is the buildTypeId from the TeamCity Build Configuration.</li>
+<li>  Requires a username and password that match a valid account in TeamCity with access to the Build Configuration.</li>
+</ul><p>NOTE: The Cradiator-TeamCity-Plugin is deprecated. Please use the Team City
+Rest Project configuration, which is natively supported by TeamCity 5+.</p>
+
+<p>Optionally, if your Build system is behind Basic Authentication or Digest
+Authentication, you can enter the credentials.</p>
+
+<p>If you want to temporarily hide your build on ProjectMonitor, you can uncheck
+the "Enable" checkbox.</p>
+
+<p>ProjectMonitor's main display page is at <code>/</code>. You can always get back there by
+choosing the number of tiles you want at the lower left.</p>
+
+<h4>Semaphore</h4>
+
+<p>When configuring <a href="http://semaphoreapp.com">Semaphore</a>, you should use the Branch History URL from the API section of your Project Settings page.</p>
+
+<p>This ensures that no build statuses will be missed.</p>
+
+<h3>Auto-start for Ubuntu</h3>
+
+<p>In order to have projectmonitor start when the machine boots, modify the startup
+scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
+10.04 server (change paths &amp; userids as needed):</p>
+
+<pre><code># need to set PS1 so that rvm is in path otherwise .bashrc bails too early
+su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
+</code></pre>
+
+<h3>Importing and Exporting Configurations</h3>
+
+<p>You can export your configuration for posterity or to be transferred to another
+host:</p>
+
+<pre><code>rake cimonitor:export &gt; ${your_configuration.yml}
+</code></pre>
+
+<p>Or using heroku:</p>
+
+<pre><code>heroku run rake cimonitor:export --app projectmonitor-staging &gt; ${your_configuration.yml}
+</code></pre>
+
+<p>Or you can download it using the configuration endpoint, using curl (or your web browser):</p>
+
+<pre><code>curl --user ${username}:${password} ${your_project_monitor_host}/configuration &gt; ${your_configuration.yml}
+</code></pre>
+
+<p>NOTE: That heroku doesn't treat STDERR and STDOUT differently so you may get
+some warnings at the beginning of the generated file that you'll have to remove
+manually.</p>
+
+<p>It can be imported in a similar way:</p>
+
+<pre><code>rake cimonitor:import &lt; ${your_configuration.yml}
+</code></pre>
+
+<p>On heroku or another host which doesn't allow you to directly load files or
+read from stdin, you'll need to post the file to the configuration endpoint
+like so:</p>
+
+<pre><code>curl --user ${username}:${password} -F "content=@-" ${your_project_monitor_host}/configuration &lt; ${your_configuration.yml}
+</code></pre>
+
+<h2>Deployment</h2>
+
+<h3>Heroku</h3>
+
+<p>To get running on Heroku, after you have cloned and bundled, run the following commands:</p>
+
+<p>NB: These instructions are for the basic authentication strategy. </p>
+
+<pre><code>heroku create
+heroku push heroku master
+heroku run rake db:migrate
+heroku config:add REST_AUTH_SITE_KEY=&lt;unique, private and long alphanumeric key, e.g. abcd1234edfg78910&gt;
+heroku config:add REST_AUTH_DIGEST_STRETCHES&lt;count of number of times to apply the digest, 10 recommended&gt;
+heroku run console 
+</code></pre>
+
+<p>When inside the console, run the creating a new user step above. You should then be able to access your server and start using it.</p>
+
+<h2>Cron</h2>
+
+<p>You need to hit an authenticated endpoint to run the scheduler. </p>
+
+<pre><code>POST http://localhost:3000/projects/update_projects
+</code></pre>
+
+<p>You can create a cron entry to hit this:</p>
+
+<pre><code>curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:password
+</code></pre>
+
+<h2>Display</h2>
+
+<p>Just open a browser on <code>/</code>. The page will refresh every 30 seconds. When it
+refreshes, it shows whatever status was last fetched by the cron job. That is,
+a refresh doesn't cause the individual builds to be polled.</p>
+
+<h3>Layout</h3>
+
+<p>The new layout consists of a grid of tiles representing the projects.  The
+number of projects that need to be displayed is determined automatically, but
+can also be set explicitly.  There are views available for 15 tiles, 24 tiles,
+48 tiles, or 63 tiles, and a 6-project view with larger tiles is coming soon.</p>
+
+<h3>Tile colors</h3>
+
+<p>Tiles are green for green projects, red for red projects, and light gray if the
+project's build server cannot be reached. If the build server is online but no
+builds have been run then the tile will appear in yellow.</p>
+
+<h3>Project Ticker Codes</h3>
+
+<p>Each tile shows the project's brief ticker code.  If not chosen explicitly,
+this will be the first 4 letters of the project.</p>
+
+<h3>Build Statuses</h3>
+
+<p>To the right of the ticker and name, each project lists the amount of time
+since the last build, followed by the build status history.  The last 5-8 builds
+are displayed from left to right, in reverse chronological order -- the most
+recent build will be on the left and the least recent on the right.
+Successful builds are marked with a filled in circle, and unsuccessful builds
+are marked with an x.  When a build is in progress a spinner is displayed instead
+of the time since the last build.</p>
+
+<h3>Aggregate Projects</h3>
+
+<p>Striped tiles indicate the aggregate status of several projects.  Click on an
+aggregate project to see the status of its component projects.</p>
+
+<h3>Pivotal Tracker Integration</h3>
+
+<p>ProjectMonitor can display basic <a href="http://pivotaltracker.com">Pivotal Tracker</a> information.  When
+configured, the current velocity will be displayed, as well as a graph showing points completed for
+the current iteration and the past 9 iterations.  To add this integration, you will need to add your
+Pivotal Tracker project ID and a Pivotal Tracker API key in the admin section.</p>
+
+<h3>Admin Interface</h3>
+
+<p>Click 'manage projects' at the lower right to edit project details.</p>
+
+<h2>Tags</h2>
+
+<p>You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
+only projects that match a set of tags by going to /?tags=tag1,tag2</p>
+
+<h2>CI</h2>
+
+<p>CI for ProjectMonitor is <a href="http://travis-ci.org/pivotal/projectmonitor">here</a>, and it's aggregated at <a href="http://ci.pivotallabs.com">ci.pivotallabs.com</a>
+(that's an instance of ProjectMonitor, of course).</p>
+
+<h2>Development</h2>
+
+<p>The public Tracker project for ProjectMonitor is <a href="http://www.pivotaltracker.com/projects/2872">here</a>.</p>
+
+<p>To run tests, run:</p>
+
+<pre><code>rake setup
+rake spec
+</code></pre>
+
+<p>To run a local development server and worker, run:</p>
+
+<pre><code>foreman start
+</code></pre>
+
+<h2>Deploying to Github</h2>
+
+<p>Project Monitor has been moved under the "Pivotal" organization. In order to have push privileges to the repo, you will need to request that your GitHub ID is added as a collaborator.</p>
+
+<h2>Ideas /Improvements</h2>
+
+<p>Got a burning idea that just needs to be implemented? Join the google group and share it with the team.</p>
+
+<p>The google group for Project Monitor is <a href="http://groups.google.com/group/projectmonitor_pivotallabs">projectmonitor_pivotallabs</a></p>
+
+<p>Copyright (c) 2012 Pivotal Labs. This software is licensed under the MIT License.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/pivotal">Pivotal Labs</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-393103-5");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
