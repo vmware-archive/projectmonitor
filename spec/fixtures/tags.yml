@@ -1,8 +1,0 @@
-nyc:
-  name: NYC
-sf:
-  name: San Francisco
-public:
-  name: Public
-independent:
-  name: independent

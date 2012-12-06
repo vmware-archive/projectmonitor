@@ -1,1 +1,0 @@
-{"name":"projectmonitor_ci_test","url":"job/projectmonitor_ci_test/","build":{"number":7,"phase":"FINISHED","status":"SUCCESS","url":"job/projectmonitor_ci_test/7/"}}

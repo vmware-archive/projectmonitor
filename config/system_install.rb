@@ -1,1 +1,0 @@
-MYSQL_VERSION = "5.0.21-3ubuntu1"
