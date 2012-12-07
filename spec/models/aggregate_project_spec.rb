@@ -361,7 +361,7 @@ describe AggregateProject do
     context "when a project does not have a published_at date" do
       it "should be ignored" do
         project = projects(:red_currently_building)
-        other_project = projects(:socialitis)
+        other_project = FactoryGirl.create(:project)
 
         project.statuses.create(success: true, published_at: 1.day.ago, build_id: 100)
         status = project.statuses.create(success: false, published_at: 2.minutes.ago, build_id: 102)
