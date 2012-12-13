@@ -32,7 +32,7 @@ class DashboardsController < ApplicationController
   def github_status
     status = nil
     begin
-      status = UrlRetriever.retrieve_content_at('https://status.github.com/status.json')
+      status = UrlRetriever.retrieve_content_at('https://status.github.com/api/status.json')
     rescue
       status = '{"status":"unreachable"}'
     end
