@@ -224,7 +224,7 @@ To get running on Heroku, after you have cloned and bundled, run the following c
 NB: These instructions are for the basic authentication strategy. 
 
     heroku create
-    heroku push heroku master
+    git push heroku master
     heroku run rake db:migrate
     heroku config:add REST_AUTH_SITE_KEY=<unique, private and long alphanumeric key, e.g. abcd1234edfg78910>
     heroku config:add REST_AUTH_DIGEST_STRETCHES<count of number of times to apply the digest, 10 recommended>
