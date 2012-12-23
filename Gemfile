@@ -55,10 +55,16 @@ group :test do
   gem "fakeweb"
 end
 
+# NOTE: anything that will not work in travis should be here
+group :development do
+  gem "awesome_print"
+  gem "heroku_san"
+  gem "debugger"
+  gem "pry"
+end
+
 group :test, :development do
   gem "launchy"
-  gem "heroku_san"
-  gem "awesome_print"
   gem "jshint_on_rails"
   # NOTE: rake jasmine:ci is not compatible with newer versions of rspec, until
   # this: https://github.com/pivotal/jasmine-gem/issues/94 is resolved lock
@@ -72,6 +78,5 @@ group :test, :development do
   gem "selenium-webdriver", ">= 2.25.0"
   gem "factory_girl_rails"
   gem "ffaker"
-  gem "debugger"
-  gem "pry"
 end
+
