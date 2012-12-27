@@ -50,6 +50,51 @@ a small {
   margin:0 auto;
 }
 
+.banner {
+  padding: 0px;
+  margin: -50px;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+}
+
+.banner a,
+.banner span,
+.banner div {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-pack: center;
+  -webkit-box-pack: center;
+  -ms-box-pack: center;
+  box-pack: center;
+}
+
+.powered {
+  padding: 0 12px 12px;
+}
+
+.spacer {
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+}
+
 blockquote {
   border-left:1px solid #e5e5e5;
   margin:0;
