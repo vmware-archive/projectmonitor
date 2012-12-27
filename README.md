@@ -328,7 +328,7 @@ To run a local development server and worker, run:
 
 ## Deploying to Github
 
-Project Monitor has been moved under the "Pivotal" organization. Developers will need to request that their Github ID's are added as collaborators in order to have push privileges to the repo.
+Project Monitor has been moved under the "Pivotal" organization. In order to have push privileges to the repo, you will need to request that your GitHub account is added as a collaborator.
 
 ## Ideas /Improvements
 
