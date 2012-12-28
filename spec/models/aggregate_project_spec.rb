@@ -96,6 +96,12 @@ describe AggregateProject do
           empty_aggregate = create :aggregate_project, enabled: true
           displayable_aggregate.should_not include empty_aggregate
         end
+
+        it "should not return duplicate aggregate projects" do
+          enabled = FactoryGirl.create :aggregate_project, :projects => [create(:project), create(:project)], enabled: true
+
+          displayable_aggregate.to_a.count(enabled).should == 1
+        end
       end
 
       context "when supplying tags" do
