@@ -17,11 +17,13 @@ describe('HerokuRefresh.init', function() {
       HerokuRefresh.init();
       expect($(".heroku")).toBeHidden();
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
-        status: 200,
-        responseText: "{\"status\": \"red\"}"
-      });
+      for (var i=0; i < 4; i++) {
+        jasmine.Clock.tick(30001);
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"red\"}"
+        });
+      }
       expect($(".heroku")).toBeVisible();
       expect($(".heroku")).toHaveClass('bad');
     });
@@ -52,11 +54,13 @@ describe('HerokuRefresh.init', function() {
       HerokuRefresh.init();
       $(".heroku").show()
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
-        status: 200,
-        responseText: "{\"status\": \"unreachable\"}"
-      });
+      for (var i=0; i < 4; i++) {
+        jasmine.Clock.tick(30001);
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"unreachable\"}"
+        });
+      }
       expect($(".heroku")).toBeVisible();
       expect($(".heroku")).toHaveClass('unreachable');
     });

@@ -1,5 +1,6 @@
 var GithubRefresh = (function () {
-  var $githubTile, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
+  var $githubTile, failureThreshold = 4, failureCount = 0
+  var pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   return {
     init : function () {
@@ -16,12 +17,17 @@ var GithubRefresh = (function () {
           var status = response.status;
           if(status == 'good') {
             $githubTile.slideUp();
-          }
-          else if(status == 'unreachable') {
-            GithubRefresh.markAsUnreachable();
+            failureCount = 0;
           }
           else {
-            GithubRefresh.markAsDown();
+            failureCount++;
+            if (failureCount >= failureThreshold) {
+              if(status == 'unreachable') {
+                GithubRefresh.markAsUnreachable();
+              } else {
+                GithubRefresh.markAsDown();
+              }
+            }
           }
         },
         error: function(x,y,z) {

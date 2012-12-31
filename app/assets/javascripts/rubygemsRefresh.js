@@ -1,5 +1,6 @@
 var RubyGemsRefresh = (function () {
-  var $githubTile, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
+  var $githubTile, failureThreshold = 4, failureCount = 0;
+  var pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   return {
     init : function () {
@@ -13,19 +14,23 @@ var RubyGemsRefresh = (function () {
         url: '/rubygems_status.json',
         timeout: 2000,
         success: function(response) {
-      var status = response.status;
-      if(status == 'bad') {
-        RubyGemsRefresh.markAsDown();
-      }
-      else if(status == 'good') {
-        $rubygemsTile.slideUp();
-      }
-      else if(status == 'page broken') {
-        RubyGemsRefresh.markAsBroken();
-      }
-      else {
-        RubyGemsRefresh.markAsUnreachable();
-      }
+          var status = response.status;
+          if(status == 'good') {
+            $rubygemsTile.slideUp();
+            failureCount = 0;
+          } else {
+            failureCount++;
+            if (failureCount >= failureThreshold) {
+              if (status == 'bad') {
+                RubyGemsRefresh.markAsDown();
+              }
+              else if(status == 'page broken') {
+                RubyGemsRefresh.markAsBroken();
+              } else {
+                RubyGemsRefresh.markAsUnreachable();
+              }
+            }
+          }
         },
         error: function(x,y,z) {
           RubyGemsRefresh.markAsUnreachable();
@@ -40,29 +45,29 @@ var RubyGemsRefresh = (function () {
 
     markAsUnreachable: function () {
       $rubygemsTile.find('a').text("RUBYGEMS IS UNREACHABLE");
-    RubyGemsRefresh.clearStatuses();
+      RubyGemsRefresh.clearStatuses();
       $rubygemsTile.addClass('unreachable');
       $rubygemsTile.slideDown();
     },
 
     markAsDown: function () {
       $rubygemsTile.find('a').text("RUBYGEMS IS DOWN");
-    RubyGemsRefresh.clearStatuses();
+      RubyGemsRefresh.clearStatuses();
       $rubygemsTile.addClass('bad');
       $rubygemsTile.slideDown();
     },
 
-  markAsBroken: function () {
+    markAsBroken: function () {
       $rubygemsTile.find('a').text("CANNOT PARSE RUBYGEMS STATUS");
-    RubyGemsRefresh.clearStatuses();
+      RubyGemsRefresh.clearStatuses();
       $rubygemsTile.addClass('broken');
       $rubygemsTile.slideDown();
-  },
+    },
 
-  clearStatuses: function () {
+    clearStatuses: function () {
       $rubygemsTile.removeClass('unreachable');
       $rubygemsTile.removeClass('bad');
       $rubygemsTile.removeClass('broken');
-  }
+    }
   };
 })();
