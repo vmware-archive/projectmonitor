@@ -191,6 +191,10 @@ table.projects tr th {
   padding: 5px 15px;
 }
 
+table.projects th {
+  font-weight: bold;
+}
+
 table.projects tr td {
   padding: 5px 15px;
   border-bottom: 1px solid #ddd;
@@ -200,7 +204,8 @@ table.projects tr.odd td {
   background-color: #eee;
 }
 
-table.projects tr.even {
+table.projects td.actions * {
+  margin-right: 10px;
 }
 
 .button,
