@@ -52,8 +52,8 @@ describe StatusFetcher do
       let(:open_stories_count) { 2 }
       let(:last_ten_velocities) { [1,2,3,4,5,6,7,8,9,10] }
 
-      let(:tracker_api) { double :tracker_api, 
-                            current_velocity: current_velocity, 
+      let(:tracker_api) { double :tracker_api,
+                            current_velocity: current_velocity,
                             last_ten_velocities: last_ten_velocities,
                             stories_to_accept_count: stories_to_accept_count,
                             open_stories_count: open_stories_count
