@@ -21,7 +21,7 @@ module StatusFetcher
 
   class << self
     def fetch_all
-      Project.updateable.each do |project|
+      Project.updateable.find_each do |project|
         Delayed::Job.enqueue(StatusFetcher::Job.new(project), priority: 1)
       end
     end

@@ -20,11 +20,10 @@ describe StatusFetcher do
   describe "#fetch_all" do
     context "some projects don't need to be polled" do
       let(:project) { stub(:project) }
-      let(:projects) { [project] }
       let(:job_for_project) { stub(:delayed_job) }
 
       before do
-        Project.stub(:updateable).and_return projects
+        Project.stub_chain(:updateable, :find_each).and_yield(project)
         StatusFetcher::Job.stub(:new).with(project).and_return job_for_project
       end
 
