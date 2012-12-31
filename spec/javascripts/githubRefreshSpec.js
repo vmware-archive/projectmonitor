@@ -17,11 +17,13 @@ describe('GithubRefresh.init', function() {
       GithubRefresh.init();
       expect($(".github")).toBeHidden();
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
-        status: 200,
-        responseText: "{\"status\": \"bad\"}"
-      });
+      for (var i=0; i < 4; i++) {
+        jasmine.Clock.tick(30001);
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"bad\"}"
+        });
+      }
       expect($(".github")).toBeVisible();
       expect($(".github")).toHaveClass('bad');
     });
@@ -52,11 +54,13 @@ describe('GithubRefresh.init', function() {
       GithubRefresh.init();
       $(".github").show()
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
-        status: 200,
-        responseText: "{\"status\": \"unreachable\"}"
-      });
+      for (var i=0; i < 4; i++) {
+        jasmine.Clock.tick(30001);
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"unreachable\"}"
+        });
+      }
       expect($(".github")).toBeVisible();
       expect($(".github")).toHaveClass('unreachable');
     });

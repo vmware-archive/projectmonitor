@@ -18,11 +18,13 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
+      for (var i=0; i < 4; i++) {
         jasmine.Clock.tick(30001);
-          mostRecentAjaxRequest().response({
-            status: 200,
-            responseText: "{\"status\": \"bad\"}"
-          });
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"bad\"}"
+        });
+      }
 
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('bad');
@@ -53,11 +55,13 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
+      for (var i=0; i < 4; i++) {
         jasmine.Clock.tick(30001);
-          mostRecentAjaxRequest().response({
-            status: 200,
-            responseText: "{\"status\": \"unreachable\"}"
-          });
+        mostRecentAjaxRequest().response({
+          status: 200,
+          responseText: "{\"status\": \"unreachable\"}"
+        });
+      }
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('unreachable');
       expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();

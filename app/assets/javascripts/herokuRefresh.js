@@ -1,5 +1,6 @@
 var HerokuRefresh = (function () {
-  var $herokuTile, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
+  var $herokuTile, failureThreshold = 4, failureCount = 0;
+  var pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   return {
     init : function () {
@@ -15,13 +16,20 @@ var HerokuRefresh = (function () {
         success: function(response) {
           var status = response.status;
           if(status == 'unreachable') {
-            HerokuRefresh.markAsUnreachable();
+            failureCount++;
+            if (failureCount >= failureThreshold) {
+              HerokuRefresh.markAsUnreachable();
+            }
           }
           else if(status.Development == 'green' && status.Production == 'green') {
             $herokuTile.slideUp();
+            failureCount = 0;
           }
           else {
-            HerokuRefresh.markAsDown();
+            failureCount++;
+            if (failureCount >= failureThreshold) {
+              HerokuRefresh.markAsDown();
+            }
           }
         },
         error: function(x,y,z) {
