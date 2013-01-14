@@ -3,6 +3,8 @@ class TravisProject < Project
   attr_accessible :travis_github_account, :travis_repository
   validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
+  BASE_HTML_URL = 'https://travis-ci.org'
+
   def feed_url
     "#{base_url}/builds.json"
   end
@@ -33,7 +35,7 @@ class TravisProject < Project
     if webhooks_enabled?
       parsed_url
     else
-      "https://api.travis-ci.org/repositories/#{travis_github_account}/#{travis_repository}"
+      "#{BASE_HTML_URL}/#{travis_github_account}/#{travis_repository}"
     end
   end
 
