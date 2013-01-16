@@ -30,18 +30,50 @@ class DashboardsController < ApplicationController
   end
 
   def github_status
-    github = ExternalDependency.get_or_fetch_recent_status('GITHUB')
-    respond_with github.status
+    status = nil
+    begin
+      status = UrlRetriever.retrieve_content_at('https://status.github.com/api/status.json')
+    rescue
+      status = '{"status":"unreachable"}'
+    end
+    respond_with JSON.parse(status)
   end
 
   def heroku_status
-    heroku = ExternalDependency.get_or_fetch_recent_status('HEROKU')
-    respond_with heroku.status
+    status = nil
+    begin
+      status = UrlRetriever.retrieve_content_at('https://status.heroku.com/api/v3/current-status')
+    rescue
+      status = '{"status":"unreachable"}'
+    end
+    respond_with JSON.parse(status)
   end
 
   def rubygems_status
-    rubygems = ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
-    respond_with rubygems.status
+    status = {}
+
+    begin
+      doc = Nokogiri::HTML(UrlRetriever.retrieve_content_at('http://status.rubygems.org/'))
+      page_status = doc.css('.services td.status span')
+
+      if page_status.any?
+        status[:status] =
+          if page_status.last.attributes["class"].value.split(' ').include?("status-up")
+            "good"
+          else
+            "bad"
+          end
+      else
+        status[:status] = 'page broken'
+      end
+
+    rescue Nokogiri::SyntaxError => e
+      status[:status] = 'page broken'
+    rescue
+      status[:status] = 'unreachable'
+    end
+
+    respond_with status
   end
 
   def styleguide
