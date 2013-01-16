@@ -33,7 +33,7 @@ var RubyGemsRefresh = (function () {
           }
         },
         error: function(x,y,z) {
-          // only display unreachable error when external service unreachable
+          RubyGemsRefresh.markAsUnreachable();
         }
       });
       timeoutFunction = setTimeout(RubyGemsRefresh.refresh, pollIntervalSeconds * 1000);

@@ -33,7 +33,7 @@ var HerokuRefresh = (function () {
           }
         },
         error: function(x,y,z) {
-          // only display unreachable error when external service unreachable
+          HerokuRefresh.markAsUnreachable();
         }
       });
       timeoutFunction = setTimeout(HerokuRefresh.refresh, pollIntervalSeconds * 1000);
