@@ -31,7 +31,7 @@ var GithubRefresh = (function () {
           }
         },
         error: function(x,y,z) {
-          // only display unreachable error when external service unreachable
+          GithubRefresh.markAsUnreachable();
         }
       });
       timeoutFunction = setTimeout(GithubRefresh.refresh, pollIntervalSeconds * 1000);
