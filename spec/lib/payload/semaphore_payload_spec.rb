@@ -13,6 +13,15 @@ describe SemaphorePayload do
   describe '#convert_content!' do
     subject { payload.convert_content!(status_content) }
 
+    context 'and status is pending' do
+      let(:json) { "pending.json" }
+      let(:content) { {'result' => 'pending'} }
+
+      it 'should be marked as unprocessable' do
+        payload.parse_success(content).should == nil
+      end
+    end
+
     context 'and content is valid' do
       let(:expected_content) { double(:content, key?: false) }
       before do
