@@ -13,7 +13,7 @@ class SemaphorePayload < Payload
   end
 
   def parse_success(content)
-    content['result'] == 'passed'
+    content['result'] == 'pending' ? nil : content['result'] == 'passed'
   end
 
   def parse_url(content)
