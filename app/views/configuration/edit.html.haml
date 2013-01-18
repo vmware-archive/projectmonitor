@@ -15,6 +15,7 @@
     %th Last Edit
     %th Webhooks
     %th Actions
+    %th
   - @projects.each do |project|
     %tr{:class => cycle("odd", "even"), :id => "project-#{project.id}"}
       %td= h project.code
@@ -32,9 +33,10 @@
       %td{:style => "text-align: center;"}= project.aggregate_project.present? ? project.aggregate_project.name : ""
       %td.tag_list= project.tag_list
       %td.age= project.updated_at.present? ? time_ago_in_words(project.updated_at) : "N/A"
-      %td= project.webhooks_enabled ? project_webhooks_url(project) : "✕"
+      %td= project.webhooks_enabled ? "✓" : "x"
       %td.actions
         = link_to 'Edit', edit_project_path(project), :class => "button"
+      %td.actions
         = link_to 'Delete', project_path(project), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class =>"button"
 
 %h1== Aggregate Projects #{link_to 'Add Aggregate Project +', new_aggregate_project_path, :class => "button add_button"}
