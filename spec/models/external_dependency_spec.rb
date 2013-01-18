@@ -2,7 +2,40 @@ require 'spec_helper'
 
 describe ExternalDependency do
 
-  describe 'rubygems status' do
+  context 'class functions' do
+    context 'external dependency requests' do
+      context 'no external dependency statuses exist' do
+        it 'creates a new external dependency status' do
+          ExternalDependency.fetch_status('RUBYGEMS')
+          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
+        end
+      end
+
+      let(:dependency) { ExternalDependency.create name: 'RUBYGEMS' }
+
+      context 'external status exists where created_at > x seconds ago' do
+        it 'fetches status from external dependency' do
+          dependency.created_at = 1.minute.ago
+          dependency.save
+
+          ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
+          ExternalDependency.where(name: 'RUBYGEMS').count.should == 2
+        end
+      end
+
+      context 'external status exists where create_at <= x seconds ago' do
+        it 'fetches status from the database' do
+          dependency.created_at = 25.seconds.ago
+          dependency.save
+
+          ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
+          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
+        end
+      end
+    end
+  end
+
+  context 'rubygems status' do
     it 'initialized an up status' do
       UrlRetriever.stub(:retrieve_content_at) {'<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>' }
 
@@ -32,7 +65,7 @@ describe ExternalDependency do
     end
   end
 
-  describe 'github status' do
+  context 'github status' do
     it 'initialized an up status' do
       UrlRetriever.stub(:retrieve_content_at) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
 
@@ -61,7 +94,7 @@ describe ExternalDependency do
     end
   end
 
-  describe 'heroku status' do
+  context 'heroku status' do
     it 'initalized an up status' do
       UrlRetriever.stub(:retrieve_content_at) {'up'}
 
