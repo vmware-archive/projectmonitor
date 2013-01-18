@@ -35,7 +35,7 @@
       %td= project.webhooks_enabled ? project_webhooks_url(project) : "✕"
       %td.actions
         = link_to 'Edit', edit_project_path(project), :class => "button"
-        = link_to 'Delete', project_path(project), :method => :delete, :class =>"button"
+        = link_to 'Delete', project_path(project), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class =>"button"
 
 %h1== Aggregate Projects #{link_to 'Add Aggregate Project +', new_aggregate_project_path, :class => "button add_button"}
 %table.projects
