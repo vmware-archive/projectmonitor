@@ -1,12 +1,13 @@
 class ExternalDependency < ActiveRecord::Base
 
-  def self.get_or_fetch_recent_status(name)
-    service_status = recent_status name
-    service_status ||= fetch_status name
+  def self.get_or_fetch_recent_status(name, threshold=30)
+    last_status = recent_status name
+    last_status ||= fetch_status name
+    last_status.created_at < threshold.seconds.ago ? fetch_status(name) : last_status
   end
 
   def self.recent_status(name)
-    ExternalDependency.where(name: name).order('created_at').last
+    where(name: name).order('created_at').last
   end
 
   def self.fetch_status(name)
