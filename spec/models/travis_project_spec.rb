@@ -25,9 +25,9 @@ describe TravisProject do
     end
   end
 
-  its(:feed_url) { should == 'https://travis-ci.org/account/project/builds.json' }
+  its(:feed_url) { should == 'https://api.travis-ci.org/repositories/account/project/builds.json' }
   its(:project_name) { should == 'account' }
-  its(:build_status_url) { should == 'https://travis-ci.org/account/project/builds.json' }
+  its(:build_status_url) { should == 'https://api.travis-ci.org/repositories/account/project/builds.json' }
 
   describe '#current_build_url' do
     subject { project.current_build_url }
@@ -40,7 +40,7 @@ describe TravisProject do
     context "webhooks are disabled" do
       let(:project) { FactoryGirl.build(:travis_project) }
 
-      it { should == 'https://travis-ci.org/account/project' }
+      it { should == 'https://api.travis-ci.org/repositories/account/project' }
     end
   end
 end
