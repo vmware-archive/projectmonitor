@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112162340) do
+ActiveRecord::Schema.define(:version => 20130115195626) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(:version => 20121112162340) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "external_dependencies", :force => true do |t|
+    t.string   "name"
+    t.string   "status"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "raw_response"
+  end
+
   create_table "payload_log_entries", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -62,6 +70,8 @@ ActiveRecord::Schema.define(:version => 20121112162340) do
     t.text     "error"
     t.integer  "build_id"
   end
+
+  add_index "project_statuses", ["project_id", "published_at"], :name => "index_project_statuses_on_project_id_and_others"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
