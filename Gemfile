@@ -71,10 +71,7 @@ end
 group :test, :development do
   gem "launchy"
   gem "jshint_on_rails"
-  # NOTE: rake jasmine:ci is not compatible with newer versions of rspec, until
-  # this: https://github.com/pivotal/jasmine-gem/issues/94 is resolved lock
-  # down rspec
-  gem "rspec", "< 2.11"
+  gem "rspec"
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "capybara"
