@@ -6,25 +6,18 @@ describe StatusController do
       let!(:project) { FactoryGirl.create(:travis_project) }
       let(:payload) do
       '{
-         "id":1885645,
-         "number":"75",
-         "status":1,
-         "result":1,
-         "status_message":"Broken",
-         "result_message":"Broken",
-         "started_at":"2012-07-17T14:16:37Z",
-         "finished_at":"2012-07-17T14:18:52Z",
-         "duration":135,
-         "build_url":"http://www.google.com",
-         "commit":"5bbadf792613cb64cfc67e15ae620ea3cb56b81d",
-         "branch":"webhooks",
-         "message":"Foo",
-         "compare_url":"http://www.google.com",
-         "committed_at":"2012-07-17T14:16:18Z",
-         "author_name":"Foo Bar and Baz",
-         "author_email":"foobar@baz.com",
-         "committer_name":"Foo Bar and Baz",
-         "committer_email":"foobar@baz.com"
+        "id": 1879979,
+        "slug": "pivotal/projectmonitor",
+        "description": "Big Visible Chart CI aggregator",
+        "public_key": "-----BEGIN RSA PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcaBRYqBz7ZKuy2YqhX++C6iXW\nNFU/1KwErPAjx+jAK4wbdUuahOCyR/jkAl/SsHPcZ/H8dBgI8gTqpO4+ki3VpRNw\nGHm8tPJy5D6iRzFY3vv3ZX0WWY4dZwpj5oKdD7tsgHSZxGYY4y4LumspBIUo4BIu\n8tIAF7+AiEvRNiBX/QIDAQAB\n-----END RSA PUBLIC KEY-----\n",
+        "last_build_id": 1879978,
+        "last_build_number": "308",
+        "last_build_status": 1,
+        "last_build_result": 1,
+        "last_build_duration": 346,
+        "last_build_language": null,
+        "last_build_started_at": "2013-01-22T01:54:44Z",
+        "last_build_finished_at": "2013-01-22T02:00:30Z"
       }'
       end
 
@@ -49,7 +42,7 @@ describe StatusController do
         subject
         ProjectStatus.last.should_not be_success
         ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.published_at.should == Time.parse("2012-07-17T14:18:52Z")
+        ProjectStatus.last.published_at.should == Time.parse("2013-01-22T02:00:30Z")
       end
 
       it "should update last_refreshed_at" do
@@ -61,7 +54,7 @@ describe StatusController do
       it "should update parsed_url" do
         project.parsed_url.should be_nil
         subject
-        project.reload.parsed_url.should == 'http://www.google.com'
+        project.reload.parsed_url.should == 'https://travis-ci.org/pivotal/projectmonitor'
       end
 
     end

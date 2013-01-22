@@ -1,14 +1,14 @@
-[{
-   "id":1879979,
-   "repository_id":96210,
-   "number":"64",
-   "state":"finished",
-   "result":0,
-   "started_at":"2012-07-16T19:33:40Z",
-   "finished_at":"2012-07-16T19:36:22Z",
-   "duration":162,
-   "commit":"b3a1707aefa545e7eb7bdc824e6f476c672926f8",
-   "branch":"master",
-   "message":"Switched from kumade to heroku_san",
-   "event_type":"push"
-}]
+{
+  "id": 1879979,
+  "slug": "pivotal/projectmonitor",
+  "description": "Big Visible Chart CI aggregator",
+  "public_key": "-----BEGIN RSA PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcaBRYqBz7ZKuy2YqhX++C6iXW\nNFU/1KwErPAjx+jAK4wbdUuahOCyR/jkAl/SsHPcZ/H8dBgI8gTqpO4+ki3VpRNw\nGHm8tPJy5D6iRzFY3vv3ZX0WWY4dZwpj5oKdD7tsgHSZxGYY4y4LumspBIUo4BIu\n8tIAF7+AiEvRNiBX/QIDAQAB\n-----END RSA PUBLIC KEY-----\n",
+  "last_build_id": 1879978,
+  "last_build_number": "308",
+  "last_build_status": 0,
+  "last_build_result": 0,
+  "last_build_duration": 346,
+  "last_build_language": null,
+  "last_build_started_at": "2013-01-22T01:54:44Z",
+  "last_build_finished_at": "2013-01-22T02:00:30Z"
+}
