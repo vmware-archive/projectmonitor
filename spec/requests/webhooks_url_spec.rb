@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 feature "webhooks url" do
@@ -11,10 +12,13 @@ feature "webhooks url" do
     click_link "manage projects"
   end
 
-  scenario "webhooks URL with random GUID not ID" do
+  scenario "when webhooks are enabled show thatL" do
     project.guid.should_not be_nil
     page.should_not have_content(project.id)
-    page.should have_content(project.guid)
+    page.should have_content(project.name)
+    within ".webhooks" do
+      page.should have_content("✓")
+    end
   end
 
 end

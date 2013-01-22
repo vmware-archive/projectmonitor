@@ -33,7 +33,7 @@
       %td{:style => "text-align: center;"}= project.aggregate_project.present? ? project.aggregate_project.name : ""
       %td.tag_list= project.tag_list
       %td.age= project.updated_at.present? ? time_ago_in_words(project.updated_at) : "N/A"
-      %td= project.webhooks_enabled ? "✓" : "x"
+      %td.webhooks= project.webhooks_enabled ? "✓" : "x"
       %td.actions
         = link_to 'Edit', edit_project_path(project), :class => "button"
       %td.actions
