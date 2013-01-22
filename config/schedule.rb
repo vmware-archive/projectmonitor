@@ -8,6 +8,6 @@ every 3.minutes do
   rake "cimonitor:fetch_statuses", :output => "log/fetch_statuses.log"
 end
 
-every 30.seconds do
+every 1.minute do
   rake "dependency:fetch_statuses"
 end
