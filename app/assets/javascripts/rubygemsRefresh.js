@@ -1,5 +1,5 @@
 var RubyGemsRefresh = (function () {
-  var $githubTile, failureThreshold = 4, failureCount = 0;
+  var $rubygemsTile, failureThreshold = 4, failureCount = 0;
   var pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
 
   return {
@@ -12,13 +12,14 @@ var RubyGemsRefresh = (function () {
     refresh : function () {
       $.ajax({
         url: '/rubygems_status.json',
-        timeout: 2000,
+        timeout: (pollIntervalSeconds - 1) * 1000,
         success: function(response) {
           var status = response.status;
           if(status == 'good') {
             $rubygemsTile.slideUp();
             failureCount = 0;
-          } else {
+          } 
+          else {
             failureCount++;
             if (failureCount >= failureThreshold) {
               if (status == 'bad') {
@@ -26,7 +27,8 @@ var RubyGemsRefresh = (function () {
               }
               else if(status == 'page broken') {
                 RubyGemsRefresh.markAsBroken();
-              } else {
+              } 
+              else {
                 RubyGemsRefresh.markAsUnreachable();
               }
             }
