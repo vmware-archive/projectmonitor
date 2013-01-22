@@ -68,7 +68,9 @@ describe('RubyGemsRefresh.init', function() {
     });
   });
 
-  describe("when our app is unreachable", function() {
+  // marking this disabled, as we removed this functionality in
+  // e0d9cdd3720f5f34a292f5ff719483a7a4968bb0
+  xdescribe("when our app is unreachable", function() {
     it("shows unreachable", function() {
       spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
