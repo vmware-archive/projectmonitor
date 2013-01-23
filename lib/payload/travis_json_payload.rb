@@ -1,6 +1,6 @@
 class TravisJsonPayload < Payload
   def building?
-    status_content.first['last_build_status'].to_i != 0
+    status_content.first['state'] == "started"
   end
 
   def build_status_is_processable?
@@ -21,11 +21,11 @@ class TravisJsonPayload < Payload
 
   def parse_success(content)
     return if content['state'] == 'started'
-    content['last_build_result'].to_i == 0
+    content['result'].to_i == 0
   end
 
   def parse_url(content)
-    self.parsed_url = "https://travis-ci.org/#{content['slug']}"
+    self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
   end
 
   def parse_build_id(content)
@@ -33,7 +33,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_published_at(content)
-    published_at = content['last_build_finished_at']
-    Time.parse(published_at).localtime if published_at.present?
+    published_at = content['finished_at']
+    Time.parse(published_at) if published_at.present?
   end
 end

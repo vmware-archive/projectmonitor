@@ -69,16 +69,16 @@ describe TravisJsonPayload do
   describe '#parse_url' do
     subject { payload.parse_url(content) }
 
-    it { should == "https://travis-ci.org/pivotal/projectmonitor" }
+    it { should == "https://api.travis-ci.org/builds/4314974" }
   end
 
   describe '#parse_build_id' do
     subject { payload.parse_build_id(content) }
-    it { should == 1879979 }
+    it { should == 4314974 }
   end
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(content) }
-    it { should == Time.utc(2013, 1, 22, 02, 00, 30) }
+    it { should == Time.utc(2013, 1, 22, 21, 20, 56) }
   end
 end

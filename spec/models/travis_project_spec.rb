@@ -14,7 +14,7 @@ describe TravisProject do
 
   describe 'validations' do
     context "when webhooks are enabled" do
-      subject { Project.new(webhooks_enabled: true)}
+      subject { TravisProject.new(webhooks_enabled: true)}
       it { should_not validate_presence_of(:travis_github_account) }
       it { should_not validate_presence_of(:travis_repository) }
     end
@@ -31,16 +31,10 @@ describe TravisProject do
 
   describe '#current_build_url' do
     subject { project.current_build_url }
+    let(:project) { FactoryGirl.build(:travis_project) }
 
-    context "webhooks are enabled" do
-      let(:project) { FactoryGirl.build(:travis_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
-      it { should == 'foo.gov'}
-    end
-
-    context "webhooks are disabled" do
-      let(:project) { FactoryGirl.build(:travis_project) }
-
-      it { should == 'https://api.travis-ci.org/repositories/account/project' }
+    it "returns a url to the project" do
+      should == 'https://travis-ci.org/account/project'
     end
   end
 end
