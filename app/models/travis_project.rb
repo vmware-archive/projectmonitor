@@ -15,7 +15,7 @@ class TravisProject < Project
   end
 
   def current_build_url
-    "#{BASE_WEB_URL}/#{travis_github_account}/#{travis_repository}"
+    "#{BASE_WEB_URL}/#{slug}"
   end
 
   def project_name
@@ -23,17 +23,20 @@ class TravisProject < Project
   end
 
   def fetch_payload
-    TravisJsonPayload.new
+    TravisJsonPayload.new_with_slug(slug)
   end
 
   def webhook_payload
-    TravisJsonPayload.new
+    TravisJsonPayload.new_with_slug(slug)
   end
 
   private
 
   def base_url
-    "#{BASE_API_URL}/repositories/#{travis_github_account}/#{travis_repository}"
+    "#{BASE_API_URL}/repositories/#{slug}"
   end
 
+  def slug
+    "#{travis_github_account}/#{travis_repository}"
+  end
 end

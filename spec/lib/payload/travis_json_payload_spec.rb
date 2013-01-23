@@ -67,9 +67,17 @@ describe TravisJsonPayload do
   end
 
   describe '#parse_url' do
-    subject { payload.parse_url(content) }
+    subject { payload }
 
-    it { should == "https://api.travis-ci.org/builds/4314974" }
+    context "no slug exists" do
+      it { payload.parse_url(content).should == "https://api.travis-ci.org/builds/4314974" }
+    end
+
+    context "a slug exists" do
+      let!(:slug) { payload.slug = "account/project" }
+      it { payload.parse_url(content).should == "https://travis-ci.org/account/project/builds/4314974" }
+    end
+
   end
 
   describe '#parse_build_id' do
