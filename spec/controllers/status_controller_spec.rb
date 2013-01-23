@@ -124,7 +124,7 @@ describe StatusController do
       it "should update parsed_url" do
         project.parsed_url.should be_nil
         subject
-        project.reload.parsed_url.should == 'https://api.travis-ci.org/builds/4219108'
+        project.reload.parsed_url.should == 'https://travis-ci.org/account/project/builds/4219108'
       end
 
     end

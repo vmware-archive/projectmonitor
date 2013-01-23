@@ -1,4 +1,10 @@
 class TravisJsonPayload < Payload
+  attr_accessor :slug
+
+  def self.new_with_slug(slug)
+    self.new.tap { |payload| payload.slug = slug }
+  end
+
   def building?
     status_content.first['state'] == "started"
   end
@@ -25,7 +31,11 @@ class TravisJsonPayload < Payload
   end
 
   def parse_url(content)
-    self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
+    if @slug
+      self.parsed_url = "https://travis-ci.org/#{@slug}/builds/#{content['id']}"
+    else
+      self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
+    end
   end
 
   def parse_build_id(content)
