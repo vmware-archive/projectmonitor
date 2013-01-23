@@ -1,14 +1,84 @@
 {
-  "id": 1879979,
-  "slug": "pivotal/projectmonitor",
-  "description": "Big Visible Chart CI aggregator",
-  "public_key": "-----BEGIN RSA PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcaBRYqBz7ZKuy2YqhX++C6iXW\nNFU/1KwErPAjx+jAK4wbdUuahOCyR/jkAl/SsHPcZ/H8dBgI8gTqpO4+ki3VpRNw\nGHm8tPJy5D6iRzFY3vv3ZX0WWY4dZwpj5oKdD7tsgHSZxGYY4y4LumspBIUo4BIu\n8tIAF7+AiEvRNiBX/QIDAQAB\n-----END RSA PUBLIC KEY-----\n",
-  "last_build_id": 1879978,
-  "last_build_number": "308",
-  "last_build_status": 0,
-  "last_build_result": 0,
-  "last_build_duration": 346,
-  "last_build_language": null,
-  "last_build_started_at": "2013-01-22T01:54:44Z",
-  "last_build_finished_at": "2013-01-22T02:00:30Z"
+"id": 4314974,
+"repository_id": 96210,
+"number": "311",
+"config": {
+"language": "ruby",
+"branches": {
+"only": [
+"master"
+]
+},
+"bundler_args": "--without mysql development",
+"notifications": {
+"email": [
+"common-effort@pivotallabs.com"
+],
+"webhooks": [
+"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+]
+},
+"rvm": [
+"1.9.3"
+],
+"before_script": [
+"bundle exec rake travis:setup",
+"export DISPLAY=:99",
+"sh -e /etc/init.d/xvfb start"
+],
+"script": "bundle exec rake travis",
+".result": "configured"
+},
+"state": "finished",
+"result": 0,
+"status": 0,
+"started_at": "2013-01-22T21:16:20Z",
+"finished_at": "2013-01-22T21:20:56Z",
+"duration": 276,
+"commit": "35387faa8cd81dfa77d908374967aaed143ef75b",
+"branch": "master",
+"message": "Whenever does not allow resolution smaller than 1 minute",
+"committed_at": "2013-01-22T20:21:14Z",
+"author_name": "Michael Schubert",
+"author_email": "michael@schubert.cx",
+"committer_name": "Michael Schubert",
+"committer_email": "michael@schubert.cx",
+"compare_url": "https://github.com/pivotal/projectmonitor/compare/4835f3b1923a...35387faa8cd8",
+"event_type": "push",
+"matrix": [
+{
+"id": 4314975,
+"repository_id": 96210,
+"number": "311.1",
+"config": {
+"language": "ruby",
+"branches": {
+"only": [
+"master"
+]
+},
+"bundler_args": "--without mysql development",
+"notifications": {
+"email": [
+"common-effort@pivotallabs.com"
+],
+"webhooks": [
+"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+]
+},
+"rvm": "1.9.3",
+"before_script": [
+"bundle exec rake travis:setup",
+"export DISPLAY=:99",
+"sh -e /etc/init.d/xvfb start"
+],
+"script": "bundle exec rake travis",
+".result": "configured"
+},
+"result": 0,
+"started_at": "2013-01-22T21:16:20Z",
+"finished_at": "2013-01-22T21:20:56Z",
+"allow_failure": false
+}
+]
 }
