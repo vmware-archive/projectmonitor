@@ -342,7 +342,6 @@ DEPENDENCIES
   haml
   headless
   heroku_san
-  httpauth
   jasmine
   jquery-rails (= 2.0.2)
   jshint_on_rails
