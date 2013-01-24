@@ -214,7 +214,9 @@ GEM
     pry (0.9.12)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
-      slop (~> 3.4)
+      slop (~> 3.3.1)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -352,6 +354,7 @@ DEPENDENCIES
   pg
   pivotal-tracker (= 0.5.8)
   pry
+  pry-rails
   rails
   rails-backbone (= 0.7.2)
   rake
