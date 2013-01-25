@@ -32,14 +32,14 @@ describe "TeamCity status updates" do
       project.should have(0).statuses
       project.should_not be_building
 
-      UrlRetriever.stub(:retrieve_content_at).and_return(building_in_progress_after_failure_xml)
+      UrlRetriever.any_instance.stub(:retrieve_content).and_return(building_in_progress_after_failure_xml)
       StatusFetcher.retrieve_status_for(project)
 
       project.should have(1).statuses
       project.latest_status.should_not be_success
       project.should be_building
 
-      UrlRetriever.stub(:retrieve_content_at).and_return(success_after_build_in_progress_xml)
+      UrlRetriever.any_instance.stub(:retrieve_content).and_return(success_after_build_in_progress_xml)
       StatusFetcher.retrieve_status_for(project)
 
       project.should have(2).statuses
@@ -75,13 +75,13 @@ describe "TeamCity status updates" do
       project.should have(0).statuses
       project.should_not be_building
 
-      UrlRetriever.stub(:retrieve_content_at).and_return(failing_build_in_progress_xml)
+      UrlRetriever.any_instance.stub(:retrieve_content).and_return(failing_build_in_progress_xml)
       StatusFetcher.retrieve_status_for(project)
 
       project.should have(1).statuses
       project.should be_building
 
-      UrlRetriever.stub(:retrieve_content_at).and_return(failed_build)
+      UrlRetriever.any_instance.stub(:retrieve_content).and_return(failed_build)
       StatusFetcher.retrieve_status_for(project)
 
       project.should have(1).statuses
