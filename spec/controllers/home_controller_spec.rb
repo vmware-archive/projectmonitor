@@ -63,9 +63,8 @@ describe HomeController do
         let(:error) { Net::HTTPError.new("", nil) }
 
         before do
-          UrlRetriever.should_receive(:retrieve_public_content_at).and_raise(error)
+          UrlRetriever.any_instance.should_receive(:retrieve_content).and_raise(error)
         end
-
 
         it "returns 'unreachable'" do
           get :github_status, format: :json
@@ -76,7 +75,7 @@ describe HomeController do
 
     context 'when github is reachable' do
       before do
-        UrlRetriever.should_receive(:retrieve_public_content_at).and_return('{"status":"minor-outage"}')
+        UrlRetriever.any_instance.should_receive(:retrieve_content).and_return('{"status":"minor-outage"}')
       end
 
       it "returns whatever status github returns" do
@@ -92,7 +91,7 @@ describe HomeController do
         let(:error) { Net::HTTPError.new("", nil) }
 
         before do
-          UrlRetriever.should_receive(:retrieve_public_content_at).and_raise(error)
+          UrlRetriever.any_instance.should_receive(:retrieve_content).and_raise(error)
         end
 
         it "returns 'unreachable'" do
@@ -104,7 +103,7 @@ describe HomeController do
 
     context 'when heroku is reachable' do
       before do
-        UrlRetriever.should_receive(:retrieve_public_content_at).and_return('{"status":"minor-outage"}')
+        UrlRetriever.any_instance.should_receive(:retrieve_content).and_return('{"status":"minor-outage"}')
       end
 
       it "returns whatever status heroku returns" do
@@ -120,7 +119,7 @@ describe HomeController do
         let(:error) { Net::HTTPError.new("", nil) }
 
         before do
-          UrlRetriever.should_receive(:retrieve_public_content_at).and_raise(error)
+          UrlRetriever.any_instance.should_receive(:retrieve_content).and_raise(error)
         end
 
         it "returns 'unreachable'" do
@@ -134,7 +133,7 @@ describe HomeController do
           let(:error) { Nokogiri::SyntaxError.new }
 
           before do
-            UrlRetriever.should_receive(:retrieve_public_content_at).and_raise(error)
+            UrlRetriever.any_instance.should_receive(:retrieve_content).and_raise(error)
           end
 
           it "returns 'page broken'" do
@@ -145,7 +144,7 @@ describe HomeController do
 
         context 'and the content is different than we expect' do
           before do
-            UrlRetriever.should_receive(:retrieve_public_content_at).and_return('<div class="current-status"> RubyGems.org Status: <strong>ANYTHING</strong></div>')
+            UrlRetriever.any_instance.should_receive(:retrieve_content).and_return('<div class="current-status"> RubyGems.org Status: <strong>ANYTHING</strong></div>')
           end
 
           it "parses out the status from rubygems" do
@@ -160,7 +159,7 @@ describe HomeController do
     context 'when rubygems is reachable' do
       context "and returns UP" do
         before do
-          UrlRetriever.should_receive(:retrieve_public_content_at).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>')
+          UrlRetriever.any_instance.should_receive(:retrieve_content).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>')
         end
 
         it "parses out the status from rubygems" do
@@ -171,7 +170,7 @@ describe HomeController do
 
       context "and returns not UP" do
         before do
-          UrlRetriever.should_receive(:retrieve_public_content_at).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>')
+          UrlRetriever.any_instance.should_receive(:retrieve_content).and_return('<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>')
         end
 
         it "parses out the status from rubygems" do

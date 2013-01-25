@@ -32,7 +32,8 @@ class DashboardsController < ApplicationController
   def github_status
     status = nil
     begin
-      status = UrlRetriever.retrieve_public_content_at('https://status.github.com/api/status.json')
+      retriever = UrlRetriever.new('https://status.github.com/api/status.json')
+      status = retriever.retrieve_content
     rescue
       status = '{"status":"unreachable"}'
     end
@@ -42,7 +43,8 @@ class DashboardsController < ApplicationController
   def heroku_status
     status = nil
     begin
-      status = UrlRetriever.retrieve_public_content_at('https://status.heroku.com/api/v3/current-status')
+      retriever = UrlRetriever.new('https://status.heroku.com/api/v3/current-status')
+      status = retriever.retrieve_content
     rescue
       status = '{"status":"unreachable"}'
     end
@@ -53,7 +55,8 @@ class DashboardsController < ApplicationController
     status = {}
 
     begin
-      doc = Nokogiri::HTML(UrlRetriever.retrieve_public_content_at('http://status.rubygems.org/'))
+      retriever = UrlRetriever.new('http://status.rubygems.org/')
+      doc = Nokogiri::HTML(retriever.retrieve_content)
       page_status = doc.css('.services td.status span')
 
       if page_status.any?

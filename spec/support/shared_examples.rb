@@ -12,7 +12,7 @@ shared_examples_for 'a project that updates only the most recent status' do
     before do
       project.stub(:status).and_return(project_status)
       project.stub(:parse_project_status).and_return(parsed_status)
-      UrlRetriever.stub(:retrieve_content_at)
+      UrlRetriever.any_instance.stub(:retrieve_content)
     end
 
     context "when the parsed status is new" do

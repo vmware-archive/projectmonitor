@@ -11,7 +11,7 @@ describe ProjectUpdater do
   describe '.update' do
     before do
       project.stub(:fetch_payload).and_return(payload)
-      UrlRetriever.stub(:retrieve_content_at)
+      UrlRetriever.stub(:new).with(any_args).and_return(stub('UrlRetriever', retrieve_content: 'response'))
       PayloadProcessor.stub(:new).and_return(payload_processor)
     end
 
@@ -23,7 +23,9 @@ describe ProjectUpdater do
     end
 
     it 'should fetch the feed_url' do
-      UrlRetriever.should_receive(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
+      retriever = stub('UrlRetriever')
+      UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+      retriever.should_receive(:retrieve_content)
       subject
     end
 
@@ -39,7 +41,9 @@ describe ProjectUpdater do
 
     context 'when fetching the status fails' do
       before do
-        UrlRetriever.stub(:retrieve_content_at).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_raise(net_exception)
+        retriever = stub('UrlRetriever')
+        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        retriever.stub(:retrieve_content).and_raise(net_exception)
       end
 
       it 'should create a payload log entry' do
@@ -65,13 +69,17 @@ describe ProjectUpdater do
       end
 
       it 'should fetch the build_status_url' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
+        retriever = stub('UrlRetriever')
+        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        retriever.should_receive(:retrieve_content)
         subject
       end
 
       context 'and fetching the build status fails' do
         before do
-          UrlRetriever.stub(:retrieve_content_at).with(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl).and_raise(net_exception)
+          retriever = stub('UrlRetriever')
+          UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+          retriever.stub(:retrieve_content).and_raise(net_exception)
         end
 
         it 'should set the project to offline' do
@@ -96,12 +104,16 @@ describe ProjectUpdater do
       end
 
       it 'should fetch the dependent_build_info_url' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(project.dependent_build_info_url, project.auth_username, project.auth_password, project.verify_ssl)
+        retriever = stub('UrlRetriever')
+        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        retriever.should_receive(:retrieve_content)
         subject
       end
 
       it 'should update its children' do
-        UrlRetriever.should_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
+        retriever = stub('UrlRetriever')
+        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        retriever.should_receive(:retrieve_content)
         subject
       end
 
@@ -132,7 +144,7 @@ describe ProjectUpdater do
         let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
 
         it 'should not update dependent builds' do
-          UrlRetriever.should_not_receive(:retrieve_content_at).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
+          UrlRetriever.any_instance.should_not_receive(:retrieve_content).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
           subject
         end
       end
