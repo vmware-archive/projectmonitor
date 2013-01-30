@@ -6,19 +6,89 @@ describe StatusController do
       let!(:project) { FactoryGirl.create(:travis_project) }
       let(:payload) do
       '{
-        "id": 1879979,
-        "slug": "pivotal/projectmonitor",
-        "description": "Big Visible Chart CI aggregator",
-        "public_key": "-----BEGIN RSA PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcaBRYqBz7ZKuy2YqhX++C6iXW\nNFU/1KwErPAjx+jAK4wbdUuahOCyR/jkAl/SsHPcZ/H8dBgI8gTqpO4+ki3VpRNw\nGHm8tPJy5D6iRzFY3vv3ZX0WWY4dZwpj5oKdD7tsgHSZxGYY4y4LumspBIUo4BIu\n8tIAF7+AiEvRNiBX/QIDAQAB\n-----END RSA PUBLIC KEY-----\n",
-        "last_build_id": 1879978,
-        "last_build_number": "308",
-        "last_build_status": 1,
-        "last_build_result": 1,
-        "last_build_duration": 346,
-        "last_build_language": null,
-        "last_build_started_at": "2013-01-22T01:54:44Z",
-        "last_build_finished_at": "2013-01-22T02:00:30Z"
-      }'
+        "id": 4219108,
+        "repository_id": 96210,
+        "number": "304",
+        "config": {
+        "language": "ruby",
+        "branches": {
+        "only": [
+        "master"
+        ]
+        },
+        "bundler_args": "--without mysql development",
+        "notifications": {
+        "email": [
+        "common-effort@pivotallabs.com"
+        ],
+        "webhooks": [
+        "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+        ]
+        },
+        "rvm": [
+        "1.9.3"
+        ],
+        "before_script": [
+        "bundle exec rake travis:setup",
+        "export DISPLAY=:99",
+        "sh -e /etc/init.d/xvfb start"
+        ],
+        "script": "bundle exec rake travis",
+        ".result": "configured"
+        },
+        "state": "finished",
+        "result": 1,
+        "status": 1,
+        "started_at": "2013-01-21T16:12:15Z",
+        "finished_at": "2013-01-21T16:15:46Z",
+        "duration": 211,
+        "commit": "062417432adec29287f9fb276a8c2484711af407",
+        "branch": "master",
+        "message": "fixed bug 42640123 semaphore projects failing when status pending",
+        "committed_at": "2013-01-17T21:16:31Z",
+        "author_name": "David Lee and David Tengdin",
+        "author_email": "pair+dlee+dtengdin@pivotallabs.com",
+        "committer_name": "David Lee and David Tengdin",
+        "committer_email": "pair+dlee+dtengdin@pivotallabs.com",
+        "compare_url": "https://github.com/pivotal/projectmonitor/compare/2f511066ed49...062417432ade",
+        "event_type": "push",
+        "matrix": [
+        {
+        "id": 4219109,
+        "repository_id": 96210,
+        "number": "304.1",
+        "config": {
+        "language": "ruby",
+        "branches": {
+        "only": [
+        "master"
+        ]
+        },
+        "bundler_args": "--without mysql development",
+        "notifications": {
+        "email": [
+        "common-effort@pivotallabs.com"
+        ],
+        "webhooks": [
+        "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+        ]
+        },
+        "rvm": "1.9.3",
+        "before_script": [
+        "bundle exec rake travis:setup",
+        "export DISPLAY=:99",
+        "sh -e /etc/init.d/xvfb start"
+        ],
+        "script": "bundle exec rake travis",
+        ".result": "configured"
+        },
+        "result": 1,
+        "started_at": "2013-01-21T16:12:15Z",
+        "finished_at": "2013-01-21T16:15:46Z",
+        "allow_failure": false
+        }
+        ]
+        }'
       end
 
       subject { post :create, project_id: project.guid, payload: payload }
@@ -42,7 +112,7 @@ describe StatusController do
         subject
         ProjectStatus.last.should_not be_success
         ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.published_at.should == Time.parse("2013-01-22T02:00:30Z")
+        ProjectStatus.last.published_at.to_s.should == Time.utc(2013, 1, 21, 16, 15, 46).to_s
       end
 
       it "should update last_refreshed_at" do
@@ -54,7 +124,7 @@ describe StatusController do
       it "should update parsed_url" do
         project.parsed_url.should be_nil
         subject
-        project.reload.parsed_url.should == 'https://travis-ci.org/pivotal/projectmonitor'
+        project.reload.parsed_url.should == 'https://travis-ci.org/account/project/builds/4219108'
       end
 
     end

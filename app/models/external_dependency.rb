@@ -18,11 +18,7 @@ class ExternalDependency < ActiveRecord::Base
   end
 
   def get_status
-    case name
-      when 'HEROKU'   then heroku_status
-      when 'GITHUB'   then github_status
-      when 'RUBYGEMS' then rubygems_status
-    end
+    eval("#{name.downcase}_status")
   end
 
   private

@@ -3,6 +3,7 @@ language: ruby
 branches:
   only:
     - master
+    - staging
 
 bundler_args: --without mysql development
 
