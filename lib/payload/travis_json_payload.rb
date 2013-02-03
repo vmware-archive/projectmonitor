@@ -26,7 +26,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_success(content)
-    return if content['state'] == 'started'
+    return if content['state'] == 'started' || content['branch'] != 'master'
     content['result'].to_i == 0
   end
 

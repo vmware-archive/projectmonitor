@@ -64,6 +64,12 @@ describe TravisJsonPayload do
       let(:json) { "failure.json" }
       it { should be_false }
     end
+    
+    context 'the payload contains a build from a branch' do
+      let(:json) { "branch.json" }
+      it { should be_false }
+    end
+
   end
 
   describe '#parse_url' do
