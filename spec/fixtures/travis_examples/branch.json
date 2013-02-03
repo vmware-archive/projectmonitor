@@ -1,0 +1,81 @@
+{
+"id": 4478906,
+"repository_id": 96210,
+"number": "315",
+"config": {
+"language": "ruby",
+"branches": {},
+"bundler_args": "--without mysql development",
+"notifications": {
+"email": [
+"common-effort@pivotallabs.com"
+],
+"webhooks": [
+"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+]
+},
+"rvm": [
+"1.9.3"
+],
+"before_script": [
+"bundle exec rake travis:setup",
+"export DISPLAY=:99",
+"sh -e /etc/init.d/xvfb start"
+],
+"script": "bundle exec rake travis",
+".result": "configured"
+},
+"state": "finished",
+"result": 0,
+"status": 0,
+"started_at": "2013-01-30T16:37:33Z",
+"finished_at": "2013-01-30T16:42:26Z",
+"duration": 293,
+"commit": "1281cabbc4bbd7b098d4f5d2a0e6dd1878d4b662",
+"branch": "staging",
+"message": "Bumping Devise to patch security vulnerability\n- Finishes #43351379\n- Announcement: http://blog.plataformatec.com.br/2013/01/security-announcement-devise-v2-2-3-v2-1-3-v2-0-5-and-v1-5-3-released/",
+"committed_at": "2013-01-30T16:17:11Z",
+"author_name": "Graham Siener",
+"author_email": "gsiener@pivotallabs.com",
+"committer_name": "Graham Siener",
+"committer_email": "gsiener@pivotallabs.com",
+"compare_url": "https://github.com/pivotal/projectmonitor/compare/bfff20e0fb51...1281cabbc4bb",
+"event_type": "push",
+"matrix": [
+{
+"id": 4478907,
+"repository_id": 96210,
+"number": "315.1",
+"config": {
+"language": "ruby",
+"branches": {
+"only": [
+"master",
+"staging"
+]
+},
+"bundler_args": "--without mysql development",
+"notifications": {
+"email": [
+"common-effort@pivotallabs.com"
+],
+"webhooks": [
+"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+]
+},
+"rvm": "1.9.3",
+"before_script": [
+"bundle exec rake travis:setup",
+"export DISPLAY=:99",
+"sh -e /etc/init.d/xvfb start"
+],
+"script": "bundle exec rake travis",
+".result": "configured"
+},
+"result": 0,
+"started_at": "2013-01-30T16:37:33Z",
+"finished_at": "2013-01-30T16:42:26Z",
+"allow_failure": false
+}
+]
+}
