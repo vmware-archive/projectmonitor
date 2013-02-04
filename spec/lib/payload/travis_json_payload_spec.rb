@@ -64,10 +64,19 @@ describe TravisJsonPayload do
       let(:json) { "failure.json" }
       it { should be_false }
     end
-    
-    context 'the payload contains a build from a branch' do
+
+    context 'the payload contains a build from a branch other than master' do
       let(:json) { "branch.json" }
-      it { should be_false }
+
+      context 'and the branch has not been specified' do
+        it { should be_false }
+      end
+
+      context 'and the branch has been specified' do
+        before { payload.branch = 'staging' }
+
+        it { should be_true }
+      end
     end
 
   end
