@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115195626) do
+ActiveRecord::Schema.define(:version => 20130204224912) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20130115195626) do
     t.datetime "updated_at"
     t.integer  "stories_to_accept_count"
     t.integer  "open_stories_count"
+    t.string   "build_branch"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
