@@ -113,6 +113,15 @@ var ProjectEdit = {};
     else {
       $auth_fields.removeClass('hide');
     }
+
+    var $branch_name = $('#branch_name');
+    if ( $(this).val() == "TravisProject" ) {
+      $branch_name.removeClass('hide');
+    }
+    else {
+      $branch_name.addClass('hide');
+    }
+
   };
 
   var showBuildStatusSuccess = function () {
