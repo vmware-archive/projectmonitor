@@ -19,6 +19,8 @@ describe "projects/new" do
     rendered.should have_css('fieldset#TeamCityRestProject.hide')
     rendered.should have_css('fieldset#TeamCityProject.hide')
     rendered.should have_css('fieldset#TravisProject.hide')
+
+    rendered.should have_css('fieldset#build_setup #branch_name.hide')
   end
 
 end

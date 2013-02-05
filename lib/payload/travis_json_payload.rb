@@ -1,8 +1,12 @@
 class TravisJsonPayload < Payload
   attr_accessor :slug
 
-  def self.new_with_slug(slug)
-    self.new.tap { |payload| payload.slug = slug }
+  def branch=(new_branch)
+    @branch = new_branch
+  end
+
+  def branch
+    @branch ||= 'master'
   end
 
   def building?
@@ -26,7 +30,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_success(content)
-    return if content['state'] == 'started' || content['branch'] != 'master'
+    return if content['state'] == 'started' || !specified_branch?(content)
     content['result'].to_i == 0
   end
 
@@ -45,5 +49,11 @@ class TravisJsonPayload < Payload
   def parse_published_at(content)
     published_at = content['finished_at']
     Time.parse(published_at) if published_at.present?
+  end
+
+  private
+
+  def specified_branch?(content)
+    branch == content['branch']
   end
 end
