@@ -1,16 +1,12 @@
 class TravisJsonPayload < Payload
   attr_accessor :slug
 
-  def self.new_with_slug(slug)
-    self.new.tap { |payload| payload.slug = slug }
-  end
-
   def branch=(new_branch)
     @branch = new_branch
   end
 
   def branch
-    @branch || 'master'
+    @branch ||= 'master'
   end
 
   def building?

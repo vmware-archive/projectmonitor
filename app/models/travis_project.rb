@@ -23,11 +23,17 @@ class TravisProject < Project
   end
 
   def fetch_payload
-    TravisJsonPayload.new_with_slug(slug)
+    TravisJsonPayload.new.tap do |payload|
+      payload.slug = slug
+      payload.branch = build_branch
+    end
   end
 
   def webhook_payload
-    TravisJsonPayload.new_with_slug(slug)
+    TravisJsonPayload.new.tap do |payload|
+      payload.slug = slug
+      payload.branch = build_branch
+    end
   end
 
   private
