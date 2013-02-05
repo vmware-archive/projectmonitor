@@ -5,6 +5,14 @@ class TravisJsonPayload < Payload
     self.new.tap { |payload| payload.slug = slug }
   end
 
+  def branch=(new_branch)
+    @branch = new_branch
+  end
+
+  def branch
+    @branch || 'master'
+  end
+
   def building?
     status_content.first['state'] == "started"
   end
