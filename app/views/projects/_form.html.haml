@@ -38,6 +38,12 @@
 
     = f.label :webhooks_enabled_false, "Polling"
     = f.radio_button :webhooks_enabled, false
+  - branch_name_class = f.object.type == 'TravisProject' ? nil : 'hide'
+  %p#branch_name{ class: branch_name_class }
+    = f.label :build_branch, "Branch Name"
+    = f.text_field :build_branch
+    %em
+      Default is 'master'
   = project_refreshed_at(f.object)
   %fieldset#webhooks
     = project_webhooks_url(f.object)
