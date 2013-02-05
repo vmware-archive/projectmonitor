@@ -212,6 +212,7 @@ describe("project edit", function() {
         '  <option value=""></option>' +
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
+        '  <option value="TravisProject">TravisProject</option>' +
         '  <option value="TddiumProject">TddiumProject</option>' +
         '</select>' +
         '<fieldset id="polling">' +
@@ -241,6 +242,10 @@ describe("project edit", function() {
         '<fieldset id="build_setup">' +
         '  <input type="radio" id="project_webhooks_enabled_true"/>' +
         '  <input type="radio" id="project_webhooks_enabled_false"/>' +
+        '  <p class="hide" id="branch_name">' +
+        '    <label for="project_build_branch">Branch Name</label>' +
+        '    <input id="project_build_branch" name="project[build_branch]" size="30" type="text" class="">' +
+        '  </p>' +
         '</fieldset>');
     });
 
@@ -259,6 +264,23 @@ describe("project edit", function() {
       it("makes the Cruise Control project fieldset invisible", function() {
         expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
         expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
+      });
+    });
+
+    describe("showing the branch field", function() {
+      beforeEach(function() {
+        ProjectEdit.init();
+      });
+
+      it("shows the branch field when a Travis Project is selected", function() {
+        $('#project_type').val('TravisProject').change();
+        expect($('#branch_name')).toExist();
+        expect($('#branch_name').hasClass('hide')).toBeFalsy();
+      });
+
+      it("hides the branch field when another project type is selected", function() {
+        $('#project_type').val('JenkinsProject').change();
+        expect($('#branch_name').hasClass('hide')).toBeTruthy();
       });
     });
 
