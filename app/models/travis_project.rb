@@ -1,6 +1,6 @@
 class TravisProject < Project
 
-  attr_accessible :travis_github_account, :travis_repository
+  attr_accessible :travis_github_account, :travis_repository, :build_branch
   validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
   BASE_API_URL = "https://api.travis-ci.org"
@@ -23,11 +23,17 @@ class TravisProject < Project
   end
 
   def fetch_payload
-    TravisJsonPayload.new_with_slug(slug)
+    TravisJsonPayload.new.tap do |payload|
+      payload.slug = slug
+      payload.branch = build_branch
+    end
   end
 
   def webhook_payload
-    TravisJsonPayload.new_with_slug(slug)
+    TravisJsonPayload.new.tap do |payload|
+      payload.slug = slug
+      payload.branch = build_branch
+    end
   end
 
   private

@@ -10,14 +10,12 @@ describe TrackerApi do
     before do
       PivotalTracker::Client.token = project.tracker_auth_token
       (1..3).each do |x|
-        # x.times do
-          tracker_project.stories.create name: "Test #{x}",
-            story_type: "feature",
-            estimate: x,
-            accepted_at: x.weeks.ago,
-            current_state: "accepted",
-            requested_by: "James Somers"
-        # end
+        tracker_project.stories.create name: "Test #{x}",
+          story_type: "feature",
+          estimate: x,
+          accepted_at: x.weeks.ago,
+          current_state: "accepted",
+          requested_by: "James Somers"
         tracker_project.stories.create name: "Test (delivered) #{x}",
           story_type: "feature",
           estimate: 0,
@@ -32,7 +30,7 @@ describe TrackerApi do
     end
 
     after do
-      tracker_project.stories.all.each &:delete
+      tracker_project.stories.all.each(&:delete)
     end
 
     context "last_ten_velocities" do
