@@ -18,7 +18,7 @@ describe SemaphorePayload do
       let(:content) { {'result' => 'pending'} }
 
       it 'should be marked as unprocessable' do
-        payload.parse_success(content).should == nil
+        payload.content_ready?(content).should be_false
       end
     end
 
@@ -67,6 +67,19 @@ describe SemaphorePayload do
     context 'the payload contains a failure build status' do
       let(:json) { "failure.json" }
       it { should be_false }
+    end
+  end
+
+  describe '#content_ready?' do
+    subject { payload.content_ready?(content) }
+
+    context 'the build has not finished' do
+      let(:json) { "pending.json" }
+      it { should be_false }
+    end
+
+    context 'the build has finished' do
+      it { should be_true }
     end
   end
 
