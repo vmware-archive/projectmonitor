@@ -80,6 +80,19 @@ describe TeamCityJsonPayload do
     end
   end
 
+  describe '#content_ready?' do
+    subject { payload.content_ready?(converted_content) }
+
+    context 'the build has finished' do
+      it { should be_true }
+    end
+
+    context 'the build has not finished' do
+      let(:example_file) { "building.txt" }
+      it { should be_false }
+    end
+  end
+
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
     it { should == '1' }
