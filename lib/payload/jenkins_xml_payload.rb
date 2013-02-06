@@ -13,6 +13,10 @@ class JenkinsXmlPayload < Payload
 
   private
 
+  def content_ready?(content)
+    content.css('title').present?
+  end
+
   def convert_content!(content)
     parsed_content = parse_content(content.downcase)
     parsed_content.css('feed entry').to_a
@@ -33,9 +37,7 @@ class JenkinsXmlPayload < Payload
   end
 
   def parse_success(content)
-    if (title = content.css('title')).present?
-      !!(title.first.content.downcase =~ /success|stable|back to normal/)
-    end
+    !!(content.css('title').first.content.downcase =~ /success|stable|back to normal/)
   end
 
   def parse_url(content)
