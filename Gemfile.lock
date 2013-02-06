@@ -1,8 +1,9 @@
 GIT
-  remote: https://github.com/jviney/acts_as_taggable_on_steroids.git
-  revision: ec56014e040b9e384339cfa4d6bad7649c813c8d
+  remote: git://github.com/mbleigh/acts-as-taggable-on.git
+  revision: 87b371461fc483ddf14bd96a1592f846ca851cf6
   specs:
-    acts_as_taggable_on_steroids (1.1)
+    acts-as-taggable-on (2.3.3)
+      rails (~> 3.0)
 
 GEM
   remote: http://rubygems.org/
@@ -305,7 +306,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_taggable_on_steroids!
+  acts-as-taggable-on!
   airbrake
   awesome_print
   bourbon

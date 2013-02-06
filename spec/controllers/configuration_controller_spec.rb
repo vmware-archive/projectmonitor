@@ -42,7 +42,7 @@ describe ConfigurationController do
 
     it 'gets a list of all the tags in the system' do
       tag_list = [ double(:tag, name: 'nyc') ]
-      Tag.should_receive(:order).with(:name).and_return tag_list
+      ActsAsTaggableOn::Tag.should_receive(:order).with(:name).and_return tag_list
       get :edit, tags: tags
       assigns(:tags).should == ['nyc']
     end

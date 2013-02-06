@@ -23,12 +23,12 @@ class Project < ActiveRecord::Base
   }
   scope :displayable, lambda {|tags|
     scope = enabled
-    return scope.find_tagged_with(tags) if tags
+    return scope.tagged_with(tags) if tags
     scope
   }
 
   scope :tagged, lambda { |tags|
-    return Project.find_tagged_with(tags) if tags
+    return Project.tagged_with(tags) if tags
     all
   }
 

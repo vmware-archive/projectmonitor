@@ -1,24 +1,24 @@
 # Projects
 internal_project3_independent:
-  tag: independent
-  taggable: internal_project3 (Project)
+  tag_id: independent
+  taggable_id: internal_project3 (Project)
 pivots_nyc:
-  tag: nyc
-  taggable: pivots (Project)
+  tag_id: nyc
+  taggable_id: pivots (Project)
 socialitis_nyc:
-  tag: nyc
-  taggable: socialitis (Project)
+  tag_id: nyc
+  taggable_id: socialitis (Project)
 socialitis_public:
-  tag: public
-  taggable: socialitis (Project)
+  tag_id: public
+  taggable_id: socialitis (Project)
 
 # Aggregate Projects
 empty_aggregate_sf:
-  tag: sf
-  taggable: empty_aggregate (AggregateProject)
+  tag_id: sf
+  taggable_id: empty_aggregate (AggregateProject)
 internal_projects_aggregate_nyc:
-  tag: nyc
-  taggable: internal_projects_aggregate (AggregateProject)
+  tag_id: nyc
+  taggable_id: internal_projects_aggregate (AggregateProject)
 disabled_nyc:
-  tag: nyc
-  taggable: disabled (AggregateProject)
+  tag_id: nyc
+  taggable_id: disabled (AggregateProject)

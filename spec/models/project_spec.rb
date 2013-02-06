@@ -140,7 +140,7 @@ describe Project do
         it "should find tagged with tags" do
           scope = double
           Project.stub(:enabled) { scope }
-          scope.should_receive(:find_tagged_with).with(tags)
+          scope.should_receive(:tagged_with).with(tags)
           subject
         end
 
@@ -176,7 +176,7 @@ describe Project do
         let(:tags) { "southeast, northwest" }
 
         it "should find tagged with tags" do
-          Project.should_receive(:find_tagged_with).with(tags)
+          Project.should_receive(:tagged_with).with(tags)
           subject
         end
 
