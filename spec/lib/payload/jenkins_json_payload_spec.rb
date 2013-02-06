@@ -48,6 +48,19 @@ describe JenkinsJsonPayload do
     end
   end
 
+  describe '#content_ready?' do
+    subject { payload.content_ready?(converted_content) }
+
+    context 'the build has not finished' do
+      let(:example_file) { "building.txt" }
+      it { should be_false }
+    end
+
+    context 'the build has finished' do
+      it { should be_true }
+    end
+  end
+
   describe '#parse_url' do
     subject { payload.parse_url(converted_content) }
 
