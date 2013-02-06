@@ -2,7 +2,6 @@ require 'net/http'
 require 'net/https'
 
 module UrlRetriever
-
   class << self
 
     def retrieve_content_at(url, username = nil, password = nil, verify_ssl = true)

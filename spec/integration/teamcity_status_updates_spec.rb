@@ -89,14 +89,4 @@ describe "TeamCity status updates" do
       project.latest_status.should_not be_success
     end
   end
-
-  # should take the last finished build status when later builds are in progress
-
-
-  # (start red) in progress build finishes and passes after another build begins
-
-  # in progress build that begins to fail
-  # in progress build finishes and fails
-  # in progress build finishes and passes
-  # (start green) in progress build fails and later in progress build is still passing => fail
 end
