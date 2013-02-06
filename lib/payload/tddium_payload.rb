@@ -9,6 +9,10 @@ class TddiumPayload < Payload
     @build_status_content.first.attributes['activity'].value == 'Building'
   end
 
+  def content_ready?(content)
+    content.attributes['activity'].value != 'Building'
+  end
+
   def convert_content!(content)
     if content.present?
       parsed = Nokogiri::XML.parse(content)
@@ -34,7 +38,7 @@ class TddiumPayload < Payload
   end
 
   def parse_success(content)
-    content.attributes['lastBuildStatus'].value == 'Success' unless content.attributes['activity'].value == 'Building'
+    content.attributes['lastBuildStatus'].value == 'Success'
   end
 
   def parse_url(content)

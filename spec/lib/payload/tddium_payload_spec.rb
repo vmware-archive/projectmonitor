@@ -7,7 +7,6 @@ describe TddiumPayload do
   let(:fixture_file) { 'success.xml' }
   let(:converted_content) { payload.convert_content!(content).first }
 
-
   context 'with an invalid POST' do
     subject { payload.processable }
     before do
@@ -31,7 +30,6 @@ describe TddiumPayload do
     end
   end
 
-
   context 'with a valid POST' do
     before { payload.build_status_content = content }
     subject { payload.parse_success(converted_content) }
@@ -43,6 +41,19 @@ describe TddiumPayload do
 
       context 'with an unsuccessful build' do
         let(:fixture_file) { 'failure.xml' }
+        it { should be_false }
+      end
+    end
+
+    describe '#content_ready?' do
+      subject { payload.content_ready?(converted_content) }
+
+      context 'build has finished' do
+        it { should be_true }
+      end
+
+      context 'build has not finished' do
+        let(:fixture_file) { 'building.xml' }
         it { should be_false }
       end
     end
@@ -71,7 +82,6 @@ describe TddiumPayload do
       end
     end
 
-
     describe '#building?' do
       subject { payload }
       before { payload.build_status_content = content }
@@ -87,7 +97,6 @@ describe TddiumPayload do
     end
   end
 
-
   context 'with an actual POST request' do
     let(:fixture_file) { 'integration.xml' }
     let(:payload) { TddiumPayload.new('projectmonitor_ci_test (master)') }
@@ -95,6 +104,12 @@ describe TddiumPayload do
     context '#parse_success' do
       before { payload.build_status_content = content }
       subject { payload.parse_success(converted_content) }
+      it { should be_true }
+    end
+
+    context '#content_ready?' do
+      before { payload.build_status_content = content }
+      subject { payload.content_ready?(converted_content) }
       it { should be_true }
     end
 
@@ -119,5 +134,4 @@ describe TddiumPayload do
       it {should_not be_building }
     end
   end
-
 end
