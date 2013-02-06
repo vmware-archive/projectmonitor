@@ -78,7 +78,6 @@ describe TravisJsonPayload do
         it { should be_true }
       end
     end
-
   end
 
   describe '#parse_url' do
