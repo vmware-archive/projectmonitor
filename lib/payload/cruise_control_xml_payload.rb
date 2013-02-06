@@ -25,9 +25,12 @@ class CruiseControlXmlPayload < Payload
     parsed_xml
   end
 
+  def content_ready?(content)
+    content.css('title').present?
+  end
+
   def parse_success(content)
-    title = content.css('title')
-    !!(title.to_s =~ /success/) if title.present?
+    !!(content.css('title').to_s =~ /success/)
   end
 
   def parse_url(content)

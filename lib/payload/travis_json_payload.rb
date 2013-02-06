@@ -17,6 +17,10 @@ class TravisJsonPayload < Payload
     status_is_processable?
   end
 
+  def content_ready?(content)
+    content['state'] != 'started' && specified_branch?(content)
+  end
+
   def convert_webhook_content!(content)
     convert_content!(Rack::Utils.parse_nested_query(content)['payload'] || '')
   end
@@ -39,7 +43,6 @@ class TravisJsonPayload < Payload
   end
 
   def parse_success(content)
-    return if content['state'] == 'started' || !specified_branch?(content)
     content['result'].to_i == 0
   end
 

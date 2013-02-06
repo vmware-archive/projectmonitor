@@ -56,12 +56,27 @@ describe TravisJsonPayload do
   describe '#parse_success' do
     subject { payload.parse_success(content) }
 
-    context 'the payload contains a successful build status' do
+    context 'the payload result is a success' do
+      let(:json) { "success.json" }
       it { should be_true }
     end
 
-    context 'the payload contains a failure build status' do
+    context 'the payload result is a failure' do
       let(:json) { "failure.json" }
+      it { should be_false }
+    end
+  end
+
+  describe '#content_ready?' do
+    subject { payload.content_ready?(content) }
+
+    context 'the payload build has finished running' do
+      let(:json) { "success.json" }
+      it { should be_true }
+    end
+
+    context 'the payload build has not finished running' do
+      let(:json) { "building.json" }
       it { should be_false }
     end
 
