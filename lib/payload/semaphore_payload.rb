@@ -3,6 +3,10 @@ class SemaphorePayload < Payload
     status_content.first['result'] == 'pending'
   end
 
+  def content_ready?(content)
+    content['result'] != 'pending'
+  end
+
   def convert_content!(content)
     json = JSON.parse(content)
     json = extract_builds_if_build_history_url(json)
@@ -13,7 +17,7 @@ class SemaphorePayload < Payload
   end
 
   def parse_success(content)
-    content['result'] == 'pending' ? nil : content['result'] == 'passed'
+    content['result'] == 'passed'
   end
 
   def parse_url(content)
@@ -28,7 +32,6 @@ class SemaphorePayload < Payload
   def parse_published_at(content)
     Time.parse(content['finished_at']) if content['finished_at']
   end
-
 
   private
 
