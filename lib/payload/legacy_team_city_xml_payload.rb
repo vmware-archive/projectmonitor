@@ -7,6 +7,10 @@ class LegacyTeamCityXmlPayload < Payload
 
   private
 
+  def content_ready?(content)
+    content.attribute('activity').value != 'Building'
+  end
+
   def convert_content!(content)
     parsed_content = Nokogiri::XML.parse(content)
     raise Payload::InvalidContentException, "Error converting content" unless parsed_content.root
@@ -20,7 +24,6 @@ class LegacyTeamCityXmlPayload < Payload
   end
 
   def parse_success(content)
-    return if content.attribute('activity').value == 'Building'
     content.attribute('lastBuildStatus').value == 'NORMAL'
   end
 

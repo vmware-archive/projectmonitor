@@ -21,6 +21,12 @@ class TeamCityXmlPayload < Payload
 
   private
 
+  def content_ready?(content)
+    return false if content.attribute('running').present? && content.attribute('status').value != 'FAILURE'
+    return false if content.attribute('status').value == 'UNKNOWN'
+    true
+  end
+
   def convert_content!(content)
     parsed_content = Nokogiri::XML.parse(content)
     raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_content.root
@@ -28,8 +34,6 @@ class TeamCityXmlPayload < Payload
   end
 
   def parse_success(content)
-    return if content.attribute('running').present? && content.attribute('status').value != 'FAILURE'
-    return if content.attribute('status').value == 'UNKNOWN'
     content.attribute('status').value == 'SUCCESS'
   end
 

@@ -11,8 +11,11 @@ class TeamCityJsonPayload < Payload
     raise Payload::InvalidContentException, e.message
   end
 
+  def content_ready?(content)
+    content['buildResult'] != 'running'
+  end
+
   def parse_success(content)
-    return if content['buildResult'] == 'running'
     content['buildResult'] == 'success'
   end
 
