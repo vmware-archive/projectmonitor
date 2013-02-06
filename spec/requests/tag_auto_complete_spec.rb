@@ -20,8 +20,8 @@ describe "tag auto complete", js: true do
   end
 
   it "populates a dropdown with possible completions when you type in the tag box" do
-    Tag.create! name: 'bar'
-    Tag.create! name: 'baz'
+    ActsAsTaggableOn::Tag.create! name: 'bar'
+    ActsAsTaggableOn::Tag.create! name: 'baz'
 
     visit(new_project_path)
     fill_in('Name', with: 'foo')

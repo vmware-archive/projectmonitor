@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "acts_as_taggable_on_steroids", :git => "https://github.com/jviney/acts_as_taggable_on_steroids.git"
+gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
 gem "bourbon"
 gem "choices"

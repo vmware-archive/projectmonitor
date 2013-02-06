@@ -56,7 +56,7 @@ describe AggregateProject do
       before do
         AggregateProject.should_receive(:enabled).and_return AggregateProject
         AggregateProject.should_receive(:joins).with(:projects).and_return AggregateProject
-        AggregateProject.should_receive(:find_tagged_with).with("foo,bar", match_all: true).and_return results
+        AggregateProject.should_receive(:tagged_with).with("foo,bar", match_all: true).and_return results
       end
 
       subject { AggregateProject.all_with_tags("foo,bar") }

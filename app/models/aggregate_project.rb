@@ -12,7 +12,7 @@ class AggregateProject < ActiveRecord::Base
   }
 
   scope :tagged, lambda { |tags|
-    return find_tagged_with tags if tags
+    return tagged_with tags if tags
     all
   }
 
@@ -20,7 +20,7 @@ class AggregateProject < ActiveRecord::Base
   validates :name, presence: true
 
   def self.all_with_tags(tags)
-    enabled.joins(:projects).find_tagged_with tags, match_all: true
+    enabled.joins(:projects).tagged_with tags, match_all: true
   end
 
   def red?

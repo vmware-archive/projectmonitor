@@ -7,7 +7,7 @@ module RemoveUnusedTags
       end
       tags.flatten!
       tags.uniq!
-      Tag.find_each do |tag|
+      ActsAsTaggableOn::Tag.find_each do |tag|
         tag.destroy unless tags.include?(tag.name)
       end
     end
