@@ -10,8 +10,11 @@ class JenkinsJsonPayload < Payload
     raise Payload::InvalidContentException, e.message
   end
 
+  def content_ready?(content)
+    content["build"]["phase"] != "STARTED"
+  end
+
   def parse_success(content)
-    return if content["build"]["phase"] == "STARTED"
     content["build"]["status"] == "SUCCESS"
   end
 
