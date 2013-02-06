@@ -40,6 +40,9 @@ $statusbar-font-size: 30px !default;
 
       .history {
         ol {
+          overflow: hidden;
+          height: 80px;
+
           li {
             font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
             text-decoration: none;
@@ -297,6 +300,7 @@ $statusbar-font-size: 30px !default;
         border-right: solid 2px;
         float: left;
         text-align: center;
+        overflow: hidden;
 
         .label {
           font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
