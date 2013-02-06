@@ -29,6 +29,15 @@ class TravisJsonPayload < Payload
     raise Payload::InvalidContentException, e.message
   end
 
+  def parse_build_id(content)
+    content['id']
+  end
+
+  def parse_published_at(content)
+    published_at = content['finished_at']
+    Time.parse(published_at) if published_at.present?
+  end
+
   def parse_success(content)
     return if content['state'] == 'started' || !specified_branch?(content)
     content['result'].to_i == 0
@@ -40,15 +49,6 @@ class TravisJsonPayload < Payload
     else
       self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
     end
-  end
-
-  def parse_build_id(content)
-    content['id']
-  end
-
-  def parse_published_at(content)
-    published_at = content['finished_at']
-    Time.parse(published_at) if published_at.present?
   end
 
   private
