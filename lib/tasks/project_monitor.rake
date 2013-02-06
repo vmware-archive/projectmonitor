@@ -1,4 +1,4 @@
-namespace :cimonitor do
+namespace :projectmonitor do
   desc "Update the status for each active project"
   task :fetch_statuses => :environment do
     if Delayed::Job.count.zero?
