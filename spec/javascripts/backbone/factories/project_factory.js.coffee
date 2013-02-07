@@ -5,7 +5,7 @@ BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
       code: 'PROJ'
       aggregate: false
       status: "success"
-      statuses: [true, false, true, true, false, true, true, false, true, true]
+      statuses: [true, false, true, true, false, true, true, false, true, true, false, false]
       time_since_last_build: "4d"
   }
 

@@ -11,3 +11,6 @@ describe "ProjectMonitor.Views.HomeView", ->
 
   it "should render standalong tile", ->
     expect(@view.render().$el).toContain("li.project")
+
+  it "should render only the latest ten builds", ->
+    expect(@view.render().$el.find('.statuses li').size()).toEqual(10)
