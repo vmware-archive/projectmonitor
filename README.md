@@ -336,4 +336,4 @@ Got a burning idea that just needs to be implemented? Join the google group and 
 
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
 
-Copyright (c) 2012 Pivotal Labs. This software is licensed under the MIT License.
+Copyright (c) 2013 Pivotal Labs. This software is licensed under the MIT License.
