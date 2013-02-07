@@ -118,4 +118,19 @@ describe TravisJsonPayload do
     subject { payload.parse_published_at(content) }
     it { should == Time.utc(2013, 1, 22, 21, 20, 56) }
   end
+
+  describe '#branch=' do
+    subject { payload.branch }
+    before { payload.branch = branch }
+
+    context "when given a branch name" do
+      let(:branch) { "staging" }
+      it { should == branch }
+    end
+
+    context "when given an empty string" do
+      let(:branch) { "" }
+      it { should == "master" }
+    end
+  end
 end

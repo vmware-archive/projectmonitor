@@ -2,7 +2,7 @@ class TravisJsonPayload < Payload
   attr_accessor :slug
 
   def branch=(new_branch)
-    @branch = new_branch
+    @branch = new_branch unless new_branch.blank?
   end
 
   def branch
