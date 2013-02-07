@@ -2,7 +2,6 @@ require "securerandom"
 
 class AddGuidsToExistingProjects < ActiveRecord::Migration
   Project = Class.new ActiveRecord::Base do
-    acts_as_taggable
     self.inheritance_column = nil
   end
 

@@ -1,13 +1,15 @@
 class ConvertLocationsToTags < ActiveRecord::Migration
   Project = Class.new ActiveRecord::Base do
-    acts_as_taggable
     self.inheritance_column = nil
   end
 
+  Tag = Class.new(ActiveRecord::Base)
+
   def up
     Project.where('location IS NOT NULL').find_each do |project|
-      new_tag_list = (project.tag_list + [project.location.gsub(/\s+/, '_')]).uniq
-      project.update_attributes(tag_list: new_tag_list)
+      location_tag = Tag.find_or_create_by_name(project.location.gsub(/\s+/, '_'))
+      ActiveRecord::Base.connection.
+        execute("INSERT INTO taggings (tag_id, taggable_id, taggable_type) VALUES (#{location_tag.id}, #{project.id}, 'Project')")
     end
     rename_column :projects, :location, :deprecated_location
   end
