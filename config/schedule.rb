@@ -5,7 +5,7 @@ every :day, :at => '3:00am' do
 end
 
 every 3.minutes do
-  rake "cimonitor:fetch_statuses", :output => "log/fetch_statuses.log"
+  rake "projectmonitor:fetch_statuses", :output => "log/fetch_statuses.log"
 end
 
 every 1.minute do
