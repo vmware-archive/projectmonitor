@@ -202,11 +202,11 @@ scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
 You can export your configuration for posterity or to be transferred to another
 host:
 
-    rake cimonitor:export > ${your_configuration.yml}
+    rake projectmonitor:export > ${your_configuration.yml}
 
 Or using heroku:
 
-    heroku run rake cimonitor:export --app projectmonitor-staging > ${your_configuration.yml}
+    heroku run rake projectmonitor:export --app projectmonitor-staging > ${your_configuration.yml}
 
 Or you can download it using the configuration endpoint, using curl (or your web browser):
 
@@ -218,7 +218,7 @@ manually.
 
 It can be imported in a similar way:
 
-    rake cimonitor:import < ${your_configuration.yml}
+    rake projectmonitor:import < ${your_configuration.yml}
 
 On heroku or another host which doesn't allow you to directly load files or
 read from stdin, you'll need to post the file to the configuration endpoint
