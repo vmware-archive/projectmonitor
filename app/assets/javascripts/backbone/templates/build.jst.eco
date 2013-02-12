@@ -9,7 +9,9 @@
       <ol class="statuses">
         <% for status in @statuses[0..9]: %>
           <li class="<%= if status then 'success' else 'failure' %>">
-            <a></a>
+            <span>
+              <a></a>
+            </span>
           </li>
         <% end %>
       </ol>
