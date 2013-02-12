@@ -50,12 +50,18 @@ $statusbar-font-size: 30px !default;
             display:block;
             float:left;
 
+            span {
+              font-size: 48px;
+              vertical-align: bottom;
+            }
+
             &.success span:before {
               content: $success-unicode-glyph;
             }
 
             &.failure span:before {
               content: $failure-unicode-glyph;
+              line-height: 30px;
             }
 
             a {
