@@ -5,6 +5,7 @@ describe('HerokuRefresh.init', function() {
       "</div>"
     ].join("\n");
     setFixtures(fixtures);
+    jasmine.Ajax.useMock();
     jasmine.Clock.useMock();
   });
 
@@ -31,9 +32,6 @@ describe('HerokuRefresh.init', function() {
 
   describe("when the status is green", function() {
     it("hides the heroku notification", function() {
-      spyOn($.fn, "slideUp").andCallFake(function(){
-        this.hide();
-      })
       HerokuRefresh.init();
       $(".heroku").show()
 
@@ -48,9 +46,6 @@ describe('HerokuRefresh.init', function() {
 
   describe("when the status is unreachable", function() {
     it("hides the heroku notification", function() {
-      spyOn($.fn, "slideUp").andCallFake(function(){
-        this.hide();
-      })
       HerokuRefresh.init();
       $(".heroku").show()
 

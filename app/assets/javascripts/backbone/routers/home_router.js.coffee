@@ -4,7 +4,8 @@ class ProjectMonitor.Routers.HomeRouter extends Backbone.Router
     @projects.reset options.projects
 
   routes:
-    ""    : "index"
+    ""            : "index"
+    "?:params"    : "index"
 
   index: ->
     @view = new ProjectMonitor.Views.HomeView(collection: @projects)

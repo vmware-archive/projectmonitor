@@ -190,11 +190,11 @@ class Project < ActiveRecord::Base
     json = super # TODO: Remove before merge
     json["project_id"] = self.id
     json["build"] = super(
-        only: [:code, :id, :statuses],
+        only: [:code, :id, :statuses, :building],
         methods: ["time_since_last_build"],
         root: false)
       .merge({"status" => status_in_words})
-      .merge({"statuses" => simple_statuses})
+      .merge({"statuses" => statuses})
     json["tracker"] = super(
         only: [:current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],

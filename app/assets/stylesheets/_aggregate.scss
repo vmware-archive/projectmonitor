@@ -4,6 +4,10 @@ article.aggregate.offline       { @include build_status($grey) }
 article.aggregate.indeterminate { @include build_status($yellow) }
 
 article.aggregate {
+  a {
+    text-decoration: none;
+    color: black;
+  }
   h1 {
     background-size: 10px 10px;
     text-align: center;

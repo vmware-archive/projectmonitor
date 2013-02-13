@@ -55,6 +55,11 @@ $statusbar-font-size: 30px !default;
               vertical-align: bottom;
             }
 
+            a {
+              text-decoration: none;
+              color: black;
+            }
+
             &.success span:before {
               content: $success-unicode-glyph;
             }

@@ -5,7 +5,7 @@ BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
       code: 'PROJ'
       aggregate: false
       status: "success"
-      statuses: [true, false, true, true, false, true, true, false, true, true, false, false]
+      statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]
       time_since_last_build: "4d"
   }
 
@@ -16,7 +16,7 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       code: 'PROJ'
       aggregate: false
       status: "success"
-      statuses: [true, false, true, true, false, true, true, false, true, true]
+      statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]
       time_since_last_build: "4d"
     tracker:
       current_velocity: 4
