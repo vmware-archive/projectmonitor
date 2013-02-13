@@ -588,7 +588,7 @@ describe Project do
 
       context "when there is no build history" do
         it "should have general build properties" do
-          hash = project.as_json
+          hash = JSON.parse(project.to_json)
 
           hash["project_id"].should == project.id
           hash["build"]["code"].should == project.code
@@ -607,8 +607,8 @@ describe Project do
         end
 
         it "should have status properties" do
-          hash = project.as_json
-          hash["build"]["statuses"].should == project.statuses.map(&:success)
+          hash = JSON.parse(project.to_json)
+          hash["build"]["statuses"].should == project.statuses.as_json
           hash["build"]["time_since_last_build"].should == project.time_since_last_build
         end
       end

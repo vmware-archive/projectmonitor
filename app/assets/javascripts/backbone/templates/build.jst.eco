@@ -8,10 +8,11 @@
       <span class="time-since-last-build"><%= @time_since_last_build %>&nbsp;</span>
       <ol class="statuses">
         <% for status in @statuses[0..9]: %>
-          <li class="<%= if status then 'success' else 'failure' %>">
-            <span>
-              <a></a>
-            </span>
+          <li class="<%= if status.success then 'success' else 'failure' %>">
+            <a href="<%= status.url %>" target="_blank">
+              <span>
+              </span>
+            </a>
           </li>
         <% end %>
       </ol>

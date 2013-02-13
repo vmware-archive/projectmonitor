@@ -1,13 +1,13 @@
 ProjectMonitor::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
-  match 'builds.rss' => "dashboards#builds", format: :rss
+  match 'builds.rss' => "home#builds", format: :rss
   match 'projects/validate_tracker_project'
   match 'projects/validate_build_info'
   match 'projects/update_projects'
   match 'version' => 'versions#show'
-  match 'github_status' => 'dashboards#github_status', format: :json
-  match 'heroku_status' => 'dashboards#heroku_status', format: :json
-  match 'rubygems_status' => 'dashboards#rubygems_status', format: :json
+  match 'github_status' => 'home#github_status', format: :json
+  match 'heroku_status' => 'home#heroku_status', format: :json
+  match 'rubygems_status' => 'home#rubygems_status', format: :json
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
@@ -31,6 +31,6 @@ ProjectMonitor::Application.routes.draw do
     get :load_tweet
   end
 
-  match 'styleguide' => 'dashboards#styleguide'
+  match 'styleguide' => 'home#styleguide'
   root :to => 'home#index'
 end

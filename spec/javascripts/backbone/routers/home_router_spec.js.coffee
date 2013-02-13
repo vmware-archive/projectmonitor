@@ -10,5 +10,5 @@ describe "ProjectMonitor.Routers.HomeRouter", ->
     Backbone.history.stop()
 
   it "should call index callback", ->
-    @router.navigate("home", true)
+    @router.navigate("", true)
     expect(ProjectMonitor.Routers.HomeRouter.prototype.index).toHaveBeenCalled()

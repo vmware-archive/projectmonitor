@@ -9,7 +9,7 @@ feature "home", js: true do
     end
 
     it "should render project collection" do
-      visit "/home"
+      visit "/"
       page.should have_selector(".projects")
       page.should have_selector(".project")
       page.should have_selector(".code", text: project.code)
@@ -26,7 +26,7 @@ feature "home", js: true do
     end
 
     it "should render project collection" do
-      visit "/home"
+      visit "/"
       page.should have_selector(".projects")
       page.should have_selector(".project")
       page.should have_selector(".code", text: project.code)
