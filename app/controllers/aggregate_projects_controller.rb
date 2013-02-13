@@ -21,12 +21,6 @@ class AggregateProjectsController < ApplicationController
     end
   end
 
-  def status
-    @aggregate_project = ProjectDecorator.new(AggregateProject.find(params[:id]))
-
-    render @aggregate_project, :tiles_count => params[:tiles_count].to_i
-  end
-
   def show
     respond_with AggregateProject.find(params[:id])
   end

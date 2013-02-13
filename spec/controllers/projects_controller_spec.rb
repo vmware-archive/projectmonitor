@@ -2,17 +2,6 @@ require 'spec_helper'
 require 'time'
 
 describe ProjectsController do
-  describe "without a logged in user" do
-    describe "status" do
-      let(:project) { projects(:socialitis) }
-      before { get :status, :id => project.id, :tiles_count => 8 }
-
-      it "should render dashboards/_project" do
-        response.should render_template("dashboards/_project")
-      end
-    end
-  end
-
   describe "with a logged in user" do
     before do
       sign_in FactoryGirl.create(:user)
