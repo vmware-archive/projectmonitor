@@ -27,9 +27,6 @@ ProjectMonitor::Application.routes.draw do
   resources :messages, only: [:index, :new, :create, :edit, :update, :destroy] do
     get :load_message
   end
-  resources :twitter_searches, only: [:new, :create, :edit, :update, :destroy] do
-    get :load_tweet
-  end
 
   match 'styleguide' => 'home#styleguide'
   root :to => 'home#index'
