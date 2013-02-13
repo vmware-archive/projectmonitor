@@ -39,10 +39,6 @@ group :postgres do
   gem "pg"
 end
 
-group :mysql do
-  gem "mysql2"
-end
-
 group :thin do
   gem "thin"
 end
