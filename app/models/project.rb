@@ -167,10 +167,6 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement payload in subclasses"
   end
 
-  def to_partial_path
-    "dashboards/project"
-  end
-
   def has_status?(status)
     statuses.where(build_id: status.build_id).any?
   end
