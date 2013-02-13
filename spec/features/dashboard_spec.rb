@@ -16,7 +16,6 @@ feature "dashboard" do
       FactoryGirl.create(:project_with_tracker_integration, tracker_online: false)
       visit root_path
       page.should have_content("No Connection")
-      page.should have_no_content("velocity")
     end
 
     scenario "user sees current velocity number and history graph when velocity history present" do
@@ -62,7 +61,7 @@ feature "dashboard" do
       visit root_path
       click_on(aggregate_project.code)
 
-      within('li.project') do
+      within('h1.code') do
         page.should have_content(project.code)
       end
     end
