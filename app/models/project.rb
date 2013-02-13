@@ -196,7 +196,7 @@ class Project < ActiveRecord::Base
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses})
     json["tracker"] = super(
-        only: [:current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
+        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
         root:false) if tracker_project_id?
     json

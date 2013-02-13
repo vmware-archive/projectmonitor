@@ -24,4 +24,5 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       stories_to_accept_count: 5
       open_stories_count: 9
       last_ten_velocities: [ 1, 2, 3, 4, 50, 60, 70, 80, 90, 100]
+      tracker_online: true
   }
