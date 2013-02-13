@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20130206203244) do
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",                  :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "code"
     t.string   "location",   :limit => 20
   end
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20130206203244) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -71,8 +71,6 @@ ActiveRecord::Schema.define(:version => 20130206203244) do
     t.integer  "build_id"
   end
 
-  add_index "project_statuses", ["project_id", "published_at"], :name => "index_project_statuses_on_project_id_and_others"
-
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "deprecated_feed_url"
@@ -102,20 +100,19 @@ ActiveRecord::Schema.define(:version => 20130206203244) do
     t.string   "travis_github_account"
     t.string   "travis_repository"
     t.boolean  "online",                                     :default => false
+    t.boolean  "has_failing_children",                       :default => false, :null => false
+    t.boolean  "has_building_children",                      :default => false, :null => false
     t.string   "guid"
     t.boolean  "webhooks_enabled"
     t.string   "tracker_validation_status"
     t.datetime "last_refreshed_at"
     t.string   "semaphore_api_url"
     t.string   "parsed_url"
+    t.string   "tddium_auth_token"
+    t.string   "tddium_project_name"
     t.string   "notification_email"
     t.boolean  "send_build_notifications"
     t.boolean  "send_error_notifications"
-    t.integer  "parent_project_id"
-    t.string   "tddium_auth_token"
-    t.string   "tddium_project_name"
-    t.boolean  "has_failing_children",                       :default => false, :null => false
-    t.boolean  "has_building_children",                      :default => false, :null => false
     t.boolean  "verify_ssl",                                 :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -145,7 +142,7 @@ ActiveRecord::Schema.define(:version => 20130206203244) do
 
   create_table "users", :force => true do |t|
     t.string   "login",                  :limit => 40
-    t.string   "name",                   :limit => 100
+    t.string   "name",                   :limit => 100, :default => ""
     t.string   "email",                  :limit => 100
     t.string   "encrypted_password",                    :default => "", :null => false
     t.string   "password_salt",          :limit => 40

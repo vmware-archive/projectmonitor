@@ -77,5 +77,6 @@ group :test, :development do
   gem "ffaker"
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard-coffeescript'
+  gem 'database_cleaner'
 end
 

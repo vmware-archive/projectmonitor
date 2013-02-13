@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout 'dashboard'
+  layout 'home'
 
   respond_to :html, :only => [:styleguide]
   respond_to :rss, :only => :builds
