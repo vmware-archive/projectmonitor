@@ -17,7 +17,7 @@ describe SessionsController do
       before { Rails.configuration.stub(:password_auth_enabled).and_return(false) }
       subject { get :new }
 
-      it { should redirect_to user_omniauth_authorize_url(:google_oauth2) }
+      it { should redirect_to user_omniauth_authorize_url(:google_oauth2, only_path: true) }
     end
   end
 

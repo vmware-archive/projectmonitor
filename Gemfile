@@ -17,17 +17,17 @@ gem "foreman"
 gem "sass"
 gem "haml"
 gem "httpauth"
-gem "jquery-rails"
+gem "jquery-rails", '2.0.2'
 gem "mime-types"
 gem "nokogiri"
 gem "omniauth"
 gem "omniauth-google-oauth2"
-gem "pivotal-tracker"
+gem "pivotal-tracker", '0.5.8'
 gem "rails"
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
-gem 'rails-backbone'
+gem 'rails-backbone', "0.7.2"
 gem 'coffee-filter'
 gem 'eco'
 
@@ -55,7 +55,7 @@ end
 
 group :test do
   gem "headless"
-  gem "vcr"
+  gem "vcr", "2.2.4"
   gem "fakeweb"
 end
 
@@ -70,8 +70,8 @@ end
 group :test, :development do
   gem "launchy"
   gem "jshint_on_rails"
-  gem "rspec"
-  gem "rspec-rails"
+  gem "rspec", "2.10.0"
+  gem "rspec-rails", "2.10.1"
   gem "shoulda-matchers"
   gem "capybara"
   gem "jasmine"

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "tag auto complete", js: true do
+feature "tag auto complete" do
   before do
     log_in
   end
@@ -19,12 +19,12 @@ describe "tag auto complete", js: true do
     end
   end
 
-  it "populates a dropdown with possible completions when you type in the tag box" do
+  it "populates a dropdown with possible completions when you type in the tag box", js: true do
     ActsAsTaggableOn::Tag.create! name: 'bar'
     ActsAsTaggableOn::Tag.create! name: 'baz'
 
     visit(new_project_path)
-    fill_in('Name', with: 'foo')
+    fill_in('project[name]', with: 'foo')
     select('Jenkins Project', from: 'Project Type')
     fill_in('Base URL', with: 'http://foo.bar.com')
     fill_in('Build Name', with: 'foobar')

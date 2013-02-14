@@ -12,9 +12,7 @@ feature "projects", :js => true do
 
     select "Travis Project", :from => "Project Type"
     choose "project_webhooks_enabled_false"
-    fill_in "Name", :with => "Project Monitor"
-    fill_in "Tracker project id", :with => "123"
-    fill_in "Tracker auth token", :with => "abc"
+    fill_in "project[name]", :with => "Project Monitor"
 
     click_button "Create"
 
