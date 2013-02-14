@@ -11,11 +11,14 @@ describe PayloadLogEntry do
   end
 
   describe '.latest' do
-    subject { PayloadLogEntry.latest }
     let!(:entry1) { PayloadLogEntry.create(created_at: 2.years.ago) }
     let!(:entry2) { PayloadLogEntry.create(created_at: 1.year.ago) }
     let!(:entry3) { PayloadLogEntry.create }
-    it { should == entry3 }
+    let(:latest) { PayloadLogEntry.latest }
+
+    it "should return the latest" do
+      latest.should == entry3
+    end
   end
 end
 
