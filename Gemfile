@@ -30,13 +30,10 @@ gem 'whenever', :require => false
 gem 'rails-backbone', "0.7.2"
 gem 'coffee-filter'
 gem 'eco'
+gem 'pg'
 
 group :production do
   gem "therubyracer"
-end
-
-group :postgres do
-  gem "pg"
 end
 
 group :thin do
