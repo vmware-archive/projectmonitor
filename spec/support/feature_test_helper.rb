@@ -1,4 +1,4 @@
-module RequestTestHelper
+module FeatureTestHelper
   def log_in(user, password)
     visit "/users/sign_in"
 
@@ -10,5 +10,5 @@ module RequestTestHelper
 end
 
 RSpec.configure do |config|
-  config.include RequestTestHelper, :type => :feature
+  config.include FeatureTestHelper, :type => :feature
 end

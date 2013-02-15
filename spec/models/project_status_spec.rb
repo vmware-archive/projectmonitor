@@ -58,4 +58,15 @@ describe ProjectStatus do
       status.in_words.should == 'failure'
     end
   end
+
+  describe "as_json" do
+    let(:project) { FactoryGirl.create(:jenkins_project) }
+    let!(:status) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
+
+    it "only includes success and url" do
+      json = JSON.parse(status.to_json)
+      json.keys.should =~ %w{url success}
+    end
+
+  end
 end

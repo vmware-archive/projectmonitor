@@ -12,7 +12,6 @@
 #
 src_files:
   - assets/application.js
-  - assets/dashboard.js
 
 # stylesheets
 #

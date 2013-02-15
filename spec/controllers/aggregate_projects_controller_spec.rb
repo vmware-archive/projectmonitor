@@ -14,15 +14,6 @@ describe AggregateProjectsController do
         response.body.should == aggregate_project.to_json
       end
     end
-
-    describe "status" do
-      let(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
-      before { get :status, :id => aggregate_project.to_param }
-
-      it "should render dashboards/_project" do
-        response.should render_template("dashboards/_aggregate_project")
-      end
-    end
   end
 
   describe "with a logged in user" do

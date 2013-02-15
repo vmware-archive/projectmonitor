@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 feature "tag auto complete" do
+  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+
   before do
-    log_in
+    ActsAsTaggableOn::Tag.create! name: 'bar'
+    ActsAsTaggableOn::Tag.create! name: 'baz'
+    log_in(user, "jeffjeff")
   end
 
   def select_from_autocomplete(selected)
@@ -20,9 +24,6 @@ feature "tag auto complete" do
   end
 
   it "populates a dropdown with possible completions when you type in the tag box", js: true do
-    ActsAsTaggableOn::Tag.create! name: 'bar'
-    ActsAsTaggableOn::Tag.create! name: 'baz'
-
     visit(new_project_path)
     fill_in('project[name]', with: 'foo')
     select('Jenkins Project', from: 'Project Type')

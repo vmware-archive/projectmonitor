@@ -95,10 +95,6 @@ class AggregateProject < ActiveRecord::Base
     red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
   end
 
-  def to_partial_path
-    "dashboards/aggregate_project"
-  end
-
   def as_json(options = {})
     options.merge!(root: false, except: [:status])
     super(options).merge!("aggregate" => true, "status" => status_in_words)

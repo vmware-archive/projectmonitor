@@ -167,10 +167,6 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement payload in subclasses"
   end
 
-  def to_partial_path
-    "dashboards/project"
-  end
-
   def has_status?(status)
     statuses.where(build_id: status.build_id).any?
   end
@@ -190,13 +186,13 @@ class Project < ActiveRecord::Base
     json = super # TODO: Remove before merge
     json["project_id"] = self.id
     json["build"] = super(
-        only: [:code, :id, :statuses],
+        only: [:code, :id, :statuses, :building],
         methods: ["time_since_last_build"],
         root: false)
       .merge({"status" => status_in_words})
-      .merge({"statuses" => simple_statuses})
+      .merge({"statuses" => statuses})
     json["tracker"] = super(
-        only: [:current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
+        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
         root:false) if tracker_project_id?
     json

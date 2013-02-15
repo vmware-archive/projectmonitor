@@ -11,6 +11,12 @@ article.tracker {
     float: left;
   }
 
+  .no-connection {
+    height: 127px;
+    text-align: center;
+    font-size: 25px;
+  }
+
   dl.metrics, dl.stories {
     float: left;
     background-color: lighten($blue, 10%);

@@ -6,6 +6,7 @@ describe('GithubRefresh.init', function() {
     ].join("\n");
     setFixtures(fixtures);
     jasmine.Clock.useMock();
+    jasmine.Ajax.useMock();
   });
 
   afterEach(function() {
@@ -31,9 +32,6 @@ describe('GithubRefresh.init', function() {
 
   describe("when the status is good", function() {
     it("hides the github notification", function() {
-      spyOn($.fn, "slideUp").andCallFake(function(){
-        this.hide();
-      })
       GithubRefresh.init();
       $(".github").show()
 
@@ -48,9 +46,6 @@ describe('GithubRefresh.init', function() {
 
   describe("when the status is unreachable", function() {
     it("hides the github notification", function() {
-      spyOn($.fn, "slideUp").andCallFake(function(){
-        this.hide();
-      })
       GithubRefresh.init();
       $(".github").show()
 

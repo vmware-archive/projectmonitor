@@ -1,7 +1,9 @@
 <section class="one-tile">
-  <article class="aggregate">
+  <article class="aggregate" id="aggregate_<%= @id %>">
     <h1 class="code">
-      <%= @code %>
+      <a href="/?aggregate_project_id=<%= @id %>">
+        <%= @code %>
+      </a>
     </h1>
   </article>
 </section>
