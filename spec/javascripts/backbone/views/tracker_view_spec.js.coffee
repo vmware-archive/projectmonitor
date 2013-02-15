@@ -5,12 +5,6 @@ describe "ProjectMonitor.Views.TrackerView", ->
       @view = new ProjectMonitor.Views.TrackerView {model: @tracker}
       setFixtures(@view.render().$el)
 
-    it "should be an article", ->
-      expect(@view.tagName).toEqual("article")
-
-    it "should be an unnested article", ->
-      expect($("article article")).not.toExist()
-
     it "should have tracker class", ->
       expect($("article")).toHaveClass("tracker")
 
@@ -37,6 +31,23 @@ describe "ProjectMonitor.Views.TrackerView", ->
       expect($(".velocities dd:nth-child(8) span").attr('style')).toContain("80%")
       expect($(".velocities dd:nth-child(9) span").attr('style')).toContain("90%")
       expect($(".velocities dd:nth-child(10) span").attr('style')).toContain("100%")
+
+    describe "when the tracker model is offline", ->
+      beforeEach ->
+        @tracker.set('tracker_online', false)
+        setFixtures(@view.render().$el)
+
+      it "displays 'No Connection'", ->
+        expect($('.no-connection')).toExist()
+
+    describe "when the tracker project is online but has no velocity", ->
+      beforeEach ->
+        @tracker.set('last_ten_velocities', [])
+        setFixtures(@view.render().$el)
+
+      it "does not show the history graph", ->
+        expect($('.velocities span')).not.toExist()
+
 
   describe "when tracker model changes", ->
     it "should render the view", ->
