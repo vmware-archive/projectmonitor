@@ -39,10 +39,6 @@ group :postgres do
   gem "pg"
 end
 
-group :mysql do
-  gem "mysql2"
-end
-
 group :thin do
   gem "thin"
 end
@@ -81,5 +77,6 @@ group :test, :development do
   gem "ffaker"
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard-coffeescript'
+  gem 'database_cleaner'
 end
 

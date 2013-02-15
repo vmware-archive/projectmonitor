@@ -6,6 +6,7 @@ describe('RubyGemsRefresh.init', function() {
     ].join("\n");
     setFixtures(fixtures);
     jasmine.Clock.useMock();
+    jasmine.Ajax.useMock();
   });
 
   afterEach(function() {
@@ -34,17 +35,14 @@ describe('RubyGemsRefresh.init', function() {
 
   describe("when the status is good", function() {
     it("does not show the rubygems notification", function() {
-      spyOn($.fn, "slideUp").andCallFake(function(){
-            this.hide();
-        });
       RubyGemsRefresh.init();
       $(".rubygems").show();
 
-        jasmine.Clock.tick(30001);
-          mostRecentAjaxRequest().response({
-            status: 200,
-            responseText: "{\"status\": \"good\"}"
-          });
+      jasmine.Clock.tick(30001);
+      mostRecentAjaxRequest().response({
+        status: 200,
+        responseText: "{\"status\": \"good\"}"
+      });
       expect($(".rubygems")).toBeHidden();
     });
   });
@@ -76,11 +74,11 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
-        jasmine.Clock.tick(30001);
-          mostRecentAjaxRequest().response({
-            status: 500,
-            responseText: "{}"
-          });
+      jasmine.Clock.tick(30001);
+      mostRecentAjaxRequest().response({
+        status: 500,
+        responseText: "{}"
+      });
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('unreachable');
       expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
@@ -93,11 +91,11 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
-        jasmine.Clock.tick(30001);
-          mostRecentAjaxRequest().response({
-            status: 200,
-            responseText: "{\"status\": \"page broken\"}"
-          });
+      jasmine.Clock.tick(30001);
+      mostRecentAjaxRequest().response({
+        status: 200,
+        responseText: "{\"status\": \"page broken\"}"
+      });
 
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('broken');

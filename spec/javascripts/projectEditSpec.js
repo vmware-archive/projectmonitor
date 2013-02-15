@@ -1,4 +1,8 @@
 describe("project edit", function() {
+  beforeEach(function() {
+    jasmine.Ajax.useMock();
+  });
+
   describe("validations on pivotal tracker setup", function() {
     beforeEach(function() {
       var fixtures = "<fieldset id='tracker_setup'><input id='project_tracker_online'/>" +

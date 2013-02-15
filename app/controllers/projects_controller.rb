@@ -23,12 +23,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def status
-    @tiles_count = (params[:tiles_count].presence || 15).to_i
-    @project = ProjectDecorator.new(Project.find(params[:id]))
-    render :partial => @project, :locals => {:tiles_count => @tiles_count}
-  end
-
   def show
     respond_with Project.find(params[:id])
   end

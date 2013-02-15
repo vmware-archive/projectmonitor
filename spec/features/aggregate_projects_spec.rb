@@ -2,10 +2,11 @@ require 'spec_helper'
 
 feature 'aggregate projects' do
   let!(:aggregate_project) { FactoryGirl.create(:aggregate_project) }
+  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   context "manage projects" do
     before do
-      log_in
+      log_in(user, "jeffjeff")
       visit "/"
       click_link "manage projects"
     end

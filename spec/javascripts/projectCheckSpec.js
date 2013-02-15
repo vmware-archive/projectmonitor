@@ -1,4 +1,8 @@
 describe("ProjectCheck", function() {
+  beforeEach(function() {
+    jasmine.Ajax.useMock();
+  });
+
   describe('init', function() {
     it('should make an Ajax call to get the list of projects as JSON', function() {
       ProjectCheck.init();

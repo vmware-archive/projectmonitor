@@ -32,6 +32,10 @@ class ProjectStatus < ActiveRecord::Base
 
   end
 
+  def as_json(options={})
+    super(only: [:success, :url], root: false)
+  end
+
   def in_words
     if success?
       'success'

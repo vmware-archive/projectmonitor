@@ -1,4 +1,8 @@
 describe('init', function() {
+  beforeEach(function() {
+    jasmine.Ajax.useMock();
+  });
+
   it('should make an Ajax call to get the curent version', function() {
     VersionCheck.init();
 
@@ -23,6 +27,10 @@ describe('init', function() {
 });
 
 describe('checkVersion', function() {
+  beforeEach(function() {
+    jasmine.Ajax.useMock();
+  });
+
   it('should make an Ajax call to get the current version', function() {
     VersionCheck.checkVersion();
 

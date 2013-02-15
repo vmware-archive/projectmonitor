@@ -2,9 +2,10 @@ require 'spec_helper'
 
 feature 'configuration export' do
   let(:archived_project_name) { Faker::Name.name }
+  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   before do
-    log_in
+    log_in(user, "jeffjeff")
   end
 
   scenario 'obtain a configuration export' do
