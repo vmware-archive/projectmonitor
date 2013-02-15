@@ -65,7 +65,7 @@
       = f.check_box :verify_ssl
     %p{ class: 'auth_field' }
       = f.label :auth_username, "Feed Username"
-      = f.text_field :auth_username, size: 40, class: 'optional'
+      = f.text_field :auth_username, size: 40, class: 'optional', autocomplete: 'off'
       %em Basic or digest authentication
     %p{ class: 'auth_field' }
       = f.label :auth_password, "Feed Password"
