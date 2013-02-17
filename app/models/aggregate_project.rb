@@ -7,7 +7,7 @@ class AggregateProject < ActiveRecord::Base
   scope :with_statuses, joins(:projects => :statuses).uniq
   scope :displayable, lambda { |tags=nil|
     scope = enabled.joins(:projects).select("DISTINCT aggregate_projects.*")
-    return scope.all_with_tags(tags) if tags
+    return scope.tagged_with(tags) if tags
     scope
   }
 
@@ -18,10 +18,6 @@ class AggregateProject < ActiveRecord::Base
 
   acts_as_taggable
   validates :name, presence: true
-
-  def self.all_with_tags(tags)
-    enabled.joins(:projects).tagged_with tags, match_all: true
-  end
 
   def red?
     projects.any?(&:red?)
