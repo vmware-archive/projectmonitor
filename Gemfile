@@ -75,5 +75,6 @@ group :test, :development do
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard-coffeescript'
   gem 'database_cleaner'
+  gem "capybara-webkit"
 end
 
