@@ -190,7 +190,7 @@ class Project < ActiveRecord::Base
         methods: ["time_since_last_build"],
         root: false)
       .merge({"status" => status_in_words})
-      .merge({"statuses" => statuses})
+      .merge({"statuses" => statuses.reverse_chronological})
     json["tracker"] = super(
         only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
@@ -218,8 +218,8 @@ class Project < ActiveRecord::Base
   def variance
     if last_ten_velocities.any?
       average = last_ten_velocities.inject(&:+) / Float(last_ten_velocities.length)
-      variance = (last_ten_velocities.inject(0.0) { |variance, velocity| variance + ((velocity - average)**2)}) / Float(last_ten_velocities.size)
-      variance.round(2)
+      calculated_variance = (last_ten_velocities.inject(0.0) { |variance, velocity| variance + ((velocity - average)**2)}) / Float(last_ten_velocities.size)
+      calculated_variance.round(2)
     else
       0
     end
