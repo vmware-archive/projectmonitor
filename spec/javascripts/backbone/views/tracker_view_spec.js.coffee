@@ -21,16 +21,16 @@ describe "ProjectMonitor.Views.TrackerView", ->
       expect($(".open-stories-count")).toHaveText(@tracker.get("open_stories_count"))
 
     it "should include the velocity chart", ->
-      expect($(".velocities dd:nth-child(1) span").attr('style')).toContain("1%")
-      expect($(".velocities dd:nth-child(2) span").attr('style')).toContain("2%")
-      expect($(".velocities dd:nth-child(3) span").attr('style')).toContain("3%")
-      expect($(".velocities dd:nth-child(4) span").attr('style')).toContain("4%")
-      expect($(".velocities dd:nth-child(5) span").attr('style')).toContain("50%")
-      expect($(".velocities dd:nth-child(6) span").attr('style')).toContain("60%")
-      expect($(".velocities dd:nth-child(7) span").attr('style')).toContain("70%")
-      expect($(".velocities dd:nth-child(8) span").attr('style')).toContain("80%")
-      expect($(".velocities dd:nth-child(9) span").attr('style')).toContain("90%")
-      expect($(".velocities dd:nth-child(10) span").attr('style')).toContain("100%")
+      expect($(".velocities dd:nth-child(10) span").attr('style')).toContain("1%")
+      expect($(".velocities dd:nth-child(9) span").attr('style')).toContain("2%")
+      expect($(".velocities dd:nth-child(8) span").attr('style')).toContain("3%")
+      expect($(".velocities dd:nth-child(7) span").attr('style')).toContain("4%")
+      expect($(".velocities dd:nth-child(6) span").attr('style')).toContain("50%")
+      expect($(".velocities dd:nth-child(5) span").attr('style')).toContain("60%")
+      expect($(".velocities dd:nth-child(4) span").attr('style')).toContain("70%")
+      expect($(".velocities dd:nth-child(3) span").attr('style')).toContain("80%")
+      expect($(".velocities dd:nth-child(2) span").attr('style')).toContain("90%")
+      expect($(".velocities dd:nth-child(1) span").attr('style')).toContain("100%")
 
     describe "when the tracker model is offline", ->
       beforeEach ->
