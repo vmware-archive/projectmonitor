@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rails'
 require 'vcr_setup'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -20,6 +21,8 @@ RSpec.configure do |config|
 
   config.order = 'random'
   config.include Rails.application.routes.url_helpers
+
+  Capybara.javascript_driver = :webkit
 
   # TODO: This fixes a bug in RSpec, see here:
   # https://github.com/rspec/rspec-rails/issues/252
