@@ -600,16 +600,23 @@ describe Project do
       end
 
       context "when there is build history" do
+        let(:older_status) { FactoryGirl.build(:project_status, success: true, published_at: 5.days.ago, build_id: 100) }
+        let(:recent_status) { FactoryGirl.build(:project_status, success: false, published_at: 1.day.ago, build_id: 200) }
         before do
-          project.statuses << FactoryGirl.build(:project_status, success: true, published_at: 5.days.ago)
+          project.statuses << older_status
+          project.statuses << recent_status
           project.save
           project.time_since_last_build.should_not be_nil
         end
 
         it "should have status properties" do
           hash = JSON.parse(project.to_json)
-          hash["build"]["statuses"].should == project.statuses.as_json
           hash["build"]["time_since_last_build"].should == project.time_since_last_build
+        end
+
+        it "should have the statuses in the correct order" do
+          statuses = project.as_json["build"]["statuses"]
+          statuses.should == [recent_status, older_status]
         end
       end
     end
