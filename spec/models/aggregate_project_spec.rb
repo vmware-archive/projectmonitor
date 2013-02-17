@@ -50,20 +50,6 @@ describe AggregateProject do
   end
 
   describe "scopes" do
-    describe "all_with_tags" do
-      let(:results) { double(:results) }
-
-      before do
-        AggregateProject.should_receive(:enabled).and_return AggregateProject
-        AggregateProject.should_receive(:joins).with(:projects).and_return AggregateProject
-        AggregateProject.should_receive(:tagged_with).with("foo,bar", match_all: true).and_return results
-      end
-
-      subject { AggregateProject.all_with_tags("foo,bar") }
-
-      it { should == results }
-    end
-
     describe "with_statuses" do
       before do
         aggregate_project.save!
