@@ -57,7 +57,9 @@ class UrlRetriever
     case response.code.to_i
       when 200..299
         response.body
-      #when 400..599
+      when 300..399
+        UrlRetriever.new(response.header['location'], @username, @password, @verify_ssl).retrieve_content
+      # when 400..599
       else
         raise Net::HTTPError.new("Got #{response.code} response status from #{@url}, body = '#{response.body}'", nil)
     end
