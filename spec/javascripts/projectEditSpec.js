@@ -219,22 +219,22 @@ describe("project edit", function() {
         '  <option value="TravisProject">TravisProject</option>' +
         '  <option value="TddiumProject">TddiumProject</option>' +
         '</select>' +
+        '<div id="field_container" class="hide">' +
+        '  <fieldset id="CruiseControlProject">' +
+        '    <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
+        '  </fieldset>' +
+        '  <fieldset class="hide" id="JenkinsProject">' +
+        '    <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
+        '    <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
+        '  </fieldset>' +
+        '  <fieldset class="hide" id="TddiumProject">' +
+        '    <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
+        '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
+        '  </fieldset>' +
+        '  <input id="project_auth_username" name="project[auth_username]" type="text">' +
+        '  <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
+        '</div>' +
         '<fieldset id="polling">' +
-        '  <div id="field_container">' +
-        '    <fieldset id="CruiseControlProject">' +
-        '      <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
-        '    </fieldset>' +
-        '    <fieldset class="hide" id="JenkinsProject">' +
-        '      <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
-        '      <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
-        '    </fieldset>' +
-        '    <fieldset class="hide" id="TddiumProject">' +
-        '      <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
-        '      <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
-        '    </fieldset>' +
-        '    <input id="project_auth_username" name="project[auth_username]" type="text">' +
-        '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
-        '  </div>' +
         '  <input id="project_online" name="project[online]" type="hidden"/>' +
         '  <div id="build_status">' +
         '    <span class="hide"/>' +
@@ -282,9 +282,20 @@ describe("project edit", function() {
         expect($('#branch_name').hasClass('hide')).toBeFalsy();
       });
 
+      it("shows the field_container when a Travis Project is selected", function() {
+        $('#project_type').val('TravisProject').change();
+        expect($('#field_container')).toExist();
+        expect($('#field_container').hasClass('hide')).toBeFalsy();
+      });
+
       it("hides the branch field when another project type is selected", function() {
         $('#project_type').val('JenkinsProject').change();
         expect($('#branch_name').hasClass('hide')).toBeTruthy();
+      });
+
+      it("hides the field_container when another project type is selected", function() {
+        $('#project_type').val('JenkinsProject').change();
+        expect($('#field_container').hasClass('hide')).toBeTruthy();
       });
     });
 
@@ -334,7 +345,6 @@ describe("project edit", function() {
           $('#project_type').val('JenkinsProject').change();
           $('#project_jenkins_base_url').val("foobar").change();
           $('#project_jenkins_build_name').val("grok").change();
-          $('#project_cruise_control_rss_feed_url').val("foobar").change();
           $('#project_auth_username').val('alice').change();
         });
 
@@ -420,23 +430,65 @@ describe("project edit", function() {
     });
   });
   describe("toggling payload strategy", function() {
-    beforeEach(function() {
-      setFixtures('<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
-                  '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-                  '<fieldset id="webhooks" /><fieldset id="polling" />')
-      ProjectEdit.init();
-    });
-    it("should toggle webhooks and polling when checked", function() {
-      expect($('#webhooks')).not.toHaveClass('hide');
-      expect($('#polling')).toHaveClass('hide');
-      $('input#project_webhooks_enabled_false').val('checked', 'checked').change();
-      $('input#project_webhooks_enabled_true').val('checked', '').change();
-      expect($('#webhooks')).not.toHaveClass('hide');
-      expect($('#polling')).toHaveClass('hide');
-      $('input#project_webhooks_enabled_false').val('checked', '').change();
-      $('input#project_webhooks_enabled_true').val('checked', 'checked').change();
-      expect($('#webhooks')).not.toHaveClass('hide');
-      expect($('#polling')).toHaveClass('hide');
-    });
+
+
+    describe("when not a travis build", function(){
+      beforeEach(function() {
+        setFixtures('<div id="project_type"></div>' +
+                    '<div id="field_container"></div>' +
+                    '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+                    '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+                    '<fieldset id="webhooks" /><fieldset id="polling" />')
+        ProjectEdit.init();
+      });
+
+      it("should toggle webhooks and polling when checked", function() {
+        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#polling')).toHaveClass('hide');
+        expect($('#field_container')).toHaveClass('hide');
+
+        $('input#project_webhooks_enabled_false').attr('checked', 'checked');
+        $('input#project_webhooks_enabled_true').removeAttr('checked').change();
+        expect($('#webhooks')).toHaveClass('hide');
+        expect($('#polling')).not.toHaveClass('hide');
+        expect($('#field_container')).not.toHaveClass('hide');
+
+        $('input#project_webhooks_enabled_false').removeAttr('checked');
+        $('input#project_webhooks_enabled_true').attr('checked', 'checked').change();
+        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#polling')).toHaveClass('hide');
+        expect($('#field_container')).toHaveClass('hide');
+      });
+    })
+
+    describe("when a travis build", function(){
+      beforeEach(function() {
+        setFixtures('<div id="project_type"></div>' +
+                    '<div id="field_container"></div>' +
+                    '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+                    '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+                    '<fieldset id="webhooks" /><fieldset id="polling" />')
+        $('#project_type').val("TravisProject")
+        ProjectEdit.init();
+      });
+
+      it("should toggle webhooks and polling when checked", function() {
+        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#polling')).toHaveClass('hide');
+        expect($('#field_container')).not.toHaveClass('hide');
+
+        $('input#project_webhooks_enabled_false').attr('checked', 'checked');
+        $('input#project_webhooks_enabled_true').removeAttr('checked').change();
+        expect($('#webhooks')).toHaveClass('hide');
+        expect($('#polling')).not.toHaveClass('hide');
+        expect($('#field_container')).not.toHaveClass('hide');
+
+        $('input#project_webhooks_enabled_false').removeAttr('checked');
+        $('input#project_webhooks_enabled_true').attr('checked', 'checked').change();
+        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#polling')).toHaveClass('hide');
+        expect($('#field_container')).not.toHaveClass('hide');
+      });
+    })
   });
 });
