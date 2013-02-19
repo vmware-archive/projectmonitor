@@ -16,7 +16,6 @@ gem "fastthread"
 gem "foreman"
 gem "sass"
 gem "haml"
-gem "httpauth"
 gem "jquery-rails", '2.0.2'
 gem "mime-types"
 gem "nokogiri"
@@ -57,7 +56,8 @@ group :development do
   gem "awesome_print"
   gem "heroku_san"
   gem "debugger"
-  gem "pry"
+  gem "pry-rails"
+  gem 'guard-coffeescript'
 end
 
 group :test, :development do
@@ -76,5 +76,7 @@ group :test, :development do
   gem 'guard-coffeescript'
   gem 'database_cleaner'
   gem "capybara-webkit"
+  gem "pry"
+  gem "pry-nav"
 end
 
