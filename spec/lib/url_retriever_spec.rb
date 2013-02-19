@@ -141,14 +141,14 @@ describe 'UrlRetriever' do
       it { should == 'response body' }
     end
 
-    #context 'when the response status code is in the 300s' do
-    #  let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
-    #  let(:retriever) { UrlRetriever.new(url) }
-    #
-    #  subject { retriever.retrieve_content }
-    #
-    #  it { should == 'response body' }
-    #end
+    context 'when the response status code is in the 300s' do
+      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
+      let(:retriever) { UrlRetriever.new(url) }
+
+      subject { retriever.retrieve_content }
+
+      it { should == 'response body' }
+    end
 
     context 'when the response status code is in the 400s to 500s' do
       let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 400..599).to_s) }
