@@ -78,5 +78,6 @@ group :test, :development do
   gem "capybara-webkit"
   gem "pry"
   gem "pry-nav"
+  gem 'vagrant'
 end
 

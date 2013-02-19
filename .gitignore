@@ -19,3 +19,4 @@ tags
 *.out
 .tddium*
 spec/javascripts/compiled/
+.vagrant
