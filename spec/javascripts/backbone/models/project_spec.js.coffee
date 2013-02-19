@@ -12,7 +12,7 @@ describe "ProjectMonitor.Models.Project", ->
 
   describe "#update", ->
     beforeEach ->
-      @build_changed = jasmine.createSpy();
+      @build_changed = jasmine.createSpy()
 
     describe "when the project contains only build information", ->
       beforeEach ->
@@ -25,7 +25,8 @@ describe "ProjectMonitor.Models.Project", ->
         expect(@project.get("build").get("code")).toEqual("NEW PROJ")
 
       it "should fire build change event", ->
-        expect(@build_changed).toHaveBeenCalled();
+        expect(@build_changed).toHaveBeenCalled()
+
       describe "when tracker information is then added", ->
         beforeEach ->
           attributes = {
@@ -59,10 +60,10 @@ describe "ProjectMonitor.Models.Project", ->
         expect(@project.get("tracker").get("velocity")).toEqual(99)
 
       it "should fire build change event", ->
-        expect(@build_changed).toHaveBeenCalled();
+        expect(@build_changed).toHaveBeenCalled()
 
       it "should fire tracker change event", ->
-        expect(@tracker_changed).toHaveBeenCalled();
+        expect(@tracker_changed).toHaveBeenCalled()
 
   describe "#refresh", ->
     beforeEach ->
