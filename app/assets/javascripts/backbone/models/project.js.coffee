@@ -12,7 +12,10 @@ class ProjectMonitor.Models.Project extends Backbone.Model
   update: (attributes) ->
     unless @get("aggregate")
       @get("build").set(attributes.build) if attributes.build?
-      @get("tracker").set(attributes.tracker) if attributes.tracker?
+
+      if attributes.tracker?
+        @set("tracker", new ProjectMonitor.Models.Tracker()) unless @get("tracker")
+        @get("tracker").set(attributes.tracker)
 
   parse: (attributes, xhr) ->
     @update(attributes)

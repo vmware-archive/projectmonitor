@@ -26,6 +26,22 @@ describe "ProjectMonitor.Models.Project", ->
 
       it "should fire build change event", ->
         expect(@build_changed).toHaveBeenCalled();
+      describe "when tracker information is then added", ->
+        beforeEach ->
+          attributes = {
+            tracker: {
+              current_velocity: 5
+              last_ten_velocities: [1,2,3,4,5,6]
+              open_stories_count: 14
+              stories_to_accept_count: 0
+              tracker_online: true
+              variance: 5.8
+            }
+          }
+          @project.update(attributes)
+
+        it "should set the tracker model", ->
+          expect(@project.get("tracker")).toEqual(jasmine.any(ProjectMonitor.Models.Tracker))
 
     describe "when the project contains build and tracker information", ->
       beforeEach ->
