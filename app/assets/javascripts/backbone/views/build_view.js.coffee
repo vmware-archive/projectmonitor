@@ -19,9 +19,8 @@ class ProjectMonitor.Views.BuildView extends Backbone.View
 
   _showAsBuilding: ->
     (f = (i) =>
-      if i < (@pollIntervalSeconds / @fadeIntervalSeconds) - 1
-        @$el.fadeTo(1000, 0.5).fadeTo(1000, 1)
-        setTimeout (->
-          f i + 1
-        ), @fadeIntervalSeconds * 1000
+      @$el.fadeTo(1000, 0.5).fadeTo(1000, 1)
+      setTimeout (->
+        f i + 1
+      ), @fadeIntervalSeconds * 1000
     ) 0
