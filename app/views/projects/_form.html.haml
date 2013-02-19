@@ -45,20 +45,20 @@
     %em
       Default is 'master'
   = project_refreshed_at(f.object)
+  #field_container
+    - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
+      - enabled = f.object.type == project_type.name
+      %fieldset{ id: project_type,  class: "#{'hide' unless enabled}" }
+        - project_type.project_specific_attributes.each do |field|
+          %p
+            = f.label field
+            - if field == "tddium_project_name"
+              = f.text_field field, :disabled => !enabled, placeholder: "repo_name (branch_name)"
+            - else
+              = f.text_field field, :disabled => !enabled
   %fieldset#webhooks
     = project_webhooks_url(f.object)
   %fieldset#polling
-    #field_container
-      - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
-        - enabled = f.object.type == project_type.name
-        %fieldset{ id: project_type,  class: "#{'hide' unless enabled}" }
-          - project_type.project_specific_attributes.each do |field|
-            %p
-              = f.label field
-              - if field == "tddium_project_name"
-                = f.text_field field, :disabled => !enabled, placeholder: "repo_name (branch_name)"
-              - else
-                = f.text_field field, :disabled => !enabled
 
     %p{ class: 'verify_ssl_field' }
       = f.label :verify_ssl, "Verify SSL Certificate?"

@@ -105,7 +105,6 @@ var ProjectEdit = {};
       $buildSetup.find('#project_webhooks_enabled_false').prop('checked', false);
     }
 
-
     var $auth_fields = $('.auth_field');
     if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
       $auth_fields.addClass('hide');
@@ -115,11 +114,14 @@ var ProjectEdit = {};
     }
 
     var $branch_name = $('#branch_name');
+    var $field_container = $('#field_container');
     if ( $(this).val() == "TravisProject" ) {
       $branch_name.removeClass('hide');
+      $field_container.removeClass('hide');
     }
     else {
       $branch_name.addClass('hide');
+      $field_container.addClass('hide');
     }
 
   };
@@ -136,7 +138,7 @@ var ProjectEdit = {};
       return;
     }
 
-    var $inputs = $('#polling :input:not(.hide):not(.optional):enabled');
+    var $inputs = $('#field_container :input:not(.hide):not(.optional):enabled');
     if ($inputs.is('[value=""]')) {
       if ($inputs.is('[value!=""]')) {
         $('#polling .empty_fields').removeClass('hide');
@@ -177,10 +179,15 @@ var ProjectEdit = {};
 
   o.toggleWebhooks = function () {
     if ($('input#project_webhooks_enabled_true:checked').length > 0) {
+      if($("#project_type").val() != "TravisProject"){
+        $('#field_container').addClass('hide');
+      }
+
       $('fieldset#webhooks').removeClass('hide');
       $('fieldset#polling').addClass('hide');
     }
     else if ($('input#project_webhooks_enabled_false:checked').length > 0) {
+      $('#field_container').removeClass('hide');
       $('fieldset#webhooks').addClass('hide');
       $('fieldset#polling').removeClass('hide');
     }
@@ -198,9 +205,9 @@ var ProjectEdit = {};
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
     .change(handleParameterChange);
     $('#project_type').change(o.handleProjectTypeChange);
-    $('#polling :input').change(o.validateFeedUrl);
+    $('#field_container :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
-    $('#polling input.refresh').click(o.validateFeedUrl);
+    $('#field_container input.refresh').click(o.validateFeedUrl);
     $('#change_password a').click(showPasswordField);
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
