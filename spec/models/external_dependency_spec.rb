@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ExternalDependency do
 
-  context 'class functions' do
+  context 'class functions', vcr: {re_record_interval: 6.months} do
     context 'external dependency requests' do
       context 'no external dependency statuses exist' do
         it 'creates a new external dependency status' do
@@ -19,7 +19,7 @@ describe ExternalDependency do
           dependency.save
 
           ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
-          ExternalDependency.where(name: 'RUBYGEMS').count.should == 2
+          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
         end
       end
 

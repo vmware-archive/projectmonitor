@@ -11,6 +11,8 @@ class ExternalDependency < ActiveRecord::Base
   end
 
   def self.fetch_status(name)
+    delete_most_recent(name)
+
     service = new(:name => name)
     service.get_status
     service.save
@@ -22,6 +24,10 @@ class ExternalDependency < ActiveRecord::Base
   end
 
   private
+  def self.delete_most_recent(name)
+    most_recent = recent_status(name)
+    most_recent.destroy unless most_recent.nil?
+  end
 
   def retrieve_nice_api_status url
     begin

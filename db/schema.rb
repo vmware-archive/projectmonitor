@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206203244) do
+ActiveRecord::Schema.define(:version => 20130219223450) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
