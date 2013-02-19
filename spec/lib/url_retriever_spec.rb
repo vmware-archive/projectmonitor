@@ -142,12 +142,19 @@ describe 'UrlRetriever' do
     end
 
     context 'when the response status code is in the 300s' do
-      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
+      before do
+        UrlRetriever.should_receive(:new).
+        with(new_location, nil, nil, true).
+        and_return(double(:url_ret, retrieve_content: "hello, is it me you're looking for?"))
+      end
+
+      let(:new_location) { 'http://placekitten.com/500/500' }
+      let(:response) { stub('HTTPResponse', body: nil, header: { 'location' => new_location }, code: (rand 300..399).to_s) }
       let(:retriever) { UrlRetriever.new(url) }
 
       subject { retriever.retrieve_content }
 
-      it { should == 'response body' }
+      it { should == "hello, is it me you're looking for?" }
     end
 
     context 'when the response status code is in the 400s to 500s' do
