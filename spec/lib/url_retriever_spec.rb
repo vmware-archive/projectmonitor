@@ -1,101 +1,195 @@
 require 'spec_helper'
 
 describe 'UrlRetriever' do
+  describe '#get' do
+    let(:get_request) { stub('Net::HTTP::Get', basic_auth: true) }
+    let(:http_session) { stub('Net::HTTP') }
+    let(:response) { stub('HTTPResponse') }
+    let(:retriever) { UrlRetriever.new url }
+    let(:url) { 'http://host:1010/path?a=b' }
 
-  describe '#retrieve_content_at' do
-    context 'simple uri' do
-      let(:stubbed_response) { stub(:code => '200', :body => 'mock body') }
-
-      before do
-        Net::HTTP.stub!(:new).and_return(stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object)
-        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(stub('HTTP::Get stub').as_null_object)
-      end
-
-      subject { UrlRetriever.retrieve_content_at('http://host/path.html?parameter=value') }
-
-      it { should == 'mock body' }
+    before do
+      Net::HTTP::Get.stub(:new).with('/path?a=b').and_return(get_request)
+      retriever.stub(:http).and_return(http_session)
+      http_session.stub(:request).with(get_request).and_return(response)
     end
 
-    context 'basic auth uri' do
-      let(:http_get) { stub('HTTP::Get stub') }
-      let(:stubbed_response) { stub(:code => '200', :body => 'mock body') }
+    context 'when not given a block' do
+      before { get_request.should_not_receive(:basic_auth) }
 
-      before do
-        stubbed_response.should_receive(:[]).with('www-authenticate').and_return(nil)
-        http_get.should_receive(:basic_auth).with('user', 'pass')
-        Net::HTTP.stub!(:new).and_return(stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object)
-        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(http_get)
-      end
+      subject { retriever.get }
 
-      subject { UrlRetriever.retrieve_content_at('http://host/path.html?parameter=value', 'user', 'pass') }
-
-      it { should == 'mock body' }
+      it { should == response }
     end
 
-    context 'non-responsive server' do
-      let(:net_http) { double(:net_http).as_null_object }
+    context 'when given a block' do
+      before { get_request.should_receive(:basic_auth) }
 
-      before do
-        Net::HTTP.stub(:new).and_return(net_http)
-        net_http.should_receive(:start).and_raise(Errno::ECONNREFUSED)
+      subject do
+        retriever.get { |get_request| get_request.basic_auth }
       end
 
-      subject { UrlRetriever.retrieve_content_at('http://localhost:8111/') }
-
-      it 'raises an error' do
-        expect{ subject }.to raise_error(Net::HTTPError)
-      end
+      it { should == response }
     end
 
-    context 'do not verify SSL certificate' do
-      let(:stubbed_response) { stub(:code => '200', :body => 'mock body') }
-
-      before do
-        http_stub_resp = stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object
-        Net::HTTP.stub!(:new).and_return(http_stub_resp)
-        http_stub_resp.should_receive("verify_mode=").with(OpenSSL::SSL::VERIFY_NONE)
-        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(stub('HTTP::Get stub').as_null_object)
-      end
-
-      subject { UrlRetriever.retrieve_content_at('https://host/path.html?parameter=value', nil, nil, false) }
-
-      it 'should not raise an SSL Error' do
-        subject.should_not raise_error(OpenSSL::SSL::SSLError)
+    context 'when a connection refused error is raised' do
+      specify do
+        lambda {
+          retriever.get { raise Errno::ECONNREFUSED }
+        }.should raise_error(Net::HTTPError)
       end
     end
-
-    context 'verify SSL certificate' do
-      let(:stubbed_response) { stub(:code => '200', :body => 'mock body') }
-
-      before do
-        http_stub_resp = stub('Net::HTTP stub', :[] => nil, :code => '200', :read_timeout= => nil, :open_timeout= => nil, :start => stubbed_response).as_null_object
-        Net::HTTP.stub!(:new).and_return(http_stub_resp)
-        http_stub_resp.should_receive("verify_mode=").with(OpenSSL::SSL::VERIFY_PEER)
-        Net::HTTP::Get.should_receive(:new).with('/path.html?parameter=value').and_return(stub('HTTP::Get stub').as_null_object)
-      end
-
-      subject { UrlRetriever.retrieve_content_at('https://host/path.html?parameter=value', nil, nil, true) }
-
-      it 'should not raise an SSL Error' do
-        subject.should_not raise_error(OpenSSL::SSL::SSLError)
-      end
-    end
-
   end
 
-  describe '#prepend_scheme' do
+  describe '#http' do
+    context 'when the URI uses http' do
+      let(:retriever) { UrlRetriever.new url }
+      let(:url) { 'http://host:1010/path' }
 
-    subject { UrlRetriever.prepend_scheme(url) }
-    context 'when no scheme is provided' do
-      let(:url) { 'example.com' }
-      it { should == 'http://example.com'}
+      subject { retriever.http }
+
+      its(:address) { should == 'host' }
+      its(:open_timeout) { should == 30 }
+      its(:port) { should == 1010 }
+      its(:read_timeout) { should == 30 }
+      its(:use_ssl?) { should == false }
+      it { should respond_to :start }
     end
 
-    context 'when some scheme is provided' do
-      let(:url) { 'gopher://example.com' }
-      it { should == 'gopher://example.com'}
-    end
+    context 'when the URI uses https' do
+      let(:certificate_bundle_filename) { 'ca.crt' }
+      let(:retriever) { UrlRetriever.new url }
+      let(:url) { 'https://host:1010/path' }
 
+      before { ConfigHelper.stub(:get).with(:certificate_bundle).and_return(certificate_bundle_filename) }
+
+      subject { retriever.http }
+
+      its(:address) { should == 'host' }
+      its(:ca_file) { should == Rails.root.join(certificate_bundle_filename) }
+      its(:open_timeout) { should == 30 }
+      its(:port) { should == 1010 }
+      its(:read_timeout) { should == 30 }
+      its(:use_ssl?) { should == true }
+      it { should respond_to :start }
+
+      context 'and verify_ssl is true' do
+        let(:retriever) { UrlRetriever.new url, nil, nil, true }
+
+        subject { retriever.http }
+
+        its(:verify_mode) { should == OpenSSL::SSL::VERIFY_PEER }
+      end
+
+      context 'and verify_ssl is false' do
+        let(:retriever) { UrlRetriever.new url, nil, nil, false }
+
+        subject { retriever.http }
+
+        its(:verify_mode) { should == OpenSSL::SSL::VERIFY_NONE }
+      end
+    end
   end
 
+  describe '#retrieve_content' do
+    let(:get_request) { stub('HTTP::Get') }
+    let(:http_session) { stub('Net::HTTP', request: response) }
+    let(:password) { stub('password') }
+    let(:url) { 'http://host/path.html?parameter=value' }
+    let(:username) { stub('username') }
+
+    before do
+      Net::HTTP::Get.stub(:new).with('/path.html?parameter=value').and_return(get_request)
+      retriever.stub(:http).and_return(http_session)
+    end
+
+    context 'when a username and password are supplied' do
+      let(:response) { stub('HTTPResponse') }
+      let(:retriever) { UrlRetriever.new(url, username, password, verify_ssl) }
+      let(:verify_ssl) { stub('verify_ssl') }
+
+      before do
+        retriever.stub(:process_response).and_return('response body')
+        get_request.should_receive(:basic_auth).with(username, password)
+      end
+
+      subject { retriever.retrieve_content }
+
+      it { should == 'response body' }
+    end
+
+    context 'when a username and password are not supplied' do
+      let(:response) { stub('HTTPResponse') }
+      let(:retriever) { UrlRetriever.new(url) }
+
+      before do
+        retriever.stub(:process_response).and_return('response body')
+        get_request.should_not_receive(:basic_auth)
+      end
+
+      subject { retriever.retrieve_content }
+
+      it { should == 'response body' }
+    end
+
+    context 'when the response status code is in the 200s' do
+      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
+      let(:retriever) { UrlRetriever.new(url) }
+
+      subject { retriever.retrieve_content }
+
+      it { should == 'response body' }
+    end
+
+    context 'when the response status code is in the 300s' do
+      before do
+        UrlRetriever.should_receive(:new).
+        with(new_location, nil, nil, true).
+        and_return(double(:url_ret, retrieve_content: "hello, is it me you're looking for?"))
+      end
+
+      let(:new_location) { 'http://placekitten.com/500/500' }
+      let(:response) { stub('HTTPResponse', body: nil, header: { 'location' => new_location }, code: (rand 300..399).to_s) }
+      let(:retriever) { UrlRetriever.new(url) }
+
+      subject { retriever.retrieve_content }
+
+      it { should == "hello, is it me you're looking for?" }
+    end
+
+    context 'when the response status code is in the 400s to 500s' do
+      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 400..599).to_s) }
+      let(:retriever) { UrlRetriever.new(url) }
+
+      specify do
+        lambda { retriever.retrieve_content }.should raise_error(Net::HTTPError)
+      end
+    end
+  end
+
+  describe '#uri' do
+    context 'when no protocol is specified' do
+      let(:retriever) { UrlRetriever.new 'host:1010/path?a=b' }
+
+      subject { retriever.uri }
+
+      its(:host) { should == 'host' }
+      its(:path) { should == '/path' }
+      its(:port) { should == 1010 }
+      its(:query) { should == 'a=b' }
+      its(:scheme) { should == 'http' }
+    end
+
+    context 'when a protocol is specified' do
+      let(:retriever) { UrlRetriever.new 'gopher://host:1010/path?a=b' }
+
+      subject { retriever.uri }
+
+      its(:host) { should == 'host' }
+      its(:path) { should == '/path' }
+      its(:port) { should == 1010 }
+      its(:query) { should == 'a=b' }
+      its(:scheme) { should == 'gopher' }
+    end
+  end
 end

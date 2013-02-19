@@ -37,7 +37,7 @@ describe ExternalDependency do
 
   context 'rubygems status' do
     it 'initialized an up status' do
-      UrlRetriever.stub(:retrieve_content_at) {'<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>' }
+      UrlRetriever.any_instance.stub(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>' }
 
       dependency = ExternalDependency.new name: 'RUBYGEMS'
       dependency.get_status
@@ -47,7 +47,7 @@ describe ExternalDependency do
     end
 
     it 'initialized a down status' do
-      UrlRetriever.stub(:retrieve_content_at) {'<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>' }
+      UrlRetriever.any_instance.stub(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>' }
 
       dependency = ExternalDependency.new name: 'RUBYGEMS'
       dependency.get_status
@@ -56,7 +56,7 @@ describe ExternalDependency do
     end
 
     it 'initialized an unreachable status when it recieved no response' do
-      UrlRetriever.stub(:retrieve_content_at) { raise 'error' }
+      UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
       dependency = ExternalDependency.new name: 'RUBYGEMS'
       dependency.get_status
@@ -67,7 +67,7 @@ describe ExternalDependency do
 
   context 'github status' do
     it 'initialized an up status' do
-      UrlRetriever.stub(:retrieve_content_at) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
+      UrlRetriever.any_instance.stub(:retrieve_content) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
 
       dependency = ExternalDependency.new name: 'GITHUB'
       dependency.get_status
@@ -76,7 +76,7 @@ describe ExternalDependency do
     end
 
     it 'initialized a down status' do
-      UrlRetriever.stub(:retrieve_content_at) {'down'}
+      UrlRetriever.any_instance.stub(:retrieve_content) {'down'}
 
       dependency = ExternalDependency.new name: 'GITHUB'
       dependency.get_status
@@ -85,7 +85,7 @@ describe ExternalDependency do
     end
 
     it 'initialized a unreachable status' do
-      UrlRetriever.stub(:retrieve_content_at) { raise 'error' }
+      UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
       dependency = ExternalDependency.new name: 'GITHUB'
       dependency.get_status
@@ -96,7 +96,7 @@ describe ExternalDependency do
 
   context 'heroku status' do
     it 'initalized an up status' do
-      UrlRetriever.stub(:retrieve_content_at) {'up'}
+      UrlRetriever.any_instance.stub(:retrieve_content) {'up'}
 
       dependency = ExternalDependency.new name: 'HEROKU'
       dependency.get_status
@@ -105,7 +105,7 @@ describe ExternalDependency do
     end
 
     it 'initalized a down status' do
-      UrlRetriever.stub(:retrieve_content_at) { 'down' }
+      UrlRetriever.any_instance.stub(:retrieve_content) { 'down' }
 
       dependency = ExternalDependency.new name: 'HEROKU'
       dependency.get_status
@@ -114,7 +114,7 @@ describe ExternalDependency do
     end
 
     it 'initalized an unreachable status when it receives no response' do
-      UrlRetriever.stub(:retrieve_content_at) { raise 'error' }
+      UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
       dependency = ExternalDependency.new name: 'HEROKU'
       dependency.get_status

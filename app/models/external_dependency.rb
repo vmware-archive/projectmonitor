@@ -25,7 +25,7 @@ class ExternalDependency < ActiveRecord::Base
 
   def retrieve_nice_api_status url
     begin
-      content = UrlRetriever.retrieve_content_at url
+      content = UrlRetriever.new(url).retrieve_content
     rescue
       content = { 'status' => 'unreachable' }
     end
@@ -44,7 +44,7 @@ class ExternalDependency < ActiveRecord::Base
     output = {}
 
     begin
-      doc = Nokogiri::HTML(UrlRetriever.retrieve_content_at('http://status.rubygems.org/'))
+      doc = Nokogiri::HTML(UrlRetriever.new('http://status.rubygems.org/').retrieve_content)
       page_status = doc.css('.services td.status span')
       self.raw_response = page_status.to_s
 

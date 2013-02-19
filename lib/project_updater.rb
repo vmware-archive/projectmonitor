@@ -46,15 +46,18 @@ module ProjectUpdater
     end
 
     def fetch_status(project, payload)
-      payload.status_content = UrlRetriever.retrieve_content_at(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
+      retriever = UrlRetriever.new(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
+      payload.status_content = retriever.retrieve_content
     end
 
     def fetch_building_status(project, payload)
-      payload.build_status_content = UrlRetriever.retrieve_content_at(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
+      retriever = UrlRetriever.new(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
+      payload.build_status_content = retriever.retrieve_content
     end
 
     def fetch_dependent_project_info(project, payload)
-      payload.dependent_content = UrlRetriever.retrieve_content_at(project.dependent_build_info_url, project.auth_username, project.auth_password, project.verify_ssl)
+      retriever = UrlRetriever.new(project.dependent_build_info_url, project.auth_username, project.auth_password, project.verify_ssl)
+      payload.dependent_content = retriever.retrieve_content
     end
 
   end
