@@ -69,6 +69,19 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
+### Set up Vagrant
+
+Vagrant automatically sets up virtual machines to run Jenkins. First install VirtualBox. Then run the following commands to set it up.
+
+    vagrant up
+
+Useful commands
+
+    vagrant ssh
+    vagrant halt
+    vagrant provision
+
+Once the VM has started, services will be available at `192.168.33.10`.
 ### Authentication support
 
 Project monitor uses Devise to provide both database backed authentication and
