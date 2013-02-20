@@ -34,8 +34,8 @@ describe TrackerApi do
     end
 
     context "last_ten_velocities" do
-      it "should be the sum of the estimates of the stories from the current and 9 most recent iterations" do
-        subject.last_ten_velocities.should == [0,1,2,3]
+      it "should be the sum of the estimates of the stories from the 10 most recent iterations" do
+        subject.last_ten_velocities.should == [1,2,3]
       end
 
       context "when the current iterations has unaccepted stories" do
@@ -46,7 +46,7 @@ describe TrackerApi do
             current_state: "started",
             requested_by: "James Somers"
 
-          subject.last_ten_velocities.should == [0,1,2,3]
+          subject.last_ten_velocities.should == [1,2,3]
         end
       end
     end

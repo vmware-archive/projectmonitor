@@ -19,6 +19,7 @@ describe TrackerApi do
 
     let(:done_iterations) do
       [
+        double(:iteration, :stories => [ double(:story, :estimate => 0), double(:story, :estimate => 0) ]),
         double(:iteration, :stories => [ double(:story, :estimate => 0), double(:story, :estimate => 1) ]),
         double(:iteration, :stories => [ double(:story, :estimate => 2), double(:story, :estimate => 3) ]),
         double(:iteration, :stories => [ double(:story, :estimate => 4), double(:story, :estimate => 5) ]),
@@ -32,8 +33,8 @@ describe TrackerApi do
       ]
     end
 
-    it "should be the sum of the estimates of the stories from the current and prior 9 iterations in reverse order" do
-      TrackerApi.new(project).last_ten_velocities.should == [21, 37, 33, 29, 25, 21, 17, 13, 9, 5]
+    it "should be the sum of the estimates of the stories from the prior 10 iterations in reverse order" do
+      TrackerApi.new(project).last_ten_velocities.should == [37, 33, 29, 25, 21, 17, 13, 9, 5, 1]
     end
   end
 end
