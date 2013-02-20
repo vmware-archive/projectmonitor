@@ -2,7 +2,6 @@ zeus.json
 .idea
 .bundle
 .DS_Store
-.pairs
 *.iml
 *.ipr
 config/database.yml
