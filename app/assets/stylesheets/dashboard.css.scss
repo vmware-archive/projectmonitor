@@ -4,12 +4,12 @@ $ninesixty-fluid-grid-width: 100%;
 $ninesixty-grid-width: 1896px;
 @import '960.gs';
 @import 'projects';
-@import '_mixins';
-@import '_aggregate';
-@import '_build';
-@import '_tracker';
-@import '_new_relic';
-@import '_airbrake';
+@import 'mixins';
+@import 'aggregate';
+@import 'build';
+@import 'tracker';
+@import 'new_relic';
+@import 'airbrake';
 
 html {
   height: 100%;
@@ -52,8 +52,6 @@ body.dashboard {
     }
 
     a {
-      text-decoration: none;
-      color: black;
       font-size: 60px;
       line-height: 60px;
       font-weight: bolder;

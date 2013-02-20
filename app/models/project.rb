@@ -191,6 +191,7 @@ class Project < ActiveRecord::Base
         root: false)
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
+      .merge({"current_build_url" => current_build_url })
     json["tracker"] = super(
         only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
