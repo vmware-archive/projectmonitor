@@ -1,1 +1,1 @@
-rvm --create use ruby-1.9.3-p385@projectmonitor
+rvm --create use ruby-1.9.3-p194@projectmonitor
