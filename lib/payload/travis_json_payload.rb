@@ -10,7 +10,8 @@ class TravisJsonPayload < Payload
   end
 
   def building?
-    status_content.first['state'] == "started"
+    status_content.first['state'] == "started" ||
+      status_content.first['state'] == "created"
   end
 
   def build_status_is_processable?
@@ -18,7 +19,9 @@ class TravisJsonPayload < Payload
   end
 
   def content_ready?(content)
-    content['state'] != 'started' && specified_branch?(content)
+    content['state'] != 'started' &&
+      content['state'] != 'created' &&
+      specified_branch?(content)
   end
 
   def convert_webhook_content!(content)
