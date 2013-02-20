@@ -1,5 +1,7 @@
 <h1 class="code">
-  <%= @code %>
+  <a href="<%= @current_build_url %>">
+    <%= @code %>
+  </a>
 </h1>
 <% if !@aggregate: %>
   <aside class='history'>

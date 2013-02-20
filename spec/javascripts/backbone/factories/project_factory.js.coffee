@@ -14,6 +14,7 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
     project_id: 90890
     build:
       code: 'PROJ'
+      current_build_url: 'http://placekitten.com/500'
       aggregate: false
       status: "success"
       statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]

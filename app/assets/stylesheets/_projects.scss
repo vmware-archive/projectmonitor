@@ -27,6 +27,10 @@ $statusbar-font-size: 30px !default;
 
     li.project {
       float: left;
+      a {
+        text-decoration: none;
+        color: black;
+      }
 
       > div {
         height: 100%;
