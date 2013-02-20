@@ -80,6 +80,11 @@ describe TravisJsonPayload do
       it { should be_false }
     end
 
+    context 'the payload build has not started running' do
+      let(:json) { "created.json" }
+      it { should be_false }
+    end
+
     context 'the payload contains a build from a branch other than master' do
       let(:json) { "branch.json" }
 
