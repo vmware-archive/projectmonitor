@@ -6,12 +6,12 @@ class TravisProject < Project
   BASE_API_URL = "https://api.travis-ci.org"
   BASE_WEB_URL = "https://travis-ci.org"
 
-  def feed_url
-    "#{base_url}/builds.json"
-  end
-
   def build_status_url
     feed_url
+  end
+
+  def feed_url
+    "#{base_url}/builds.json"
   end
 
   def current_build_url

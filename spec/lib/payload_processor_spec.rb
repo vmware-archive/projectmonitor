@@ -76,6 +76,7 @@ describe PayloadProcessor do
         processor.process
       end
     end
+
   end
 
   describe "parse_url" do

@@ -32,23 +32,23 @@ describe TeamCityRestProject do
   # end
   # end
 
-  its(:feed_url) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:project_name) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:build_status_url) { should == "example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:dependent_build_info_url) { should == "example.com/httpAuth/app/rest/buildTypes/id:bt456" }
+  its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
+  its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
 
   describe '#current_build_url' do
     subject { project.current_build_url }
     context "webhooks are disabled" do
       let(:project) { FactoryGirl.build(:team_city_rest_project) }
 
-      it { should == 'example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
+      it { should == 'http://example.com/viewType.html?tab=buildTypeStatusDiv&buildTypeId=bt456' }
     end
 
     context "webhooks are enabled" do
       let(:project) { FactoryGirl.build(:team_city_rest_project, webhooks_enabled: true, parsed_url: 'foo.gov') }
 
-      it { should == 'foo.gov' }
+      it { should == 'http://foo.gov' }
     end
   end
+
 end

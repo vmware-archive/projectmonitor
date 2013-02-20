@@ -6,7 +6,7 @@ describe ProjectUpdater do
   let(:net_exception) { Net::HTTPError.new('Server error', 500) }
   let(:payload_log_entry) { PayloadLogEntry.new(status: "successful") }
   let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
-  let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil, 'dependent_content=' => nil) }
+  let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil) }
 
   describe '.update' do
     before do
@@ -94,61 +94,6 @@ describe ProjectUpdater do
       end
     end
 
-    context 'when the project has dependent children' do
-      let(:child_payload) { double(Payload).as_null_object }
-      let(:child_project) { double(Project, feed_url: 'http://child-status.com', build_status_url: 'http://child-status.com', fetch_payload: child_payload).as_null_object }
-
-      before do
-        project.stub(:has_dependencies?).and_return(true)
-        payload.stub(:each_child).with(project).and_yield(child_project)
-      end
-
-      it 'should fetch the dependent_build_info_url' do
-        retriever = stub('UrlRetriever')
-        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-        retriever.should_receive(:retrieve_content)
-        subject
-      end
-
-      it 'should update its children' do
-        retriever = stub('UrlRetriever')
-        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-        retriever.should_receive(:retrieve_content)
-        subject
-      end
-
-      context 'and a child project is failing' do
-        before do
-          child_project.stub('red?').and_return(true)
-        end
-
-        it 'should set has_failing_children' do
-          subject
-          project.has_failing_children.should be_true
-        end
-      end
-
-      context 'and a child project is building' do
-        before do
-          child_project.stub('building?').and_return(true)
-        end
-
-        it 'should set has_building_children' do
-          subject
-          project.has_building_children.should be_true
-        end
-      end
-
-      context 'and a parent project is failing' do
-        let(:payload_log_entry) { PayloadLogEntry.new(status: "failed") }
-        let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
-
-        it 'should not update dependent builds' do
-          UrlRetriever.any_instance.should_not_receive(:retrieve_content).with(child_project.feed_url, child_project.auth_username, child_project.auth_password, child_project.verify_ssl)
-          subject
-        end
-      end
-    end
   end
 
 end

@@ -4,23 +4,28 @@ class Project < ActiveRecord::Base
   DEFAULT_POLLING_INTERVAL = 30
 
   has_many :statuses,
-    class_name: "ProjectStatus",
+    class_name: 'ProjectStatus',
     dependent: :destroy,
     before_add: :update_refreshed_at,
     after_add: :remove_outdated_status
   has_many :payload_log_entries
-
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
   serialize :tracker_validation_status, Hash
 
-  scope :enabled, where(:enabled => true)
-  scope :standalone, enabled.where(:aggregate_project_id => nil)
+  scope :enabled, where(enabled: true)
+  scope :standalone, where(aggregate_project_id: nil)
   scope :with_statuses, joins(:statuses).uniq
-  scope :updateable, lambda {
-    enabled.where("webhooks_enabled IS NOT true").where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
-  }
+
+  scope :updateable,
+    enabled
+  .where(webhooks_enabled: [nil, false])
+
+  scope :tracker_updateable,
+    enabled
+  .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
+
   scope :displayable, lambda {|tags|
     scope = enabled
     return scope.tagged_with(tags) if tags
@@ -38,8 +43,6 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   validates :type, presence: true
 
-  before_save :check_next_poll
-  after_create :fetch_statuses
   before_create :generate_guid
 
   attr_accessible :aggregate_project_id,
@@ -53,10 +56,6 @@ class Project < ActiveRecord::Base
 
   def self.with_aggregate_project aggregate_project_id, &block
     with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
-  end
-
-  def check_next_poll
-    set_next_poll if changed.include?('polling_interval')
   end
 
   def code
@@ -84,7 +83,7 @@ class Project < ActiveRecord::Base
   end
 
   def red?
-    online? && latest_status.try(:success?) == false || has_failing_children?
+    online? && latest_status.try(:success?) == false
   end
 
   def status_in_words
@@ -127,16 +126,24 @@ class Project < ActiveRecord::Base
     raise NotImplementedError, "Must implement build_status_url in subclasses"
   end
 
+  def tracker_project_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}"
+  end
+
+  def tracker_iterations_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/done?offset=-10"
+  end
+
+  def tracker_current_iteration_url
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current_backlog"
+  end
+
   def to_s
     name
   end
 
-  def set_next_poll
-    self.next_poll_at = Time.now + (polling_interval || Project::DEFAULT_POLLING_INTERVAL)
-  end
-
   def building?
-    super || has_building_children?
+    super
   end
 
   def current_build_url
@@ -148,10 +155,10 @@ class Project < ActiveRecord::Base
 
   def breaking_build
     @breaking_build ||= if last_green.nil?
-      recent_statuses.red.last
-    else
-      recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
-    end
+                          recent_statuses.red.last
+                        else
+                          recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
+                        end
   end
 
   def has_auth?
@@ -174,9 +181,6 @@ class Project < ActiveRecord::Base
     false
   end
 
-  def dependent_build_info_url
-  end
-
   def generate_guid
     self.guid = SecureRandom.uuid
   end
@@ -185,17 +189,17 @@ class Project < ActiveRecord::Base
     json = super # TODO: Remove before merge
     json["project_id"] = self.id
     json["build"] = super(
-        only: [:code, :id, :statuses, :building],
-        methods: ["time_since_last_build"],
-        root: false)
+      only: [:code, :id, :statuses, :building],
+      methods: ["time_since_last_build"],
+      root: false)
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
-    json["tracker"] = super(
+      json["tracker"] = super(
         only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
         methods: ["variance"],
         root:false) if tracker_project_id?
-    json
+        json
   end
 
   def time_since_last_build
@@ -225,6 +229,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def handler
+    ProjectWorkloadHandler.new(self)
+  end
+
   private
 
   def self.project_attribute_prefix
@@ -252,5 +260,13 @@ class Project < ActiveRecord::Base
 
   def simple_statuses
     statuses.map(&:success)
+  end
+
+  def url_with_scheme url
+    if url =~ %r{\Ahttps?://}
+      url
+    else
+      "http://#{url}"
+    end
   end
 end

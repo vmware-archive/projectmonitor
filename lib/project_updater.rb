@@ -3,12 +3,6 @@ module ProjectUpdater
   class << self
 
     def update(project)
-      update_status(project)
-    end
-
-  private
-
-    def update_status(project)
       payload = project.fetch_payload
 
       begin
@@ -19,11 +13,6 @@ module ProjectUpdater
         log.method = "Polling"
         log.save!
 
-        if project.has_dependencies? && log.status == "successful"
-          fetch_dependent_project_info(project, payload)
-          update_children(project, payload)
-        end
-
         log
       rescue => e
         project.online = false
@@ -33,17 +22,7 @@ module ProjectUpdater
       end
     end
 
-    def update_children(project, payload)
-      project.has_failing_children = false
-      project.has_building_children = false
-
-      payload.each_child(project) do |child_project|
-        update_status(child_project)
-
-        project.has_failing_children ||= child_project.red?
-        project.has_building_children ||= child_project.building?
-      end
-    end
+  private
 
     def fetch_status(project, payload)
       retriever = UrlRetriever.new(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
@@ -53,11 +32,6 @@ module ProjectUpdater
     def fetch_building_status(project, payload)
       retriever = UrlRetriever.new(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
       payload.build_status_content = retriever.retrieve_content
-    end
-
-    def fetch_dependent_project_info(project, payload)
-      retriever = UrlRetriever.new(project.dependent_build_info_url, project.auth_username, project.auth_password, project.verify_ssl)
-      payload.dependent_content = retriever.retrieve_content
     end
 
   end

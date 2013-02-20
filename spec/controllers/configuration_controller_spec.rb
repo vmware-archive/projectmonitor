@@ -27,7 +27,7 @@ describe ConfigurationController do
     let(:tags) { 'nyc' }
 
     it 'should find all the projects' do
-      project_scope = double
+      project_scope = double.as_null_object
       project_scope.should_receive(:tagged).with(tags)
       Project.should_receive(:order).with(:name).and_return(project_scope)
       get :edit, tags: tags
