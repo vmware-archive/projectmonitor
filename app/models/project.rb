@@ -233,7 +233,7 @@ class Project < ActiveRecord::Base
   private
 
   def calculated_variance
-    sample_variance.round(2)
+    sample_variance.round(0)
   end
 
   def sample_variance
