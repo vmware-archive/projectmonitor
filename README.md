@@ -25,7 +25,6 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 (such as Rails).
 
 ## Upgrading
-
 ProjectMonitor has recently moved to
 [Devise](https://github.com/plataformatec/devise/) for authentication. This
 means that any existing users will have invalid passwords. If you don't want
@@ -42,7 +41,6 @@ in your `config/auth.yml`. This file is no longer needed.
 ## Installation
 
 ### Get the code
-
 ProjectMonitor is a Rails application. To get the code, execute the following:
 
     git clone git://github.com/pivotal/projectmonitor.git
@@ -50,7 +48,6 @@ ProjectMonitor is a Rails application. To get the code, execute the following:
     bundle install
 
 ### Initial Setup
-
 We have provided an example file for `database.yml`. Run the following to 
 automatically generate these files for you:
 
@@ -59,7 +56,6 @@ automatically generate these files for you:
 You likely need to edit the generated files.  See below.
 
 ### Set up the database
-
 You'll need a database. Create it with whatever name you want.  If you have not
 run `rake setup`, copy `database.yml.example` to `database.yml`.  Edit the
 production environment configuration so it's right for your database:
@@ -70,8 +66,7 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:migrate
 
 ### Set up Vagrant
-
-Vagrant automatically sets up virtual machines to run Jenkins. First install VirtualBox. Then run the following commands to set it up.
+[Vagrant](http://www.vagrantup.com/) automatically sets up virtual machines to run Jenkins. First install VirtualBox. Then run the following commands to set it up.
 
     vagrant up
 
@@ -82,21 +77,19 @@ Useful commands
     vagrant provision
 
 Once the VM has started, services will be available at `192.168.33.10`.
-### Authentication support
 
-Project monitor uses Devise to provide both database backed authentication and
+### Authentication support
+Project monitor uses [Devise](https://github.com/plataformatec/devise) to provide both database backed authentication and
 Google OAuth2 logins.
 
 #### Password authentication
-
 Regular password authentication is enabled by default and can be switched off
 by setting the `password_auth_enabled` setting to `false`. To ensure strong
 password encryption you should adjust the value for `password_auth_pepper` and
 `password_auth_stretches` appropriately.
 
 #### Google OAuth2 setup
-
-To use Google OAuth2 authentication you need Google apps setup for your domain
+To use Google OAuth2 authentication you need Google apps set up for your domain
 and the following configuration options specified:
 
     oauth2_enabled: true
@@ -104,7 +97,6 @@ and the following configuration options specified:
     oauth2_secret: 'MY_SECRET'
 
 ### Setup Cron with Whenever
-
 We have included a sample whenever gem config in config/schedule.rb. Refer to
 the [whenever documentation](https://github.com/javan/whenever) for instructions
 on how to integrate it with your deployment.
@@ -117,7 +109,6 @@ you don't want ProjectMonitor displaying stale information. At Pivotal we set
 it up to run every 3 minutes.
 
 ### Start workers
-
 The cron job above will add jobs to the queue, which workers will execute.  To
 start running the workers, use the following command:
 
@@ -138,80 +129,81 @@ to have a maximum timeout of 1 minute when polling project status.  If you want
 to change this setting, you can edit `config/initializers/delayed_job_config.rb`
 
 ### Start the application
-
 Execute:
 
     nohup rails server -e production &> projectmonitor.log
 
 ## Configuration
-
 Each build that you want ProjectMonitor to display is called a "project" in
-ProjectMonitor. You need to login to set up projects.
-
-
-### Create a user
-
-ProjectMonitor can use either the [Restful Authentication
-plugin](http://github.com/technoweenie/restful-authentication), or Google
-OpenId for user security. If you are using Google OpenId, users will be
-automatically provisioned.  All users from your domain will be permitted to
-edit projects. Otherwise, use the following steps to add users by hand.
-
-Your first user must be created at the command line.
+ProjectMonitor. You can log in to set up projects by clicking the "Manage Projects" 
+link in the bottom-right corner of the main ProjectMonitor screen. You can either
+create a user using the console as follows:
 
     rails c production
     User.create!(login: 'john', name: 'John Doe', email: 'jdoe@example.com', password: 'password', password_confirmation: 'password')
 
-After that, you can login to ProjectMonitor with the username and password you
-specified and use the "New User" link to create additional users.
-
-### Log in
-
-Open a browser on ProjectMonitor. Login by clicking on "Login" in the upper-right corner.
+Or, if you have set up Google OAuth2 as per above, you can simply log in with Google to create a new user account.
 
 ### Add projects
+After logging in, click the "New Project" button and enter
+the details for a build you want to display on ProjectMonitor. The "Name" and
+"Project Type" are required. You will need to either connect your service via
+Webhooks or polling.
 
-Click on "Projects" in the upper-right corner. Click on "New Project" and enter
-the details for a build you want to display on ProjectMonitor. The "Name",
-"Project Type", and "Feed URL" are required. If your Feed URL is
-http://myhost.com:3333/projects/MyProject, then your RSS URL is probably
-http://myhost.com:3333/projects/MyProject.rss.
+To connect via Webhooks, the project settings page will display the Webhook URL
+you'll need to enter in your CI instance's settings. The Webhook URL isn't generated
+until after a project is created, so you'll need to select the 'Webhooks' radio button,
+click 'Create', and then click the 'Edit' button for the newly-created project
+to get the Webhook URL.
+
+In order for Webhooks to work, you'll also need to make sure that the machine hosting
+ProjectMonitor is accessible by the machine hosting your CI instance.
+
+If you want to set up a project to connect via polling instead, you'll typically need
+to enter the base URL, build name or ID, and your login credentials with the CI service.
 
 #### TeamCity
-To configure TeamCity:
+For TeamCity projects, find the buildTypeId (usually something like 'bt2') from the URL, which should look like one of the following: 
 
-*   Choose Team City Rest Project for the project type
-*   URL looks like: http://teamcity:8111/app/rest/builds?locator=running:all,buildType:(id:bt*) where * is the buildTypeId from the TeamCity Build Configuration.
-*   Requires a username and password that match a valid account in TeamCity with access to the Build Configuration.
+    http://teamcity:8111/app/rest/builds?locator=running:all,buildType:
+    http://teamcity:8111/viewType.html?buildTypeId=
+    http://teamcity:8111/viewLog.html?buildId=1&tab=buildResultsDiv&buildTypeId=
 
-NOTE: The Cradiator-TeamCity-Plugin is deprecated. Please use the Team City
-Rest Project configuration, which is natively supported by TeamCity 5+.
+You will also need a valid user account and password.
 
-Optionally, if your Build system is behind Basic Authentication or Digest
-Authentication, you can enter the credentials.
+If you want TeamCity to connect via Webhooks, you'll need to install the
+[TcWebHooks plugin](http://sourceforge.net/apps/trac/tcplugins/wiki/TcWebHooks) on 
+your TeamCity instance. When setting up the webhook in TeamCity, make sure the payload 
+format is set to "JSON" (it might show up as "JSON (beta)").
 
-If you want to temporarily hide your build on ProjectMonitor, you can uncheck
-the "Enable" checkbox.
-
-ProjectMonitor's main display page is at `/`. You can always get back there by
-choosing the number of tiles you want at the lower left.
+If you want to connect to TeamCity via polling, you will need to ensure that your TeamCity instance
+is accessible by the machine running ProjectMonitor.
 
 #### Semaphore
 When configuring [Semaphore](http://semaphoreapp.com), you should use the Branch History URL from the API section of your Project Settings page.
 
 This ensures that no build statuses will be missed.
 
-### Auto-start for Ubuntu
+#### Jenkins
+If you want Jenkins to connect via Webhooks, you will need the
+[Jenkins notification plugin](https://wiki.jenkins-ci.org/display/JENKINS/Notification+Plugin).
 
+If you want to connect to Jenkins via polling, you'll need to ensure that your Jenkins instance is accessible by the machine running ProjectMonitor.
+
+#### Travis
+If you want Travis to connect via Webhooks, you will still need to enter the 
+GitHub account, repository, and optionally branch name for the codebase being
+built in Travis.
+
+### Auto-start for Ubuntu
 In order to have projectmonitor start when the machine boots, modify the startup
-scripts.  In the following example, we have modified /etc/rc.local on an Ubuntu
+scripts. In the following example, we have modified /etc/rc.local on an Ubuntu
 10.04 server (change paths & userids as needed):
 
     # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
     su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
 
 ### Importing and Exporting Configurations
-
 You can export your configuration for posterity or to be transferred to another
 host:
 
@@ -239,10 +231,10 @@ like so:
 
     curl --user ${username}:${password} -F "content=@-" ${your_project_monitor_host}/configuration < ${your_configuration.yml}
 
+
 ## Deployment
 
 ### Heroku
-
 To get running on Heroku, after you have cloned and bundled, run the following commands:
 
 NB: These instructions are for the basic authentication strategy. 
@@ -257,7 +249,6 @@ NB: These instructions are for the basic authentication strategy.
 When inside the console, run the creating a new user step above. You should then be able to access your server and start using it.
 
 ## Cron
-
 You need to hit an authenticated endpoint to run the scheduler. 
 
     POST http://localhost:3000/projects/update_projects
@@ -267,67 +258,56 @@ You can create a cron entry to hit this:
     curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:password
 
 ## Display
-
-Just open a browser on `/`. The page will refresh every 30 seconds. When it
-refreshes, it shows whatever status was last fetched by the cron job. That is,
-a refresh doesn't cause the individual builds to be polled.
+Just open a browser on `/`. The page refreshes every 30 seconds with the latest
+status fetched by the cron job or received via Webhook. That is,
+refreshing the page doesn't cause the individual builds to be re-polled.
 
 ### Layout
-
-The new layout consists of a grid of tiles representing the projects.  The
+The layout consists of a grid of tiles representing the projects.  The
 number of projects that need to be displayed is determined automatically, but
 can also be set explicitly.  There are views available for 15 tiles, 24 tiles,
 48 tiles, or 63 tiles, and a 6-project view with larger tiles is coming soon.
 
 ### Tile colors
-
 Tiles are green for green projects, red for red projects, and light gray if the
 project's build server cannot be reached. If the build server is online but no
-builds have been run then the tile will appear in yellow.
+builds have been run then the tile will appear in yellow. A pulsating tile indicates
+that a new build is currently in progress.
 
 ### Project Ticker Codes
-
 Each tile shows the project's brief ticker code.  If not chosen explicitly,
 this will be the first 4 letters of the project.
 
 ### Build Statuses
-
 To the right of the ticker and name, each project lists the amount of time
 since the last build, followed by the build status history.  The last 5-8 builds
 are displayed from left to right, in reverse chronological order -- the most
 recent build will be on the left and the least recent on the right.
 Successful builds are marked with a filled in circle, and unsuccessful builds
-are marked with an x.  When a build is in progress a spinner is displayed instead
-of the time since the last build.
+are marked with an x.
 
 ### Aggregate Projects
-
 Striped tiles indicate the aggregate status of several projects.  Click on an
 aggregate project to see the status of its component projects.
 
 ### Pivotal Tracker Integration
-
 ProjectMonitor can display basic [Pivotal Tracker](http://pivotaltracker.com) information.  When
 configured, the current velocity will be displayed, as well as a graph showing points completed for
 the current iteration and the past 9 iterations.  To add this integration, you will need to add your
 Pivotal Tracker project ID and a Pivotal Tracker API key in the admin section.
 
 ### Admin Interface
-
 Click 'manage projects' at the lower right to edit project details.
 
 ## Tags
-
 You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
 only projects that match a set of tags by going to /?tags=tag1,tag2
 
 ## CI
-
 CI for ProjectMonitor is [here](http://travis-ci.org/pivotal/projectmonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
 (that's an instance of ProjectMonitor, of course).
 
 ## Development
-
 The public Tracker project for ProjectMonitor is [here](http://www.pivotaltracker.com/projects/2872).
 
 To run tests, run:
@@ -340,11 +320,9 @@ To run a local development server and worker, run:
     foreman start
 
 ## Deploying to Github
-
 Project Monitor has been moved under the "Pivotal" organization. In order to have push privileges to the repo, you will need to request that your GitHub account is added as a collaborator.
 
 ## Ideas /Improvements
-
 Got a burning idea that just needs to be implemented? Join the google group and share it with the team.
 
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
