@@ -20,14 +20,6 @@
   = f.text_field :tag_list, :size=>40
   %em
     Separate with commas
-%p
-  = f.label :notification_email, "Notification email"
-  = f.text_field :notification_email
-  %p
-    = f.label :send_build_notifications, "Send build notification"
-    = f.check_box :send_build_notifications
-    = f.label :send_error_notifications, "Send error notifications"
-    = f.check_box :send_error_notifications
 %hr
 %fieldset#build_setup
   %h2 Build Setup
