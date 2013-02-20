@@ -66,7 +66,7 @@ describe 'UrlRetriever' do
       subject { retriever.http }
 
       its(:address) { should == 'host' }
-      its(:ca_file) { should == Rails.root.join(certificate_bundle_filename) }
+      its(:ca_file) { should == Rails.root.join(certificate_bundle_filename).to_s }
       its(:open_timeout) { should == 30 }
       its(:port) { should == 1010 }
       its(:read_timeout) { should == 30 }
