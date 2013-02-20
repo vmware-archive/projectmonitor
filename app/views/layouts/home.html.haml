@@ -2,8 +2,9 @@
 %html
   %head
     %title Project Monitor
-    = stylesheet_link_tag "dashboard"
+    = stylesheet_link_tag "application"
     = javascript_include_tag "application"
+    = csrf_meta_tag
   %body{:class => "dashboard tiles_#{@tiles_count}", "data-tiles-count" => @tiles_count}
     = yield
     #footer
