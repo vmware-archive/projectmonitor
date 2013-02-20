@@ -33,6 +33,7 @@ gem 'pg'
 gem "eventmachine"
 # NOTE: >= 1.0.0.beta.4 is required for connection timeout support
 gem "em-http-request", ">= 1.0.0.beta.4"
+gem 'newrelic_rpm'
 
 group :production do
   gem "therubyracer"
@@ -78,7 +79,6 @@ group :test, :development do
   gem 'guard-coffeescript'
   gem 'database_cleaner'
   gem "capybara-webkit"
-  gem "pry"
   gem "pry-nav"
   gem 'vagrant'
 end
