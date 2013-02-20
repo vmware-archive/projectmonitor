@@ -195,14 +195,6 @@ If you want Travis to connect via Webhooks, you will still need to enter the
 GitHub account, repository, and optionally branch name for the codebase being
 built in Travis.
 
-### Auto-start for Ubuntu
-In order to have projectmonitor start when the machine boots, modify the startup
-scripts. In the following example, we have modified /etc/rc.local on an Ubuntu
-10.04 server (change paths & userids as needed):
-
-    # need to set PS1 so that rvm is in path otherwise .bashrc bails too early
-    su - pivotal -c 'PS1=ps1; . /home/pivotal/.bashrc; cd ~/projectmonitor/current; bundle exec thin -e production start -c /home/pivotal/projectmonitor/current -p7990 -s3; bundle exec rake start_workers[6]'
-
 ### Importing and Exporting Configurations
 You can export your configuration for posterity or to be transferred to another
 host:
@@ -247,15 +239,6 @@ NB: These instructions are for the basic authentication strategy.
     heroku run console 
 
 When inside the console, run the creating a new user step above. You should then be able to access your server and start using it.
-
-## Cron
-You need to hit an authenticated endpoint to run the scheduler. 
-
-    POST http://localhost:3000/projects/update_projects
-
-You can create a cron entry to hit this:
-
-    curl -dfoo=bar localhost:3000/projects/update_projects -uadmin:password
 
 ## Display
 Just open a browser on `/`. The page refreshes every 30 seconds with the latest
