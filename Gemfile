@@ -30,6 +30,9 @@ gem 'rails-backbone', "0.7.2"
 gem 'coffee-filter'
 gem 'eco'
 gem 'pg'
+gem "eventmachine"
+# NOTE: >= 1.0.0.beta.4 is required for connection timeout support
+gem "em-http-request", ">= 1.0.0.beta.4"
 
 group :production do
   gem "therubyracer"
@@ -55,7 +58,6 @@ end
 group :development do
   gem "awesome_print"
   gem "heroku_san"
-  gem "debugger"
   gem "pry-rails"
   gem 'guard-coffeescript'
 end

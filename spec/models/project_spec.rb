@@ -9,6 +9,12 @@ describe Project do
     end
   end
 
+  describe 'associations' do
+    it { should have_many :statuses }
+    it { should have_many :payload_log_entries  }
+    it { should belong_to :aggregate_project }
+  end
+
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :type }
@@ -60,20 +66,27 @@ describe Project do
     end
   end
 
-  describe "job queuing" do
-    it "queues a higher priority job to fetch statuses for a newly created project" do
-      project = FactoryGirl.build(:project)
-      status_job = double(:enqueued_job)
-      tag_job = double(:enqueued_job)
+  # describe "job queuing" do
+  # it "queues a higher priority job to fetch statuses for a newly created project" do
+  # project = FactoryGirl.build(:project)
+  # status_job = double(:enqueued_job)
+  # tag_job = double(:enqueued_job)
 
-      RemoveUnusedTags::Job.should_receive(:new).and_return(tag_job)
-      StatusFetcher::Job.should_receive(:new).with(project).and_return(status_job)
-      Delayed::Job.should_receive(:enqueue).with(tag_job, priority: 1)
-      Delayed::Job.should_receive(:enqueue).with(status_job, priority: 0)
+  # RemoveUnusedTags::Job.should_receive(:new).and_return(tag_job)
+  # StatusFetcher::Job.should_receive(:new).with(project).and_return(status_job)
+  # Delayed::Job.should_receive(:enqueue).with(tag_job, priority: 1)
+  # Delayed::Job.should_receive(:enqueue).with(status_job, priority: 0)
+  # describe "job queuing" do
+  # it "queues a higher priority job to fetch statuses for a newly created project" do
+  # project = FactoryGirl.build(:project)
+  # enqueued_job = double(:enqueued_job)
 
-      project.save
-    end
-  end
+  # StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
+  # Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
+
+  # project.save
+  # end
+  # end
 
   describe 'scopes' do
     describe "standalone" do
@@ -122,13 +135,33 @@ describe Project do
     describe '.updateable' do
       subject { Project.updateable }
 
-      let!(:never_updated) { FactoryGirl.create(:jenkins_project, next_poll_at: nil) }
-      let!(:updated_recently) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.ago) }
-      let!(:causality_violator) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.from_now) }
+      let!(:enabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: true) }
+      let!(:disabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: true) }
+      let!(:disabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: false) }
+      let!(:enabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: false) }
+      let!(:enabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: nil) }
+      let!(:disabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: nil) }
 
-      it { should include never_updated }
-      it { should include updated_recently }
-      it { should_not include causality_violator }
+      it { should_not include enabled_webhooks_project }
+      it { should_not include disabled_webhooks_project }
+      it { should_not include disabled_polling_project }
+      it { should include enabled_polling_project }
+      it { should include enabled_nil_project }
+      it { should_not include disabled_nil_project }
+    end
+
+    describe '.tracker_updateable' do
+      subject { Project.tracker_updateable }
+
+      let!(:updateable1) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:updateable2) { FactoryGirl.create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:not_updateable1) { FactoryGirl.create(:jenkins_project, tracker_project_id: '1') }
+      let!(:not_updateable2) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf') }
+
+      it { should include updateable1 }
+      it { should include updateable2 }
+      it { should_not include not_updateable1 }
+      it { should_not include not_updateable2 }
     end
 
     describe '.displayable' do
@@ -300,14 +333,6 @@ describe Project do
       its(:yellow?) { should be_false }
     end
 
-    context "the project has a child with a failure status" do
-      let(:project) { Project.new(online: true).tap {|p| p.has_failing_children = true}}
-
-      its(:red?) { should be_true }
-      its(:green?) { should be_false }
-      its(:yellow?) { should be_false }
-    end
-
     context "the project has a success status" do
       let(:project) { FactoryGirl.create(:project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: true, build_id: 1) }
@@ -448,33 +473,6 @@ describe Project do
       projects(:never_built).should_not be_building
     end
 
-    it "should return true if a child is building" do
-      Project.new do |project|
-        project.building = false
-        project.has_building_children = true
-      end.should be_building
-    end
-  end
-
-  describe "#set_next_poll" do
-    epsilon = 2
-    context "with a project poll interval set" do
-      before do
-        project.polling_interval = 25
-      end
-
-      it "should set the next_poll_at to Time.now + the project poll interval" do
-        project.set_next_poll
-        (project.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
-      end
-    end
-
-    context "without a project poll interval set" do
-      it "should set the next_poll_at to Time.now + the system default interval" do
-        project.set_next_poll
-        (project.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
-      end
-    end
   end
 
   describe "#has_auth?" do
@@ -729,4 +727,5 @@ describe Project do
       end
     end
   end
+
 end

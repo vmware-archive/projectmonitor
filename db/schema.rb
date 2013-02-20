@@ -100,8 +100,6 @@ ActiveRecord::Schema.define(:version => 20130219223450) do
     t.string   "travis_github_account"
     t.string   "travis_repository"
     t.boolean  "online",                                     :default => false
-    t.boolean  "has_failing_children",                       :default => false, :null => false
-    t.boolean  "has_building_children",                      :default => false, :null => false
     t.string   "guid"
     t.boolean  "webhooks_enabled"
     t.string   "tracker_validation_status"
@@ -119,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20130219223450) do
     t.integer  "stories_to_accept_count"
     t.integer  "open_stories_count"
     t.string   "build_branch"
+    t.boolean  "has_failing_children",                       :default => false, :null => false
+    t.boolean  "has_building_children",                      :default => false, :null => false
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TeamCityXmlPayload do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
-  let(:payload) { TeamCityXmlPayload.new.tap{|p|p.status_content = content} }
+  let(:payload) { TeamCityXmlPayload.new(project).tap{|p|p.status_content = content} }
 
   describe '.process' do
     subject do
@@ -51,7 +51,7 @@ describe TeamCityXmlPayload do
               <build id="1" number="1" status="SUCCESS" webUrl="/1" startDate="#{5.minutes.ago}" />
             </builds>
           XML
-          payload = TeamCityXmlPayload.new
+          payload = TeamCityXmlPayload.new(project)
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
 
@@ -79,7 +79,7 @@ describe TeamCityXmlPayload do
               <build id="1" number="1" status="FAILURE" webUrl="/1" startDate="#{5.minutes.ago}" />
             </builds>
           XML
-          payload = TeamCityXmlPayload.new
+          payload = TeamCityXmlPayload.new(project)
           payload.status_content = content
           PayloadProcessor.new(project,payload).process
 
@@ -138,7 +138,7 @@ describe TeamCityXmlPayload do
               <build id="1" number="1" status="SUCCESS" webUrl="/1" startDate="#{5.minutes.ago}" />
             </builds>
       XML
-      payload = TeamCityXmlPayload.new
+      payload = TeamCityXmlPayload.new(project)
       payload.status_content = content
       PayloadProcessor.new(project,payload).process
 
@@ -151,7 +151,7 @@ describe TeamCityXmlPayload do
               <build id="2" number="2" status="UNKNOWN" webUrl="/2" />
             </builds>
       XML
-      payload = TeamCityXmlPayload.new
+      payload = TeamCityXmlPayload.new(project)
       payload.status_content = content
       PayloadProcessor.new(project,payload).process
 
@@ -160,33 +160,4 @@ describe TeamCityXmlPayload do
     end
   end
 
-  describe '#each_child' do
-    let(:content) { nil }
-    before do
-      payload.dependent_content = <<-XML.strip_heredoc
-        <buildType id="bt5" name="Acceptance Deploy" href="/httpAuth/app/rest/buildTypes/id:bt5" webUrl="http://23.23.175.228:8111/viewType.html?buildTypeId=bt5" description="" paused="false">
-          <project id="project2" name="Zephyr" href="/httpAuth/app/rest/projects/id:project2"/>
-          <template id="btTemplate2" name="Zephyr" href="/httpAuth/app/rest/buildTypes/id:(template:btTemplate2)" projectName="Zephyr" projectId="project2"/>
-          <snapshot-dependencies>
-            <snapshot-dependency id="bt3" type="snapshot_dependency">
-              <properties>
-                <property name="run-build-if-dependency-failed" value="false"/>
-                <property name="run-build-on-the-same-agent" value="false"/>
-                <property name="source_buildTypeId" value="bt3"/>
-                <property name="take-started-build-with-same-revisions" value="true"/>
-                <property name="take-successful-builds-only" value="true"/>
-              </properties>
-            </snapshot-dependency>
-          </snapshot-dependencies>
-      XML
-    end
-
-    it 'should supply a child project with the appropriate id to a block' do
-      child_project_id = nil
-      payload.each_child(project) do |child_project|
-        child_project_id = child_project.team_city_rest_build_type_id
-      end
-      child_project_id.should == 'bt3'
-    end
-  end
 end

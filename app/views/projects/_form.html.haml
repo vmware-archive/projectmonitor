@@ -85,16 +85,6 @@
       %br
       %label
       %input{ class: 'refresh', type: 'button', value: 'Refresh' }
-    %p
-      = f.label :polling_interval, "Polling Interval"
-      = f.text_field :polling_interval, :size=>3, class: 'optional'
-      seconds
-      %em
-        If blank, will use #{Project::DEFAULT_POLLING_INTERVAL} seconds.
-        %br
-        - if @project.next_poll_at
-          Will poll in
-          %span#time_left= @project.next_poll_at > Time.now ? "#{@project.next_poll_at.utc.to_i - Time.now.utc.to_i} seconds" : "ASAP"
 %hr
 %fieldset#tracker_setup
   %h3 Tracker Setup

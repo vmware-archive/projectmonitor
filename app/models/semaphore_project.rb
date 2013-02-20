@@ -11,10 +11,6 @@ class SemaphoreProject < Project
     semaphore_api_url
   end
 
-  def build_status_url
-    feed_url
-  end
-
   def fetch_payload
     SemaphorePayload.new
   end
@@ -23,4 +19,7 @@ class SemaphoreProject < Project
     SemaphorePayload.new
   end
 
+  def build_status_url
+    feed_url
+  end
 end

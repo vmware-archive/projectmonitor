@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iterations type="array">
+  <iteration>
+    <id type="integer">196</id>
+    <number type="integer">196</number>
+    <start type="datetime">2012/08/20 05:00:00 UTC</start>
+    <finish type="datetime">2012/08/27 05:00:00 UTC</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">33482989</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33482989</url>
+        <current_state>accepted</current_state>
+        <description>TeamCity Chained projects are projects that depend on other build in addition to having their own build target.
+Desired behaviour would be for a Chained Project to go red as soon as any of its children/dependencies are red, or it itself is red.  The detection of children should be automatic, so that any configuration change on TeamCity immediately impacts what children are polled for status.</description>
+        <name>TeamCity Chained projects are currently not working</name>
+        <created_at type="datetime">2012/07/27 14:39:45 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 14:58:12 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 14:58:11 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34249523</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34249523</url>
+        <current_state>accepted</current_state>
+        <description>Enables Chef'ing of a project monitor box. From John Barker:
+&quot;Perhaps a combination of fields would make a good unique identifier, or we could store a slug(guid) generated upon creation that never changes.&quot;</description>
+        <name>On import from YAML, a project should not be created if it already exists</name>
+        <created_at type="datetime">2012/08/11 15:34:16 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:05:41 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:05:41 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34321991</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34321991</url>
+        <current_state>accepted</current_state>
+        <description>Currently config.import, if it fails, will leave some number of importing projects in the database and then add them again next time.
+</description>
+        <name>Do config.import in a transaction</name>
+        <created_at type="datetime">2012/08/13 19:07:49 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:11:55 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:11:54 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34171221</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34171221</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>If a build is green and the next build is in progress but red, the project should go red immediately. If a build is red and the next build in progress is green, it should remain red.</name>
+        <created_at type="datetime">2012/08/09 20:14:03 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:19:55 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:19:55 UTC</accepted_at>
+        <labels>blocked</labels>
+      </story>
+      <story>
+        <id type="integer">33054463</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33054463</url>
+        <estimate type="integer">3</estimate>
+        <current_state>accepted</current_state>
+        <description>* If enabled require basic auth to access view and admin pages
+* Allow ability to whitelist certain IPs (i.e. the Pivotal offices)
+* Example of this is on the pivotal concierge page - https://github.com/pivotalprivate/concierge/blob/master/app.rb
+* Don't require basic auth for webhook because they have shareds secret
+</description>
+        <name>Support basic auth with IP whitelisting</name>
+        <created_at type="datetime">2012/07/19 15:16:59 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:26:49 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:26:48 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34465543</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34465543</url>
+        <current_state>accepted</current_state>
+        <description>Do this: rake cimonitor:force_update
+When you have projects with no CI details and webhooks enabled
+Yielding this error: Failed to update project 'Team City', reason: undefined method `+' for nil:NilClass
+May impact other areas.</description>
+        <name>Force updating of project statuses tries to update projects with webhooks_enabled</name>
+        <created_at type="datetime">2012/08/15 20:25:06 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:28:06 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:28:06 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34458181</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34458181</url>
+        <current_state>accepted</current_state>
+        <description>It points to /projects/:id</description>
+        <name>Jenkins project link on the CODE label is broken in some situations</name>
+        <created_at type="datetime">2012/08/15 18:42:02 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:29:04 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:29:04 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34390175</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34390175</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Configuration export endpoint is returning a 406</name>
+        <created_at type="datetime">2012/08/14 18:23:10 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:29:16 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:29:16 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34296277</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34296277</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <description>Should update both when polling and webhooked</description>
+        <name>Add last refreshed time to admin interface</name>
+        <created_at type="datetime">2012/08/13 14:21:20 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:34:42 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:34:42 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">33812135</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33812135</url>
+        <current_state>accepted</current_state>
+        <description>The routes:  match 'projects/validate_tracker_project' and match 'projects/validate_build_info' poll an external server and can lock up the server for long periods of time, they should do their work asynchronously and provide an endpoint for polling the result.</description>
+        <name>Asynchronous validation of CI and tracker settings</name>
+        <created_at type="datetime">2012/08/02 21:11:47 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 15:36:41 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 15:36:41 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34533901</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34533901</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Configuration import regression with older exports and ec2_ attributes</name>
+        <created_at type="datetime">2012/08/16 21:03:54 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 18:13:09 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/20 18:13:09 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34295507</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34295507</url>
+        <estimate type="integer">3</estimate>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Generate Sinatra app to simulate webhook payloads for acceptance</name>
+        <created_at type="datetime">2012/08/13 14:10:37 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 13:47:35 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 13:47:35 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34386681</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34386681</url>
+        <current_state>accepted</current_state>
+        <description>This may or may not be a serious problem, it appears as though when this happens it's mostly just a no-op. i.e. no statuses are made, but the project is set to online and the last_refreshed_at is updated.</description>
+        <name>Don't record project refreshed at if it was not refreshed</name>
+        <created_at type="datetime">2012/08/14 17:44:56 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 13:52:15 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 13:52:15 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34513585</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34513585</url>
+        <current_state>accepted</current_state>
+        <description>The webhooks controller is pretty naive in processing all incoming payloads using the rack params hash, but this does not account for webhooks passed in as raw content via the request.body. If the payload contains a &amp; it will be split and passed as two separate params and the Jenkins Payload processor will asplode.</description>
+        <name>Jenkins Payload processor will explode if the payload contains the &amp; character</name>
+        <created_at type="datetime">2012/08/16 15:56:08 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 13:55:09 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 13:55:09 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34437217</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34437217</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Add semaphore payload to ci simulator</name>
+        <created_at type="datetime">2012/08/15 13:34:09 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 15:03:03 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 15:03:03 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34415231</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34415231</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <description>SemaphoreApp is a hosted solution similar to TravisCI, but supports private projects.
+Docs available at http://docs.semaphoreapp.com/api</description>
+        <name>Add support for SemaphoreApp as a build agent</name>
+        <created_at type="datetime">2012/08/15 01:30:13 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 15:04:30 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 15:04:30 UTC</accepted_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">9036771</id>
+            <description>Add semaphore project type to edit screen</description>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/15 13:35:46 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9036777</id>
+            <description>Ability to add and edit a semaphore project</description>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/15 13:35:54 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9037003</id>
+            <description>Add support for polling semaphore projects / parsing their payloads</description>
+            <position type="integer">3</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/15 13:36:10 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9037007</id>
+            <description>Add support for webhooks</description>
+            <position type="integer">4</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/15 13:36:14 UTC</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">33728893</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33728893</url>
+        <estimate type="integer">2</estimate>
+        <current_state>accepted</current_state>
+        <description>It's difficult for an admin to know how polling of their project status is working or if its not, why it's failing.
+I suggest a column in the project list which indicates the 'status' of a project (for lack of a better name). This indicates that we've recently been able to poll (or gotten a successful webhook update) which was passed correctly.
+If this has recently failed, you could click on it to see a log of recent errors for the project updater.
+--
+If a project is currently failing display a &quot;yellow&quot; indicator. If polling as been disabled due to too many failures display a &quot;red&quot; indicator
+</description>
+        <name>Status indicator for projects</name>
+        <created_at type="datetime">2012/08/01 17:55:58 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 16:13:46 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 16:13:45 UTC</accepted_at>
+        <labels>stale-builds</labels>
+        <attachments type="array">
+          <attachment>
+            <id type="integer">11033757</id>
+            <filename>Screen_Shot_2012-08-21_at_11.22.17_AM.png</filename>
+            <description>Attached an example of what I mean in the above comment.</description>
+            <uploaded_by>John Barker</uploaded_by>
+            <uploaded_at type="datetime">2012/08/21 15:22:48 UTC</uploaded_at>
+            <url>https://www.pivotaltracker.com/resource/download/11033757</url>
+          </attachment>
+        </attachments>
+      </story>
+      <story>
+        <id type="integer">33954419</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33954419</url>
+        <estimate type="integer">1</estimate>
+        <current_state>accepted</current_state>
+        <description>Add checkbox indicating webhooks. When enabled hide the polling fields from the admin interface and disable polling.</description>
+        <name>Disable polling when webhooks enabled</name>
+        <created_at type="datetime">2012/08/06 18:26:42 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 17:56:57 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 17:56:52 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34754151</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34754151</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Can't update team city projects</name>
+        <created_at type="datetime">2012/08/21 19:58:11 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 21:17:05 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 21:17:05 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34754161</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34754161</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Can't update team city dependent projects</name>
+        <created_at type="datetime">2012/08/21 19:58:24 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 21:17:06 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/21 21:17:06 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34671283</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34671283</url>
+        <current_state>accepted</current_state>
+        <description>Looks like Tddium doesn't support webhooks. Lets reach out and see if it's on their roadmap.</description>
+        <name>Request webhook integration from Tddium</name>
+        <created_at type="datetime">2012/08/20 18:38:24 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 17:36:59 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/22 17:36:51 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34748215</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34748215</url>
+        <current_state>accepted</current_state>
+        <description>Should use consistent titlecase</description>
+        <name>Wrong case for status column</name>
+        <created_at type="datetime">2012/08/21 18:39:29 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 17:54:41 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/23 17:54:41 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34813111</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34813111</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>Remove stale projects on production</name>
+        <created_at type="datetime">2012/08/22 16:53:36 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 12:43:12 UTC</updated_at>
+        <accepted_at type="datetime">2012/08/24 12:43:07 UTC</accepted_at>
+      </story>
+      <story>
+        <id type="integer">34330705</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34330705</url>
+        <current_state>delivered</current_state>
+        <description></description>
+        <name>Webhooks projects don't have working build links</name>
+        <created_at type="datetime">2012/08/13 21:07:24 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 20:27:22 UTC</updated_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">9113437</id>
+            <description>Verify that project is not linked until we know where to link it to.</description>
+            <position type="integer">1</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/20 14:35:25 UTC</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">34569303</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34569303</url>
+        <current_state>delivered</current_state>
+        <description>This seems like a bug.</description>
+        <name>last_refreshed_at is accessible for the project?</name>
+        <created_at type="datetime">2012/08/17 14:44:55 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 21:35:00 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34758725</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34758725</url>
+        <current_state>delivered</current_state>
+        <description></description>
+        <name>clicking &quot;show backtrace&quot; shouldn't open all backtraces</name>
+        <created_at type="datetime">2012/08/21 20:52:45 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 18:13:10 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34535891</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34535891</url>
+        <estimate type="integer">1</estimate>
+        <current_state>delivered</current_state>
+        <description>Split this out into a separate feature because it requires extra consideration (i.e. persisting the url after we get it from a build status update or asking the user to enter it for us).
+We may be able to convince semaphore to provide a way of figuring it out/accessing it from the api url.</description>
+        <name>Point CODE for semaphore projects at latest build</name>
+        <created_at type="datetime">2012/08/16 21:34:08 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 01:52:46 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34670897</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34670897</url>
+        <estimate type="integer">2</estimate>
+        <current_state>delivered</current_state>
+        <description>Tddium is a hosted service similar to Semaphore / Travis. According to Jeff S. it looks like it supports a Cruise Control compatible XML. Please work with Jeff to integrate support using his project as an example.</description>
+        <name>Support Tddium</name>
+        <created_at type="datetime">2012/08/20 18:33:30 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 18:47:02 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34762183</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34762183</url>
+        <estimate type="integer">1</estimate>
+        <current_state>delivered</current_state>
+        <description></description>
+        <name>&quot;Test&quot; button to deliberately test CI configuration without having to blur on of the input fields</name>
+        <created_at type="datetime">2012/08/21 21:42:21 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 18:47:01 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">33845309</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33845309</url>
+        <estimate type="integer">2</estimate>
+        <current_state>delivered</current_state>
+        <description>Currently the CI status flag in the edit screen of a project is confusing. What makes it success vs. error?
+--
+When clicking on this status it should take you to a page with a log of all the statuses</description>
+        <name>Add more detail to CI verification in project edit page</name>
+        <created_at type="datetime">2012/08/03 13:40:05 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 18:47:00 UTC</updated_at>
+        <labels>stale-builds</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">9153997</id>
+            <description>Show the exception message as a tooltip on the &quot;Error&quot; text</description>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/21 21:39:53 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9153987</id>
+            <description>When loading the project edit page, if there is a record of a previous failure - show that error instead of trying to poll it again</description>
+            <position type="integer">2</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/21 21:39:27 UTC</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">33953733</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33953733</url>
+        <estimate type="integer">2</estimate>
+        <current_state>delivered</current_state>
+        <description>This implies we have contact details for the project admin. Maybe we want a notification email address as an attribute within the project settings?</description>
+        <name>Notify project admin when polling disabled </name>
+        <created_at type="datetime">2012/08/06 18:19:56 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 18:46:59 UTC</updated_at>
+        <labels>stale-builds</labels>
+      </story>
+      <story>
+        <id type="integer">34903611</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34903611</url>
+        <current_state>delivered</current_state>
+        <description>The url generator methods add the scheme, which then causes the poller to try and retrieve http://http://myhost.com</description>
+        <name>Team city projects allow you to enter a url with a scheme, which doesn't work</name>
+        <created_at type="datetime">2012/08/23 20:28:52 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 19:08:51 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34651321</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34651321</url>
+        <current_state>started</current_state>
+        <description></description>
+        <name>Submit feature request to Travis CI &amp; Semaphore for webhook when build starts</name>
+        <created_at type="datetime">2012/08/20 14:24:54 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 17:37:28 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34792571</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34792571</url>
+        <estimate type="integer">2</estimate>
+        <current_state>started</current_state>
+        <description>We currently use Delayed::Job for polling CI systems. This is a poor design. IO bound polling is not well suited for a threading framework, especially one with a very small set of available threads.
+Typically this means that if ~3 projects take a long time to poll, the system gets backlogged (Delayed::Job is set to only use 3 jobs). It also means that the project needs 4 connections to the database at any one time, and only for an almost instantaneous update. We could increase the number of jobs available but this can cause quite a large increase in memory usage and will likely hit DB limits on hosts like Heroku.
+We should change this to use the reactor pattern, it is very performant for this type of usage. Two possible candidates for this in Ruby land are Typheous or Eventmachine. Typheous[https://rubygems.org/gems/typhoeus] looks the most simple of the two, but it doesn't look like it allows ad hoc queuing of requests once you're in its event loop. Eventmachine[https://rubygems.org/gems/eventmachine] looks like the more capable solution, but looks a little more complex and involved. Neither of these unfortunately do HTTP client requests quite as well as say restclient or httpclient, so we'll possibly need to package certificates and handle authentication a little more explicitly (We had to remove httpclient recently so this is a bit of a moot point).</description>
+        <name>Improve polling efficiency</name>
+        <created_at type="datetime">2012/08/22 12:40:23 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 20:40:08 UTC</updated_at>
+        <tasks type="array">
+          <task>
+            <id type="integer">9180081</id>
+            <description>Support polling of project CI status in ASIO</description>
+            <position type="integer">1</position>
+            <complete type="boolean">true</complete>
+            <created_at type="datetime">2012/08/22 21:06:00 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9180089</id>
+            <description>Support polling of tracker status using ASIO</description>
+            <position type="integer">2</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/22 21:06:09 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9180093</id>
+            <description>Support polling of dependent children using ASIO</description>
+            <position type="integer">3</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/22 21:06:22 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9202085</id>
+            <description>Support authentication in ASIO polling of CI</description>
+            <position type="integer">4</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/23 20:40:08 UTC</created_at>
+          </task>
+        </tasks>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">197</id>
+    <number type="integer">197</number>
+    <start type="datetime">2012/08/27 05:00:00 UTC</start>
+    <finish type="datetime">2012/09/03 05:00:00 UTC</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">34762301</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34762301</url>
+        <estimate type="integer">-1</estimate>
+        <current_state>unstarted</current_state>
+        <description>It's correct not to put the password in the form when rendered, but it's a little confusing since the project actually has a password stored against it.
+It would be nice if we could somehow show the password field full of *s to indicate a password is strored, clear the text as soon as you click on the password field.</description>
+        <name>Password field on project edit screen should show that a password is stored</name>
+        <created_at type="datetime">2012/08/21 21:44:08 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 19:10:34 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34761605</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34761605</url>
+        <current_state>unstarted</current_state>
+        <description>Open an existing project with valid CI fields, adjust one of the fields, it will now fail because the password is not resubmitted by the form.</description>
+        <name>CI status indicator fails if password is stored on server, but not entered in form</name>
+        <created_at type="datetime">2012/08/21 21:33:05 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 19:11:00 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34464655</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34464655</url>
+        <current_state>unstarted</current_state>
+        <description>* Semaphore doesn't require username / password
+* Travis is public and doesn't require username / password</description>
+        <name>Feed username and password fields appear for a project even when not needed</name>
+        <created_at type="datetime">2012/08/15 20:15:32 UTC</created_at>
+        <updated_at type="datetime">2012/08/24 19:11:04 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">33953695</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33953695</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Extend polling time after failed attempt</name>
+        <created_at type="datetime">2012/08/06 18:19:20 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 13:42:33 UTC</updated_at>
+        <labels>*blocked*,stale-builds</labels>
+      </story>
+      <story>
+        <id type="integer">33953705</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33953705</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Disable polling after 3 failed attempts</name>
+        <created_at type="datetime">2012/08/06 18:19:29 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 13:42:38 UTC</updated_at>
+        <labels>*blocked*,stale-builds</labels>
+        <tasks type="array">
+          <task>
+            <id type="integer">9148499</id>
+            <description>Mark failed projects with a 'disabled' like flag</description>
+            <position type="integer">1</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/21 18:31:35 UTC</created_at>
+          </task>
+          <task>
+            <id type="integer">9148541</id>
+            <description>Add a log entry to the project log to say that it has been disabled due to reaching the maximum consecutive attempts</description>
+            <position type="integer">2</position>
+            <complete type="boolean">false</complete>
+            <created_at type="datetime">2012/08/21 18:32:21 UTC</created_at>
+          </task>
+        </tasks>
+      </story>
+      <story>
+        <id type="integer">34732535</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34732535</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Status indicator should show when a project has polling disabled</name>
+        <created_at type="datetime">2012/08/21 15:18:08 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 13:43:05 UTC</updated_at>
+        <labels>*blocked*</labels>
+      </story>
+      <story>
+        <id type="integer">34757869</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34757869</url>
+        <estimate type="integer">-1</estimate>
+        <current_state>unstarted</current_state>
+        <description>Should show something like 'disabled' instead of 'polling succeeded'</description>
+        <name>Shouldn't show a build status for a project that is disabled</name>
+        <created_at type="datetime">2012/08/21 20:39:50 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:43:11 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34832225</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34832225</url>
+        <estimate type="integer">-1</estimate>
+        <current_state>unstarted</current_state>
+        <description>Maybe delete ones older than a few days or a week?</description>
+        <name>Prune payload log entries</name>
+        <created_at type="datetime">2012/08/22 20:43:20 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:43:39 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34755657</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34755657</url>
+        <current_state>unstarted</current_state>
+        <description>This looks like it's not used anymore, it's also reimplementing half the parsing and fetching framework.</description>
+        <name>Remove TeamCityBuildStatus</name>
+        <created_at type="datetime">2012/08/21 20:18:56 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:43:20 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34792567</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>chore</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34792567</url>
+        <current_state>unstarted</current_state>
+        <description>The parsing modules are quite badly designed and exhibit the following problems:
+1. There are multiple points of failure, scattered throughout the code
+2. Invalid payloads can sometimes be treated as valid ones, but produce unexpected results
+3. Parsing is complex and difficult to understand
+4. The modules for parsing are named after their implementation instead of their purpose
+5. They rescue exceptions not related to parsing, which could hide faults in the parser
+6. Treating a project as offline because we couldn't parse it is misleading
+7. Payloads are not treated atomically, if we can parse part of a payload we could still get changes. If we can't trust part of a payload we should not trust ALL of it.
+8. We don't log many kinds of parser failures so often can't diagnose problems
+9. None of the parsers have unit tests
+Our parsing requirements are not complex, this design can be drastically simplified without a great deal of work.</description>
+        <name>Refactor parsing</name>
+        <created_at type="datetime">2012/08/22 12:40:11 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:42:52 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34758511</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34758511</url>
+        <current_state>unstarted</current_state>
+        <description>Partially due to the bad design of the parsing, it seems like there are some situations where we'll have too many log entries for a project e.g: a success log entry followed by a failed entry.</description>
+        <name>Project failure could introduce excessive log entries</name>
+        <created_at type="datetime">2012/08/21 20:50:01 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:43:03 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34872545</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34872545</url>
+        <current_state>unstarted</current_state>
+        <description>Polling in semaphore only gets the 'current' build so if the polling doesn't happen frequently enough builds will be missed.</description>
+        <name>Semaphore polling misses builds</name>
+        <created_at type="datetime">2012/08/23 13:40:31 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 14:42:30 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34520899</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34520899</url>
+        <current_state>unstarted</current_state>
+        <description>You could easily ask the server for a GUID, generate one when the page is loaded (in the new action) or ask the javascript to do it.</description>
+        <name>When creating a new travis project you get a strange warning &quot;Your webhooks URL is not yet configured&quot; </name>
+        <created_at type="datetime">2012/08/16 17:45:32 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 14:39:46 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34573471</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34573471</url>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Project CI validator should return 4xx code when it fails rather than 500</name>
+        <created_at type="datetime">2012/08/17 15:46:05 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 14:38:49 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34573947</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34573947</url>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>The Payload updater will still try to update dependent builds even if it was unable to process the parent build</name>
+        <created_at type="datetime">2012/08/17 15:54:18 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 14:38:54 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34668605</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34668605</url>
+        <current_state>unstarted</current_state>
+        <description>We've been rethinking this problem. Essentially the reasons parsing would fail are:
+1. Corrupted transmission. Incredibly unlikely we are after all using TCP transmission.
+2. Bad / garbage data. Highly unlikely, could be caused by broken CI implementation - we should definitely fail and log if this happens.
+3. The payload format has changed or been encoded differently and we can no longer parse it properly. Definitely fail and log.
+So it seems we shouldn't just fail silently, we should at the very least log an error to improve visibility and speed a resolution.</description>
+        <name>If a project payload fails to parse there is no record of the error</name>
+        <created_at type="datetime">2012/08/20 18:02:52 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 18:33:57 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34754901</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34754901</url>
+        <current_state>unstarted</current_state>
+        <description>We recently removed the hand rolled URLRetrieve and replaced it with httpclient, unfortunately it doesn't do auth properly, we should fix this (perhaps doing it wrongly?) or use another gem.</description>
+        <name>HTTPClient rewrite authentication doesn't work</name>
+        <created_at type="datetime">2012/08/21 20:09:46 UTC</created_at>
+        <updated_at type="datetime">2012/08/21 20:09:50 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34572433</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34572433</url>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Project CI status checker says error when some fields are missing, but should really report this as 'incomplete, or some fields are required'</name>
+        <created_at type="datetime">2012/08/17 15:32:21 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 13:43:51 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34760893</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34760893</url>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>webhooks/polling not checked for projects defaulting to polling</name>
+        <created_at type="datetime">2012/08/21 21:20:20 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 21:05:42 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34761367</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34761367</url>
+        <current_state>unstarted</current_state>
+        <description>build_ids should never be used for sorting of build statuses because we can't guarantee their order or uniqueness</description>
+        <name>Ordering of build statuses by ID falls over if IDs get recycled</name>
+        <created_at type="datetime">2012/08/21 21:28:44 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 21:05:43 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">34227969</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>bug</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34227969</url>
+        <current_state>unstarted</current_state>
+        <description>All of the images in the admin interface are returning zero bytes.
+For example: http://unpakt-ci-worker.local:3000/assets/pivotallabs-logo-f28053897993a75374386087f3c2b0e5.png gives a 200 OK with a zero byte file back. Weird. The file is ok in app/assets/images.</description>
+        <name>broken images in Admin interface on local install (non-heroku)</name>
+        <created_at type="datetime">2012/08/10 19:26:36 UTC</created_at>
+        <updated_at type="datetime">2012/08/22 21:06:29 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">32536823</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/32536823</url>
+        <estimate type="integer">-1</estimate>
+        <current_state>unstarted</current_state>
+        <description>Need to update the layout of the admin pages to reflect the new design
+Possible idea for tabs: http://jqueryui.com/demos/tabs/</description>
+        <name>Update layout of admin page</name>
+        <created_at type="datetime">2012/07/10 16:13:19 UTC</created_at>
+        <updated_at type="datetime">2012/08/20 14:42:38 UTC</updated_at>
+        <labels>needs_design</labels>
+      </story>
+      <story>
+        <id type="integer">34038929</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/34038929</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Rake setup should set up auth/crypto stuff</name>
+        <created_at type="datetime">2012/08/07 21:43:51 UTC</created_at>
+        <updated_at type="datetime">2012/08/13 14:27:58 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">33053797</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33053797</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>auto-completer for tag names</name>
+        <created_at type="datetime">2012/07/19 15:09:24 UTC</created_at>
+        <updated_at type="datetime">2012/08/23 18:22:44 UTC</updated_at>
+        <labels>interview</labels>
+      </story>
+    </stories>
+  </iteration>
+  <iteration>
+    <id type="integer">198</id>
+    <number type="integer">198</number>
+    <start type="datetime">2012/09/03 05:00:00 UTC</start>
+    <finish type="datetime">2012/09/10 05:00:00 UTC</finish>
+    <team_strength type="float">1</team_strength>
+    <stories type="array">
+      <story>
+        <id type="integer">33004371</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33004371</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Remove admin links and replace with a /admin url</name>
+        <created_at type="datetime">2012/07/18 18:48:43 UTC</created_at>
+        <updated_at type="datetime">2012/08/13 14:27:40 UTC</updated_at>
+      </story>
+      <story>
+        <id type="integer">33720133</id>
+        <project_id type="integer">2872</project_id>
+        <story_type>feature</story_type>
+        <url>https://www.pivotaltracker.com/story/show/33720133</url>
+        <estimate type="integer">1</estimate>
+        <current_state>unstarted</current_state>
+        <description></description>
+        <name>Document/blog about webhooks</name>
+        <created_at type="datetime">2012/08/01 16:04:34 UTC</created_at>
+        <updated_at type="datetime">2012/08/13 14:14:40 UTC</updated_at>
+      </story>
+    </stories>
+  </iteration>
+</iterations>
