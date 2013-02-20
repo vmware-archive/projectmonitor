@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220210915) do
+ActiveRecord::Schema.define(:version => 20130220225223) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,12 @@ ActiveRecord::Schema.define(:version => 20130220210915) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "deprecated_sf_users_backup_20130220", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "login", :limit => 40
+    t.string  "email", :limit => 100
+  end
 
   create_table "external_dependencies", :force => true do |t|
     t.string   "name"
