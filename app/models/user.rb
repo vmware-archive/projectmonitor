@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :login, :name, :email, :password, :password_confirmation, :remember_me
 
+  validates :password, confirmation: true
   validates :login, presence: true, length: 2..40, uniqueness: true
   validates_length_of :name, :maximum => 100
   validates :email, presence: true, length: 6..100, uniqueness: true

@@ -45,8 +45,7 @@ class Project < ActiveRecord::Base
   attr_accessible :aggregate_project_id,
     :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
     :auth_password, :auth_username, :tracker_auth_token, :tracker_project_id, :tracker_online,
-    :webhooks_enabled, :notification_email, :send_error_notifications, :send_build_notifications,
-    :verify_ssl
+    :webhooks_enabled, :verify_ssl
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)

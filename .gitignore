@@ -17,5 +17,6 @@ tags
 *.log
 *.out
 .tddium*
+*.swp
 spec/javascripts/compiled/
 .vagrant
