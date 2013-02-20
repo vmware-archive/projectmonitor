@@ -1,38 +1,7 @@
 @import "constants";
 
-.page{
-  margin: 15px;
-}
-
-.dashboard {
-  margin: 0px;
-  padding: 5px;
-  background: black;
-}
-
-.error {
-  color: #000000;
-}
-
-.success {
-  color: #000000;
-}
-
-#build_setup, #tracker_setup {
-  .success {
-    color: $very-dark-green;
-    font-weight: bold;
-  }
-  .failure {
-    color: $very-dark-red;
-    font-weight: bold;
-  }
-  .pending {
-    background: url("/assets/ajax-loader.gif");
-    width: 128px;
-    height: 15px;
-    display: inline-block;
-  }
+.page {
+margin: 15px;
 }
 
 .hide {
@@ -48,13 +17,8 @@ a:hover {
   color: #aa1224;
 }
 
-/* Projects */
 
-.box {
-  position: relative;
-  height: 213px;
-  width: 213px;
-}
+/* Projects */
 
 #header {
   margin: 0;
@@ -67,29 +31,7 @@ a:hover {
 }
 
 #header a, #header img {
-  border: 0
-}
-
-#title {
-  padding-top: 10px;
-  margin-left: 300px;
-  text-align: left;
-}
-
-.cached_images {
-  display: none;
-}
-
-.project_visit {
-  float: right;
-  font-size: smaller;
-}
-
-.ui-menu {
-  background-color: white;
-  list-style: none;
-  border: 1px solid black;
-  width: 219px;
+  border: 0;
 }
 
 #top_right {
@@ -97,19 +39,6 @@ a:hover {
   top: 0.25em;
   right: 2em;
   margin-top: 0.5em;
-}
-
-#advertisement {
-  font-size: smaller;
-}
-
-.logo_page {
-  padding-top: 100px;
-  text-align: center;
-}
-
-.smaller_text {
-  font-size: smaller;
 }
 
 #flash_error {
@@ -234,7 +163,6 @@ a:hover.button {
 
 .add_button {
   margin-left: 15px;
-/* text-transform: uppercase; */
   font-size: 13px;
 }
 
@@ -274,14 +202,6 @@ form {
     text-align: right;
     margin-bottom: 0
   }
-
-}
-
-#schedules label {
-  display: inline;
-  width: 3em;
-  margin-right: 0;
-  font-weight: normal;
 }
 
 .project.message .box {
@@ -296,28 +216,6 @@ form {
   font-weight: bold;
   line-height: 22px;
   overflow:hidden;
-}
-
-.twtr-widget {
-  position: relative;
-  top: 4px;
-  left: 13px;
-}
-.twtr-bd {
-  height: 171px;
-  overflow: hidden;
-}
-
-.twtr-ft {
-  height: 7px;
-}
-
-.twtr-reply, .twtr-rt, .twtr-fav {
-  display: none;
-}
-
-.twtr-tweet-text em {
-  color: #ffffff;
 }
 
 .projects.index {
