@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
