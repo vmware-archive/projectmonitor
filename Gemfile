@@ -58,7 +58,6 @@ end
 group :development do
   gem "awesome_print"
   gem "heroku_san"
-  gem "debugger"
   gem "pry-rails"
   gem 'guard-coffeescript'
 end

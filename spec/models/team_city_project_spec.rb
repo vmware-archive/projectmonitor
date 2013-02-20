@@ -27,6 +27,6 @@ describe TeamCityProject do
 
   its(:feed_url) { should == "http://foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
   its(:project_name) { should == "http://foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
-  its(:build_status_url) { should be_nil }
+  its(:build_status_url) { should == "http://foo.bar.com:1234/guestAuth/cradiator.html?buildTypeId=bt567" }
 
 end

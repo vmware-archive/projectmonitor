@@ -3,7 +3,6 @@ class Payload
   class InvalidContentException < ::Exception
   end
 
-  attr_writer :dependent_content
   attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr
 
   def initialize
@@ -65,14 +64,6 @@ class Payload
     build_status_content.present?
   end
 
-  def has_dependent_content?
-    dependent_content.present?
-  end
-
-  def dependent_projects
-    []
-  end
-
   def convert_content!(content)
     content
   end
@@ -96,7 +87,7 @@ class Payload
   end
 
   attr_accessor :processable, :build_processable
-  attr_reader :status_content, :build_status_content, :dependent_content
+  attr_reader :status_content, :build_status_content
 
 end
 

@@ -9,27 +9,21 @@ class Project < ActiveRecord::Base
     before_add: :update_refreshed_at,
     after_add: :remove_outdated_status
   has_many :payload_log_entries
-  has_many :dependent_projects,
-    class_name: 'Project',
-    foreign_key: :parent_project_id
-  belongs_to :parent_project, class_name: "Project"
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
   serialize :tracker_validation_status, Hash
 
   scope :enabled, where(enabled: true)
-  scope :primary, where(parent_project_id: nil)
   scope :standalone, where(aggregate_project_id: nil)
   scope :with_statuses, joins(:statuses).uniq
 
   scope :updateable,
     enabled
   .where(webhooks_enabled: [nil, false])
-  .where(["next_poll_at IS NULL OR next_poll_at <= ?", Time.now])
 
   scope :tracker_updateable,
-    enabled.primary
+    enabled
   .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
 
   scope :displayable, lambda {|tags|
@@ -49,7 +43,6 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   validates :type, presence: true
 
-  before_save :check_next_poll
   before_create :generate_guid
 
   attr_accessible :aggregate_project_id,
@@ -63,14 +56,6 @@ class Project < ActiveRecord::Base
 
   def self.with_aggregate_project aggregate_project_id, &block
     with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
-  end
-
-  def self.mark_for_immediate_poll
-    update_all(next_poll_at: nil)
-  end
-
-  def check_next_poll
-    set_next_poll if changed.include?('polling_interval')
   end
 
   def code
@@ -98,7 +83,7 @@ class Project < ActiveRecord::Base
   end
 
   def red?
-    online? && latest_status.try(:success?) == false || dependent_projects.any?(&:red?)
+    online? && latest_status.try(:success?) == false
   end
 
   def status_in_words
@@ -138,6 +123,7 @@ class Project < ActiveRecord::Base
   end
 
   def build_status_url
+    raise NotImplementedError, "Must implement build_status_url in subclasses"
   end
 
   def tracker_project_url
@@ -156,12 +142,8 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def set_next_poll
-    self.next_poll_at = Time.now + (polling_interval || Project::DEFAULT_POLLING_INTERVAL)
-  end
-
   def building?
-    super || dependent_projects.any?(&:building?)
+    super
   end
 
   def current_build_url
@@ -195,15 +177,8 @@ class Project < ActiveRecord::Base
     statuses.where(build_id: status.build_id).any?
   end
 
-  def has_dependent_project?(project)
-    false
-  end
-
   def has_dependencies?
     false
-  end
-
-  def dependent_build_info_url
   end
 
   def generate_guid

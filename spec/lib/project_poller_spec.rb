@@ -19,11 +19,7 @@ describe ProjectPoller do
     end
 
     it 'should add a periodic timer to poll projects' do
-      EM.should_receive(:add_periodic_timer).with(5.seconds)
-    end
-
-    it 'should add a periodic timer to poll tracker' do
-      EM.should_receive(:add_periodic_timer).with(10.minutes)
+      EM.should_receive(:add_periodic_timer)
     end
 
     context 'the ci poller periodic timer has elapsed' do

@@ -1,7 +1,7 @@
 class ProjectMonitor.Models.Project extends Backbone.Model
   urlRoot: '/projects'
   paramRoot: 'project'
-  timeout: 30000
+  timeout: 3000
 
   initialize: (attributes, options) ->
     @id = attributes.project_id

@@ -19,4 +19,7 @@ class SemaphoreProject < Project
     SemaphorePayload.new
   end
 
+  def build_status_url
+    feed_url
+  end
 end

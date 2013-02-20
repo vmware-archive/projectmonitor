@@ -16,10 +16,6 @@ describe ProjectWorkloadHandler do
       workload.should_receive(:add_job).with(:feed_url, project.feed_url)
     end
 
-    it 'should add the dependent_build_info_url' do
-      workload.should_receive(:add_job).with(:dependent_build_info_url, project.dependent_build_info_url)
-    end
-
     it 'should add the build_status_url' do
       workload.should_receive(:add_job).with(:build_status_url, project.build_status_url)
     end
@@ -38,9 +34,6 @@ describe ProjectWorkloadHandler do
       workload.should_receive(:recall).with(:build_status_url)
     end
 
-    it 'should set dependent status content' do
-      workload.should_receive(:recall).with(:dependent_build_info_url)
-    end
   end
 
   describe '#workload_failed' do

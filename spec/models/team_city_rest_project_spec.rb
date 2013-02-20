@@ -34,8 +34,7 @@ describe TeamCityRestProject do
 
   its(:feed_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
   its(:project_name) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
-  its(:build_status_url) { should be_nil }
-  its(:dependent_build_info_url) { should == "http://example.com/httpAuth/app/rest/buildTypes/id:bt456" }
+  its(:build_status_url) { should == "http://example.com/app/rest/builds?locator=running:all,buildType:(id:bt456),personal:false" }
 
   describe '#current_build_url' do
     subject { project.current_build_url }
@@ -52,13 +51,4 @@ describe TeamCityRestProject do
     end
   end
 
-  describe '#has_dependent_project?' do
-    let(:project) { TeamCityRestProject.new }
-    let(:dependent_project) { double(:project, team_city_rest_build_type_id: double) }
-
-    it 'should check if a dependent project exists by build type id' do
-      project.dependent_projects.should_receive(:exists?).with(team_city_rest_build_type_id: dependent_project.team_city_rest_build_type_id)
-      project.has_dependent_project?(dependent_project).should be_false
-    end
-  end
 end
