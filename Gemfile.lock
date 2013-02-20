@@ -190,6 +190,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.2)
+    newrelic_rpm (3.5.7.59)
     nokogiri (1.5.6)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -286,7 +287,7 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    slop (3.4.3)
+    slop (3.3.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -366,12 +367,12 @@ DEPENDENCIES
   jshint_on_rails
   launchy
   mime-types
+  newrelic_rpm
   nokogiri
   omniauth
   omniauth-google-oauth2
   pg
   pivotal-tracker (= 0.5.8)
-  pry
   pry-nav
   pry-rails
   rails
