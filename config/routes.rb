@@ -3,7 +3,6 @@ ProjectMonitor::Application.routes.draw do
   match 'builds.rss' => "home#builds", format: :rss
   match 'projects/validate_tracker_project'
   match 'projects/validate_build_info'
-  match 'projects/update_projects'
   match 'version' => 'versions#show'
   match 'github_status' => 'home#github_status', format: :json
   match 'heroku_status' => 'home#heroku_status', format: :json
