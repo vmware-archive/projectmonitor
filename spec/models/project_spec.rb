@@ -667,7 +667,7 @@ describe Project do
       let(:project) { FactoryGirl.create(:project_with_tracker_integration)}
 
       it "should return correct variance" do
-        project.variance.should == 8.25
+        project.variance.should == 8
       end
     end
 
