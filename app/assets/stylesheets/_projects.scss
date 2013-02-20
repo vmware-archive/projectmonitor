@@ -1,4 +1,5 @@
 @import "constants";
+@import "mixins";
 
 $information-width: 420px !default;
 
@@ -42,7 +43,7 @@ $statusbar-font-size: 30px !default;
           height: 80px;
 
           li {
-            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+            @include roman_font;
             text-decoration: none;
             background: $transparent-white center no-repeat;
             display:block;
@@ -218,8 +219,7 @@ $statusbar-font-size: 30px !default;
         float: left;
 
         h1 {
-          font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
-          font-weight: normal;
+          @include heavy_font;
           text-transform: capitalize;
           color: #2B2820;
 
@@ -243,8 +243,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .publish-date {
-            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
-            font-weight: normal;
+            @include light_font;
             float: left;
             text-align: center;
             font-size:1px;
@@ -265,8 +264,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .name {
-            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
-            font-weight: normal;
+            @include roman_font;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -279,8 +277,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .aggregate {
-            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
-            font-weight: normal;
+            @include light_font;
           }
         }
       }
@@ -312,8 +309,7 @@ $statusbar-font-size: 30px !default;
         overflow: hidden;
 
         .label {
-          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
-          font-weight: normal;
+          @include light_font;
           text-transform: uppercase;
           vertical-align: top;
           color: #2B2820;
@@ -321,14 +317,13 @@ $statusbar-font-size: 30px !default;
 
         .error {
           color: $disabled-grey;
-          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
-          font-weight: normal;
+          @include light_font;
           text-transform: uppercase;
           vertical-align: middle;
         }
 
         .value {
-          font-family: 'Avenir LT W01 65 Medium', Helvetica, sans-serif;
+          @include medium_font;
           vertical-align: top;
         }
 

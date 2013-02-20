@@ -12,3 +12,23 @@
     }
   }
 }
+
+@mixin heavy_font {
+  font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
+  font-weight: normal;
+}
+
+@mixin medium_font {
+  font-family:'Avenir LT W01 65 Medium', Helvetica, sans-serif;
+  font-weight: normal;
+}
+
+@mixin roman_font {
+  font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
+  font-weight: normal;
+}
+
+@mixin light_font {
+  font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
+  font-weight: normal;
+}
