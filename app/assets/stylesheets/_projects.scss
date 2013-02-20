@@ -42,7 +42,7 @@ $statusbar-font-size: 30px !default;
           height: 80px;
 
           li {
-            font-family: Helvetica, sans-serif;
+            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
             text-decoration: none;
             background: $transparent-white center no-repeat;
             display:block;
@@ -218,7 +218,7 @@ $statusbar-font-size: 30px !default;
         float: left;
 
         h1 {
-          font-family: Helvetica, sans-serif;
+          font-family: 'Avenir LT W01 85 Heavy', Helvetica, sans-serif;
           font-weight: normal;
           text-transform: capitalize;
           color: #2B2820;
@@ -243,7 +243,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .publish-date {
-            font-family: Helvetica, sans-serif;
+            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
             font-weight: normal;
             float: left;
             text-align: center;
@@ -265,7 +265,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .name {
-            font-family: Helvetica, sans-serif;
+            font-family:'Avenir LT W01 55 Roman', Helvetica, sans-serif;
             font-weight: normal;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -279,7 +279,7 @@ $statusbar-font-size: 30px !default;
           }
 
           .aggregate {
-            font-family: Helvetica, sans-serif;
+            font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
             font-weight: normal;
           }
         }
@@ -312,7 +312,7 @@ $statusbar-font-size: 30px !default;
         overflow: hidden;
 
         .label {
-          font-family: Helvetica, sans-serif;
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
           font-weight: normal;
           text-transform: uppercase;
           vertical-align: top;
@@ -321,14 +321,14 @@ $statusbar-font-size: 30px !default;
 
         .error {
           color: $disabled-grey;
-          font-family: Helvetica, sans-serif;
+          font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
           font-weight: normal;
           text-transform: uppercase;
           vertical-align: middle;
         }
 
         .value {
-          font-family: Helvetica, sans-serif;
+          font-family: 'Avenir LT W01 65 Medium', Helvetica, sans-serif;
           vertical-align: top;
         }
 
