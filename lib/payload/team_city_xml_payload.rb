@@ -13,26 +13,12 @@ class TeamCityXmlPayload < Payload
     status_is_processable?
   end
 
-  def dependent_projects
-    children_build_details.collect do |child_id|
-      @project.dup.tap do |child_project|
-        child_project.team_city_rest_build_type_id = child_id
-      end
-    end
-  end
-
   private
 
   def content_ready?(content)
     return false if content.attribute('running').present? && content.attribute('status').value != 'FAILURE'
     return false if content.attribute('status').value == 'UNKNOWN'
     true
-  end
-
-  def children_build_details
-    return [] unless has_dependent_content?
-    selector = XPath.descendant(:'snapshot-dependency').to_s
-    Nokogiri::XML(dependent_content).xpath(selector).collect {|d| d.attributes['id'].value }
   end
 
   def convert_content!(content)

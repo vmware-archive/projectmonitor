@@ -1,9 +1,4 @@
 namespace :projectmonitor do
-  desc "Run the daemon that updates all the projects"
-  task :daemon => :environment do
-    ProjectPoller.new.daemonize
-  end
-
   desc 'Start the long running project poller process'
   task :poller => :environment do
     ProjectPoller.new.run

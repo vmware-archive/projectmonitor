@@ -12,9 +12,7 @@ describe Project do
   describe 'associations' do
     it { should have_many :statuses }
     it { should have_many :payload_log_entries  }
-    it { should have_many :dependent_projects }
     it { should belong_to :aggregate_project }
-    it { should belong_to :parent_project }
   end
 
   describe "validations" do
@@ -137,13 +135,19 @@ describe Project do
     describe '.updateable' do
       subject { Project.updateable }
 
-      let!(:never_updated) { FactoryGirl.create(:jenkins_project, next_poll_at: nil) }
-      let!(:updated_recently) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.ago) }
-      let!(:causality_violator) { FactoryGirl.create(:jenkins_project, next_poll_at: 5.minutes.from_now) }
+      let!(:enabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: true) }
+      let!(:disabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: true) }
+      let!(:disabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: false) }
+      let!(:enabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: false) }
+      let!(:enabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: nil) }
+      let!(:disabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: nil) }
 
-      it { should include never_updated }
-      it { should include updated_recently }
-      it { should_not include causality_violator }
+      it { should_not include enabled_webhooks_project }
+      it { should_not include disabled_webhooks_project }
+      it { should_not include disabled_polling_project }
+      it { should include enabled_polling_project }
+      it { should include enabled_nil_project }
+      it { should_not include disabled_nil_project }
     end
 
     describe '.tracker_updateable' do
@@ -239,13 +243,6 @@ describe Project do
     end
   end
 
-  describe '.mark_for_immediate_poll' do
-    it 'should set the next_poll_at to nil for all projects' do
-      Project.should_receive(:update_all).with(next_poll_at: nil)
-      Project.mark_for_immediate_poll
-    end
-  end
-
   describe "#code" do
     let(:project) { Project.new(name: "My Cool Project", code: code) }
     subject { project.code }
@@ -330,15 +327,6 @@ describe Project do
     context "the project has a failure status" do
       let(:project) { FactoryGirl.create(:jenkins_project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: false, build_id: 1) }
-
-      its(:red?) { should be_true }
-      its(:green?) { should be_false }
-      its(:yellow?) { should be_false }
-    end
-
-    context "the project has a child with a failure status" do
-      let(:red_dependent) { Project.new.tap {|p| p.stub(:red?).and_return(true) } }
-      let(:project) { Project.new(online: true).tap {|p| p.dependent_projects = [red_dependent]}}
 
       its(:red?) { should be_true }
       its(:green?) { should be_false }
@@ -485,44 +473,6 @@ describe Project do
       projects(:never_built).should_not be_building
     end
 
-    context 'when a child is building' do
-      let(:building_dependent) do
-        building_dependent = Project.new do |project|
-          project.building = true
-        end
-      end
-      let(:project) do
-        Project.new do |project|
-          project.dependent_projects = [building_dependent]
-          project.building = false
-        end
-      end
-
-      it "should return true if a child is building" do
-        project.should be_building
-      end
-    end
-  end
-
-  describe "#set_next_poll" do
-    epsilon = 2
-    context "with a project poll interval set" do
-      before do
-        project.polling_interval = 25
-      end
-
-      it "should set the next_poll_at to Time.now + the project poll interval" do
-        project.set_next_poll
-        (project.next_poll_at - (Time.now + project.polling_interval)).abs.should <= epsilon
-      end
-    end
-
-    context "without a project poll interval set" do
-      it "should set the next_poll_at to Time.now + the system default interval" do
-        project.set_next_poll
-        (project.next_poll_at - (Time.now + Project::DEFAULT_POLLING_INTERVAL)).abs.should <= epsilon
-      end
-    end
   end
 
   describe "#has_auth?" do
@@ -775,14 +725,6 @@ describe Project do
       it "should return correct variance" do
         project.variance.should == 0
       end
-    end
-  end
-
-  describe '#has_dependent_project?' do
-    let(:project) { Project.new }
-
-    it 'should always return false' do
-      project.has_dependent_project?(nil).should be_false
     end
   end
 

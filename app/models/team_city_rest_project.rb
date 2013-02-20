@@ -17,10 +17,6 @@ class TeamCityRestProject < Project
     url_with_scheme url
   end
 
-  def dependent_build_info_url
-    url_with_scheme "#{team_city_rest_base_url}/httpAuth/app/rest/buildTypes/id:#{team_city_rest_build_type_id}"
-  end
-
   def project_name
     feed_url
   end
@@ -37,8 +33,7 @@ class TeamCityRestProject < Project
     true
   end
 
-  def has_dependent_project?(project)
-    dependent_projects.exists?(team_city_rest_build_type_id: project.team_city_rest_build_type_id)
+  def build_status_url
+    feed_url
   end
-
 end

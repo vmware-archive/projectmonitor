@@ -31,4 +31,9 @@ class TeamCityProject < Project
   def webhook_payload
     LegacyTeamCityXmlPayload.new
   end
+
+  def build_status_url
+    feed_url
+  end
+
 end

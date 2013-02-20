@@ -160,31 +160,4 @@ describe TeamCityXmlPayload do
     end
   end
 
-  describe '#dependent_projects' do
-    let(:payload) { TeamCityXmlPayload.new(project) }
-
-    before do
-      payload.dependent_content = <<-EOF.strip_heredoc
-        <snapshot-dependencies>
-          <snapshot-dependency id="bt63" type="snapshot_dependency">
-            <properties>
-            <property name="run-build-if-dependency-failed" value="false"/>
-            <property name="run-build-on-the-same-agent" value="false"/>
-            <property name="source_buildTypeId" value="bt63"/>
-            <property name="take-started-build-with-same-revisions" value="true"/>
-            <property name="take-successful-builds-only" value="true"/>
-            </properties>
-          </snapshot-dependency>
-        </snapshot-dependency>
-      EOF
-    end
-
-    specify { payload.dependent_projects.size.should == 1 }
-
-    it 'should return a list of projects including a child build' do
-      dependent_projects = payload.dependent_projects
-      dependent_projects.first.team_city_rest_build_type_id.should == 'bt63'
-    end
-  end
-
 end
