@@ -26,7 +26,7 @@ class UrlRetriever
         else
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         end
-        http.ca_file = Rails.root.join(ConfigHelper.get(:certificate_bundle))
+        http.ca_file = Rails.root.join(ConfigHelper.get(:certificate_bundle)).to_s
       end
       http.read_timeout = 30
       http.open_timeout = 30
@@ -34,7 +34,7 @@ class UrlRetriever
   end
 
   def retrieve_content
-    response = if @username && @password
+    response = if @username.present? && @password.present?
                  get { |get_request| get_request.basic_auth(@username, @password) }
                else
                  get
