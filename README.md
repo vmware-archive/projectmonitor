@@ -195,6 +195,25 @@ If you want Travis to connect via Webhooks, you will still need to enter the
 GitHub account, repository, and optionally branch name for the codebase being
 built in Travis.
 
+#### TDDium
+TDDium only supports connecting via polling, not Webhooks.
+
+In order to get polling configured, you will need to log in to your TDDium dashboard and click the "Configure with CCMenu" link. 
+That should take you to a URL that looks like:
+
+    https://api.tddium.com/cc/SOME-TOKEN-HERE/cctray.xml
+
+The value for "SOME-TOKEN-HERE" is the TDDium authentication token you'll need to paste into the ProjectMonitor settings.
+The XML returned by that link will look something like:
+
+    <Projects>
+       <Project name="foobar (master)" webUrl="https://api.tddium.com/1/reports/151751" lastBuildLabel="151751" 
+       lastBuildTime="2013-01-08 18:20:05" lastBuildStatus="Failure" activity="Building"/>
+    </Projects>
+
+The "TDDium Project Name" field in the ProjectManager settings will need to be set to the full value of the Project
+name attribute, complete with the branch name in parentheses (in this case, "foobar (master)"). 
+
 ### Importing and Exporting Configurations
 You can export your configuration for posterity or to be transferred to another
 host:
