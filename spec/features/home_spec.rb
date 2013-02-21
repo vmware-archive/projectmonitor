@@ -12,7 +12,7 @@ feature "home" do
       visit root_path
       page.should have_selector(".statuses .success")
 
-      page.should have_selector(".time-since-last-build", text: project.time_since_last_build)
+      page.should have_selector(".time-since-last-build", text: "5d")
       page.should have_content(project.code)
     end
   end

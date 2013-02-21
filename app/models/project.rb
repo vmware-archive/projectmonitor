@@ -166,7 +166,7 @@ class Project < ActiveRecord::Base
   end
 
   def tracker_project?
-    tracker_project_id.present? && tracker_auth_token.present?
+    tracker_project_id.present? &&  tracker_auth_token.present?
   end
 
   def payload
@@ -190,8 +190,8 @@ class Project < ActiveRecord::Base
     json["project_id"] = self.id
     json["build"] = super(
       only: [:code, :id, :statuses, :building],
-      methods: ["time_since_last_build"],
       root: false)
+      .merge({"published_at" => published_at})
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
@@ -200,23 +200,6 @@ class Project < ActiveRecord::Base
         methods: ["variance"],
         root:false) if tracker_project_id?
         json
-  end
-
-  def time_since_last_build
-    return unless published_at = latest_status.try(:published_at)
-
-    since_last_build = Time.now - published_at
-    if published_at <= 1.week.ago
-      (since_last_build / 1.week).floor.to_s + "w"
-    elsif published_at <= 1.day.ago
-      (since_last_build / 1.day).floor.to_s + "d"
-    elsif published_at <= 1.hour.ago
-      (since_last_build / 1.hour).floor.to_s + "h"
-    elsif published_at <= 1.minute.ago
-      (since_last_build / 1.minute).floor.to_s + "m"
-    else
-      since_last_build.floor.to_s + "s"
-    end
   end
 
   def variance
@@ -231,6 +214,10 @@ class Project < ActiveRecord::Base
 
   def handler
     ProjectWorkloadHandler.new(self)
+  end
+
+  def published_at
+    latest_status.try(:published_at)
   end
 
   private

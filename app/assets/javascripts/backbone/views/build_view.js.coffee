@@ -15,6 +15,7 @@ class ProjectMonitor.Views.BuildView extends Backbone.View
     @$el.removeClass("offline success failure indeterminate")
     @$el.addClass(@model.get('status'))
     @_showAsBuilding() if @model.get("building")
+    @$('.time-since-last-build').timeago()
     @
 
   _showAsBuilding: ->
