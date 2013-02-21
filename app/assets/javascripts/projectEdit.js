@@ -97,6 +97,17 @@ var ProjectEdit = {};
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
 
+    var $branch_name = $('#branch_name');
+    var $field_container = $('#field_container');
+    if ( $(this).val() == "TravisProject" ) {
+      $branch_name.removeClass('hide');
+      $field_container.removeClass('hide');
+    }
+    else {
+      $branch_name.addClass('hide');
+      $field_container.addClass('hide');
+    }
+
     if ($(this).val() == "TddiumProject") {
        $buildSetup.find('#project_webhooks_enabled_false').click();
        $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', true);
@@ -112,18 +123,6 @@ var ProjectEdit = {};
     else {
       $auth_fields.removeClass('hide');
     }
-
-    var $branch_name = $('#branch_name');
-    var $field_container = $('#field_container');
-    if ( $(this).val() == "TravisProject" ) {
-      $branch_name.removeClass('hide');
-      $field_container.removeClass('hide');
-    }
-    else {
-      $branch_name.addClass('hide');
-      $field_container.addClass('hide');
-    }
-
   };
 
   var showBuildStatusSuccess = function () {
