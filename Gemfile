@@ -35,6 +35,7 @@ gem "eventmachine"
 # NOTE: >= 1.0.0.beta.4 is required for connection timeout support
 gem "em-http-request", ">= 1.0.0.beta.4"
 gem 'newrelic_rpm'
+gem 'hashie', '~>1.2' # TODO: We need to hardcode Hashie for now to avoid circular dependency in bundler update resolution
 
 group :production do
   gem "therubyracer"
