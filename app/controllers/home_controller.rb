@@ -23,18 +23,15 @@ class HomeController < ApplicationController
   end
 
   def github_status
-    github = ExternalDependency.get_or_fetch_recent_status('GITHUB')
-    respond_with github.status
+    respond_with ExternalDependency.get_or_fetch('GITHUB')
   end
 
   def heroku_status
-    heroku = ExternalDependency.get_or_fetch_recent_status('HEROKU')
-    respond_with heroku.status
+    respond_with ExternalDependency.get_or_fetch('HEROKU')
   end
 
   def rubygems_status
-    rubygems = ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
-    respond_with rubygems.status
+    respond_with ExternalDependency.get_or_fetch('RUBYGEMS')
   end
 
   def styleguide

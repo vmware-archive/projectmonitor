@@ -1,10 +1,4 @@
 namespace :dependency do
-  task :fetch_statuses => :environment do
-    ExternalDependency.fetch_status('GITHUB')
-    ExternalDependency.fetch_status('HERKOU')
-    ExternalDependency.fetch_status('RUBYGEMS')
-  end
-
   task :truncate_old_statuses => :environment do
     duration = 3.days.ago
     entries_count = ExternalDependency.where('created_at < ?', duration).count

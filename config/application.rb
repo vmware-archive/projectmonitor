@@ -53,5 +53,8 @@ module ProjectMonitor
 
     # Allow setting of mail options from the configuration
     config.action_mailer.default_url_options = Rails.configuration.emailer_host.to_hash.symbolize_keys
+
+    # Set rails cache to use memory
+    config.cache_store = :mem_cache_store
   end
 end
