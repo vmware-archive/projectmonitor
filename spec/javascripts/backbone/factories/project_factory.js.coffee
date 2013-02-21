@@ -6,7 +6,7 @@ BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
       aggregate: false
       status: "success"
       statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]
-      time_since_last_build: "4d"
+      published_at: "4d"
   }
 
 BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
@@ -18,7 +18,7 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       aggregate: false
       status: "success"
       statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]
-      time_since_last_build: "4d"
+      published_at: "4d"
     tracker:
       current_velocity: 4
       variance: 10

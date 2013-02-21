@@ -583,17 +583,19 @@ describe Project do
   describe "#as_json" do
     context "build" do
       let(:project) { FactoryGirl.create(:project) }
+      let(:status) { FactoryGirl.build(:project_status, published_at: 4.days.ago) }
 
       context "when there is no build history" do
         it "should have general build properties" do
-          hash = JSON.parse(project.to_json)
+          project.statuses << status
+          hash = project.as_json
 
           hash["project_id"].should == project.id
           hash["build"]["code"].should == project.code
           hash["build"]["id"].should == project.id
           hash["build"]["status"].should == project.status_in_words
-          hash["build"]["statuses"].should == []
-          hash["build"]["time_since_last_build"].should be_nil
+          hash["build"]["statuses"].should == [status]
+          hash["build"]["published_at"].should == project.published_at
         end
       end
 
@@ -604,12 +606,6 @@ describe Project do
           project.statuses << older_status
           project.statuses << recent_status
           project.save
-          project.time_since_last_build.should_not be_nil
-        end
-
-        it "should have status properties" do
-          hash = JSON.parse(project.to_json)
-          hash["build"]["time_since_last_build"].should == project.time_since_last_build
         end
 
         it "should have the statuses in the correct order" do
@@ -666,50 +662,6 @@ describe Project do
     end
   end
 
-  describe "#time_since_last_build" do
-    let(:project) { Project.new }
-
-    subject { project.time_since_last_build }
-
-    context "project has no latest status" do
-      it { should be_nil }
-    end
-
-    context "project has a latest status" do
-      let(:published_at_time) { Time.now }
-      before do
-        project.stub(:latest_status).and_return(
-          double(:latest_status, published_at: published_at_time)
-        )
-      end
-
-      let(:time_distance) { [1,2].sample }
-
-      context "< 60 seconds ago" do
-        let(:published_at_time) { time_distance.second.ago }
-
-        it { should == "#{time_distance}s"}
-      end
-
-      context "< 60 minutes ago" do
-        let(:published_at_time) { time_distance.minute.ago }
-
-        it { should == "#{time_distance}m"}
-      end
-      context "< 1 day ago" do
-        let(:published_at_time) { time_distance.hour.ago }
-
-        it { should == "#{time_distance}h"}
-      end
-
-      context ">= 1 day ago" do
-        let(:published_at_time) { time_distance.days.ago }
-
-        it { should == "#{time_distance}d"}
-      end
-    end
-  end
-
   describe "#variance" do
     context "when project has velocities" do
       let(:project) { FactoryGirl.create(:project_with_tracker_integration)}
@@ -728,4 +680,19 @@ describe Project do
     end
   end
 
+  describe "#published_at" do
+    subject { project.published_at }
+    let(:project) { FactoryGirl.create(:project)}
+
+    context "when there is a latest status" do
+      let(:status) { FactoryGirl.build(:project_status, published_at: 5.days.ago) }
+      before { project.statuses << status }
+
+      it { should == status.published_at }
+    end
+
+    context "when there are no statuses" do
+      it { should be_nil }
+    end
+  end
 end

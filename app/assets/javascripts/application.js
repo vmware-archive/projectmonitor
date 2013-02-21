@@ -7,6 +7,10 @@
 //= require backbone_datalink
 //= require backbone/project_monitor
 //= require Coccyx
+//= require jquery.timeago
+
+//= require_tree ./initializers
+
 //= require autocomplete
 //= require tagSwitcher
 //= require backtraceHide
