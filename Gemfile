@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "memcache-client"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
 gem "bourbon"
@@ -59,7 +60,6 @@ end
 group :development do
   gem "awesome_print"
   gem "heroku_san"
-  gem "pry-rails"
   gem 'guard-coffeescript'
   gem 'ruby-prof'
 end
@@ -80,6 +80,9 @@ group :test, :development do
   gem 'database_cleaner'
   gem "capybara-webkit"
   gem "pry-nav"
+  gem "pry-rails"
+  gem 'pry'
   gem 'vagrant'
+  gem 'timecop'
 end
 

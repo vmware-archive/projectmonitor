@@ -6,30 +6,35 @@ describe ExternalDependency do
     context 'external dependency requests' do
       context 'no external dependency statuses exist' do
         it 'creates a new external dependency status' do
+          ExternalDependency.stub(:rubygems_status) { 'good' }
           ExternalDependency.fetch_status('RUBYGEMS')
-          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
+          Rails.cache.read(:rubygems).should == 'good'
         end
       end
 
-      let(:dependency) { ExternalDependency.create name: 'RUBYGEMS' }
-
-      context 'external status exists where created_at > x seconds ago' do
+      context 'external status exists where created_at >= x seconds ago' do
         it 'fetches status from external dependency' do
-          dependency.created_at = 1.minute.ago
-          dependency.save
+          ExternalDependency.stub(:rubygems_status) { 'good' }
+          Timecop.travel(35.seconds.ago)
+          ExternalDependency.fetch_status('RUBYGEMS')
+          Timecop.travel(35.seconds.from_now)
 
-          ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
-          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
+          ExternalDependency.should_receive(:rubygems_status)
+          ExternalDependency.get_or_fetch('RUBYGEMS')
+          Rails.cache.read(:rubygems).should == 'good'
         end
       end
 
-      context 'external status exists where create_at <= x seconds ago' do
+      context 'external status exists where create_at < x seconds ago' do
         it 'fetches status from the database' do
-          dependency.created_at = 25.seconds.ago
-          dependency.save
+          ExternalDependency.stub(:rubygems_status) { 'good' }
+          Timecop.travel(29.seconds.ago)
+          ExternalDependency.fetch_status('RUBYGEMS')
+          Timecop.travel(29.seconds.from_now)
 
-          ExternalDependency.get_or_fetch_recent_status('RUBYGEMS')
-          ExternalDependency.where(name: 'RUBYGEMS').count.should == 1
+          ExternalDependency.should_not_receive(:rubygems_status)
+          ExternalDependency.get_or_fetch('RUBYGEMS')
+          Rails.cache.read(:rubygems).should == 'good'
         end
       end
     end
@@ -39,29 +44,19 @@ describe ExternalDependency do
     it 'initialized an up status' do
       UrlRetriever.any_instance.stub(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>' }
 
-      dependency = ExternalDependency.new name: 'RUBYGEMS'
-      dependency.get_status
-      dependency.name.should == 'RUBYGEMS'
-      dependency.raw_response.should == '<span class="status status-up"></span>'
-      dependency.status.should == "{\"status\":\"good\"}"
+      ExternalDependency.rubygems_status.should == "{\"status\":\"good\"}"
     end
 
     it 'initialized a down status' do
       UrlRetriever.any_instance.stub(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>' }
 
-      dependency = ExternalDependency.new name: 'RUBYGEMS'
-      dependency.get_status
-      dependency.name.should == 'RUBYGEMS'
-      dependency.status.should == "{\"status\":\"bad\"}"
+      ExternalDependency.rubygems_status.should == "{\"status\":\"bad\"}"
     end
 
     it 'initialized an unreachable status when it recieved no response' do
       UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
-      dependency = ExternalDependency.new name: 'RUBYGEMS'
-      dependency.get_status
-      dependency.name.should == 'RUBYGEMS'
-      dependency.status.should == "{\"status\":\"unreachable\"}"
+      ExternalDependency.rubygems_status.should == "{\"status\":\"unreachable\"}"
     end
   end
 
@@ -69,57 +64,39 @@ describe ExternalDependency do
     it 'initialized an up status' do
       UrlRetriever.any_instance.stub(:retrieve_content) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
 
-      dependency = ExternalDependency.new name: 'GITHUB'
-      dependency.get_status
-      dependency.name.should == 'GITHUB'
-      dependency.status.should == '{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'
+      ExternalDependency.github_status.should == "{\"status\":\"good\",\"last_updated\":\"2013-01-15T20:03:16Z\"}"
     end
 
     it 'initialized a down status' do
-      UrlRetriever.any_instance.stub(:retrieve_content) {'down'}
+      UrlRetriever.any_instance.stub(:retrieve_content) {'{"status":"down","last_updated":"2013-01-15T20:03:16Z"}'}
 
-      dependency = ExternalDependency.new name: 'GITHUB'
-      dependency.get_status
-      dependency.name.should == 'GITHUB'
-      dependency.status.should == 'down'
+      ExternalDependency.github_status.should == "{\"status\":\"down\",\"last_updated\":\"2013-01-15T20:03:16Z\"}"
     end
 
     it 'initialized a unreachable status' do
       UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
-      dependency = ExternalDependency.new name: 'GITHUB'
-      dependency.get_status
-      dependency.name.should == 'GITHUB'
-      dependency.status.should == {'status' => 'unreachable'}
+      ExternalDependency.github_status.should == "{\"status\":\"unreachable\"}"
     end
   end
 
   context 'heroku status' do
     it 'initalized an up status' do
-      UrlRetriever.any_instance.stub(:retrieve_content) {'up'}
+      UrlRetriever.any_instance.stub(:retrieve_content) { '{"status":{"Production":"green","Development":"green"},"issues":[]}' }
 
-      dependency = ExternalDependency.new name: 'HEROKU'
-      dependency.get_status
-      dependency.name.should == 'HEROKU'
-      dependency.status.should == 'up'
+      JSON.parse(ExternalDependency.heroku_status)['status']['Production'].should == "green"
     end
 
     it 'initalized a down status' do
-      UrlRetriever.any_instance.stub(:retrieve_content) { 'down' }
+      UrlRetriever.any_instance.stub(:retrieve_content) { '{"status":{"Production":"red","Development":"red"},"issues":[]}' }
 
-      dependency = ExternalDependency.new name: 'HEROKU'
-      dependency.get_status
-      dependency.name.should == 'HEROKU'
-      dependency.status.should == 'down'
+      JSON.parse(ExternalDependency.heroku_status)['status']['Production'].should_not == "green"
     end
 
     it 'initalized an unreachable status when it receives no response' do
       UrlRetriever.any_instance.stub(:retrieve_content) { raise 'error' }
 
-      dependency = ExternalDependency.new name: 'HEROKU'
-      dependency.get_status
-      dependency.name.should == 'HEROKU'
-      dependency.status.should == {'status' => 'unreachable'}
+      JSON.parse(ExternalDependency.heroku_status)['status'].should == "unreachable"
     end
   end
 
