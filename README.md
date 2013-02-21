@@ -302,11 +302,13 @@ To run a local development server and worker, run:
 
     foreman start
 
+[For more info, see our CONTRIBUTE.md file!](http://github.com/pivotal/projectmonitor/contribute.md)
+
 ## Deploying to Github
 Project Monitor has been moved under the "Pivotal" organization. In order to have push privileges to the repo, you will need to request that your GitHub account is added as a collaborator.
 
 ## Ideas /Improvements
-Got a burning idea that just needs to be implemented? Join the google group and share it with the team.
+Got a burning idea that just needs to be implemented? Check the CONTRIBUTE.md file for help getting started. Join the google group and share your ideas with the team.
 
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
 
