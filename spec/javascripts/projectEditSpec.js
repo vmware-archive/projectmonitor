@@ -447,14 +447,14 @@ describe("project edit", function() {
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
 
-        $('input#project_webhooks_enabled_false').attr('checked', 'checked');
+        $('input#project_webhooks_enabled_false').prop('checked', true);
         $('input#project_webhooks_enabled_true').removeAttr('checked').change();
         expect($('#webhooks')).toHaveClass('hide');
         expect($('#polling')).not.toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').removeAttr('checked');
-        $('input#project_webhooks_enabled_true').attr('checked', 'checked').change();
+        $('input#project_webhooks_enabled_true').prop('checked', true).change();
         expect($('#webhooks')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
@@ -477,14 +477,14 @@ describe("project edit", function() {
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
-        $('input#project_webhooks_enabled_false').attr('checked', 'checked');
+        $('input#project_webhooks_enabled_false').prop('checked', true);
         $('input#project_webhooks_enabled_true').removeAttr('checked').change();
         expect($('#webhooks')).toHaveClass('hide');
         expect($('#polling')).not.toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').removeAttr('checked');
-        $('input#project_webhooks_enabled_true').attr('checked', 'checked').change();
+        $('input#project_webhooks_enabled_true').prop('checked', true).change();
         expect($('#webhooks')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');

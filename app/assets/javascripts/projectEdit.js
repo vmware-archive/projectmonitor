@@ -125,8 +125,8 @@ var ProjectEdit = {};
     }
   };
 
-  var showBuildStatusSuccess = function () {
-    $('#build_status .success').removeClass('hide');
+  var isEmpty = function(element) {
+    return $(element).val() === "";
   }
 
   o.validateFeedUrl = function () {
@@ -138,11 +138,11 @@ var ProjectEdit = {};
     }
 
     var $inputs = $('#field_container :input:not(.hide):not(.optional):enabled');
-    if ($inputs.is('[value=""]')) {
-      if ($inputs.is('[value!=""]')) {
-        $('#polling .empty_fields').removeClass('hide');
-      } else {
+    if(_.some($inputs, isEmpty)){
+      if(_.every($inputs, isEmpty)){
         $('#polling .unconfigured').removeClass('hide');
+      }else{
+        $('#polling .empty_fields').removeClass('hide');
       }
       return;
     }
@@ -155,7 +155,7 @@ var ProjectEdit = {};
       success: function (result) {
         if (result.status) {
           $('#polling .pending').addClass('hide');
-          showBuildStatusSuccess();
+          $('#build_status .success').removeClass('hide');
         }
         else {
           $('#polling .pending').addClass('hide');
@@ -214,7 +214,7 @@ var ProjectEdit = {};
     var $project_online = $('#project_online');
     if ($project_online.length !== 0) {
       if ($project_online.val() === "1") {
-        showBuildStatusSuccess();
+        $('#build_status .success').removeClass('hide');
       } else {
         $('#polling .failure').removeClass('hide');
       }
