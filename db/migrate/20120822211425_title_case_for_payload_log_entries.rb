@@ -1,13 +1,13 @@
 class TitleCaseForPayloadLogEntries < ActiveRecord::Migration
   class PayloadLogEntry < ActiveRecord::Base; end
-  
+
   def up
-    PayloadLogEntry.where(method: "polling").update_all(method: "Polling")
-    PayloadLogEntry.where(method: "webhooks").update_all(method: "Webhooks")
+    PayloadLogEntry.where(update_method: "polling").update_all(update_method: "Polling")
+    PayloadLogEntry.where(update_method: "webhooks").update_all(update_method: "Webhooks")
   end
 
   def down
-    PayloadLogEntry.where(method: "Polling").update_all(method: "polling")
-    PayloadLogEntry.where(method: "Webhooks").update_all(method: "webhooks")
+    PayloadLogEntry.where(update_method: "Polling").update_all(update_method: "polling")
+    PayloadLogEntry.where(update_method: "Webhooks").update_all(update_method: "webhooks")
   end
 end

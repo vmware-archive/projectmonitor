@@ -34,7 +34,7 @@ describe ProjectUpdater do
     end
 
     context 'when fetching the status succeeds' do
-      let(:payload_log_entry) { double(PayloadLogEntry, :save! => nil, :method= => nil) }
+      let(:payload_log_entry) { double(PayloadLogEntry, :save! => nil, :update_method= => nil) }
       subject { ProjectUpdater.update(project) }
       it('should return the log entry') { should == payload_log_entry }
     end

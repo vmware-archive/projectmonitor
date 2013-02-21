@@ -19,7 +19,7 @@ class ProjectWorkloadHandler
   end
 
   def workload_failed(workload, error)
-    project.payload_log_entries.build(error_text: error, method: 'Polling', status: 'failed')
+    project.payload_log_entries.build(error_text: error, update_method: 'Polling', status: 'failed')
     project.building = project.online = false
     project.save!
   end
@@ -34,7 +34,7 @@ private
 
     payload_processor = PayloadProcessor.new(project, payload)
     log = payload_processor.process
-    log.method = 'Polling'
+    log.update_method = 'Polling'
     log.save!
 
     project.online = true
@@ -42,7 +42,7 @@ private
 
   rescue => e
     project.reload
-    project.payload_log_entries.build(error_text: "#{e.class}: #{e.message}", method: 'Polling', status: 'failed')
+    project.payload_log_entries.build(error_text: "#{e.class}: #{e.message}", update_method: 'Polling', status: 'failed')
     project.online = false
     project.save!
 

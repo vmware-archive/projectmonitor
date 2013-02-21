@@ -23,7 +23,7 @@ describe ProjectMailer do
   end
 
   describe "#error_notification" do
-    let(:log) { PayloadLogEntry.new(method: "a_method", error_type: "an_error_type", error_text: "an_error_text", backtrace: "a_backtrace") }
+    let(:log) { PayloadLogEntry.new(update_method: "a_method", error_type: "an_error_type", error_text: "an_error_text", backtrace: "a_backtrace") }
 
     it "should create an email" do
       a_build_message = ProjectMailer.error_notification(project, log)
@@ -31,7 +31,7 @@ describe ProjectMailer do
       a_build_message.from.should == ["noreply@pivotallabs.com"]
       a_build_message.to.should == ["foo@bar.com"]
       a_build_message.subject.should include(project.name)
-      a_build_message.body.should include(log.method)
+      a_build_message.body.should include(log.update_method)
       a_build_message.body.should include(project.name)
       a_build_message.body.should include(log.error_type)
       a_build_message.body.should include(log.error_text)

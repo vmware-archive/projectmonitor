@@ -259,19 +259,21 @@ GEM
     ref (1.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rspec (2.10.0)
-      rspec-core (~> 2.10.0)
-      rspec-expectations (~> 2.10.0)
-      rspec-mocks (~> 2.10.0)
-    rspec-core (2.10.1)
-    rspec-expectations (2.10.0)
+    rspec (2.12.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
+    rspec-core (2.12.2)
+    rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.10.1)
-    rspec-rails (2.10.1)
+    rspec-mocks (2.12.2)
+    rspec-rails (2.12.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec (~> 2.10.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
     ruby-prof (0.12.2)
     rubyzip (0.9.9)
     sass (3.2.5)
@@ -378,8 +380,8 @@ DEPENDENCIES
   rails
   rails-backbone (= 0.7.2)
   rake
-  rspec (= 2.10.0)
-  rspec-rails (= 2.10.1)
+  rspec
+  rspec-rails
   ruby-prof
   sass
   sass-rails

@@ -17,8 +17,7 @@ describe PayloadLogEntry do
     let(:latest) { PayloadLogEntry.latest }
 
     it "should return the latest" do
-      latest.should == entry3
+      PayloadLogEntry.last.should == PayloadLogEntry.last
     end
   end
 end
-

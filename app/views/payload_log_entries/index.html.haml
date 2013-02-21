@@ -9,7 +9,7 @@
     %tr{:class => cycle("odd", "even")}
       %td= entry.created_at
       %td= entry.status
-      %td= entry.method
+      %td= entry.update_method
       %td
         - if entry.error_text.present?
           = (entry.error_type.to_s + ': ' + entry.error_text).truncate(50)
