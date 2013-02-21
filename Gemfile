@@ -67,8 +67,8 @@ end
 group :test, :development do
   gem "launchy"
   gem "jshint_on_rails"
-  gem "rspec", "2.10.0"
-  gem "rspec-rails", "2.10.1"
+  gem "rspec"
+  gem "rspec-rails"
   gem "shoulda-matchers"
   gem "capybara"
   gem "jasmine"

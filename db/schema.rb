@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220225223) do
+ActiveRecord::Schema.define(:version => 20130221160340) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(:version => 20130220225223) do
   end
 
   create_table "payload_log_entries", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "project_id"
     t.string   "status"
-    t.string   "method"
+    t.string   "update_method"
     t.text     "error_text"
     t.text     "backtrace"
     t.string   "error_type"

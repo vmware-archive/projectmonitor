@@ -11,7 +11,7 @@ class PayloadLogEntry < ActiveRecord::Base
   end
 
   def to_s
-    "#{method} #{status}"
+    "#{update_method} #{status}"
   end
 
   def send_notifications
