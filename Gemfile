@@ -61,6 +61,7 @@ group :development do
   gem "heroku_san"
   gem "pry-rails"
   gem 'guard-coffeescript'
+  gem 'ruby-prof'
 end
 
 group :test, :development do

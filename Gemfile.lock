@@ -273,6 +273,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-prof (0.12.2)
     rubyzip (0.9.9)
     sass (3.2.5)
     sass-rails (3.2.6)
@@ -381,6 +382,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rspec (= 2.10.0)
   rspec-rails (= 2.10.1)
+  ruby-prof
   sass
   sass-rails
   selenium-webdriver (>= 2.25.0)
