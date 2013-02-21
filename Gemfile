@@ -16,7 +16,7 @@ gem "fastthread"
 gem "foreman"
 gem "sass"
 gem "haml"
-gem "jquery-rails", '2.0.2'
+gem "jquery-rails"
 gem "mime-types"
 gem "nokogiri"
 gem "omniauth"
