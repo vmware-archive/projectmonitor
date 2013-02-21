@@ -76,7 +76,6 @@ group :test, :development do
   gem "selenium-webdriver", ">= 2.25.0"
   gem "factory_girl_rails"
   gem "ffaker"
-  gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard-coffeescript'
   gem 'database_cleaner'
   gem "capybara-webkit"
