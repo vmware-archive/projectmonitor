@@ -81,7 +81,6 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     cookiejar (0.3.0)
-    crack (0.3.2)
     daemons (1.1.8)
     database_cleaner (0.9.1)
     delayed_job (3.0.5)
@@ -124,6 +123,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    fakeweb (1.3.0)
     faraday (0.8.5)
       multipart-post (~> 1.1)
     fastthread (1.0.7)
@@ -326,9 +326,6 @@ GEM
     vcr (2.2.4)
     warden (1.2.1)
       rack (>= 1.0)
-    webmock (1.9.3)
-      addressable (>= 2.2.7)
-      crack (>= 0.3.2)
     websocket (1.0.7)
     whenever (0.8.2)
       activesupport (>= 2.3.4)
@@ -361,6 +358,7 @@ DEPENDENCIES
   em-http-request (>= 1.0.0.beta.4)
   eventmachine
   factory_girl_rails
+  fakeweb
   fastthread
   ffaker
   foreman
@@ -400,6 +398,5 @@ DEPENDENCIES
   uglifier
   vagrant
   vcr (= 2.2.4)
-  webmock
   whenever
   xpath
