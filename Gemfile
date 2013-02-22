@@ -53,7 +53,7 @@ end
 
 group :test do
   gem "headless"
-  gem "vcr"
+  gem "vcr", "2.2.4"
   gem "webmock"
 end
 

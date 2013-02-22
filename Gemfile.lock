@@ -323,7 +323,7 @@ GEM
       log4r (~> 1.1.9)
       net-scp (~> 1.0.4)
       net-ssh (~> 2.2.2)
-    vcr (2.4.0)
+    vcr (2.2.4)
     warden (1.2.1)
       rack (>= 1.0)
     webmock (1.9.3)
@@ -399,7 +399,7 @@ DEPENDENCIES
   timecop
   uglifier
   vagrant
-  vcr
+  vcr (= 2.2.4)
   webmock
   whenever
   xpath
