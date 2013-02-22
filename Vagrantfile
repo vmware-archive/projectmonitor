@@ -69,8 +69,10 @@ Vagrant::Config.run do |config|
     #chef.data_bags_path = "chef/data_bags"
     #chef.add_recipe "mysql"
     #chef.add_role "web"
+    chef.add_recipe "chef-curl"
     chef.add_recipe "jenkins"
-  
+    chef.add_recipe "teamcity"
+
     # You may also specify custom JSON attributes:
     chef.json = { :mysql_password => "foo" }
   end
