@@ -4,6 +4,7 @@ describe TrackerApi do
   context "with the real service", :vcr => {:re_record_interval => 6.months} do
     subject { TrackerApi.new(project) }
 
+    # ALERT: Always use a fake tracker project with these tests because they delete everything!
     let(:project) { FactoryGirl.create :project, tracker_project_id: 688157, tracker_auth_token: "2b83dc74948d051bc1078fd6e9db0b3e" }
     let(:tracker_project) { PivotalTracker::Project.find project.tracker_project_id }
 
