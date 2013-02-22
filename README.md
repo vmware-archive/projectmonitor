@@ -266,9 +266,7 @@ refreshing the page doesn't cause the individual builds to be re-polled.
 
 ### Layout
 The layout consists of a grid of tiles representing the projects.  The
-number of projects that need to be displayed is determined automatically, but
-can also be set explicitly.  There are views available for 15 tiles, 24 tiles,
-48 tiles, or 63 tiles, and a 6-project view with larger tiles is coming soon.
+number of projects that need to be displayed is determined automatically.
 
 ### Tile colors
 Tiles are green for green projects, red for red projects, and light gray if the
