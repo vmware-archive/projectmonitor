@@ -65,11 +65,21 @@ Useful commands
 Once the VM has started, services will be available at `192.168.33.10`.
 
 ### Authentication support
+#### IP Whitelist
+If you want to use Webhooks, your ProjectMonitor instance will need to be located on a
+publically accessible server. If you don't want your ProjectMonitor dashboard to also be
+publically accessible, you can whitelist access by IP address.
+
+The whitelist is disabled by default, but can be enabled by uncommenting the "ip_whitelist" property
+in settings.yml and adding a list of IP addresses to whitelist. If you're running ProjectMonitor
+behind a load balancer (e.g. on a hosted provider such as Heroku), you'll probably want to set
+"ip_whitelist_request_proxied" to true. See settings.yml for more documentation.
+
+#### Password authentication
 Project monitor uses [Devise](https://github.com/plataformatec/devise) to provide both database backed authentication and
 Google OAuth2 logins.
 
-#### Password authentication
-Regular password authentication is enabled by default and can be switched off
+Regular password authentication for managing project settings is enabled by default and can be switched off
 by setting the `password_auth_enabled` setting to `false`. To ensure strong
 password encryption you should adjust the value for `password_auth_pepper` and
 `password_auth_stretches` appropriately.
