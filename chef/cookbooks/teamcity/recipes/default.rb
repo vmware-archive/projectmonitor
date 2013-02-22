@@ -11,6 +11,6 @@ execute "unpack teamcity" do
   not_if { File.exists?("#{install_dir}/TeamCity") }
 end
 
-execute "Adding TeamCity to init.d" do
+execute "start TeamCity" do
   command "cd #{install_dir}/TeamCity && ./bin/runAll.sh start"
 end
