@@ -11,6 +11,9 @@ spec_builder = Jasmine::SpecBuilder.new(jasmine_config)
 should_stop = false
 
 RSpec.configure do |config|
+  config.before(:all, type: :request) do
+    WebMock.allow_net_connect!
+  end  
   config.after(:suite) do
     spec_builder.stop if should_stop
   end
