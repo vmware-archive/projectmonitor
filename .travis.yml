@@ -17,6 +17,7 @@ rvm:
   - 1.9.3
 
 before_script:
+  - "sudo apt-get install memcached"
   - "bundle exec rake travis:setup"
   - "export DISPLAY=:99"
   - "sh -e /etc/init.d/xvfb start"
