@@ -366,6 +366,7 @@ DEPENDENCIES
   foreman
   guard-coffeescript
   haml
+  hashie (~> 1.2)
   headless
   heroku_san
   jasmine
