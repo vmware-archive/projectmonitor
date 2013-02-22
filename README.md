@@ -61,6 +61,7 @@ Useful commands
     vagrant ssh
     vagrant halt
     vagrant provision
+    vagrant destroy #If you just halt, it will not rebuild everything from scratch
 
 Once the VM has started, services will be available at `192.168.33.10`.
 
