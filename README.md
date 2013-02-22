@@ -24,20 +24,6 @@ displaying the status of the builds of various open source projects - both of
 projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 (such as Rails).
 
-## Upgrading
-ProjectMonitor has recently moved to
-[Devise](https://github.com/plataformatec/devise/) for authentication. This
-means that any existing users will have invalid passwords. If you don't want
-all your users to have to reset their passwords, you can alter the following
-configuration settings to support legacy passwords:
-
-    devise_encryptor: :legacy
-    devise_pepper: <rest_auth_site_key>
-    devise_stretches: <rest_auth_digest_stretches>
-
-The values for `rest_auth_site_key` and `rest_auth_digest_stretches` can be found
-in your `config/auth.yml`. This file is no longer needed.
-
 ## Installation
 
 ### Get the code
@@ -214,6 +200,7 @@ The XML returned by that link will look something like:
 The "TDDium Project Name" field in the ProjectManager settings will need to be set to the full value of the Project
 name attribute, complete with the branch name in parentheses (in this case, "foobar (master)"). 
 
+
 ### Importing and Exporting Configurations
 You can export your configuration for posterity or to be transferred to another
 host:
@@ -242,6 +229,19 @@ like so:
 
     curl --user ${username}:${password} -F "content=@-" ${your_project_monitor_host}/configuration < ${your_configuration.yml}
 
+## Upgrading
+ProjectMonitor has recently moved to
+[Devise](https://github.com/plataformatec/devise/) for authentication. This
+means that any existing users will have invalid passwords. If you don't want
+all your users to have to reset their passwords, you can alter the following
+configuration settings to support legacy passwords:
+
+    devise_encryptor: :legacy
+    devise_pepper: <rest_auth_site_key>
+    devise_stretches: <rest_auth_digest_stretches>
+
+The values for `rest_auth_site_key` and `rest_auth_digest_stretches` can be found
+in your `config/auth.yml`. This file is no longer needed.
 
 ## Deployment
 
