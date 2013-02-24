@@ -103,4 +103,3 @@ describe TeamCityJsonPayload do
     it { should be_an_instance_of(Time) }
   end
 end
-

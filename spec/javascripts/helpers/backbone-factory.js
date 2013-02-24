@@ -33,13 +33,13 @@
       if(this.factories[factory_name] === undefined){
         throw "Factory with name " + factory_name + " does not exist";
       }
-      return this.factories[factory_name].apply(null, [options]);        
+      return this.factories[factory_name].apply(null, [options]);
     },
 
     define_sequence: function(sequence_name, callback){
       this.sequences[sequence_name] = {}
       this.sequences[sequence_name]['counter'] = 0;
-      this.sequences[sequence_name]['callback'] = callback; 
+      this.sequences[sequence_name]['callback'] = callback;
     },
 
     next: function(sequence_name){
@@ -47,7 +47,7 @@
         throw "Sequence with name " + sequence_name + " does not exist";
       }
       this.sequences[sequence_name]['counter'] += 1;
-      return this.sequences[sequence_name]['callback'].apply(null, [this.sequences[sequence_name]['counter']]); //= callback; 
+      return this.sequences[sequence_name]['callback'].apply(null, [this.sequences[sequence_name]['counter']]); //= callback;
     }
   }
 })();
