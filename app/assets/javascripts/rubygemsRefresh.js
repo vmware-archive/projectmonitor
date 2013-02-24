@@ -18,7 +18,7 @@ var RubyGemsRefresh = (function () {
           if(status == 'good') {
             $rubygemsTile.slideUp();
             failureCount = 0;
-          } 
+          }
           else {
             failureCount++;
             if (failureCount >= failureThreshold) {
@@ -27,7 +27,7 @@ var RubyGemsRefresh = (function () {
               }
               else if(status == 'page broken') {
                 RubyGemsRefresh.markAsBroken();
-              } 
+              }
               else {
                 RubyGemsRefresh.markAsUnreachable();
               }

@@ -90,5 +90,3 @@ class Payload
   attr_reader :status_content, :build_status_content
 
 end
-
-

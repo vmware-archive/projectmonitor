@@ -10,7 +10,7 @@ describe ProjectMonitorHelper do
     def publish_time
       Time.parse('Fri May 28 17:27:11 -0700 2010')
     end
-    
+
     context "when the project's status published_at & red_since is nil" do
       before do
         @status = stub(ProjectStatus, :published_at => nil)

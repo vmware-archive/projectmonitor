@@ -58,4 +58,3 @@ class ExternalDependency
   end
 
 end
-

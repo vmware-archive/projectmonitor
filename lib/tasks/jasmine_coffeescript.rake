@@ -1,4 +1,3 @@
-
 namespace :jasmine do
   desc 'Compile coffeescript specs for CI/rake'
   task :compile_coffeescript do

@@ -104,4 +104,3 @@ describe('RubyGemsRefresh.init', function() {
   });
 
 });
-
