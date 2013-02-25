@@ -206,7 +206,7 @@ var ProjectEdit = {};
     $('#project_type').change(o.handleProjectTypeChange);
     $('#field_container :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
-    $('#field_container input.refresh').click(o.validateFeedUrl);
+    $('#build_setup input.refresh').click(o.validateFeedUrl);
     $('#change_password a').click(showPasswordField);
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
