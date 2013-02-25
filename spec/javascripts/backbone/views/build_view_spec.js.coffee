@@ -61,4 +61,3 @@ describe "ProjectMonitor.Views.BuildView", ->
       view = new ProjectMonitor.Views.BuildView(model: build)
       build.set({code: "NEW CODE"})
       expect(ProjectMonitor.Views.BuildView.prototype.render).toHaveBeenCalled()
-

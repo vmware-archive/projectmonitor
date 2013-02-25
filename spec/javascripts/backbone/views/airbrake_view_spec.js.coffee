@@ -15,4 +15,3 @@ describe "ProjectMonitor.Views.AirbrakeView", ->
 
   it "should be an article element", ->
     expect(@view.tagName).toEqual("article")
-

@@ -61,4 +61,3 @@ describe('HerokuRefresh.init', function() {
     });
   });
 });
-
