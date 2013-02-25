@@ -12,6 +12,7 @@ class ProjectMonitor.Views.ProjectView extends Backbone.View
     @subviews.push(new ProjectMonitor.Views.AirbrakeView(model: @model.get("airbrake"))) if @model.get("airbrake")
     @.registerSubView(subview) for subview in @subviews
     @$el.data(project_id: @model.get("project_id"))
+    @model.on("destroy", @remove, @)
 
   render: ->
     $section = $("<section/>")
