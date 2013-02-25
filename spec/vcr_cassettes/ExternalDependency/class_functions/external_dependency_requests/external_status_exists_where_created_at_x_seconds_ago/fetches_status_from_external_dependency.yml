@@ -1,5 +1,5 @@
 ---
-http_interactions:
+ http_interactions:
 - request:
     method: get
     uri: http://status.rubygems.org/?
