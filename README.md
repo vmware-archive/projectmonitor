@@ -51,8 +51,17 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
+### Set up memcached
+You need to run memcached. It should be very easy to install if you have homebrew
+or another package manager:
+
+    brew install memcached
+
+After you have successfully installed memcached follow the instructions to run it.
+
 ### Set up Vagrant
-[Vagrant](http://www.vagrantup.com/) automatically sets up virtual machines to run Jenkins. First install VirtualBox. Then run the following commands to set it up.
+[Vagrant](http://www.vagrantup.com/) automatically sets up virtual machines to run 
+Jenkins. First install VirtualBox. Then run the following commands to set it up.
 
     vagrant up
 
