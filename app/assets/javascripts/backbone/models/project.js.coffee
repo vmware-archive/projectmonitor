@@ -22,5 +22,8 @@ class ProjectMonitor.Models.Project extends Backbone.Model
     @
 
   refresh: ->
-    @fetch()
+    @fetch(error: @handleDestroy)
     setTimeout((=> @refresh()), @timeout)
+
+  handleDestroy: (model, xhr, options) =>
+    @destroy()
