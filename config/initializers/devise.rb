@@ -1,5 +1,4 @@
 Devise.setup do |config|
-  config.mailer_sender = Rails.configuration.mailer_sender
   require 'devise/orm/active_record'
   config.authentication_keys = [:login]
   config.case_insensitive_keys = [:login]
