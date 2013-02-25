@@ -1,6 +1,7 @@
 article.tracker {
   @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
   background-size: 10px 10px;
+  height: 159px;
 
   .title {
     text-transform: uppercase;
@@ -12,7 +13,7 @@ article.tracker {
   }
 
   .no-connection {
-    height: 126px;
+    height: 127px;
     text-align: center;
     font-size: 25px;
   }
