@@ -16,8 +16,8 @@ class ProjectPoller
     @workloads = {}
     @poll_period = 60
     @tracker_poll_period = 10
-    @connection_timeout = 60
-    @inactivity_timeout = 60
+    @connection_timeout = 45
+    @inactivity_timeout = 30
     @max_follow_redirects = 10
     @pending = 0
   end
