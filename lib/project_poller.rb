@@ -41,6 +41,9 @@ class ProjectPoller
 
     EM.run do
       poll_projects
+    end
+
+    EM.run do
       poll_tracker
     end
   end
