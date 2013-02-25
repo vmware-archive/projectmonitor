@@ -56,7 +56,7 @@ describe ProjectPoller do
           end
 
           it 'should be initialized with the feed url and timeouts' do
-            EM::HttpRequest.should_receive(:new).with('http://www.example.com/job/project/rssAll', connect_timeout: 60, inactivity_timeout: 60)
+            EM::HttpRequest.should_receive(:new).with('http://www.example.com/job/project/rssAll', connect_timeout: 45, inactivity_timeout: 30)
           end
 
           it 'should call get and follow up to 10 redirects' do
@@ -169,7 +169,7 @@ describe ProjectPoller do
           end
 
           it 'should be initialized with the tracker_url and timeouts' do
-            EM::HttpRequest.should_receive(:new).with(project.tracker_project_url, connect_timeout: 60, inactivity_timeout: 60)
+            EM::HttpRequest.should_receive(:new).with(project.tracker_project_url, connect_timeout: 45, inactivity_timeout: 30)
           end
         end
       end
