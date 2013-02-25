@@ -16,4 +16,3 @@ describe "ProjectMonitor.Views.NewRelicView", ->
 
   it "should be an article element", ->
     expect(@view.tagName).toEqual("article")
-

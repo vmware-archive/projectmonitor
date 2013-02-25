@@ -41,4 +41,3 @@ describe "ProjectMonitor.Views.AggregateProjectView", ->
       view = new ProjectMonitor.Views.AggregateProjectView(model: aggregate)
       aggregate.set({code: "NEW CODE"})
       expect(ProjectMonitor.Views.AggregateProjectView.prototype.render).toHaveBeenCalled()
-

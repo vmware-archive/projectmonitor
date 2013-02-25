@@ -44,4 +44,3 @@ feature "tag auto complete" do
     page.should have_content('baz')
   end
 end
-

@@ -38,4 +38,3 @@ describe('TagSwitcher.init', function() {
     });
   });
 });
-
