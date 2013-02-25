@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221160340) do
+ActiveRecord::Schema.define(:version => 20130225154845) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -113,8 +113,6 @@ ActiveRecord::Schema.define(:version => 20130221160340) do
     t.string   "tddium_auth_token"
     t.string   "tddium_project_name"
     t.string   "notification_email"
-    t.boolean  "send_build_notifications"
-    t.boolean  "send_error_notifications"
     t.boolean  "verify_ssl",                                 :default => true
     t.datetime "created_at"
     t.datetime "updated_at"

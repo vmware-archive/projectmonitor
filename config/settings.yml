@@ -6,8 +6,6 @@
 # See the README.md for more details.
 #
 defaults: &defaults
-  mailer_sender: "projectmonitor-support@example.com"
-
   #
   # Should we allow authentication with passwords against the database?
   #
