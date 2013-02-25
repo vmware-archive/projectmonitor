@@ -14,10 +14,10 @@ class ProjectPoller
 
   def initialize
     @workloads = {}
-    @poll_period = 30
+    @poll_period = 60
     @tracker_poll_period = 10
-    @connection_timeout = 15
-    @inactivity_timeout = 15
+    @connection_timeout = 60
+    @inactivity_timeout = 60
     @max_follow_redirects = 10
     @pending = 0
   end
