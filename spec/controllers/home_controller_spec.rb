@@ -63,7 +63,12 @@ describe HomeController do
         let(:error) { Net::HTTPError.new("", nil) }
 
         before do
+          Timecop.travel(35.seconds.from_now)
           UrlRetriever.any_instance.should_receive(:retrieve_content).and_raise(error)
+        end
+
+        after do
+          Timecop.travel(35.seconds.ago)
         end
 
         it "returns 'unreachable'" do
