@@ -17,7 +17,7 @@ gem "fastthread"
 gem "foreman"
 gem "sass"
 gem "haml"
-gem "jquery-rails"
+gem "jquery-rails", ">= 2.1.3"
 gem "mime-types"
 gem "nokogiri"
 gem "omniauth"
@@ -27,7 +27,7 @@ gem "rails"
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
-gem 'rails-backbone', "0.7.2"
+gem 'rails-backbone', ">= 0.9.10"
 gem 'coffee-filter'
 gem 'eco'
 gem 'pg'
