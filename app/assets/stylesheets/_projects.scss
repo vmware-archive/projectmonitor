@@ -27,6 +27,7 @@ $statusbar-font-size: 30px !default;
     margin-top: 14px;
 
     li.project {
+      max-height: 328px;
       float: left;
       a {
         text-decoration: none;
