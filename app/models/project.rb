@@ -38,7 +38,6 @@ class Project < ActiveRecord::Base
   }
 
   acts_as_taggable
-  after_save :remove_unused_tags
 
   validates :name, presence: true
   validates :type, presence: true
@@ -235,10 +234,6 @@ class Project < ActiveRecord::Base
       keepers = statuses.order('created_at DESC').limit(ProjectMonitor::Application.config.max_status)
       ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
     end
-  end
-
-  def remove_unused_tags
-    Delayed::Job.enqueue(RemoveUnusedTags::Job.new, priority: 1)
   end
 
   def fetch_statuses
