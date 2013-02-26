@@ -16,6 +16,7 @@
 //= require backtraceHide
 //= require projectEdit
 //= require versionCheck
+//= require projectCheck
 //= require githubRefresh
 //= require herokuRefresh
 //= require rubygemsRefresh
@@ -25,6 +26,7 @@ $(function() {
   BacktraceHide.init();
   TagSwitcher.init();
   VersionCheck.init();
+  ProjectCheck.init();
   GithubRefresh.init();
   HerokuRefresh.init();
   RubyGemsRefresh.init();
