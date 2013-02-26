@@ -203,9 +203,7 @@ class Project < ActiveRecord::Base
 
   def variance
     if last_ten_velocities.any?
-      average = last_ten_velocities.inject(&:+) / Float(last_ten_velocities.length)
-      calculated_variance = (last_ten_velocities.inject(0.0) { |variance, velocity| variance + ((velocity - average)**2)}) / Float(last_ten_velocities.size)
-      calculated_variance.round(2)
+      calculated_variance
     else
       0
     end
@@ -233,6 +231,18 @@ class Project < ActiveRecord::Base
   end
 
   private
+
+  def calculated_variance
+    sample_variance.round(2)
+  end
+
+  def sample_variance
+    mean = last_ten_velocities.sum / Float(last_ten_velocities.length)
+    sum = last_ten_velocities.inject(0.0) do |accum, velocity|
+      accum + ((velocity - mean)**2)
+    end
+    sum = sum / Float(last_ten_velocities.size)
+  end
 
   def self.project_attribute_prefix
     name.match(/(.*)Project/)[1].underscore
