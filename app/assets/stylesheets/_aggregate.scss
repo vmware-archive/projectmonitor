@@ -3,7 +3,7 @@ article.aggregate.failure       { @include build_status($red) }
 article.aggregate.offline       { @include build_status($grey) }
 article.aggregate.indeterminate { @include build_status($yellow) }
 
-li.aggregate {
+li.aggregate_project {
   max-height: 328px;
 }
 article.aggregate {
