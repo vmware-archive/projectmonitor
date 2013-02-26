@@ -105,9 +105,10 @@ and the following configuration options specified:
 ### Setup Cron with Whenever
 We have included a sample whenever gem config in config/schedule.rb. Refer to
 the [whenever documentation](https://github.com/javan/whenever) for instructions
-on how to integrate it with your deployment.
+on how to integrate it with your deployment. Refer to [Heroku scheduler documentation](https://devcenter.heroku.com/articles/scheduler) for instructions
+on how to integrate the rake task with your Heroku deployment.
 
-The default schedule clears log entries daily, and fetches project statuses every 3 minutes.
+The default schedule clears log entries and cleans up unused tags daily, and fetches project statuses every 3 minutes.
 
 The fetch project task is what goes out and hits the individual builds. We find
 that if you do this too frequently it can swamp the builds. On the other hand,
