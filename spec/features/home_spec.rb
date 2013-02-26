@@ -17,7 +17,7 @@ feature "home" do
     end
   end
 
-  context "aggregate projects" do
+  context "aggregate projects", js: true do
     let!(:aggregate) { FactoryGirl.create(:aggregate_project, code: 'GTFO', projects: [project]) }
     let!(:project) { FactoryGirl.create(:travis_project) }
 

@@ -4,9 +4,11 @@ describe CodeClimateApi do
   describe "a Code Climate call to a project" do
     let(:project) { double(:project, code_climate_api_token: '1111', code_climate_repo_id: '50a5652f7e00a4722d00a16e')}
     let(:code_climate_api) { CodeClimateApi.new(project) }
+    let(:url_retriever) { double }
 
     before do
-      UrlRetriever.stub(:retrieve_content_at).and_return(response)
+      UrlRetriever.stub(:new).and_return(url_retriever)
+      url_retriever.stub(:retrieve_content) { response }
     end
 
     describe "a valid API response" do
@@ -23,7 +25,7 @@ describe CodeClimateApi do
       end
 
       it "calls the API once" do
-        UrlRetriever.should_receive(:retrieve_content_at).exactly(1).times
+        url_retriever.should_receive(:retrieve_content).exactly(1).times
         code_climate_api.current_gpa
         code_climate_api.previous_gpa
         code_climate_api.current_gpa
@@ -38,7 +40,7 @@ describe CodeClimateApi do
       end
 
       it "calls the API twice if there is an error" do
-        UrlRetriever.should_receive(:retrieve_content_at).exactly(2).times
+        url_retriever.should_receive(:retrieve_content).exactly(2).times
         code_climate_api.current_gpa
         code_climate_api.current_gpa
       end
