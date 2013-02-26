@@ -1,6 +1,6 @@
 BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
   {
-    project_id: 90890
+    project_id: do -> Math.floor(Math.random()*99999)
     build:
       code: 'PROJ'
       aggregate: false
