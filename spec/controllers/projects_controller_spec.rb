@@ -14,7 +14,32 @@ describe ProjectsController do
       end
     end
 
-    describe "create" do
+    describe "#index" do
+      let!(:projects) { [FactoryGirl.create(:jenkins_project)] }
+      let!(:aggregate_project) { FactoryGirl.create(:aggregate_project) }
+      let!(:aggregate_projects) { [aggregate_project] }
+      let(:tags) { 'bleecker' }
+
+      before do
+        AggregateProject.stub(:displayable).and_return(aggregate_projects)
+        Project.stub_chain(:standalone, :displayable).and_return(projects)
+        projects.stub_chain(:concat, :sort_by).and_return(projects + aggregate_projects)
+      end
+
+      it "should render collection of projects as JSON" do
+        ProjectFeedDecorator.should_receive(:decorate).with(projects + aggregate_projects)
+        get :index
+      end
+
+      it 'gets a collection of aggregate projects by tag' do
+        AggregateProject.should_receive(:displayable).with(tags)
+        Project.standalone.should_receive(:displayable).with(tags)
+        get :index, tags: tags
+      end
+
+    end
+
+    describe "#create" do
       context "when the project was successfully created" do
         subject do
           post :create, :project => {
@@ -43,7 +68,7 @@ describe ProjectsController do
       end
     end
 
-    describe "update" do
+    describe "#update" do
       context "when the project was successfully updated" do
         before { put :update, :id => projects(:jenkins_project), :project => { :name => "new name" } }
 
@@ -126,7 +151,7 @@ describe ProjectsController do
       end
     end
 
-    describe "destroy" do
+    describe "#destroy" do
       subject { delete :destroy, :id => projects(:jenkins_project) }
 
       it "should destroy the project" do
