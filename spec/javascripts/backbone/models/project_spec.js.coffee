@@ -64,16 +64,3 @@ describe "ProjectMonitor.Models.Project", ->
 
       it "should fire tracker change event", ->
         expect(@tracker_changed).toHaveBeenCalled()
-
-  describe "#refresh", ->
-    beforeEach ->
-      spyOn(ProjectMonitor.Models.Project.prototype, "fetch")
-      @project = new ProjectMonitor.Models.Project({code: "PROJ"})
-      spyOn(window, "setTimeout")
-      @project.refresh()
-
-    it "should fetch the model", ->
-      expect(ProjectMonitor.Models.Project.prototype.fetch).toHaveBeenCalled()
-
-    it "should execute periodically", ->
-      expect(window.setTimeout).toHaveBeenCalled()
