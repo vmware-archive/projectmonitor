@@ -6,7 +6,15 @@ class ProjectsController < ApplicationController
   respond_to :json, only: [:index, :show]
 
   def index
-    respond_with ProjectFeedDecorator.decorate Project.all
+    if params[:aggregate_project_id].present?
+      projects = AggregateProject.find(params[:aggregate_project_id]).projects
+    else
+      standalone_projects = Project.standalone.displayable(params[:tags])
+      aggregate_projects = AggregateProject.displayable(params[:tags])
+      projects = standalone_projects + aggregate_projects
+    end
+
+    respond_with ProjectFeedDecorator.decorate projects
   end
 
   def new
