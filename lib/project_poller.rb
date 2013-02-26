@@ -82,7 +82,7 @@ class ProjectPoller
 
   def create_ci_request(project, url)
     get_options = {}
-    if project.auth_username
+    if project.auth_username.present?
       get_options[:head] = {'authorization' => [project.auth_username, project.auth_password]}
     end
 
