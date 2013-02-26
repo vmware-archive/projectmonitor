@@ -20,4 +20,10 @@ namespace :projectmonitor do
   task :import => :environment do |task, args|
     ConfigExport.import STDIN.read
   end
+
+  desc 'Run remove unused tags job'
+  task :remove_unused_tags => :environment  do
+    RemoveUnusedTags::Job.new.perform
+  end
+
 end
