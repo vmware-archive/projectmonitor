@@ -13,6 +13,7 @@ gem "devise-encryptable"
 # NOTE: Newer versions of draper are currently incompatible with this codebase
 gem "draper", "< 0.13"
 gem "dynamic_form"
+gem "fastthread"
 gem "foreman"
 gem "sass"
 gem "haml"
