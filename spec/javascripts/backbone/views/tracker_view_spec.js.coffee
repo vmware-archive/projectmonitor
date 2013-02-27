@@ -12,13 +12,7 @@ describe "ProjectMonitor.Views.TrackerView", ->
       expect($(".current-velocity")).toHaveText(@tracker.get("current_velocity"))
 
     it "should include the variance", ->
-      expect($(".variance").text()).toContain(@tracker.get("variance"))
-
-    it "should include the delivered story count", ->
-      expect($(".stories-to-accept-count")).toHaveText(@tracker.get("stories_to_accept_count"))
-
-    it "should include the open story count", ->
-      expect($(".open-stories-count")).toHaveText(@tracker.get("open_stories_count"))
+      expect($(".current-variance").text()).toContain(@tracker.get("variance"))
 
     it "should include the velocity chart", ->
       expect($(".velocities dd:nth-child(10) span").attr('style')).toContain("1%")

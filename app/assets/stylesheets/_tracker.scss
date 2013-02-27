@@ -18,142 +18,79 @@ article.tracker {
     font-size: 25px;
   }
 
-  dl.metrics, dl.stories {
+  dl.metrics {
     float: left;
     background-color: lighten($blue, 10%);
     border-top: 1px solid darken($blue, 20%);
     border-bottom: 1px solid darken($blue, 20%);
-
-    dt {
+    width: 216px;
+    height: 118px;
+    .metrics-half {
+      position: relative;
       float: left;
-      clear: left;
+      width: 50%;
     }
-
     dd {
-      float: right;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      &.current-velocity {
+        font-size: 83px;
+      }
+      &.current-variance {
+        color: rgb(50, 50, 50);
+        font-size: 20px;
+        margin-top: 61px;
+      }
+    }
+    dt {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-transform: uppercase;
+      &.current-velocity-label {
+        margin-top: -6px;
+      }
+      &.current-variance-label {
+        margin-top: 5px;
+      }
     }
   }
 
   dl.velocities {
     float: right;
     border-bottom: 2px solid darken($blue, 20%);
+    height: 118px;
+    width: 370px;
+    margin-bottom: 11px;
 
     dd {
       display:inline;
       float: left;
       position: relative;
+      margin-right: 2px;
+      height: 100%;
+      width: 35px;
 
       span {
         position: absolute;
         bottom: 0;
         background-color: darken($blue, 20%);
-      }
-    }
-
-    dd:nth-child(10) span { opacity: 0.95; }
-    dd:nth-child(9)  span { opacity: 0.90; }
-    dd:nth-child(8)  span { opacity: 0.85; }
-    dd:nth-child(7)  span { opacity: 0.80; }
-    dd:nth-child(6)  span { opacity: 0.70; }
-    dd:nth-child(5)  span { opacity: 0.60; }
-    dd:nth-child(4)  span { opacity: 0.50; }
-    dd:nth-child(3)  span { opacity: 0.35; }
-    dd:nth-child(2)  span { opacity: 0.30; }
-    dd:nth-child(1)  span { opacity: 0.25; }
-  }
-}
-
-.two-tile {
-  article.tracker {
-    float: left;
-
-    .title {
-      font-size: 20px;
-    }
-
-    dl.metrics, dl.stories {
-      width: 200px;
-      margin: 4px 0px 0px 5px;
-      padding: 5px;
-
-      dt {
-        line-height: 22px;
-      }
-
-      dd {
-        font-size: 22px;
-        line-height: 22px;
-      }
-    }
-
-    dl.stories {
-      clear: left;
-    }
-
-    dl.velocities {
-      height: 118px;
-      width: 370px;
-      margin-bottom: 11px;
-
-      dd {
-        margin-right: 2px;
-        height: 100%;
-        width: 35px;
-
-        span {
           width: 32px;
           bottom: 0;
-        }
-      }
     }
   }
-}
 
-.three-tile, .four-tile {
-  article.tracker {
-    height: 160px;
-    float: right;
-
-    .title {
-      font-size: 11px;
-      text-align: center;
-      padding-top: 5px;
-    }
-
-    dl.metrics, dl.stories {
-      width: 120px;
-      margin: 10px 5px 10px 5px;
-      padding: 5px;
-
-      dt {
-        line-height: 18px;
-        font-size: 10px;
-      }
-
-      dd {
-        font-size: 18px;
-        line-height: 18px;
-      }
-    }
-
-    dl.stories {
-      float: right;
-    }
-
-    dl.velocities {
-      height: 62px;
-      width: 280px;
-      margin-right: 5px;
-
-      dd {
-        margin-right: 2px;
-        height: 100%;
-        width: 26px;
-
-        span {
-          width: 25px;
-        }
-      }
-    }
+  dd:nth-child(10) span { opacity: 0.95; }
+  dd:nth-child(9)  span { opacity: 0.90; }
+  dd:nth-child(8)  span { opacity: 0.85; }
+  dd:nth-child(7)  span { opacity: 0.80; }
+  dd:nth-child(6)  span { opacity: 0.70; }
+  dd:nth-child(5)  span { opacity: 0.60; }
+  dd:nth-child(4)  span { opacity: 0.50; }
+  dd:nth-child(3)  span { opacity: 0.35; }
+  dd:nth-child(2)  span { opacity: 0.30; }
+  dd:nth-child(1)  span { opacity: 0.25; }
   }
 }
