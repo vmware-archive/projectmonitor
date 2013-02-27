@@ -16,7 +16,7 @@ gem "dynamic_form"
 gem "foreman"
 gem "sass"
 gem "haml"
-gem "jquery-rails", ">= 2.1.3"
+gem "jquery-rails"
 gem "mime-types"
 gem "nokogiri"
 gem "omniauth"
@@ -26,7 +26,7 @@ gem "rails"
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
-gem 'rails-backbone', ">= 0.9.10"
+gem 'rails-backbone'
 gem 'coffee-filter'
 gem 'eco'
 gem 'pg'
