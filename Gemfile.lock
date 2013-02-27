@@ -368,7 +368,7 @@ DEPENDENCIES
   headless
   heroku_san
   jasmine
-  jquery-rails (>= 2.1.3)
+  jquery-rails
   jshint_on_rails
   launchy
   memcache-client
@@ -383,7 +383,7 @@ DEPENDENCIES
   pry-nav
   pry-rails
   rails
-  rails-backbone (>= 0.9.10)
+  rails-backbone
   rake
   rspec
   rspec-rails
