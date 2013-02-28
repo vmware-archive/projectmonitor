@@ -2,12 +2,12 @@ class ExternalDependency
 
   def self.get_or_fetch(name, threshold=30)
     name.downcase!
-    Rails.cache.fetch(name, :expires_in => 30.seconds) { eval("#{name}_status") }
+    Rails.cache.fetch(name, :expires_in => threshold.seconds) { refresh_status(name) }
   end
 
   def self.fetch_status(name)
     name.downcase!
-    status = eval("#{name}_status")
+    status = refresh_status(name)
     Rails.cache.write(name, status, :expires_in => 30.seconds)
     status
   end
@@ -55,6 +55,11 @@ class ExternalDependency
     end
 
     output.to_json
+  end
+
+  private
+  def self.refresh_status(name)
+    eval("#{name}_status")
   end
 
 end

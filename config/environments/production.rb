@@ -56,4 +56,8 @@ ProjectMonitor::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
   config.max_status = 15
+
+  # Use memcache in production
+  config.cache_store = :mem_cache_store
+
 end
