@@ -1,9 +1,18 @@
 require 'spec_helper'
 
 describe VersionsController do
+  before(:each) do
+    VersionsController.class_eval {class_variable_set :@@version, nil}
+  end
+
   context 'routing' do
     it 'should route GET /version to VersionsController#show' do
       { get: '/version' }.should route_to(:controller => 'versions', :action => 'show')
+    end
+
+    it 'should only check the VERSION file once' do
+      File.should_receive(:exists?).once
+      3.times { get :show }
     end
   end
 
