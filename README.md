@@ -51,9 +51,10 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
-### Set up memcached
-You need to run memcached. It should be very easy to install if you have homebrew
-or another package manager:
+### Set up memcached for performant/distributed caching
+Statuses are cached via an in-memory store by default.  If you want to use memcache,
+you'll need to ensure it's installed. It should be very easy to install if you have
+homebrew or another package manager:
 
     brew install memcached
 
