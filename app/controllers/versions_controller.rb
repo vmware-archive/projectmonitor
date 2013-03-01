@@ -9,6 +9,10 @@ class VersionsController < ApplicationController
   private
 
   def version
+    @@version ||= fetch_version
+  end
+
+  def fetch_version
     if File.exists?(VERSION_PATH)
       File.read(VERSION_PATH)
     else
