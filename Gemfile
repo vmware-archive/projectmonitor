@@ -8,6 +8,7 @@ gem "choices"
 gem "daemons"
 gem "delayed_job"
 gem "delayed_job_active_record"
+gem "delayed_job_web"
 gem "devise"
 gem "devise-encryptable"
 # NOTE: Newer versions of draper are currently incompatible with this codebase
