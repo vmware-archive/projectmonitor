@@ -217,19 +217,6 @@ class Project < ActiveRecord::Base
     latest_status.try(:published_at)
   end
 
-  def record_failure!
-    if enabled
-      if failures < 3
-        self.update_attribute(:failures, failures + 1)
-        return false
-      else
-        self.update_attribute(:failures, 0)
-        self.update_attribute(:enabled, false)
-        return true
-      end
-    end
-  end
-
   private
 
   def calculated_variance
