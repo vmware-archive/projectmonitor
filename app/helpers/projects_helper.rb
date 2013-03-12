@@ -50,8 +50,8 @@ module ProjectsHelper
           content_tag(:a, latest, href: project_payload_log_entries_path(project))
         end
       else
-        content_tag(:span, class: "last_status failed") do
-          content_tag(:a, "Disabled", href: project_payload_log_entries_path(project))
+        content_tag(:span, class: "last_status #{latest.status}") do
+          content_tag(:p, "Disabled")
         end
       end
     else

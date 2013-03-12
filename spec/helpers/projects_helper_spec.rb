@@ -84,7 +84,7 @@ describe ProjectsHelper do
         let(:enabled) { false }
 
         it "should return a paragraph selector with diabled as the text" do
-          helper.project_last_status(project).should have_selector("a")
+          helper.project_last_status(project).should have_selector("p")
           helper.project_last_status(project).should include("Disabled")
         end
       end

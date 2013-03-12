@@ -17,11 +17,6 @@ class PayloadProcessor
   def payload_log
     success = payload.status_is_processable? || payload.build_status_is_processable?
     status = success ? "successful" : "failed"
-    if status == "failed"
-      if project.record_failure!
-        status = "disabled due to 3 failures"
-      end
-    end
     project.payload_log_entries.build(status: status, error_type: payload.error_type, error_text: payload.error_text, backtrace: payload.backtrace)
   end
 
