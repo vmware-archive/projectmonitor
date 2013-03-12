@@ -28,7 +28,7 @@ ProjectMonitor::Application.routes.draw do
   end
 
   authenticate :user do
-    mount DelayedJobWeb.new, :at => "/jobs"
+    match "/jobs" => DelayedJobWeb, :anchor => false
   end
 
   match 'styleguide' => 'home#styleguide'
