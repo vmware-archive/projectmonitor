@@ -1,18 +1,19 @@
 pairs:
-  js: Jeff Saracco; jeff
-  mh: Matt Horan; mhoran
-  dc: Dennis Cahillane; dcahillane
-  jm: Jonathan Mukai-Heidt; jmukai
-  bg: Bryan Goldstein; bgoldstein
-  dr: Dimitri Roche; dimroc
   af: Andrew Fader; afader
-  mlw: Mike Lazer-Walker; mwalker
-  ss: Sabrina Staedt; sstaedt
+  bg: Bryan Goldstein; bgoldstein
+  dc: Dennis Cahillane; dcahillane
+  dl: David Lee; dlee
+  dr: Dimitri Roche; dimroc
   dt: David Tengdin; dtengdin
   gs: Graham Siener; gsiener
-  se: Steve Ellis; sellis
   jb: Jonathan Berger; jonathanpberger
+  jm: Jonathan Mukai-Heidt; jmukai
+  js: Jeff Saracco; jeff
+  mh: Matt Horan; mhoran
+  mlw: Mike Lazer-Walker; mwalker
   rpw: Ross Popoff-Walker; rpw
+  se: Steve Ellis; sellis
+  ss: Sabrina Staedt; sstaedt
   wp: Ward Penney; wp
 
 email:
