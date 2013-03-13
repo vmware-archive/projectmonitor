@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
   .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
 
   scope :displayable, lambda {|tags|
-    scope = enabled
+    scope = enabled.order('code ASC')
     return scope.tagged_with(tags) if tags
     scope
   }
