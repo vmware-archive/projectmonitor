@@ -66,28 +66,6 @@ describe Project do
     end
   end
 
-  # describe "job queuing" do
-  # it "queues a higher priority job to fetch statuses for a newly created project" do
-  # project = FactoryGirl.build(:project)
-  # status_job = double(:enqueued_job)
-  # tag_job = double(:enqueued_job)
-
-  # RemoveUnusedTags::Job.should_receive(:new).and_return(tag_job)
-  # StatusFetcher::Job.should_receive(:new).with(project).and_return(status_job)
-  # Delayed::Job.should_receive(:enqueue).with(tag_job, priority: 1)
-  # Delayed::Job.should_receive(:enqueue).with(status_job, priority: 0)
-  # describe "job queuing" do
-  # it "queues a higher priority job to fetch statuses for a newly created project" do
-  # project = FactoryGirl.build(:project)
-  # enqueued_job = double(:enqueued_job)
-
-  # StatusFetcher::Job.should_receive(:new).with(project).and_return(enqueued_job)
-  # Delayed::Job.should_receive(:enqueue).with(enqueued_job, priority: 0)
-
-  # project.save
-  # end
-  # end
-
   describe 'scopes' do
     describe "standalone" do
       it "should return non aggregated projects" do
