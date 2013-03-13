@@ -88,6 +88,13 @@ describe AggregateProject do
 
           displayable_aggregate.to_a.count(enabled).should == 1
         end
+
+        it "should return the projects in alphabetical order" do
+          scope = double
+          AggregateProject.stub_chain(:enabled,:joins,:select) { scope }
+          scope.should_receive(:order).with('code ASC')
+          AggregateProject.displayable
+        end
       end
 
       context "when supplying tags" do

@@ -26,7 +26,6 @@ describe Project do
     before do
       project.statuses << FactoryGirl.create_list(:project_status, count, project: project)
     end
-
     context 'when the project is online' do
       let(:project) { FactoryGirl.build(:jenkins_project).tap {|p| p.online = true } }
 
@@ -150,7 +149,7 @@ describe Project do
 
         it "should find tagged with tags" do
           scope = double
-          Project.stub(:enabled) { scope }
+          Project.stub_chain(:enabled, :order) { scope }
           scope.should_receive(:tagged_with).with(tags)
           subject
         end
