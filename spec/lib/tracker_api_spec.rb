@@ -36,5 +36,9 @@ describe TrackerApi do
     it "should be the sum of the estimates of the stories from the prior 10 iterations in reverse order" do
       TrackerApi.new(project).last_ten_velocities.should == [37, 33, 29, 25, 21, 17, 13, 9, 5, 1]
     end
+
+    it "should not include the sum of the estimate for the current iteration" do
+      TrackerApi.new(project).last_ten_velocities.should_not include(20 + 21)
+    end
   end
 end
