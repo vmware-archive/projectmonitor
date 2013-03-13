@@ -150,18 +150,19 @@ describe Project do
         it "should find tagged with tags" do
           scope = double
           Project.stub_chain(:enabled, :order) { scope }
-          scope.should_receive(:tagged_with).with(tags)
+          scope.should_receive(:tagged_with).with(tags, {:any => true})
           subject
         end
 
         context "when displayable projects are tagged" do
           before do
             projects(:socialitis).update_attributes(tag_list: tags)
+            projects(:jenkins_project).update_attributes(tag_list: "southeast")
             projects(:pivots).update_attributes(tag_list: [])
           end
 
           it "should return scoped projects" do
-            subject.should include projects(:socialitis)
+            subject.should include(projects(:socialitis), projects(:jenkins_project))
             subject.should_not include projects(:pivots)
           end
         end
@@ -186,7 +187,7 @@ describe Project do
         let(:tags) { "southeast, northwest" }
 
         it "should find tagged with tags" do
-          Project.should_receive(:tagged_with).with(tags)
+          Project.should_receive(:tagged_with).with(tags, {:any => true})
           subject
         end
 
