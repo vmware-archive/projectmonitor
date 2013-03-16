@@ -4,6 +4,8 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'vcr_setup'
 require 'pry'
+require 'coveralls'
+Coveralls.wear!('rails')
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
