@@ -90,6 +90,7 @@ class ProjectPoller
   end
 
   def create_request(url, options = {})
+    url = "http://#{url}" unless /\A\S+:\/\// === url
     connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
 
     get_options = {redirects: @max_follow_redirects}.merge(options)
