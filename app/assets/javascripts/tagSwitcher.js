@@ -1,5 +1,5 @@
 var TagSwitcher = (function () {
-  var $tagSwitcher, pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
+  var $tagSwitcher, pollIntervalSeconds = 30, timeoutFunction;
 
   return {
     init : function () {

@@ -1,6 +1,6 @@
 var HerokuRefresh = (function () {
   var $herokuTile, failureThreshold = 4, failureCount = 0;
-  var pollIntervalSeconds = 30, fadeIntervalSeconds = 3, timeoutFunction;
+  var pollIntervalSeconds = 30, timeoutFunction;
 
   return {
     init : function () {

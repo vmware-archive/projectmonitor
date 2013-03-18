@@ -32,3 +32,12 @@
   font-family: 'Avenir LT W01 35 Light', Helvetica, sans-serif;
   font-weight: normal;
 }
+
+@mixin add-browser-prefixes($property,$value) {
+  -webkit-#{$property}:$value;
+     -moz-#{$property}:$value;
+      -ms-#{$property}:$value;
+       -o-#{$property}:$value;
+          #{$property}:$value;
+
+}
