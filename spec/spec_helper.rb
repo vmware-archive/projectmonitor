@@ -4,8 +4,11 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'vcr_setup'
 require 'pry'
-require 'coveralls'
-Coveralls.wear!('rails')
+
+if ENV["TRAVIS"]
+  require 'coveralls'
+  Coveralls.wear!('rails')
+end
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
