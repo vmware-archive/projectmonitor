@@ -2,6 +2,35 @@ article.build.success       { @include build_status($green) }
 article.build.failure       { @include build_status($red) }
 article.build.offline       { @include build_status($grey) }
 article.build.indeterminate { @include build_status($yellow) }
+article.build.building {
+  @include add-browser-prefixes(           animation-name, building);
+  @include add-browser-prefixes(       animation-duration, 2s);
+  @include add-browser-prefixes(animation-timing-function, ease);
+  @include add-browser-prefixes(animation-iteration-count, infinite);
+  @include add-browser-prefixes(      animation-direction, normal);
+  @include add-browser-prefixes(          animation-delay, 0);
+  @include add-browser-prefixes(     animation-play-state, running);
+}
+
+@mixin building-keyframes {
+
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.50;
+  }
+  100% {
+    opacity: 1;
+  }
+
+}
+
+
+@-webkit-keyframes building { @include building-keyframes }
+@-moz-keyframes building { @include building-keyframes }
+@-o-keyframes building { @include building-keyframes }
+@keyframes building { @include building-keyframes }
 
 article.build {
   h1, aside {
@@ -214,3 +243,4 @@ article.build {
     }
   }
 }
+
