@@ -169,7 +169,7 @@ describe ProjectPoller do
           end
 
           it 'should be initialized with the tracker_url and timeouts' do
-            EM::HttpRequest.should_receive(:new).with(project.tracker_project_url, connect_timeout: 45, inactivity_timeout: 30)
+            EM::HttpRequest.should_receive(:new).with("http://"+project.tracker_project_url, connect_timeout: 45, inactivity_timeout: 30)
           end
         end
       end
