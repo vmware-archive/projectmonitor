@@ -21,7 +21,8 @@ class TravisJsonPayload < Payload
   def content_ready?(content)
     content['state'] != 'started' &&
       content['state'] != 'created' &&
-      specified_branch?(content)
+      specified_branch?(content) &&
+      content['event_type'] != 'pull_request'
   end
 
   def convert_webhook_content!(content)

@@ -98,6 +98,11 @@ describe TravisJsonPayload do
         it { should be_true }
       end
     end
+    
+    context 'the payload contains a build from pull request' do
+      let(:json) { "pull_request.json" }
+      it { should be_false }
+    end
   end
 
   describe '#parse_url' do
