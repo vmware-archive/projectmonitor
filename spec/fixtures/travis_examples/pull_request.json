@@ -1,0 +1,46 @@
+{
+"id": 5754330,
+"repository_id": 139061,
+"number": "214",
+"config": {
+"language": "ruby",
+"rvm": [
+"1.9.3"
+],
+"script": "bundle exec rake spec",
+".result": "configured"
+},
+"state": "finished",
+"result": 1,
+"status": 1,
+"started_at": "2013-03-24T08:46:38Z",
+"finished_at": "2013-03-24T08:52:29Z",
+"duration": 351,
+"commit": "d505c4c9628c630b85d41d2670604f36d0895caf",
+"branch": "master",
+"message": "add a private api for service gateway to update handles",
+"committed_at": "2013-03-24T08:39:05Z",
+"author_name": "Yang Yang",
+"author_email": "yangy@vmware.com",
+"committer_name": "Yang Yang",
+"committer_email": "yangy@vmware.com",
+"compare_url": "https://github.com/cloudfoundry/cloud_controller_ng/pull/35",
+"event_type": "pull_request",
+"matrix": [
+{
+"id": 5754331,
+"repository_id": 139061,
+"number": "214.1",
+"config": {
+"language": "ruby",
+"rvm": "1.9.3",
+"script": "bundle exec rake spec",
+".result": "configured"
+},
+"result": 1,
+"started_at": "2013-03-24T08:46:38Z",
+"finished_at": "2013-03-24T08:52:29Z",
+"allow_failure": false
+}
+]
+}
