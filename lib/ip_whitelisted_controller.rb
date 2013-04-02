@@ -1,3 +1,5 @@
+require 'ipaddr'
+
 module IPWhitelistedController
   include ActiveSupport::Concern
 
@@ -10,14 +12,19 @@ module IPWhitelistedController
 
   private
 
+  def restrict_access!
+    authenticate_user!
+  end
+
   def restrict_ip_address
-    client_ip_address = if ConfigHelper.get(:ip_whitelist_request_proxied)
+    client_ip_address_str = if ConfigHelper.get(:ip_whitelist_request_proxied)
         (request.env['HTTP_X_FORWARDED_FOR'] || '').split(',').first.try(:strip)
       else
         request.env['REMOTE_ADDR']
       end
 
-    head 403 unless ConfigHelper.get(:ip_whitelist).include?(client_ip_address)
+    client_ip_address = client_ip_address_str ? IPAddr.new(client_ip_address_str) : nil
+    allowed_ips = ConfigHelper.get(:ip_whitelist).map { |ip_str| IPAddr.new(ip_str) }
+    restrict_access! unless allowed_ips.any? { |ip| ip.include? client_ip_address }
   end
-
 end

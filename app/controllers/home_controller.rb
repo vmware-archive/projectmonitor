@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
   layout 'home'
 
+  skip_filter :authenticate_user!
+
   respond_to :html, :only => [:styleguide]
   respond_to :rss, :only => :builds
   respond_to :json, :only => [:github_status, :heroku_status, :rubygems_status, :index]
