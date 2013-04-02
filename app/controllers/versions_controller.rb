@@ -1,4 +1,6 @@
 class VersionsController < ApplicationController
+  skip_filter :authenticate_user!
+
   DEFAULT_VERSION = '1'
   VERSION_PATH    = File.join(Rails.root, 'VERSION')
 
