@@ -1,0 +1,29 @@
+@-webkit-keyframes svg-pulse-green {
+  0% { 
+    fill: darken($blue, 20%);
+  }
+  70% {
+    fill: darken($blue, 20%);
+  }
+  85% {
+    fill: darken($blue, 30%);
+  }
+  100% {
+    fill: darken($blue, 20%);
+  }
+}
+// @-moz-keyframes svg-pulse-green {
+//   0% { -moz-transform: scale(1); }  
+//   50% { -moz-transform: scale(1.1); }
+//   100% { -moz-transform: scale(1); }
+// }
+// @-o-keyframes svg-pulse-green {
+//   0% { -o-transform: scale(1); }  
+//   50% { -o-transform: scale(1.1); }
+//   100% { -o-transform: scale(1); }
+// }
+// @keyframes svg-pulse-green {
+//   0% { transform: scale(1); } 
+//   50% { transform: scale(1.1); }
+//   100% { transform: scale(1); }
+// }

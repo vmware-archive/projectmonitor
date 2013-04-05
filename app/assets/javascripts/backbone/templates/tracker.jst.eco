@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="title">Pivotal Tracker</div>
   <% if @tracker_online: %>
     <div class="stats">
+      <div class="title">Pivotal Tracker</div>
       <dl class="metrics">
         <div class="metrics-half">
           <dd class="current-velocity"><%= @current_velocity %></dd>
@@ -13,13 +13,11 @@
         </div>
       </dl>
     </div>
-    <dl class="velocity-block velocities">
-      <% for velocity in @normalized_velocities: %>
-        <dd>
-          <span style="height: <%= velocity %>%"></span>
-        </dd>
-      <% end %>
-    </dl>
+    <article id="iteration-story-state-counts" class="current-iteration">
+      <div class="title">Current Iteration</div>
+      <div class="bar-chart-container">
+      </div>
+    </article>
   <% else: %>
     <div class="no-connection">
       No Connection

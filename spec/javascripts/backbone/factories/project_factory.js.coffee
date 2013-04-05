@@ -25,5 +25,6 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       stories_to_accept_count: 5
       open_stories_count: 9
       last_ten_velocities: [ 1, 2, 3, 4, 50, 60, 70, 80, 90, 100]
+      iteration_story_state_counts: JSON.parse('[{"label":"unstarted","value":4},{"label":"started","value":8},{"label":"finished","value":3},{"label":"delivered","value":8},{"label":"accepted","value":15},{"label":"rejected","value":4}]')
       tracker_online: true
   }
