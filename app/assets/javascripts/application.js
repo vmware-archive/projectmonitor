@@ -8,6 +8,7 @@
 //= require backbone/project_monitor
 //= require Coccyx
 //= require jquery.timeago
+//= require d3.v3.js
 
 //= require_tree ./initializers
 

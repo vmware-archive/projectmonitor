@@ -21,6 +21,7 @@ class ProjectTrackerWorkloadHandler
 
     project.current_velocity = tracker.current_velocity
     project.last_ten_velocities = tracker.last_ten_velocities
+    project.iteration_story_state_counts = tracker.iteration_story_state_counts
     project.tracker_online = true
     project.save!
   end

@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
+  serialize :iteration_story_state_counts, JSON
   serialize :tracker_validation_status, Hash
 
   scope :enabled, where(enabled: true)
@@ -195,7 +196,7 @@ class Project < ActiveRecord::Base
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
       json["tracker"] = super(
-        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count],
+        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
         methods: ["variance"],
         root:false) if tracker_project_id?
         json

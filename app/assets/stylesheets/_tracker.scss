@@ -1,3 +1,8 @@
+@import 'compass/css3/transform';
+@import 'compass/css3/opacity';
+@import 'compass/css3/shared';
+@import 'animations';
+
 article.tracker {
   @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
   background-size: 10px 10px;
@@ -41,7 +46,7 @@ article.tracker {
       &.current-variance {
         color: rgb(50, 50, 50);
         font-size: 20px;
-        margin-top: 61px;
+        margin-top: 65px;
       }
     }
     dt {
@@ -56,6 +61,66 @@ article.tracker {
         margin-top: 5px;
       }
     }
+  }
+
+  article.current-iteration {
+    float: right;
+    border-bottom: 2px solid darken($blue, 20%);
+    height: 118px;
+    width: 355px;
+    position: relative;
+    margin-right: 2px;
+   
+    .bar-chart-container {
+      list-style: none;
+      width: 100%;
+      height: 100%;
+      display: block;
+      background-color: lighten($blue, 10%);
+
+      .bar-chart {
+        rect {
+          fill: darken($blue, 20%);
+
+          &.whomp-whomp {
+            @include experimental(animation, svg-pulse-green 2.5s ease-in-out infinite);
+            // @include experimental(animation-duration, 1s);
+            // @include experimental(animation-timing-function, ease);
+            // @include experimental(animation-duration, 1s);
+
+          }
+        }
+        text {
+          font-family: 'Avenir LT W01 35 Light', 'Helvetica';
+          text-transform: uppercase;
+          font-size: 10px;
+        }
+        .axis {
+
+          path.domain {
+            stroke: $very-dark-green;
+            shape-rendering: crispEdges;
+            fill: none;
+          }
+
+          .tick {
+            text {
+              font-size: 9px;
+              text-transform: uppercase; 
+            }
+            line {
+              stroke: $dark-green;
+              shape-rendering: crispEdges;
+              fill: none;
+            }
+          }
+        }
+      }
+      .bar {
+        display: inline-block;
+        background-color: darken($blue, 20%);
+      }
+    } 
   }
 
   dl.velocities {

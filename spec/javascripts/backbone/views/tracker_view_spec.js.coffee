@@ -14,17 +14,21 @@ describe "ProjectMonitor.Views.TrackerView", ->
     it "should include the variance", ->
       expect($(".current-variance").text()).toContain(@tracker.get("variance"))
 
-    it "should include the velocity chart", ->
-      expect($(".velocities dd:nth-child(10) span").attr('style')).toContain("1%")
-      expect($(".velocities dd:nth-child(9) span").attr('style')).toContain("2%")
-      expect($(".velocities dd:nth-child(8) span").attr('style')).toContain("3%")
-      expect($(".velocities dd:nth-child(7) span").attr('style')).toContain("4%")
-      expect($(".velocities dd:nth-child(6) span").attr('style')).toContain("50%")
-      expect($(".velocities dd:nth-child(5) span").attr('style')).toContain("60%")
-      expect($(".velocities dd:nth-child(4) span").attr('style')).toContain("70%")
-      expect($(".velocities dd:nth-child(3) span").attr('style')).toContain("80%")
-      expect($(".velocities dd:nth-child(2) span").attr('style')).toContain("90%")
-      expect($(".velocities dd:nth-child(1) span").attr('style')).toContain("100%")
+    it "should include the story states chart", ->
+      expect($(".bar-chart g.x.axis")).toExist()
+      expect($(".bar-chart g.y.axis")).toExist()
+      expect($(".bar-chart rect").eq(0).attr('x')).toContain("41")
+      expect($(".bar-chart rect").eq(0).attr('y')).toContain("91.08333333333333")
+      expect($(".bar-chart rect").eq(1).attr('x')).toContain("93.5")
+      expect($(".bar-chart rect").eq(1).attr('y')).toContain("63.41666666666666")
+      expect($(".bar-chart rect").eq(2).attr('x')).toContain("146")
+      expect($(".bar-chart rect").eq(2).attr('y')).toContain("98")
+      expect($(".bar-chart rect").eq(3).attr('x')).toContain("198.5")
+      expect($(".bar-chart rect").eq(3).attr('y')).toContain("63.41666666666666")
+      expect($(".bar-chart rect").eq(4).attr('x')).toContain("251")
+      expect($(".bar-chart rect").eq(4).attr('y')).toContain("15")
+      expect($(".bar-chart rect").eq(5).attr('x')).toContain("303.5")
+      expect($(".bar-chart rect").eq(5).attr('y')).toContain("91.08333333333333")
 
     describe "when the tracker model is offline", ->
       beforeEach ->
