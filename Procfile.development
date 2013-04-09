@@ -1,0 +1,5 @@
+web: bundle exec thin start -p $PORT
+worker: bundle exec rake jobs:work
+poller: rake projectmonitor:poller
+guard: guard
+log: tail -f log/development.log
