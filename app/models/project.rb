@@ -135,7 +135,7 @@ class Project < ActiveRecord::Base
   end
 
   def tracker_current_iteration_url
-    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current_backlog"
+    "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current"
   end
 
   def to_s
