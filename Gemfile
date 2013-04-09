@@ -63,6 +63,8 @@ group :development do
   gem "awesome_print"
   gem "heroku_san"
   gem 'guard-coffeescript'
+  gem 'guard-livereload'
+  gem 'rb-fsevent', '~> 0.9.1'
   gem 'ruby-prof'
 end
 
