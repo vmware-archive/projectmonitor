@@ -12,26 +12,6 @@ article.build.building {
   @include add-browser-prefixes(     animation-play-state, running);
 }
 
-@mixin building-keyframes {
-
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.50;
-  }
-  100% {
-    opacity: 1;
-  }
-
-}
-
-
-@-webkit-keyframes building { @include building-keyframes }
-@-moz-keyframes building { @include building-keyframes }
-@-o-keyframes building { @include building-keyframes }
-@keyframes building { @include building-keyframes }
-
 article.build {
   h1, aside {
     background-size: 10px 10px;

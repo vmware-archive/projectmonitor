@@ -1,8 +1,3 @@
-@import 'compass/css3/transform';
-@import 'compass/css3/opacity';
-@import 'compass/css3/shared';
-@import 'animations';
-
 article.tracker {
   @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
   background-size: 10px 10px;
