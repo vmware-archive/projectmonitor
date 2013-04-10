@@ -1,16 +1,15 @@
+%raised-box-style {
+  background-color: lighten($blue, 10%);
+  @include border-radius(1px);
+  @include box-shadow(1px 1px 3px rgba(0,0,0,0.8));
+}
+
 article.tracker {
-  @include linear-gradient(top, $blue 90%, darken($blue, 10%) 10%);
-  background-size: 10px 10px;
+  background-color: lighten($blue, 10%);
   height: 159px;
-
-  .title {
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-
-  .stats {
-    float: left;
-  }
+  padding: 5px 5px 5px 15px;
+  position: relative;
+  @include box-sizing(border-box);
 
   .no-connection {
     height: 127px;
@@ -18,139 +17,104 @@ article.tracker {
     font-size: 25px;
   }
 
-  dl.metrics {
+  .tracker-metrics {
     float: left;
-    background-color: lighten($blue, 10%);
-    border-top: 1px solid darken($blue, 20%);
-    border-bottom: 1px solid darken($blue, 20%);
-    width: 216px;
-    height: 118px;
+    width: 73px;
+    height: 133px;
+
     .metrics-half {
-      position: relative;
-      float: left;
-      width: 50%;
+      &:first-of-type {
+        margin-top: -1px;
+      }
+      &:last-of-type {
+        margin-top: 14px;
+      }
     }
     dd {
+      @include heavy_font;
       display: block;
-      width: 100%;
       text-align: center;
-      font-weight: bold;
       &.current-velocity {
-        font-size: 83px;
+        font-size: 70px;
+        line-height: 1em;
       }
       &.current-variance {
-        color: rgb(50, 50, 50);
         font-size: 20px;
-        margin-top: 65px;
       }
     }
     dt {
       display: block;
-      width: 100%;
       text-align: center;
       text-transform: uppercase;
-      &.current-velocity-label {
-        margin-top: -6px;
-      }
-      &.current-variance-label {
-        margin-top: 5px;
-      }
+      font-size: 14px;
+      -webkit-text-size-adjust: auto;
     }
   }
 
   article.current-iteration {
-    float: right;
-    border-bottom: 2px solid darken($blue, 20%);
-    height: 118px;
-    width: 355px;
+    display: inline-block;
+    height: 122px;
+    width: 455px;
     position: relative;
-    margin-right: 2px;
-   
-    .bar-chart-container {
-      list-style: none;
-      width: 100%;
-      height: 100%;
-      display: block;
-      background-color: lighten($blue, 10%);
+    list-style: none;
+    margin-left: 10px;
+    padding-top: 5px;
+    float: left;
+    .bar-chart {
 
-      .bar-chart {
-        rect {
-          fill: darken($blue, 20%);
+      #whomp-whomp {
+        .pattern-stripe {
+          fill: darken($blue, 5%);
+        }
+        .pattern-stripe-off {
+          fill: darken($blue, 10%);
+        }
+      }
 
-          &.whomp-whomp {
-            @include experimental(animation, svg-pulse-green 2.5s ease-in-out infinite);
-            // @include experimental(animation-duration, 1s);
-            // @include experimental(animation-timing-function, ease);
-            // @include experimental(animation-duration, 1s);
+      rect {
+        fill: darken($blue, 10%);
 
+        &.whomp-whomp {
+          fill: url(#whomp-whomp);
+        }
+      }
+      text {
+        font-family: 'Avenir LT W01 35 Light', 'Helvetica';
+        text-transform: uppercase;
+        &.chart-title {
+          @include medium_font;
+          font-size: 13px;
+        }
+        &.chart-axis-name {
+          @include medium_font;
+          font-size: 12px;
+        }
+      }
+      .axis {
+
+        path.domain {
+          stroke: $very-dark-green;
+          shape-rendering: crispEdges;
+          fill: none;
+        }
+
+        .tick {
+          text {
+            @include heavy_font;
+            font-size: 13px;
+            text-transform: uppercase;
           }
-        }
-        text {
-          font-family: 'Avenir LT W01 35 Light', 'Helvetica';
-          text-transform: uppercase;
-          font-size: 10px;
-        }
-        .axis {
-
-          path.domain {
-            stroke: $very-dark-green;
+          line {
+            stroke: $dark-green;
             shape-rendering: crispEdges;
             fill: none;
           }
-
-          .tick {
-            text {
-              font-size: 9px;
-              text-transform: uppercase; 
-            }
-            line {
-              stroke: $dark-green;
-              shape-rendering: crispEdges;
-              fill: none;
-            }
-          }
         }
       }
-      .bar {
-        display: inline-block;
-        background-color: darken($blue, 20%);
-      }
-    } 
-  }
-
-  dl.velocities {
-    float: right;
-    border-bottom: 2px solid darken($blue, 20%);
-    height: 118px;
-    width: 370px;
-    margin-bottom: 11px;
-
-    dd {
-      display:inline;
-      float: left;
-      position: relative;
-      margin-right: 2px;
-      height: 100%;
-      width: 35px;
-
-      span {
-        position: absolute;
-        bottom: 0;
-        background-color: darken($blue, 20%);
-          width: 32px;
-          bottom: 0;
     }
-  }
-
-  dd:nth-child(10) span { opacity: 0.95; }
-  dd:nth-child(9)  span { opacity: 0.90; }
-  dd:nth-child(8)  span { opacity: 0.85; }
-  dd:nth-child(7)  span { opacity: 0.80; }
-  dd:nth-child(6)  span { opacity: 0.70; }
-  dd:nth-child(5)  span { opacity: 0.60; }
-  dd:nth-child(4)  span { opacity: 0.50; }
-  dd:nth-child(3)  span { opacity: 0.35; }
-  dd:nth-child(2)  span { opacity: 0.30; }
-  dd:nth-child(1)  span { opacity: 0.25; }
+    .bar {
+      display: inline-block;
+      background-color: darken($blue, 20%);
+    }
   }
 }

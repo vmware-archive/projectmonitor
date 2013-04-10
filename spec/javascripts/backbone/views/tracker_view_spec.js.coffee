@@ -15,20 +15,28 @@ describe "ProjectMonitor.Views.TrackerView", ->
       expect($(".current-variance").text()).toContain(@tracker.get("variance"))
 
     it "should include the story states chart", ->
-      expect($(".bar-chart g.x.axis")).toExist()
-      expect($(".bar-chart g.y.axis")).toExist()
-      expect($(".bar-chart rect").eq(0).attr('x')).toContain("41")
-      expect($(".bar-chart rect").eq(0).attr('y')).toContain("91.08333333333333")
-      expect($(".bar-chart rect").eq(1).attr('x')).toContain("93.5")
-      expect($(".bar-chart rect").eq(1).attr('y')).toContain("63.41666666666666")
-      expect($(".bar-chart rect").eq(2).attr('x')).toContain("146")
-      expect($(".bar-chart rect").eq(2).attr('y')).toContain("98")
-      expect($(".bar-chart rect").eq(3).attr('x')).toContain("198.5")
-      expect($(".bar-chart rect").eq(3).attr('y')).toContain("63.41666666666666")
-      expect($(".bar-chart rect").eq(4).attr('x')).toContain("251")
-      expect($(".bar-chart rect").eq(4).attr('y')).toContain("15")
-      expect($(".bar-chart rect").eq(5).attr('x')).toContain("303.5")
-      expect($(".bar-chart rect").eq(5).attr('y')).toContain("91.08333333333333")
+      expect($(".bar-chart g.iteration-state-counts-chart")).toExist()
+
+      expect($(".bar-chart g.iteration-state-counts-chart g.x.axis")).toExist()
+      expect($(".bar-chart g.iteration-state-counts-chart g.y.axis")).toExist()
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(0).attr('x')).toContain("39")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(0).attr('y')).toContain("109")
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(1).attr('x')).toContain("114")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(1).attr('y')).toContain("73")
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(2).attr('x')).toContain("189")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(2).attr('y')).toContain("118")
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(3).attr('x')).toContain("264")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(3).attr('y')).toContain("73")
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(4).attr('x')).toContain("339")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(4).attr('y')).toContain("10")
+
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(5).attr('x')).toContain("414")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(5).attr('y')).toContain("109")
 
     describe "when the tracker model is offline", ->
       beforeEach ->
