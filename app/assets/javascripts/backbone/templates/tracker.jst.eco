@@ -1,26 +1,19 @@
-<div class="container">
-  <% if @tracker_online: %>
-    <div class="stats">
-      <div class="title">Pivotal Tracker</div>
-      <dl class="metrics">
-        <div class="metrics-half">
-          <dd class="current-velocity"><%= @current_velocity %></dd>
-          <dt class="current-velocity-label">velocity</dt>
-        </div>
-        <div class="metrics-half">
-          <dd class="current-variance"><%= @variance %>%</dd>
-          <dt class="current-variance-label">variance</dt>
-        </div>
-      </dl>
+<% if @tracker_online: %>
+  <!-- <h1>Pivotal Tracker</h1> -->
+  <dl class="tracker-metrics">
+    <div class="metrics-half">
+      <dd class="current-velocity"><%= @current_velocity %></dd>
+      <dt>velocity</dt>
     </div>
-    <article id="iteration-story-state-counts" class="current-iteration">
-      <div class="title">Current Iteration</div>
-      <div class="bar-chart-container">
-      </div>
-    </article>
-  <% else: %>
-    <div class="no-connection">
-      No Connection
+    <div class="metrics-half">
+      <dd class="current-variance"><%= @variance %>%</dd>
+      <dt>variance</dt>
     </div>
-   <% end %>
-</div>
+  </dl>
+  <article id="iteration-story-state-counts" class="current-iteration"></article>
+
+<% else: %>
+  <div class="no-connection">
+    No Connection
+  </div>
+ <% end %>

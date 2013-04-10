@@ -19,38 +19,90 @@ class ProjectMonitor.Views.TrackerView extends Backbone.View
     jData = eval(data)
 
     # Setup chart SVG size
-    chartEl = $('#iteration-story-state-counts .bar-chart-container', @el).get(0)
-    margin_top = 10
-    margin_right = 5
-    margin_bottom = 25
-    margin_left = 35
-    padding_bottom = 5
-    padding_left = 5
-    width = 355
-    height = 118
+    chartEl = $('#iteration-story-state-counts', @el).get(0)
+    marginTop = 10
+    marginRight = 5
+    marginBottom = 25
+    marginLeft = 35
+    paddingBottom = 5
+    paddingLeft = 5
+    width = 490
+    height = 143
+    rectWidth = 68
     currentVelocity = @model.get('current_velocity')
-    chart_height = height-margin_top-margin_bottom
-    d3.select(chartEl)
+    chartHeight = height-marginTop-marginBottom
+    chartWidth = width-marginLeft-marginRight
+
+    # Setup chart SVG element
+    svg = d3.select(chartEl)
       .append('svg')
         .attr('class', 'bar-chart')
         .attr('width', width)
         .attr('height', height)
-    chartEl = $('#iteration-story-state-counts .bar-chart-container svg', @el).get(0)
+    # chartEl = $('#iteration-story-state-counts svg', @el).get(0)
+
+    # Set up svg defs to store pattern
+    svg.append('defs')
+      .append('pattern')
+        .attr("id", "whomp-whomp")
+        .attr('width', rectWidth)
+        .attr('height', '20px')
+        .attr('patternUnits', 'userSpaceOnUse')
+        # .attr('transform', 'rotate(-15 '+rectWidth/2+' 0)')
+    pattern = svg.select('defs pattern')
+
+    # Animated pattern inside svg of the accepted candy striping
+    pattern.append("rect")
+      .attr('width', rectWidth)
+      .attr('height', 20)
+      .attr("class", "pattern-stripe-off")
+      .attr('x', 0)
+      .attr('y', 0)
+    pattern.append("rect")
+      .attr('width', rectWidth+20)
+      .attr('height', 10)
+      .attr("class", "pattern-stripe")
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('transform', 'rotate(10)')
+      .append('animate')
+        .attr('attributeName', 'y')
+        .attr('from', '0')
+        .attr('to', '-20')
+        .attr('repeatCount', 'indefinite')
+        .attr('dur', '2s')
+        .attr('calcMode', 'linear')
+    pattern.append("rect")
+      .attr('width', rectWidth+20)
+      .attr('height', 10)
+      .attr("class", "pattern-stripe")
+      .attr('x', 0)
+      .attr('y', 20)
+      .attr('transform', 'rotate(10)')
+      .append('animate')
+        .attr('attributeName', 'y')
+        .attr('from', '20')
+        .attr('to', '0')
+        .attr('repeatCount', 'indefinite')
+        .attr('dur', '2s')
+        .attr('calcMode', 'linear')
+
+    chart = svg.append('g')
+      .attr("class", "iteration-state-counts-chart")
 
     # Setup discrete ordinal range for x axis
     x_domain= ["unstarted","started","finished","delivered","accepted","rejected"]
     x_scale = d3.scale.ordinal()
-      .rangeBands([margin_left, width-margin_right])
+      .rangeBands([marginLeft, marginLeft+chartWidth])
       .domain(x_domain)
     x_axis = d3.svg.axis()
       .scale(x_scale)
       .tickSize(0)
-      .tickPadding(padding_bottom)
-    d3.select(chartEl)
-      .append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0, " + (margin_top+chart_height+padding_bottom) + ")")
-        .call(x_axis)
+      .tickPadding(paddingBottom)
+    chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0, " + (marginTop+chartHeight) + ")")
+      .call(x_axis)
 
     # Setup y axis
     y_min = d3.min(jData, (d) ->
@@ -59,38 +111,35 @@ class ProjectMonitor.Views.TrackerView extends Backbone.View
       d.value)
     y_max = 8 unless y_max >= 8 #minimum of 8
     y_scale = d3.scale.linear()
-      .range([margin_top, margin_top+chart_height])
+      .range([marginTop, marginTop+chartHeight])
       .domain([y_max, y_min])
     y_axis = d3.svg.axis()
       .scale(y_scale)
-      .orient("left")
-      .ticks(4)
-      .tickSize(-(width-margin_left-margin_right), 0, 0)
-      .tickPadding(padding_left)
-    d3.select(chartEl)
-      .append("g")
-        .attr("class", "y axis")
-        .attr("transform", "translate(" + margin_left + ", " + padding_bottom + ")")
-        .call(y_axis)
-    d3.select(chartEl)
-      .append("text")
-        .attr("x", margin_left)
-        .attr("y", margin_top+4)
-        .attr("transform", "rotate (-90) translate(-110)")
-        .text("Points")
+      .orient("left") 
+      .ticks(3)
+      .tickSize(-(width-marginLeft-marginRight), 0, 0)
+      .tickPadding(paddingLeft)
+    chart.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + marginLeft + ", 0)")
+      .call(y_axis)
 
-    d3.select(chartEl)
-      .selectAll("rect")
+    # Populate chart data elements
+    chart.selectAll("rect")
       .data(jData)
       .enter()
       .append("rect")
         .attr("x", (d) ->
-          x_scale(d.label)+6)
-        .attr("width", "40px")
+          x_scale(d.label)+4)
+        .attr("width", rectWidth + "px")
+        .attr("data-value", (d) -> 
+          d.value)
+        .attr("data-scaled-value", (d) -> 
+          y_scale(d.value))
         .attr("y", (d) -> 
-          margin_top+y_scale(d.value) - 5)
+          y_scale(d.value))
         .attr("height", (d) ->
-          margin_top+chart_height-y_scale(d.value))
+          marginTop+chartHeight-y_scale(d.value))
         .attr("class", (d) ->
           if d.label == "accepted" && d.value > currentVelocity
             return "whomp-whomp"
