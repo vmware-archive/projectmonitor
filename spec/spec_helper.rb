@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
+require 'green_onion'
 require 'vcr_setup'
 require 'pry'
 
@@ -55,4 +56,9 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+end
+
+GreenOnion.configure do |c|
+  c.driver = Capybara.javascript_driver.to_s
+  c.threshold = 5
 end

@@ -22,6 +22,11 @@ feature "authentication" do
 
     page.should_not have_content "log out"
   end
+  
+  scenario "user does not see style regressions" do
+    click_link "manage projects"
+    GreenOnion.skin_visual_and_percentage(current_url, 5)
+  end  
 
   let(:legacy_user) do
     user = FactoryGirl.build(:user)

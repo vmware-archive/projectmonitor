@@ -34,6 +34,8 @@ feature "projects" do
       click_link "Edit"
     end
 
+    GreenOnion.skin_visual_and_percentage(current_url, 5)
+
     new_account = "pivotal2"
     new_project = "projectmonitor2"
 

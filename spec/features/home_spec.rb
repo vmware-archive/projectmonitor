@@ -15,6 +15,11 @@ feature "home" do
       page.should have_selector(".time-since-last-build", text: "5d")
       page.should have_content(project.code)
     end
+
+    it "should not have any style regressions", js: true do
+        visit root_path
+        GreenOnion.skin_visual_and_percentage(current_url, 5)
+    end
   end
 
   context "aggregate projects" do
