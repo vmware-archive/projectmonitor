@@ -130,7 +130,7 @@ class ProjectMonitor.Views.TrackerView extends Backbone.View
       .enter()
       .append("rect")
         .attr("x", (d) ->
-          x_scale(d.label)+4)
+          x_scale(d.label)+5)
         .attr("width", rectWidth + "px")
         .attr("data-value", (d) -> 
           d.value)
