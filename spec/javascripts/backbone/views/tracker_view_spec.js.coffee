@@ -20,22 +20,22 @@ describe "ProjectMonitor.Views.TrackerView", ->
       expect($(".bar-chart g.iteration-state-counts-chart g.x.axis")).toExist()
       expect($(".bar-chart g.iteration-state-counts-chart g.y.axis")).toExist()
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(0).attr('x')).toContain("39")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(0).attr('x')).toContain("40")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(0).attr('y')).toContain("109")
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(1).attr('x')).toContain("114")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(1).attr('x')).toContain("115")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(1).attr('y')).toContain("73")
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(2).attr('x')).toContain("189")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(2).attr('x')).toContain("190")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(2).attr('y')).toContain("118")
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(3).attr('x')).toContain("264")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(3).attr('x')).toContain("265")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(3).attr('y')).toContain("73")
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(4).attr('x')).toContain("339")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(4).attr('x')).toContain("340")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(4).attr('y')).toContain("10")
 
-      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(5).attr('x')).toContain("414")
+      expect($(".bar-chart g.iteration-state-counts-chart rect").eq(5).attr('x')).toContain("415")
       expect($(".bar-chart g.iteration-state-counts-chart rect").eq(5).attr('y')).toContain("109")
 
     describe "when the tracker model is offline", ->
