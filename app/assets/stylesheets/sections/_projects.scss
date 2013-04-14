@@ -39,6 +39,7 @@ $statusbar-font-size: 30px !default;
         ol {
           overflow: hidden;
           height: 80px;
+          list-style: none;
 
           li {
             @include roman_font;

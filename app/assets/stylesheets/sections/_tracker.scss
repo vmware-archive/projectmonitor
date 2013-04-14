@@ -75,7 +75,7 @@ article.tracker {
         fill: darken($blue, 10%);
 
         &.whomp-whomp {
-          fill: url(#whomp-whomp);
+          fill: url(#whomp-whomp) darken($blue, 10%); // color fallback for Firefox
         }
       }
       text {
