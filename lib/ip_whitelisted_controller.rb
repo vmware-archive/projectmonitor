@@ -18,7 +18,7 @@ module IPWhitelistedController
 
   def restrict_ip_address
     client_ip_address_str = if ConfigHelper.get(:ip_whitelist_request_proxied)
-        (request.env['HTTP_X_FORWARDED_FOR'] || '').split(',').first.try(:strip)
+        (request.env['HTTP_X_FORWARDED_FOR'] || '').split(',').last.try(:strip)
       else
         request.env['REMOTE_ADDR']
       end
