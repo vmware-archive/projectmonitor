@@ -43,7 +43,7 @@ describe IPWhitelistedController, type: :controller do
 
         context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as the client' do
           before do
-            request.env['HTTP_X_FORWARDED_FOR'] = "#{allow_ip_address}, 127.0.0.1, 203.1.1.0"
+            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, #{allow_ip_address}"
           end
 
           it 'should return success' do
@@ -57,7 +57,7 @@ describe IPWhitelistedController, type: :controller do
 
         context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as proxy' do
           before do
-            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, #{allow_ip_address}"
+            request.env['HTTP_X_FORWARDED_FOR'] = "#{allow_ip_address}, 127.0.0.1, 203.1.1.0"
           end
 
           it 'should authenticate the user' do
