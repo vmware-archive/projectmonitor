@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe IPWhitelistedController, type: :controller do
+  let(:ip_whitelist) { ['192.168.1.1', '192.168.2.1/28'] }
+
+  before { ConfigHelper.stub(:get).with(:ip_whitelist).and_return(ip_whitelist) }
 
   describe '#restrict_ip_address' do
     controller do
@@ -10,137 +13,121 @@ describe IPWhitelistedController, type: :controller do
     end
 
     before do
-      # Need to prevent before_filter from ruining our tests
       controller.stub(:authenticate_user!)
+      controller.class.send(:include, IPWhitelistedController)
     end
 
-    context 'when hitting an action' do
-      let(:allow_ip_address) { '192.168.1.1' }
-      before do
-        ConfigHelper.stub(:get).with(:ip_whitelist).and_return([allow_ip_address])
-        controller.class.send(:include, IPWhitelistedController)
-      end
-      subject { get :index }
+    context 'in proxy mode' do
+      before { ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(true) }
 
-      context 'when configured as a proxied request' do
-        before do
-          ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(true)
-        end
-
-        context 'and the HTTP_X_FORWARDED_FOR request ip address is in the whitelist' do
-          before do
-            request.env['HTTP_X_FORWARDED_FOR'] = allow_ip_address
-          end
-
-          it 'should return success' do
-            controller.should_not_receive :restrict_access!
-
-            subject
-
-            response.should be_success
-          end
-        end
-
-        context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as the client' do
-          before do
-            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, #{allow_ip_address}"
-          end
-
-          it 'should return success' do
-            controller.should_not_receive :restrict_access!
-
-            subject
-
-            response.should be_success
-          end
-        end
-
-        context 'and the HTTP_X_FORWARDED_FOR request header contains the allowed ip address as proxy' do
-          before do
-            request.env['HTTP_X_FORWARDED_FOR'] = "#{allow_ip_address}, 127.0.0.1, 203.1.1.0"
-          end
-
-          it 'should authenticate the user' do
-            controller.should_receive :restrict_access!
-
-            subject
-          end
-        end
-
-        context 'and the HTTP_X_FORWARDED_FOR request ip address is NOT in the whitelist' do
-          before do
-            request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1"
-          end
-
-          it 'should authenticate the user' do
-            controller.should_receive :restrict_access!
-
-            subject
-          end
-        end
-
-        context 'and the HTTP_X_FORWARDED_FOR request ip address is empty' do
-          it 'should authenticate the user' do
-            controller.should_receive :restrict_access!
-
-            subject
-          end
+      context 'when the proxy IP list is empty' do
+        it 'should deny access' do
+          request.env['HTTP_X_FORWARDED_FOR'].should be_nil
+          controller.should_receive :restrict_access!
+          get :index
         end
       end
 
-      context 'when not configured as a proxied request' do
-        before do
-          ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(false)
-        end
-
-        context 'and the REMOTE_ADDR request ip address is in the whitelist' do
-          before do
-            request.env['REMOTE_ADDR'] = allow_ip_address
-          end
-
-          it 'should return success' do
+      context 'when the proxy IP list is not empty' do
+        context "and the client IP is in the whitelist" do
+          it 'should allow access' do
+            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.1.1'
             controller.should_not_receive :restrict_access!
-
-            subject
-
+            get :index
             response.should be_success
           end
         end
 
-        context 'and the REMOTE_ADDR request ip address is NOT in the whitelist' do
-          before do
+        context "and the client IP is not in the whitelist" do
+          it 'should deny access' do
+            request.env['HTTP_X_FORWARDED_FOR'] = "1.1.1.1"
+            controller.should_receive :restrict_access!
+            get :index
+          end
+        end
+
+        context "and the client IP is in the whitelist range" do
+          it 'should allow access' do
+            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.2.2'
+            controller.should_not_receive :restrict_access!
+            get :index
+            response.should be_success
+          end
+        end
+
+        context "and the client IP is not in the whitelist range" do
+          it 'should deny access' do
+            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.2.17'
+            controller.should_receive :restrict_access!
+            get :index
+          end
+        end
+
+        context 'when there are multiple proxy IP addresses' do
+          context "and the last client IP is in the whitelist" do
+            it 'should allow access' do
+              request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, 192.168.1.1"
+              controller.should_not_receive :restrict_access!
+              get :index
+              response.should be_success
+            end
+          end
+
+          context "and the last client IP is not in the whitelist" do
+            it 'should deny access' do
+              request.env['HTTP_X_FORWARDED_FOR'] = "192.168.1.1, 127.0.0.1, 203.1.1.0"
+              controller.should_receive :restrict_access!
+              get :index
+            end
+          end
+        end
+      end
+    end
+
+    context 'not in proxy mode' do
+      before { ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(false) }
+
+      context 'when the client IP is missing' do
+        it 'should deny access' do
+          request.env['REMOTE_ADDR'] = nil
+          controller.should_receive :restrict_access!
+          get :index
+        end
+      end
+
+      context 'when the client IP is present' do
+        context 'and the client IP is in the whitelist' do
+          it 'should allow access' do
+            request.env['REMOTE_ADDR'] = '192.168.1.1'
+            controller.should_not_receive :restrict_access!
+            get :index
+            response.should be_success
+          end
+        end
+
+        context 'and the client IP is not in the whitelist' do
+          it 'should deny access' do
             request.env['REMOTE_ADDR'] = '127.0.0.1'
-          end
-
-          it 'should authenticate the user' do
             controller.should_receive :restrict_access!
-
-            subject
+            get :index
           end
         end
-      end
 
-      context 'the whitelist contains ranges of ip addresses' do
-        let(:allow_ip_address) { '192.168.1.1/28' }
+        context 'and the client IP is in the whitelist range' do
+          it 'should allow all ip addresses in range' do
+            request.env['REMOTE_ADDR'] = '192.168.2.2'
+            controller.should_not_receive :restrict_access!
+            get :index
+            response.should be_success
+          end
 
-        before do
-          ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(false)
-        end
-
-        it 'should allow all ip addresses in range' do
-          request.env['REMOTE_ADDR'] = '192.168.1.2'
-          controller.should_not_receive :restrict_access!
-
-          subject
-
-          response.should be_success
-        end
-
-        it 'should authenticate the user when the ip address is outside the range' do
-          request.env['REMOTE_ADDR'] = '192.168.1.16'
-          controller.should_receive(:restrict_access!)
-
-          subject
+          context 'and the client IP is outside the whitelist range' do
+            it 'should deny access' do
+              request.env['REMOTE_ADDR'] = '192.168.2.16'
+              controller.should_receive(:restrict_access!)
+              get :index
+            end
+          end
         end
       end
     end
@@ -155,10 +142,6 @@ describe IPWhitelistedController, type: :controller do
 
     context 'an ip whitelist is specified' do
       context 'the whitelist contains single ip addresses' do
-        before do
-          ConfigHelper.stub(:get).with(:ip_whitelist).and_return(['192.168.1.1'])
-        end
-
         it 'should add the authentication before filter' do
           whitelisted_controller.should_receive(:before_filter).with(:authenticate_user!)
           whitelisted_controller.send(:include, IPWhitelistedController)
@@ -182,5 +165,4 @@ describe IPWhitelistedController, type: :controller do
       end
     end
   end
-
 end
