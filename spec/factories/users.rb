@@ -7,5 +7,6 @@ FactoryGirl.define do
     email
     password "monkey"
     password_confirmation { password }
+    name { Faker::Name.name }
   end
 end
