@@ -13,6 +13,7 @@ describe Project do
     it { should have_many :statuses }
     it { should have_many :payload_log_entries  }
     it { should belong_to :aggregate_project }
+    it { should belong_to(:creator).class_name("User") }
   end
 
   describe "validations" do
@@ -450,7 +451,6 @@ describe Project do
     it "should return false for a project that has never been built" do
       projects(:never_built).should_not be_building
     end
-
   end
 
   describe "#has_auth?" do
