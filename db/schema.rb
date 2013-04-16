@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404153158) do
+ActiveRecord::Schema.define(:version => 20130416212824) do
 
   create_table "aggregate_projects", :force => true do |t|
     t.string   "name"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20130404153158) do
     t.integer  "open_stories_count"
     t.string   "build_branch"
     t.text     "iteration_story_state_counts",               :default => "{}"
+    t.integer  "creator_id"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
