@@ -3,6 +3,12 @@ require 'spec_helper'
 
 describe User do
 
+  describe "factories" do
+    it "has a name" do
+      FactoryGirl.build(:user).name.should be_present
+    end
+  end
+
   describe 'validations' do
     it { should validate_presence_of(:login) }
     it { should validate_presence_of(:email) }
