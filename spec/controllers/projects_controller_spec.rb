@@ -4,7 +4,8 @@ require 'time'
 describe ProjectsController do
   describe "with a logged in user" do
     before do
-      sign_in FactoryGirl.create(:user)
+      @current_user = FactoryGirl.create(:user)
+      sign_in @current_user
     end
 
     context "when nested under an aggregate project" do
@@ -52,6 +53,11 @@ describe ProjectsController do
 
         it "should create a project of the correct type" do
           lambda { subject }.should change(JenkinsProject, :count).by(1)
+        end
+
+        it "should set the project's creator'" do
+          subject
+          Project.last.creator.should == @current_user
         end
 
         it "should set the flash" do

@@ -23,7 +23,8 @@ class ProjectsController < ApplicationController
 
   def create
     klass = params[:project][:type].present? ? params[:project][:type].constantize : Project
-    @project = klass.create(params[:project])
+    @project = klass.new(params[:project])
+    @project.creator = current_user
     if @project.save
       redirect_to edit_configuration_path, notice: 'Project was successfully created.'
     else
