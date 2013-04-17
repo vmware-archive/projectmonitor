@@ -7,6 +7,10 @@ describe User do
     it "has a name" do
       FactoryGirl.build(:user).name.should be_present
     end
+
+    it "has an email" do
+      FactoryGirl.build(:user).email.should be_present
+    end
   end
 
   describe 'validations' do
@@ -16,7 +20,6 @@ describe User do
     it { should validate_confirmation_of(:password) }
     it { should ensure_length_of(:name).is_at_most(100) }
   end
-
 
   describe ".find_first_by_auth_conditions" do
     let!(:user) { FactoryGirl.create(:user, login: "foo", email: 'foo@example.com') }
