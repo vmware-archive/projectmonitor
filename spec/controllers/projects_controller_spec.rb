@@ -41,8 +41,8 @@ describe ProjectsController do
     end
 
     describe "#create" do
-      context "when the project was successfully created" do
-        subject do
+      context "when the project is valid" do
+        def do_post
           post :create, :project => {
             :name => 'name',
             :type => JenkinsProject.name,
@@ -52,23 +52,23 @@ describe ProjectsController do
         end
 
         it "should create a project of the correct type" do
-          lambda { subject }.should change(JenkinsProject, :count).by(1)
+          lambda { do_post }.should change(JenkinsProject, :count).by(1)
         end
 
         it "should set the project's creator'" do
-          subject
+          do_post
           Project.last.creator.should == @current_user
         end
 
         it "should set the flash" do
-          subject
+          do_post
           flash[:notice].should == 'Project was successfully created.'
         end
 
-        it { should redirect_to edit_configuration_path }
+        it { do_post.should redirect_to edit_configuration_path }
       end
 
-      context "when the project was not successfully created" do
+      context "when the project is invalid" do
         before { post :create, :project => { :name => nil, :type => JenkinsProject.name} }
         it { should render_template :new }
       end
