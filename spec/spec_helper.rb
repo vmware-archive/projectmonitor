@@ -1,9 +1,11 @@
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rspec'
 require 'capybara/rails'
 require 'vcr_setup'
 require 'pry'
+require_relative 'support/view_helpers.rb'
 
 if ENV["TRAVIS"]
   require 'coveralls'
@@ -20,6 +22,7 @@ RSpec.configure do |config|
   config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :aggregate_projects
 
   config.include Devise::TestHelpers, :type => :controller
+  config.include ViewHelpers, :type => :view
 
   config.extend VCR::RSpec::Macros
 
