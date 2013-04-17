@@ -1,6 +1,35 @@
 require 'spec_helper'
 
 describe 'projects/edit' do
+  describe "information about project creator" do
+    context "when the creator is missing" do
+      it "does not include creator's information" do
+        project = FactoryGirl.create(:travis_project, creator: nil)
+        assign(:project, project)
+        render
+        rendered.should_not include "Creator"
+      end
+    end
+
+    context "when the creator is present" do
+      let(:project) { FactoryGirl.create(:travis_project, creator: creator) }
+      let(:creator) { FactoryGirl.create(:user) }
+
+      before do
+        assign(:project, project)
+        render
+      end
+
+      it "has creator's name" do
+        rendered.should have_content project.creator.name
+      end
+
+      it "has creator's email" do
+        rendered.should have_content project.creator.email
+      end
+    end
+  end
+
   context 'Travis Project' do
     let(:project) { FactoryGirl.create(:travis_project) }
 

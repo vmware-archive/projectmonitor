@@ -4,6 +4,10 @@
 %p
   = f.label :name
   = f.text_field :name
+- if f.object.creator.present?
+  %p
+    = f.label :creator
+    = "#{f.object.creator.name} (#{f.object.creator.email})"
 %p
   = f.label :type, "Project Type"
   = f.select :type, project_types
