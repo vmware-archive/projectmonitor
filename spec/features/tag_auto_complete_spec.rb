@@ -27,6 +27,7 @@ feature "tag auto complete" do
     visit(new_project_path)
     fill_in('project[name]', with: 'foo')
     select('Jenkins Project', from: 'Project Type')
+    choose('project_webhooks_enabled_false')
     fill_in('Base URL', with: 'http://foo.bar.com')
     fill_in('Build Name', with: 'foobar')
 
