@@ -17,7 +17,6 @@ gem "dynamic_form"
 gem "fastthread"
 gem "foreman"
 gem "sass"
-gem "green_onion", :github => "gsiener/green_onion"
 gem "haml"
 gem "jquery-rails"
 gem "mime-types"
@@ -84,7 +83,8 @@ group :test, :development do
   gem "ffaker"
   gem 'guard-coffeescript'
   gem 'database_cleaner'
-  gem "capybara-webkit"
+  gem "capybara-webkit", :github => "thoughtbot/capybara-webkit"
+  gem "green_onion", :github => "gsiener/green_onion"
   gem "pry-nav"
   gem "pry-rails"
   gem 'pry'

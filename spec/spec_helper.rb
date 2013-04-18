@@ -30,6 +30,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
   Capybara.javascript_driver = :webkit
+  Capybara.automatic_reload = false
 
   # TODO: This fixes a bug in RSpec, see here:
   # https://github.com/rspec/rspec-rails/issues/252

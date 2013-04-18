@@ -10,7 +10,7 @@ feature "styleguide" do
 
     it "should not have any style regressions", js: true do
       visit Rails.application.routes.url_helpers.styleguide_path
-      GreenOnion.skin_visual_and_percentage(current_url, 5)
+      GreenOnion.skin_visual_and_percentage(current_url)
     end
   end
 end
