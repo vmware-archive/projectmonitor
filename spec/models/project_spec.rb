@@ -135,11 +135,13 @@ describe Project do
       let!(:updateable2) { FactoryGirl.create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
       let!(:not_updateable1) { FactoryGirl.create(:jenkins_project, tracker_project_id: '1') }
       let!(:not_updateable2) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf') }
+      let!(:not_updateable3) { FactoryGirl.create(:travis_project, tracker_project_id: '', tracker_auth_token: '') }
 
       it { should include updateable1 }
       it { should include updateable2 }
       it { should_not include not_updateable1 }
       it { should_not include not_updateable2 }
+      it { should_not include not_updateable3 }
     end
 
     describe '.displayable' do
