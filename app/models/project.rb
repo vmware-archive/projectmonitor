@@ -26,7 +26,8 @@ class Project < ActiveRecord::Base
 
   scope :tracker_updateable,
     enabled
-  .where('tracker_auth_token is NOT NULL and tracker_project_id is NOT NULL')
+  .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
+  .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
 
   scope :displayable, lambda {|tags|
     scope = enabled.order('code ASC')
