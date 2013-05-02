@@ -399,7 +399,7 @@ DEPENDENCIES
   guard-coffeescript
   guard-livereload
   haml
-  hashie (~> 1.2)
+  hashie
   headless
   heroku_san
   jasmine
