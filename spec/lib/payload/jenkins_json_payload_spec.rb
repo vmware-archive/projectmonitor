@@ -64,12 +64,24 @@ describe JenkinsJsonPayload do
   describe '#parse_url' do
     subject { payload.parse_url(converted_content) }
 
-    it { should include 'job/projectmonitor_ci_test/7/' }
+    context 'should include the build endpoint' do
+      it { should include 'job/Pivots2-iOS/10/' }
+    end
+
+    context 'should include the root url' do
+      it { should include 'http://mobile-ci.nyc.pivotallabs.com:8080' }
+    end
+
+    context 'should handle not having a full_url' do
+      let(:example_file) { "no_full_url.txt" }
+      it { should include 'job/projectmonitor_ci_test/' }
+    end
+
   end
 
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
-    it { should == 7 }
+    it { should == 10 }
   end
 
   describe '#parse_published_at' do
