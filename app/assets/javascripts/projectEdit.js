@@ -99,7 +99,7 @@ var ProjectEdit = {};
 
     var $branch_name = $('#branch_name');
     var $field_container = $('#field_container');
-    if ( $(this).val() == "TravisProject" ) {
+    if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
       $branch_name.removeClass('hide');
       $field_container.removeClass('hide');
     }

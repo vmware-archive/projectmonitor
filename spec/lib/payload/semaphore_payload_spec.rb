@@ -81,6 +81,20 @@ describe SemaphorePayload do
     context 'the build has finished' do
       it { should be_true }
     end
+
+    context 'the payload contains a build from a branch other than master' do
+      let(:json) { "branch.json" }
+
+      context 'and the branch has not been specified' do
+        it { should be_false }
+      end
+
+      context 'and the branch has been specified' do
+        before { payload.branch = 'staging' }
+
+        it { should be_true }
+      end
+    end
   end
 
   describe '#parse_url' do

@@ -34,7 +34,7 @@
 
     = f.label :webhooks_enabled_false, "Polling"
     = f.radio_button :webhooks_enabled, false
-  - branch_name_class = f.object.type == 'TravisProject' ? nil : 'hide'
+  - branch_name_class = f.object.type == ('TravisProject' || 'SemaphoreProject') ? nil : 'hide'
   %p#branch_name{ class: branch_name_class }
     = f.label :build_branch, "Branch Name"
     = f.text_field :build_branch

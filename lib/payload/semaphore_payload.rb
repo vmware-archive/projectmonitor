@@ -1,10 +1,19 @@
 class SemaphorePayload < Payload
+  def branch=(new_branch)
+    @branch = new_branch unless new_branch.blank?
+  end
+
+  def branch
+    @branch ||= 'master'
+  end
+
   def building?
     status_content.first['result'] == 'pending'
   end
 
   def content_ready?(content)
-    content['result'] != 'pending'
+    content['result'] != 'pending' &&
+      specified_branch?(content)
   end
 
   def convert_content!(content)
@@ -43,4 +52,7 @@ class SemaphorePayload < Payload
     end
   end
 
+  def specified_branch?(content)
+    branch == content['branch_name']
+  end
 end

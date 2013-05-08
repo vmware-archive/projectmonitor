@@ -217,6 +217,7 @@ describe("project edit", function() {
         '  <option value="CruiseControlProject">Cruise Control Project</option>' +
         '  <option value="JenkinsProject">Jenkins Project</option>' +
         '  <option value="TravisProject">TravisProject</option>' +
+        '  <option value="SemaphoreProject">SemaphoreProject</option>' +
         '  <option value="TddiumProject">TddiumProject</option>' +
         '</select>' +
         '<div id="field_container" class="hide">' +
@@ -278,6 +279,12 @@ describe("project edit", function() {
 
       it("shows the branch field when a Travis Project is selected", function() {
         $('#project_type').val('TravisProject').change();
+        expect($('#branch_name')).toExist();
+        expect($('#branch_name').hasClass('hide')).toBeFalsy();
+      });
+
+      it("shows the branch field when a Semaphore Project is selected", function() {
+        $('#project_type').val('SemaphoreProject').change();
         expect($('#branch_name')).toExist();
         expect($('#branch_name').hasClass('hide')).toBeFalsy();
       });
