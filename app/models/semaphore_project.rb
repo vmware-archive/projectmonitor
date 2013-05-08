@@ -1,6 +1,6 @@
 class SemaphoreProject < Project
 
-  attr_accessible :semaphore_api_url
+  attr_accessible :semaphore_api_url, :build_branch
   validates_presence_of :semaphore_api_url, unless: ->(project) { project.webhooks_enabled }
 
   def current_build_url
@@ -12,11 +12,15 @@ class SemaphoreProject < Project
   end
 
   def fetch_payload
-    SemaphorePayload.new
+    SemaphorePayload.new.tap do |payload|
+      payload.branch = build_branch
+    end
   end
 
   def webhook_payload
-    SemaphorePayload.new
+    SemaphorePayload.new.tap do |payload|
+      payload.branch = build_branch
+    end
   end
 
   def build_status_url
