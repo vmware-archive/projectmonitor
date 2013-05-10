@@ -23,4 +23,5 @@ pairs:
 
 email:
   prefix: pair
+  no_solo_prefix: true
   domain: pivotallabs.com
