@@ -271,5 +271,13 @@ describe StatusController do
       end
 
     end
+
+    context "when a project isn't found" do
+      it "should return a 404" do
+        post :create, project_id: "1234", "payload" => '{"id": 4219108}'
+        response.response_code.should == 404
+      end
+    end
+
   end
 end
