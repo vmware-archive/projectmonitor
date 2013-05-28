@@ -360,3 +360,7 @@ Got a burning idea that just needs to be implemented? Check the CONTRIBUTE.md fi
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
 
 Copyright (c) 2013 Pivotal Labs. This software is licensed under the MIT License.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pivotal/projectmonitor/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
