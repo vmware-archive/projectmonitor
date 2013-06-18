@@ -602,7 +602,7 @@ describe Project do
         hash = project.as_json
 
         hash["tracker"]["current_velocity"].should == project.current_velocity
-        hash["tracker"]["variance"].should == project.variance
+        hash["tracker"]["volatility"].should == project.volatility
         hash["tracker"]["last_ten_velocities"].should == project.last_ten_velocities
         hash["tracker"]["stories_to_accept_count"].should == project.stories_to_accept_count
         hash["tracker"]["open_stories_count"].should == project.open_stories_count
@@ -642,20 +642,20 @@ describe Project do
     end
   end
 
-  describe "#variance" do
+  describe "#volatility" do
     context "when project has velocities" do
       let(:project) { FactoryGirl.create(:project_with_tracker_integration)}
 
-      it "should return correct variance" do
-        project.variance.should == 8
+      it "should return correct volatility" do
+        project.volatility.should == 165
       end
     end
 
     context "when project has no velocities" do
       let(:project) { FactoryGirl.build(:project)}
 
-      it "should return correct variance" do
-        project.variance.should == 0
+      it "should return correct volatility" do
+        project.volatility.should == 0
       end
     end
   end

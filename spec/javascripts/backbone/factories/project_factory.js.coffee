@@ -21,10 +21,10 @@ BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
       published_at: "4d"
     tracker:
       current_velocity: 4
-      variance: 10
+      volatility: 82
       stories_to_accept_count: 5
       open_stories_count: 9
-      last_ten_velocities: [ 1, 2, 3, 4, 50, 60, 70, 80, 90, 100]
+      last_ten_velocities: [ 10, 11, 8, 4, 10, 5, 7, 8, 9, 10]
       iteration_story_state_counts: JSON.parse('[{"label":"unstarted","value":4},{"label":"started","value":8},{"label":"finished","value":3},{"label":"delivered","value":8},{"label":"accepted","value":15},{"label":"rejected","value":4}]')
       tracker_online: true
   }

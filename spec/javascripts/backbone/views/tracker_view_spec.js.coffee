@@ -11,8 +11,8 @@ describe "ProjectMonitor.Views.TrackerView", ->
     it "should include the velocity", ->
       expect($(".current-velocity")).toHaveText(@tracker.get("current_velocity"))
 
-    it "should include the variance", ->
-      expect($(".current-variance").text()).toContain(@tracker.get("variance"))
+    it "should include the volatility", ->
+      expect($(".current-volatility").text()).toContain(@tracker.get("volatility"))
 
     it "should include the story states chart", ->
       expect($(".bar-chart g.iteration-state-counts-chart")).toExist()
