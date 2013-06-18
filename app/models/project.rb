@@ -199,14 +199,14 @@ class Project < ActiveRecord::Base
       .merge({"current_build_url" => current_build_url })
       json["tracker"] = super(
         only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
-        methods: ["variance"],
+        methods: ["volatility"],
         root:false) if tracker_project_id?
         json
   end
 
-  def variance
+  def volatility
     if last_ten_velocities.any?
-      calculated_variance
+      calculated_volatility
     else
       0
     end
@@ -222,16 +222,16 @@ class Project < ActiveRecord::Base
 
   private
 
-  def calculated_variance
-    sample_variance.round(0)
+  def calculated_volatility
+    sample_volatility.round(0)
   end
 
-  def sample_variance
+  def sample_volatility
     mean = last_ten_velocities.sum / Float(last_ten_velocities.length)
     sum = last_ten_velocities.inject(0.0) do |accum, velocity|
       accum + ((velocity - mean)**2)
     end
-    sum = sum / Float(last_ten_velocities.size)
+    (Math.sqrt(sum) * 100) / mean
   end
 
   def self.project_attribute_prefix

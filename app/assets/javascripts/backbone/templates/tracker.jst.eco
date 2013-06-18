@@ -6,8 +6,8 @@
       <dt>velocity</dt>
     </div>
     <div class="metrics-half">
-      <dd class="current-variance"><%= @variance %>%</dd>
-      <dt>variance</dt>
+      <dd class="current-volatility"><%= @volatility %>%</dd>
+      <dt>volatility</dt>
     </div>
   </dl>
   <article id="iteration-story-state-counts" class="current-iteration"></article>

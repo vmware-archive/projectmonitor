@@ -36,7 +36,7 @@ describe "ProjectMonitor.Models.Project", ->
               open_stories_count: 14
               stories_to_accept_count: 0
               tracker_online: true
-              variance: 5.8
+              volatility: 111
             }
           }
           @project.update(attributes)
