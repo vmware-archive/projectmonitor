@@ -227,11 +227,10 @@ class Project < ActiveRecord::Base
   end
 
   def sample_volatility
-    mean = last_ten_velocities.sum / Float(last_ten_velocities.length)
-    sum = last_ten_velocities.inject(0.0) do |accum, velocity|
-      accum + ((velocity - mean)**2)
-    end
-    mean == 0 ? 0 : ((Math.sqrt(sum) * 100) / mean)
+    mean = last_ten_velocities.mean
+    std_dev = last_ten_velocities.standard_deviation
+    vol = (std_dev * 100.0) / mean
+    vol.nan? ? 0 : vol
   end
 
   def self.project_attribute_prefix
