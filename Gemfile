@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "1.9.3"
 
 gem "memcache-client"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
