@@ -647,7 +647,23 @@ describe Project do
       let(:project) { FactoryGirl.create(:project_with_tracker_integration)}
 
       it "should return correct volatility" do
-        project.volatility.should == 165
+        project.volatility.should == 55
+      end
+    end
+
+    context "when project has this historical velocity" do
+      let(:project) { FactoryGirl.create(:project_with_tracker_integration,
+                                          last_ten_velocities: [ 0,0,4,0,0,7,4,15,0,0 ]) }
+      it "should return this volatility" do
+        project.volatility.should == 163
+      end
+    end
+
+    context "when project has no velocity" do
+      let(:project) { FactoryGirl.create(:project_with_tracker_integration,
+                                          last_ten_velocities: [ 0,0,0,0,0,0,0,0,0,0 ])}
+      it "should return zero volatility" do
+        project.volatility.should == 0
       end
     end
 
