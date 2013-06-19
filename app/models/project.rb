@@ -231,7 +231,7 @@ class Project < ActiveRecord::Base
     sum = last_ten_velocities.inject(0.0) do |accum, velocity|
       accum + ((velocity - mean)**2)
     end
-    (Math.sqrt(sum) * 100) / mean
+    mean == 0 ? 0 : ((Math.sqrt(sum) * 100) / mean)
   end
 
   def self.project_attribute_prefix
