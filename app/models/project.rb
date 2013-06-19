@@ -229,6 +229,7 @@ class Project < ActiveRecord::Base
   def sample_volatility
     mean = last_ten_velocities.mean
     std_dev = last_ten_velocities.standard_deviation
+    std_dev.nil? ? 0 : std_dev
     vol = (std_dev * 100.0) / mean
     vol.nan? ? 0 : vol
   end
