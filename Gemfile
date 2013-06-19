@@ -41,7 +41,6 @@ gem 'hashie'
 gem 'unicorn'
 # NOTE: this can be removed once we transition completely to Heroku
 gem 'thin'
-gem 'descriptive-statistics'
 
 group :production do
   gem "therubyracer"
