@@ -21,3 +21,4 @@ tags
 *.swp
 spec/javascripts/compiled/
 .vagrant
+manifest.yml
