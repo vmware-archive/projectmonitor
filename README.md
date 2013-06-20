@@ -214,7 +214,8 @@ built in Travis.
 #### TDDium
 TDDium only supports connecting via polling, not Webhooks.
 
-In order to get polling configured, you will need to log in to your TDDium dashboard and click the "Configure with CCMenu" link. 
+In order to get polling configured, you will need to log in to your TDDium dashboard, go to Organizations using the drop down in the top right corner.
+Then click on organization settings for the appropriate organization. Then click on "Chat Notifications"; CCmenu is at the bottom of the page.
 That should take you to a URL that looks like:
 
     https://api.tddium.com/cc/SOME-TOKEN-HERE/cctray.xml
