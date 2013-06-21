@@ -38,12 +38,6 @@ ActiveRecord::Schema.define(:version => 20130416212824) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "deprecated_sf_users_backup_20130220", :id => false, :force => true do |t|
-    t.integer "id"
-    t.string  "login", :limit => 40
-    t.string  "email", :limit => 100
-  end
-
   create_table "external_dependencies", :force => true do |t|
     t.string   "name"
     t.string   "status"
