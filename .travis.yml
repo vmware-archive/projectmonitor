@@ -16,7 +16,7 @@ notifications:
     - http://requestb.in/1ays2c01
     on_start: true
 rvm:
-  - 1.9.3
+  - 2.0.0
 
 before_script:
   - "sudo apt-get install memcached"
