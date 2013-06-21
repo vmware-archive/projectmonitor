@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby "2.0.0"
 
 gem "memcache-client"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
@@ -15,7 +15,6 @@ gem "devise-encryptable"
 # NOTE: Newer versions of draper are currently incompatible with this codebase
 gem "draper", "< 0.13"
 gem "dynamic_form"
-gem "fastthread"
 gem "foreman"
 gem "sass"
 gem "haml"
