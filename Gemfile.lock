@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/kendagriff/ruby-openid.git
+  revision: 79beaa419d4754e787757f2545331509419e222e
+  ref: 79beaa419d4754e787757f2545331509419e222e
+  specs:
+    ruby-openid (2.2.3)
+
+GIT
   remote: git://github.com/mbleigh/acts-as-taggable-on.git
   revision: 87b371461fc483ddf14bd96a1592f846ca851cf6
   specs:
@@ -421,6 +428,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rspec
   rspec-rails
+  ruby-openid!
   ruby-prof
   sass
   sass-rails
