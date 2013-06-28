@@ -41,6 +41,10 @@ gem 'unicorn'
 # NOTE: this can be removed once we transition completely to Heroku
 gem 'thin'
 
+# work around for Google OpenID API change: https://github.com/sishen/omniauth-google-apps/issues/6
+# can be removed once they fix
+gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
+
 group :production do
   gem "therubyracer"
 end
