@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ProjectMonitorHelper do
   before do
-    @status = stub(ProjectStatus, :published_at => publish_time)
-    @project = stub(Project, :status => @status)
+    @status = double(ProjectStatus, :published_at => publish_time)
+    @project = double(Project, :status => @status)
   end
 
   describe "#static_status_messages_for" do
@@ -13,11 +13,11 @@ describe ProjectMonitorHelper do
 
     context "when the project's status published_at & red_since is nil" do
       before do
-        @status = stub(ProjectStatus, :published_at => nil)
-        @project = stub(Project, :status => @status, :red_since => nil)
-        @project.stub!(:online?).and_return(true)
-        @project.stub!(:red?).and_return(true)
-        @project.stub!(:red_build_count).and_return(1)
+        @status = double(ProjectStatus, :published_at => nil)
+        @project = double(Project, :status => @status, :red_since => nil)
+        @project.stub(:online?).and_return(true)
+        @project.stub(:red?).and_return(true)
+        @project.stub(:red_build_count).and_return(2)
       end
 
       it "acts as though the build were today" do
@@ -29,8 +29,8 @@ describe ProjectMonitorHelper do
 
     context "when the project is online" do
       before do
-        @project.stub!(:online?).and_return(true)
-        @project.stub!(:red?).and_return(false)
+        @project.stub(:online?).and_return(true)
+        @project.stub(:red?).and_return(false)
       end
 
       context "when the project isn't red" do
@@ -45,9 +45,9 @@ describe ProjectMonitorHelper do
       context "when the project is red" do
         before do
           @red_since_time = @status.published_at - 2.days
-          @project.stub!(:red?).and_return(true)
-          @project.stub!(:red_build_count).and_return(20)
-          @project.stub!(:red_since).and_return(@red_since_time)
+          @project.stub(:red?).and_return(true)
+          @project.stub(:red_build_count).and_return(20)
+          @project.stub(:red_since).and_return(@red_since_time)
         end
 
         it "should include the oldest continuous failure date" do
@@ -62,7 +62,7 @@ describe ProjectMonitorHelper do
 
     context "when the project is inaccessible" do
       before do
-        @project.stub!(:online?).and_return(false)
+        @project.stub(:online?).and_return(false)
       end
 
       it "should an appropriate message" do
