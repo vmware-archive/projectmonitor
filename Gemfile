@@ -24,7 +24,7 @@ gem "nokogiri"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "pivotal-tracker", '0.5.8'
-gem "rails"
+gem 'rails', '~> 4.0.0'
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
