@@ -16,18 +16,20 @@ class Project < ActiveRecord::Base
   serialize :iteration_story_state_counts, JSON
   serialize :tracker_validation_status, Hash
 
-  scope :enabled, where(enabled: true)
-  scope :standalone, where(aggregate_project_id: nil)
-  scope :with_statuses, joins(:statuses).uniq
+  scope :enabled, -> { where(enabled: true) }
+  scope :standalone, -> { where(aggregate_project_id: nil) }
+  scope :with_statuses, -> { joins(:statuses).uniq }
 
-  scope :updateable,
+  scope :updateable, -> {
     enabled
-  .where(webhooks_enabled: [nil, false])
+    .where(webhooks_enabled: [nil, false])
+  }
 
-  scope :tracker_updateable,
+  scope :tracker_updateable, -> {
     enabled
-  .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
-  .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
+    .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
+    .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
+  }
 
   scope :displayable, lambda {|tags|
     scope = enabled.order('code ASC')
@@ -56,8 +58,8 @@ class Project < ActiveRecord::Base
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
   end
 
-  def self.with_aggregate_project aggregate_project_id, &block
-    with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
+  def self.with_aggregate_project(aggregate_project_id, &block)
+    where(aggregate_project_id: aggregate_project_id).scoping(&block)
   end
 
   def code
