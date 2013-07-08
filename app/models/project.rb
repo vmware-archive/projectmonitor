@@ -117,7 +117,7 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.count(:conditions => ["id >= ?", breaking_build.id])
+    statuses.where(success: false).where("id >= ?", breaking_build.id).count
   end
 
   def feed_url

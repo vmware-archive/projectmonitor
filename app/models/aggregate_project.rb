@@ -88,7 +88,7 @@ class AggregateProject < ActiveRecord::Base
   def red_build_count
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
-    red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
+    red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
   end
 
   def as_json(options = {})
