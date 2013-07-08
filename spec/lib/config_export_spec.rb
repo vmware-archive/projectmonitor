@@ -3,51 +3,42 @@ require 'spec_helper'
 describe ConfigExport do
 
   context 'given a full set of configuration records' do
-    let(:aggregate_project) { stub_model(AggregateProject, name: 'agg', id: 1, tag_list: [])}
-    let(:solo_project) { FactoryGirl.create(:jenkins_project, name: 'Foo', tag_list: %w[foo bar baz]) }
-    let(:aggregated_project) { FactoryGirl.build(:travis_project, name: 'Led', aggregate_project_id: 1) }
-    let(:projects) do
-      [solo_project, aggregated_project]
-    end
-    let(:aggregate_projects) { [aggregate_project] }
 
     before do
-      aggregate_project.stub(:id).and_return(1)
-      Project.stub(:all).and_return(projects)
-      AggregateProject.stub(:all).and_return(aggregate_projects)
+      Project.destroy_all
+      AggregateProject.destroy_all
     end
 
-    it 'can export and import those records' do
+    it "should create new project when there is no guid" do
+      FactoryGirl.create(:jenkins_project, name: 'Foo', tag_list: %w[foo bar baz])
+      yaml = YAML.load(ConfigExport.export)
+      yaml['projects'].first.delete('guid')
+
       expect do
-        export = ConfigExport.export
-
-        solo_project.name = Faker::Company.name
-        solo_project.tag_list = nil
-        solo_project.save!
-
-        ConfigExport.import export
+        ConfigExport.import yaml.to_yaml
       end.to change(Project, :count).by(1)
-
-      aggregate_project = AggregateProject.last
-      aggregate_project.name.should == 'agg'
-
-      solo_project.reload.name.should == 'Foo'
-      solo_project.tag_list.sort.should == %w[foo bar baz].sort
-
-      aggregated_project = Project.last
-      aggregated_project.name.should == 'Led'
-      aggregated_project.aggregate_project_id.should == aggregate_project.id
     end
-  end
 
-  context 'given an old configuration file with obsolete fields' do
-    it 'should import the records' do
-      expect do
+    it "should update the project when there is a guid" do
+      jenkins_project = FactoryGirl.create(:jenkins_project, name: 'Foo', tag_list: %w[foo bar baz])
+      yaml = YAML.load(ConfigExport.export)
+      yaml['projects'].first['name']= 'New name'
+      yaml['projects'].first['tag_list']= %w[a b c]
+
+      ConfigExport.import yaml.to_yaml
+
+      jenkins_project.reload.name.should == 'New name'
+      jenkins_project.tag_list.should =~ %w[a b c]
+    end
+
+    context 'given an old configuration file with obsolete fields' do
+      it 'should import the records' do
         expect do
-          ConfigExport.import File.read('spec/fixtures/files/old_configuration.yml')
-        end.to change(AggregateProject, :count).by(1)
-      end.to change(Project, :count).by(1)
+          expect do
+            ConfigExport.import File.read('spec/fixtures/files/old_configuration.yml')
+          end.to change(AggregateProject, :count).by(1)
+        end.to change(Project, :count).by(1)
+      end
     end
   end
-
 end
