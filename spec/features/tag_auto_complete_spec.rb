@@ -10,17 +10,8 @@ feature "tag auto complete" do
   end
 
   def select_from_autocomplete(selected)
-    sleep(1)
-    check_for_correct_suggestions
     selector = ".ui-menu-item a:contains(#{selected})"
     page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
-  end
-
-  def check_for_correct_suggestions
-    within '.ui-autocomplete.ui-menu' do
-      page.should have_content('bar')
-      page.should have_content('baz')
-    end
   end
 
   it "populates a dropdown with possible completions when you type in the tag box", js: true do

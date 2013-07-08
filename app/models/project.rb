@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
+  MAX_STATUS = 15
 
   has_many :statuses,
     class_name: 'ProjectStatus',
@@ -16,18 +17,20 @@ class Project < ActiveRecord::Base
   serialize :iteration_story_state_counts, JSON
   serialize :tracker_validation_status, Hash
 
-  scope :enabled, where(enabled: true)
-  scope :standalone, where(aggregate_project_id: nil)
-  scope :with_statuses, joins(:statuses).uniq
+  scope :enabled, -> { where(enabled: true) }
+  scope :standalone, -> { where(aggregate_project_id: nil) }
+  scope :with_statuses, -> { joins(:statuses).uniq }
 
-  scope :updateable,
+  scope :updateable, -> {
     enabled
-  .where(webhooks_enabled: [nil, false])
+    .where(webhooks_enabled: [nil, false])
+  }
 
-  scope :tracker_updateable,
+  scope :tracker_updateable, -> {
     enabled
-  .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
-  .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
+    .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
+    .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
+  }
 
   scope :displayable, lambda {|tags|
     scope = enabled.order('code ASC')
@@ -47,17 +50,14 @@ class Project < ActiveRecord::Base
 
   before_create :generate_guid
 
-  attr_accessible :aggregate_project_id,
-    :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
-    :auth_password, :auth_username, :tracker_auth_token, :tracker_project_id, :tracker_online,
-    :webhooks_enabled, :verify_ssl
+  attr_writer :feed_url
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
   end
 
-  def self.with_aggregate_project aggregate_project_id, &block
-    with_scope(find: where(aggregate_project_id: aggregate_project_id), &block)
+  def self.with_aggregate_project(aggregate_project_id, &block)
+    where(aggregate_project_id: aggregate_project_id).scoping(&block)
   end
 
   def code
@@ -117,7 +117,7 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.count(:conditions => ["id >= ?", breaking_build.id])
+    statuses.where(success: false).where("id >= ?", breaking_build.id).count
   end
 
   def feed_url
@@ -242,8 +242,8 @@ class Project < ActiveRecord::Base
   end
 
   def remove_outdated_status(status)
-    if statuses.count > ProjectMonitor::Application.config.max_status
-      keepers = statuses.order('created_at DESC').limit(ProjectMonitor::Application.config.max_status)
+    if statuses.count > MAX_STATUS
+      keepers = statuses.order('created_at DESC').limit(MAX_STATUS)
       ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
     end
   end

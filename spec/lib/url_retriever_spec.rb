@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'UrlRetriever' do
   describe '#get' do
-    let(:get_request) { stub('Net::HTTP::Get', basic_auth: true) }
-    let(:http_session) { stub('Net::HTTP') }
-    let(:response) { stub('HTTPResponse') }
+    let(:get_request) { double('Net::HTTP::Get', basic_auth: true) }
+    let(:http_session) { double('Net::HTTP') }
+    let(:response) { double('HTTPResponse') }
     let(:retriever) { UrlRetriever.new url }
     let(:url) { 'http://host:1010/path?a=b' }
 
@@ -92,11 +92,11 @@ describe 'UrlRetriever' do
   end
 
   describe '#retrieve_content' do
-    let(:get_request) { stub('HTTP::Get') }
-    let(:http_session) { stub('Net::HTTP', request: response) }
-    let(:password) { stub('password') }
+    let(:get_request) { double('HTTP::Get') }
+    let(:http_session) { double('Net::HTTP', request: response) }
+    let(:password) { double('password') }
     let(:url) { 'http://host/path.html?parameter=value' }
-    let(:username) { stub('username') }
+    let(:username) { double('username') }
 
     before do
       Net::HTTP::Get.stub(:new).with('/path.html?parameter=value').and_return(get_request)
@@ -104,9 +104,9 @@ describe 'UrlRetriever' do
     end
 
     context 'when a username and password are supplied' do
-      let(:response) { stub('HTTPResponse') }
+      let(:response) { double('HTTPResponse') }
       let(:retriever) { UrlRetriever.new(url, username, password, verify_ssl) }
-      let(:verify_ssl) { stub('verify_ssl') }
+      let(:verify_ssl) { double('verify_ssl') }
 
       before do
         retriever.stub(:process_response).and_return('response body')
@@ -119,7 +119,7 @@ describe 'UrlRetriever' do
     end
 
     context 'when a username and password are not supplied' do
-      let(:response) { stub('HTTPResponse') }
+      let(:response) { double('HTTPResponse') }
       let(:retriever) { UrlRetriever.new(url) }
 
       before do
@@ -133,7 +133,7 @@ describe 'UrlRetriever' do
     end
 
     context 'when the response status code is in the 200s' do
-      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
+      let(:response) { double('HTTPResponse', body: 'response body', code: (rand 200..299).to_s) }
       let(:retriever) { UrlRetriever.new(url) }
 
       subject { retriever.retrieve_content }
@@ -149,7 +149,7 @@ describe 'UrlRetriever' do
       end
 
       let(:new_location) { 'http://placekitten.com/500/500' }
-      let(:response) { stub('HTTPResponse', body: nil, header: { 'location' => new_location }, code: (rand 300..399).to_s) }
+      let(:response) { double('HTTPResponse', body: nil, header: { 'location' => new_location }, code: (rand 300..399).to_s) }
       let(:retriever) { UrlRetriever.new(url) }
 
       subject { retriever.retrieve_content }
@@ -158,7 +158,7 @@ describe 'UrlRetriever' do
     end
 
     context 'when the response status code is in the 400s to 500s' do
-      let(:response) { stub('HTTPResponse', body: 'response body', code: (rand 400..599).to_s) }
+      let(:response) { double('HTTPResponse', body: 'response body', code: (rand 400..599).to_s) }
       let(:retriever) { UrlRetriever.new(url) }
 
       specify do

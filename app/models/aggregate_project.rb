@@ -3,8 +3,8 @@ class AggregateProject < ActiveRecord::Base
 
   before_destroy { |record| record.projects.update_all :aggregate_project_id => nil }
 
-  scope :enabled, where(enabled: true)
-  scope :with_statuses, joins(:projects => :statuses).uniq
+  scope :enabled, -> { where(enabled: true) }
+  scope :with_statuses, -> { joins(:projects => :statuses).uniq }
   scope :displayable, lambda { |tags=nil|
     scope = enabled.joins(:projects).select("DISTINCT aggregate_projects.*").order('code ASC')
     return scope.tagged_with(tags, :any => true) if tags
@@ -88,7 +88,7 @@ class AggregateProject < ActiveRecord::Base
   def red_build_count
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
-    red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
+    red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
   end
 
   def as_json(options = {})

@@ -59,6 +59,6 @@ describe ProjectDecorator do
   describe "#as_json" do
     subject { ProjectDecorator.new(Project.new(name: "foo")).as_json['project'].keys }
 
-    it { should == ['id', :tag_list] }
+    it { should == ['id', 'tag_list'] }
   end
 end
