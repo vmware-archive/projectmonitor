@@ -1,4 +1,5 @@
 guard 'coffeescript', input: 'spec/javascripts', output: 'spec/javascripts/compiled'
+guard 'coffeescript', input: 'app/assets/javascripts', output: 'assets'
 
 guard 'livereload' do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
