@@ -44,6 +44,7 @@ class ProjectsController < ApplicationController
     end
 
     Project.transaction do
+      old_class = @project.class
       if params[:project][:type] && @project.type != params[:project][:type]
         @project = @project.becomes(params[:project][:type].constantize)
         if project = Project.where(id: @project.id)
@@ -54,6 +55,9 @@ class ProjectsController < ApplicationController
       if @project.update_attributes(project_params)
         redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
       else
+        if project = Project.where(id: @project.id)
+          project.update_all(type: old_class.name)
+        end
         render :edit
         raise ActiveRecord::Rollback
       end
