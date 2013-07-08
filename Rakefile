@@ -8,8 +8,9 @@ ENV['FIXTURES'] = Dir["#{fixtures_dir}/*.{yml,csv}"].map {|f| f.gsub(fixtures_di
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-
+require 'jasmine'
 ProjectMonitor::Application.load_tasks
+load 'jasmine/tasks/jasmine.rake'
 
 begin
   require 'delayed/tasks'
