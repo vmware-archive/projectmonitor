@@ -16,7 +16,8 @@ gem "devise-encryptable"
 gem "draper", "< 0.13"
 gem "dynamic_form"
 gem "foreman"
-gem "sass"
+gem 'sass-rails', '~> 4.0.0'
+gem "compass-rails", github: "milgner/compass-rails", ref: "1749c06f15dc4b058427e7969810457213647fb8"
 gem "haml"
 gem "jquery-rails"
 gem "mime-types"
@@ -47,12 +48,6 @@ gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref =
 
 group :production do
   gem "therubyracer"
-end
-
-group :assets do
-  gem "compass-rails"
-  gem "sass-rails"
-  gem "uglifier"
 end
 
 group :test do
