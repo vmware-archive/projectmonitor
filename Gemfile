@@ -30,7 +30,7 @@ gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
 gem 'rails-backbone'
-gem 'coffee-filter'
+gem 'coffee-rails', '~> 4.0.0'
 gem 'eco'
 gem 'pg'
 gem "eventmachine"
