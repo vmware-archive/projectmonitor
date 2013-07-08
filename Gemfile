@@ -82,7 +82,7 @@ group :test, :development do
   gem "ffaker"
   gem 'guard-coffeescript'
   gem 'database_cleaner'
-  gem "capybara-webkit"
+  gem "capybara-webkit", github: "thoughtbot/capybara-webkit", branch: "1.0"
   gem "pry-nav"
   gem "pry-rails"
   gem 'pry'
