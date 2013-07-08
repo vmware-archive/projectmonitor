@@ -1,6 +1,5 @@
 class TeamCityRestProject < Project
 
-  attr_accessible :team_city_rest_base_url, :team_city_rest_build_type_id
   validates_presence_of :team_city_rest_build_type_id, :team_city_rest_base_url, unless: ->(project) { project.webhooks_enabled }
   validates :team_city_rest_build_type_id, format: {with: /\Abt\d+\Z/, message: 'must begin with bt'}, unless: ->(project) { project.webhooks_enabled }
 
