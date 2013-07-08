@@ -49,10 +49,7 @@ class Project < ActiveRecord::Base
 
   before_create :generate_guid
 
-  attr_accessible :aggregate_project_id,
-    :code, :name, :enabled, :polling_interval, :type, :tag_list, :online, :building,
-    :auth_password, :auth_username, :tracker_auth_token, :tracker_project_id, :tracker_online,
-    :webhooks_enabled, :verify_ssl
+  attr_writer :feed_url
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)

@@ -1,6 +1,5 @@
 class TravisProject < Project
 
-  attr_accessible :travis_github_account, :travis_repository, :build_branch
   validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
   BASE_API_URL = "https://api.travis-ci.org"

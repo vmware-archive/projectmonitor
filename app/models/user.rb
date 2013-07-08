@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
   devise_options << :encryptable if ConfigHelper.get(:devise_encryptor)
   devise *devise_options
 
-  attr_accessible :login, :name, :email, :password, :password_confirmation, :remember_me
-
   validates :password, confirmation: true
   validates :login, presence: true, length: 2..40, uniqueness: true
   validates_length_of :name, :maximum => 100

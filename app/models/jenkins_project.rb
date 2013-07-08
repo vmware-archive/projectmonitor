@@ -1,5 +1,4 @@
 class JenkinsProject < Project
-  attr_accessible :jenkins_base_url, :jenkins_build_name
   validates_presence_of :jenkins_base_url, :jenkins_build_name, unless: :webhooks_enabled
 
   def feed_url
