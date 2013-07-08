@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
 
   def create
     klass = params[:project][:type].present? ? params[:project][:type].constantize : Project
-    @project = klass.new(params[:project])
+    @project = klass.new(project_params)
     @project.creator = current_user
     if @project.save
       redirect_to edit_configuration_path, notice: 'Project was successfully created.'
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
         end
       end
 
-      if @project.update_attributes(params[:project])
+      if @project.update_attributes(project_params)
         redirect_to edit_configuration_path, notice: 'Project was successfully updated.'
       else
         render :edit
@@ -66,7 +66,7 @@ class ProjectsController < ApplicationController
   end
 
   def validate_build_info
-    project = params[:project][:type].constantize.new(params[:project])
+    project = params[:project][:type].constantize.new(project_params)
 
     if existing_project_missing_password?
       existing_project = Project.find(params[:project][:id])
@@ -115,5 +115,15 @@ class ProjectsController < ApplicationController
 
   def existing_project_missing_password?
     params[:project][:id].present? && params[:project][:auth_password].empty?
+  end
+
+  def project_params
+    params.require(:project).permit(%i(aggregate_project_id auth_password auth_username
+                                       build_branch code cruise_control_rss_feed_url enabled
+                                       jenkins_base_url jenkins_build_name name online
+                                       semaphore_api_url tag_list tddium_auth_token tddium_project_name
+                                       team_city_base_url team_city_build_name tracker_auth_token
+                                       tracker_online tracker_project_id travis_github_account
+                                       travis_repository type verify_ssl webhooks_enabled))
   end
 end

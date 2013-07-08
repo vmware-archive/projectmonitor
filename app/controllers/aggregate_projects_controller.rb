@@ -13,7 +13,7 @@ class AggregateProjectsController < ApplicationController
   end
 
   def create
-    @aggregate_project = AggregateProject.new(params[:aggregate_project])
+    @aggregate_project = AggregateProject.new(aggregate_project_params)
     if @aggregate_project.save
       redirect_to edit_configuration_path, notice: 'Aggregate project was successfully created.'
     else
@@ -26,7 +26,7 @@ class AggregateProjectsController < ApplicationController
   end
 
   def update
-    if @aggregate_project.update_attributes(params[:aggregate_project])
+    if @aggregate_project.update_attributes(aggregate_project_params)
       redirect_to edit_configuration_path, notice: 'Aggregate project was successfully updated.'
     else
       render :edit
@@ -44,4 +44,7 @@ class AggregateProjectsController < ApplicationController
     @aggregate_project = AggregateProject.find(params[:id])
   end
 
+  def aggregate_project_params
+    params.require(:aggregate_project).permit(:name)
+  end
 end
