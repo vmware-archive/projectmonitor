@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ProjectUpdater do
 
   let(:project) { FactoryGirl.build(:jenkins_project) }
-  let(:net_exception) { Net::HTTPError.new('Server error', 500) }
+  let(:net_exception) { Net::HTTPError.new('Server error', 501) }
   let(:payload_log_entry) { PayloadLogEntry.new(status: "successful") }
   let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
   let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil) }
@@ -11,7 +11,7 @@ describe ProjectUpdater do
   describe '.update' do
     before do
       project.stub(:fetch_payload).and_return(payload)
-      UrlRetriever.stub(:new).with(any_args).and_return(stub('UrlRetriever', retrieve_content: 'response'))
+      UrlRetriever.stub(:new).with(any_args).and_return(double('UrlRetriever', retrieve_content: 'response'))
       PayloadProcessor.stub(:new).and_return(payload_processor)
     end
 
@@ -23,7 +23,7 @@ describe ProjectUpdater do
     end
 
     it 'should fetch the feed_url' do
-      retriever = stub('UrlRetriever')
+      retriever = double('UrlRetriever')
       UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
       retriever.should_receive(:retrieve_content)
       subject
@@ -41,7 +41,7 @@ describe ProjectUpdater do
 
     context 'when fetching the status fails' do
       before do
-        retriever = stub('UrlRetriever')
+        retriever = double('UrlRetriever')
         UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
         retriever.stub(:retrieve_content).and_raise(net_exception)
       end
@@ -69,7 +69,7 @@ describe ProjectUpdater do
       end
 
       it 'should fetch the build_status_url' do
-        retriever = stub('UrlRetriever')
+        retriever = double('UrlRetriever')
         UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
         retriever.should_receive(:retrieve_content)
         subject
@@ -77,7 +77,7 @@ describe ProjectUpdater do
 
       context 'and fetching the build status fails' do
         before do
-          retriever = stub('UrlRetriever')
+          retriever = double('UrlRetriever')
           UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
           retriever.stub(:retrieve_content).and_raise(net_exception)
         end
