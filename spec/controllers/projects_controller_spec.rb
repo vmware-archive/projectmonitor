@@ -29,13 +29,13 @@ describe ProjectsController do
 
       it "should render collection of projects as JSON" do
         ProjectFeedDecorator.should_receive(:decorate).with(projects + aggregate_projects)
-        get :index
+        get :index, format: :json
       end
 
       it 'gets a collection of aggregate projects by tag' do
         AggregateProject.should_receive(:displayable).with(tags)
         Project.standalone.should_receive(:displayable).with(tags)
-        get :index, tags: tags
+        get :index, tags: tags, format: :json
       end
 
     end
