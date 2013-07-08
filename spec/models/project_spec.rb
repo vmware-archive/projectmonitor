@@ -91,7 +91,7 @@ describe Project do
       it "returns projects only with statues" do
         projects = Project.with_statuses
 
-        projects.length.should > 9
+        projects.length.should be > 9
         projects.should_not include project
         projects.each do |project|
           project.latest_status.should_not be_nil
