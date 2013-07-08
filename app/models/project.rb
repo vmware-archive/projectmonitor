@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
+  MAX_STATUS = 15
 
   has_many :statuses,
     class_name: 'ProjectStatus',
@@ -241,8 +242,8 @@ class Project < ActiveRecord::Base
   end
 
   def remove_outdated_status(status)
-    if statuses.count > ProjectMonitor::Application.config.max_status
-      keepers = statuses.order('created_at DESC').limit(ProjectMonitor::Application.config.max_status)
+    if statuses.count > MAX_STATUS
+      keepers = statuses.order('created_at DESC').limit(MAX_STATUS)
       ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
     end
   end
