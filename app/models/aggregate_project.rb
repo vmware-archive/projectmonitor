@@ -16,7 +16,7 @@ class AggregateProject < ActiveRecord::Base
     all
   }
 
-  acts_as_taggable
+  acts_as_taggable rescue nil
   validates :name, presence: true
 
   def red?

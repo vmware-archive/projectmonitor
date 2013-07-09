@@ -43,7 +43,7 @@ class Project < ActiveRecord::Base
     all
   }
 
-  acts_as_taggable
+  acts_as_taggable rescue nil
 
   validates :name, presence: true
   validates :type, presence: true
