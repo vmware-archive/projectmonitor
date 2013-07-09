@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
-gem "memcache-client"
+gem "dalli"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
 gem "bourbon"
