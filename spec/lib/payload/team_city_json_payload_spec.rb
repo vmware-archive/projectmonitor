@@ -13,7 +13,7 @@ describe TeamCityJsonPayload do
     context 'when content is valid' do
       let(:expected_content) { double }
       before do
-        JSON.stub(:parse).and_return(double(:[] => expected_content))
+        JSON.stub(:parse).and_return(expected_content)
       end
 
       it { should == [expected_content] }

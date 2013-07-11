@@ -5,7 +5,12 @@ class StatusController < ApplicationController
     if project = Project.find_by_guid(params.delete(:project_id))
       payload = project.webhook_payload
       payload.remote_addr = request.env["REMOTE_ADDR"]
-      payload.webhook_status_content = request.body.read
+
+      if payload.instance_of?(TeamCityJsonPayload)
+        payload.webhook_status_content = params['build'].to_json
+      else
+        payload.webhook_status_content = request.body.read
+      end
 
       log = PayloadProcessor.new(project, payload).process
       log.update_method = "Webhooks"
