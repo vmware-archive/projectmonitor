@@ -1,1 +1,19 @@
-{"build":{"buildStatus":"Running","buildResult":"success","notifyType":"buildFinished","buildRunner":"Command Line","buildFullName":"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity","buildName":"projectmonitor_ci_test_teamcity","buildId":"1","buildTypeId":"bt2","projectName":"projectmonitor_ci_test_teamcity","projectId":"project2","buildNumber":"13","agentName":"Default Agent","agentOs":"Linux, version 2.6.18-xenU-ec2-v1.5","agentHostname":"localhost","triggeredBy":"ci","message":"Build projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished.  This is build number 13, has a status of 'Running' and was triggered by ci","text":"projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished. Status: Running"}}
+    {
+      "agentHostname" : "localhost",
+      "agentName" : "Default Agent",
+      "agentOs" : "Linux, version 2.6.18-xenU-ec2-v1.5",
+      "buildFullName" : "projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity",
+      "buildId" : "1",
+      "buildName" : "projectmonitor_ci_test_teamcity",
+      "buildNumber" : "13",
+      "buildResult" : "success",
+      "buildRunner" : "Command Line",
+      "buildStatus" : "Running",
+      "buildTypeId" : "bt2",
+      "message" : "Build projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished.  This is build number 13, has a status of 'Running' and was triggered by ci",
+      "notifyType" : "buildFinished",
+      "projectId" : "project2",
+      "projectName" : "projectmonitor_ci_test_teamcity",
+      "text" : "projectmonitor_ci_test_teamcity :: projectmonitor_ci_test_teamcity has finished. Status: Running",
+      "triggeredBy" : "ci"
+    }
