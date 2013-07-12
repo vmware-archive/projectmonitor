@@ -1,12 +1,13 @@
 ProjectMonitor::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
   get 'builds' => "home#builds", format: :rss
-  get 'projects/validate_tracker_project'
-  get 'projects/validate_build_info'
   get 'version' => 'versions#show'
   get 'github_status' => 'home#github_status', format: :json
   get 'heroku_status' => 'home#heroku_status', format: :json
   get 'rubygems_status' => 'home#rubygems_status', format: :json
+
+  post 'projects/validate_tracker_project'
+  post 'projects/validate_build_info'
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
