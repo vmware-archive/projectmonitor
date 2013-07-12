@@ -8,6 +8,8 @@ class StatusController < ApplicationController
 
       if payload.instance_of?(TeamCityJsonPayload)
         payload.webhook_status_content = params['build'].to_json
+      elsif payload.instance_of?(SemaphorePayload)
+        payload.webhook_status_content = params.to_json
       else
         payload.webhook_status_content = request.body.read
       end
