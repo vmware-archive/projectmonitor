@@ -689,7 +689,7 @@ describe Project do
     let(:project) { FactoryGirl.create(:project)}
 
     context "when there is a latest status" do
-      let(:status) { FactoryGirl.build(:project_status, published_at: 5.days.ago) }
+      let(:status) { FactoryGirl.build(:project_status, published_at: 5.minutes.ago) }
       before { project.statuses << status }
 
       it { should == status.published_at }
