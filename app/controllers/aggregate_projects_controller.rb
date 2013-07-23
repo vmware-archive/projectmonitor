@@ -45,6 +45,6 @@ class AggregateProjectsController < ApplicationController
   end
 
   def aggregate_project_params
-    params.require(:aggregate_project).permit(:name)
+    params.require(:aggregate_project).permit(%i(code enabled name tag_list))
   end
 end
