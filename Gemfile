@@ -69,7 +69,6 @@ group :development do
 end
 
 group :test, :development do
-  gem "coveralls", :require => false
   gem "launchy"
   gem "jshint_on_rails"
   gem "rspec"

@@ -7,11 +7,6 @@ require 'vcr_setup'
 require 'pry'
 require_relative 'support/view_helpers.rb'
 
-if ENV["TRAVIS"]
-  require 'coveralls'
-  Coveralls.wear!('rails')
-end
-
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
