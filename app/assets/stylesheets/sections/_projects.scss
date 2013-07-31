@@ -18,6 +18,11 @@ $history-height: 32px !default;
 $statusbar-font-size: 30px !default;
 
 .dashboard {
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
   ol.projects {
     list-style: none;
     display: block;
@@ -36,6 +41,11 @@ $statusbar-font-size: 30px !default;
       }
 
       .history {
+        .statuses {
+          float: right;
+          margin-right: 15px;
+        }
+
         ol {
           overflow: hidden;
           height: auto;

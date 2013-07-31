@@ -95,8 +95,12 @@ ol.projects {
 
 .project {
   float: left;
-  width: 300px;
-  margin: 10px;
+  width: 25%;
+  min-width: 355px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   @include roman_font;
 }
 
