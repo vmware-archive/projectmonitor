@@ -38,7 +38,7 @@ $statusbar-font-size: 30px !default;
       .history {
         ol {
           overflow: hidden;
-          height: 80px;
+          height: auto;
           list-style: none;
 
           li {
@@ -49,24 +49,34 @@ $statusbar-font-size: 30px !default;
             float:left;
 
             span {
-              font-size: 48px;
-              vertical-align: bottom;
+              font-size: 40px;
+              vertical-align: middle;
             }
 
             a {
               text-decoration: none;
               color: black;
+              line-height: 1px;
             }
 
             &.success span:after {
               content: $success-unicode-glyph;
             }
 
-            &.failure span:after {
+            &.success {
+              a {
+                line-height: 32px;
+              }
+
+              span:before {
+                content: $success-unicode-glyph;
+              }
+
+            }
+            &.failure span:before {
               content: $failure-unicode-glyph;
               line-height: 30px;
             }
-
             a {
               font-size: 0;
               display: block;
