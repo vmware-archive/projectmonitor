@@ -131,44 +131,60 @@ describe StatusController do
 
     context "Jenkins project" do
       let!(:project) { FactoryGirl.create(:project) }
+      let(:build_id) { 7 }
+      let(:build_url) { "job/projectmonitor_ci_test/#{build_id}/" }
+      let(:parsed_url) { "job/projectmonitor_ci_test/" }
       let(:payload) do
-        '{"name":"projectmonitor_ci_test",
+        %Q{{"name":"projectmonitor_ci_test",
         "url":"job/projectmonitor_ci_test/",
-        "build":{"number":7,"phase":"FINISHED",
+        "build":{"number":#{build_id},"phase":"FINISHED",
         "status":"FAILURE",
-        "url":"job/projectmonitor_ci_test/7/"}}'
+        "url":"#{build_url}"}}}
       end
 
-      subject do
-        request.env['RAW_POST_DATA'] = payload
-        post :create, project_id: project.guid
-      end
+      shared_examples_for "a Jenkins webhook build" do
+        it "should create a new status" do
+          expect { subject }.to change(ProjectStatus, :count).by(1)
+        end
 
-      it "should create a new status" do
-        expect { subject }.to change(ProjectStatus, :count).by(1)
-      end
+        it "creates only one new status" do
+          expect {
+            subject
+            subject
+          }.to change(ProjectStatus, :count).by(1)
+        end
 
-      it "creates only one new status" do
-        expect {
+        it "should have all the attributes" do
           subject
+          ProjectStatus.last.should_not be_success
+          ProjectStatus.last.project_id.should == project.id
+          ProjectStatus.last.build_id.should == build_id
+          ProjectStatus.last.published_at.should_not be_nil
+        end
+
+        it "should update parsed_url" do
+          project.parsed_url.should be_nil
           subject
-        }.to change(ProjectStatus, :count).by(1)
+          project.reload.parsed_url.should include parsed_url
+        end
       end
 
-      it "should have all the attributes" do
-        subject
-        ProjectStatus.last.should_not be_success
-        ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.build_id.should == 7
-        ProjectStatus.last.published_at.should_not be_nil
+      context "payload sent as raw post data (deprecated)" do
+        subject do
+          request.env['RAW_POST_DATA'] = payload
+          post :create, project_id: project.guid
+        end
+
+        it_behaves_like "a Jenkins webhook build"
       end
 
-      it "should update parsed_url" do
-        project.parsed_url.should be_nil
-        subject
-        project.reload.parsed_url.should include 'job/projectmonitor_ci_test/'
-      end
+      context "payload sent as params" do
+        subject do
+          post :create, JSON.parse(payload).merge(project_id: project.guid)
+        end
 
+        it_behaves_like "a Jenkins webhook build"
+      end
     end
 
     context "TeamCity Rest project" do
@@ -229,11 +245,13 @@ describe StatusController do
       let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
 
       let(:payload) do
-        '{"name":"projectmonitor_ci_test",
-        "url":"job/projectmonitor_ci_test/",
-        "build":{"number":7,"phase":"FINISHED",
-        "status":"FAILURE",
-        "url":"job/projectmonitor_ci_test/7/"}}'
+        {'name'  => 'projectmonitor_ci_test',
+         'url'    => 'job/projectmonitor_ci_test/',
+         'build'  => {
+           'number' => 7,
+           'phase'  => 'FINISHED',
+           'status' => 'FAILURE',
+           'url'    => 'job/projectmonitor_ci_test/7/'}}
       end
 
       before do
@@ -241,8 +259,7 @@ describe StatusController do
       end
 
       after do
-        request.env['RAW_POST_DATA'] = payload
-        post :create, project_id: project.guid
+        post :create, payload.merge(project_id: project.guid)
       end
 
       it 'should set last_refreshed_at' do
