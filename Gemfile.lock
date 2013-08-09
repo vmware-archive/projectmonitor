@@ -255,7 +255,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
-    pg (0.15.1)
+    pg (0.16.0)
     pivotal-tracker (0.5.8)
       builder
       builder
