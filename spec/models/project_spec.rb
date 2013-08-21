@@ -692,7 +692,9 @@ describe Project do
       let(:status) { FactoryGirl.build(:project_status, published_at: 5.minutes.ago) }
       before { project.statuses << status }
 
-      it { should == status.published_at }
+      it "returns the time the status was published" do
+        subject.to_i.should == status.published_at.to_i
+      end
     end
 
     context "when there are no statuses" do

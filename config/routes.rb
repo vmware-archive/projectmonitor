@@ -1,5 +1,7 @@
 ProjectMonitor::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
+  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
+
   get 'builds' => "home#builds", format: :rss
   get 'version' => 'versions#show'
   get 'github_status' => 'home#github_status', format: :json
