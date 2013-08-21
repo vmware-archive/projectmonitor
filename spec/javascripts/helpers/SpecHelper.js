@@ -1,3 +1,5 @@
+//= require application
+
 beforeEach(function() {
   $.fx.off = true;
 
