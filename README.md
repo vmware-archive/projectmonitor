@@ -340,11 +340,34 @@ CI for ProjectMonitor is [here](http://travis-ci.org/pivotal/projectmonitor), an
 ## Development
 The public Tracker project for ProjectMonitor is [here](http://www.pivotaltracker.com/projects/2872).
 
+### Running tests
 To run tests, run:
 
     rake setup
     rake spec
 
+### Javascript tests
+To run Jasmine tests, run this once when setting up the project or if you haven't consistently been running guard:
+
+    rake jasmine:compile_coffeescript
+
+To keep your jasmine tests current, run:
+
+    guard
+
+Install phantomjs if needed:
+
+    brew install phantomjs
+
+Then, to run Jasmine tests from the command line, run:
+
+    RAILS_ENV=test bundle exec rake spec:javascript
+
+To run Jasmine tests from the browser, with a rails server running, visit [http://localhost:3000/specs](http://localhost:3000/specs)
+
+See the [jasmine-rails](https://github.com/searls/jasmine-rails) documentation for more details.
+
+### Development server
 To run a local development server and worker, run:
 
     foreman start
