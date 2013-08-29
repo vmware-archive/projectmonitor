@@ -18,7 +18,7 @@ module ProjectUpdater
         project.online = false
         project.building = false
         backtrace = "#{e.message}\n#{e.backtrace.join("\n")}"
-        project.payload_log_entries.build(error_type: e.class.to_s, error_text: e.message, update_method: "Polling", status: "failed", backtrace: backtrace)
+        project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.message}", update_method: "Polling", status: "failed", backtrace: backtrace)
       end
     end
 
