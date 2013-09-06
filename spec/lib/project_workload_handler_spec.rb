@@ -43,7 +43,7 @@ describe ProjectWorkloadHandler do
 
     it 'should add a log entry' do
       project.payload_log_entries.should_receive(:build)
-      .with(error_text: error, update_method: 'Polling', status: 'failed')
+      .with(error_text: error.to_s, update_method: 'Polling', status: 'failed')
     end
 
     it 'should set building to false' do
