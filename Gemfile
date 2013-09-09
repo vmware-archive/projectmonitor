@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
-gem "license_finder"
 gem "dalli"
 gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
 gem "airbrake"
@@ -67,6 +66,7 @@ group :development do
   gem 'guard-livereload'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'ruby-prof'
+  gem 'license_finder'
 end
 
 group :test, :development do
