@@ -65,6 +65,11 @@ describe TravisJsonPayload do
       let(:json) { "failure.json" }
       it { should be_false }
     end
+
+    context 'the payload build has errored' do
+      let(:json) { "errored.json" }
+      it { should be_false }
+    end
   end
 
   describe '#content_ready?' do

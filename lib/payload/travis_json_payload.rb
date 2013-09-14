@@ -47,7 +47,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_success(content)
-    content['result'].to_i == 0
+    content['result'] && content['result'].to_i == 0
   end
 
   def parse_url(content)
