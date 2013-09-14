@@ -1,0 +1,54 @@
+{
+"id": 11301745,
+"repository_id": 139061,
+"number": "848",
+"config": {
+"language": "ruby",
+"bundler_args": "--deployment --without development",
+"rvm": [
+"1.9.3-p448"
+],
+"env": [
+"DB=sqlite",
+"DB=mysql DB_CONNECTION=\"mysql2://root@localhost:3306/ccng\" AR_DB_CONNECTION=\"mysql2://root@localhost:3306/ccng\"",
+"DB=postgres DB_CONNECTION=\"postgres://postgres@localhost:5432/ccng\" AR_DB_CONNECTION=\"postgres://postgres@localhost:5432/ccng\""
+],
+"before_install": [
+"sh -c \"if [ '$DB' = 'oracle' ];   then spec/bin/install_oracle_travis.sh; fi\""
+],
+"before_script": [
+"sh -c \"if [ '$DB' = 'postgres' ]; then psql  -c 'create database ccng;' -U postgres; fi\"",
+"sh -c \"if [ '$DB' = 'mysql' ];    then mysql -e 'create database ccng;'; fi\""
+],
+"script": "bundle exec rake spec",
+".result": "configured",
+"global_env": [
+{
+"secure": "qUgIq/nxPuqWLPu4szGAq6qX9X32nu0OVeDHeBxihtgYJTy4EkY7F/CWFVbk\njOB9QA5kM48cj1K2QTNLskqaI6zDIfkFQNHN8rqQRcaZsF4TuoeaH1q9b6LD\nSmQ6zJ6WVbI/5OODyQWKTrZrKEIqXrf7CETjIUsaHCeCX4LEaxQ="
+},
+{
+"secure": "e5ipMUQt3JU3irnu3aCWUUi9v+F/GBRsyO8H05h4kNBmAgOt6kWJ9qnqV3xs\n/ElTiO2QO4a2PAyBeYdvnxgMFW4JmuKQ+PnFFqFerL6yK79UIcgKTkyZB1EJ\n8eY2j2dlfCI6dbG5Y+nW/aERk04Y51C5/1tveX0QEDv8dSfOLFk="
+},
+{
+"secure": "Rz6G1Iwf4wkiUM9C/v2dzza9ZO5iyrIC9971VAF5vQxGHvm4YdDZali/vvsH\nsoYfMmZPabQIjPBVKKVMPDgQAjCcLaBn96hDYHeT5Ueh93cbcS/Xr8Bd/cBu\n1ZohrzIjth6/a0EX9urv8UeB6oIrqD3SaXRoGAOb8eiSoviPXHI="
+}
+]
+},
+"state": "finished",
+"result": null,
+"status": null,
+"started_at": "2013-09-12T22:16:17Z",
+"finished_at": "2013-09-12T23:06:19Z",
+"duration": 6082,
+"commit": "937c408b605526342e6d901aff1a23a27ee47821",
+"branch": "master",
+"message": "Register with router after full load",
+"committed_at": "2013-09-12T22:15:10Z",
+"author_name": "Chris Brown and Maria Shaldibina",
+"author_email": "pair+cbrown+mariash@pivotallabs.com",
+"committer_name": "Chris Brown and Maria Shaldibina",
+"committer_email": "pair+cbrown+mariash@pivotallabs.com",
+"compare_url": "https://github.com/cloudfoundry/cloud_controller_ng/compare/4c6246323075...937c408b6055",
+"event_type": "push",
+"matrix": []
+}
