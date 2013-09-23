@@ -22,14 +22,6 @@ GIT
       rspec (>= 1.3.1)
       selenium-webdriver (>= 0.1.3)
 
-GIT
-  remote: git://github.com/thoughtbot/capybara-webkit.git
-  revision: b6a09ee0bf3ff490cd307724f630a874d9566025
-  branch: 1.0
-  specs:
-    capybara-webkit (1.0.0.beta4)
-      capybara (~> 1.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,6 +70,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-webkit (0.13.1)
+      capybara (>= 1.0.0, < 1.2)
+      json
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     choices (0.3.2)
@@ -403,7 +398,7 @@ DEPENDENCIES
   awesome_print
   bourbon
   capybara
-  capybara-webkit!
+  capybara-webkit
   choices
   coffee-rails (~> 4.0.0)
   compass-rails (~> 1.1.0)
