@@ -9,8 +9,8 @@ class ProjectMonitor.Views.HomeView extends Backbone.View
     @_addTileView(tile) for tile in @collection.models
 
     @collection.on 'reset', =>
-      for cid,view of @subViews
-        view.tearDown()
+      @.tearDownRegisteredSubViews()
+
       for model in @collection.models
         @_addTileView(model)
       @render()
