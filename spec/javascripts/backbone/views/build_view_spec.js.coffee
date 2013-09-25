@@ -24,6 +24,8 @@ describe "ProjectMonitor.Views.BuildView", ->
 
     describe "build", ->
       beforeEach ->
+        publishedAt = moment().subtract('days', 4).format()
+        @build.set("published_at", publishedAt)
         setFixtures(@view.render().$el)
 
       it "should have an article", ->

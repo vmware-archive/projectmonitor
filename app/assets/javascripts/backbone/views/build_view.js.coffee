@@ -17,5 +17,7 @@ class ProjectMonitor.Views.BuildView extends Backbone.View
       @$el.addClass('building')
     else
       @$el.removeClass('building')
-    @$('.time-since-last-build').timeago()
+    $lastBuild = @$('.time-since-last-build')
+    timeSince = moment(new Date($lastBuild.text())).fromNow()
+    $lastBuild.text(timeSince)
     @

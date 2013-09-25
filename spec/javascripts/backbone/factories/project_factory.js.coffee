@@ -6,7 +6,7 @@ BackboneFactory.define 'project', ProjectMonitor.Models.Project, ->
       aggregate: false
       status: "success"
       statuses: [{success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: true, url: "http://status.com"}, {success: false, url: "http://status.com"}, {success: false, url: "http://status.com"}]
-      published_at: "4d"
+      published_at: "2013-09-10T19:51:54.000Z"
   }
 
 BackboneFactory.define 'complete_project', ProjectMonitor.Models.Project, ->
