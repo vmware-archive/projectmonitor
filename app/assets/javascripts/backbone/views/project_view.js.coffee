@@ -14,9 +14,9 @@ class ProjectMonitor.Views.ProjectView extends Backbone.View
     @$el.data(project_id: @model.get("project_id"))
 
   render: ->
-    $section = $("<section/>")
-    @$el.html($section)
-    $section.addClass(['one-tile', 'two-tile', 'three-tile', 'four-tile'][@subviews.length - 1])
+    $section = $("<section/>").
+      addClass(['one-tile', 'two-tile', 'three-tile', 'four-tile'][@subviews.length - 1])
     for subview in @subviews
       $section.append(subview.render().$el)
+    @$el.html($section)
     @
