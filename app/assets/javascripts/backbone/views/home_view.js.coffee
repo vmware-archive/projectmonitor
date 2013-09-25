@@ -31,9 +31,9 @@ class ProjectMonitor.Views.HomeView extends Backbone.View
     else
       view = new ProjectMonitor.Views.ProjectView(model: model)
     @registerSubView(view)
-    
 
   render: ->
-    @$el.empty()
-    @$el.append(subview.render().$el) for cid,subview of @subViews
+    $fragment = $(document.createDocumentFragment())
+    $fragment.append(subview.render().$el) for cid,subview of @subViews
+    @$el.html($fragment)
     @
