@@ -10,7 +10,7 @@
 #     - <Heroku config:var name>: <Heroku config:var value>
 #
 production:
-  app: projectmonitor
+  app: projectmonitor-production
   stack: cedar
   tag: production/*
   config:
