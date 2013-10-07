@@ -5,7 +5,7 @@ describe StatusController do
     context "Travis project" do
       let!(:project) { FactoryGirl.create(:travis_project) }
       let(:payload) do
-      '{
+      URI.encode '{
         "id": 4219108,
         "repository_id": 96210,
         "number": "304",

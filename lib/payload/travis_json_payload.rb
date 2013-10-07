@@ -26,7 +26,7 @@ class TravisJsonPayload < Payload
   end
 
   def convert_webhook_content!(content)
-    convert_content!(Rack::Utils.parse_nested_query(content)['payload'] || '')
+    convert_content!(URI.decode(Rack::Utils.parse_nested_query(content)['payload']) || '')
   end
 
   def convert_content!(content)

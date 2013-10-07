@@ -42,13 +42,10 @@ describe TravisJsonPayload do
 
   describe '#convert_webhook_content!' do
     context 'when supplied with an empty payload' do
-      before do
-        Rack::Utils.stub(:parse_nested_query).and_return({})
-      end
-
+      let(:webhook_content) { TravisExample.new("webhook_success.txt").read }
       it 'provides an empty string to JSON.parse' do
-        JSON.should_receive(:parse).with('')
-        TravisJsonPayload.new.convert_webhook_content!(status_content)
+        converted_content = TravisJsonPayload.new.convert_webhook_content!(webhook_content)
+        converted_content.first['id'].should == 12150190
       end
     end
   end
