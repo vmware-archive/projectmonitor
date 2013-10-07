@@ -16,8 +16,7 @@ gem "devise-encryptable"
 gem "draper", "< 0.13"
 gem "dynamic_form"
 gem "foreman"
-gem 'sass-rails'
-gem "compass-rails"
+gem 'sass-rails', '~> 4.0.0'
 gem "haml-rails"
 gem "jquery-rails"
 gem "mime-types"
