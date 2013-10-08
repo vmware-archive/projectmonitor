@@ -39,11 +39,16 @@ describe ProjectWorkloadHandler do
   describe '#workload_failed' do
     let(:error) { double }
 
+    before do
+      error.stub(:message).and_return("message")
+      error.stub(:backtrace).and_return(["backtrace","more"])
+    end
+
     after { handler.workload_failed(workload, error) }
 
     it 'should add a log entry' do
       project.payload_log_entries.should_receive(:build)
-      .with(error_text: error.to_s, update_method: 'Polling', status: 'failed')
+      .with(error_type: "RSpec::Mocks::Mock", error_text: "message", update_method: "Polling", status: "failed", :backtrace=>"message\nbacktrace\nmore")
     end
 
     it 'should set building to false' do
