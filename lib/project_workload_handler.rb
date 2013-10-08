@@ -18,8 +18,8 @@ class ProjectWorkloadHandler
     update_ci_status(workload, status_content, build_status_content)
   end
 
-  def workload_failed(workload, error)
-    project.payload_log_entries.build(error_text: "#{error}", update_method: 'Polling', status: 'failed')
+  def workload_failed(workload, e)
+    project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.message}", update_method: "Polling", status: "failed", backtrace: "#{e.message}\n#{e.backtrace.join("\n")}")
     project.building = project.online = false
     project.save!
   end
@@ -42,7 +42,7 @@ private
 
   rescue => e
     project.reload
-    project.payload_log_entries.build(error_text: "#{e.class}: #{e.message}", update_method: 'Polling', status: 'failed')
+    project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.message}", update_method: "Polling", status: "failed", backtrace: "#{e.message}\n#{e.backtrace.join("\n")}")
     project.online = false
     project.save!
 
