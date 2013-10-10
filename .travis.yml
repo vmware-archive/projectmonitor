@@ -18,6 +18,9 @@ notifications:
 rvm:
   - 2.0.0
 
+cache:
+  bundler: true
+
 before_script:
   - "sudo apt-get install memcached"
   - "bundle exec rake travis:setup"
