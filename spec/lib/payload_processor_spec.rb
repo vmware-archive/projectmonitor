@@ -39,6 +39,31 @@ describe PayloadProcessor do
         project.statuses.should_not_receive(:push)
         processor.process
       end
+
+      context "with an invalid status" do
+        let(:project) { create(:project) }
+        let(:status) { build(:project_status, success: nil) }
+        before {
+          status.should be_invalid
+        }
+
+        it "does not add the status to the project if it is invalid" do
+          expect { processor.process }.not_to change(project.statuses, :count)
+        end
+
+        it "logs an error to the project if the status is invalid" do
+          payload.stub(status_content: "some crazy response")
+          processor.process
+
+          error_entry = project.payload_log_entries.find { |entry| entry.error_type == "Status Invalid" }
+          error_entry.should be_present
+          error_entry.error_text.should == <<ERROR
+Payload returned an invalid status: #{status.inspect}
+  Errors: Success is not included in the list
+  Payload: #{payload.inspect}
+ERROR
+        end
+      end
     end
 
     context "when the payload statuses are not processable" do
