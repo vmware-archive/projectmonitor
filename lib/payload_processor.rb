@@ -37,7 +37,15 @@ class PayloadProcessor
   def add_statuses_from_payload
     payload.each_status do |status|
       next if project.has_status?(status)
-      project.statuses.push status
+      if status.valid?
+        project.statuses.push status
+      else
+        project.payload_log_entries.build(error_type: "Status Invalid", error_text: <<ERROR)
+Payload returned an invalid status: #{status.inspect}
+  Errors: #{status.errors.full_messages.to_sentence}
+  Payload: #{payload.inspect}
+ERROR
+      end
     end
   end
 
