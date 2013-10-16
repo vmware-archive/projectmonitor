@@ -128,6 +128,7 @@ class ProjectsController < ApplicationController
                                        semaphore_api_url tag_list tddium_auth_token tddium_project_name
                                        team_city_base_url team_city_build_name tracker_auth_token
                                        tracker_online tracker_project_id travis_github_account
-                                       travis_repository type verify_ssl webhooks_enabled))
+                                       travis_repository type verify_ssl webhooks_enabled
+                                       circleci_username circleci_project_name circleci_auth_token))
   end
 end
