@@ -33,3 +33,4 @@ en:
     team_city_rest_project: "Team City Project"
     travis_project: "Travis Project"
     tddium_project: "Tddium Project"
+    circle_ci_project: "CircleCi Project"

@@ -51,4 +51,10 @@ FactoryGirl.define do
     tddium_project_name 'Test Project A'
   end
 
+  factory :circleci_project, class: CircleCiProject do
+    name { Faker::Name.name }
+    circleci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
+    circleci_project_name 'a-project'
+    circleci_username 'username'
+  end
 end
