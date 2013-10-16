@@ -5,7 +5,8 @@ module ProjectsHelper
                         TeamCityRestProject,
                         TeamCityProject,
                         TravisProject,
-                        TddiumProject]
+                        TddiumProject,
+                        CircleCiProject]
 
   def project_types
     [['', '']] + PROJECT_TYPE_NAMES.map do |type_class|

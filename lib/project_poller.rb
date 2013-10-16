@@ -85,6 +85,10 @@ class ProjectPoller
     if project.auth_username.present?
       get_options[:head] = {'authorization' => [project.auth_username, project.auth_password]}
     end
+    if project.accept_mime_types.present?
+      headers = get_options[:head] || {}
+      get_options[:head] = headers.merge("Accept" => project.accept_mime_types)
+    end
 
     create_request(url, get_options)
   end
