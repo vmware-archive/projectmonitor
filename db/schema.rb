@@ -115,6 +115,9 @@ ActiveRecord::Schema.define(:version => 20130416212824) do
     t.string   "build_branch"
     t.text     "iteration_story_state_counts",               :default => "{}"
     t.integer  "creator_id"
+    t.string   "circleci_auth_token"
+    t.string   "circleci_project_name"
+    t.string   "circleci_username"
   end
 
   add_index "projects", ["aggregate_project_id"], :name => "index_projects_on_aggregate_project_id"
