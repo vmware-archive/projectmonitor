@@ -109,3 +109,9 @@ class SemaphoreExample < FixtureFile
     super("semaphore_examples", filename)
   end
 end
+
+class CircleCiExample < FixtureFile
+  def initialize(filename)
+    super("circleci_examples", filename)
+  end
+end

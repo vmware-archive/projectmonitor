@@ -220,6 +220,10 @@ class Project < ActiveRecord::Base
     latest_status.try(:published_at)
   end
 
+  def accept_mime_types
+    nil
+  end
+
   private
 
   def calculated_volatility

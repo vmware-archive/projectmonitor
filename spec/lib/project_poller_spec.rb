@@ -82,6 +82,17 @@ describe ProjectPoller do
             end
           end
 
+          context 'and the project has accept_mime_types' do
+            let(:mime_type) { "application/json" }
+            before do
+              project.stub(:accept_mime_types).and_return(mime_type)
+            end
+
+            it 'should set the authorization header' do
+              connection.should_receive(:get).with(redirects: 10, head: {'Accept' => mime_type})
+            end
+          end
+
           context 'when a response is received' do
             let(:client) { double(:client, response: double) }
 
