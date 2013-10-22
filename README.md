@@ -16,6 +16,7 @@ ProjectMonitor currently supports:
   * [Travis CI](http://travis-ci.org/)
   * [tddium](http://www.tddium.com/)
   * [Semaphore](http://www.semaphoreapp.com/)
+  * [CircleCI](http://circleci.com)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
 builds for all our client projects. We also have an instance of ProjectMonitor
