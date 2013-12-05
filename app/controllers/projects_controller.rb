@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
       aggregate_projects = AggregateProject.displayable(params[:tags])
       projects = standalone_projects + aggregate_projects
     end
+    projects = projects.sort_by(&:code)
 
     respond_with ProjectFeedDecorator.decorate projects
   end
