@@ -248,7 +248,7 @@ class Project < ActiveRecord::Base
   def remove_outdated_status(status)
     if statuses.count > MAX_STATUS
       keepers = statuses.order('created_at DESC').limit(MAX_STATUS)
-      ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
+      ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers.map(&:id)]) if keepers.any?
     end
   end
 
