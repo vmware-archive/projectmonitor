@@ -17,7 +17,7 @@ gem "draper", "< 0.13"
 gem "dynamic_form"
 gem "foreman"
 gem 'sass-rails', '~> 4.0.0'
-gem "compass-rails", '~> 2.0.alpha.0'
+gem "compass-rails", '~> 1.1.0'
 gem "haml-rails"
 gem "jquery-rails"
 gem "mime-types"
