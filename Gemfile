@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.1.0"
 
 gem "dalli"
-gem "acts-as-taggable-on", :github => "mbleigh/acts-as-taggable-on"
+gem "acts-as-taggable-on"
 gem "airbrake"
 gem "bourbon"
 gem "choices"
