@@ -97,9 +97,9 @@ GEM
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.0.1)
-    delayed_job (4.0.0.beta2)
+    delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0.beta3)
+    delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
     delayed_job_web (1.2.0)
@@ -220,7 +220,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -405,8 +405,8 @@ DEPENDENCIES
   daemons
   dalli
   database_cleaner
-  delayed_job (~> 4.0.0.beta2)
-  delayed_job_active_record (~> 4.0.0.beta3)
+  delayed_job
+  delayed_job_active_record
   delayed_job_web
   devise
   devise-encryptable
