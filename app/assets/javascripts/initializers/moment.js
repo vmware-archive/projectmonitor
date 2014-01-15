@@ -1,7 +1,7 @@
 moment.lang('en', {
   relativeTime: {
     past: "%s",
-    s:    "seconds",
+    s:    "%ds",
     m:    "%dm",
     mm:   "%dm",
     h:    "%dh",
