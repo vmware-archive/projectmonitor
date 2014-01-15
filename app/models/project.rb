@@ -49,6 +49,11 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
 
   before_create :generate_guid
+  before_create :populate_iteration_story_state_counts
+
+  def populate_iteration_story_state_counts
+    self.iteration_story_state_counts = []
+  end
 
   attr_writer :feed_url
 
@@ -197,11 +202,11 @@ class Project < ActiveRecord::Base
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
-      json["tracker"] = super(
-        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
-        methods: ["volatility"],
-        root:false) if tracker_project_id?
-        json
+    json["tracker"] = super(
+      only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
+      methods: ["volatility"],
+      root:false) if tracker_project_id?
+    json
   end
 
   def volatility

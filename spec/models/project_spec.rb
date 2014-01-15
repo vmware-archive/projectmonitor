@@ -560,6 +560,20 @@ describe Project do
     end
   end
 
+  describe "#populate_iteration_story_state_counts" do
+    let(:project) { FactoryGirl.build(:project) }
+
+    it "initializes iteration_story_state_counts to an empty array" do
+      project.populate_iteration_story_state_counts
+      project.iteration_story_state_counts.should == []
+    end
+
+    it "calls populate_iteration_story_state_counts on create" do
+      project.should_receive :populate_iteration_story_state_counts
+      project.save!
+    end
+  end
+
   describe "#as_json" do
     context "build" do
       let(:project) { FactoryGirl.create(:project) }
