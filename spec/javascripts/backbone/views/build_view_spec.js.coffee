@@ -45,6 +45,11 @@ describe "ProjectMonitor.Views.BuildView", ->
       it "should include the last build time", ->
         expect($(".time-since-last-build")).toHaveText("4d")
 
+      it "should include the last build time", ->
+        now = moment().subtract(30, 'seconds')
+        @build.set(published_at: now.format())
+        expect($(".time-since-last-build").text()).toMatch(/\d\ds/)
+
     describe "aggregate", ->
       beforeEach ->
         @build.set(aggregate: true)
