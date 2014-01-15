@@ -112,7 +112,7 @@ describe StatusController do
         subject
         ProjectStatus.last.should_not be_success
         ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.published_at.to_s.should == Time.utc(2013, 1, 21, 16, 15, 46).to_s
+        ProjectStatus.last.published_at.to_s.should == Time.utc(2013, 1, 21, 16, 12, 15).to_s
       end
 
       it "should update last_refreshed_at" do

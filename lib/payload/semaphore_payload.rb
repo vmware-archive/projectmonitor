@@ -39,7 +39,7 @@ class SemaphorePayload < Payload
   end
 
   def parse_published_at(content)
-    Time.parse(content['finished_at']) if content['finished_at']
+    Time.parse(content['started_at']) if content['started_at']
   end
 
   private
