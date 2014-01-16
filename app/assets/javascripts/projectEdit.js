@@ -150,7 +150,7 @@ var ProjectEdit = {};
     $('#polling .pending').removeClass('hide');
     $.ajax({
       url: "/projects/validate_build_info",
-      type: "post",
+      type: "patch",
       data: $('form').serialize(),
       success: function (result) {
         if (result.status) {
