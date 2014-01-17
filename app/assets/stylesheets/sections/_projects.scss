@@ -58,11 +58,11 @@ $statusbar-font-size: 30px !default;
               color: black;
             }
 
-            &.success span:before {
+            &.success span:after {
               content: $success-unicode-glyph;
             }
 
-            &.failure span:before {
+            &.failure span:after {
               content: $failure-unicode-glyph;
               line-height: 30px;
             }
