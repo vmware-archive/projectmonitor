@@ -81,6 +81,10 @@ class Project < ActiveRecord::Base
     latest_status || ProjectStatus.new(project: self)
   end
 
+  def requires_branch_name?
+    false
+  end
+
   def green?
     online? && status.success?
   end

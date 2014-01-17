@@ -1,0 +1,52 @@
+@import 'pivotal';
+
+$brand_primary: $pivotal_blue;
+$brand_danger: $pivotal_red;
+$brand_info: lighten($brand_primary, 20%);
+$brand_warning: $pivotal_yellow;
+
+$state_danger_text: $pivotal_red;
+$state_success_text: #63AF64;
+
+$gray_light: $pivotal_grey;
+$grey_dark: $pivotal_dark_grey;
+$font_family_base: $pivotal_font_family;
+
+
+@import 'bootstrap';
+@import 'sections/autocomplete';
+
+.navbar-brand {
+  padding: 3px 15px;
+
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    height: 45px;
+    margin-right: 15px;
+  }
+}
+
+.errorExplanation {
+  @extend .panel;
+  @extend .panel-danger;
+
+  h2 {
+    padding: 5px 20px;
+    margin: 0;
+    @extend .h4;
+    @extend .panel-heading;
+  }
+
+  p, ul {
+    margin: 10px 20px;
+    padding: 0;
+    @extend .panel-body;
+  }
+
+  ul {
+    margin-left: 40px;
+  }
+}

@@ -35,6 +35,10 @@ class TravisProject < Project
     end
   end
 
+  def requires_branch_name?
+    true
+  end
+
   private
 
   def base_url

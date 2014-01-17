@@ -3,6 +3,12 @@ describe("project edit", function() {
     jasmine.Ajax.useMock();
   });
 
+  it('invokes validateFeedUrl on initialization', function() {
+    spyOn(ProjectEdit, 'validateFeedUrl');
+    ProjectEdit.init();
+    expect(ProjectEdit.validateFeedUrl).toHaveBeenCalled();
+  });
+
   describe("validations on pivotal tracker setup", function() {
     beforeEach(function() {
       var fixtures = "<fieldset id='tracker_setup'><input id='project_tracker_online'/>" +
@@ -221,17 +227,17 @@ describe("project edit", function() {
         '  <option value="TddiumProject">TddiumProject</option>' +
         '</select>' +
         '<div id="field_container" class="hide">' +
-        '  <fieldset id="CruiseControlProject">' +
+        '  <div class="project-attributes" id="CruiseControlProject">' +
         '    <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
-        '  </fieldset>' +
-        '  <fieldset class="hide" id="JenkinsProject">' +
+        '  </div>' +
+        '  <div class="project-attributes hide" id="JenkinsProject">' +
         '    <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
         '    <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
-        '  </fieldset>' +
-        '  <fieldset class="hide" id="TddiumProject">' +
+        '  </div>' +
+        '  <div class="project-attributes hide" id="TddiumProject">' +
         '    <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
         '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
-        '  </fieldset>' +
+        '  </div>' +
         '  <input id="project_auth_username" name="project[auth_username]" type="text">' +
         '  <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
         '</div>' +
@@ -260,14 +266,14 @@ describe("project edit", function() {
         $('#project_type').val('JenkinsProject').change();
       });
 
-      it("makes the Jenkins project fieldset visible", function() {
-        expect($('fieldset#JenkinsProject')).toExist();
-        expect($('fieldset#JenkinsProject').hasClass('hide')).toBeFalsy();
+      it("makes the Jenkins project div visible", function() {
+        expect($('.project-attributes#JenkinsProject')).toExist();
+        expect($('.project-attributes#JenkinsProject').hasClass('hide')).toBeFalsy();
         expect($('#project_jenkins_base_url').attr('disabled')).toBeFalsy();
       });
 
-      it("makes the Cruise Control project fieldset invisible", function() {
-        expect($('fieldset#CruiseControlProject').hasClass('hide')).toBeTruthy();
+      it("makes the Cruise Control project div invisible", function() {
+        expect($('.project-attributes#CruiseControlProject').hasClass('hide')).toBeTruthy();
         expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
       });
     });
@@ -325,20 +331,9 @@ describe("project edit", function() {
         $('#project_webhooks_enabled_true').click();
         $('#project_type').val('TddiumProject').change();
       });
-      it("should dispaly the Tddium fieldset", function() {
+      it("should display the Tddium fieldset", function() {
         expect($('fieldset#TddiumProject').hasClass('hide')).toBeFalsy();
         expect($('fieldset#polling').hasClass('hide')).toBeFalsy();
-      });
-    });
-
-    describe("when the project is already marked as online", function() {
-      beforeEach(function() {
-        $('#project_online').val("1");
-        ProjectEdit.init();
-      });
-
-      it("should display the success message", function() {
-        expect($("#build_status .success")).not.toHaveClass("hide");
       });
     });
 
@@ -445,24 +440,24 @@ describe("project edit", function() {
                     '<div id="field_container"></div>' +
                     '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
                     '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-                    '<fieldset id="webhooks" /><fieldset id="polling" />')
+                    '<fieldset id="webhook_url" /><fieldset id="polling" />')
         ProjectEdit.init();
       });
 
       it("should toggle webhooks and polling when checked", function() {
-        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').prop('checked', true);
         $('input#project_webhooks_enabled_true').removeAttr('checked').change();
-        expect($('#webhooks')).toHaveClass('hide');
+        expect($('#webhook_url')).toHaveClass('hide');
         expect($('#polling')).not.toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').removeAttr('checked');
         $('input#project_webhooks_enabled_true').prop('checked', true).change();
-        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
       });
@@ -474,25 +469,25 @@ describe("project edit", function() {
                     '<div id="field_container"></div>' +
                     '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
                     '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-                    '<fieldset id="webhooks" /><fieldset id="polling" />')
+                    '<fieldset id="webhook_url" /><fieldset id="polling" />')
         $('#project_type').val("TravisProject")
         ProjectEdit.init();
       });
 
       it("should toggle webhooks and polling when checked", function() {
-        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').prop('checked', true);
         $('input#project_webhooks_enabled_true').removeAttr('checked').change();
-        expect($('#webhooks')).toHaveClass('hide');
+        expect($('#webhook_url')).toHaveClass('hide');
         expect($('#polling')).not.toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
 
         $('input#project_webhooks_enabled_false').removeAttr('checked');
         $('input#project_webhooks_enabled_true').prop('checked', true).change();
-        expect($('#webhooks')).not.toHaveClass('hide');
+        expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');
       });

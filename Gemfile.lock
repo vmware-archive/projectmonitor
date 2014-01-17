@@ -54,6 +54,8 @@ GEM
     atomic (1.1.14)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.0)
+    bootstrap-sass (3.0.3.0)
+      sass (~> 3.2)
     bourbon (3.1.8)
       sass (>= 3.2.0)
       thor
@@ -240,6 +242,9 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.16.0)
+    pivotal-sass (0.0.3)
+      railties (>= 3.2)
+      sass-rails (>= 3.2)
     pivotal-tracker (0.5.8)
       builder
       builder
@@ -391,6 +396,7 @@ DEPENDENCIES
   acts-as-taggable-on
   airbrake
   awesome_print
+  bootstrap-sass
   bourbon
   capybara
   capybara-webkit
@@ -431,6 +437,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   pg
+  pivotal-sass
   pivotal-tracker (= 0.5.8)
   pry
   pry-nav
