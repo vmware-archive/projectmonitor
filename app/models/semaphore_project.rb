@@ -25,4 +25,8 @@ class SemaphoreProject < Project
   def build_status_url
     feed_url
   end
+
+  def requires_branch_name?
+    true
+  end
 end

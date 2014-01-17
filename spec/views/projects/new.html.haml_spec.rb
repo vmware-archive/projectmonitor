@@ -14,11 +14,11 @@ describe "projects/new" do
 
   it 'should render all the project specific fields as hidden' do
     render
-    rendered.should have_css('fieldset#CruiseControlProject.hide')
-    rendered.should have_css('fieldset#JenkinsProject.hide')
-    rendered.should have_css('fieldset#TeamCityRestProject.hide')
-    rendered.should have_css('fieldset#TeamCityProject.hide')
-    rendered.should have_css('fieldset#TravisProject.hide')
+    rendered.should have_css('.project-attributes#CruiseControlProject.hide')
+    rendered.should have_css('.project-attributes#JenkinsProject.hide')
+    rendered.should have_css('.project-attributes#TeamCityRestProject.hide')
+    rendered.should have_css('.project-attributes#TeamCityProject.hide')
+    rendered.should have_css('.project-attributes#TravisProject.hide')
 
     rendered.should have_css('fieldset#build_setup #branch_name.hide')
   end

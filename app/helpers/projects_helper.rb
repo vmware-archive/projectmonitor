@@ -48,7 +48,11 @@ module ProjectsHelper
     if latest = project.payload_log_entries.latest
       if project.enabled?
         content_tag(:span, class: "last_status #{latest.status}") do
-          content_tag(:a, latest, href: project_payload_log_entries_path(project))
+          color_class = {
+            'successful' => 'text-success',
+            'failed'    => 'text-danger'
+          }[latest.status]
+          content_tag(:a, latest, href: project_payload_log_entries_path(project), class: color_class)
         end
       else
         content_tag(:span, class: "last_status #{latest.status}") do
