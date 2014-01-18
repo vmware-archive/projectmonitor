@@ -110,7 +110,7 @@ describe SemaphorePayload do
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(content) }
-    it { should == Time.new(2012, 8, 16, 2, 16, 46, "-07:00") }
+    it { should == Time.new(2012, 8, 16, 2, 15, 34, "-07:00") }
   end
 
 end

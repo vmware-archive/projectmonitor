@@ -128,7 +128,7 @@ describe TravisJsonPayload do
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(content) }
-    it { should == Time.utc(2013, 1, 22, 21, 20, 56) }
+    it { should == Time.utc(2013, 1, 22, 21, 16, 20) }
   end
 
   describe '#branch=' do
