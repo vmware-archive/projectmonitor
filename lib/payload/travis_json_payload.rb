@@ -42,7 +42,7 @@ class TravisJsonPayload < Payload
   end
 
   def parse_published_at(content)
-    published_at = content['finished_at']
+    published_at = content['started_at']
     Time.parse(published_at) if published_at.present?
   end
 
