@@ -1,32 +1,32 @@
 pairs:
-  af: Andrew Fader; afader
+  ak: Alex Kwiatkowski; akwiatkowski
+  ap: Andy Pliszka; apliszka
+  ark: Andrew Kitchen; akitchen
+  bb: Brian Butz; bbutz
   bg: Bryan Goldstein; bgoldstein
   co: Colin O'Byrne; cobyrne
-  lm: Lucas Marks; lmarks
   dc: Dennis Cahillane; dcahillane
+  df: Daniel Finnie; dfinnie
+  dg: Dave Goddard; dgoddard
   dl: David Lee; dlee
   dr: Dimitri Roche; dimroc
   dt: David Tengdin; dtengdin
   gs: Graham Siener; gsiener
+  jam: Joe Masilotti; jmasilotti
   jb: Jonathan Berger; jonathanpberger
   jm: Jonathan Mukai-Heidt; jmukai
+  jr: John Ryan; jryan
   js: Jeff Saracco; jeff
   lg: Lauren Gilchrist; lgilchrist
+  lm: Lucas Marks; lmarks
   mh: Matt Horan; mhoran
-  mlw: Mike Lazer-Walker; mwalker
+  mw: Matt Wismer; mwismer
+  rg: Rob Gallagher; rgallagher
+  rm: Ryan Moran; rmoran
   rpw: Ross Popoff-Walker; rpw
   se: Steve Ellis; sellis
   ss: Sabrina Staedt; sstaedt
   wp: Ward Penney; wp
-  df: Daniel Finnie; dfinnie
-  rg: Rob Gallagher; rgallagher
-  ap: Andy Pliszka; apliszka
-  jam: Joe Masilotti; jmasilotti
-  dg: Dave Goddard; dgoddard
-  mw: Matt Wismer; mwismer
-  ak: Alex Kwiatkowski; akwiatkowski
-  rm: Ryan Moran; rmoran
-  jr: John Ryan; jryan
 
 email:
   prefix: pair
