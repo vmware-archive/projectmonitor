@@ -3,9 +3,10 @@ describe LegacyTeamCityXmlPayload do
   let(:project) { FactoryGirl.create(:team_city_project) }
   let(:content) { TeamcityCradiatorXmlExample.new(xml).read }
   let(:payload) { LegacyTeamCityXmlPayload.new }
+  let(:status_updater) { StatusUpdater.new }
 
   subject do
-    PayloadProcessor.new(project, payload).process
+    PayloadProcessor.new(project, payload, status_updater).process
     project
   end
 
@@ -35,11 +36,11 @@ describe LegacyTeamCityXmlPayload do
       it "remains green when existing status is green" do
         status_content = TeamcityCradiatorXmlExample.new("success.xml").read
         payload.status_content = status_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         project.should be_green
         project.statuses.should == statuses
       end
@@ -47,11 +48,11 @@ describe LegacyTeamCityXmlPayload do
       it "remains red when existing status is red" do
         status_content = TeamcityCradiatorXmlExample.new("failure.xml").read
         payload.status_content = status_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         project.should be_red
         project.statuses.should == statuses
       end
@@ -104,7 +105,7 @@ describe LegacyTeamCityXmlPayload do
       subject.should be_building
       build_content = BuildingStatusExample.new("team_city_not_building.xml").read
       payload.build_status_content = build_content
-      PayloadProcessor.new(project,payload).process
+      PayloadProcessor.new(project, payload, status_updater).process
       project.should_not be_building
     end
 

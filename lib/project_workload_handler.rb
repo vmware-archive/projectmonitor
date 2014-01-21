@@ -34,7 +34,7 @@ private
     payload.status_content = status_content
     payload.build_status_content = build_status_content if project.build_status_url
 
-    payload_processor = PayloadProcessor.new(project, payload)
+    payload_processor = PayloadProcessor.new(project, payload, StatusUpdater.new)
     log = payload_processor.process
     log.update_method = 'Polling'
     log.save!
@@ -47,7 +47,6 @@ private
     project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.message}", update_method: "Polling", status: "failed", backtrace: "#{e.message}\n#{e.backtrace.join("\n")}")
     project.online = false
     project.save!
-
   end
 
 end

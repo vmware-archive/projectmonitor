@@ -1,9 +1,10 @@
 class PayloadProcessor
   attr_accessor :project, :payload
 
-  def initialize(project, payload)
+  def initialize(project, payload, status_updater)
     self.project = project
     self.payload = payload
+    @status_updater = status_updater
   end
 
   def process
@@ -38,7 +39,7 @@ class PayloadProcessor
     payload.each_status do |status|
       next if project.has_status?(status)
       if status.valid?
-        project.statuses.push status
+        @status_updater.update_project(project, status)
       else
         project.payload_log_entries.build(error_type: "Status Invalid", error_text: <<ERROR)
 Payload returned an invalid status: #{status.inspect}

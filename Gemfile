@@ -57,6 +57,7 @@ group :test do
   gem 'headless'
   gem 'vcr', '2.2.4'
   gem 'fakeweb'
+  gem 'sqlite3'
 end
 
 # NOTE: anything that will not work in travis should be here

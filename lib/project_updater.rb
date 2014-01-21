@@ -9,7 +9,7 @@ module ProjectUpdater
         fetch_status(project, payload)
         fetch_building_status(project, payload) unless project.feed_url == project.build_status_url
 
-        log = PayloadProcessor.new(project, payload).process
+        log = PayloadProcessor.new(project, payload, StatusUpdater.new).process
         log.update_method = "Polling"
         log.save!
 

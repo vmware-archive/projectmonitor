@@ -1,3 +1,6 @@
+require 'active_record'
+require 'acts-as-taggable-on'
+
 class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
@@ -7,8 +10,8 @@ class Project < ActiveRecord::Base
   has_many :statuses,
     class_name: 'ProjectStatus',
     dependent: :destroy,
-    before_add: :update_refreshed_at,
-    after_add: :remove_outdated_status
+    before_add: :update_refreshed_at
+
   has_many :payload_log_entries
   belongs_to :aggregate_project
   belongs_to :creator, class_name: "User"
@@ -221,10 +224,6 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def handler
-    ProjectWorkloadHandler.new(self)
-  end
-
   def published_at
     latest_status.try(:published_at)
   end
@@ -252,13 +251,6 @@ class Project < ActiveRecord::Base
 
   def update_refreshed_at(status)
     self.last_refreshed_at = Time.now if online?
-  end
-
-  def remove_outdated_status(status)
-    if statuses.count > MAX_STATUS
-      keepers = statuses.order('created_at DESC').limit(MAX_STATUS)
-      ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers.map(&:id)]) if keepers.any?
-    end
   end
 
   def fetch_statuses
