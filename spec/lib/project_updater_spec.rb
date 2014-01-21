@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe ProjectUpdater do
-
   let(:project) { FactoryGirl.build(:jenkins_project) }
   let(:net_exception) { Net::HTTPError.new('Server error', 501) }
   let(:payload_log_entry) { PayloadLogEntry.new(status: "successful") }
-  let(:payload_processor) { double(PayloadProcessor, process: payload_log_entry ) }
+  let(:payload_processor) { double(PayloadProcessor, process_payload: payload_log_entry ) }
   let(:payload) { double(Payload, 'status_content=' => nil, 'build_status_content=' => nil) }
+  let(:project_updater) { ProjectUpdater.new(payload_processor: payload_processor) }
 
   describe '.update' do
     before do
@@ -15,28 +15,30 @@ describe ProjectUpdater do
       PayloadProcessor.stub(:new).and_return(payload_processor)
     end
 
-    subject { ProjectUpdater.update(project) }
-
     it 'should process the payload' do
-      payload_processor.should_receive(:process)
-      subject
+      payload_processor.should_receive(:process_payload).with(project: project, payload: payload)
+
+      project_updater.update(project)
     end
 
     it 'should fetch the feed_url' do
       retriever = double('UrlRetriever')
       UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
       retriever.should_receive(:retrieve_content)
-      subject
+
+      project_updater.update(project)
     end
 
     it 'should create a payload log entry' do
-      expect { subject }.to change(PayloadLogEntry, :count).by(1)
+      expect { project_updater.update(project) }.to change(PayloadLogEntry, :count).by(1)
     end
 
     context 'when fetching the status succeeds' do
       let(:payload_log_entry) { double(PayloadLogEntry, :save! => nil, :update_method= => nil) }
-      subject { ProjectUpdater.update(project) }
-      it('should return the log entry') { should == payload_log_entry }
+
+      it('should return the log entry') do
+        expect(project_updater.update(project)).to eq(payload_log_entry)
+      end
     end
 
     context 'when fetching the status fails' do
@@ -47,18 +49,24 @@ describe ProjectUpdater do
       end
 
       it 'should create a payload log entry' do
-        expect { subject; project.save! }.to change(PayloadLogEntry, :count).by(1)
+        expect do
+          project_updater.update(project)
+          project.save!
+        end.to change(PayloadLogEntry, :count).by(1)
+
         PayloadLogEntry.last.status.should == "failed"
       end
 
       it 'should set the project to offline' do
         project.should_receive(:online=).with(false)
-        subject
+
+        project_updater.update(project)
       end
 
       it 'should set the project as not building' do
         project.should_receive(:building=).with(false)
-        subject
+
+        project_updater.update(project)
       end
     end
 
@@ -72,7 +80,8 @@ describe ProjectUpdater do
         retriever = double('UrlRetriever')
         UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
         retriever.should_receive(:retrieve_content)
-        subject
+
+        project_updater.update(project)
       end
 
       context 'and fetching the build status fails' do
@@ -84,16 +93,16 @@ describe ProjectUpdater do
 
         it 'should set the project to offline' do
           project.should_receive(:online=).with(false)
-          subject
+
+          project_updater.update(project)
         end
 
         it 'should leave the project as building' do
           project.should_receive(:building=).with(false)
-          subject
+
+          project_updater.update(project)
         end
       end
     end
-
   end
-
 end

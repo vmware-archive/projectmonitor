@@ -34,8 +34,8 @@ private
     payload.status_content = status_content
     payload.build_status_content = build_status_content if project.build_status_url
 
-    payload_processor = PayloadProcessor.new(project, payload, StatusUpdater.new)
-    log = payload_processor.process
+    payload_processor = PayloadProcessor.new(project_status_updater: StatusUpdater.new)
+    log = payload_processor.process_payload(project: project, payload: payload)
     log.update_method = 'Polling'
     log.save!
 

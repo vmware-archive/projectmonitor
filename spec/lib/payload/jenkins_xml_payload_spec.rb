@@ -4,10 +4,10 @@ describe JenkinsXmlPayload do
   let(:project) { FactoryGirl.create(:jenkins_project, jenkins_build_name: "ProjectMonitor") }
   let(:status_content) { JenkinsAtomExample.new(atom).read }
   let(:jenkins_payload) { JenkinsXmlPayload.new(project.jenkins_build_name) }
-  let(:status_updater) { StatusUpdater.new }
+  let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
   subject do
-    PayloadProcessor.new(project, jenkins_payload, status_updater).process
+    payload_processor.process_payload(project: project, payload: jenkins_payload)
     project
   end
 
@@ -32,11 +32,11 @@ describe JenkinsXmlPayload do
       it "remains green when existing status is green" do
         content = JenkinsAtomExample.new("success.atom").read
         jenkins_payload.status_content = content
-        PayloadProcessor.new(project, jenkins_payload, status_updater).process
+        payload_processor.process_payload(project: project, payload: jenkins_payload)
         statuses = project.statuses
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
-        PayloadProcessor.new(project, jenkins_payload, status_updater).process
+        payload_processor.process_payload(project: project, payload: jenkins_payload)
         project.should be_green
         project.statuses.should == statuses
       end
@@ -44,11 +44,11 @@ describe JenkinsXmlPayload do
       it "remains red when existing status is red" do
         content = JenkinsAtomExample.new("failure.atom").read
         jenkins_payload.status_content = content
-        PayloadProcessor.new(project, jenkins_payload, status_updater).process
+        payload_processor.process_payload(project: project, payload: jenkins_payload)
         statuses = project.statuses
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
-        PayloadProcessor.new(project, jenkins_payload, status_updater).process
+        payload_processor.process_payload(project: project, payload: jenkins_payload)
         project.should be_red
         project.statuses.should == statuses
       end

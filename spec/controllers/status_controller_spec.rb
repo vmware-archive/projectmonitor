@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 describe StatusController do
   describe "#create" do
 

@@ -5,7 +5,7 @@ describe PayloadProcessor do
   let(:payload) { double(Payload).as_null_object }
   let(:status) { double(ProjectStatus).as_null_object }
   let(:project_status_updater) { double }
-  let(:processor) { PayloadProcessor.new(project, payload, project_status_updater) }
+  let(:processor) { PayloadProcessor.new(project_status_updater: project_status_updater) }
 
   describe "#process" do
     context "when the payload has processable statuses" do
@@ -16,7 +16,7 @@ describe PayloadProcessor do
 
       it "sets the project as online" do
         project.should_receive(:online=).with(true)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
 
       it "initializes a ProjectStatus for every payload status" do
@@ -26,19 +26,19 @@ describe PayloadProcessor do
 
         project_status_updater.should_receive(:update_project).twice
 
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
 
       it "add a status to the project if the project does not have a matching status" do
         project.stub(has_status?: false)
         expect(project_status_updater).to receive(:update_project).with(project, status)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
 
       it "does not add the status to the project if a matching status exists" do
         project.stub(has_status?: true)
         expect(project_status_updater).not_to receive(:update_project)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
 
       context "with an invalid status" do
@@ -49,12 +49,12 @@ describe PayloadProcessor do
         }
 
         it "does not add the status to the project if it is invalid" do
-          expect { processor.process }.not_to change(project.statuses, :count)
+          expect { processor.process_payload(project: project, payload: payload) }.not_to change(project.statuses, :count)
         end
 
         it "logs an error to the project if the status is invalid" do
           payload.stub(status_content: "some crazy response")
-          processor.process
+          processor.process_payload(project: project, payload: payload)
 
           error_entry = project.payload_log_entries.find { |entry| entry.error_type == "Status Invalid" }
           error_entry.should be_present
@@ -72,12 +72,12 @@ ERROR
 
       it "skips accessing each status" do
         payload.should_not_receive(:each_status)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
 
       it "sets the project as offline" do
         project.should_receive(:online=).with(false)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
     end
 
@@ -90,7 +90,7 @@ ERROR
 
         project.should_receive(:building=).with(building)
 
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
     end
 
@@ -99,7 +99,7 @@ ERROR
 
       it "sets the project as not building" do
         project.should_receive(:building=).with(false)
-        processor.process
+        processor.process_payload(project: project, payload: payload)
       end
     end
 
@@ -113,7 +113,7 @@ ERROR
 
     it "should set the project parsed_url" do
       project.should_receive(:parsed_url=).with('http://www.example.com')
-      processor.process
+      processor.process_payload(project: project, payload: payload)
     end
   end
 end

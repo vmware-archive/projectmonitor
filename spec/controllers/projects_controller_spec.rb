@@ -184,7 +184,7 @@ describe ProjectsController do
       let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
 
       context 'when the payload is invalid' do
-        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
+        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
 
         let(:log_entry) { PayloadLogEntry.new(status: 'failed', error_type: 'MockExceptionClass', error_text: error_text) }
         let(:error_text) { 'Mock error description'}
@@ -213,7 +213,7 @@ describe ProjectsController do
       end
 
       context 'when the payload is valid' do
-        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
+        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
         let(:log_entry) { PayloadLogEntry.new(status: 'successful', error_type: nil, error_text: '') }
 
         context 'should set success flag to false' do
