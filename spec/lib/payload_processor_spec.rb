@@ -4,7 +4,8 @@ describe PayloadProcessor do
   let(:project) { double(Project).as_null_object }
   let(:payload) { double(Payload).as_null_object }
   let(:status) { double(ProjectStatus).as_null_object }
-  let(:processor) { PayloadProcessor.new(project, payload) }
+  let(:project_status_updater) { double }
+  let(:processor) { PayloadProcessor.new(project, payload, project_status_updater) }
 
   describe "#process" do
     context "when the payload has processable statuses" do
@@ -23,20 +24,20 @@ describe PayloadProcessor do
         project.stub(has_status?: false)
         payload.stub(:each_status).and_yield(status).and_yield(status)
 
-        project.statuses.should_receive(:push).twice
+        project_status_updater.should_receive(:update_project).twice
 
         processor.process
       end
 
       it "add a status to the project if the project does not have a matching status" do
         project.stub(has_status?: false)
-        project.statuses.should_receive(:push).with(status)
+        expect(project_status_updater).to receive(:update_project).with(project, status)
         processor.process
       end
 
       it "does not add the status to the project if a matching status exists" do
         project.stub(has_status?: true)
-        project.statuses.should_not_receive(:push)
+        expect(project_status_updater).not_to receive(:update_project)
         processor.process
       end
 

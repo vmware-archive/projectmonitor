@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe CruiseControlXmlPayload do
   let(:project) { FactoryGirl.create(:cruise_control_project, cruise_control_rss_feed_url: "http://foo.bar.com:3434/projects/Socialitis.rss") }
+  let(:status_updater) { StatusUpdater.new }
 
   subject do
-    PayloadProcessor.new(project, payload).process
+    PayloadProcessor.new(project, payload, status_updater).process
     project
   end
 
@@ -31,11 +32,11 @@ describe CruiseControlXmlPayload do
       it "remains green when existing status is green" do
         status_content = CCRssExample.new("success.rss").read
         payload.status_content = status_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         project.should be_green
         project.statuses.should == statuses
       end
@@ -43,11 +44,11 @@ describe CruiseControlXmlPayload do
       it "remains red when existing status is red" do
         status_content = CCRssExample.new("failure.rss").read
         payload.status_content = status_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         statuses = project.statuses
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
-        PayloadProcessor.new(project,payload).process
+        PayloadProcessor.new(project, payload, status_updater).process
         project.should be_red
         project.statuses.should == statuses
       end
