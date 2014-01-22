@@ -78,7 +78,8 @@ class ProjectsController < ApplicationController
       project.auth_password = existing_project.auth_password if existing_project
     end
 
-    project_updater = ProjectUpdater.new(payload_processor: PayloadProcessor.new)
+    status_updater = StatusUpdater.new
+    project_updater = ProjectUpdater.new(payload_processor: PayloadProcessor.new(project_status_updater: status_updater))
     log_entry = project_updater.update(project)
 
     render :json => {
