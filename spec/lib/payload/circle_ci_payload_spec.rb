@@ -66,6 +66,11 @@ describe CircleCiPayload do
   describe '#content_ready?' do
     subject { payload.content_ready?(content) }
 
+    context 'outcome is empty' do
+      let(:json) { "outcome_is_empty.json" }
+      it { should be_false }
+    end
+
     context 'the build has not finished' do
       let(:json) { "pending.json" }
       it { should be_false }
