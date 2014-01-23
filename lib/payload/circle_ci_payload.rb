@@ -5,7 +5,7 @@ class CircleCiPayload < Payload
   end
 
   def content_ready?(content)
-    content['status'] != 'running' && content['status'] != 'queued'
+    content['status'] != 'running' && content['status'] != 'queued' && content['outcome'].present?
   end
 
   def convert_content!(content)
