@@ -201,18 +201,29 @@ class Project < ActiveRecord::Base
 
   def as_json(options={})
     json = super # TODO: Remove before merge
-    json["project_id"] = self.id
-    json["build"] = super(
-      only: [:code, :id, :statuses, :building],
-      root: false)
-      .merge({"published_at" => published_at})
-      .merge({"status" => status_in_words})
-      .merge({"statuses" => statuses.reverse_chronological})
-      .merge({"current_build_url" => current_build_url })
-    json["tracker"] = super(
-      only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
-      methods: ["volatility"],
-      root:false) if tracker_project_id?
+    json['project_id'] = self.id
+    json['build'] = {
+        'building' => json['building'],
+        'code' => code,
+        'current_build_url' => current_build_url,
+        'id' => json['id'],
+        'published_at' => published_at,
+        'status' => status_in_words,
+        'statuses' => statuses.reverse_chronological
+    }
+
+    if tracker_project_id?
+      json['tracker'] = {
+          'tracker_online' => json['tracker_online'],
+          'current_velocity' => json['current_velocity'],
+          'last_ten_velocities' => json['last_ten_velocities'],
+          'stories_to_accept_count' => json['stories_to_accept_count'],
+          'open_stories_count' => json['open_stories_count'],
+          'iteration_story_state_counts' => json['iteration_story_state_counts'],
+          'volatility' => volatility
+      }
+    end
+
     json
   end
 
