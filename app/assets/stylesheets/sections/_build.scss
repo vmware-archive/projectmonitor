@@ -29,11 +29,11 @@ article.build {
       float:left;
       text-align: center;
 
-      &.success a:before {
+      &.success a:after {
         content: $success-unicode-glyph;
       }
 
-      &.failure a:before {
+      &.failure a:after {
         content: $failure-unicode-glyph;
       }
 

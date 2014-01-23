@@ -1,3 +1,6 @@
+require 'active_record'
+require 'acts-as-taggable-on'
+
 class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
@@ -7,8 +10,8 @@ class Project < ActiveRecord::Base
   has_many :statuses,
     class_name: 'ProjectStatus',
     dependent: :destroy,
-    before_add: :update_refreshed_at,
-    after_add: :remove_outdated_status
+    before_add: :update_refreshed_at
+
   has_many :payload_log_entries
   belongs_to :aggregate_project
   belongs_to :creator, class_name: "User"
@@ -49,6 +52,11 @@ class Project < ActiveRecord::Base
   validates :type, presence: true
 
   before_create :generate_guid
+  before_create :populate_iteration_story_state_counts
+
+  def populate_iteration_story_state_counts
+    self.iteration_story_state_counts = []
+  end
 
   attr_writer :feed_url
 
@@ -74,6 +82,10 @@ class Project < ActiveRecord::Base
 
   def status
     latest_status || ProjectStatus.new(project: self)
+  end
+
+  def requires_branch_name?
+    false
   end
 
   def green?
@@ -197,11 +209,11 @@ class Project < ActiveRecord::Base
       .merge({"status" => status_in_words})
       .merge({"statuses" => statuses.reverse_chronological})
       .merge({"current_build_url" => current_build_url })
-      json["tracker"] = super(
-        only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
-        methods: ["volatility"],
-        root:false) if tracker_project_id?
-        json
+    json["tracker"] = super(
+      only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
+      methods: ["volatility"],
+      root:false) if tracker_project_id?
+    json
   end
 
   def volatility
@@ -210,10 +222,6 @@ class Project < ActiveRecord::Base
     else
       0
     end
-  end
-
-  def handler
-    ProjectWorkloadHandler.new(self)
   end
 
   def published_at
@@ -243,13 +251,6 @@ class Project < ActiveRecord::Base
 
   def update_refreshed_at(status)
     self.last_refreshed_at = Time.now if online?
-  end
-
-  def remove_outdated_status(status)
-    if statuses.count > MAX_STATUS
-      keepers = statuses.order('created_at DESC').limit(MAX_STATUS)
-      ProjectStatus.delete_all(["project_id = ? AND id not in (?)", id, keepers]) if keepers.any?
-    end
   end
 
   def fetch_statuses

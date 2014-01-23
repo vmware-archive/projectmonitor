@@ -5,6 +5,9 @@ module RemoveUnusedTags
       Project.find_each do |project|
         tags << project.tag_list
       end
+      AggregateProject.find_each do |aggregate_project|
+        tags << aggregate_project.tag_list
+      end
       tags.flatten!
       tags.uniq!
       ActsAsTaggableOn::Tag.find_each do |tag|

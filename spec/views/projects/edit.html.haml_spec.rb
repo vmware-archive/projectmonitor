@@ -40,17 +40,17 @@ describe 'projects/edit' do
     end
 
     it 'has a visible fieldset for travis project fields' do
-      page.should have_css('fieldset#TravisProject')
-      page.should_not have_css('fieldset#TravisProject.hide')
+      page.should have_css('.project-attributes#TravisProject')
+      page.should_not have_css('.project-attributes#TravisProject.hide')
       page.should_not have_css('fieldset#build_setup #branch_name.hide')
     end
 
     it 'should render the alternative project specific fields as hidden' do
-      page.should have_css('fieldset#CruiseControlProject.hide')
-      page.should have_css('fieldset#JenkinsProject.hide')
-      page.should have_css('fieldset#TeamCityRestProject.hide')
-      page.should have_css('fieldset#TeamCityProject.hide')
-      page.should have_css('fieldset#SemaphoreProject.hide')
+      page.should have_css('.project-attributes#CruiseControlProject.hide')
+      page.should have_css('.project-attributes#JenkinsProject.hide')
+      page.should have_css('.project-attributes#TeamCityRestProject.hide')
+      page.should have_css('.project-attributes#TeamCityProject.hide')
+      page.should have_css('.project-attributes#SemaphoreProject.hide')
     end
   end
 end

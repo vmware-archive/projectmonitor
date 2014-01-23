@@ -1,7 +1,5 @@
 = link_to '&larr; Back to Projects'.html_safe, edit_configuration_path
 %h1 Edit Project
 = error_messages_for :project
-= form_for(@project, :as => :project, :url => project_path(@project)) do |f|
+= form_for(@project, :as => :project, :url => project_path(@project), :html => { :class => "form-horizontal" }) do |f|
   = render 'form', :f => f
-%div{:style => "margin-left: 30px;"}
-  = link_to 'Remove Project -', project_path(@project), data: { confirm: 'Are you sure?' }, method: :delete, class: "button"

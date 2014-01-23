@@ -2,17 +2,23 @@ require 'spec_helper'
 
 describe RemoveUnusedTags::Job do
   describe "#perform" do
-    let!(:project_with_tags) { projects(:socialitis) }
-    let!(:dead_tag) { ActsAsTaggableOn::Tag.create!(name: "iamunused") }
+    let!(:project) { projects(:socialitis) }
+    let!(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
+
+    before do
+      ActsAsTaggableOn::Tag.destroy_all
+
+      ActsAsTaggableOn::Tag.create!(name: "iamunused")
+      project.tag_list.add("project-tag")
+      project.save!
+      aggregate_project.tag_list.add("aggregate-project-tag")
+      aggregate_project.save!
+    end
 
     it "removes unused tags" do
       RemoveUnusedTags::Job.new.perform
       remaining_tags = ActsAsTaggableOn::Tag.all.map(&:name)
-      project_with_tags.tag_list.each do |tag|
-        remaining_tags.should include(tag)
-      end
-      remaining_tags.should_not include(dead_tag.name)
+      remaining_tags.should =~ ['project-tag', 'aggregate-project-tag']
     end
-
   end
 end

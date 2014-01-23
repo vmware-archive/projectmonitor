@@ -67,7 +67,8 @@ class ProjectPoller
 
   def poll_projects
     Project.updateable.find_each do |project|
-      workload = find_or_create_workload(project, project.handler)
+      handler = ProjectWorkloadHandler.new(project)
+      workload = find_or_create_workload(project, handler)
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_ci_request(project, description)

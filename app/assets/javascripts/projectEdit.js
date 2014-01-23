@@ -87,9 +87,8 @@ var ProjectEdit = {};
   };
 
   o.handleProjectTypeChange = function () {
-    var $container = $('#field_container');
     var $buildSetup = $('#build_setup');
-    var $disabled_fieldsets = $('fieldset:not(#' + $(this).val() + ')', $container);
+    var $disabled_fieldsets = $('.project-attributes', $('#field_container'));
     $disabled_fieldsets.addClass('hide');
     $(':input', $disabled_fieldsets).attr('disabled', true);
 
@@ -150,7 +149,7 @@ var ProjectEdit = {};
     $('#polling .pending').removeClass('hide');
     $.ajax({
       url: "/projects/validate_build_info",
-      type: "post",
+      type: "patch",
       data: $('form').serialize(),
       success: function (result) {
         if (result.status) {
@@ -182,12 +181,12 @@ var ProjectEdit = {};
         $('#field_container').addClass('hide');
       }
 
-      $('fieldset#webhooks').removeClass('hide');
+      $('#webhook_url').removeClass('hide');
       $('fieldset#polling').addClass('hide');
     }
     else if ($('input#project_webhooks_enabled_false:checked').length > 0) {
       $('#field_container').removeClass('hide');
-      $('fieldset#webhooks').addClass('hide');
+      $('#webhook_url').addClass('hide');
       $('fieldset#polling').removeClass('hide');
     }
   };
@@ -203,7 +202,7 @@ var ProjectEdit = {};
   o.init = function () {
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
     .change(handleParameterChange);
-    $('#project_type').change(o.handleProjectTypeChange);
+    $('#project_type').change(o.handleProjectTypeChange).change(o.validateFeedUrl);
     $('#field_container :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
     $('#build_setup input.refresh').click(o.validateFeedUrl);
@@ -211,14 +210,7 @@ var ProjectEdit = {};
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 
-    var $project_online = $('#project_online');
-    if ($project_online.length !== 0) {
-      if ($project_online.val() === "1") {
-        $('#build_status .success').removeClass('hide');
-      } else {
-        $('#polling .failure').removeClass('hide');
-      }
-    }
+    o.validateFeedUrl();
 
     var $tracker_online = $('#project_tracker_online');
     if ($tracker_online.length !== 0) {

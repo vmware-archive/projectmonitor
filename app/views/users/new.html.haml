@@ -1,18 +1,24 @@
 = link_to '&larr; Back to Projects'.html_safe, edit_configuration_path
 %h1 Add User
+%hr
 = error_messages_for :user
-= form_for @user do |f|
-  %p
-    = f.label :login
-    = f.text_field :login
-  %p
-    = f.label :email
-    = f.text_field :email
-  %p
-    = f.label :password
-    = f.password_field :password
-  %p
-    = f.label :password_confirmation, "Confirm Password"
-    = f.password_field :password_confirmation
-  .submit
-    = submit_tag 'Create'
+= form_for(@user, html: { class: "form-horizontal" }) do |f|
+  .form-group
+    = f.label :login, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.text_field :login, class: "form-control"
+  .form-group
+    = f.label :email, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.text_field :email, class: "form-control"
+  .form-group
+    = f.label :password, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.password_field :password, class: "form-control"
+  .form-group
+    = f.label :password_confirmation, "Confirm Password", class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.password_field :password_confirmation, class: "form-control"
+  .row
+    .col-sm-offset-2.col-sm-2
+      = submit_tag 'Create', class: 'btn btn-primary'

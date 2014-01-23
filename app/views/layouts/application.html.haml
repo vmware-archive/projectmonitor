@@ -2,28 +2,42 @@
 %html
   %head
     %title Project Monitor
-    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "manage"
     = javascript_include_tag "application"
+    = javascript_include_tag "bootstrap"
     = csrf_meta_tag
     = yield :head
   %body
-    #header
-      = link_to(image_tag('pivotallabs-logo.png', :class => 'company_logo'), '/')
-      = link_to(image_tag('ci-logo.png'), '/')
-      #top_right
-        - if current_user.present?
-          Hello, #{current_user.login}
-          = link_to "(log out)", destroy_user_session_path, class: 'smaller_text', method: :delete
-          %br
-          = link_to "Projects", edit_configuration_path
-          - if ConfigHelper.get(:password_auth_enabled)
-            |
-            = link_to "Add User", new_user_path
-    %div{:class => "page #{params[:controller]} #{params[:action]}"}
-      - if flash[:error]
-        #flash_error
-          = flash[:error]
-      - if flash[:notice]
-        #flash_notice
-          = flash[:notice]
-      = yield
+    %nav.navbar.navbar-default.navbar-static-top
+      .container
+        .navbar-header
+          .navbar-brand
+            = link_to edit_configuration_path do
+              = image_tag 'logo.png'
+              = image_tag 'powered_by.png'
+
+        .collapse.navbar-collapse
+          - if current_user.present?
+            %ul.nav.navbar-nav.navbar-right
+              %li.dropdown
+                %a.dropdown-toggle{ data: { toggle: 'dropdown' }, href: '#' }
+                  Hello, #{current_user.login}
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to "Projects", edit_configuration_path
+                  - if ConfigHelper.get(:password_auth_enabled)
+                    %li
+                      = link_to "Add User", new_user_path
+                  %li.divider
+                  %li
+                    = link_to "Log Out", destroy_user_session_path, method: :delete
+    .container
+      %div{:class => "page #{params[:controller]} #{params[:action]}"}
+        - if flash[:error]
+          .alert.alert-danger
+            = flash[:error]
+        - if flash[:notice]
+          .alert.alert-success
+            = flash[:notice]
+        = yield

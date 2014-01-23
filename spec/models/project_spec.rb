@@ -34,28 +34,6 @@ describe Project do
         project.last_refreshed_at.should be_present
       end
 
-      context 'removing an outdated status upon adding a new status' do
-        context 'with less than 15 previous statuses' do
-          it "should not delete any statuses from the project" do
-            project.statuses.count.should ==  Project::MAX_STATUS - 1
-          end
-        end
-
-        context 'when exactly 15 previous statuses' do
-          let(:count) {  Project::MAX_STATUS }
-          it "should not delete any statuses from the project" do
-            project.statuses.count.should == Project::MAX_STATUS
-          end
-        end
-
-        context 'when more than 15 previous statuses' do
-          let(:count) {  Project::MAX_STATUS + 10 }
-          it "should delete statuses from the project of statuses more than the max" do
-            project.statuses.count.should == Project::MAX_STATUS
-          end
-        end
-      end
-
       context 'when the project is offline' do
         let(:project) { FactoryGirl.build(:jenkins_project) }
 
@@ -557,6 +535,20 @@ describe Project do
       project.save!
       (project.guid).should_not be_nil
       (project.guid).should_not be_empty
+    end
+  end
+
+  describe "#populate_iteration_story_state_counts" do
+    let(:project) { FactoryGirl.build(:project) }
+
+    it "initializes iteration_story_state_counts to an empty array" do
+      project.populate_iteration_story_state_counts
+      project.iteration_story_state_counts.should == []
+    end
+
+    it "calls populate_iteration_story_state_counts on create" do
+      project.should_receive :populate_iteration_story_state_counts
+      project.save!
     end
   end
 

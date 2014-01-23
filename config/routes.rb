@@ -9,7 +9,7 @@ ProjectMonitor::Application.routes.draw do
   get 'rubygems_status' => 'home#rubygems_status', format: :json
 
   post 'projects/validate_tracker_project'
-  post 'projects/validate_build_info'
+  patch 'projects/validate_build_info'
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
   resources :users, :only => [:new, :create]
