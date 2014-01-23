@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TeamCityJsonPayload do
 
   let(:status_content) { TeamCityJsonExample.new(example_file).read }
-  let(:payload) { TeamCityJsonPayload.new }
+  let(:payload) { TeamCityJsonPayload.new.tap { |p| p.remote_addr = "localhost" } }
   let(:converted_content) { payload.convert_content!(status_content).first }
   let(:example_file) { "success.txt" }
 
@@ -96,6 +96,25 @@ describe TeamCityJsonPayload do
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
     it { should == '1' }
+  end
+
+  describe '#parse_url' do
+    context 'using the old success format' do
+      it 'parses the response and builds a url' do
+        return_value = payload.parse_url(converted_content)
+        payload.parsed_url.should eql("http://localhost:8111/viewType.html?buildTypeId=bt2")
+        return_value.should eql("http://localhost:8111/viewLog.html?buildId=1&tab=buildResultsDiv&buildTypeId=bt2")
+      end
+    end
+
+    context 'using the newer success format' do
+      let(:example_file) { "success_alternate.txt" }
+
+      it 'parses the response for a buildStatusUrl attribute' do
+        payload.parse_url(converted_content)
+        payload.parsed_url.should eql("http://localhost:8111/viewLog.html?buildTypeId=Foo_Bar&buildId=7")
+      end
+    end
   end
 
   describe '#parse_published_at' do

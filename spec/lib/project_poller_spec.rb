@@ -46,7 +46,7 @@ describe ProjectPoller do
 
         it 'should create a project workload' do
           handler = double
-          project.stub(:handler) { handler }
+          ProjectWorkloadHandler.stub(:new).and_return(handler)
           PollerWorkload.should_receive(:new).with(handler)
         end
 

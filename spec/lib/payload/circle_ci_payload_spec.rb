@@ -94,7 +94,7 @@ describe CircleCiPayload do
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(content).round }
-    it { should == Time.utc(2013, 10, 15, 8, 48, 51) }
+    it { should == Time.utc(2013, 10, 15, 8, 47, 30) }
   end
 
 end

@@ -1,0 +1,71 @@
+%hr
+%fieldset#build_setup
+  %h3 Build Setup
+  .form-group
+    = f.label :webhooks_enabled, "Payload Strategy", class: "col-sm-2 control-label"
+    .col-sm-10
+      .radio.row
+        = f.label :webhooks_enabled_true do
+          .col-sm-1
+            = f.radio_button :webhooks_enabled, true
+            Webhooks
+          .col-sm-10.col-sm-offset-1
+            %span#webhook_url.text-muted= project_webhooks_url(f.object)
+      .radio
+        = f.label :webhooks_enabled_false do
+          = f.radio_button :webhooks_enabled, false
+          Polling
+  .form-group#branch_name{ class: f.object.requires_branch_name? ? nil : 'hide' }
+    = f.label :build_branch, "Branch Name", class: "col-sm-2 control-label"
+    .col-sm-3
+      = f.text_field :build_branch, class: "form-control"
+    %p.help-block Default is 'master'
+  #field_container
+    - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
+      - enabled = f.object.type == project_type.name
+      .project-attributes{ id: project_type,  class: "#{'hide' unless enabled}" }
+        - project_type.project_specific_attributes.each do |field|
+          .form-group
+            = f.label field, class: "col-sm-2 control-label"
+            .col-sm-4
+              - if field == "tddium_project_name"
+                = f.text_field field, :disabled => !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
+              - else
+                = f.text_field field, :disabled => !enabled, class: "form-control"
+  %fieldset#polling
+    .form-group.verify_ssl_field
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = f.label :verify_ssl do
+            = f.check_box :verify_ssl
+            Verify SSL Certificate?
+    .form-group.auth_field
+      = f.label :auth_username, "Feed Username", class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :auth_username, size: 40, class: 'optional form-control', autocomplete: 'off'
+      %p.help-block Basic or digest authentication
+    .form-group.auth_field
+      = f.label :auth_password, "Feed Password", class: "col-sm-2 control-label"
+      .col-sm-4
+        %input{ id: 'password_changed', name: 'password_changed', type: 'hidden', value: 'false' }
+        = f.password_field :auth_password, class: "form-control"
+      %p.help-block
+        - if f.object.auth_password.present?
+          %span#change_password.label.label-success Saved
+        - else
+          %span#change_password.label.label-default Not Set
+    .form-group
+      = f.label :online, "CI status", class: "col-sm-2 control-label"
+      = f.hidden_field :online
+      .col-sm-4
+        %p.help-block#build_status
+          %span.label.label-success.success.hide OK
+          %span.label.label-info.pending.hide Loading...
+          %span.label.label-default.unconfigured.hide Unconfigured
+          %span.label.label-danger.failure.hide{ :title => project_latest_error(@project) } Error
+          %span.label.label-warning.empty_fields.hide Some Fields Empty
+          &nbsp;
+          %input{ class: 'refresh btn btn-default btn-xs', type: 'button', value: 'Refresh' }
+    .row
+      .col-sm-offset-2.col-sm-10
+        %p.text-muted= project_refreshed_at(f.object)

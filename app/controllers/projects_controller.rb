@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
       aggregate_projects = AggregateProject.displayable(params[:tags])
       projects = standalone_projects + aggregate_projects
     end
+    projects = projects.sort_by(&:code)
 
     respond_with ProjectFeedDecorator.decorate projects
   end
@@ -77,7 +78,9 @@ class ProjectsController < ApplicationController
       project.auth_password = existing_project.auth_password if existing_project
     end
 
-    log_entry = ProjectUpdater.update(project)
+    status_updater = StatusUpdater.new
+    project_updater = ProjectUpdater.new(payload_processor: PayloadProcessor.new(project_status_updater: status_updater))
+    log_entry = project_updater.update(project)
 
     render :json => {
       status: log_entry.status == 'successful',

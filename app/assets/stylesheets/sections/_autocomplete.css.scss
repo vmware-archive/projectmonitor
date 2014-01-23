@@ -1,0 +1,28 @@
+ul.ui-autocomplete {
+  list-style: none;
+  background: white;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #CCC;
+  width: 200px !important;
+
+  li.ui-menu-item {
+    border-bottom: 1px solid #CCC;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    a {
+      padding: 10px;
+      width: 200px;
+      display: block;
+      cursor: pointer;
+
+      &:hover {
+        background: #CCC;
+        color: white;
+      }
+    }
+  }
+}

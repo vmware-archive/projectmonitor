@@ -16,19 +16,19 @@ describe ProjectsController do
     end
 
     describe "#index" do
-      let!(:projects) { [FactoryGirl.create(:jenkins_project)] }
-      let!(:aggregate_project) { FactoryGirl.create(:aggregate_project) }
+      let!(:projects) { [FactoryGirl.create(:jenkins_project, code: "BETA")] }
+      let!(:aggregate_project) { FactoryGirl.create(:aggregate_project, code: "ALPH") }
       let!(:aggregate_projects) { [aggregate_project] }
       let(:tags) { 'bleecker' }
 
       before do
         AggregateProject.stub(:displayable).and_return(aggregate_projects)
         Project.stub_chain(:standalone, :displayable).and_return(projects)
-        projects.stub_chain(:concat, :sort_by).and_return(projects + aggregate_projects)
+        projects.stub_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
       end
 
-      it "should render collection of projects as JSON" do
-        ProjectFeedDecorator.should_receive(:decorate).with(projects + aggregate_projects)
+      it "should render collection of projects as JSON, sorted alphabetically" do
+        ProjectFeedDecorator.should_receive(:decorate).with(aggregate_projects + projects)
         get :index, format: :json
       end
 
@@ -37,7 +37,6 @@ describe ProjectsController do
         Project.standalone.should_receive(:displayable).with(tags)
         get :index, tags: tags, format: :json
       end
-
     end
 
     describe "#create" do
@@ -185,7 +184,7 @@ describe ProjectsController do
       let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
 
       context 'when the payload is invalid' do
-        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
+        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
 
         let(:log_entry) { PayloadLogEntry.new(status: 'failed', error_type: 'MockExceptionClass', error_text: error_text) }
         let(:error_text) { 'Mock error description'}
@@ -214,7 +213,7 @@ describe ProjectsController do
       end
 
       context 'when the payload is valid' do
-        before(:each) { ProjectUpdater.should_receive(:update).and_return(log_entry) }
+        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
         let(:log_entry) { PayloadLogEntry.new(status: 'successful', error_type: nil, error_text: '') }
 
         context 'should set success flag to false' do

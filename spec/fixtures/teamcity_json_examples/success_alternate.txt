@@ -1,0 +1,32 @@
+{
+  "buildStatus": "Running",
+  "buildResult": "success",
+  "buildResultPrevious": "success",
+  "buildResultDelta": "unchanged",
+  "notifyType": "buildFinished",
+  "buildFullName": "foo : :  Bar",
+  "buildName": "Bar",
+  "buildId": "7",
+  "buildTypeId": "Foo_Bar",
+  "buildInternalTypeId": "bt1",
+  "buildExternalTypeId": "Foo_Bar",
+  "buildStatusUrl": "http://localhost:8111/viewLog.html?buildTypeId=Foo_Bar&buildId=7",
+  "rootUrl": "http://localhost:8111",
+  "projectName": "foo",
+  "projectId": "Foo",
+  "projectInternalId": "project1",
+  "projectExternalId": "Foo",
+  "buildNumber": "7",
+  "agentName": "Default Agent",
+  "agentOs": "Mac OS X, version 10.8.3",
+  "agentHostname": "localhost",
+  "triggeredBy": "administrator",
+  "text": "foo : :  Bar has finished. Status:  success",
+  "buildStateDescription": "finished",
+  "buildRunners": [
+    "Command Line"
+  ],
+  "extraParameters": null,
+  "buildStatusHtml": "<span class=\"tcWebHooksMessage\"><a href=\"http://localhost:8111/project.html?projectId=Foo\">foo</a> : :  <a href=\"http://localhost:8111/viewType.html?buildTypeId=Foo_Bar\">Bar</a> # <a href=\"http://localhost:8111/viewLog.html?buildTypeId=Foo_Bar&buildId=7\"><strong>7<\/strong><\/a> has <strong>finished<\/strong> with a status of <a href=\"http://localhost:8111\/viewLog.html?buildTypeId=Foo_Bar&buildId=7\"> <strong>success<\/strong><\/a> and was triggered by <strong>administrator<\/strong><\/span>",
+  "message": "Build foo : :  Bar has finished. This is build number 7, has a status of \"success\" and was triggered by administrator"
+}

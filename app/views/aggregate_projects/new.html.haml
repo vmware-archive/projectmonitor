@@ -1,5 +1,6 @@
 = link_to '&larr; Back to Projects'.html_safe, edit_configuration_path
 %h1 Add Aggregate Project
+%hr
 = error_messages_for :aggregate_project
-= form_for @aggregate_project do |f|
+= form_for(@aggregate_project, html: { class: "form-horizontal" }) do |f|
   = render 'form', :f => f

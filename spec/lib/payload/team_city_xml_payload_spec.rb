@@ -3,10 +3,11 @@ require 'spec_helper'
 describe TeamCityXmlPayload do
   let(:project) { FactoryGirl.create(:team_city_rest_project) }
   let(:payload) { TeamCityXmlPayload.new(project).tap{|p|p.status_content = content} }
+  let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
   describe '.process' do
     subject do
-      PayloadProcessor.new(project, payload).process
+      payload_processor.process_payload(project: project, payload: payload)
       project
     end
 
@@ -53,7 +54,7 @@ describe TeamCityXmlPayload do
           XML
           payload = TeamCityXmlPayload.new(project)
           payload.status_content = content
-          PayloadProcessor.new(project,payload).process
+          payload_processor.process_payload(project: project, payload: payload)
 
           project.reload.should be_green
 
@@ -64,7 +65,7 @@ describe TeamCityXmlPayload do
             </builds>
           XML
           payload.status_content = content
-          PayloadProcessor.new(project,payload).process
+          payload_processor.process_payload(project: project, payload: payload)
 
           project.reload.should be_red
         end
@@ -81,7 +82,7 @@ describe TeamCityXmlPayload do
           XML
           payload = TeamCityXmlPayload.new(project)
           payload.status_content = content
-          PayloadProcessor.new(project,payload).process
+          payload_processor.process_payload(project: project, payload: payload)
 
           project.reload.should be_red
 
@@ -92,7 +93,7 @@ describe TeamCityXmlPayload do
             </builds>
           XML
           payload.status_content = content
-          PayloadProcessor.new(project,payload).process
+          payload_processor.process_payload(project: project, payload: payload)
 
           project.reload.should be_red
         end
@@ -140,7 +141,7 @@ describe TeamCityXmlPayload do
       XML
       payload = TeamCityXmlPayload.new(project)
       payload.status_content = content
-      PayloadProcessor.new(project,payload).process
+      payload_processor.process_payload(project: project, payload: payload)
 
       project.reload.should be_green
       statuses = project.statuses
@@ -153,11 +154,10 @@ describe TeamCityXmlPayload do
       XML
       payload = TeamCityXmlPayload.new(project)
       payload.status_content = content
-      PayloadProcessor.new(project,payload).process
+      payload_processor.process_payload(project: project, payload: payload)
 
       project.reload.should be_green
       project.statuses.should == statuses
     end
   end
-
 end

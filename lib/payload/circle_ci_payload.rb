@@ -30,8 +30,8 @@ class CircleCiPayload < Payload
   end
 
   def parse_published_at(content)
-    if content['stop_time']
-      Time.parse(content['stop_time'])
+    if content['start_time']
+      Time.parse(content['start_time'])
     else
       Time.now
     end
