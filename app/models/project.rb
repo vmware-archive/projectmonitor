@@ -228,11 +228,7 @@ class Project < ActiveRecord::Base
   end
 
   def volatility
-    if last_ten_velocities.any?
-      calculated_volatility
-    else
-      0
-    end
+    VolatilityCalculator.new.calculate_volatility(last_ten_velocities)
   end
 
   def published_at
@@ -244,17 +240,6 @@ class Project < ActiveRecord::Base
   end
 
   private
-
-  def calculated_volatility
-    sample_volatility.round(0)
-  end
-
-  def sample_volatility
-    mean = last_ten_velocities.mean
-    std_dev = last_ten_velocities.standard_deviation
-    vol = (std_dev * 100.0) / mean
-    vol.nan? ? 0 : vol
-  end
 
   def self.project_attribute_prefix
     name.match(/(.*)Project/)[1].underscore

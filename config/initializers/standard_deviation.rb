@@ -1,3 +1,5 @@
+require 'active_support/core_ext/enumerable'
+
 module Enumerable
   def mean
     self.sum/self.length.to_f
