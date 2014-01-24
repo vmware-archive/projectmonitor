@@ -264,10 +264,6 @@ class Project < ActiveRecord::Base
     self.last_refreshed_at = Time.now if online?
   end
 
-  def fetch_statuses
-    Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
-  end
-
   def simple_statuses
     statuses.map(&:success)
   end
