@@ -1,5 +1,5 @@
 class ProjectUpdater
-  def initialize(payload_processor: )
+  def initialize(payload_processor: nil)
     @payload_processor = payload_processor
   end
 

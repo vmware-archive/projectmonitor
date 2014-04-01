@@ -1,12 +1,12 @@
 class PayloadProcessor
   attr_accessor :project, :payload
 
-  def initialize(project_status_updater:)
+  def initialize(project_status_updater: nil)
     @status_updater = project_status_updater
   end
 
 
-  def process_payload(project:, payload:)
+  def process_payload(project: nil, payload: nil)
     self.project = project
     self.payload = payload
     add_statuses
