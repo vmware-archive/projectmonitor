@@ -16,7 +16,7 @@ namespace "truncate" do
   end
 
   desc "Truncate Project Statuses down to a smaller number (Default: #{TRUNCATE_DEFAULT_COUNT})"
-  task :project_statuses, [:count] => :environment do |args|
+  task :project_statuses, [:count] => :environment do |task, args|
     count = (args[:count] ? args[:count].to_i : TRUNCATE_DEFAULT_COUNT)
     Project.all.map do |proj|
       latest_statuses = proj.statuses.order('created_at DESC').limit(count)
