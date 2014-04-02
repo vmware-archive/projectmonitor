@@ -659,14 +659,6 @@ describe Project do
       end
     end
 
-    context "when project has no velocity" do
-      let(:project) { FactoryGirl.create(:project_with_tracker_integration,
-                                          last_ten_velocities: [ 0,0,0,0,0,0,0,0,0,0 ])}
-      it "should return zero volatility" do
-        project.volatility.should == 0
-      end
-    end
-
     context "when project has no velocities" do
       let(:project) { FactoryGirl.build(:project)}
 
