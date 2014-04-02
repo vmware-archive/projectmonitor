@@ -54,6 +54,8 @@ GEM
     atomic (1.1.16)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     bourbon (3.1.8)
@@ -94,6 +96,7 @@ GEM
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.0.1)
+    debug_inspector (0.0.2)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
@@ -112,6 +115,9 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
+    did_you_mean (0.3.1)
+      binding_of_caller
+      text
     diff-lcs (1.2.4)
     dotenv (0.8.0)
     draper (0.12.0)
@@ -348,6 +354,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.8)
+    text (1.2.3)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -413,6 +420,7 @@ DEPENDENCIES
   delayed_job_web
   devise
   devise-encryptable
+  did_you_mean
   draper (< 0.13)
   dynamic_form
   eco

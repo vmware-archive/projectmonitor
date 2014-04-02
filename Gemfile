@@ -67,6 +67,7 @@ group :development do
   gem 'guard-livereload'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'ruby-prof'
+  gem 'did_you_mean'
 end
 
 group :test, :development do
