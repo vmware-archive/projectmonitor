@@ -1,6 +1,6 @@
 class Payload
 
-  class InvalidContentException < ::Exception
+  class InvalidContentException < ::StandardError
   end
 
   attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr

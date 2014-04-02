@@ -50,7 +50,7 @@ class ExternalDependency
 
     rescue Nokogiri::SyntaxError => e
       output[:status] = 'page broken'
-    rescue Exception => e
+    rescue StandardError => e
       output[:status] = 'unreachable'
     end
 
