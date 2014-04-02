@@ -22,3 +22,4 @@ spec/javascripts/compiled/
 spec/tmp/
 .vagrant
 manifest.yml
+manifest-*.yml
