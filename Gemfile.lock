@@ -78,6 +78,9 @@ GEM
       hashie (>= 0.4.0)
     chronic (0.9.1)
     chunky_png (1.2.9)
+    clockwork (0.7.3)
+      activesupport
+      tzinfo
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -410,6 +413,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   choices
+  clockwork
   coffee-rails (~> 4.0.0)
   compass-rails (~> 1.1.0)
   daemons
