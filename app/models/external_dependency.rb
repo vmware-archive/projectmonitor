@@ -1,65 +1,65 @@
 class ExternalDependency
 
-  def self.get_or_fetch(name, threshold=30)
-    name.downcase!
-    Rails.cache.fetch(name, :expires_in => threshold.seconds) { refresh_status(name) }
-  end
-
-  def self.fetch_status(name)
-    name.downcase!
-    status = refresh_status(name)
-    Rails.cache.write(name, status, :expires_in => 30.seconds)
-    status
-  end
-
-  private
-
-  def self.retrieve_nice_api_status url
-    begin
-      content = UrlRetriever.new(url).retrieve_content
-    rescue
-      content = { 'status' => 'unreachable' }.to_json
+  class << self
+    def get_or_fetch(name, threshold=30)
+      name.downcase!
+      Rails.cache.fetch(name, :expires_in => threshold.seconds) { refresh_status(name) }
     end
-    content
-  end
 
-  def self.heroku_status
-    retrieve_nice_api_status 'https://status.heroku.com/api/v3/current-status'
-  end
+    def fetch_status(name)
+      name.downcase!
+      status = refresh_status(name)
+      Rails.cache.write(name, status, :expires_in => 30.seconds)
+      status
+    end
 
-  def self.github_status
-    retrieve_nice_api_status 'https://status.github.com/api/status.json'
-  end
+    def heroku_status
+      retrieve_nice_api_status 'https://status.heroku.com/api/v3/current-status'
+    end
 
-  def self.rubygems_status
-    output = {}
+    def github_status
+      retrieve_nice_api_status 'https://status.github.com/api/status.json'
+    end
 
-    begin
-      doc = Nokogiri::HTML(UrlRetriever.new('http://status.rubygems.org/').retrieve_content)
-      page_status = doc.css('.services td.status span')
+    def rubygems_status
+      output = {}
 
-      if page_status.any?
+      begin
+        doc = Nokogiri::HTML(UrlRetriever.new('http://status.rubygems.org/').retrieve_content)
+        page_status = doc.css('.services td.status span')
+
+        if page_status.any?
           if page_status.last.attributes["class"].value.split(' ').include?("status-up")
             output[:status] = "good"
           else
             output[:status] = "bad"
           end
-      else
+        else
+          output[:status] = 'page broken'
+        end
+
+      rescue Nokogiri::SyntaxError => e
         output[:status] = 'page broken'
+      rescue StandardError => e
+        output[:status] = 'unreachable'
       end
 
-    rescue Nokogiri::SyntaxError => e
-      output[:status] = 'page broken'
-    rescue StandardError => e
-      output[:status] = 'unreachable'
+      output.to_json
     end
 
-    output.to_json
-  end
+    private
 
-  private
-  def self.refresh_status(name)
-    eval("#{name}_status")
-  end
+    def retrieve_nice_api_status url
+      begin
+        content = UrlRetriever.new(url).retrieve_content
+      rescue
+        content = { 'status' => 'unreachable' }.to_json
+      end
+      content
+    end
 
+    def refresh_status(name)
+      send("#{name}_status")
+    end
+  end
 end
