@@ -1,83 +1,77 @@
 require 'spec_helper'
 
-describe IPWhitelistedController, type: :controller do
-  let(:ip_whitelist) { ['192.168.1.1', '192.168.2.1/28'] }
+describe IPWhitelistedController, type: :request do
+  before :all do
+    ENV["ip_whitelist"] = "['8.8.8.8', '6.6.6.6/28']"
 
-  before { ConfigHelper.stub(:get).with(:ip_whitelist).and_return(ip_whitelist) }
+    # Dynamically define a controller after configuring ip whitelist(see above).
+    # The existing controllers are loaded before its configured and it causes this
+    # module not to do anything.
+    class AdminDashboardController < ApplicationController
+      include IPWhitelistedController and skip_filter :authenticate_user!
+      def index; head :ok; end
+    end
+
+    app.routes.eval_block ->{ get 'admin_dashboard', to: "admin_dashboard#index" }
+  end
+
+  after :all do
+    ENV.delete("ip_whitelist")
+    ENV.delete("ip_whitelist_request_proxied")
+  end
 
   describe '#restrict_ip_address' do
-    controller do
-      def index
-        head :ok
-      end
-    end
-
-    before do
-      controller.stub(:authenticate_user!)
-      controller.class.send(:include, IPWhitelistedController)
-    end
-
     context 'in proxy mode' do
-      before { ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(true) }
+      before(:all) { ENV["ip_whitelist_request_proxied"] = 'true' }
 
       context 'when the proxy IP list is empty' do
         it 'should deny access' do
-          request.env['HTTP_X_FORWARDED_FOR'].should be_nil
-          controller.should_receive :restrict_access!
-          get :index
+          get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => nil
+          expect(response).to be_redirect
         end
       end
 
       context 'when the proxy IP list is not empty' do
         context "and the client IP is in the whitelist" do
           it 'should allow access' do
-            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.1.1'
-            controller.should_not_receive :restrict_access!
-            get :index
-            response.should be_success
+            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '8.8.8.8'
+            expect(response).to be_success
           end
         end
 
         context "and the client IP is not in the whitelist" do
           it 'should deny access' do
-            request.env['HTTP_X_FORWARDED_FOR'] = "1.1.1.1"
-            controller.should_receive :restrict_access!
-            get :index
+            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '1.1.1.1'
+            expect(response).to be_redirect
           end
         end
 
         context "and the client IP is in the whitelist range" do
           it 'should allow access' do
-            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.2.2'
-            controller.should_not_receive :restrict_access!
-            get :index
-            response.should be_success
+            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '6.6.6.15'
+            expect(response).to be_success
           end
         end
 
         context "and the client IP is not in the whitelist range" do
           it 'should deny access' do
-            request.env['HTTP_X_FORWARDED_FOR'] = '192.168.2.17'
-            controller.should_receive :restrict_access!
-            get :index
+            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '6.6.6.16'
+            expect(response).to be_redirect
           end
         end
 
         context 'when there are multiple proxy IP addresses' do
-          context "and the last client IP is in the whitelist" do
+          context "and it looks like it (probably) has remote ip in the whitelist" do
             it 'should allow access' do
-              request.env['HTTP_X_FORWARDED_FOR'] = "127.0.0.1, 203.1.1.0, 192.168.1.1"
-              controller.should_not_receive :restrict_access!
-              get :index
-              response.should be_success
+              get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => "8.8.8.8, 127.0.0.1, 192.168.1.1"
+              expect(response).to be_success
             end
           end
 
           context "and the last client IP is not in the whitelist" do
             it 'should deny access' do
-              request.env['HTTP_X_FORWARDED_FOR'] = "192.168.1.1, 127.0.0.1, 203.1.1.0"
-              controller.should_receive :restrict_access!
-              get :index
+              get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => "192.168.1.1, 127.0.0.1, 203.1.1.0"
+              expect(response).to be_redirect
             end
           end
         end
@@ -85,47 +79,40 @@ describe IPWhitelistedController, type: :controller do
     end
 
     context 'not in proxy mode' do
-      before { ConfigHelper.stub(:get).with(:ip_whitelist_request_proxied).and_return(false) }
+      before(:all) { ENV["ip_whitelist_request_proxied"] = 'false' }
 
       context 'when the client IP is missing' do
         it 'should deny access' do
-          request.env['REMOTE_ADDR'] = nil
-          controller.should_receive :restrict_access!
-          get :index
+          get '/admin_dashboard', nil, 'REMOTE_ADDR' => nil
+          expect(response).to be_redirect
         end
       end
 
       context 'when the client IP is present' do
         context 'and the client IP is in the whitelist' do
           it 'should allow access' do
-            request.env['REMOTE_ADDR'] = '192.168.1.1'
-            controller.should_not_receive :restrict_access!
-            get :index
-            response.should be_success
+            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '8.8.8.8'
+            expect(response).to be_success
           end
         end
 
         context 'and the client IP is not in the whitelist' do
           it 'should deny access' do
-            request.env['REMOTE_ADDR'] = '127.0.0.1'
-            controller.should_receive :restrict_access!
-            get :index
+            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '173.194.43.2'
+            expect(response).to be_redirect
           end
         end
 
         context 'and the client IP is in the whitelist range' do
           it 'should allow all ip addresses in range' do
-            request.env['REMOTE_ADDR'] = '192.168.2.2'
-            controller.should_not_receive :restrict_access!
-            get :index
-            response.should be_success
+            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '6.6.6.15'
+            expect(response).to be_success
           end
 
           context 'and the client IP is outside the whitelist range' do
             it 'should deny access' do
-              request.env['REMOTE_ADDR'] = '192.168.2.16'
-              controller.should_receive(:restrict_access!)
-              get :index
+              get '/admin_dashboard', nil, 'REMOTE_ADDR' => '6.6.6.16'
+              expect(response).to be_redirect
             end
           end
         end
