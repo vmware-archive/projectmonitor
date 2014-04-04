@@ -1,0 +1,26 @@
+---
+applications:
+- name: project-monitor-staging
+  memory: 512M
+  instances: 1
+  host: project-monitor-staging
+  path: ../../
+  command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  services:
+  - project_monitor_staging
+- name: project-monitor-staging-worker
+  memory: 256M
+  instances: 1
+  path: ../../
+  command: bundle exec rake jobs:work
+  no-route: true
+  services:
+  - project_monitor_staging
+- name: project-monitor-staging-clockwork
+  memory: 256M
+  instances: 1
+  path: ../../
+  command: bundle exec clockwork ./clockwork.rb
+  no-route: true
+  services:
+  - project_monitor_staging
