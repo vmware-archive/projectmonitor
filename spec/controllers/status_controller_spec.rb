@@ -5,94 +5,17 @@ describe StatusController do
 
     context "Travis project" do
       let!(:project) { FactoryGirl.create(:travis_project) }
-      let(:payload) do
-      URI.encode '{
-        "id": 4219108,
-        "repository_id": 96210,
-        "number": "304",
-        "config": {
-        "language": "ruby",
-        "branches": {
-        "only": [
-        "master"
-        ]
-        },
-        "bundler_args": "--without mysql development",
-        "notifications": {
-        "email": [
-        "common-effort@pivotallabs.com"
-        ],
-        "webhooks": [
-        "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
-        ]
-        },
-        "rvm": [
-        "1.9.3"
-        ],
-        "before_script": [
-        "bundle exec rake travis:setup",
-        "export DISPLAY=:99",
-        "sh -e /etc/init.d/xvfb start"
-        ],
-        "script": "bundle exec rake travis",
-        ".result": "configured"
-        },
-        "state": "finished",
-        "result": 1,
-        "status": 1,
-        "started_at": "2013-01-21T16:12:15Z",
-        "finished_at": "2013-01-21T16:15:46Z",
-        "duration": 211,
-        "commit": "062417432adec29287f9fb276a8c2484711af407",
-        "branch": "master",
-        "message": "fixed bug 42640123 semaphore projects failing when status pending",
-        "committed_at": "2013-01-17T21:16:31Z",
-        "author_name": "David Lee and David Tengdin",
-        "author_email": "pair+dlee+dtengdin@pivotallabs.com",
-        "committer_name": "David Lee and David Tengdin",
-        "committer_email": "pair+dlee+dtengdin@pivotallabs.com",
-        "compare_url": "https://github.com/pivotal/projectmonitor/compare/2f511066ed49...062417432ade",
-        "event_type": "push",
-        "matrix": [
-        {
-        "id": 4219109,
-        "repository_id": 96210,
-        "number": "304.1",
-        "config": {
-        "language": "ruby",
-        "branches": {
-        "only": [
-        "master"
-        ]
-        },
-        "bundler_args": "--without mysql development",
-        "notifications": {
-        "email": [
-        "common-effort@pivotallabs.com"
-        ],
-        "webhooks": [
-        "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
-        ]
-        },
-        "rvm": "1.9.3",
-        "before_script": [
-        "bundle exec rake travis:setup",
-        "export DISPLAY=:99",
-        "sh -e /etc/init.d/xvfb start"
-        ],
-        "script": "bundle exec rake travis",
-        ".result": "configured"
-        },
-        "result": 1,
-        "started_at": "2013-01-21T16:12:15Z",
-        "finished_at": "2013-01-21T16:15:46Z",
-        "allow_failure": false
-        }
-        ]
-        }'
+      let(:successful_payload) do
+        URI.encode(open('spec/fixtures/travis_examples/success.json').read.gsub("4314974", "4219108"))
+      end
+      let(:failure_payload) do
+        URI.encode(open('spec/fixtures/travis_examples/failure.json').read)
+      end
+      let(:on_start_payload) do
+        URI.encode(open('spec/fixtures/travis_examples/created.json').read)
       end
 
-      subject { post :create, project_id: project.guid, payload: payload }
+      subject { post :create, project_id: project.guid, payload: successful_payload }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -100,6 +23,20 @@ describe StatusController do
 
       it "should log a payload log" do
         expect { subject }.to change(PayloadLogEntry, :count).by(1)
+      end
+
+      it "doesn't create new status recores for 'on_start' notifications" do
+        expect {
+          post :create, project_id: project.guid, payload: on_start_payload
+        }.not_to change(ProjectStatus, :count)
+      end
+
+      it "also creates a new status when it receives successful notification after failure" do
+        post :create, project_id: project.guid, payload: failure_payload
+
+        expect {
+          post :create, project_id: project.guid, payload: successful_payload
+        }.to change { project.status.success }.from(false).to(true)
       end
 
       it "creates only one new status" do
@@ -110,7 +47,8 @@ describe StatusController do
       end
 
       it "should have all the attributes" do
-        subject
+        post :create, project_id: project.guid, payload: failure_payload
+
         ProjectStatus.last.should_not be_success
         ProjectStatus.last.project_id.should == project.id
         ProjectStatus.last.published_at.to_s.should == Time.utc(2013, 1, 21, 16, 12, 15).to_s
@@ -127,7 +65,6 @@ describe StatusController do
         subject
         project.reload.parsed_url.should == 'https://travis-ci.org/account/project/builds/4219108'
       end
-
     end
 
     context "Jenkins project" do

@@ -37,4 +37,28 @@ describe TravisProject do
       should == 'https://travis-ci.org/account/project'
     end
   end
+
+  describe "#has_status?" do
+    subject { project.has_status?(status) }
+
+    let(:project) { FactoryGirl.create(:travis_project) }
+
+    context "when the project has the status" do
+      let!(:status) { project.statuses.create!(build_id: 99) }
+      it { should be_true }
+
+      context "but the given status has different result" do
+        let(:status) { project.statuses.new(build_id: 99, success: true) }
+
+        before { project.statuses.create!(build_id: 99, success: false) }
+
+        it { should be_false }
+      end
+    end
+
+    context "when the project does not have the status" do
+      let!(:status) { ProjectStatus.create!(build_id: 99) }
+      it { should be_false }
+    end
+  end
 end

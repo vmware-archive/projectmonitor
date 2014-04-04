@@ -5,7 +5,6 @@ class PayloadProcessor
     @status_updater = project_status_updater
   end
 
-
   def process_payload(project: nil, payload: nil)
     self.project = project
     self.payload = payload

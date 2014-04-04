@@ -19,7 +19,8 @@ class TravisJsonPayload < Payload
   end
 
   def content_ready?(content)
-    content['state'] != 'started' &&
+    content['finished_at'].present? &&
+      content['state'] != 'started' &&
       content['state'] != 'created' &&
       specified_branch?(content) &&
       content['event_type'] != 'pull_request'

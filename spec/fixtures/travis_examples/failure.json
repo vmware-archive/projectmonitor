@@ -29,7 +29,6 @@
 "script": "bundle exec rake travis",
 ".result": "configured"
 },
-"state": "finished",
 "result": 1,
 "status": 1,
 "started_at": "2013-01-21T16:12:15Z",

@@ -10,7 +10,6 @@
 "script": "bundle exec rake spec",
 ".result": "configured"
 },
-"state": "finished",
 "result": 1,
 "status": 1,
 "started_at": "2013-03-24T08:46:38Z",

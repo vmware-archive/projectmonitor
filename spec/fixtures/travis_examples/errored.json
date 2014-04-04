@@ -34,9 +34,8 @@
 }
 ]
 },
-"state": "finished",
-"result": null,
-"status": null,
+"result": 1,
+"status": 1,
 "started_at": "2013-09-12T22:16:17Z",
 "finished_at": "2013-09-12T23:06:19Z",
 "duration": 6082,

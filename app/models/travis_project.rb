@@ -17,6 +17,10 @@ class TravisProject < Project
     "#{BASE_WEB_URL}/#{slug}"
   end
 
+  def has_status?(status)
+    statuses.where(build_id: status.build_id, success: status.success).exists?
+  end
+
   def project_name
     travis_github_account
   end
