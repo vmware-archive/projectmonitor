@@ -145,4 +145,35 @@ describe TravisJsonPayload do
       it { should == "master" }
     end
   end
+
+  describe '#building?' do
+    before { payload.status_content = status_content }
+
+    subject { payload }
+
+    context 'the payload build has failed' do
+      let(:json) { "errored.json" }
+      it { should_not be_building }
+    end
+
+    context 'the payload build has errored' do
+      let(:json) { "failure.json" }
+      it { should_not be_building }
+    end
+
+    context 'the payload build has finished running' do
+      let(:json) { "success.json" }
+      it { should_not be_building }
+    end
+
+    context 'the payload build has not finished running' do
+      let(:json) { "building.json" }
+      it { should be_building }
+    end
+
+    context 'the payload build has not started running' do
+      let(:json) { "created.json" }
+      it { should be_building }
+    end
+  end
 end

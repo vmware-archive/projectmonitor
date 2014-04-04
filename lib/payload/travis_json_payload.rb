@@ -10,8 +10,7 @@ class TravisJsonPayload < Payload
   end
 
   def building?
-    status_content.first['state'] == "started" ||
-      status_content.first['state'] == "created"
+    status_content.first['started_at'].present? && status_content.first['finished_at'].nil?
   end
 
   def build_status_is_processable?
