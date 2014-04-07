@@ -9,7 +9,7 @@ applications:
   services:
   - project_monitor_staging
 - name: project-monitor-staging-worker
-  memory: 256M
+  memory: 512M
   instances: 1
   path: ../../
   command: bundle exec rake jobs:work
@@ -17,10 +17,18 @@ applications:
   services:
   - project_monitor_staging
 - name: project-monitor-staging-clockwork
-  memory: 256M
+  memory: 512M
   instances: 1
   path: ../../
   command: bundle exec clockwork ./clockwork.rb
+  no-route: true
+  services:
+  - project_monitor_staging
+- name: project-monitor-staging-poller
+  memory: 1024M
+  instances: 1
+  path: ../../
+  command: bundle exec rake projectmonitor:poller
   no-route: true
   services:
   - project_monitor_staging

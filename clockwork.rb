@@ -8,7 +8,6 @@ module Clockwork
     `rake #{job}`
   end
 
-  every(10.minutes, 'projectmonitor:poller')
   every(1.day, 'truncate:payload_log_entries[2]')
   every(1.day, 'truncate:project_statuses[1000]')
 end

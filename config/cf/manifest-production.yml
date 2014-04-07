@@ -9,7 +9,7 @@ applications:
   services:
   - project-monitor-production
 - name: project-monitor-production-worker
-  memory: 256M
+  memory: 512M
   instances: 1
   path: ../../
   command: bundle exec rake jobs:work
@@ -17,11 +17,18 @@ applications:
   services:
   - project-monitor-production
 - name: project-monitor-production-clockwork
-  memory: 256M
+  memory: 512M
   instances: 1
   path: ../../
   command: bundle exec clockwork ./clockwork.rb
   no-route: true
   services:
   - project-monitor-production
-
+- name: project-monitor-production-poller
+  memory: 1024M
+  instances: 1
+  path: ../../
+  command: bundle exec rake projectmonitor:poller
+  no-route: true
+  services:
+  - project-monitor-production
