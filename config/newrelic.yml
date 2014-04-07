@@ -117,8 +117,8 @@ common: &default_settings
   # Rails: the RoR filter_parameter_logging excludes parameters
   # Java: create a config setting called "ignored_params" and set it to
   #     a comma separated list of HTTP parameter names.
-  #     ex: ignored_params: credit_card, ssn, password 
-  capture_params: false
+  #     ex: ignored_params: credit_card, ssn, password
+  capture_params: true
 
 
   # Transaction tracer captures deep information about slow
