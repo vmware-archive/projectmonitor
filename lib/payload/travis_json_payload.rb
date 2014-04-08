@@ -26,15 +26,8 @@ class TravisJsonPayload < Payload
   end
 
   def convert_webhook_content!(content)
-    convert_content!(URI.decode(Rack::Utils.parse_nested_query(content)['payload']) || '')
-  end
-
-  def convert_content!(content)
-    parsed_content = JSON.parse(content) || {}
-    Array.wrap(parsed_content)
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+    decoded_payload = extract_payload_from(content)
+    convert_content!(decoded_payload)
   end
 
   def parse_build_id(content)
@@ -62,5 +55,25 @@ class TravisJsonPayload < Payload
 
   def specified_branch?(content)
     branch == content['branch']
+  end
+
+  def extract_payload_from(content)
+    nested_content = Rack::Utils.parse_nested_query(content)
+    payload = nested_content['payload']
+    URI.decode(payload)
+  rescue => e
+    handle_processing_exception(e)
+  end
+
+  def convert_content!(content)
+    parsed_content = JSON.parse(content)
+    Array.wrap(parsed_content)
+  rescue => e
+    handle_processing_exception(e)
+  end
+
+  def handle_processing_exception(e)
+    self.processable = self.build_processable = false
+    raise Payload::InvalidContentException, e.message
   end
 end

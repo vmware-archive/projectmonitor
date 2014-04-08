@@ -48,6 +48,15 @@ describe TravisJsonPayload do
         converted_content.first['id'].should == 12150190
       end
     end
+
+    context 'when supplied with an empty payload' do
+      let(:webhook_content) { "" }
+      it 'raises an exception' do
+        expect {
+          TravisJsonPayload.new.convert_webhook_content!(webhook_content)
+        }.to raise_error Payload::InvalidContentException
+      end
+    end
   end
 
   describe '#parse_success' do
@@ -100,7 +109,7 @@ describe TravisJsonPayload do
         it { should be_true }
       end
     end
-    
+
     context 'the payload contains a build from pull request' do
       let(:json) { "pull_request.json" }
       it { should be_false }
