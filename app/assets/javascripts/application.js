@@ -23,7 +23,6 @@
 //= require rubygemsRefresh
 
 $(function() {
-  ProjectEdit.init();
   BacktraceHide.init();
   TagSwitcher.init();
   VersionCheck.init();

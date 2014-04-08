@@ -210,8 +210,6 @@ var ProjectEdit = {};
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 
-    o.validateFeedUrl();
-
     var $tracker_online = $('#project_tracker_online');
     if ($tracker_online.length !== 0) {
       if ($tracker_online.val() === "1") {

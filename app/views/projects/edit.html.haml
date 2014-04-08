@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_include_tag 'project'
+
 = link_to '&larr; Back to Projects'.html_safe, edit_configuration_path
 %h1 Edit Project
 = error_messages_for :project

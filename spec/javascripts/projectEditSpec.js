@@ -3,10 +3,10 @@ describe("project edit", function() {
     jasmine.Ajax.useMock();
   });
 
-  it('invokes validateFeedUrl on initialization', function() {
+  it('does not invoke validateFeedUrl on initialization', function() {
     spyOn(ProjectEdit, 'validateFeedUrl');
     ProjectEdit.init();
-    expect(ProjectEdit.validateFeedUrl).toHaveBeenCalled();
+    expect(ProjectEdit.validateFeedUrl).not.toHaveBeenCalled();
   });
 
   describe("validations on pivotal tracker setup", function() {
