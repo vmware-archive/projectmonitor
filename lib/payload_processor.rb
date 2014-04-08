@@ -41,13 +41,17 @@ class PayloadProcessor
       if status.valid?
         @status_updater.update_project(project, status)
       else
-        project.payload_log_entries.build(error_type: "Status Invalid", error_text: <<ERROR)
+        project.payload_log_entries.build(error_type: "Status Invalid", error_text: error_text(status))
+      end
+    end
+  end
+
+  def error_text(status)
+    <<-ERROR
 Payload returned an invalid status: #{status.inspect}
   Errors: #{status.errors.full_messages.to_sentence}
   Payload: #{payload.inspect}
 ERROR
-      end
-    end
   end
 
 end
