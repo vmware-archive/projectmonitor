@@ -1,4 +1,3 @@
-require 'active_record'
 require 'acts-as-taggable-on'
 
 class Project < ActiveRecord::Base
@@ -25,8 +24,7 @@ class Project < ActiveRecord::Base
   scope :with_statuses, -> { joins(:statuses).uniq }
 
   scope :updateable, -> {
-    enabled
-    .where(webhooks_enabled: [nil, false])
+    enabled.where(webhooks_enabled: [nil, false])
   }
 
   scope :tracker_updateable, -> {
@@ -35,7 +33,7 @@ class Project < ActiveRecord::Base
     .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
   }
 
-  scope :displayable, lambda {|tags|
+  scope :displayable, lambda { |tags|
     scope = enabled.order('code ASC')
     return scope.tagged_with(tags, :any => true) if tags
     scope
