@@ -150,10 +150,6 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def building?
-    super
-  end
-
   def current_build_url
   end
 

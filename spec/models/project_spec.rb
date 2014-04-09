@@ -419,20 +419,6 @@ describe Project do
     end
   end
 
-  describe "#building?" do
-    it "should be true if the project is currently building" do
-      projects(:red_currently_building).should be_building
-    end
-
-    it "should return false for a project that is not currently building" do
-      projects(:many_builds).should_not be_building
-    end
-
-    it "should return false for a project that has never been built" do
-      projects(:never_built).should_not be_building
-    end
-  end
-
   describe "#has_auth?" do
     it "returns true if either username or password exists" do
       project.auth_username = "uname"
