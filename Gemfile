@@ -68,6 +68,8 @@ group :development do
   gem 'guard-livereload'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'ruby-prof'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :test, :development do
