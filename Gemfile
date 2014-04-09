@@ -12,8 +12,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'devise'
 gem 'devise-encryptable'
-# NOTE: Newer versions of draper are currently incompatible with this codebase
-gem 'draper', '< 0.13'
+gem 'draper', '< 0.13' # NOTE: Newer versions of draper are currently incompatible with this codebase
 gem 'dynamic_form'
 gem 'foreman'
 gem 'sass-rails', '~> 4.0.2'
@@ -40,15 +39,13 @@ gem 'em-http-request'
 gem 'newrelic_rpm'
 gem 'hashie'
 gem 'unicorn'
-# NOTE: this can be removed once we transition completely to Heroku
-gem 'thin'
 gem 'uglifier', '>= 1.3.0'
 gem 'clockwork'
 gem 'jbuilder'
 
 # work around for Google OpenID API change: https://github.com/sishen/omniauth-google-apps/issues/6
 # can be removed once they fix
-gem 'ruby-openid', :git => 'git://github.com/kendagriff/ruby-openid.git', :ref => '79beaa419d4754e787757f2545331509419e222e'
+gem 'ruby-openid', github: 'kendagriff/ruby-openid', ref: '79beaa419d4754e787757f2545331509419e222e'
 
 group :production do
   gem 'rails_12factor'
@@ -82,8 +79,7 @@ group :test, :development do
   gem 'capybara'
   gem 'jasmine', github: 'pivotal/jasmine-gem'
   gem 'jasmine-rails'
-  # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
-  gem 'selenium-webdriver', '>= 2.25.0'
+  gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'guard-coffeescript'
