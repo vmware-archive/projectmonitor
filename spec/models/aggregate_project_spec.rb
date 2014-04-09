@@ -400,21 +400,6 @@ describe AggregateProject do
     end
   end
 
-  describe "#as_json" do
-    let(:aggregate_project) { create(:aggregate_project_with_project) }
-    let(:hash) { aggregate_project.as_json }
-
-    it "should have basic properties" do
-      hash["aggregate"].should be_true
-      hash["code"].should == aggregate_project.code
-      hash["name"].should == aggregate_project.name
-    end
-
-    it "should have status" do
-      hash["status"].should == aggregate_project.status_in_words
-    end
-  end
-
   describe "#status_in_words" do
     subject { aggregate.status_in_words }
 

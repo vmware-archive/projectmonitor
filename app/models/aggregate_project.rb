@@ -49,7 +49,7 @@ class AggregateProject < ActiveRecord::Base
   alias_method :latest_status, :status
 
   def statuses
-    projects.map(&:latest_status).reject(&:nil?).sort_by(&:build_id)
+    projects.map(&:latest_status).compact.sort_by(&:build_id)
   end
 
   def building?
@@ -89,11 +89,6 @@ class AggregateProject < ActiveRecord::Base
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
     red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
-  end
-
-  def as_json(options = {})
-    options.merge!(root: false, except: [:status])
-    super(options).merge!("aggregate" => true, "status" => status_in_words)
   end
 
   def status_in_words

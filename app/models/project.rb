@@ -199,23 +199,6 @@ class Project < ActiveRecord::Base
     self.guid = SecureRandom.uuid
   end
 
-  def as_json(options={})
-    json = super # TODO: Remove before merge
-    json["project_id"] = self.id
-    json["build"] = super(
-      only: [:code, :id, :statuses, :building],
-      root: false)
-      .merge({"published_at" => published_at})
-      .merge({"status" => status_in_words})
-      .merge({"statuses" => statuses.reverse_chronological})
-      .merge({"current_build_url" => current_build_url })
-    json["tracker"] = super(
-      only: [:tracker_online, :current_velocity, :last_ten_velocities, :stories_to_accept_count, :open_stories_count, :iteration_story_state_counts],
-      methods: ["volatility"],
-      root:false) if tracker_project_id?
-    json
-  end
-
   def volatility
     @volatility ||= Volatility.calculate(last_ten_velocities)
   end
@@ -226,6 +209,14 @@ class Project < ActiveRecord::Base
 
   def accept_mime_types
     nil
+  end
+
+  # Returns a string identifying the path associated with the object.
+  # ActionPack uses this to find a suitable partial to represent the object.
+  # To know more about this method, see:
+  #   http://api.rubyonrails.org/classes/ActiveModel/Conversion.html#method-i-to_partial_path
+  def to_partial_path
+    "projects/project"
   end
 
   private

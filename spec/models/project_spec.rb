@@ -552,56 +552,6 @@ describe Project do
     end
   end
 
-  describe "#as_json" do
-    context "build" do
-      let(:project) { FactoryGirl.create(:project) }
-      let(:status) { FactoryGirl.build(:project_status, published_at: 4.days.ago) }
-
-      context "when there is no build history" do
-        it "should have general build properties" do
-          project.statuses << status
-          hash = project.as_json
-
-          hash["project_id"].should == project.id
-          hash["build"]["code"].should == project.code
-          hash["build"]["id"].should == project.id
-          hash["build"]["status"].should == project.status_in_words
-          hash["build"]["statuses"].should == [status]
-          hash["build"]["published_at"].should == project.published_at
-        end
-      end
-
-      context "when there is build history" do
-        let(:older_status) { FactoryGirl.build(:project_status, success: true, published_at: 5.days.ago, build_id: 100) }
-        let(:recent_status) { FactoryGirl.build(:project_status, success: false, published_at: 1.day.ago, build_id: 200) }
-        before do
-          project.statuses << older_status
-          project.statuses << recent_status
-          project.save
-        end
-
-        it "should have the statuses in the correct order" do
-          statuses = project.as_json["build"]["statuses"]
-          statuses.should == [recent_status, older_status]
-        end
-      end
-    end
-
-    context "tracker" do
-      let(:project) { FactoryGirl.build(:project_with_tracker_integration) }
-
-      it "should have a tracker properties" do
-        hash = project.as_json
-
-        hash["tracker"]["current_velocity"].should == project.current_velocity
-        hash["tracker"]["volatility"].should == project.volatility
-        hash["tracker"]["last_ten_velocities"].should == project.last_ten_velocities
-        hash["tracker"]["stories_to_accept_count"].should == project.stories_to_accept_count
-        hash["tracker"]["open_stories_count"].should == project.open_stories_count
-      end
-    end
-  end
-
   describe "#status_in_words" do
     subject { project.status_in_words }
 

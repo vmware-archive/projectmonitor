@@ -27,11 +27,6 @@ describe ProjectsController do
         projects.stub_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
       end
 
-      it "should render collection of projects as JSON, sorted alphabetically" do
-        ProjectFeedDecorator.should_receive(:decorate).with(aggregate_projects + projects)
-        get :index, format: :json
-      end
-
       it 'gets a collection of aggregate projects by tag' do
         AggregateProject.should_receive(:displayable).with(tags)
         Project.standalone.should_receive(:displayable).with(tags)
