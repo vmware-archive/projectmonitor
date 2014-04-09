@@ -117,10 +117,6 @@ class Project < ActiveRecord::Base
     return "yellow" if yellow?
   end
 
-  def tracker_configured?
-    tracker_project_id.present? && tracker_auth_token.present?
-  end
-
   def red_since
     breaking_build.try(:published_at)
   end
@@ -178,8 +174,9 @@ class Project < ActiveRecord::Base
   end
 
   def tracker_project?
-    tracker_project_id.present? &&  tracker_auth_token.present?
+    tracker_project_id.present? && tracker_auth_token.present?
   end
+  alias tracker_configured?  tracker_project?
 
   def payload
     raise NotImplementedError, "Must implement payload in subclasses"
