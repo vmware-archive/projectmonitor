@@ -50,3 +50,7 @@ $font_family_base: $pivotal_font_family;
     margin-left: 40px;
   }
 }
+
+table.projects thead tr th {
+  border-bottom: 0px solid black;
+}

@@ -13,7 +13,6 @@
 //= require_tree ./initializers
 
 //= require autocomplete
-//= require tagSwitcher
 //= require backtraceHide
 //= require projectEdit
 //= require versionCheck
@@ -21,13 +20,14 @@
 //= require githubRefresh
 //= require herokuRefresh
 //= require rubygemsRefresh
+//= require projectFilters
 
 $(function() {
   BacktraceHide.init();
-  TagSwitcher.init();
   VersionCheck.init();
   ProjectCheck.init();
   GithubRefresh.init();
   HerokuRefresh.init();
   RubyGemsRefresh.init();
+  ProjectFilters.init();
 });
