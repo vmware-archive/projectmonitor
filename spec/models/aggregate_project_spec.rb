@@ -116,47 +116,6 @@ describe AggregateProject do
         end
       end
     end
-
-    describe '.tagged' do
-      subject { AggregateProject.tagged tags }
-
-      let!(:tagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:pivots)], enabled: true }
-      let!(:untagged_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:socialitis)], enabled: true }
-      let!(:disabled_project) { FactoryGirl.create :aggregate_project, :projects => [projects(:internal_project1)], enabled: false }
-
-      context "when supplying tags" do
-        let(:tags) { "southeast, northwest" }
-
-        it "should find tagged with tags" do
-          AggregateProject.should_not_receive(:enabled)
-          subject
-        end
-
-        context "when displayable projects are tagged" do
-          before do
-            tagged_project.update_attributes(tag_list: tags)
-            disabled_project.update_attributes(tag_list: tags)
-            untagged_project.update_attributes(tag_list: [])
-          end
-
-          it "should return scoped projects" do
-            subject.should include tagged_project
-            subject.should include disabled_project
-            subject.should_not include untagged_project
-          end
-        end
-      end
-
-      context "when not supplying tags" do
-        let(:tags) { nil }
-
-        it "should return scoped projects" do
-          subject.should include tagged_project
-          subject.should include disabled_project
-          subject.should include untagged_project
-        end
-      end
-    end
   end
 
   describe "#code" do

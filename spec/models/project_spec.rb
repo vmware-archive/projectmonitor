@@ -160,46 +160,6 @@ describe Project do
       end
 
     end
-
-    describe '.tagged' do
-      subject { Project.tagged tags }
-
-      context "when supplying tags" do
-        let(:tags) { "southeast, northwest" }
-
-        it "should find tagged with tags" do
-          Project.should_receive(:tagged_with).with(tags, {:any => true})
-          subject
-        end
-
-        context "when displayable projects are tagged" do
-          before do
-            projects(:socialitis).update_attributes(tag_list: tags)
-            projects(:disabled).update_attributes(tag_list: tags)
-            projects(:pivots).update_attributes(tag_list: [])
-          end
-
-          it "should return scoped projects" do
-            subject.should include projects(:socialitis)
-            subject.should include projects(:disabled)
-            subject.should_not include projects(:pivots)
-          end
-        end
-      end
-
-      context "when not supplying tags" do
-        let(:tags) { nil }
-
-        it "should return scoped projects" do
-          subject.should include projects(:pivots)
-          subject.should include projects(:socialitis)
-        end
-
-        it "does not filter by enabled" do
-          subject.should include projects(:disabled)
-        end
-      end
-    end
   end
 
   describe "#code" do

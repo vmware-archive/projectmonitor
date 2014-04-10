@@ -11,11 +11,6 @@ class AggregateProject < ActiveRecord::Base
     scope
   }
 
-  scope :tagged, lambda { |tags|
-    return tagged_with(tags, :any => true) if tags
-    all
-  }
-
   acts_as_taggable
   validates :name, presence: true
 
