@@ -1,24 +1,31 @@
 var ProjectFilters = {};
 
 (function(o) {
-  var $select, $projectTable;
+  var $tagSelect, $pollingStatusSelect, $projectTable;
 
   o.init = function () {
-    $select = $("select#tag");
+    $tagSelect = $("select#tag");
+    $pollingStatusSelect = $("select#polling_status");
     $projectTable = $("table.projects");
 
-    if ($select.length > 0) {
-      $select.change(o.filterProject);
-    }
+    $tagSelect.change(o.filterProject);
+    $pollingStatusSelect.change(o.filterProject);
   };
 
   o.filterProject = function() {
-    var tag = $select.val();
+    var tag = $tagSelect.val();
+    var pollingStatus = $pollingStatusSelect.val();
+
+    console.log(tag, pollingStatus);
 
     _.each($projectTable.find("tbody tr"), function(tr) {
-      if(!tag || _.contains($(tr).data("tags"), tag)) {
-        $(tr).show();
-      } else {
+      $(tr).show();
+
+      if(tag && !_.contains($(tr).data("tags"), tag)) {
+        $(tr).hide();
+      }
+
+      if(pollingStatus && pollingStatus != $(tr).data("polling-status")) {
         $(tr).hide();
       }
     })

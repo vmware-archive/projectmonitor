@@ -1,11 +1,12 @@
 describe("projectFilters", function() {
-  var html, $select, $firstTag, $lastTag;
+  var html, $tagSelect, $pollingStatusSelect, $firstProject, $lastProject;
 
   beforeEach(function() {
     html = "<select id='tag'><option></option><option>tag1</option><option>tag2</option></select>" +
+      "<select id='polling_status'><option></option><option>success</option><option>failure</option></select>" +
       "<table class='projects'>" +
-      "<tr data-tags='[\"tag1\"]'></tr>" +
-      "<tr data-tags='[\"tag2\"]'></tr>" +
+      "<tr data-tags='[\"tag1\"]' data-polling-status='success'></tr>" +
+      "<tr data-tags='[\"tag2\"]' data-polling-status='failure'></tr>" +
       '</table>';
 
 
@@ -13,9 +14,10 @@ describe("projectFilters", function() {
 
     ProjectFilters.init();
 
-    $select = $("#jasmine_content").find("select");
-    $firstTag = $("#jasmine_content").find("tr").first();
-    $lastTag = $("#jasmine_content").find("tr").last();
+    $tagSelect = $("#jasmine_content").find("select#tag");
+    $pollingStatusSelect = $("#jasmine_content").find("select#polling_status");
+    $firstProject = $("#jasmine_content").find("tr").first();
+    $lastProject = $("#jasmine_content").find("tr").last();
   });
 
   afterEach(function() {
@@ -23,22 +25,34 @@ describe("projectFilters", function() {
   });
 
   it("filters by tag", function() {
-    $select.val("tag1").trigger("change");
+    $tagSelect.val("tag1").trigger("change");
 
-    expect($firstTag).toBeVisible();
-    expect($lastTag).not.toBeVisible();
+    expect($firstProject.css("display")).not.toEqual("none");
+    expect($lastProject.css("display")).toEqual("none");
 
-    $select.val("tag2").trigger("change");
+    $tagSelect.val("tag2").trigger("change");
 
-    expect($firstTag).not.toBeVisible();
-    expect($lastTag).toBeVisible();
+    expect($firstProject.css("display")).toEqual("none");
+    expect($lastProject.css("display")).not.toEqual("none");
+  });
+
+  it("filters by polling status", function() {
+    $pollingStatusSelect.val("success").trigger("change");
+
+    expect($firstProject.css("display")).not.toEqual("none");
+    expect($lastProject.css("display")).toEqual("none");
+
+    $pollingStatusSelect.val("failure").trigger("change");
+
+    expect($firstProject.css("display")).toEqual("none");
+    expect($lastProject.css("display")).not.toEqual("none");
   });
 
   it("removes filters", function() {
-    $select.val("tag1").trigger("change");
-    $select.val("").trigger("change");
+    $tagSelect.val("tag1").trigger("change");
+    $tagSelect.val("").trigger("change");
 
-    expect($firstTag).toBeVisible();
-    expect($lastTag).toBeVisible();
+    expect($firstProject.css("display")).not.toEqual("none");
+    expect($lastProject.css("display")).not.toEqual("none");
   });
 });

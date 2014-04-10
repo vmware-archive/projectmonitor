@@ -2,9 +2,12 @@
   .panel-heading
     .h3 Configuration
   .panel-body
-    %label Filter by Tag:
-    = select_tag(:tag, options_for_select(@tags.insert(0, '')))
+    = label_tag :tag, "Filter by Tag:"
+    = select_tag(:tag, options_for_select(@tags.unshift('')))
     = hidden_field_tag(:current_tag, params[:tags])
+
+    = label_tag :polling_status, "Filter by Polling Status:"
+    = select_tag(:polling_status, options_for_select(["", "Successful", "Failed", "None", "Disabled"]))
 
     %hr
     %h4
@@ -18,7 +21,7 @@
           %th Name
           %th Project Type
           %th.text-center Enabled?
-          %th Last Build Status
+          %th Last Polling Status
           %th Aggregate
           %th Tags
           %th Last Edit
@@ -26,7 +29,7 @@
           %th Actions
       %tbody
         - @projects.each do |project|
-          %tr{:id => "project-#{project.id}", data: { tags: project.tag_list.inspect }}
+          %tr{:id => "project-#{project.id}", data: { tags: project.tag_list.inspect, "polling-status" => project_last_status_text(project)}}
             %td= h project.code
             %td= h project.name
             %td
@@ -64,7 +67,7 @@
             %th Actions
         %tbody
           - for aggregate_project in @aggregate_projects
-            %tr{:id => "aggregate-project-#{aggregate_project.id}",data: { tags: aggregate_project.tag_list.inspect }}
+            %tr{:id => "aggregate-project-#{aggregate_project.id}",data: { tags: aggregate_project.tag_list.inspect, "polling-status" => "" }}
               %td= h aggregate_project.name
               %td.text-center
                 - if aggregate_project.enabled?

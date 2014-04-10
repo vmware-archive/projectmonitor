@@ -44,6 +44,18 @@ module ProjectsHelper
     project.payload_log_entries.first.try { |l| "#{l.error_type}: '#{l.error_text}'" }
   end
 
+  def project_last_status_text(project)
+    if latest = project.payload_log_entries.latest
+      if project.enabled
+        latest.status
+      else
+        "disabled"
+      end
+    else
+      "none"
+    end.titleize
+  end
+
   def project_last_status(project)
     if latest = project.payload_log_entries.latest
       if project.enabled?
