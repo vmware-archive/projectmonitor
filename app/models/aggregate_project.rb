@@ -19,17 +19,21 @@ class AggregateProject < ActiveRecord::Base
   acts_as_taggable
   validates :name, presence: true
 
-  def red?
-    projects.any?(&:red?)
+  def state
+    states = projects.map(&:state).uniq
+    if failing_state = states.detect(&:failure?)
+      failing_state
+    elsif states.length == 1
+      states.first
+    elsif !online?
+      Project::State.offline
+    else
+      # TODO: Does this have to be indeterminate?
+      Project::State.indeterminate
+    end
   end
 
-  def yellow?
-    projects.present? && projects.all?(&:yellow?)
-  end
-
-  def green?
-    projects.present? && projects.all?(&:green?)
-  end
+  delegate :failure?, :success?, :indeterminate?, :offline?, :to_s, to: :state
 
   def online?
     projects.present? && projects.all?(&:online?)
@@ -87,19 +91,11 @@ class AggregateProject < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    red_project = projects.detect(&:red?)
+    red_project = projects.detect(&:failure?)
     red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
   end
 
   def status_in_words
-    if red?
-      'failure'
-    elsif green?
-      'success'
-    elsif yellow?
-      'indeterminate'
-    else
-      'offline'
-    end
+    state.to_s
   end
 end

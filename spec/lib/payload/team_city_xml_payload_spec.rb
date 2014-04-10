@@ -24,12 +24,12 @@ describe TeamCityXmlPayload do
 
         context "when build was successful" do
           let(:status) { 'SUCCESS' }
-          it { should be_green }
+          it { should be_success }
         end
 
         context "when build had failed" do
           let(:status) { 'FAILURE' }
-          it { should be_red }
+          it { should be_failure }
         end
 
         context "with bad XML data" do
@@ -56,7 +56,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_green
+          project.reload.should be_success
 
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -67,7 +67,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_red
+          project.reload.should be_failure
         end
 
         it "remains red when existing status is red" do
@@ -84,7 +84,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_red
+          project.reload.should be_failure
 
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -95,7 +95,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_red
+          project.reload.should be_failure
         end
       end
     end
@@ -143,7 +143,7 @@ describe TeamCityXmlPayload do
       payload.status_content = content
       payload_processor.process_payload(project: project, payload: payload)
 
-      project.reload.should be_green
+      project.reload.should be_success
       statuses = project.statuses
 
       content = <<-XML
@@ -156,7 +156,7 @@ describe TeamCityXmlPayload do
       payload.status_content = content
       payload_processor.process_payload(project: project, payload: payload)
 
-      project.reload.should be_green
+      project.reload.should be_success
       project.statuses.should == statuses
     end
   end

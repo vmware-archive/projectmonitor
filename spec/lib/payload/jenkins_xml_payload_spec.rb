@@ -18,13 +18,13 @@ describe JenkinsXmlPayload do
       %w(success back_to_normal stable).each do |result|
         context "when build result was #{result}" do
           let(:atom) { "#{result}.atom" }
-          it { should be_green }
+          it { should be_success }
         end
       end
 
       context "when build had failed" do
         let(:atom) { "failure.atom" }
-        it { should be_red }
+        it { should be_failure }
       end
     end
 
@@ -37,7 +37,7 @@ describe JenkinsXmlPayload do
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         payload_processor.process_payload(project: project, payload: jenkins_payload)
-        project.should be_green
+        project.should be_success
         project.statuses.should == statuses
       end
 
@@ -49,7 +49,7 @@ describe JenkinsXmlPayload do
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         payload_processor.process_payload(project: project, payload: jenkins_payload)
-        project.should be_red
+        project.should be_failure
         project.statuses.should == statuses
       end
     end

@@ -179,43 +179,47 @@ describe AggregateProject do
     end
   end
 
-  describe "#red?" do
+  describe "#failure?" do
     it "should be red if one of its projects is red" do
-      aggregate_project.should_not be_red
+      aggregate_project.should_not be_failure
       aggregate_project.projects << projects(:red_currently_building)
-      aggregate_project.should be_red
+      aggregate_project.should be_failure
       aggregate_project.projects << projects(:green_currently_building)
-      aggregate_project.should be_red
+      aggregate_project.should be_failure
     end
   end
 
-  describe "#green?" do
-    it "should be green if all projects are green" do
-      aggregate_project.should_not be_green
+  describe "#success?" do
+    it "should be success if all projects are success" do
+      aggregate_project.should_not be_success
       aggregate_project.projects << projects(:green_currently_building)
-      aggregate_project.should be_green
+      aggregate_project.should be_success
       aggregate_project.projects << projects(:pivots)
-      aggregate_project.should be_green
+      aggregate_project.should be_success
     end
   end
 
-  describe "#yellow?" do
+  describe "#indeterminate?" do
     context "aggregate project doesn't have any projects" do
-      subject { AggregateProject.new.yellow? }
+      subject { AggregateProject.new.indeterminate? }
       it { should be_false }
     end
 
     context "aggregate has one yellow project " do
-      subject { AggregateProject.new(:projects => [
-          Project.new.tap{|p| p.stub(yellow?: true)}]).yellow? }
+      subject do
+        indeterminate_state = double(Project::State, to_s: "indeterminate", failure?: false, indeterminate?: true)
+        project = Project.new.tap{|p| p.stub(state: indeterminate_state)}
+        AggregateProject.new(:projects => [project]).indeterminate?
+      end
+
       it { should be_true }
     end
 
     context "aggregate has one yellow and one red project " do
       subject do
         AggregateProject.new(:projects => [
-          Project.new.tap{|p| p.stub(yellow?: true)},
-          Project.new.tap{|p| p.stub(yellow?: false)}]).yellow?
+          Project.new.tap{|p| p.stub(indeterminate?: true)},
+          Project.new.tap{|p| p.stub(indeterminate?: false)}]).indeterminate?
       end
       it { should be_false }
     end
@@ -294,7 +298,7 @@ describe AggregateProject do
     it "should return nil if the project is currently green" do
       pivots = projects(:pivots)
       aggregate_project.projects << pivots
-      pivots.should be_green
+      pivots.should be_success
 
       pivots.red_since.should be_nil
     end
@@ -326,7 +330,7 @@ describe AggregateProject do
     it "should return zero for a green project" do
       project = projects(:pivots)
       aggregate_project.projects << project
-      aggregate_project.should be_green
+      aggregate_project.should be_success
 
       aggregate_project.red_build_count.should == 0
     end
@@ -404,31 +408,63 @@ describe AggregateProject do
     subject { aggregate.status_in_words }
 
     let(:aggregate) { FactoryGirl.build(:aggregate_project) }
-    let(:red) { false }
-    let(:green) { false }
-    let(:yellow) { false }
 
-    before do
-      aggregate.stub(red?: red, green?: green, yellow?: yellow)
-    end
+    context "when there's a project failing" do
+      before do
+        failing_state = double(Project::State, to_s: "failure", failure?: true)
+        failing_project = Project.new.tap { |p| p.stub(state: failing_state) }
+        non_failing_project = Project.new.tap { |p| p.stub_chain(:state, :failure?).and_return(false) }
+        aggregate.projects = [failing_project, non_failing_project]
+      end
 
-    context "when aggregate project is red" do
-      let(:red) { true }
       it { should == "failure" }
     end
 
-    context "when aggregate project is green" do
-      let(:green) { true }
+    context "when all projects are succeeding" do
+      before do
+        success_state = double(Project::State, to_s: "success", failure?: false)
+        succeeding_project1 = Project.new.tap { |p| p.stub(state: success_state) }
+        succeeding_project2 = Project.new.tap { |p| p.stub(state: success_state) }
+        aggregate.projects = [succeeding_project1, succeeding_project2]
+      end
+
       it { should == "success" }
     end
 
-    context "when aggregate project is yellow" do
-      let(:yellow) { true }
+    context "when all the projects are indeterminate" do
+      before do
+        indeterminate_state = double(Project::State, to_s: "indeterminate", failure?: false)
+        indeterminate_project1 = Project.new.tap { |p| p.stub(state: indeterminate_state) }
+        indeterminate_project2 = Project.new.tap { |p| p.stub(state: indeterminate_state) }
+        aggregate.projects = [indeterminate_project1, indeterminate_project2]
+      end
+
       it { should == "indeterminate" }
     end
 
-    context "when aggregate project none of the statuses" do
+    context "when a project is offline it is offline" do
+      before do
+        offline_state = double(Project::State, to_s: "offline", failure?: false)
+        success_state = double(Project::State, to_s: "success", failure?: false)
+
+        offline_project = Project.new.tap { |p| p.stub(state: offline_state, online?: false) }
+        succeeding_project = Project.new.tap { |p| p.stub(state: success_state, online?: true) }
+        aggregate.projects = [offline_project, succeeding_project]
+      end
+
       it { should == "offline" }
+    end
+
+    context "when none of the above it is indeterminate" do
+      before do
+        indeterminate_state = double(Project::State, to_s: "indeterminate", failure?: false)
+        success_state = double(Project::State, to_s: "success", failure?: false)
+        indeterminate_project = Project.new.tap { |p| p.stub(state: indeterminate_state, online?: true) }
+        succeeding_project = Project.new.tap { |p| p.stub(state: success_state, online?: true) }
+        aggregate.projects = [indeterminate_project, succeeding_project]
+      end
+
+      it { should == "indeterminate" }
     end
   end
 end

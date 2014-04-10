@@ -280,41 +280,41 @@ describe Project do
     end
   end
 
-  describe "#red?, #green? and #yellow?" do
+  describe "#failure?, #success? and #indeterminate?" do
     subject { project }
 
     context "the project has a failure status" do
       let(:project) { FactoryGirl.create(:jenkins_project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: false, build_id: 1) }
 
-      its(:red?) { should be_true }
-      its(:green?) { should be_false }
-      its(:yellow?) { should be_false }
+      its(:failure?) { should be_true }
+      its(:success?) { should be_false }
+      its(:indeterminate?) { should be_false }
     end
 
     context "the project has a success status" do
       let(:project) { FactoryGirl.create(:project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: true, build_id: 1) }
 
-      its(:red?) { should be_false }
-      its(:green?) { should be_true }
-      its(:yellow?) { should be_false }
+      its(:failure?) { should be_false }
+      its(:success?) { should be_true }
+      its(:indeterminate?) { should be_false }
     end
 
     context "the project has no statuses" do
       let(:project) { Project.new(online: true) }
 
-      its(:red?) { should be_false }
-      its(:green?) { should be_false }
-      its(:yellow?) { should be_true }
+      its(:failure?) { should be_false }
+      its(:success?) { should be_false }
+      its(:indeterminate?) { should be_true }
     end
 
     context "the project is offline" do
       let(:project) { Project.new(online: false) }
 
-      its(:red?) { should be_false }
-      its(:green?) { should be_false }
-      its(:yellow?) { should be_false }
+      its(:failure?) { should be_false }
+      its(:success?) { should be_false }
+      its(:indeterminate?) { should be_false }
     end
   end
 
@@ -341,9 +341,9 @@ describe Project do
       project.red_since.should == red_since
     end
 
-    it "should return nil if the project is currently green" do
+    it "should return nil if the project is currently succeeding" do
       project = projects(:pivots)
-      project.should be_green
+      project.should be_success
 
       project.red_since.should be_nil
     end
@@ -396,7 +396,7 @@ describe Project do
 
     it "should return zero for a green project" do
       project = projects(:pivots)
-      project.should be_green
+      project.should be_success
 
       project.red_build_count.should == 0
     end
@@ -539,35 +539,11 @@ describe Project do
   end
 
   describe "#status_in_words" do
-    subject { project.status_in_words }
-
-    let(:project) { FactoryGirl.build(:project) }
-    let(:red) { false }
-    let(:green) { false }
-    let(:yellow) { false }
-
     before do
-      project.stub(red?: red, green?: green, yellow?: yellow)
+      Project::State.stub(:new).and_return(double(Project::State, to_s: "anything"))
     end
 
-    context "when project is red" do
-      let(:red) { true }
-      it { should == "failure" }
-    end
-
-    context "when project is green" do
-      let(:green) { true }
-      it { should == "success" }
-    end
-
-    context "when project is yellow" do
-      let(:yellow) { true }
-      it { should == "indeterminate" }
-    end
-
-    context "when project none of the statuses" do
-      it { should == "offline" }
-    end
+    its(:status_in_words) { should == "anything" }
   end
 
   describe "#published_at" do

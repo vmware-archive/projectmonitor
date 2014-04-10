@@ -17,12 +17,12 @@ describe CruiseControlXmlPayload do
 
       context "when build was successful" do
         let(:rss) { "success.rss" }
-        it { should be_green }
+        it { should be_success }
       end
 
       context "when build had failed" do
         let(:rss) { "failure.rss" }
-        it { should be_red }
+        it { should be_failure }
       end
     end
 
@@ -37,7 +37,7 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_green
+        project.should be_success
         project.statuses.should == statuses
       end
 
@@ -49,7 +49,7 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_red
+        project.should be_failure
         project.statuses.should == statuses
       end
     end

@@ -16,7 +16,7 @@ describe ProjectMonitorHelper do
         @status = double(ProjectStatus, :published_at => nil)
         @project = double(Project, :status => @status, :red_since => nil)
         @project.stub(:online?).and_return(true)
-        @project.stub(:red?).and_return(true)
+        @project.stub(:failure?).and_return(true)
         @project.stub(:red_build_count).and_return(2)
       end
 
@@ -30,7 +30,7 @@ describe ProjectMonitorHelper do
     context "when the project is online" do
       before do
         @project.stub(:online?).and_return(true)
-        @project.stub(:red?).and_return(false)
+        @project.stub(:failure?).and_return(false)
       end
 
       context "when the project isn't red" do
@@ -45,7 +45,7 @@ describe ProjectMonitorHelper do
       context "when the project is red" do
         before do
           @red_since_time = @status.published_at - 2.days
-          @project.stub(:red?).and_return(true)
+          @project.stub(:failure?).and_return(true)
           @project.stub(:red_build_count).and_return(20)
           @project.stub(:red_since).and_return(@red_since_time)
         end

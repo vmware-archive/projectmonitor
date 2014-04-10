@@ -16,7 +16,7 @@ describe LegacyTeamCityXmlPayload do
 
       context "when latest build is successful" do
         let(:xml) { "success.xml" }
-        it { should be_green }
+        it { should be_success }
 
         it "doesn't add a duplicate of the existing status" do
           latest_status = subject.latest_status
@@ -28,7 +28,7 @@ describe LegacyTeamCityXmlPayload do
 
       context "when latest build has failed" do
         let(:xml) { "failure.xml" }
-        it { should be_red }
+        it { should be_failure }
       end
     end
 
@@ -41,7 +41,7 @@ describe LegacyTeamCityXmlPayload do
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_green
+        project.should be_success
         project.statuses.should == statuses
       end
 
@@ -53,7 +53,7 @@ describe LegacyTeamCityXmlPayload do
         build_content = BuildingStatusExample.new("team_city_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_red
+        project.should be_failure
         project.statuses.should == statuses
       end
     end

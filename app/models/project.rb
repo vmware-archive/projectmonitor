@@ -52,11 +52,13 @@ class Project < ActiveRecord::Base
   before_create :generate_guid
   before_create :populate_iteration_story_state_counts
 
+  attr_writer :feed_url
+
+  delegate :success?, :indeterminate?, :failure?, :color, to: :state
+
   def populate_iteration_story_state_counts
     self.iteration_story_state_counts = []
   end
-
-  attr_writer :feed_url
 
   def self.project_specific_attributes
     columns.map(&:name).grep(/#{project_attribute_prefix}_/)
@@ -64,6 +66,10 @@ class Project < ActiveRecord::Base
 
   def self.with_aggregate_project(aggregate_project_id, &block)
     where(aggregate_project_id: aggregate_project_id).scoping(&block)
+  end
+
+  def status_in_words
+    state.to_s
   end
 
   def code
@@ -84,37 +90,6 @@ class Project < ActiveRecord::Base
 
   def requires_branch_name?
     false
-  end
-
-  def green?
-    online? && status.success?
-  end
-
-  def yellow?
-    online? && !red? && !green?
-  end
-
-  def red?
-    online? && latest_status.try(:success?) == false
-  end
-
-  def status_in_words
-    if red?
-      'failure'
-    elsif green?
-      'success'
-    elsif yellow?
-      'indeterminate'
-    else
-      'offline'
-    end
-  end
-
-  def color
-    return "white" unless online?
-    return "green" if green?
-    return "red" if red?
-    return "yellow" if yellow?
   end
 
   def red_since
@@ -208,6 +183,10 @@ class Project < ActiveRecord::Base
   #   http://api.rubyonrails.org/classes/ActiveModel/Conversion.html#method-i-to_partial_path
   def to_partial_path
     "projects/project"
+  end
+
+  def state
+    State.new(online: online, success: latest_status.try(:success?))
   end
 
   private
