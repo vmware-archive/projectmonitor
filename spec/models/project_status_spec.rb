@@ -14,25 +14,12 @@ describe ProjectStatus do
 
     context "for just one project" do
       it "returns statuses sorted by published_at" do
-        ProjectStatus.recent(project, 2).should == [status1, status2]
+        project.statuses.recent.should == [status1, status2]
       end
 
       it "returns statuses that have a build_id" do
         status0 = project.statuses.create(build_id: nil, published_at: 1.year.ago)
-        ProjectStatus.recent(project, 2).should_not include(status0)
-      end
-
-      it "returns a limited number of statuses" do
-        ProjectStatus.recent(project, 1).size.should == 1
-      end
-    end
-
-    context "for multiple projects" do
-      let(:other_project) { FactoryGirl.create(:travis_project) }
-      let!(:status3) { other_project.statuses.create(build_id: 3, published_at: 1.years.ago) }
-
-      it "returns statuses for multiple projects" do
-        ProjectStatus.recent([project, other_project], 3).should == [status3, status1, status2]
+        project.statuses.recent.should_not include(status0)
       end
     end
   end

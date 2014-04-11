@@ -62,7 +62,7 @@ json.build do
   json.building project.building?
   json.status   project.status_in_words
 
-  json.statuses project.statuses.reverse_chronological do |status|
+  json.statuses project.statuses.recent do |status|
     json.(status, :success, :url)
   end
 end

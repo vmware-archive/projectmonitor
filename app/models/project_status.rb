@@ -4,12 +4,8 @@ class ProjectStatus < ActiveRecord::Base
   validates :success, inclusion: { in: [true, false] }
   validates :build_id, presence: true
 
-  scope :recent, ->(projects, limit) {
-    where(project_id: Array(projects).map(&:id)).reverse_chronological.limit(limit)
-  }
-
-  scope :reverse_chronological, -> {
-    where('build_id IS NOT NULL').order('published_at DESC, build_id DESC')
+  scope :recent, -> {
+    where.not(build_id: nil).order('published_at DESC, build_id DESC')
   }
 
   scope :green, -> {
@@ -20,10 +16,8 @@ class ProjectStatus < ActiveRecord::Base
     where(success: false)
   }
 
-  class << self
-    def latest
-      reverse_chronological.first
-    end
+  def self.latest
+    recent.first
   end
 
   def in_words

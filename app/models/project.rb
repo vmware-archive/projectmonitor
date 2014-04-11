@@ -75,8 +75,8 @@ class Project < ActiveRecord::Base
     statuses.latest
   end
 
-  def recent_statuses(count = RECENT_STATUS_COUNT)
-    ProjectStatus.recent(self, count)
+  def recent_statuses
+    statuses.recent.limit(RECENT_STATUS_COUNT)
   end
 
   def status
