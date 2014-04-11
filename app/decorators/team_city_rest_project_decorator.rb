@@ -7,7 +7,7 @@ class TeamCityRestProjectDecorator < ProjectDecorator
       "#{object.team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{object.team_city_rest_build_type_id}"
     end
 
-    object.send(:url_with_scheme, url)
+    object.url_with_scheme(url)
   end
 
 end

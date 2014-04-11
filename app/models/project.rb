@@ -169,6 +169,11 @@ class Project < ActiveRecord::Base
     State.new(online: online, success: latest_status.try(:success?))
   end
 
+  # FIXME: This method shouldn't be a method of Project class
+  def url_with_scheme(url)
+    url =~ %r{\Ahttps?://} ? url : "http://#{url}"
+  end
+
   private
 
   def self.project_attribute_prefix
@@ -181,13 +186,5 @@ class Project < ActiveRecord::Base
 
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
-  end
-
-  def url_with_scheme url
-    if url =~ %r{\Ahttps?://}
-      url
-    else
-      "http://#{url}"
-    end
   end
 end
