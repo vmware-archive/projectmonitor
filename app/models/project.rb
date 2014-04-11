@@ -63,10 +63,6 @@ class Project < ActiveRecord::Base
     where(aggregate_project_id: aggregate_project_id).scoping(&block)
   end
 
-  def status_in_words
-    state.to_s
-  end
-
   def code
     super.presence || name.downcase.gsub(" ", '')[0..3]
   end

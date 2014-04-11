@@ -491,14 +491,6 @@ describe Project do
     end
   end
 
-  describe "#status_in_words" do
-    before do
-      Project::State.stub(:new).and_return(double(Project::State, to_s: "anything"))
-    end
-
-    its(:status_in_words) { should == "anything" }
-  end
-
   describe "#published_at" do
     subject { project.published_at }
     let(:project) { FactoryGirl.create(:project)}

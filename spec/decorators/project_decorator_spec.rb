@@ -1,64 +1,48 @@
 require 'spec_helper'
 
 describe ProjectDecorator do
+  let(:project_decorator) { ProjectDecorator.new(project) }
+  let(:project) { Project.new }
+
+  subject { project_decorator }
+
   describe "#css_id" do
-    let(:id) { "123" }
-    subject { ProjectDecorator.new(project).css_id }
-
-    before { project.stub(id: id)}
-
     context "when Project" do
-      let(:project) { CruiseControlProject.new }
+      let(:project) { Project.new(id: 123) }
 
-      it { should == "project_#{id}"}
-    end
-
-    context "when AggregateProject" do
-      let(:project) { AggregateProject.new }
-
-      it { should == "aggregate_project_#{id}"}
-    end
-
-  end
-
-  describe "#css_class" do
-    subject { ProjectDecorator.new(project).css_class }
-    let(:project) { double :project, red?: red, green?: green, yellow?: yellow }
-    let(:red) { false }
-    let(:green) { false }
-    let(:yellow) { false }
-
-    context "project is red" do
-      let(:red) { true }
-      it { should == "project failure"}
-    end
-
-    context "project is green" do
-      let(:green) { true }
-      it { should == "project success"}
-    end
-
-    context "project is yellow" do
-      let(:yellow) { true }
-      it { should == "project indeterminate"}
-    end
-
-    context "project is offline" do
-      it { should == "project offline"}
-    end
-
-    context "project is aggregate" do
-      before do
-        project.stub :projects
-      end
-
-      it { should include "aggregate"}
+      its(:css_id) { should == "project_123" }
     end
   end
 
-  describe '#current_build_url' do
-    subject { Project.new.decorate.current_build_url }
+  describe "#current_build_url" do
+    its(:current_build_url) { should be_nil }
+  end
 
-    it { should be_nil }
+  context "the project has a failure status" do
+    before { project.stub(state: Project::State.failure) }
+
+    its(:css_class) { should == "project failure" }
+    its(:status_in_words) { should == "failure" }
+  end
+
+  context "the project has a success status" do
+    before { project.stub(state: Project::State.success) }
+
+    its(:css_class) { should == "project success" }
+    its(:status_in_words) { should == "success" }
+  end
+
+  context "the project has no statuses" do
+    before { project.stub(state: Project::State.indeterminate) }
+
+    its(:css_class) { should == "project indeterminate" }
+    its(:status_in_words) { should == "indeterminate" }
+  end
+
+  context "the project is offline" do
+    before { project.stub(state: Project::State.offline) }
+
+    its(:css_class) { should == "project offline" }
+    its(:status_in_words) { should == "offline" }
   end
 end

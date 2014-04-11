@@ -88,8 +88,4 @@ class AggregateProject < ActiveRecord::Base
     red_project = projects.detect(&:failure?)
     red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
   end
-
-  def status_in_words
-    state.to_s
-  end
 end

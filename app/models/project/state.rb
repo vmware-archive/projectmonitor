@@ -14,6 +14,14 @@ class Project::State
 
   delegate :failure?, :success?, :indeterminate?, :offline?, :to_s, to: :state
 
+  def self.success
+    new(online: true, success: true)
+  end
+
+  def self.failure
+    new(online: true, success: false)
+  end
+
   def self.offline
     new(online: false, success: nil)
   end

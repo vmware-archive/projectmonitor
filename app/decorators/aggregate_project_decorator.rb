@@ -1,4 +1,4 @@
-class ProjectDecorator < Draper::Decorator
+class AggregateProjectDecorator < Draper::Decorator
   delegate_all
 
   def css_id
@@ -10,9 +10,7 @@ class ProjectDecorator < Draper::Decorator
   end
 
   def css_class
-    "project #{status_in_words}"
+    "project #{status_in_words} aggregate"
   end
 
-  def current_build_url
-  end
 end
