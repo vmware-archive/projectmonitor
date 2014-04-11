@@ -47,7 +47,7 @@ module ProjectsHelper
   def project_last_status_text(project)
     if latest = project.payload_log_entries.latest
       if project.enabled
-        latest.status
+        latest.status || "Unknown Status"
       else
         "disabled"
       end

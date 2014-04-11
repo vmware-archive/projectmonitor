@@ -38,6 +38,33 @@ describe ProjectsHelper do
     end
   end
 
+  describe '#project_last_status_text' do
+    subject { helper.project_last_status_text(project) }
+
+    context "when the project have a payload" do
+      let(:payload) { PayloadLogEntry.new(status: "status") }
+      let(:project) { FactoryGirl.create(:project, payload_log_entries: [payload]) }
+
+      context "when the project is enabled" do
+        it { should == 'Status' }
+
+        context "but the project's latest payload doesn't have status" do
+          let(:payload) { PayloadLogEntry.new(status: nil) }
+          it { should == 'Unknown Status' }
+        end
+      end
+      context "when the project is disabled" do
+        let(:project) { FactoryGirl.create(:project, enabled: false, payload_log_entries: [payload]) }
+        it { should == 'Disabled' }
+      end
+    end
+
+    context "when the project doesn't have payloads" do
+      let(:project) { FactoryGirl.create(:project) }
+      it { should == 'None' }
+    end
+  end
+
   describe '#project_status_link' do
     context 'the current_build_url is not blank' do
       let(:code) { double }
