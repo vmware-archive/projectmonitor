@@ -51,7 +51,6 @@ GEM
       json
     archive-tar-minitar (0.5.2)
     arel (4.0.2)
-    atomic (1.1.16)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.0)
     binding_of_caller (0.7.2)
@@ -123,8 +122,11 @@ GEM
       text
     diff-lcs (1.2.4)
     dotenv (0.8.0)
-    draper (0.12.0)
-      activesupport (>= 2.3.10)
+    draper (1.3.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0.3)
     dynamic_form (1.1.4)
     eco (1.0.0)
       coffee-script
@@ -313,6 +315,7 @@ GEM
     rdoc (4.0.1)
       json (~> 1.4)
     ref (1.0.5)
+    request_store (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.14.0)
@@ -368,8 +371,7 @@ GEM
       libv8 (~> 3.11.8.12)
       ref
     thor (0.19.1)
-    thread_safe (0.3.1)
-      atomic (>= 1.1.7, < 2)
+    thread_safe (0.3.3)
     tilt (1.4.1)
     timecop (0.6.1)
     treetop (1.4.15)
@@ -427,7 +429,7 @@ DEPENDENCIES
   devise
   devise-encryptable
   did_you_mean
-  draper (< 0.13)
+  draper
   dynamic_form
   eco
   em-http-request

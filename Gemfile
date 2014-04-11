@@ -12,7 +12,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'devise'
 gem 'devise-encryptable'
-gem 'draper', '< 0.13' # NOTE: Newer versions of draper are currently incompatible with this codebase
+gem 'draper'
 gem 'dynamic_form'
 gem 'foreman'
 gem 'sass-rails', '~> 4.0.2'

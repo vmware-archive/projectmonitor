@@ -1,8 +1,8 @@
-class ProjectDecorator < ApplicationDecorator
-  delegate :to_s, to: :model
+class ProjectDecorator < Draper::Decorator
+  delegate_all
 
   def css_id
-    "#{model.class.base_class.name.underscore}_#{model.id}"
+    "#{object.class.base_class.name.underscore}_#{object.id}"
   end
 
   def css_class
