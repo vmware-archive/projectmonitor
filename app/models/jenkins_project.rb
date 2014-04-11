@@ -8,9 +8,7 @@ class JenkinsProject < Project
   end
 
   def build_status_url
-    return if jenkins_base_url.nil?
-
-    "#{jenkins_base_url}/cc.xml"
+    "#{jenkins_base_url}/cc.xml" if jenkins_base_url.present?
   end
 
   def fetch_payload
