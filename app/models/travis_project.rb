@@ -3,7 +3,6 @@ class TravisProject < Project
   validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
   BASE_API_URL = "https://api.travis-ci.org"
-  BASE_WEB_URL = "https://travis-ci.org"
 
   def build_status_url
     feed_url
@@ -11,10 +10,6 @@ class TravisProject < Project
 
   def feed_url
     "#{base_url}/builds.json"
-  end
-
-  def current_build_url
-    "#{BASE_WEB_URL}/#{slug}"
   end
 
   def has_status?(status)
@@ -43,13 +38,13 @@ class TravisProject < Project
     true
   end
 
+  def slug
+    "#{travis_github_account}/#{travis_repository}"
+  end
+
   private
 
   def base_url
     "#{BASE_API_URL}/repositories/#{slug}"
-  end
-
-  def slug
-    "#{travis_github_account}/#{travis_repository}"
   end
 end

@@ -22,7 +22,6 @@ describe CircleCiProject do
   describe 'accessors' do
     its(:feed_url) { should == 'https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2' }
     its(:build_status_url) { should == 'https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2' }
-    its(:current_build_url) { should == 'https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2' }
     its(:circleci_project_name) { should == 'a-project' }
     its(:fetch_payload) { should be_an_instance_of(CircleCiPayload) }
   end

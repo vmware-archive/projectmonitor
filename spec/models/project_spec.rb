@@ -462,13 +462,6 @@ describe Project do
     end
   end
 
-  describe '#current_build_url' do
-    let(:project) { Project.new }
-    subject { project.current_build_url }
-
-    it { should be_nil }
-  end
-
   describe "#generate_guid" do
     let(:project) { FactoryGirl.build(:project) }
 

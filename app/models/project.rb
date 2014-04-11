@@ -120,9 +120,6 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def current_build_url
-  end
-
   def last_green
     @last_green ||= recent_statuses.green.first
   end

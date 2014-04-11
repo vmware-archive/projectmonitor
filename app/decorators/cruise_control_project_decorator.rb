@@ -1,0 +1,3 @@
+class CruiseControlProjectDecorator < ProjectDecorator
+
+end

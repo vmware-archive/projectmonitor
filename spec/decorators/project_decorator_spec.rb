@@ -55,4 +55,10 @@ describe ProjectDecorator do
       it { should include "aggregate"}
     end
   end
+
+  describe '#current_build_url' do
+    subject { Project.new.decorate.current_build_url }
+
+    it { should be_nil }
+  end
 end

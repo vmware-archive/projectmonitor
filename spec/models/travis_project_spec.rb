@@ -29,15 +29,6 @@ describe TravisProject do
   its(:project_name) { should == 'account' }
   its(:build_status_url) { should == 'https://api.travis-ci.org/repositories/account/project/builds.json' }
 
-  describe '#current_build_url' do
-    subject { project.current_build_url }
-    let(:project) { FactoryGirl.build(:travis_project) }
-
-    it "returns a url to the project" do
-      should == 'https://travis-ci.org/account/project'
-    end
-  end
-
   describe "#has_status?" do
     subject { project.has_status?(status) }
 

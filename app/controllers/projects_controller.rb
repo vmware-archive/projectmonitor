@@ -7,10 +7,10 @@ class ProjectsController < ApplicationController
 
   def index
     if params[:aggregate_project_id].present?
-      projects = AggregateProject.find(params[:aggregate_project_id]).projects
+      projects = AggregateProject.find(params[:aggregate_project_id]).projects.decorate
     else
-      standalone_projects = Project.standalone.displayable(params[:tags])
-      aggregate_projects = AggregateProject.displayable(params[:tags])
+      standalone_projects = Project.standalone.displayable(params[:tags]).decorate
+      aggregate_projects = AggregateProject.displayable(params[:tags]).decorate
       projects = standalone_projects + aggregate_projects
     end
     @projects = projects.sort_by(&:code)

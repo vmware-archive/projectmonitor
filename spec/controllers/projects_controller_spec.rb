@@ -25,6 +25,9 @@ describe ProjectsController do
         AggregateProject.stub(:displayable).and_return(aggregate_projects)
         Project.stub_chain(:standalone, :displayable).and_return(projects)
         projects.stub_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
+
+        aggregate_projects.should receive(:decorate).and_return(aggregate_projects)
+        projects.should receive(:decorate).and_return(projects)
       end
 
       it 'gets a collection of aggregate projects by tag' do

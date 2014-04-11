@@ -20,4 +20,7 @@ class ProjectDecorator < Draper::Decorator
 
     klass
   end
+
+  def current_build_url
+  end
 end

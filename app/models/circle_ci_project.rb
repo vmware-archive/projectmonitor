@@ -6,10 +6,6 @@ class CircleCiProject < Project
     columns.map(&:name).grep(/circleci_/)
   end
 
-  def current_build_url
-    "https://circleci.com/api/v1/project/#{circleci_username}/#{circleci_project_name}?circle-token=#{circleci_auth_token}"
-  end
-
   def build_status_url
     feed_url
   end

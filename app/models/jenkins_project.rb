@@ -15,14 +15,6 @@ class JenkinsProject < Project
     "#{jenkins_base_url}/cc.xml"
   end
 
-  def current_build_url
-    if webhooks_enabled?
-      parsed_url
-    else
-      jenkins_base_url
-    end
-  end
-
   def fetch_payload
     JenkinsXmlPayload.new(jenkins_build_name)
   end

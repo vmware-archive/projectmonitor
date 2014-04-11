@@ -2,10 +2,6 @@ class TddiumProject < Project
 
   validates_presence_of :tddium_project_name, :tddium_auth_token, unless: ->(project) { project.webhooks_enabled }
 
-  def current_build_url
-    "https://api.tddium.com/dashboard?auth_token=#{tddium_auth_token}"
-  end
-
   def build_status_url
     feed_url
   end
