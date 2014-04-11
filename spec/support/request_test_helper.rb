@@ -10,5 +10,5 @@ module RequestTestHelper
 end
 
 RSpec.configure do |config|
-  config.include RequestTestHelper, :type => :feature
+  config.include RequestTestHelper, type: :feature
 end

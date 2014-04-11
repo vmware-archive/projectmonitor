@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  skip_filter :authenticate_user!, :only => [:show, :status, :index]
-  before_filter :load_project, :only => [:edit, :update, :destroy]
+  skip_filter :authenticate_user!, only: [:show, :status, :index]
+  before_filter :load_project, only: [:edit, :update, :destroy]
   around_filter :scope_by_aggregate_project
 
   respond_to :json, only: [:index, :show]
@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
     project_updater = ProjectUpdater.new(payload_processor: PayloadProcessor.new(project_status_updater: status_updater))
     log_entry = project_updater.update(project)
 
-    render :json => {
+    render json: {
       status: log_entry.status == 'successful',
       error_type: log_entry.error_type,
       error_text: log_entry.error_text.to_s[0,10000]

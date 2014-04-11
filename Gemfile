@@ -29,7 +29,7 @@ gem 'pivotal-tracker', '0.5.8'
 gem 'rails', '4.0.4'
 gem 'rake'
 gem 'xpath'
-gem 'whenever', :require => false
+gem 'whenever', require: false
 gem 'rails-backbone'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'eco'

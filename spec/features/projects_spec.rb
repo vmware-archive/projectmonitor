@@ -12,17 +12,17 @@ feature "projects" do
   scenario "admin creates a Travis project", js: true do
     click_on "Add Project"
 
-    select "Travis Project", :from => "Project Type"
+    select "Travis Project", from: "Project Type"
     choose "project_webhooks_enabled_false"
-    fill_in "project[name]", :with => "Project Monitor"
+    fill_in "project[name]", with: "Project Monitor"
 
     click_on "Create"
 
     page.should have_content("Travis github account can't be blank")
     page.should have_content("Travis repository can't be blank")
 
-    fill_in "Github Account", :with => "pivotal"
-    fill_in "Repository", :with => "projectmonitor"
+    fill_in "Github Account", with: "pivotal"
+    fill_in "Repository", with: "projectmonitor"
 
     click_on "Create"
 
@@ -37,8 +37,8 @@ feature "projects" do
     new_account = "pivotal2"
     new_project = "projectmonitor2"
 
-    fill_in "Github Account", :with => new_account
-    fill_in "Repository", :with => new_project
+    fill_in "Github Account", with: new_account
+    fill_in "Repository", with: new_project
 
     click_button "Update"
 

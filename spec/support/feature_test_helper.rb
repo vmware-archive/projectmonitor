@@ -10,5 +10,5 @@ module FeatureTestHelper
 end
 
 RSpec.configure do |config|
-  config.include FeatureTestHelper, :type => :feature
+  config.include FeatureTestHelper, type: :feature
 end

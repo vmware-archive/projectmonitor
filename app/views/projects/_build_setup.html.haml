@@ -29,9 +29,9 @@
             = f.label field, class: "col-sm-2 control-label"
             .col-sm-4
               - if field == "tddium_project_name"
-                = f.text_field field, :disabled => !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
+                = f.text_field field, disabled: !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
               - else
-                = f.text_field field, :disabled => !enabled, class: "form-control"
+                = f.text_field field, disabled: !enabled, class: "form-control"
   %fieldset#polling
     .form-group.verify_ssl_field
       .col-sm-offset-2.col-sm-10
@@ -62,7 +62,7 @@
           %span.label.label-success.success.hide OK
           %span.label.label-info.pending.hide Loading...
           %span.label.label-default.unconfigured.hide Unconfigured
-          %span.label.label-danger.failure.hide{ :title => project_latest_error(@project) } Error
+          %span.label.label-danger.failure.hide{ title: project_latest_error(@project) } Error
           %span.label.label-warning.empty_fields.hide Some Fields Empty
           &nbsp;
           %input{ class: 'refresh btn btn-default btn-xs', type: 'button', value: 'Refresh' }

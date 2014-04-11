@@ -66,7 +66,7 @@ describe ProjectWorkloadHandler do
           handler.workload_complete(workload)
         }.to change(project.payload_log_entries, :count).by(2)
 
-        project.payload_log_entries.where(:error_type => "ActiveRecord::RecordInvalid").should be_present
+        project.payload_log_entries.where(error_type: "ActiveRecord::RecordInvalid").should be_present
       end
 
       it "sets the project to offline" do
@@ -89,12 +89,12 @@ describe ProjectWorkloadHandler do
     it 'should add a log entry' do
       error.stub(:message).and_return("message")
       project.payload_log_entries.should_receive(:build)
-      .with(error_type: "RSpec::Mocks::Mock", error_text: "message", update_method: "Polling", status: "failed", :backtrace => "message\nbacktrace\nmore")
+      .with(error_type: "RSpec::Mocks::Mock", error_text: "message", update_method: "Polling", status: "failed", backtrace: "message\nbacktrace\nmore")
     end
 
     it 'should not call message on a failure when passed a String instead of an Exception' do
       project.payload_log_entries.should_receive(:build)
-      .with(error_type: "RSpec::Mocks::Mock", error_text: "", update_method: "Polling", status: "failed", :backtrace => "\nbacktrace\nmore")
+      .with(error_type: "RSpec::Mocks::Mock", error_text: "", update_method: "Polling", status: "failed", backtrace: "\nbacktrace\nmore")
     end
 
     it 'should set building to false' do

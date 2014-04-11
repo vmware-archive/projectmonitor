@@ -1,5 +1,5 @@
 ProjectMonitor::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :sessions => "sessions" }
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: "sessions" }
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
   get 'builds' => "home#builds", format: :rss
@@ -12,7 +12,7 @@ ProjectMonitor::Application.routes.draw do
   patch 'projects/validate_build_info'
 
   resource :configuration, only: [:show, :create, :edit], controller: "configuration"
-  resources :users, :only => [:new, :create]
+  resources :users, only: [:new, :create]
   resources :projects do
     resources :payload_log_entries, only: :index
     resource :status, only: :create, controller: "status"
@@ -31,9 +31,9 @@ ProjectMonitor::Application.routes.draw do
   end
 
   authenticate :user do
-    get "/jobs" => DelayedJobWeb, :anchor => false
+    get "/jobs" => DelayedJobWeb, anchor: false
   end
 
   get 'styleguide' => 'home#styleguide'
-  root :to => 'home#index'
+  root to: 'home#index'
 end

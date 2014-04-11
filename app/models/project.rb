@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
 
   scope :displayable, lambda { |tags|
     scope = enabled.order('code ASC')
-    return scope.tagged_with(tags, :any => true) if tags
+    return scope.tagged_with(tags, any: true) if tags
     scope
   }
 

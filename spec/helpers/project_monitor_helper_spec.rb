@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ProjectMonitorHelper do
   before do
-    @status = double(ProjectStatus, :published_at => publish_time)
-    @project = double(Project, :status => @status)
+    @status = double(ProjectStatus, published_at: publish_time)
+    @project = double(Project, status: @status)
   end
 
   describe "#static_status_messages_for" do
@@ -13,8 +13,8 @@ describe ProjectMonitorHelper do
 
     context "when the project's status published_at & red_since is nil" do
       before do
-        @status = double(ProjectStatus, :published_at => nil)
-        @project = double(Project, :status => @status, :red_since => nil)
+        @status = double(ProjectStatus, published_at: nil)
+        @project = double(Project, status: @status, red_since: nil)
         @project.stub(:online?).and_return(true)
         @project.stub(:failure?).and_return(true)
         @project.stub(:red_build_count).and_return(2)

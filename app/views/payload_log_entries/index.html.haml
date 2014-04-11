@@ -6,7 +6,7 @@
   %th Message
   %th Backtrace
   - @payload_log_entries.each_with_index do |entry, index|
-    %tr{:class => cycle("odd", "even")}
+    %tr{class: cycle("odd", "even")}
       %td= entry.created_at
       %td= entry.status
       %td= entry.update_method

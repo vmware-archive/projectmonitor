@@ -5,7 +5,7 @@ class VersionsController < ApplicationController
   VERSION_PATH    = File.join(Rails.root, 'VERSION')
 
   def show
-    render :text => version
+    render text: version
   end
 
   private

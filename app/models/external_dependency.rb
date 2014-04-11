@@ -3,13 +3,13 @@ class ExternalDependency
   class << self
     def get_or_fetch(name, threshold=30)
       name.downcase!
-      Rails.cache.fetch(name, :expires_in => threshold.seconds) { refresh_status(name) }
+      Rails.cache.fetch(name, expires_in: threshold.seconds) { refresh_status(name) }
     end
 
     def fetch_status(name)
       name.downcase!
       status = refresh_status(name)
-      Rails.cache.write(name, status, :expires_in => 30.seconds)
+      Rails.cache.write(name, status, expires_in: 30.seconds)
       status
     end
 

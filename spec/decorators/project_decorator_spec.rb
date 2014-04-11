@@ -5,7 +5,7 @@ describe ProjectDecorator do
     let(:id) { "123" }
     subject { ProjectDecorator.new(project).css_id }
 
-    before { project.stub(:id => id)}
+    before { project.stub(id: id)}
 
     context "when Project" do
       let(:project) { CruiseControlProject.new }

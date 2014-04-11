@@ -7,7 +7,7 @@ class TrackerHistogramBar
 
   attr_reader :points_value
 
-  delegate :number_of_points_values, :maximum_points_value, :opacity_step, :to => :tracker_histogram
+  delegate :number_of_points_values, :maximum_points_value, :opacity_step, to: :tracker_histogram
 
   def height_percentage
     (points_value.to_f / maximum_points_value * 100).to_i + TrackerHistogram::ZERO_OFFSET

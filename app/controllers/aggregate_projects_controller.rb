@@ -1,6 +1,6 @@
 class AggregateProjectsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :status, :index]
-  before_filter :load_aggregate_project, :only => [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, except: [:show, :status, :index]
+  before_filter :load_aggregate_project, only: [:show, :edit, :update, :destroy]
 
   respond_to :json, only: [:index, :show]
 

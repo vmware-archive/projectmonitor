@@ -17,8 +17,8 @@ RSpec.configure do |config|
   config.use_instantiated_fixtures  = false
   config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :aggregate_projects
 
-  config.include Devise::TestHelpers, :type => :controller
-  config.include ViewHelpers, :type => :view
+  config.include Devise::TestHelpers, type: :controller
+  config.include ViewHelpers, type: :view
 
   config.extend VCR::RSpec::Macros
 
@@ -43,7 +43,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each, :js => true) do
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
 

@@ -131,7 +131,7 @@ describe Project do
         it "should find tagged with tags" do
           scope = double
           Project.stub_chain(:enabled, :order) { scope }
-          scope.should_receive(:tagged_with).with(tags, {:any => true})
+          scope.should_receive(:tagged_with).with(tags, {any: true})
           subject
         end
 
@@ -294,7 +294,7 @@ describe Project do
       red_since = project.red_since
 
       2.times do |i|
-        project.statuses.create!(success: false, build_id: i, :published_at => Time.now + (i+1)*5.minutes)
+        project.statuses.create!(success: false, build_id: i, published_at: Time.now + (i+1)*5.minutes)
       end
 
       project = Project.find(project.id)

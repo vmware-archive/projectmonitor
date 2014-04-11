@@ -39,7 +39,7 @@ describe AggregateProject do
 
     describe "before_destroy" do
       let(:project) { projects(:socialitis) }
-      let!(:aggregate_project) { FactoryGirl.create :aggregate_project, :projects => [project] }
+      let!(:aggregate_project) { FactoryGirl.create :aggregate_project, projects: [project] }
 
       it "should remove its id from its projects" do
         project.aggregate_project_id.should_not be_nil
@@ -71,8 +71,8 @@ describe AggregateProject do
         let(:displayable_aggregate) { AggregateProject.displayable }
 
         it "should return enabled projects" do
-          enabled = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true
-          disabled = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false
+          enabled = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true
+          disabled = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false
 
           displayable_aggregate.should include enabled
           displayable_aggregate.should_not include disabled
@@ -84,7 +84,7 @@ describe AggregateProject do
         end
 
         it "should not return duplicate aggregate projects" do
-          enabled = FactoryGirl.create :aggregate_project, :projects => [create(:project), create(:project)], enabled: true
+          enabled = FactoryGirl.create :aggregate_project, projects: [create(:project), create(:project)], enabled: true
 
           displayable_aggregate.to_a.count(enabled).should == 1
         end
@@ -101,10 +101,10 @@ describe AggregateProject do
         let(:displayable_aggregate) { AggregateProject.displayable "red"}
 
         it "should return enabled projects with the requested tags" do
-          disabled_red_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false, tag_list: "red"
-          disabled_blue_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: false, tag_list: "blue"
-          enabled_red_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true, tag_list: "red"
-          enabled_blue_project = FactoryGirl.create :aggregate_project, :projects => [create(:project)], enabled: true, tag_list: "blue"
+          disabled_red_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "red"
+          disabled_blue_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "blue"
+          enabled_red_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "red"
+          enabled_blue_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "blue"
 
           displayable_aggregate.should include enabled_red_project
           displayable_aggregate.should_not include disabled_red_project, disabled_blue_project, enabled_blue_project
@@ -168,7 +168,7 @@ describe AggregateProject do
       subject do
         indeterminate_state = double(Project::State, to_s: "indeterminate", failure?: false, indeterminate?: true)
         project = Project.new.tap{|p| p.stub(state: indeterminate_state)}
-        AggregateProject.new(:projects => [project]).indeterminate?
+        AggregateProject.new(projects: [project]).indeterminate?
       end
 
       it { should be_true }
@@ -176,7 +176,7 @@ describe AggregateProject do
 
     context "aggregate has one yellow and one red project " do
       subject do
-        AggregateProject.new(:projects => [
+        AggregateProject.new(projects: [
           Project.new.tap{|p| p.stub(indeterminate?: true)},
           Project.new.tap{|p| p.stub(indeterminate?: false)}]).indeterminate?
       end
@@ -270,7 +270,7 @@ describe AggregateProject do
     end
 
     it "should return nil if the project has no statuses" do
-      @project = Project.new(:name => "my_project_foo", :feed_url => "http://foo.bar.com:3434/projects/mystuff/baz.rss")
+      @project = Project.new(name: "my_project_foo", feed_url: "http://foo.bar.com:3434/projects/mystuff/baz.rss")
       aggregate_project.projects << @project
       aggregate_project.red_since.should be_nil
     end

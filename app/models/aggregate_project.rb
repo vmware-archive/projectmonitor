@@ -1,13 +1,13 @@
 class AggregateProject < ActiveRecord::Base
   has_many :projects
 
-  before_destroy { |record| record.projects.update_all :aggregate_project_id => nil }
+  before_destroy { |record| record.projects.update_all aggregate_project_id: nil }
 
   scope :enabled, -> { where(enabled: true) }
-  scope :with_statuses, -> { joins(:projects => :statuses).uniq }
+  scope :with_statuses, -> { joins(projects: :statuses).uniq }
   scope :displayable, lambda { |tags=nil|
     scope = enabled.joins(:projects).select("DISTINCT aggregate_projects.*").order('code ASC')
-    return scope.tagged_with(tags, :any => true) if tags
+    return scope.tagged_with(tags, any: true) if tags
     scope
   }
 

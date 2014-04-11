@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TrackerApi do
-  context "with the real service", :vcr => {:re_record_interval => 18.months} do
+  context "with the real service", vcr: {re_record_interval: 18.months} do
     subject { TrackerApi.new(project) }
 
     # ALERT: Always use a fake tracker project with these tests because they delete everything!

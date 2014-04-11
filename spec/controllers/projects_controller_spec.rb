@@ -37,11 +37,11 @@ describe ProjectsController do
     describe "#create" do
       context "when the project is valid" do
         def do_post
-          post :create, :project => {
-            :name => 'name',
-            :type => JenkinsProject.name,
-            :jenkins_base_url => 'http://www.example.com',
-            :jenkins_build_name => 'example'
+          post :create, project: {
+            name: 'name',
+            type: JenkinsProject.name,
+            jenkins_base_url: 'http://www.example.com',
+            jenkins_build_name: 'example'
           }
         end
 
@@ -63,14 +63,14 @@ describe ProjectsController do
       end
 
       context "when the project is invalid" do
-        before { post :create, :project => { :name => nil, :type => JenkinsProject.name} }
+        before { post :create, project: { name: nil, type: JenkinsProject.name} }
         it { should render_template :new }
       end
     end
 
     describe "#update" do
       context "when the project was successfully updated" do
-        before { put :update, :id => projects(:jenkins_project), :project => { :name => "new name" } }
+        before { put :update, id: projects(:jenkins_project), project: { name: "new name" } }
 
         it "should set the flash" do
           flash[:notice].should == 'Project was successfully updated.'
@@ -80,7 +80,7 @@ describe ProjectsController do
       end
 
       context "when the project was not successfully updated" do
-        before { put :update, :id => projects(:jenkins_project), :project => { :name => nil } }
+        before { put :update, id: projects(:jenkins_project), project: { name: nil } }
         it { should render_template :edit }
       end
 
@@ -89,7 +89,7 @@ describe ProjectsController do
         let(:project) { projects(:socialitis).tap {|p| p.auth_password = 'existing password'} }
         subject { project.auth_password }
         before do
-          put :update, :id => projects(:socialitis).id, :password_changed => changed, :project => {:auth_password => new_password }
+          put :update, id: projects(:socialitis).id, password_changed: changed, project: {auth_password: new_password }
           project.reload
         end
 
@@ -152,7 +152,7 @@ describe ProjectsController do
     end
 
     describe "#destroy" do
-      subject { delete :destroy, :id => projects(:jenkins_project) }
+      subject { delete :destroy, id: projects(:jenkins_project) }
 
       it "should destroy the project" do
         lambda { subject }.should change(JenkinsProject, :count).by(-1)

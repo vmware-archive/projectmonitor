@@ -25,7 +25,7 @@
 .form-group
   = f.label :aggregate_project_id, "Aggregate Project", class: "col-sm-2 control-label"
   .col-sm-3
-    = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {:prompt => false, :disabled => lambda { |ap| !ap.enabled? }, :include_blank => true}, class: "form-control")
+    = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {prompt: false, disabled: lambda { |ap| !ap.enabled? }, include_blank: true}, class: "form-control")
 .form-group
   :javascript
     autocomplete("#project_tag_list", #{ ActsAsTaggableOn::Tag.all.map(&:name) });

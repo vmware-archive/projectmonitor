@@ -2,6 +2,6 @@
 %h1 Edit Aggregate Project
 = error_messages_for :aggregate_project
 = form_for @aggregate_project do |f|
-  = render 'form', :f => f
-%div{:style => "margin-left: 30px;"}
+  = render 'form', f: f
+%div{style: "margin-left: 30px;"}
   = link_to 'Remove Aggregate Project -', aggregate_project_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "button"
