@@ -131,7 +131,7 @@ class Project < ActiveRecord::Base
     @breaking_build ||= if last_green.nil?
                           recent_statuses.red.last
                         else
-                          recent_statuses.red.where(["build_id > ?", last_green.build_id]).first
+                          recent_statuses.red.where("build_id > ?", last_green.build_id).first
                         end
   end
 

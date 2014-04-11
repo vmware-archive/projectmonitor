@@ -5,7 +5,7 @@ class AggregateProject < ActiveRecord::Base
 
   scope :enabled, -> { where(enabled: true) }
   scope :with_statuses, -> { joins(projects: :statuses).uniq }
-  scope :displayable, lambda { |tags=nil|
+  scope :displayable, lambda { |tags = nil|
     scope = enabled.joins(:projects).select("DISTINCT aggregate_projects.*").order('code ASC')
     return scope.tagged_with(tags, any: true) if tags
     scope
@@ -74,8 +74,7 @@ class AggregateProject < ActiveRecord::Base
   def breaking_build
     return statuses.first if never_been_green?
     red_statuses = projects.collect do |p|
-      last_green = p.last_green
-      if last_green
+      if p.last_green
         p.breaking_build
       else
         p.statuses.last

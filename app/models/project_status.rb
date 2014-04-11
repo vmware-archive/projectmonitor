@@ -21,11 +21,7 @@ class ProjectStatus < ActiveRecord::Base
   end
 
   def in_words
-    if success?
-      'success'
-    else
-      'failure'
-    end
+    success? ? 'success' : 'failure'
   end
 
 end
