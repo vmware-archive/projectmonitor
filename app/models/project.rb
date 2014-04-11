@@ -165,14 +165,6 @@ class Project < ActiveRecord::Base
     nil
   end
 
-  # Returns a string identifying the path associated with the object.
-  # ActionPack uses this to find a suitable partial to represent the object.
-  # To know more about this method, see:
-  #   http://api.rubyonrails.org/classes/ActiveModel/Conversion.html#method-i-to_partial_path
-  def to_partial_path
-    "projects/project"
-  end
-
   def state
     State.new(online: online, success: latest_status.try(:success?))
   end
