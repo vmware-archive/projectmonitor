@@ -4,9 +4,8 @@ class TravisProject < Project
 
   BASE_API_URL = "https://api.travis-ci.org"
 
-  def build_status_url
-    feed_url
-  end
+  alias_attribute :build_status_url, :feed_url
+  alias_attribute :project_name, :travis_github_account
 
   def feed_url
     "#{base_url}/builds.json"
@@ -14,10 +13,6 @@ class TravisProject < Project
 
   def has_status?(status)
     statuses.where(build_id: status.build_id, success: status.success).exists?
-  end
-
-  def project_name
-    travis_github_account
   end
 
   def fetch_payload

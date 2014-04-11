@@ -2,12 +2,10 @@ class CircleCiProject < Project
 
   validates_presence_of :circleci_username, :circleci_project_name, :circleci_auth_token, unless: ->(project) { project.webhooks_enabled }
 
+  alias_attribute :build_status_url, :feed_url
+
   def self.project_specific_attributes
     columns.map(&:name).grep(/circleci_/)
-  end
-
-  def build_status_url
-    feed_url
   end
 
   def feed_url

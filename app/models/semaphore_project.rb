@@ -2,9 +2,8 @@ class SemaphoreProject < Project
 
   validates_presence_of :semaphore_api_url, unless: ->(project) { project.webhooks_enabled }
 
-  def feed_url
-    semaphore_api_url
-  end
+  alias_attribute :feed_url, :semaphore_api_url
+  alias_attribute :build_status_url, :feed_url
 
   def fetch_payload
     SemaphorePayload.new.tap do |payload|
@@ -16,10 +15,6 @@ class SemaphoreProject < Project
     SemaphorePayload.new.tap do |payload|
       payload.branch = build_branch
     end
-  end
-
-  def build_status_url
-    feed_url
   end
 
   def requires_branch_name?

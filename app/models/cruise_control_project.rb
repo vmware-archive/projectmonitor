@@ -2,9 +2,7 @@ class CruiseControlProject < Project
 
   validates :cruise_control_rss_feed_url, presence: true, format: {with: /\Ahttps?:\/\/.*\.rss\Z/i, message: 'should end with ".rss"'}, unless: ->(project) { project.webhooks_enabled }
 
-  def feed_url
-    cruise_control_rss_feed_url
-  end
+  alias_attribute :feed_url, :cruise_control_rss_feed_url
 
   def project_name
     return if feed_url.nil?
