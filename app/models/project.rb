@@ -195,10 +195,6 @@ class Project < ActiveRecord::Base
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
   end
 
-  def simple_statuses
-    statuses.map(&:success)
-  end
-
   def url_with_scheme url
     if url =~ %r{\Ahttps?://}
       url
