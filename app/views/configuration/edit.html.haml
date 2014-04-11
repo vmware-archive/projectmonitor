@@ -29,7 +29,7 @@
           %th Actions
       %tbody
         - @projects.each do |project|
-          %tr{id: "project-#{project.id}", data: { tags: project.tag_list.inspect, "polling-status" => project_last_status_text(project)}}
+          %tr{id: "project-#{project.id}", data: { tags: project.tag_list.to_json, "polling-status" => project_last_status_text(project)}}
             %td= h project.code
             %td= h project.name
             %td
@@ -67,7 +67,7 @@
             %th Actions
         %tbody
           - for aggregate_project in @aggregate_projects
-            %tr{id: "aggregate-project-#{aggregate_project.id}", data: { tags: aggregate_project.tag_list.inspect, "polling-status" => "" }}
+            %tr{id: "aggregate-project-#{aggregate_project.id}", data: { tags: aggregate_project.tag_list.to_json, "polling-status" => "" }}
               %td= h aggregate_project.name
               %td.text-center
                 - if aggregate_project.enabled?
