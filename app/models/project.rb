@@ -29,8 +29,8 @@ class Project < ActiveRecord::Base
 
   scope :tracker_updateable, -> {
     enabled
-    .where('tracker_auth_token is NOT NULL').where('tracker_auth_token != ?', '')
-    .where('tracker_project_id is NOT NULL').where('tracker_project_id != ?', '')
+    .where.not(tracker_auth_token: [nil, ''])
+    .where.not(tracker_project_id: [nil, ''])
   }
 
   scope :displayable, lambda { |tags|
@@ -93,7 +93,7 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.where(success: false).where("id >= ?", breaking_build.id).count
+    statuses.red.where("id >= ?", breaking_build.id).count
   end
 
   def feed_url
