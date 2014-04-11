@@ -51,8 +51,12 @@ describe User do
 
     context "when the user does not exist" do
       it "should create a user" do
-        User.should_receive(:create!).with(name: 'foo',  email: 'foo@example.com', login: 'foo', password: anything)
-        subject
+        user = nil
+        expect { user = subject }.to change { User.count }.by(1)
+
+        expect(user.name).to eq('foo')
+        expect(user.email).to eq('foo@example.com')
+        expect(user.login).to eq('foo')
       end
     end
   end
