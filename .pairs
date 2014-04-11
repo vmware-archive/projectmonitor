@@ -1,4 +1,5 @@
 pairs:
+  ak: Alex Kwiatkowski; akwiatkowski
   ap: Andy Pliszka; apliszka
   ark: Andrew Kitchen; akitchen
   bb: Brian Butz; bbutz
@@ -8,6 +9,7 @@ pairs:
   df: Daniel Finnie; dfinnie
   dg: Dave Goddard; dgoddard
   dl: David Lee; dlee
+  dr: Dimitri Roche; dimroc
   dt: David Tengdin; dtengdin
   gs: Graham Siener; gsiener
   jam: Joe Masilotti; jmasilotti
@@ -15,16 +17,19 @@ pairs:
   jm: Jonathan Mukai-Heidt; jmukai
   jr: John Ryan; jryan
   js: Jeff Saracco; jeff
+  lg: Lauren Gilchrist; lgilchrist
+  lm: Lucas Marks; lmarks
+  mh: Matt Horan; mhoran
   mw: Matt Wismer; mwismer
   rg: Rob Gallagher; rgallagher
   rm: Ryan Moran; rmoran
   rpw: Ross Popoff-Walker; rpw
   se: Steve Ellis; sellis
+  ss: Sabrina Staedt; sstaedt
   tj: Tim Johnson; tjohnson
   wp: Ward Penney; wp
   sr: Sid Raval; sraval
   yn: Yuki Nishijima; ynishijima
-  jn: Jordi Noguera; jordi
 
 email:
   prefix: pair
