@@ -1,4 +1,4 @@
-# Upgrading
+# Upgrading to Devise
 
 ProjectMonitor has recently moved to
 [Devise](https://github.com/plataformatec/devise/) for authentication. This
