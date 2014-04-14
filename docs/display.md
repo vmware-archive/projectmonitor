@@ -9,6 +9,10 @@ refreshing the page doesn't cause the individual builds to be re-polled.
 The layout consists of a grid of tiles representing the projects.  The
 number of projects that need to be displayed is determined automatically.
 
+## Example
+
+[![](http://f.cl.ly/items/2R2U392y1D2B033I0z3J/Screen%20Shot%202013-04-02%20at%208.27.44%20PM.png)](http://ci.pivotallabs.com)
+
 ## Tile colors
 
 Tiles are green for green projects, red for red projects, and light gray if the
