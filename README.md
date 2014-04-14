@@ -27,6 +27,14 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 
 [![](http://f.cl.ly/items/2R2U392y1D2B033I0z3J/Screen%20Shot%202013-04-02%20at%208.27.44%20PM.png)](http://ci.pivotallabs.com)
 
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Configuration](#configuration)
+3. [Upgrading](#upgrading)
+4. [Deployment](#deployment)
+5. [Display](#display)
+6. [Ideas/Improvements](#ideas-improvements)
 
 ## Installation
 
@@ -63,21 +71,6 @@ homebrew or another package manager:
     brew install memcached
 
 After you have successfully installed memcached follow the instructions to run it.
-
-### Set up Vagrant
-[Vagrant](http://www.vagrantup.com/) automatically sets up virtual machines to run 
-Jenkins. First install VirtualBox. Then run the following commands to set it up.
-
-    vagrant up
-
-Useful commands
-
-    vagrant ssh
-    vagrant halt
-    vagrant provision
-    vagrant destroy #If you just halt, it will not rebuild everything from scratch
-
-Once the VM has started, services will be available at `192.168.33.10`.
 
 ### Authentication support
 #### IP Whitelist
@@ -231,7 +224,6 @@ The XML returned by that link will look something like:
 The "TDDium Project Name" field in the ProjectManager settings will need to be set to the full value of the Project
 name attribute, complete with the branch name in parentheses (in this case, "foobar (master)"). 
 
-
 ### Importing and Exporting Configurations
 You can export your configuration for posterity or to be transferred to another
 host:
@@ -318,6 +310,10 @@ recent build will be on the left and the least recent on the right.
 Successful builds are marked with a filled in circle, and unsuccessful builds
 are marked with an x.
 
+### Tags
+You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
+only projects that match a set of tags by going to /?tags=tag1,tag2
+
 ### Aggregate Projects
 Striped tiles indicate the aggregate status of several projects.  Click on an
 aggregate project to see the status of its component projects.
@@ -331,55 +327,7 @@ Pivotal Tracker project ID and a Pivotal Tracker API key in the admin section.
 ### Admin Interface
 Click 'manage projects' at the lower right to edit project details.
 
-## Tags
-You can enter tags for a project (separated by commas) on the project edit page.  You can then have ProjectMonitor display
-only projects that match a set of tags by going to /?tags=tag1,tag2
-
-## CI
-CI for ProjectMonitor is [here](http://travis-ci.org/pivotal/projectmonitor), and it's aggregated at [ci.pivotallabs.com](http://ci.pivotallabs.com)
-(that's an instance of ProjectMonitor, of course).
-
-## Development
-The public Tracker project for ProjectMonitor is [here](http://www.pivotaltracker.com/projects/2872).
-
-### Running tests
-To run tests, run:
-
-    rake setup
-    rake spec
-
-### Javascript tests
-To run Jasmine tests, run this once when setting up the project or if you haven't consistently been running guard:
-
-    rake jasmine:compile_coffeescript
-
-To keep your jasmine tests current, run:
-
-    guard
-
-Install phantomjs if needed:
-
-    brew install phantomjs
-
-Then, to run Jasmine tests from the command line, run:
-
-    RAILS_ENV=test bundle exec rake spec:javascript
-
-To run Jasmine tests from the browser, with a rails server running, visit [http://localhost:3000/specs](http://localhost:3000/specs)
-
-See the [jasmine-rails](https://github.com/searls/jasmine-rails) documentation for more details.
-
-### Development server
-To run a local development server and worker, run:
-
-    foreman start
-
-[For more info, see our CONTRIBUTE.md file!](http://github.com/pivotal/projectmonitor/blob/master/CONTRIBUTE.md)
-
-## Deploying to Github
-Project Monitor has been moved under the "Pivotal" organization. In order to have push privileges to the repo, you will need to request that your GitHub account is added as a collaborator.
-
-## Ideas /Improvements
+## Ideas and Improvements
 Got a burning idea that just needs to be implemented? Check the CONTRIBUTE.md file for help getting started. Join the google group and share your ideas with the team.
 
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
