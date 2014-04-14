@@ -29,14 +29,13 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 1. [Installation](#installation)
 2. [Configuration](#configuration)
 3. [Deployment](#deployment)
-4. [Display](#display)
-5. [Ideas and Improvements](#ideas-and-improvements)
+4. [Ideas and Improvements](#ideas-and-improvements)
 
 ## Linked Documents
 
 1. [Upgrading](docs/upgrading.md)
 2. [Adding a Project](docs/adding\_a\_project.md)
-3. [Displaying the Status](docs/display.md)
+3. [Displaying Your Project's Status](docs/displaying\_your\_projects\_status.md)
 
 ## Installation
 
@@ -139,6 +138,10 @@ to change this setting, you can edit `config/initializers/delayed_job_config.rb`
 Execute:
 
     nohup rails server -e production &> projectmonitor.log
+
+### Next Steps
+
+Now you need to add a project or two! Keep reading the *Configuration* section for instructions.
 
 ## Configuration
 

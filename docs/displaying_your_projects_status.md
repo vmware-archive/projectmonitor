@@ -1,4 +1,4 @@
-# Displaying the Status
+# Displaying Your Project's Status
 
 Just open a browser on `/`. The page refreshes every 30 seconds with the latest
 status fetched by the cron job or received via Webhook. That is,
