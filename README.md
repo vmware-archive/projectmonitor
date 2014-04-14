@@ -33,7 +33,7 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 
 ## Linked Documents
 
-1. [Upgrading](docs/upgrading.md)
+1. [Upgrading to Devise](docs/upgrading_to_devise.md)
 2. [Adding a Project](docs/adding\_a\_project.md)
 3. [Displaying Your Project's Status](docs/displaying\_your\_projects\_status.md)
 
