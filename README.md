@@ -7,13 +7,13 @@ display the page on a big screen monitor or TV so that the status of all your
 projects' builds are highly visible/glanceable (a "Big Visible Chart").
 ProjectMonitor currently supports:
 
+  * [CircleCI](http://circleci.com)
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
   * [Jenkins](http://jenkins-ci.org/)
+  * [Semaphore](http://www.semaphoreapp.com/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
   * [Travis CI](http://travis-ci.org/)
   * [tddium](http://www.tddium.com/)
-  * [Semaphore](http://www.semaphoreapp.com/)
-  * [CircleCI](http://circleci.com)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
 builds for all our client projects. We also have an instance of ProjectMonitor
