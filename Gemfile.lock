@@ -393,7 +393,7 @@ GEM
       net-scp (>= 1.0.2)
       net-ssh (>= 2.0.19)
       virtualbox (~> 0.7.3)
-    vcr (2.2.4)
+    vcr (2.9.0)
     virtualbox (0.7.5)
       ffi (>= 0.6.3)
     warden (1.2.1)
@@ -481,6 +481,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   vagrant
-  vcr (= 2.2.4)
+  vcr (= 2.9.0)
   whenever
   xpath

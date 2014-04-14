@@ -4,30 +4,38 @@ describe TrackerApi do
   context "with the real service", vcr: {re_record_interval: 18.months} do
     subject { TrackerApi.new(project) }
 
-    # ALERT: Always use a fake tracker project with these tests because they delete everything!
-    let(:project) { FactoryGirl.create :project, tracker_project_id: 688157, tracker_auth_token: "2b83dc74948d051bc1078fd6e9db0b3e" }
+    # ALERT: Always use a fake tracker project and a fake user with these tests
+    # because they delete everything!
+    let(:username) { "Test User" }
+    let(:project) { FactoryGirl.create :project, tracker_project_id: 1059836, tracker_auth_token: "e955bd05b35741ce257eaeca935180c0" }
     let(:tracker_project) { PivotalTracker::Project.find project.tracker_project_id }
 
     before do
       PivotalTracker::Client.token = project.tracker_auth_token
       (1..3).each do |x|
-        tracker_project.stories.create name: "Test #{x}",
+        story = tracker_project.stories.create name: "Test #{x}",
           story_type: "feature",
           estimate: x,
           accepted_at: x.weeks.ago,
           current_state: "accepted",
-          requested_by: "James Somers"
-        tracker_project.stories.create name: "Test (delivered) #{x}",
+          requested_by: username
+
+        raise story.errors.first if story.errors.present?
+
+        story = tracker_project.stories.create name: "Test (delivered) #{x}",
           story_type: "feature",
           estimate: 0,
           current_state: "delivered",
-          requested_by: "James Somers"
+          requested_by: username
+        raise story.errors.first if story.errors.present?
       end
-      tracker_project.stories.create name: "Test (unstarted)",
+      story = tracker_project.stories.create name: "Test (unstarted)",
         story_type: "feature",
         estimate: 0,
         current_state: "unstarted",
-        requested_by: "James Somers"
+        requested_by: username
+
+      raise story.errors.first if story.errors.present?
     end
 
     after do
@@ -45,7 +53,7 @@ describe TrackerApi do
             story_type: "feature",
             estimate: 3,
             current_state: "started",
-            requested_by: "James Somers"
+            requested_by: username
 
           subject.last_ten_velocities.should == [1,2,3]
         end

@@ -54,7 +54,7 @@ end
 
 group :test do
   gem 'headless'
-  gem 'vcr', '2.2.4'
+  gem 'vcr', '2.9.0'
   gem 'fakeweb'
   gem 'sqlite3'
 end
