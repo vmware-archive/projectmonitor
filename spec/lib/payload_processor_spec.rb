@@ -85,7 +85,7 @@ ERROR
       before { payload.stub(build_status_is_processable?: true) }
 
       it "sets the project building status to that of the payload" do
-        building = double(Boolean)
+        building = double(:boolean)
         payload.stub(building?: building)
 
         project.should_receive(:building=).with(building)
