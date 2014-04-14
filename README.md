@@ -31,7 +31,7 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 3. [Upgrading](#upgrading)
 4. [Deployment](#deployment)
 5. [Display](#display)
-6. [Ideas/Improvements](#ideas-improvements)
+6. [Ideas and Improvements](#ideas-and-improvements)
 
 ## Installation
 
