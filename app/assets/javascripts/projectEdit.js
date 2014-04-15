@@ -34,15 +34,12 @@ var ProjectEdit = {};
 
     if (authToken === '' && projectId === '') {
       $('#tracker_status .unconfigured').removeClass('hide');
-
     } else if (authToken === '') {
       showAuthTokenError();
       return false;
-
     } else if (projectId === '') {
       showProjectIdError();
       return false;
-
     } else {
       $('empty_fields').addClass('hide');
       $('#tracker_status .pending').removeClass('hide');
@@ -87,41 +84,24 @@ var ProjectEdit = {};
   };
 
   o.handleProjectTypeChange = function () {
-    var $buildSetup = $('#build_setup');
+    var val = $(this).val();
+
     var $disabled_fieldsets = $('.project-attributes', $('#field_container'));
     $disabled_fieldsets.addClass('hide');
     $(':input', $disabled_fieldsets).attr('disabled', true);
 
-    var $enabled_fieldset = $('#' + $(this).val());
+    var $enabled_fieldset = $('#' + val);
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
 
-    var $branch_name = $('#branch_name');
-    var $field_container = $('#field_container');
-    if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
-      $branch_name.removeClass('hide');
-      $field_container.removeClass('hide');
-    }
-    else {
-      $branch_name.addClass('hide');
-      $field_container.addClass('hide');
-    }
+    $('#branch_name').toggleClass('hide', val != "TravisProject" && val != "SemaphoreProject");
+    $('#field_container').toggleClass('hide', val != "TravisProject" && val != "SemaphoreProject");
 
-    if ($(this).val() == "TddiumProject") {
-       $buildSetup.find('#project_webhooks_enabled_false').click();
-       $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', true);
-    } else {
-      $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', false);
-      $buildSetup.find('#project_webhooks_enabled_false').prop('checked', false);
-    }
+    var $buildSetup = $('#build_setup');
+    $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', val == "TddiumProject");
+    $buildSetup.find('#project_webhooks_enabled_false').prop('checked', val == "TddiumProject");
 
-    var $auth_fields = $('.auth_field');
-    if ( $(this).val() == "TravisProject" || $(this).val() == "SemaphoreProject") {
-      $auth_fields.addClass('hide');
-    }
-    else {
-      $auth_fields.removeClass('hide');
-    }
+    $('.auth_field').toggleClass('hide', val == "TravisProject" || val == "SemaphoreProject");
   };
 
   var isEmpty = function(element) {
