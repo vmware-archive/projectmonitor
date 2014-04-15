@@ -42,6 +42,25 @@ describe Project do
         end
       end
     end
+
+    context "when feed urls have un-trimmed whitespaces" do
+      it "trims semaphore urls" do
+        url = "  http://example.com/feed.rss   "
+        goal = "http://example.com/feed.rss"
+        project = FactoryGirl.create(:semaphore_project, semaphore_api_url: url)
+        project.feed_url.should eq(goal)
+      end
+
+      it "trims circleci urls" do
+        goal = "https://circleci.com/api/v1/project/white space/project?circle-token=ABC"
+        project = FactoryGirl.create(:circleci_project,
+                                     circleci_username: "white space",
+                                     circleci_project_name: "project",
+                                     circleci_auth_token: "ABC   "
+        )
+        project.feed_url.should eq(goal)
+      end
+    end
   end
 
   describe 'scopes' do

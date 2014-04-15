@@ -47,6 +47,8 @@ class Project < ActiveRecord::Base
   before_create :generate_guid
   before_create :populate_iteration_story_state_counts
 
+  before_save :trim_urls_and_tokens
+
   attr_writer :feed_url
 
   delegate :success?, :indeterminate?, :failure?, :color, to: :state
@@ -175,6 +177,12 @@ class Project < ActiveRecord::Base
   end
 
   private
+
+  def trim_urls_and_tokens
+    self.class.columns.select{|column| column.name.ends_with?('_url', '_token') }.each do |column|
+      write_attribute(column.name, read_attribute(column.name).try(:strip))
+    end
+  end
 
   def self.project_attribute_prefix
     name.match(/(.*)Project/)[1].underscore
