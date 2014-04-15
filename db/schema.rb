@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015123350) do
+ActiveRecord::Schema.define(version: 20140415204059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20131015123350) do
   create_table "aggregate_projects", force: true do |t|
     t.string   "name"
     t.boolean  "enabled",               default: true
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "code"
     t.string   "location",   limit: 20
   end
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20131015123350) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 20131015123350) do
   create_table "external_dependencies", force: true do |t|
     t.string   "name"
     t.string   "status"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "raw_response"
   end
 
   create_table "payload_log_entries", force: true do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "project_id"
     t.string   "status"
     t.string   "update_method"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 20131015123350) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
+    t.string   "github_token"
+    t.string   "travis_pro_token"
   end
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree

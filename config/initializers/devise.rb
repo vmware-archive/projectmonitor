@@ -1,3 +1,5 @@
+require 'openid/store/filesystem'
+
 Devise.setup do |config|
   require 'devise/orm/active_record'
   config.authentication_keys = [:login]
@@ -30,5 +32,7 @@ Devise.setup do |config|
     end
     ConfigHelper.get(:restrict_to_domain) {|v| options[:hd] = v}
     config.omniauth :google_oauth2, ConfigHelper.get(:oauth2_apphost), ConfigHelper.get(:oauth2_secret), options
+    config.omniauth :github, ConfigHelper.get(:GITHUB_KEY), ConfigHelper.get(:GITHUB_SECRET), {scope: "user,repo"}
+    config.omniauth :openid, :store => OpenID::Store::Filesystem.new('/tmp')
   end
 end

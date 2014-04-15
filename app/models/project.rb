@@ -179,7 +179,8 @@ class Project < ActiveRecord::Base
   private
 
   def trim_urls_and_tokens
-    self.class.columns.select{|column| column.name.ends_with?('_url', '_token') }.each do |column|
+    # self.class.columns.select{|column| column.name.ends_with?("_url", "_token") }.each do |column|
+    self.class.columns.select{|column| column.name =~ /_(?:url|token)$/ }.each do |column|
       write_attribute(column.name, read_attribute(column.name).try(:strip))
     end
   end

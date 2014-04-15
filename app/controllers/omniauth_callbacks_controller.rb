@@ -10,4 +10,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to edit_configuration_url
     end
   end
+
+  def github
+    github_token = request.env["omniauth.auth"].credentials.token
+    travis_pro_token = Travis::Pro.github_auth(github_token)
+    current_user.github_token = github_token
+    current_user.travis_pro_token = travis_pro_token
+    current_user.save
+    redirect_to "/projects/new"
+  end
 end
