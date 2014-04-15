@@ -198,5 +198,6 @@ var ProjectEdit = {};
         o.validateTrackerSetup();
       }
     }
+    $( "form" ).sisyphus();
   };
 })(ProjectEdit);

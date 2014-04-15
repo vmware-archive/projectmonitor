@@ -9,6 +9,7 @@
 //= require Coccyx
 //= require moment.min
 //= require d3.v3.js
+//= require sisyphus
 
 //= require_tree ./initializers
 
