@@ -42,6 +42,7 @@ gem 'unicorn'
 gem 'uglifier', '>= 1.3.0'
 gem 'clockwork'
 gem 'jbuilder'
+gem 'omniauth-github', '~> 1.1.2'
 
 # work around for Google OpenID API change: https://github.com/sishen/omniauth-google-apps/issues/6
 # can be removed once they fix
