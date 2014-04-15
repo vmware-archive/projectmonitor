@@ -1,5 +1,8 @@
 ProjectMonitor::Application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: "sessions" }
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", sessions: "sessions" } do
+    delete "users/auth/:provider/destroy", to: "tokens#destroy", as: :destroy_tokens
+  end
+
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
   get 'builds' => "home#builds", format: :rss

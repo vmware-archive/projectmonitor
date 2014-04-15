@@ -29,6 +29,8 @@
                   - if ConfigHelper.get(:password_auth_enabled)
                     %li
                       = link_to "Add User", new_user_path
+                  - if current_user.github_token.present? && current_user.travis_pro_token.present?
+                    %li= link_to "Unlink Github and Travis", destroy_tokens_path(:github), method: :delete
                   %li.divider
                   %li
                     = link_to "Log Out", destroy_user_session_path, method: :delete
