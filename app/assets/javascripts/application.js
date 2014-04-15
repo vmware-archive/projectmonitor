@@ -23,6 +23,7 @@
 //= require rubygemsRefresh
 //= require projectFilters
 
+
 $(function() {
   BacktraceHide.init();
   VersionCheck.init();

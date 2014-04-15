@@ -32,5 +32,7 @@ en:
     team_city_project: "Team City Project (version <= 6)"
     team_city_rest_project: "Team City Project"
     travis_project: "Travis Project"
+    travis_pro_project: "Travis Pro Project"
     tddium_project: "Tddium Project"
     circle_ci_project: "CircleCi Project"
+

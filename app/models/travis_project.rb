@@ -40,6 +40,6 @@ class TravisProject < Project
   private
 
   def base_url
-    "#{BASE_API_URL}/repositories/#{slug}"
+    "#{self.class.const_get(:BASE_API_URL)}/repositories/#{slug}"
   end
 end

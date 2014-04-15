@@ -94,14 +94,15 @@ var ProjectEdit = {};
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
 
-    $('#branch_name').toggleClass('hide', val != "TravisProject" && val != "SemaphoreProject");
-    $('#field_container').toggleClass('hide', val != "TravisProject" && val != "SemaphoreProject");
+    var use_feed = _.contains(["TravisProject", "TravisProProject", "SemaphoreProject"], val);
+    $('#branch_name').toggleClass('hide', !use_feed);
+    $('#field_container').toggleClass('hide', !use_feed);
 
     var $buildSetup = $('#build_setup');
     $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', val == "TddiumProject");
     $buildSetup.find('#project_webhooks_enabled_false').prop('checked', val == "TddiumProject");
 
-    $('.auth_field').toggleClass('hide', val == "TravisProject" || val == "SemaphoreProject");
+    $('.auth_field').toggleClass('hide', use_feed);
   };
 
   var isEmpty = function(element) {
@@ -157,7 +158,8 @@ var ProjectEdit = {};
 
   o.toggleWebhooks = function () {
     if ($('input#project_webhooks_enabled_true:checked').length > 0) {
-      if($("#project_type").val() != "TravisProject"){
+      var val = $("#project_type").val();
+      if(val != "TravisProject" || val != "TravisProProject"){
         $('#field_container').addClass('hide');
       }
 

@@ -32,6 +32,8 @@
                 = f.text_field field, disabled: !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
               - else
                 = f.text_field field, disabled: !enabled, class: "form-control"
+        - if project_type.name == "TravisProProject"
+          = link_to "Authenticate via GitHub", user_omniauth_authorize_path("github")
   %fieldset#polling
     .form-group.verify_ssl_field
       .col-sm-offset-2.col-sm-10

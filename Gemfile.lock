@@ -68,6 +68,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (4.0.2)
     awesome_print (1.1.0)
+    backports (3.6.0)
     bcrypt-ruby (3.1.0)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -167,6 +168,8 @@ GEM
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
+    ethon (0.7.0)
+      ffi (>= 1.3.0)
     eventmachine (1.0.3)
     excon (0.25.1)
     execjs (1.4.0)
@@ -179,6 +182,8 @@ GEM
     fakeweb (1.3.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     ffaker (1.16.2)
     ffi (1.9.0)
     foreman (0.63.0)
@@ -186,6 +191,13 @@ GEM
       thor (>= 0.13.6)
     formatador (0.2.4)
     fssm (0.2.10)
+    gh (0.13.2)
+      addressable
+      backports
+      faraday (~> 0.8)
+      multi_json (~> 1.0)
+      net-http-persistent (>= 2.7)
+      net-http-pipeline
     guard (1.8.1)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -215,6 +227,7 @@ GEM
     heroku_san (4.2.5)
       heroku-api (>= 0.1.2)
       rake
+    highline (1.6.21)
     hike (1.2.3)
     http_parser.rb (0.6.0)
     httpauth (0.2.0)
@@ -254,6 +267,8 @@ GEM
     minitest (4.7.5)
     multi_json (1.9.2)
     multipart-post (1.2.0)
+    net-http-persistent (2.9.4)
+    net-http-pipeline (1.0.1)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
@@ -301,6 +316,8 @@ GEM
       pry (~> 0.9.10)
     pry-rails (0.3.1)
       pry (>= 0.9.10)
+    pusher-client (0.4.0)
+      websocket (~> 1.0.0)
     rack (1.5.2)
     rack-openid (1.3.1)
       rack (>= 1.1.0)
@@ -402,9 +419,22 @@ GEM
     thread_safe (0.3.3)
     tilt (1.4.1)
     timecop (0.6.1)
+    travis (1.6.9)
+      addressable (~> 2.3)
+      backports
+      faraday (~> 0.8.7)
+      faraday_middleware (~> 0.9)
+      gh (~> 0.13)
+      highline (~> 1.6)
+      launchy (~> 2.1)
+      pry (~> 0.9)
+      pusher-client (~> 0.4)
+      typhoeus (~> 0.6)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.8)
+      ethon (>= 0.7.0)
     tzinfo (0.3.39)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
@@ -510,6 +540,7 @@ DEPENDENCIES
   sqlite3
   therubyracer
   timecop
+  travis (~> 1.6.9)
   uglifier (>= 1.3.0)
   unicorn
   vagrant
