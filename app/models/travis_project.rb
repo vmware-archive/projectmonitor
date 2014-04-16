@@ -7,6 +7,12 @@ class TravisProject < Project
   alias_attribute :build_status_url, :feed_url
   alias_attribute :project_name, :travis_github_account
 
+  def self.project_specific_attributes
+    super.reject do |column|
+      column.start_with? "travis_pro_"
+    end
+  end
+
   def feed_url
     "#{base_url}/builds.json"
   end
@@ -40,6 +46,6 @@ class TravisProject < Project
   private
 
   def base_url
-    "#{BASE_API_URL}/repositories/#{slug}"
+    "#{self.class.const_get(:BASE_API_URL)}/repositories/#{slug}"
   end
 end

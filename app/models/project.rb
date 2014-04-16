@@ -58,7 +58,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.project_specific_attributes
-    columns.map(&:name).grep(/#{project_attribute_prefix}_/)
+    columns.map(&:name).grep(/^#{project_attribute_prefix}_/)
   end
 
   def self.with_aggregate_project(aggregate_project_id, &block)
@@ -176,16 +176,16 @@ class Project < ActiveRecord::Base
     url =~ %r{\Ahttps?://} ? url : "http://#{url}"
   end
 
+  def self.project_attribute_prefix
+    name.match(/(.*)Project/)[1].underscore
+  end
+
   private
 
   def trim_urls_and_tokens
     self.class.columns.select{|column| column.name.ends_with?('_url', '_token') }.each do |column|
       write_attribute(column.name, read_attribute(column.name).try(:strip))
     end
-  end
-
-  def self.project_attribute_prefix
-    name.match(/(.*)Project/)[1].underscore
   end
 
   def update_refreshed_at(status)

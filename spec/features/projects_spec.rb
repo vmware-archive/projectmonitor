@@ -29,6 +29,21 @@ feature "projects" do
     page.should have_content("Project was successfully created")
   end
 
+  scenario "admin creates a Travis Pro project", js: true do
+    click_on "Add Project"
+
+    select "Travis Pro Project", from: "Project Type"
+    choose "project_webhooks_enabled_false"
+    fill_in "project[name]", with: "Project Monitor"
+    fill_in "Github Account", with: "pivotal"
+    fill_in "Repository", with: "projectmonitor"
+    fill_in "Travis Pro Token", with: "travisprotoken"
+
+    click_on "Create"
+
+    page.should have_content("Project was successfully created")
+  end
+
   scenario "admin edits a project", js: true do
     within "#project-#{project.id}" do
       click_link "Edit"

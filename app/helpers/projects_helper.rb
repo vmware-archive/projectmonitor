@@ -5,6 +5,7 @@ module ProjectsHelper
                         TeamCityRestProject,
                         TeamCityProject,
                         TravisProject,
+                        TravisProProject,
                         TddiumProject,
                         CircleCiProject]
 
