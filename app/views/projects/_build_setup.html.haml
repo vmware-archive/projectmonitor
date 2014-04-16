@@ -32,6 +32,8 @@
                 = f.text_field field, disabled: !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
               - else
                 = f.text_field field, disabled: !enabled, class: "form-control"
+            - if field == "travis_pro_token"
+              %p.help-block Find this on your Travis-CI.com profile
   %fieldset#polling
     .form-group.verify_ssl_field
       .col-sm-offset-2.col-sm-10
