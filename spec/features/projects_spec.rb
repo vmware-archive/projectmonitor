@@ -44,6 +44,17 @@ feature "projects" do
     page.should have_content("Project was successfully created")
   end
 
+  scenario "admin changes project type and must reselect webhooks or polling", js: true do
+    click_on "Add Project"
+
+    select "Semaphore Project", from: "Project Type"
+    choose "project_webhooks_enabled_true"
+    select "CircleCi Project", from: "Project Type"
+
+    find('#project_webhooks_enabled_true').should_not be_checked
+    find('#project_webhooks_enabled_false').should_not be_checked
+  end
+
   scenario "admin edits a project", js: true do
     within "#project-#{project.id}" do
       click_link "Edit"

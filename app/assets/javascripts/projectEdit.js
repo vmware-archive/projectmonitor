@@ -99,10 +99,20 @@ var ProjectEdit = {};
     $('#field_container').toggleClass('hide', !use_feed);
 
     var $buildSetup = $('#build_setup');
-    $buildSetup.find('#project_webhooks_enabled_true').prop('disabled', val == "TddiumProject");
-    $buildSetup.find('#project_webhooks_enabled_false').prop('checked', val == "TddiumProject");
+    var $webhooks_enabled = $buildSetup.find('#project_webhooks_enabled_true');
+    var $webhooks_disabled = $buildSetup.find('#project_webhooks_enabled_false');
+
+    $webhooks_enabled.prop('disabled', val == "TddiumProject");
+    $webhooks_enabled.prop('checked', false);
+    $webhooks_disabled.prop('checked', false);
+
+    if (val == "TddiumProject") {
+      $webhooks_disabled.prop('checked', true);
+    }
 
     $('.auth_field').toggleClass('hide', use_feed);
+
+    o.toggleWebhooks();
   };
 
   var isEmpty = function(element) {
