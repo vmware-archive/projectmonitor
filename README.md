@@ -13,6 +13,7 @@ ProjectMonitor currently supports:
   * [Semaphore](http://www.semaphoreapp.com/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
   * [Travis CI](http://travis-ci.org/)
+  * [Travis CI Pro](http://travis-ci.com/)
   * [tddium](http://www.tddium.com/)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
