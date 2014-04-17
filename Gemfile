@@ -42,10 +42,7 @@ gem 'unicorn'
 gem 'uglifier', '>= 1.3.0'
 gem 'clockwork'
 gem 'jbuilder'
-
-# work around for Google OpenID API change: https://github.com/sishen/omniauth-google-apps/issues/6
-# can be removed once they fix
-gem 'ruby-openid', github: 'kendagriff/ruby-openid', ref: '79beaa419d4754e787757f2545331509419e222e'
+gem 'ruby-openid', '~>2.5.0'
 
 group :production do
   gem 'rails_12factor'

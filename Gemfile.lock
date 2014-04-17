@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/kendagriff/ruby-openid.git
-  revision: 79beaa419d4754e787757f2545331509419e222e
-  ref: 79beaa419d4754e787757f2545331509419e222e
-  specs:
-    ruby-openid (2.2.3)
-
-GIT
   remote: git://github.com/pivotal/jasmine-gem.git
   revision: e8105401b6ed9d4b462bbbaf508ab7ac8a77a245
   specs:
@@ -341,6 +334,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-openid (2.5.0)
     ruby-prof (0.13.0)
     rubyzip (0.9.9)
     safe_yaml (1.0.2)
@@ -479,7 +473,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rspec
   rspec-rails
-  ruby-openid!
+  ruby-openid (~> 2.5.0)
   ruby-prof
   sass-rails (~> 4.0.2)
   selenium-webdriver (>= 2.25.0)
