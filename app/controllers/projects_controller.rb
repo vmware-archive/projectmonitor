@@ -71,6 +71,8 @@ class ProjectsController < ApplicationController
   end
 
   def validate_build_info
+    head(422) and return if !params.has_key?(:project)
+
     project = params[:project][:type].constantize.new(project_params)
 
     if existing_project_missing_password?

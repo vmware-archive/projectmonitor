@@ -83,7 +83,7 @@ group :test, :development do
   gem 'ffaker'
   gem 'guard-coffeescript'
   gem 'database_cleaner'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '~> 1.1.1'
   gem 'pry-nav'
   gem 'pry-rails'
   gem 'pry'

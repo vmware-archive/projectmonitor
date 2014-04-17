@@ -181,6 +181,18 @@ describe ProjectsController do
     describe '#validate_build_info' do
       let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
 
+      context 'when the payload is missing' do
+        it "returns 422" do
+          post :validate_build_info, {}
+          response.should be_unprocessable
+        end
+
+        it "renders nothing" do
+          post :validate_build_info, {}
+          response.body.should == " "
+        end
+      end
+
       context 'when the payload is invalid' do
         before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
 

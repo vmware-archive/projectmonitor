@@ -10,14 +10,16 @@ feature "tag auto complete" do
   end
 
   def select_from_autocomplete(selected)
-    selector = ".ui-menu-item a:contains(#{selected})"
-    page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
+    within(".ui-autocomplete") do
+      all("a").detect {|tag| tag.text == selected }.click
+    end
   end
 
   it "populates a dropdown with possible completions when you type in the tag box", js: true do
     visit(new_project_path)
     fill_in('project[name]', with: 'foo')
     select('Jenkins Project', from: 'Project Type')
+    choose "Polling"
     fill_in('Base URL', with: 'http://foo.bar.com')
     fill_in('Build Name', with: 'foobar')
 

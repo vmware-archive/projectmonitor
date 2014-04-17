@@ -9,11 +9,11 @@ feature 'Projects API' do
   background { log_in user, 'jeffjeff' }
 
   def json_response
-    MultiJson.load(response.body)
+    MultiJson.load(page.driver.response.body)
   end
 
-  scenario 'Index API (GET #index)' do
-    get '/projects.json'
+  scenario 'Index API (GET #index)', js: false do
+    page.driver.get '/projects.json'
 
     expect(json_response.size).to eq 11
     expect(json_response.map{|p| p['code'] }).to eq %w(
