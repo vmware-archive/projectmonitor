@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20140416145512) do
   create_table "aggregate_projects", force: true do |t|
     t.string   "name"
     t.boolean  "enabled",               default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "code"
     t.string   "location",   limit: 20
   end
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20140416145512) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "queue"
   end
 
@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 20140416145512) do
   create_table "external_dependencies", force: true do |t|
     t.string   "name"
     t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "raw_response"
   end
 
   create_table "payload_log_entries", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "project_id"
     t.string   "status"
     t.string   "update_method"
