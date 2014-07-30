@@ -54,18 +54,18 @@ article.build {
 .one-tile {
   article.build {
     h1 {
-      font-size: 75px;
+      font-size: 60px;
     }
 
     .last-build-label { display: none; }
 
     aside {
       > div {
-        height: 60px;
+        height: 50px;
       }
 
       .time-since-last-build {
-        line-height: 60px;
+        line-height: 50px;
         font-size: 16px;
         float: left;
         padding: 0px 10px;
@@ -77,8 +77,8 @@ article.build {
 
         li {
           font-size: 50px;
-          height: 30px;
-          width: 30px;
+          height: 25px;
+          width: 25px;
           margin: 14px 5px 7px 0px;
           line-height: 45px;
         }
