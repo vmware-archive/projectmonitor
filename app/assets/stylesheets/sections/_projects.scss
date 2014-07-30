@@ -59,7 +59,7 @@ $statusbar-font-size: 30px !default;
             float:left;
 
             span {
-              font-size: 40px;
+              font-size: 26px;
               vertical-align: middle;
             }
 
@@ -75,7 +75,7 @@ $statusbar-font-size: 30px !default;
 
             &.success {
               a {
-                line-height: 32px;
+                line-height: 23px;
               }
 
               span:before {
@@ -85,7 +85,7 @@ $statusbar-font-size: 30px !default;
             }
             &.failure span:before {
               content: $failure-unicode-glyph;
-              line-height: 30px;
+              line-height: 17px;
             }
             a {
               font-size: 0;
