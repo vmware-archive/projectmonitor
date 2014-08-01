@@ -162,7 +162,7 @@ Click 'manage projects' at the lower right to edit project details.
 
 ### Add Projects
 
-We have instructions detailing [how to add a project](docs/configuration.md).
+We have instructions detailing [how to add a project](docs/adding_a_project.md).
 
 ### Importing and Exporting Configurations
 You can export your configuration for posterity or to be transferred to another
