@@ -19,7 +19,12 @@ describe TddiumProject do
   end
 
   describe 'accessors' do
-    its(:feed_url) { should == 'https://api.tddium.com/cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml' }
+    describe 'feed_url' do
+      let(:tddium_url) { 'http://tddium.acmecorp.com' }
+      subject { FactoryGirl.build(:tddium_project, :tddium_base_url => tddium_url) }
+      its(:feed_url) { should == [tddium_url, 'cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml'].join('/') }
+    end
+
     its(:build_status_url) { should == 'https://api.tddium.com/cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml' }
     its(:tddium_project_name) { should == 'Test Project A' }
     its(:fetch_payload) { should be_an_instance_of(TddiumPayload) }
