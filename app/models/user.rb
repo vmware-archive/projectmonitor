@@ -2,7 +2,7 @@ require Rails.root.join('lib', 'devise', 'encryptors', 'legacy')
 
 class User < ActiveRecord::Base
   devise_options = [:database_authenticatable,
-    :recoverable, :rememberable, :trackable, :validatable, :omniauthable]
+    :recoverable, :rememberable, :trackable, :omniauthable]
   devise_options << :encryptable if ConfigHelper.get(:devise_encryptor)
   devise *devise_options
 
