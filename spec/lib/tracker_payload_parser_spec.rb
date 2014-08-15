@@ -10,5 +10,14 @@ describe TrackerPayloadParser do
 
   its(:current_velocity) { should == 5 }
   its(:last_ten_velocities) { should == [13, 4, 2, 9, 0, 5, 7, 8, 5, 5] }
-
+  its(:iteration_story_state_counts) do
+    should == [
+      { "label" => "unstarted", "value" => 7, },
+      { "label" => "started", "value" => 2, },
+      { "label" => "finished", "value" => 0, },
+      { "label" => "delivered", "value" => 8, },
+      { "label" => "accepted", "value" => 13, },
+      { "label" => "rejected", "value" => 0, },
+    ]
+  end
 end

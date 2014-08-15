@@ -36,17 +36,17 @@ private
     STORY_STATES.each do |state|
       story_counts << {"label" => "#{state}", "value" => parse_stories(current_iteration_document, state)}
     end
-    
+
     story_counts
   end
-  
+
   private
   def parse_stories(iteration_document, state)
     stories = iteration_document.xpath(".//current_state[text() = '#{state}']/parent::story")
     points = sum_story_points(stories)
   end
-  
+
   def sum_story_points(stories)
-    stories.xpath(XPath.descendant(:estimate).to_s).map(&:text).map(&:to_i).sum
+    stories.xpath(XPath.descendant(:estimate).to_s).map(&:text).map(&:to_i).select { |x| x >= 0 }.sum
   end
 end
