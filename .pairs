@@ -11,6 +11,7 @@ pairs:
   dl: David Lee; dlee
   dr: Dimitri Roche; dimroc
   dt: David Tengdin; dtengdin
+  eg: Edgar Gonzalez; edgar
   gs: Graham Siener; gsiener
   jam: Joe Masilotti; jmasilotti
   jb: Jonathan Berger; jonathanpberger
@@ -21,6 +22,7 @@ pairs:
   lg: Lauren Gilchrist; lgilchrist
   lm: Lucas Marks; lmarks
   mh: Matt Horan; mhoran
+  mk: Mike Kenyon; mkenyon
   mw: Matt Wismer; mwismer
   rg: Rob Gallagher; rgallagher
   rm: Ryan Moran; rmoran
@@ -31,7 +33,6 @@ pairs:
   wp: Ward Penney; wp
   sr: Sid Raval; sraval
   yn: Yuki Nishijima; ynishijima
-  mk: Mike Kenyon; mkenyon
 
 email:
   prefix: pair
