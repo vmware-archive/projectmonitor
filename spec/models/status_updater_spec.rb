@@ -1,5 +1,4 @@
-require 'minimal_spec_helper'
-require_relative '../../app/models/status_updater'
+require 'spec_helper'
 
 describe StatusUpdater do
   describe 'updating a project' do

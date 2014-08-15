@@ -1,6 +1,5 @@
 ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
-require 'minimal_spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -31,25 +30,5 @@ RSpec.configure do |config|
   # https://github.com/rspec/rspec-rails/issues/252
   def (ActionDispatch::Integration::Session).fixture_path
     RSpec.configuration.fixture_path
-  end
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
   end
 end
