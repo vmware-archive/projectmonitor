@@ -45,6 +45,7 @@ ProjectMonitor is a Rails application. To get the code, execute the following:
 
     git clone git://github.com/pivotal/projectmonitor.git
     cd projectmonitor
+    brew install qt
     bundle install
 
 ### Initial Setup
