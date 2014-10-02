@@ -24,6 +24,7 @@ en:
         team_city_rest_base_url: "Base URL"
         team_city_rest_build_type_id: "Build Type ID"
         semaphore_api_url: "Semaphore API URL"
+        tddium_base_url: "Base URL"
         tddium_auth_token: "Tddium Authentication Token"
         tddium_project_name: "Tddium Project Name"
   project_types:

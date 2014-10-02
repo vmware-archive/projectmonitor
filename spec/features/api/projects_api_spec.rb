@@ -52,6 +52,7 @@ feature 'Projects API' do
       expect(project['semaphore_api_url']).to be_nil
       expect(project['parsed_url']).to be_nil
       expect(project['tddium_auth_token']).to be_nil
+      expect(project['tddium_base_url']).to be_nil
       expect(project['tddium_project_name']).to be_nil
       expect(project['notification_email']).to be_nil
       expect(project['verify_ssl']).to be_true

@@ -236,6 +236,7 @@ describe("project edit", function() {
         '  </div>' +
         '  <div class="project-attributes hide" id="TddiumProject">' +
         '    <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
+        '    <input id="project_tddium_base_url" name="project[tddium_base_url]"/>' +
         '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
         '  </div>' +
         '  <input id="project_auth_username" name="project[auth_username]" type="text">' +

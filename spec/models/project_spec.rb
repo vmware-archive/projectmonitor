@@ -446,6 +446,12 @@ describe Project do
       it { should =~ ['jenkins_base_url', 'jenkins_build_name'] }
     end
 
+    context "when a TddiumProject" do
+      let(:project_class) { TddiumProject }
+
+      it { should =~ ['"tddium_auth_token', 'tddium_base_url', 'tddium_project_name'] }
+    end
+
     context "when a TeamCityProject" do
       let(:project_class) { TeamCityProject }
 
