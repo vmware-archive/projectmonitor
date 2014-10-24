@@ -134,6 +134,7 @@ class ProjectsController < ApplicationController
                                        team_city_base_url team_city_build_name tracker_auth_token
                                        tracker_online tracker_project_id travis_github_account
                                        travis_repository type verify_ssl webhooks_enabled
-                                       circleci_username circleci_project_name circleci_auth_token travis_pro_token))
+                                       circleci_username circleci_project_name circleci_auth_token travis_pro_token
+                                       concourse_base_url concourse_job_name))
   end
 end
