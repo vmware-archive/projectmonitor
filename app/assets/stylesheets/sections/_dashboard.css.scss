@@ -1,10 +1,10 @@
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 body.dashboard {
   background-color: #2A271F;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
 
   .warnings {
@@ -50,6 +50,7 @@ body.dashboard {
     color: white;
     vertical-align: bottom;
     clear: both;
+    margin: 0 0 50px 0;
 
     a {
       display: inline-block;
@@ -161,4 +162,8 @@ ol.projects {
   article {
     width: 295px;
   }
+}
+
+.clearfix {
+  clear: both;
 }
