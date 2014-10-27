@@ -11,8 +11,8 @@ describe HomeController, :type => :controller do
 
     before do
       allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
-      Project.stub_chain(:standalone, :displayable).and_return(projects)
-      projects.stub_chain(:concat, :sort_by).and_return(projects + aggregate_projects)
+      allow(Project).to receive_message_chain(:standalone, :displayable).and_return(projects)
+      allow(projects).to receive_message_chain(:concat, :sort_by).and_return(projects + aggregate_projects)
     end
 
     it "should render collection of projects as JSON" do
@@ -30,8 +30,8 @@ describe HomeController, :type => :controller do
   context 'when an aggregate project id is specified' do
     before do
       allow(AggregateProject).to receive(:find).and_return(aggregate_project)
-      aggregate_project.stub_chain(:projects, :displayable).and_return(projects)
-      projects.stub_chain(:concat, :sort_by).and_return(projects)
+      allow(aggregate_project).to receive_message_chain(:projects, :displayable).and_return(projects)
+      allow(projects).to receive_message_chain(:concat, :sort_by).and_return(projects)
     end
 
     it 'loads the specified project' do
@@ -46,8 +46,8 @@ describe HomeController, :type => :controller do
 
     before do
       allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
-      Project.stub_chain(:standalone, :displayable).and_return(projects)
-      projects.stub_chain(:concat, :sort_by).and_return(projects)
+      allow(Project).to receive_message_chain(:standalone, :displayable).and_return(projects)
+      allow(projects).to receive_message_chain(:concat, :sort_by).and_return(projects)
     end
 
     it 'gets a collection of aggregate projects by tag' do

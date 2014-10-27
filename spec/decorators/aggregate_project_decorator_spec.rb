@@ -16,7 +16,7 @@ describe AggregateProjectDecorator do
   end
 
   context "the aggregate project has a failure status" do
-    before { aggregate_project.stub(state: Project::State.failure) }
+    before { allow(aggregate_project).to receive(:state).and_return(Project::State.failure) }
 
     describe '#css_class' do
       subject { super().css_class }
@@ -30,7 +30,7 @@ describe AggregateProjectDecorator do
   end
 
   context "the aggregate project has a success status" do
-    before { aggregate_project.stub(state: Project::State.success) }
+    before { allow(aggregate_project).to receive(:state).and_return(Project::State.success) }
 
     describe '#css_class' do
       subject { super().css_class }
@@ -44,7 +44,7 @@ describe AggregateProjectDecorator do
   end
 
   context "the aggregate project has no statuses" do
-    before { aggregate_project.stub(state: Project::State.indeterminate) }
+    before { allow(aggregate_project).to receive(:state).and_return(Project::State.indeterminate) }
 
     describe '#css_class' do
       subject { super().css_class }
@@ -58,7 +58,7 @@ describe AggregateProjectDecorator do
   end
 
   context "the aggregate project is offline" do
-    before { aggregate_project.stub(state: Project::State.offline) }
+    before { allow(aggregate_project).to receive(:state).and_return(Project::State.offline) }
 
     describe '#css_class' do
       subject { super().css_class }

@@ -19,8 +19,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include ViewHelpers, type: :view
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-
   config.order = 'random'
   config.include Rails.application.routes.url_helpers
 

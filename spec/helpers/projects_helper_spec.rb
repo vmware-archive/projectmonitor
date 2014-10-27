@@ -77,7 +77,7 @@ describe ProjectsHelper, :type => :helper do
 
       before do
         allow(project).to receive(:enabled?).and_return(enabled)
-        project.stub_chain(:payload_log_entries, :latest, :status).and_return([status])
+        allow(project).to receive_message_chain(:payload_log_entries, :latest, :status).and_return([status])
       end
 
       context "when the project is enabled" do
@@ -101,7 +101,7 @@ describe ProjectsHelper, :type => :helper do
 
     context "when there are no payload log entries" do
       before do
-        project.stub_chain(:payload_log_entries, :latest).and_return(nil)
+        allow(project).to receive_message_chain(:payload_log_entries, :latest).and_return(nil)
       end
 
       it "should return the text None" do

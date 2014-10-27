@@ -23,8 +23,8 @@ describe ProjectsController, :type => :controller do
 
       before do
         allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
-        Project.stub_chain(:standalone, :displayable).and_return(projects)
-        projects.stub_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
+        allow(Project).to receive_message_chain(:standalone, :displayable).and_return(projects)
+        allow(projects).to receive_message_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
 
         expect(aggregate_projects).to receive(:decorate).and_return(aggregate_projects)
         expect(projects).to receive(:decorate).and_return(projects)

@@ -39,7 +39,7 @@ describe ProjectPoller do
         let(:workload) { double(:workload, complete?: nil, unfinished_job_descriptions: {}) }
 
         before do
-          Project.stub_chain(:updateable, :find_each).and_yield(project)
+          allow(Project).to receive_message_chain(:updateable, :find_each).and_yield(project)
           allow(PollerWorkload).to receive(:new).and_return(workload)
           allow(EM::HttpRequest).to receive(:new).and_return(connection)
         end
@@ -163,7 +163,7 @@ describe ProjectPoller do
         let(:project) { double(:jenkins_project, tracker_project_url: double, tracker_auth_token: double) }
 
         before do
-          Project.stub_chain(:tracker_updateable, :find_each).and_yield(project)
+          allow(Project).to receive_message_chain(:tracker_updateable, :find_each).and_yield(project)
         end
 
         it 'should create a workload' do
@@ -180,7 +180,7 @@ describe ProjectPoller do
           end
 
           it 'should be initialized with the tracker_url and timeouts' do
-            expect(EM::HttpRequest).to receive(:new).with("http://"+project.tracker_project_url, connect_timeout: 60, inactivity_timeout: 30)
+            expect(EM::HttpRequest).to receive(:new).with("http://#{project.tracker_project_url}", connect_timeout: 60, inactivity_timeout: 30)
           end
         end
       end

@@ -149,7 +149,7 @@ describe Project, :type => :model do
 
         it "should find tagged with tags" do
           scope = double
-          Project.stub_chain(:enabled, :order) { scope }
+          allow(Project).to receive_message_chain(:enabled, :order) { scope }
           expect(scope).to receive(:tagged_with).with(tags, {any: true})
           subject
         end

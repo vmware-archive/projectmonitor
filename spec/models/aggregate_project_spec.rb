@@ -91,7 +91,7 @@ describe AggregateProject, :type => :model do
 
         it "should return the projects in alphabetical order" do
           scope = double
-          AggregateProject.stub_chain(:enabled,:joins,:select) { scope }
+          allow(AggregateProject).to receive_message_chain(:enabled,:joins,:select) { scope }
           expect(scope).to receive(:order).with('code ASC')
           AggregateProject.displayable
         end
@@ -167,7 +167,8 @@ describe AggregateProject, :type => :model do
     context "aggregate has one yellow project " do
       subject do
         indeterminate_state = double(Project::State, to_s: "indeterminate", failure?: false, indeterminate?: true)
-        project = Project.new.tap{|p| p.stub(state: indeterminate_state)}
+        project = Project.new
+        allow(project).to receive(:state).and_return(indeterminate_state)
         AggregateProject.new(projects: [project]).indeterminate?
       end
 
@@ -176,10 +177,13 @@ describe AggregateProject, :type => :model do
 
     context "aggregate has one yellow and one red project " do
       subject do
-        AggregateProject.new(projects: [
-          Project.new.tap{|p| p.stub(indeterminate?: true)},
-          Project.new.tap{|p| p.stub(indeterminate?: false)}]).indeterminate?
+        determinateProject = Project.new
+        allow(determinateProject).to receive(:indeterminate?).and_return(true)
+        indeterminateProject = Project.new
+        allow(indeterminateProject).to receive(:indeterminate?).and_return(false)
+        AggregateProject.new(projects: [determinateProject, indeterminateProject]).indeterminate?
       end
+      
       it { is_expected.to be false }
     end
   end

@@ -28,6 +28,8 @@ describe StatusUpdater, :type => :model do
 
       oldest_status = old_statuses.first
 
+      project.reload
+
       expect(project.statuses.count).to eq(3)
       expect(project.statuses.last).to eq(status)
       expect(project.statuses).to_not include(oldest_status)

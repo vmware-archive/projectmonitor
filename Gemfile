@@ -26,7 +26,7 @@ gem 'nokogiri'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'pivotal-tracker'
-gem 'rails', '4.0.4'
+gem 'rails', '4.0.10'
 gem 'rake'
 gem 'xpath'
 gem 'whenever', require: false
@@ -51,7 +51,7 @@ end
 
 group :test do
   gem 'headless'
-  gem 'vcr', '2.9.0'
+  gem 'vcr', '~> 2.9.3'
   gem 'fakeweb'
 end
 
@@ -71,7 +71,7 @@ end
 group :test, :development do
   gem 'launchy'
   gem 'jshint_on_rails'
-  gem 'rspec-rails', '2.99.0'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'shoulda-matchers'
   gem 'capybara', '~> 2.4.4'
   gem 'jasmine-rails'

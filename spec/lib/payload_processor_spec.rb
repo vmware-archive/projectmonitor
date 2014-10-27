@@ -10,7 +10,7 @@ describe PayloadProcessor do
   describe "#process" do
     context "when the payload has processable statuses" do
       before do
-        payload.stub(status_is_processable?: true)
+        allow(payload).to receive(:status_is_processable?).and_return(true)
         allow(payload).to receive(:each_status).and_yield(status)
       end
 
@@ -21,7 +21,7 @@ describe PayloadProcessor do
 
       it "initializes a ProjectStatus for every payload status" do
         status = double(ProjectStatus, valid?: true).as_null_object
-        project.stub(has_status?: false)
+        allow(project).to receive(:has_status?).and_return(false)
         allow(payload).to receive(:each_status).and_yield(status).and_yield(status)
 
         expect(project_status_updater).to receive(:update_project).twice
@@ -30,13 +30,13 @@ describe PayloadProcessor do
       end
 
       it "add a status to the project if the project does not have a matching status" do
-        project.stub(has_status?: false)
+        allow(project).to receive(:has_status?).and_return(false)
         expect(project_status_updater).to receive(:update_project).with(project, status)
         processor.process_payload(project: project, payload: payload)
       end
 
       it "does not add the status to the project if a matching status exists" do
-        project.stub(has_status?: true)
+        allow(project).to receive(:has_status?).and_return(true)
         expect(project_status_updater).not_to receive(:update_project)
         processor.process_payload(project: project, payload: payload)
       end
@@ -53,7 +53,7 @@ describe PayloadProcessor do
         end
 
         it "logs an error to the project if the status is invalid" do
-          payload.stub(status_content: "some crazy response")
+          allow(payload).to receive(:status_content).and_return("some crazy response")
           processor.process_payload(project: project, payload: payload)
 
           error_entry = project.payload_log_entries.find { |entry| entry.error_type == "Status Invalid" }
@@ -68,7 +68,7 @@ ERROR
     end
 
     context "when the payload statuses are not processable" do
-      before { payload.stub(status_is_processable?: false) }
+      before { allow(payload).to receive(:status_is_processable?).and_return(false) }
 
       it "skips accessing each status" do
         expect(payload).not_to receive(:each_status)
@@ -82,11 +82,11 @@ ERROR
     end
 
     context "when payload has a processable building_status" do
-      before { payload.stub(build_status_is_processable?: true) }
+      before { allow(payload).to receive(:build_status_is_processable?).and_return(true) }
 
       it "sets the project building status to that of the payload" do
         building = double(:boolean)
-        payload.stub(building?: building)
+        allow(payload).to receive(:building?).and_return(building)
 
         expect(project).to receive(:building=).with(building)
 
@@ -95,7 +95,7 @@ ERROR
     end
 
     context "when the payload build_status is not processable" do
-      before { payload.stub(build_status_is_processable?: false) }
+      before { allow(payload).to receive(:build_status_is_processable?).and_return(false) }
 
       it "sets the project as not building" do
         expect(project).to receive(:building=).with(false)
@@ -107,7 +107,7 @@ ERROR
 
   describe "parse_url" do
     before do
-      allow(payload).to receive(:status_is_processable?) { true }
+      allow(payload).to receive(:status_is_processable?).and_return(true)
       allow(payload).to receive(:parsed_url) { 'http://www.example.com' }
     end
 
