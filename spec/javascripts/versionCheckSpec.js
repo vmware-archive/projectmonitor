@@ -1,20 +1,24 @@
 describe('init', function() {
   beforeEach(function() {
-    jasmine.Ajax.useMock();
+    jasmine.Ajax.install();
+  });
+
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
   });
 
   it('should make an Ajax call to get the curent version', function() {
     VersionCheck.init();
 
-    expect(ajaxRequests.length).toEqual(1);
-    expect(ajaxRequests[0].url).toBe('/version');
+    expect(jasmine.Ajax.requests.count()).toEqual(1);
+    expect(jasmine.Ajax.requests.first().url).toBe('/version');
   });
 
   describe('when the API has been stubbed', function() {
     var currentVersion = 1;
 
     beforeEach(function() {
-      spyOn($, 'ajax').andCallFake(function(options) {
+      spyOn($, 'ajax').and.callFake(function(options) {
         options.success(currentVersion);
       });
       VersionCheck.init();
@@ -28,14 +32,18 @@ describe('init', function() {
 
 describe('checkVersion', function() {
   beforeEach(function() {
-    jasmine.Ajax.useMock();
+    jasmine.Ajax.install();
+  });
+
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
   });
 
   it('should make an Ajax call to get the current version', function() {
     VersionCheck.checkVersion();
 
-    expect(ajaxRequests.length).toEqual(1);
-    expect(ajaxRequests[0].url).toBe('/version');
+    expect(jasmine.Ajax.requests.count()).toEqual(1);
+    expect(jasmine.Ajax.requests.first().url).toBe('/version');
   });
 
   describe('when the version has not been set', function() {
@@ -43,7 +51,7 @@ describe('checkVersion', function() {
 
     beforeEach(function() {
       spyOn(ProjectMonitor.Window, 'reload');
-      spyOn($, 'ajax').andCallFake(function(options) {
+      spyOn($, 'ajax').and.callFake(function(options) {
         options.success(currentVersion);
       });
       delete window.currentVersion;
@@ -65,7 +73,7 @@ describe('checkVersion', function() {
 
     beforeEach(function() {
       spyOn(ProjectMonitor.Window, 'reload');
-      spyOn($, 'ajax').andCallFake(function(options) {
+      spyOn($, 'ajax').and.callFake(function(options) {
         options.success(currentVersion);
       });
       VersionCheck.init();
@@ -82,7 +90,7 @@ describe('checkVersion', function() {
 
     beforeEach(function() {
       spyOn(ProjectMonitor.Window, 'reload');
-      spyOn($, 'ajax').andCallFake(function(options) {
+      spyOn($, 'ajax').and.callFake(function(options) {
         options.success(currentVersion++);
       });
       VersionCheck.init();

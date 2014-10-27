@@ -74,6 +74,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.1.0'
   gem 'shoulda-matchers'
   gem 'capybara', '~> 2.4.4'
+  gem 'jasmine'
   gem 'jasmine-rails'
   gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails'

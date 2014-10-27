@@ -1,15 +1,19 @@
 describe("ProjectCheck", function() {
   beforeEach(function() {
-    jasmine.Ajax.useMock();
+    jasmine.Ajax.install();
+  });
+
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
   });
 
   describe('init', function() {
     it('should make an Ajax call to get the list of projects as JSON', function() {
       ProjectCheck.init();
 
-      expect(ajaxRequests.length).toEqual(1);
-      expect(ajaxRequests[0].url).toBe('/?');
-      expect(ajaxRequests[0].requestHeaders.Accept).toContain('application/json');
+      expect(jasmine.Ajax.requests.count()).toEqual(1);
+      expect(jasmine.Ajax.requests.first().url).toBe('/?');
+      expect(jasmine.Ajax.requests.first().requestHeaders.Accept).toContain('application/json');
     });
   });
 
@@ -17,15 +21,15 @@ describe("ProjectCheck", function() {
     it('should make an Ajax call to get the list of projects as JSON', function() {
       ProjectCheck.checkProjects();
 
-      expect(ajaxRequests.length).toEqual(1);
-      expect(ajaxRequests[0].url).toBe('/?');
-      expect(ajaxRequests[0].requestHeaders.Accept).toContain('application/json');
+      expect(jasmine.Ajax.requests.count()).toEqual(1);
+      expect(jasmine.Ajax.requests.first().url).toBe('/?');
+      expect(jasmine.Ajax.requests.first().requestHeaders.Accept).toContain('application/json');
     });
 
     describe('when the project list has not changed', function() {
       beforeEach(function(){
         spyOn(ProjectMonitor.Window, 'reload');
-        spyOn($, 'ajax').andCallFake(function(options) {
+        spyOn($, 'ajax').and.callFake(function(options) {
           options.success([{project_id: 1}]);
         });
       });
@@ -42,13 +46,13 @@ describe("ProjectCheck", function() {
       beforeEach(function() {
         spyOn(ProjectMonitor.Window, 'reload');
 
-        spyOn($, 'ajax').andCallFake(function(options) {
+        spyOn($, 'ajax').and.callFake(function(options) {
           options.success([]);
         });
 
         ProjectCheck.init();
 
-        $.ajax.andCallFake(function(options) {
+        $.ajax.and.callFake(function(options) {
           options.success([{project_id: 1}]);
         });
       });

@@ -9,10 +9,10 @@ describe "ProjectMonitor.Views.HomeView", ->
     expect(@view.render().$el.find("article").length).toEqual(2)
 
   it "should render aggregate tile", ->
-    expect(@view.render().$el).toContain("li.aggregate_project")
+    expect(@view.render().$el).toContainElement("li.aggregate_project")
 
   it "should render standalong tile", ->
-    expect(@view.render().$el).toContain("li.project")
+    expect(@view.render().$el).toContainElement("li.project")
 
   it "should render only the latest ten builds", ->
     expect(@view.render().$el.find('.statuses li').size()).toEqual(10)

@@ -5,12 +5,14 @@ describe('GithubRefresh.init', function() {
       "</div>"
     ].join("\n");
     setFixtures(fixtures);
-    jasmine.Clock.useMock();
-    jasmine.Ajax.useMock();
+    jasmine.clock().install();
+    jasmine.Ajax.install();
   });
 
   afterEach(function() {
     GithubRefresh.cleanupTimeout();
+    jasmine.clock().uninstall();
+    jasmine.Ajax.uninstall();
   });
 
   describe("when the status is bad", function() {
@@ -19,8 +21,8 @@ describe('GithubRefresh.init', function() {
       expect($(".github")).toBeHidden();
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"bad\"}"
         });
@@ -35,8 +37,8 @@ describe('GithubRefresh.init', function() {
       GithubRefresh.init();
       $(".github").show()
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
+      jasmine.clock().tick(30001);
+      jasmine.Ajax.requests.mostRecent().response({
         status: 200,
         responseText: "{\"status\": \"good\"}"
       });
@@ -50,8 +52,8 @@ describe('GithubRefresh.init', function() {
       $(".github").show()
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"unreachable\"}"
         });

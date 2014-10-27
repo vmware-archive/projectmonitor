@@ -5,12 +5,14 @@ describe('HerokuRefresh.init', function() {
       "</div>"
     ].join("\n");
     setFixtures(fixtures);
-    jasmine.Ajax.useMock();
-    jasmine.Clock.useMock();
+    jasmine.Ajax.install();
+    jasmine.clock().install();
   });
 
   afterEach(function() {
     HerokuRefresh.cleanupTimeout();
+    jasmine.clock().uninstall();
+    jasmine.Ajax.uninstall();
   });
 
   describe("when the status is bad", function() {
@@ -19,8 +21,8 @@ describe('HerokuRefresh.init', function() {
       expect($(".heroku")).toBeHidden();
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"red\"}"
         });
@@ -35,8 +37,8 @@ describe('HerokuRefresh.init', function() {
       HerokuRefresh.init();
       $(".heroku").show()
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
+      jasmine.clock().tick(30001);
+      jasmine.Ajax.requests.mostRecent().response({
         status: 200,
         responseText: "{\"status\": {\"Development\": \"green\", \"Production\": \"green\"}}"
       });
@@ -50,8 +52,8 @@ describe('HerokuRefresh.init', function() {
       $(".heroku").show()
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"unreachable\"}"
         });
