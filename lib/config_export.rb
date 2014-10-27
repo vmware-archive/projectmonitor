@@ -21,7 +21,10 @@ module ConfigExport
                           team_city_rest_build_type_id
                           travis_github_account
                           travis_repository
-                          webhooks_enabled]
+                          webhooks_enabled
+                          concourse_base_url
+                          concourse_job_name
+                        ]
   AGGREGATE_PROJECT_ATTRIBUTES = %w[id name enabled]
 
   class << self

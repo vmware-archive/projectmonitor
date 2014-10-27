@@ -14,7 +14,8 @@ describe ProjectsHelper do
                  ['Travis Project', 'TravisProject'],
                  ['Travis Pro Project', 'TravisProProject'],
                  ['Tddium Project', 'TddiumProject'],
-                 ['CircleCi Project', 'CircleCiProject']]
+                 ['CircleCi Project', 'CircleCiProject'],
+                 ['Concourse Project', 'ConcourseProject']]
     end
   end
 

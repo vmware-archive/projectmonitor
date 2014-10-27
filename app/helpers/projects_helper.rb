@@ -7,7 +7,8 @@ module ProjectsHelper
                         TravisProject,
                         TravisProProject,
                         TddiumProject,
-                        CircleCiProject]
+                        CircleCiProject,
+                        ConcourseProject]
 
   def project_types
     [['', '']] + PROJECT_TYPE_NAMES.map do |type_class|

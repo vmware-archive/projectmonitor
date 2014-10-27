@@ -57,4 +57,10 @@ FactoryGirl.define do
     circleci_project_name 'a-project'
     circleci_username 'username'
   end
+
+  factory :concourse_project, class: ConcourseProject do
+    name { Faker::Name.name }
+    concourse_job_name 'concourse-project'
+    concourse_base_url 'http://concourse.example.com:8080'
+  end
 end

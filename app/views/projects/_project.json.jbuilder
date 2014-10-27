@@ -37,7 +37,9 @@ json.(project,
     :creator_id,
     :circleci_auth_token,
     :circleci_project_name,
-    :circleci_username)
+    :circleci_username,
+    :concourse_base_url,
+    :concourse_job_name)
 
 if project.tracker_project_id.present?
   json.tracker do
