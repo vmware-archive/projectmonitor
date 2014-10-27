@@ -23,8 +23,8 @@ feature 'Projects API' do
     json_response.first.tap do |project|
       expect(project['id']).to be_a Fixnum
       expect(project['name']).to eq 'Red Currently Building'
-      expect(project['enabled']).to be_true
-      expect(project['building']).to be_true
+      expect(project['enabled']).to be true
+      expect(project['building']).to be true
       expect(project['aggregate_project_id']).to be_nil
       expect(project['code']).to eq 'ALRE'
       expect(project['deprecated_location']).to be_nil
@@ -44,7 +44,7 @@ feature 'Projects API' do
       expect(project['team_city_rest_build_type_id']).to be_nil
       expect(project['travis_github_account']).to be_nil
       expect(project['travis_repository']).to be_nil
-      expect(project['online']).to be_true
+      expect(project['online']).to be true
       expect(project['guid']).to be_nil
       expect(project['webhooks_enabled']).to be_nil
       expect(project['tracker_validation_status']).to eq({})
@@ -54,7 +54,7 @@ feature 'Projects API' do
       expect(project['tddium_auth_token']).to be_nil
       expect(project['tddium_project_name']).to be_nil
       expect(project['notification_email']).to be_nil
-      expect(project['verify_ssl']).to be_true
+      expect(project['verify_ssl']).to be true
       expect(project['stories_to_accept_count']).to be_nil
       expect(project['open_stories_count']).to be_nil
       expect(project['build_branch']).to be_nil
@@ -70,13 +70,13 @@ feature 'Projects API' do
 
       project['build'].tap do |build|
         expect(build['id']).to be_a Fixnum
-        expect(build['building']).to be_true
+        expect(build['building']).to be true
         expect(build['code']).to eq 'ALRE'
         expect(build['published_at']).to be_a String
         expect(build['status']).to eq 'failure'
 
         build['statuses'].first.tap do |status|
-          expect(status['success']).to be_false
+          expect(status['success']).to be false
           expect(status['url']).to be_nil
         end
       end
@@ -87,7 +87,7 @@ feature 'Projects API' do
     projekt_with_tracker['tracker'].tap do |tracker|
       expect(tracker['current_velocity']).to eq 15
       expect(tracker['last_ten_velocities']).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-      expect(tracker['tracker_online']).to be_true
+      expect(tracker['tracker_online']).to be true
       expect(tracker['stories_to_accept_count']).to eq 7
       expect(tracker['open_stories_count']).to eq 16
       expect(tracker['volatility']).to eq 55
@@ -97,13 +97,13 @@ feature 'Projects API' do
     json_response.find {|p| p['name'] == aggregate_project.name }.tap do |aggregate_projekt|
       expect(aggregate_projekt['id']).to eq aggregate_project.id
       expect(aggregate_projekt['name']).to eq 'Aggregation'
-      expect(aggregate_projekt['enabled']).to be_true
+      expect(aggregate_projekt['enabled']).to be true
       expect(aggregate_projekt['created_at']).to eq aggregate_project.created_at.iso8601(3)
       expect(aggregate_projekt['updated_at']).to eq aggregate_project.created_at.iso8601(3)
       expect(aggregate_projekt['code']).to eq 'aggr'
       expect(aggregate_projekt['location']).to be_nil
       expect(aggregate_projekt['tag_list']).to eq []
-      expect(aggregate_projekt['aggregate']).to be_true
+      expect(aggregate_projekt['aggregate']).to be true
       expect(aggregate_projekt['status']).to eq 'success'
     end
   end

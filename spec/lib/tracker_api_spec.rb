@@ -3,9 +3,9 @@ require 'spec_helper'
 describe TrackerApi do
   describe "last_ten_velocities" do
     before do
-      PivotalTracker::Iteration.stub(:current).and_return(current_iteration)
-      PivotalTracker::Iteration.stub(:done).and_return(done_iterations)
-      PivotalTracker::Project.stub(:find)
+      allow(PivotalTracker::Iteration).to receive(:current).and_return(current_iteration)
+      allow(PivotalTracker::Iteration).to receive(:done).and_return(done_iterations)
+      allow(PivotalTracker::Project).to receive(:find)
     end
 
     let(:project) { double(:project, tracker_project_id: 1, tracker_auth_token: 2) }
@@ -34,11 +34,11 @@ describe TrackerApi do
     end
 
     it "should be the sum of the estimates of the stories from the prior 10 iterations in reverse order" do
-      TrackerApi.new(project).last_ten_velocities.should == [37, 33, 29, 25, 21, 17, 13, 9, 5, 1]
+      expect(TrackerApi.new(project).last_ten_velocities).to eq([37, 33, 29, 25, 21, 17, 13, 9, 5, 1])
     end
 
     it "should not include the sum of the estimate for the current iteration" do
-      TrackerApi.new(project).last_ten_velocities.should_not include(20 + 21)
+      expect(TrackerApi.new(project).last_ten_velocities).not_to include(20 + 21)
     end
   end
 end

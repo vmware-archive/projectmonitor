@@ -9,17 +9,17 @@ describe HistoricalBuild do
 
       context "when index = 0" do
         let(:index) { 0 }
-        it { should == 1.0 }
+        it { is_expected.to eq(1.0) }
       end
 
       context "when index = 1" do
         let(:index) { 1 }
-        it { should == 0.95 }
+        it { is_expected.to eq(0.95) }
       end
 
       context "when index = 5" do
         let(:index) { 5 }
-        it { should == 0.75 }
+        it { is_expected.to eq(0.75) }
       end
     end
   end
@@ -30,17 +30,17 @@ describe HistoricalBuild do
 
       context "when index = 0" do
         let(:index) { 0 }
-        it { should == 1.0 }
+        it { is_expected.to eq(1.0) }
       end
 
       context "when index = 1" do
         let(:index) { 1 }
-        it { should == 0.947 }
+        it { is_expected.to eq(0.947) }
       end
 
       context "when index = 5" do
         let(:index) { 5 }
-        it { should == 0.667 }
+        it { is_expected.to eq(0.667) }
       end
     end
   end

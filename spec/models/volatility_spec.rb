@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Volatility do
+describe Volatility, :type => :model do
   describe ".calculate" do
     subject { Volatility.calculate(last_ten_velocities) }
 

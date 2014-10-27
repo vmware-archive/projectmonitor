@@ -18,15 +18,15 @@ feature "projects" do
 
     click_on "Create"
 
-    page.should have_content("Travis github account can't be blank")
-    page.should have_content("Travis repository can't be blank")
+    expect(page).to have_content("Travis github account can't be blank")
+    expect(page).to have_content("Travis repository can't be blank")
 
     fill_in "Github Account", with: "pivotal"
     fill_in "Repository", with: "projectmonitor"
 
     click_on "Create"
 
-    page.should have_content("Project was successfully created")
+    expect(page).to have_content("Project was successfully created")
   end
 
   scenario "admin creates a Travis Pro project", js: true do
@@ -41,7 +41,7 @@ feature "projects" do
 
     click_on "Create"
 
-    page.should have_content("Project was successfully created")
+    expect(page).to have_content("Project was successfully created")
   end
 
   scenario "admin changes project type and must reselect webhooks or polling", js: true do
@@ -51,8 +51,8 @@ feature "projects" do
     choose "project_webhooks_enabled_true"
     select "CircleCi Project", from: "Project Type"
 
-    find('#project_webhooks_enabled_true').should_not be_checked
-    find('#project_webhooks_enabled_false').should_not be_checked
+    expect(find('#project_webhooks_enabled_true')).not_to be_checked
+    expect(find('#project_webhooks_enabled_false')).not_to be_checked
   end
 
   scenario "admin edits a project", js: true do
@@ -68,10 +68,10 @@ feature "projects" do
 
     click_button "Update"
 
-    page.should have_content("Project was successfully updated")
+    expect(page).to have_content("Project was successfully updated")
 
     project.reload
-    project.travis_github_account.should == new_account
-    project.travis_repository.should == new_project
+    expect(project.travis_github_account).to eq(new_account)
+    expect(project.travis_repository).to eq(new_project)
   end
 end

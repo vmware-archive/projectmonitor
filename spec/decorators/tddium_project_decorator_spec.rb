@@ -5,5 +5,8 @@ describe TddiumProjectDecorator do
 
   subject { tddium_project.decorate }
 
-  its(:current_build_url) { should == 'https://api.tddium.com/dashboard?auth_token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2' }
+  describe '#current_build_url' do
+    subject { super().current_build_url }
+    it { is_expected.to eq('https://api.tddium.com/dashboard?auth_token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+  end
 end

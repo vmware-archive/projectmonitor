@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TrackerApi do
+describe TrackerApi, :type => :request do
   context "with the real service", vcr: {re_record_interval: 18.months} do
     subject { TrackerApi.new(project) }
 
@@ -44,7 +44,7 @@ describe TrackerApi do
 
     context "last_ten_velocities" do
       it "should be the sum of the estimates of the stories from the 10 most recent iterations" do
-        subject.last_ten_velocities.should == [1,2,3]
+        expect(subject.last_ten_velocities).to eq([1,2,3])
       end
 
       context "when the current iterations has unaccepted stories" do
@@ -55,20 +55,20 @@ describe TrackerApi do
             current_state: "started",
             requested_by: username
 
-          subject.last_ten_velocities.should == [1,2,3]
+          expect(subject.last_ten_velocities).to eq([1,2,3])
         end
       end
     end
 
     context "stories_to_accept_count" do
       it "returns the number of delivered stories in the current iteration" do
-        subject.stories_to_accept_count.should == 3
+        expect(subject.stories_to_accept_count).to eq(3)
       end
     end
 
     context "open_stories_count" do
       it "returns the number of unstarted stories in the current iteration" do
-        subject.open_stories_count.should == 1
+        expect(subject.open_stories_count).to eq(1)
       end
     end
   end

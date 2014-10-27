@@ -1,21 +1,36 @@
 require 'spec_helper'
 
-describe ConcourseProject do
+describe ConcourseProject, :type => :model do
   subject { FactoryGirl.build(:concourse_project) }
 
   describe 'factories' do
-    it { should be_valid }
+    it { is_expected.to be_valid }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :concourse_base_url }
-    it { should validate_presence_of :concourse_job_name }
+    it { is_expected.to validate_presence_of :concourse_base_url }
+    it { is_expected.to validate_presence_of :concourse_job_name }
   end
 
   describe 'accessors' do
-    its(:feed_url) { should == 'http://concourse.example.com:8080/api/v1/jobs/concourse-project/builds' }
-    its(:build_status_url) { should == 'http://concourse.example.com:8080/api/v1/jobs/concourse-project/builds' }
-    its(:concourse_job_name) { should == 'concourse-project' }
-    its(:fetch_payload) { should be_an_instance_of(ConcoursePayload)  }
+    describe '#feed_url' do
+      subject { super().feed_url }
+      it { is_expected.to eq('http://concourse.example.com:8080/api/v1/jobs/concourse-project/builds') }
+    end
+
+    describe '#build_status_url' do
+      subject { super().build_status_url }
+      it { is_expected.to eq('http://concourse.example.com:8080/api/v1/jobs/concourse-project/builds') }
+    end
+
+    describe '#concourse_job_name' do
+      subject { super().concourse_job_name }
+      it { is_expected.to eq('concourse-project') }
+    end
+
+    describe '#fetch_payload' do
+      subject { super().fetch_payload }
+      it { is_expected.to be_an_instance_of(ConcoursePayload)  }
+    end
   end
 end

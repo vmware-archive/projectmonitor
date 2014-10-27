@@ -11,20 +11,20 @@ describe PayloadProcessor do
     context "when the payload has processable statuses" do
       before do
         payload.stub(status_is_processable?: true)
-        payload.stub(:each_status).and_yield(status)
+        allow(payload).to receive(:each_status).and_yield(status)
       end
 
       it "sets the project as online" do
-        project.should_receive(:online=).with(true)
+        expect(project).to receive(:online=).with(true)
         processor.process_payload(project: project, payload: payload)
       end
 
       it "initializes a ProjectStatus for every payload status" do
         status = double(ProjectStatus, valid?: true).as_null_object
         project.stub(has_status?: false)
-        payload.stub(:each_status).and_yield(status).and_yield(status)
+        allow(payload).to receive(:each_status).and_yield(status).and_yield(status)
 
-        project_status_updater.should_receive(:update_project).twice
+        expect(project_status_updater).to receive(:update_project).twice
 
         processor.process_payload(project: project, payload: payload)
       end
@@ -45,7 +45,7 @@ describe PayloadProcessor do
         let(:project) { create(:project) }
         let(:status) { build(:project_status, success: nil) }
         before {
-          status.should be_invalid
+          expect(status).to be_invalid
         }
 
         it "does not add the status to the project if it is invalid" do
@@ -57,8 +57,8 @@ describe PayloadProcessor do
           processor.process_payload(project: project, payload: payload)
 
           error_entry = project.payload_log_entries.find { |entry| entry.error_type == "Status Invalid" }
-          error_entry.should be_present
-          error_entry.error_text.should == <<ERROR
+          expect(error_entry).to be_present
+          expect(error_entry.error_text).to eq <<ERROR
 Payload returned an invalid status: #{status.inspect}
   Errors: Success is not included in the list
   Payload: #{payload.inspect}
@@ -71,12 +71,12 @@ ERROR
       before { payload.stub(status_is_processable?: false) }
 
       it "skips accessing each status" do
-        payload.should_not_receive(:each_status)
+        expect(payload).not_to receive(:each_status)
         processor.process_payload(project: project, payload: payload)
       end
 
       it "sets the project as offline" do
-        project.should_receive(:online=).with(false)
+        expect(project).to receive(:online=).with(false)
         processor.process_payload(project: project, payload: payload)
       end
     end
@@ -88,7 +88,7 @@ ERROR
         building = double(:boolean)
         payload.stub(building?: building)
 
-        project.should_receive(:building=).with(building)
+        expect(project).to receive(:building=).with(building)
 
         processor.process_payload(project: project, payload: payload)
       end
@@ -98,7 +98,7 @@ ERROR
       before { payload.stub(build_status_is_processable?: false) }
 
       it "sets the project as not building" do
-        project.should_receive(:building=).with(false)
+        expect(project).to receive(:building=).with(false)
         processor.process_payload(project: project, payload: payload)
       end
     end
@@ -107,12 +107,12 @@ ERROR
 
   describe "parse_url" do
     before do
-      payload.stub(:status_is_processable?) { true }
-      payload.stub(:parsed_url) { 'http://www.example.com' }
+      allow(payload).to receive(:status_is_processable?) { true }
+      allow(payload).to receive(:parsed_url) { 'http://www.example.com' }
     end
 
     it "should set the project parsed_url" do
-      project.should_receive(:parsed_url=).with('http://www.example.com')
+      expect(project).to receive(:parsed_url=).with('http://www.example.com')
       processor.process_payload(project: project, payload: payload)
     end
   end

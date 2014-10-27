@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe ProjectsHelper do
+describe ProjectsHelper, :type => :helper do
 
   describe '#project_types' do
     subject { helper.project_types }
     it do
-      should == [['', ''],
+      is_expected.to eq([['', ''],
                  ['Cruise Control Project', 'CruiseControlProject'],
                  ['Jenkins Project', 'JenkinsProject'],
                  ['Semaphore Project', 'SemaphoreProject'],
@@ -15,7 +15,7 @@ describe ProjectsHelper do
                  ['Travis Pro Project', 'TravisProProject'],
                  ['Tddium Project', 'TddiumProject'],
                  ['CircleCi Project', 'CircleCiProject'],
-                 ['Concourse Project', 'ConcourseProject']]
+                 ['Concourse Project', 'ConcourseProject']])
     end
   end
 
@@ -25,7 +25,7 @@ describe ProjectsHelper do
     context "when the project has a guid" do
       let(:project) { FactoryGirl.build(:project) }
       before { project.save }
-      it { should include project.guid }
+      it { is_expected.to include project.guid }
     end
 
     context "when the project lacks a guid" do
@@ -33,9 +33,9 @@ describe ProjectsHelper do
       before { project.tap {|p| p.guid = nil}.save! }
 
       it "should generate a guid" do
-        project.should_receive :generate_guid
-        project.should_receive :save!
-        subject.should == ""
+        expect(project).to receive :generate_guid
+        expect(project).to receive :save!
+        expect(subject).to eq("")
       end
     end
   end
@@ -48,22 +48,22 @@ describe ProjectsHelper do
       let(:project) { FactoryGirl.create(:project, payload_log_entries: [payload]) }
 
       context "when the project is enabled" do
-        it { should == 'Status' }
+        it { is_expected.to eq('Status') }
 
         context "but the project's latest payload doesn't have status" do
           let(:payload) { PayloadLogEntry.new(status: nil) }
-          it { should == 'Unknown Status' }
+          it { is_expected.to eq('Unknown Status') }
         end
       end
       context "when the project is disabled" do
         let(:project) { FactoryGirl.create(:project, enabled: false, payload_log_entries: [payload]) }
-        it { should == 'Disabled' }
+        it { is_expected.to eq('Disabled') }
       end
     end
 
     context "when the project doesn't have payloads" do
       let(:project) { FactoryGirl.create(:project) }
-      it { should == 'None' }
+      it { is_expected.to eq('None') }
     end
   end
 
@@ -76,7 +76,7 @@ describe ProjectsHelper do
       let(:status) { double(:status) }
 
       before do
-        project.stub(:enabled?).and_return(enabled)
+        allow(project).to receive(:enabled?).and_return(enabled)
         project.stub_chain(:payload_log_entries, :latest, :status).and_return([status])
       end
 
@@ -84,8 +84,8 @@ describe ProjectsHelper do
         let(:enabled) { true }
 
         it "should return a link to the latest status" do
-          helper.project_last_status(project).should have_selector("a")
-          helper.project_last_status(project).should_not include("Disabled")
+          expect(helper.project_last_status(project)).to have_selector("a")
+          expect(helper.project_last_status(project)).not_to include("Disabled")
         end
       end
 
@@ -93,8 +93,8 @@ describe ProjectsHelper do
         let(:enabled) { false }
 
         it "should return a paragraph selector with diabled as the text" do
-          helper.project_last_status(project).should have_selector("p")
-          helper.project_last_status(project).should include("Disabled")
+          expect(helper.project_last_status(project)).to have_selector("p")
+          expect(helper.project_last_status(project)).to include("Disabled")
         end
       end
     end
@@ -105,7 +105,7 @@ describe ProjectsHelper do
       end
 
       it "should return the text None" do
-        helper.project_last_status(project).should == ("None")
+        expect(helper.project_last_status(project)).to eq("None")
       end
     end
   end

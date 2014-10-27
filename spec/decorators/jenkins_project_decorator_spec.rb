@@ -17,13 +17,13 @@ describe JenkinsProjectDecorator do
     context "webhooks are enabled" do
       let(:webhooks_enabled) { true }
 
-      it { should == parsed_url }
+      it { is_expected.to eq(parsed_url) }
     end
 
     context "webhooks are disabled" do
       let(:webhooks_enabled) { false }
 
-      it { should == jenkins_base_url }
+      it { is_expected.to eq(jenkins_base_url) }
     end
   end
 

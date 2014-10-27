@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe Project::State do
+describe Project::State, :type => :model do
   describe '#failure?' do
     context "when the project is offline" do
       subject { described_class.new(online: false, success: nil) }
-      it { should_not be_failure }
+      it { is_expected.not_to be_failure }
     end
 
     context "when the project is online" do
       context "and its latest build is failing" do
         subject { described_class.new(online: true, success: false) }
-        it { should be_failure }
+        it { is_expected.to be_failure }
       end
 
       context "and its latest build is successful" do
         subject { described_class.new(online: true, success: true) }
-        it { should_not be_failure }
+        it { is_expected.not_to be_failure }
       end
     end
   end
@@ -23,18 +23,18 @@ describe Project::State do
   describe '#success?' do
     context "when the project is offline" do
       subject { described_class.new(online: false, success: nil) }
-      it { should_not be_success }
+      it { is_expected.not_to be_success }
     end
 
     context "when the project is online" do
       context "and its latest build succeeded" do
         subject { described_class.new(online: true, success: true) }
-        it { should be_success }
+        it { is_expected.to be_success }
       end
 
       context "and its latest build failed" do
         subject { described_class.new(online: true, success: false) }
-        it { should_not be_success }
+        it { is_expected.not_to be_success }
       end
     end
   end
@@ -42,18 +42,18 @@ describe Project::State do
   describe '#indeterminate?' do
     context "when the project is offline" do
       subject { described_class.new(online: false, success: nil) }
-      it { should_not be_indeterminate }
+      it { is_expected.not_to be_indeterminate }
     end
 
     context "when the project is online" do
       context "and there are no builds" do
         subject { described_class.new(online: true, success: nil) }
-        it { should be_indeterminate }
+        it { is_expected.to be_indeterminate }
       end
 
       context "and its latest build failed" do
         subject { described_class.new(online: true, success: false) }
-        it { should_not be_indeterminate }
+        it { is_expected.not_to be_indeterminate }
       end
     end
   end
@@ -61,56 +61,72 @@ describe Project::State do
   describe '#offline?' do
     context "when the project is offline" do
       subject { described_class.new(online: false, success: nil) }
-      it { should be_offline }
+      it { is_expected.to be_offline }
     end
 
     context "when the project is online" do
       subject { described_class.new(online: true, success: nil) }
-      it { should be_online }
+      it { is_expected.to be_online }
     end
   end
 
   describe "#to_s" do
     context "when project is red" do
       subject { described_class.new(online: true, success: false) }
-      its(:to_s) { should == "failure" }
+
+      describe '#to_s' do
+        subject { super().to_s }
+        it { is_expected.to eq("failure") }
+      end
     end
 
     context "when project is green" do
       subject { described_class.new(online: true, success: true) }
-      its(:to_s) { should == "success" }
+
+      describe '#to_s' do
+        subject { super().to_s }
+        it { is_expected.to eq("success") }
+      end
     end
 
     context "when project is yellow" do
       subject { described_class.new(online: true, success: nil) }
-      its(:to_s) { should == "indeterminate" }
+
+      describe '#to_s' do
+        subject { super().to_s }
+        it { is_expected.to eq("indeterminate") }
+      end
     end
 
     context "when project none of the statuses" do
       subject { described_class.new(online: false, success: nil) }
-      its(:to_s) { should == "offline" }
+
+      describe '#to_s' do
+        subject { super().to_s }
+        it { is_expected.to eq("offline") }
+      end
     end
   end
 
   describe "#color" do
     context "when project is red" do
       subject { described_class.new(online: true, success: false).color }
-      it { should == "red" }
+      it { is_expected.to eq("red") }
     end
 
     context "when project is green" do
       subject { described_class.new(online: true, success: true).color }
-      it { should == "green" }
+      it { is_expected.to eq("green") }
     end
 
     context "when project is yellow" do
       subject { described_class.new(online: true, success: nil).color }
-      it { should == "yellow" }
+      it { is_expected.to eq("yellow") }
     end
 
     context "when project none of the statuses" do
       subject { described_class.new(online: false, success: nil).color }
-      it { should == "white" }
+      it { is_expected.to eq("white") }
     end
   end
 end

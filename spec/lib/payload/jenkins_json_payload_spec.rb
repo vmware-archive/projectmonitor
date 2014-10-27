@@ -13,24 +13,24 @@ describe JenkinsJsonPayload do
     context 'when content is valid' do
       let(:expected_content) { double }
       before do
-        JSON.stub(:parse).and_return(expected_content)
+        allow(JSON).to receive(:parse).and_return(expected_content)
       end
 
       it 'should parse content' do
         subject
-        payload.status_content.should == [expected_content]
+        expect(payload.status_content).to eq([expected_content])
       end
     end
 
     context 'when content is corrupt / badly encoded' do
       before do
-        JSON.stub(:parse).and_raise(JSON::ParserError)
+        allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
       end
 
       it 'should be marked as unprocessable' do
         subject
-        payload.processable.should be_false
-        payload.build_processable.should be_false
+        expect(payload.processable).to be false
+        expect(payload.build_processable).to be false
       end
     end
   end
@@ -39,12 +39,12 @@ describe JenkinsJsonPayload do
     subject { payload.parse_success(converted_content) }
 
     context 'the payload contains a successful build status' do
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     context 'the payload contains a failure build status' do
       let(:example_file) { "failure.txt" }
-      it { should be_false }
+      it { is_expected.to be false }
     end
   end
 
@@ -53,11 +53,11 @@ describe JenkinsJsonPayload do
 
     context 'the build has not finished' do
       let(:example_file) { "building.txt" }
-      it { should be_false }
+      it { is_expected.to be false }
     end
 
     context 'the build has finished' do
-      it { should be_true }
+      it { is_expected.to be true }
     end
   end
 
@@ -65,27 +65,27 @@ describe JenkinsJsonPayload do
     subject { payload.parse_url(converted_content) }
 
     context 'should include the build endpoint' do
-      it { should include 'job/Pivots2-iOS/10/' }
+      it { is_expected.to include 'job/Pivots2-iOS/10/' }
     end
 
     context 'should include the root url' do
-      it { should include 'http://mobile-ci.nyc.pivotallabs.com:8080' }
+      it { is_expected.to include 'http://mobile-ci.nyc.pivotallabs.com:8080' }
     end
 
     context 'should handle not having a full_url' do
       let(:example_file) { "no_full_url.txt" }
-      it { should include 'job/projectmonitor_ci_test/' }
+      it { is_expected.to include 'job/projectmonitor_ci_test/' }
     end
 
   end
 
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
-    it { should == 10 }
+    it { is_expected.to eq(10) }
   end
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(converted_content) }
-    it { should be_an_instance_of(Time) }
+    it { is_expected.to be_an_instance_of(Time) }
   end
 end

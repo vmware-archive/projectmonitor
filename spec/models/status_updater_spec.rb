@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StatusUpdater do
+describe StatusUpdater, :type => :model do
   describe 'updating a project' do
     it 'pushes the status on the project' do
       status_updater = StatusUpdater.new

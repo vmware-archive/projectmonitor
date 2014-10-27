@@ -8,16 +8,27 @@ describe TrackerPayloadParser do
 
   subject { TrackerPayloadParser.new(project_payload, current_iteration_payload, iterations_payload) }
 
-  its(:current_velocity) { should == 5 }
-  its(:last_ten_velocities) { should == [13, 4, 2, 9, 0, 5, 7, 8, 5, 5] }
-  its(:iteration_story_state_counts) do
-    should == [
+  describe '#current_velocity' do
+    subject { super().current_velocity }
+    it { is_expected.to eq(5) }
+  end
+
+  describe '#last_ten_velocities' do
+    subject { super().last_ten_velocities }
+    it { is_expected.to eq([13, 4, 2, 9, 0, 5, 7, 8, 5, 5]) }
+  end
+
+  describe '#iteration_story_state_counts' do
+    subject { super().iteration_story_state_counts }
+    it do
+    is_expected.to eq([
       { "label" => "unstarted", "value" => 7, },
       { "label" => "started", "value" => 2, },
       { "label" => "finished", "value" => 0, },
       { "label" => "delivered", "value" => 8, },
       { "label" => "accepted", "value" => 13, },
       { "label" => "rejected", "value" => 0, },
-    ]
+    ])
+  end
   end
 end

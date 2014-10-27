@@ -16,14 +16,14 @@ feature 'aggregate projects' do
 
       click_button "Create"
 
-      page.should have_content("Name can't be blank")
+      expect(page).to have_content("Name can't be blank")
 
       fill_in "Name", with: "Aggregate Test"
 
       click_button "Create"
 
-      page.should have_content('Aggregate project was successfully created.')
-      page.should have_content("Aggregate Test")
+      expect(page).to have_content('Aggregate project was successfully created.')
+      expect(page).to have_content("Aggregate Test")
     end
 
     scenario 'admin edits an aggregate project' do
@@ -35,8 +35,8 @@ feature 'aggregate projects' do
 
       click_button "Update"
 
-      page.should have_content('Aggregate project was successfully updated.')
-      page.should have_content('Updated Name')
+      expect(page).to have_content('Aggregate project was successfully updated.')
+      expect(page).to have_content('Updated Name')
     end
   end
 end

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe JenkinsProject do
+describe JenkinsProject, :type => :model do
   describe 'factories' do
     subject { FactoryGirl.build(:jenkins_project) }
 
-    it { should be_valid }
+    it { is_expected.to be_valid }
   end
 
   describe 'validations' do
@@ -13,15 +13,15 @@ describe JenkinsProject do
     context "when webhooks are enabled" do
       let(:webhooks_enabled) { true }
 
-      it { should_not validate_presence_of(:jenkins_base_url) }
-      it { should_not validate_presence_of(:jenkins_build_name) }
+      it { is_expected.not_to validate_presence_of(:jenkins_base_url) }
+      it { is_expected.not_to validate_presence_of(:jenkins_build_name) }
     end
 
     context "when webhooks are not enabled" do
       let(:webhooks_enabled) { false }
 
-      it { should validate_presence_of :jenkins_base_url }
-      it { should validate_presence_of :jenkins_build_name }
+      it { is_expected.to validate_presence_of :jenkins_base_url }
+      it { is_expected.to validate_presence_of :jenkins_build_name }
     end
   end
 
@@ -30,7 +30,7 @@ describe JenkinsProject do
 
     let(:project) { JenkinsProject.new(jenkins_base_url: "ci-server", jenkins_build_name: "specs") }
 
-    it { should == "ci-server/job/specs/rssAll" }
+    it { is_expected.to eq("ci-server/job/specs/rssAll") }
   end
 
   describe "#project_name" do
@@ -38,7 +38,7 @@ describe JenkinsProject do
 
     let(:project) { JenkinsProject.new(jenkins_build_name: "specs") }
 
-    it { should == "specs" }
+    it { is_expected.to eq("specs") }
   end
 
   describe "#build_status_url" do
@@ -49,20 +49,20 @@ describe JenkinsProject do
     context "when base_url is nil" do
       let(:base_url) { nil }
 
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
 
     context "when the base_url is not nil" do
       context "when the base_url has a scheme specified" do
         let(:base_url) { "http://ci-server:8080" }
 
-        it { should == "http://ci-server:8080/cc.xml" }
+        it { is_expected.to eq("http://ci-server:8080/cc.xml") }
       end
 
       context "when the base_url does not hav a scheme specified" do
         let(:base_url) { "ci-server:8080" }
 
-        it { should == "ci-server:8080/cc.xml" }
+        it { is_expected.to eq("ci-server:8080/cc.xml") }
       end
     end
   end
@@ -74,10 +74,10 @@ describe JenkinsProject do
     let(:xml_payload) { double(:xml_payload) }
 
     before do
-      JenkinsXmlPayload.should_receive(:new).with("features").and_return(xml_payload)
+      expect(JenkinsXmlPayload).to receive(:new).with("features").and_return(xml_payload)
     end
 
-    it { should == xml_payload }
+    it { is_expected.to eq(xml_payload) }
   end
 
   describe "#webhook_payload" do
@@ -87,9 +87,9 @@ describe JenkinsProject do
     let(:json_payload) { double(:json_payload) }
 
     before do
-      JenkinsJsonPayload.should_receive(:new).and_return(json_payload)
+      expect(JenkinsJsonPayload).to receive(:new).and_return(json_payload)
     end
 
-    it { should == json_payload }
+    it { is_expected.to eq(json_payload) }
   end
 end

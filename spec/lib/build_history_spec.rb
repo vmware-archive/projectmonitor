@@ -11,7 +11,7 @@ describe BuildHistory do
       build_history = BuildHistory.new([double(:status)])
 
       build_history.each_build do |historical_build|
-        historical_build.should be_a HistoricalBuild
+        expect(historical_build).to be_a HistoricalBuild
       end
     end
 
@@ -20,8 +20,8 @@ describe BuildHistory do
       status2 = double(:status2)
       build_history = BuildHistory.new([status1, status2])
 
-      HistoricalBuild.should_receive(:new).with(build_history, status1, 0)
-      HistoricalBuild.should_receive(:new).with(build_history, status2, 1)
+      expect(HistoricalBuild).to receive(:new).with(build_history, status1, 0)
+      expect(HistoricalBuild).to receive(:new).with(build_history, status2, 1)
 
       build_history.each_build {}
     end

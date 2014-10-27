@@ -14,11 +14,11 @@ feature "webhooks url" do
   end
 
   scenario "when webhooks are enabled show thatL" do
-    project.guid.should_not be_nil
-    page.should_not have_content(project.id)
-    page.should have_content(project.name)
+    expect(project.guid).not_to be_nil
+    expect(page).not_to have_content(project.id)
+    expect(page).to have_content(project.name)
     within ".webhooks" do
-      page.should have_content("✓")
+      expect(page).to have_content("✓")
     end
   end
 

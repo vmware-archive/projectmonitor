@@ -10,23 +10,23 @@ describe TddiumPayload do
   context 'with an invalid POST' do
     subject { payload.processable }
     before do
-      payload.should_receive(:log_error)
+      expect(payload).to receive(:log_error)
       payload.status_content = content
     end
 
     context 'with empty string' do
       let(:content) { '' }
-      it { should be_false }
+      it { is_expected.to be false }
     end
 
     context 'with unparseable XML' do
       let(:content) { 'I am not valid XML, now am I?' }
-      it { should be_false }
+      it { is_expected.to be false }
     end
 
     context 'with unexpected type' do
       let(:content) { 1 }
-      it { should be_false }
+      it { is_expected.to be false }
     end
   end
 
@@ -36,12 +36,12 @@ describe TddiumPayload do
 
     describe '#parse_success' do
       context 'with a successful build do' do
-        it { should be_true }
+        it { is_expected.to be true }
       end
 
       context 'with an unsuccessful build' do
         let(:fixture_file) { 'failure.xml' }
-        it { should be_false }
+        it { is_expected.to be false }
       end
     end
 
@@ -49,28 +49,28 @@ describe TddiumPayload do
       subject { payload.content_ready?(converted_content) }
 
       context 'build has finished' do
-        it { should be_true }
+        it { is_expected.to be true }
       end
 
       context 'build has not finished' do
         let(:fixture_file) { 'building.xml' }
-        it { should be_false }
+        it { is_expected.to be false }
       end
     end
 
     describe '#parse_url' do
       subject { payload.parse_url(converted_content) }
-      it { should == 'https://api.tddium.com/1/reports/1' }
+      it { is_expected.to eq('https://api.tddium.com/1/reports/1') }
     end
 
     describe '#parse_build_id' do
       subject { payload.parse_build_id(converted_content) }
-      it { should == '45' }
+      it { is_expected.to eq('45') }
     end
 
     describe '#parse_published_at' do
       subject { payload.parse_published_at(converted_content) }
-      it { should == Time.new(2012,8,22,14,30,2) }
+      it { is_expected.to eq(Time.new(2012,8,22,14,30,2)) }
     end
 
     describe '#convert_webhook_content' do
@@ -88,11 +88,11 @@ describe TddiumPayload do
 
       context 'when building' do
         let(:fixture_file) { 'building.xml' }
-        it { should be_building }
+        it { is_expected.to be_building }
       end
 
       context 'when not building' do
-        it {should_not be_building }
+        it {is_expected.not_to be_building }
       end
     end
   end
@@ -104,34 +104,34 @@ describe TddiumPayload do
     context '#parse_success' do
       before { payload.build_status_content = content }
       subject { payload.parse_success(converted_content) }
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     context '#content_ready?' do
       before { payload.build_status_content = content }
       subject { payload.content_ready?(converted_content) }
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     describe '#parse_url' do
       subject { payload.parse_url(converted_content) }
-      it { should == 'https://api.tddium.com/1/reports/72225' }
+      it { is_expected.to eq('https://api.tddium.com/1/reports/72225') }
     end
 
     describe '#parse_build_id' do
       subject { payload.parse_build_id(converted_content) }
-      it { should == '72225' }
+      it { is_expected.to eq('72225') }
     end
 
     describe '#parse_published_at' do
       subject { payload.parse_published_at(converted_content) }
-      it { should == Time.new(2012,8,22,14,30,2) }
+      it { is_expected.to eq(Time.new(2012,8,22,14,30,2)) }
     end
 
     describe '#building?' do
       subject { payload }
       before { payload.build_status_content = content }
-      it {should_not be_building }
+      it {is_expected.not_to be_building }
     end
   end
 end

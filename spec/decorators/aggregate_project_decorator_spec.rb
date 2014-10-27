@@ -9,34 +9,65 @@ describe AggregateProjectDecorator do
   describe "#css_id" do
     let(:aggregate_project) { AggregateProject.new(id: 123) }
 
-    its(:css_id) { should == "aggregate_project_123" }
+    describe '#css_id' do
+      subject { super().css_id }
+      it { is_expected.to eq("aggregate_project_123") }
+    end
   end
 
   context "the aggregate project has a failure status" do
     before { aggregate_project.stub(state: Project::State.failure) }
 
-    its(:css_class) { should == "project failure aggregate" }
-    its(:status_in_words) { should == "failure" }
+    describe '#css_class' do
+      subject { super().css_class }
+      it { is_expected.to eq("project failure aggregate") }
+    end
+
+    describe '#status_in_words' do
+      subject { super().status_in_words }
+      it { is_expected.to eq("failure") }
+    end
   end
 
   context "the aggregate project has a success status" do
     before { aggregate_project.stub(state: Project::State.success) }
 
-    its(:css_class) { should == "project success aggregate" }
-    its(:status_in_words) { should == "success" }
+    describe '#css_class' do
+      subject { super().css_class }
+      it { is_expected.to eq("project success aggregate") }
+    end
+
+    describe '#status_in_words' do
+      subject { super().status_in_words }
+      it { is_expected.to eq("success") }
+    end
   end
 
   context "the aggregate project has no statuses" do
     before { aggregate_project.stub(state: Project::State.indeterminate) }
 
-    its(:css_class) { should == "project indeterminate aggregate" }
-    its(:status_in_words) { should == "indeterminate" }
+    describe '#css_class' do
+      subject { super().css_class }
+      it { is_expected.to eq("project indeterminate aggregate") }
+    end
+
+    describe '#status_in_words' do
+      subject { super().status_in_words }
+      it { is_expected.to eq("indeterminate") }
+    end
   end
 
   context "the aggregate project is offline" do
     before { aggregate_project.stub(state: Project::State.offline) }
 
-    its(:css_class) { should == "project offline aggregate" }
-    its(:status_in_words) { should == "offline" }
+    describe '#css_class' do
+      subject { super().css_class }
+      it { is_expected.to eq("project offline aggregate") }
+    end
+
+    describe '#status_in_words' do
+      subject { super().status_in_words }
+      it { is_expected.to eq("offline") }
+    end
   end
 end

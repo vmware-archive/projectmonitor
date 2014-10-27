@@ -18,13 +18,13 @@ describe JenkinsXmlPayload do
       %w(success back_to_normal stable).each do |result|
         context "when build result was #{result}" do
           let(:atom) { "#{result}.atom" }
-          it { should be_success }
+          it { is_expected.to be_success }
         end
       end
 
       context "when build had failed" do
         let(:atom) { "failure.atom" }
-        it { should be_failure }
+        it { is_expected.to be_failure }
       end
     end
 
@@ -37,8 +37,8 @@ describe JenkinsXmlPayload do
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         payload_processor.process_payload(project: project, payload: jenkins_payload)
-        project.should be_success
-        project.statuses.should == statuses
+        expect(project).to be_success
+        expect(project.statuses).to eq(statuses)
       end
 
       it "remains red when existing status is red" do
@@ -49,8 +49,8 @@ describe JenkinsXmlPayload do
         content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
         jenkins_payload.build_status_content = content
         payload_processor.process_payload(project: project, payload: jenkins_payload)
-        project.should be_failure
-        project.statuses.should == statuses
+        expect(project).to be_failure
+        expect(project.statuses).to eq(statuses)
       end
     end
 
@@ -62,12 +62,12 @@ describe JenkinsXmlPayload do
 
     context "when building" do
       let(:atom) { "jenkins_projectmonitor_building.atom" }
-      it { should be_building }
+      it { is_expected.to be_building }
     end
 
     context "when not building" do
       let(:atom) { "jenkins_projectmonitor_not_building.atom" }
-      it { should_not be_building }
+      it { is_expected.not_to be_building }
     end
   end
 
@@ -79,28 +79,34 @@ describe JenkinsXmlPayload do
     describe "when build was successful" do
       let(:atom) { "success.atom" }
 
-      its(:latest_status) { should be_success }
+      describe '#latest_status' do
+        subject { super().latest_status }
+        it { is_expected.to be_success }
+      end
 
       it "return the link to the checkin" do
-        subject.latest_status.url.should == example.first_css("entry:first link").attribute('href').value
+        expect(subject.latest_status.url).to eq(example.first_css("entry:first link").attribute('href').value)
       end
 
       it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(example.first_css("entry:first published").content)
+        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("entry:first published").content))
       end
     end
 
     describe "when build failed" do
       let(:atom) { "failure.atom" }
 
-      its(:latest_status) { should_not be_success }
+      describe '#latest_status' do
+        subject { super().latest_status }
+        it { is_expected.not_to be_success }
+      end
 
       it "return the link to the checkin" do
-        subject.latest_status.url.should == example.first_css("entry:first link").attribute('href').value
+        expect(subject.latest_status.url).to eq(example.first_css("entry:first link").attribute('href').value)
       end
 
       it "should return the published date of the checkin" do
-        subject.latest_status.published_at.should == Time.parse(example.first_css("entry:first published").content)
+        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("entry:first published").content))
       end
     end
   end
@@ -109,7 +115,7 @@ describe JenkinsXmlPayload do
     let(:wrong_status_content) { "some non xml content" }
     context "invalid xml" do
       it 'should log error message' do
-        jenkins_payload.should_receive("log_error")
+        expect(jenkins_payload).to receive("log_error")
         jenkins_payload.build_status_content = wrong_status_content
       end
     end
@@ -117,7 +123,7 @@ describe JenkinsXmlPayload do
   describe "with invalid xml" do
     let(:status_content) { "<foo><bar>baz</bar></foo>" }
 
-    it { should_not be_building }
+    it { is_expected.not_to be_building }
 
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)
@@ -126,7 +132,7 @@ describe JenkinsXmlPayload do
     context "bad XML data" do
       let(:wrong_status_content) { "some non xml content" }
       it "should log errors" do
-        jenkins_payload.should_receive("log_error")
+        expect(jenkins_payload).to receive("log_error")
         jenkins_payload.status_content = wrong_status_content
       end
     end

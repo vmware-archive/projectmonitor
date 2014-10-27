@@ -17,12 +17,12 @@ describe CruiseControlXmlPayload do
 
       context "when build was successful" do
         let(:rss) { "success.rss" }
-        it { should be_success }
+        it { is_expected.to be_success }
       end
 
       context "when build had failed" do
         let(:rss) { "failure.rss" }
-        it { should be_failure }
+        it { is_expected.to be_failure }
       end
     end
 
@@ -37,8 +37,8 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_success
-        project.statuses.should == statuses
+        expect(project).to be_success
+        expect(project.statuses).to eq(statuses)
       end
 
       it "remains red when existing status is red" do
@@ -49,8 +49,8 @@ describe CruiseControlXmlPayload do
         build_content = BuildingStatusExample.new("socialitis_building.xml").read
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
-        project.should be_failure
-        project.statuses.should == statuses
+        expect(project).to be_failure
+        expect(project.statuses).to eq(statuses)
       end
     end
   end
@@ -62,12 +62,12 @@ describe CruiseControlXmlPayload do
 
     context "when building" do
       let(:xml) { "socialitis_building.xml" }
-      it { should be_building }
+      it { is_expected.to be_building }
     end
 
     context "when not building" do
       let(:xml) { "socialitis_not_building.xml" }
-      it { should_not be_building }
+      it { is_expected.not_to be_building }
     end
   end
 
@@ -81,28 +81,34 @@ describe CruiseControlXmlPayload do
       describe "when build was successful" do
         let(:xml) { "success.rss" }
 
-        its(:latest_status) { should be_success }
+        describe '#latest_status' do
+          subject { super().latest_status }
+          it { is_expected.to be_success }
+        end
 
         it "return the link to the checkin" do
-          subject.latest_status.url.should == CCRssExample.new("success.rss").xpath_content("/rss/channel/item/link")
+          expect(subject.latest_status.url).to eq(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/link"))
         end
 
         it "should return the published date of the checkin" do
-          subject.latest_status.published_at.should == Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate"))
+          expect(subject.latest_status.published_at).to eq(Time.parse(CCRssExample.new("success.rss").xpath_content("/rss/channel/item/pubDate")))
         end
       end
 
       describe "when build failed" do
         let(:xml) { "failure.rss" }
 
-        its(:latest_status) { should_not be_success }
+        describe '#latest_status' do
+          subject { super().latest_status }
+          it { is_expected.not_to be_success }
+        end
 
         it "return the link to the checkin" do
-          subject.latest_status.url.should == CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/link")
+          expect(subject.latest_status.url).to eq(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/link"))
         end
 
         it "should return the published date of the checkin" do
-          subject.latest_status.published_at.should == Time.parse(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/pubDate"))
+          expect(subject.latest_status.published_at).to eq(Time.parse(CCRssExample.new("failure.rss").xpath_content("/rss/channel/item/pubDate")))
         end
       end
     end
@@ -111,13 +117,13 @@ describe CruiseControlXmlPayload do
       let(:wrong_status_content) { "some non xml content" }
       describe "#status_content" do
         it "should log errors" do
-          payload.should_receive("log_error")
+          expect(payload).to receive("log_error")
           payload.status_content = wrong_status_content
         end
       end
       describe "#build_status_content" do
         it "should log errors" do
-          payload.should_receive("log_error")
+          expect(payload).to receive("log_error")
           payload.build_status_content = wrong_status_content
         end
       end
@@ -129,7 +135,7 @@ describe CruiseControlXmlPayload do
     let(:payload) { CruiseControlXmlPayload.new(project.name) }
     before { payload.status_content = status_content }
 
-    it { should_not be_building }
+    it { is_expected.not_to be_building }
 
     it "should not create a status" do
       expect { subject }.not_to change(ProjectStatus, :count)

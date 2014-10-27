@@ -10,14 +10,14 @@ shared_examples_for 'a project that updates only the most recent status' do
     end
 
     before do
-      project.stub(:status).and_return(project_status)
-      project.stub(:parse_project_status).and_return(parsed_status)
-      UrlRetriever.any_instance.stub(:retrieve_content)
+      allow(project).to receive(:status).and_return(project_status)
+      allow(project).to receive(:parse_project_status).and_return(parsed_status)
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content)
     end
 
     context "when the parsed status is new" do
       before do
-        project_status.stub(:match?).and_return(false)
+        allow(project_status).to receive(:match?).and_return(false)
       end
 
       it "creates a new status for the project" do
@@ -26,13 +26,13 @@ shared_examples_for 'a project that updates only the most recent status' do
 
       it "creates an online status" do
         fetch_new_statuses
-        project.statuses.first.should be_online
+        expect(project.statuses.first).to be_online
       end
     end
 
     context "when the parsed status already exists" do
       before do
-        project_status.stub(:match?).and_return(true)
+        allow(project_status).to receive(:match?).and_return(true)
       end
 
       it "does not create a new status for the project" do
