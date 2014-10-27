@@ -71,11 +71,9 @@ end
 group :test, :development do
   gem 'launchy'
   gem 'jshint_on_rails'
-  gem 'rspec'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.99.0'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'jasmine', github: 'pivotal/jasmine-gem'
   gem 'jasmine-rails'
   gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails'

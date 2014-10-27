@@ -89,12 +89,12 @@ describe ProjectWorkloadHandler do
     it 'should add a log entry' do
       error.stub(:message).and_return("message")
       project.payload_log_entries.should_receive(:build)
-      .with(error_type: "RSpec::Mocks::Mock", error_text: "message", update_method: "Polling", status: "failed", backtrace: "message\nbacktrace\nmore")
+      .with(error_type: "RSpec::Mocks::Double", error_text: "message", update_method: "Polling", status: "failed", backtrace: "message\nbacktrace\nmore")
     end
 
     it 'should not call message on a failure when passed a String instead of an Exception' do
       project.payload_log_entries.should_receive(:build)
-      .with(error_type: "RSpec::Mocks::Mock", error_text: "", update_method: "Polling", status: "failed", backtrace: "\nbacktrace\nmore")
+      .with(error_type: "RSpec::Mocks::Double", error_text: "", update_method: "Polling", status: "failed", backtrace: "\nbacktrace\nmore")
     end
 
     it 'should set building to false' do
