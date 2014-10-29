@@ -27,7 +27,6 @@ gem 'omniauth-google-oauth2'
 gem 'pivotal-tracker'
 gem 'rails', '4.0.10'
 gem 'rake'
-gem 'xpath'
 gem 'whenever', require: false
 gem 'rails-backbone'
 gem 'coffee-rails', '~> 4.0.0'

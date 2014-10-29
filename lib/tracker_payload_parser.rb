@@ -15,12 +15,12 @@ private
 
   def parse_current_velocity(project_payload)
     project_document = Nokogiri::XML.parse(project_payload)
-    (project_document.xpath(XPath.descendant(:current_velocity).to_s).first.try(:text) || 0).to_i
+    (project_document.xpath('.//current_velocity').first.try(:text) || 0).to_i
   end
 
   def parse_iterations(iterations_payload)
     iterations_document = Nokogiri::XML.parse(iterations_payload)
-    iterations = iterations_document.xpath(XPath.descendant(:iteration).to_s)
+    iterations = iterations_document.xpath('.//iteration')
     iterations.to_a.last(9).map {|iteration| sum_story_points(iteration)}
   end
 
@@ -40,13 +40,12 @@ private
     story_counts
   end
 
-  private
   def parse_stories(iteration_document, state)
     stories = iteration_document.xpath(".//current_state[text() = '#{state}']/parent::story")
     points = sum_story_points(stories)
   end
 
   def sum_story_points(stories)
-    stories.xpath(XPath.descendant(:estimate).to_s).map(&:text).map(&:to_i).select { |x| x >= 0 }.sum
+    stories.xpath('.//estimate').map(&:text).map(&:to_i).select { |x| x >= 0 }.sum
   end
 end

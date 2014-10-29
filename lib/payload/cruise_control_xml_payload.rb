@@ -6,8 +6,7 @@ class CruiseControlXmlPayload < Payload
   end
 
   def building?
-    selector = XPath.descendant(:projects).descendant(:project)[XPath.attr(:name) == @project_name.downcase].to_s
-    project_element = build_status_content.at_xpath selector
+    project_element = build_status_content.at_xpath(".//projects/project[@name = '#{@project_name.downcase}']")
     project_element.present? && project_element['activity'] == 'building'
   end
 

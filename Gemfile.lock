@@ -469,4 +469,3 @@ DEPENDENCIES
   vagrant
   vcr (~> 2.9.3)
   whenever
-  xpath

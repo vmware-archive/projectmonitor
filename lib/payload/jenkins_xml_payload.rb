@@ -6,8 +6,7 @@ class JenkinsXmlPayload < Payload
   end
 
   def building?
-    selector = XPath.descendant(:project)[XPath.attr(:name) == @build_name.downcase].to_s
-    p_element = build_status_content.xpath selector
+    p_element = build_status_content.xpath(".//project[@name = '#{@build_name.downcase}']")
     p_element.present? && p_element.attribute('activity').value == 'building'
   end
 
