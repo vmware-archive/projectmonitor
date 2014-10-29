@@ -10,21 +10,21 @@ describe ProjectUpdater do
 
   describe '.update' do
     before do
-      project.stub(:fetch_payload).and_return(payload)
-      UrlRetriever.stub(:new).with(any_args).and_return(double('UrlRetriever', retrieve_content: 'response'))
-      PayloadProcessor.stub(:new).and_return(payload_processor)
+      allow(project).to receive(:fetch_payload).and_return(payload)
+      allow(UrlRetriever).to receive(:new).with(any_args).and_return(double('UrlRetriever', retrieve_content: 'response'))
+      allow(PayloadProcessor).to receive(:new).and_return(payload_processor)
     end
 
     it 'should process the payload' do
-      payload_processor.should_receive(:process_payload).with(project: project, payload: payload)
+      expect(payload_processor).to receive(:process_payload).with(project: project, payload: payload)
 
       project_updater.update(project)
     end
 
     it 'should fetch the feed_url' do
       retriever = double('UrlRetriever')
-      UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-      retriever.should_receive(:retrieve_content)
+      allow(UrlRetriever).to receive(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+      expect(retriever).to receive(:retrieve_content)
 
       project_updater.update(project)
     end
@@ -44,8 +44,8 @@ describe ProjectUpdater do
     context 'when fetching the status fails' do
       before do
         retriever = double('UrlRetriever')
-        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-        retriever.stub(:retrieve_content).and_raise(net_exception)
+        allow(UrlRetriever).to receive(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        allow(retriever).to receive(:retrieve_content).and_raise(net_exception)
       end
 
       it 'should create a payload log entry' do
@@ -54,17 +54,17 @@ describe ProjectUpdater do
           project.save!
         end.to change(PayloadLogEntry, :count).by(1)
 
-        PayloadLogEntry.last.status.should == "failed"
+        expect(PayloadLogEntry.last.status).to eq("failed")
       end
 
       it 'should set the project to offline' do
-        project.should_receive(:online=).with(false)
+        expect(project).to receive(:online=).with(false)
 
         project_updater.update(project)
       end
 
       it 'should set the project as not building' do
-        project.should_receive(:building=).with(false)
+        expect(project).to receive(:building=).with(false)
 
         project_updater.update(project)
       end
@@ -72,14 +72,14 @@ describe ProjectUpdater do
 
     context 'when the project has a different url for status and building status' do
       before do
-        project.stub(:feed_url).and_return('http://status.com')
-        project.stub(:build_status_url).and_return('http://build-status.com')
+        allow(project).to receive(:feed_url).and_return('http://status.com')
+        allow(project).to receive(:build_status_url).and_return('http://build-status.com')
       end
 
       it 'should fetch the build_status_url' do
         retriever = double('UrlRetriever')
-        UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-        retriever.should_receive(:retrieve_content)
+        allow(UrlRetriever).to receive(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+        expect(retriever).to receive(:retrieve_content)
 
         project_updater.update(project)
       end
@@ -87,18 +87,18 @@ describe ProjectUpdater do
       context 'and fetching the build status fails' do
         before do
           retriever = double('UrlRetriever')
-          UrlRetriever.stub(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
-          retriever.stub(:retrieve_content).and_raise(net_exception)
+          allow(UrlRetriever).to receive(:new).with(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl).and_return(retriever)
+          allow(retriever).to receive(:retrieve_content).and_raise(net_exception)
         end
 
         it 'should set the project to offline' do
-          project.should_receive(:online=).with(false)
+          expect(project).to receive(:online=).with(false)
 
           project_updater.update(project)
         end
 
         it 'should leave the project as building' do
-          project.should_receive(:building=).with(false)
+          expect(project).to receive(:building=).with(false)
 
           project_updater.update(project)
         end

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "Project" do
+describe "Project", :type => :request do
   describe "/validate_build_info" do
     it "returns log entry" do
       project = FactoryGirl.create(:project, jenkins_build_name: 'twitter-for-dogs')

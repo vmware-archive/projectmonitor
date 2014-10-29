@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'time'
 
-describe ProjectsController do
+describe ProjectsController, :type => :controller do
   describe "with a logged in user" do
     before do
       @current_user = FactoryGirl.create(:user)
@@ -10,7 +10,7 @@ describe ProjectsController do
 
     context "when nested under an aggregate project" do
       it "should scope by aggregate_project_id" do
-        Project.should_receive(:with_aggregate_project).with('1')
+        expect(Project).to receive(:with_aggregate_project).with('1')
         get :index, aggregate_project_id: 1
       end
     end
@@ -22,17 +22,17 @@ describe ProjectsController do
       let(:tags) { 'bleecker' }
 
       before do
-        AggregateProject.stub(:displayable).and_return(aggregate_projects)
-        Project.stub_chain(:standalone, :displayable).and_return(projects)
-        projects.stub_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
+        allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
+        allow(Project).to receive_message_chain(:standalone, :displayable).and_return(projects)
+        allow(projects).to receive_message_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
 
-        aggregate_projects.should receive(:decorate).and_return(aggregate_projects)
-        projects.should receive(:decorate).and_return(projects)
+        expect(aggregate_projects).to receive(:decorate).and_return(aggregate_projects)
+        expect(projects).to receive(:decorate).and_return(projects)
       end
 
       it 'gets a collection of aggregate projects by tag' do
-        AggregateProject.should_receive(:displayable).with(tags)
-        Project.standalone.should_receive(:displayable).with(tags)
+        expect(AggregateProject).to receive(:displayable).with(tags)
+        expect(Project.standalone).to receive(:displayable).with(tags)
         get :index, tags: tags, format: :json
       end
     end
@@ -49,25 +49,25 @@ describe ProjectsController do
         end
 
         it "should create a project of the correct type" do
-          lambda { do_post }.should change(JenkinsProject, :count).by(1)
+          expect { do_post }.to change(JenkinsProject, :count).by(1)
         end
 
         it "should set the project's creator'" do
           do_post
-          Project.last.creator.should == @current_user
+          expect(Project.last.creator).to eq(@current_user)
         end
 
         it "should set the flash" do
           do_post
-          flash[:notice].should == 'Project was successfully created.'
+          expect(flash[:notice]).to eq('Project was successfully created.')
         end
 
-        it { do_post.should redirect_to edit_configuration_path }
+        it { expect(do_post).to redirect_to edit_configuration_path }
       end
 
       context "when the project is invalid" do
         before { post :create, project: { name: nil, type: JenkinsProject.name} }
-        it { should render_template :new }
+        it { is_expected.to render_template :new }
       end
     end
 
@@ -76,15 +76,15 @@ describe ProjectsController do
         before { put :update, id: projects(:jenkins_project), project: { name: "new name" } }
 
         it "should set the flash" do
-          flash[:notice].should == 'Project was successfully updated.'
+          expect(flash[:notice]).to eq('Project was successfully updated.')
         end
 
-        it { should redirect_to edit_configuration_path }
+        it { is_expected.to redirect_to edit_configuration_path }
       end
 
       context "when the project was not successfully updated" do
         before { put :update, id: projects(:jenkins_project), project: { name: nil } }
-        it { should render_template :edit }
+        it { is_expected.to render_template :edit }
       end
 
 
@@ -101,22 +101,22 @@ describe ProjectsController do
 
           context 'when the new password is not present' do
             let(:new_password) { nil }
-            it { should be_nil }
+            it { is_expected.to be_nil }
           end
           context 'when the new password is present but empty' do
             let(:new_password) { '' }
-            it { should be_nil }
+            it { is_expected.to be_nil }
           end
           context 'when the new password is not empty' do
             let(:new_password) { 'new password' }
-            it { should == new_password }
+            it { is_expected.to eq(new_password) }
           end
         end
 
         context 'when the password has not been changed' do
           let(:changed) { 'false' }
 
-          after { it {should == 'existing_password'} }
+          after { it {is_expected.to eq('existing_password')} }
 
           context 'when the new password is not present' do
             let(:new_password) { nil }
@@ -139,7 +139,7 @@ describe ProjectsController do
           let(:project_params) { {"type"=>"JenkinsProject", name: "foobar", "jenkins_base_url"=>"http://foo", "jenkins_build_name"=>"NAMe"} }
           it "should validate as the new type and save the record" do
             subject
-            (Project.find(project.id).is_a? JenkinsProject).should be_true
+            expect(Project.find(project.id).is_a? JenkinsProject).to be true
           end
         end
 
@@ -148,7 +148,7 @@ describe ProjectsController do
           let(:project_params) { {"type"=>"JenkinsProject", "jenkins_build_name"=>"NAMe"} }
           it "should validate as the new type and save the record" do
             subject
-            (Project.find(project.id).is_a? TeamCityProject).should be_true
+            expect(Project.find(project.id).is_a? TeamCityProject).to be true
           end
         end
       end
@@ -158,22 +158,22 @@ describe ProjectsController do
       subject { delete :destroy, id: projects(:jenkins_project) }
 
       it "should destroy the project" do
-        lambda { subject }.should change(JenkinsProject, :count).by(-1)
+        expect { subject }.to change(JenkinsProject, :count).by(-1)
       end
 
       it "should set the flash" do
         subject
-        flash[:notice].should == 'Project was successfully destroyed.'
+        expect(flash[:notice]).to eq('Project was successfully destroyed.')
       end
 
-      it { should redirect_to edit_configuration_path }
+      it { is_expected.to redirect_to edit_configuration_path }
     end
 
     describe "#validate_tracker_project" do
       it "should enqueue a job" do
         project = projects(:jenkins_project)
-        TrackerProjectValidator.should_receive(:delay) { TrackerProjectValidator }
-        TrackerProjectValidator.should_receive :validate
+        expect(TrackerProjectValidator).to receive(:delay) { TrackerProjectValidator }
+        expect(TrackerProjectValidator).to receive :validate
         post :validate_tracker_project, { auth_token: "12354", project_id: "98765", id: project.id }
       end
     end
@@ -184,61 +184,61 @@ describe ProjectsController do
       context 'when the payload is missing' do
         it "returns 422" do
           post :validate_build_info, {}
-          response.should be_unprocessable
+          expect(response).to be_unprocessable
         end
 
         it "renders nothing" do
           post :validate_build_info, {}
-          response.body.should == " "
+          expect(response.body).to eq(" ")
         end
       end
 
       context 'when the payload is invalid' do
-        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
+        before(:each) { expect_any_instance_of(ProjectUpdater).to receive(:update).and_return(log_entry) } # SMELL
 
         let(:log_entry) { PayloadLogEntry.new(status: 'failed', error_type: 'MockExceptionClass', error_text: error_text) }
         let(:error_text) { 'Mock error description'}
 
         context 'should set success flag to true' do
           subject { parsed_response['status'] }
-          it { should be_false }
+          it { is_expected.to be false }
         end
 
         context 'should set error_class to correct exception' do
           subject { parsed_response['error_type'] }
-          it { should == 'MockExceptionClass' }
+          it { is_expected.to eq('MockExceptionClass') }
         end
 
         context 'should set error_text to correct text' do
           subject { parsed_response['error_text'] }
           context 'with a short description' do
-            it { should == 'Mock error description' }
+            it { is_expected.to eq('Mock error description') }
           end
 
           context 'with a long description' do
             let(:error_text) { 'a'*50000 }
-            it { should == 'a'*10000 }
+            it { is_expected.to eq('a'*10000) }
           end
         end
       end
 
       context 'when the payload is valid' do
-        before(:each) { ProjectUpdater.any_instance.should_receive(:update).and_return(log_entry) } # SMELL
+        before(:each) { expect_any_instance_of(ProjectUpdater).to receive(:update).and_return(log_entry) } # SMELL
         let(:log_entry) { PayloadLogEntry.new(status: 'successful', error_type: nil, error_text: '') }
 
         context 'should set success flag to false' do
           subject { parsed_response['status'] }
-          it { should be_true }
+          it { is_expected.to be true }
         end
 
         context 'should set error_class to nil' do
           subject { parsed_response['error_type'] }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
 
         context 'should set error_text to empty string' do
           subject { parsed_response['error_text'] }
-          it { should == '' }
+          it { is_expected.to eq('') }
         end
       end
 
@@ -247,7 +247,7 @@ describe ProjectsController do
           let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "password") }
 
           it "should grab the existing project password" do
-            Project.should_not_receive(:find).with(project.id.to_s)
+            expect(Project).not_to receive(:find).with(project.id.to_s)
             post :validate_build_info, {project: project.attributes}
           end
         end
@@ -256,7 +256,7 @@ describe ProjectsController do
           let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "") }
 
           it "should use the saved password to fetch" do
-            Project.should_receive(:find).with(project.id.to_s)
+            expect(Project).to receive(:find).with(project.id.to_s)
             post :validate_build_info, {project: project.attributes}
           end
         end

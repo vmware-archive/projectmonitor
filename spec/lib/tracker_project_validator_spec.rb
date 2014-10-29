@@ -15,10 +15,10 @@ describe TrackerProjectValidator do
       let(:project_id) { '590337' }
 
       before do
-        PivotalTracker::Project.stub(:find).with(project_id) { true }
+        allow(PivotalTracker::Project).to receive(:find).with(project_id) { true }
       end
 
-      it { should == :ok }
+      it { is_expected.to eq(:ok) }
     end
 
     context "with an invalid token and valid project id" do
@@ -26,10 +26,10 @@ describe TrackerProjectValidator do
       let(:project_id) { '590337' }
 
       before do
-        PivotalTracker::Project.stub(:find).with(project_id) { raise RestClient::Unauthorized }
+        allow(PivotalTracker::Project).to receive(:find).with(project_id) { raise RestClient::Unauthorized }
       end
 
-      it { should == :unauthorized}
+      it { is_expected.to eq(:unauthorized)}
     end
 
     context "with a valid token and invalid project id" do
@@ -37,10 +37,10 @@ describe TrackerProjectValidator do
       let(:project_id) { '935729729' }
 
       before do
-        PivotalTracker::Project.stub(:find).with(project_id) { raise RestClient::ResourceNotFound }
+        allow(PivotalTracker::Project).to receive(:find).with(project_id) { raise RestClient::ResourceNotFound }
       end
 
-      it { should == :not_found }
+      it { is_expected.to eq(:not_found) }
     end
 
     context "with a invalid token and invalid project id" do
@@ -48,10 +48,10 @@ describe TrackerProjectValidator do
       let(:project_id) { '397295725' }
 
       before do
-        PivotalTracker::Project.stub(:find).with(project_id) { raise RestClient::Unauthorized }
+        allow(PivotalTracker::Project).to receive(:find).with(project_id) { raise RestClient::Unauthorized }
       end
 
-      it { should == :unauthorized }
+      it { is_expected.to eq(:unauthorized) }
     end
   end
 end

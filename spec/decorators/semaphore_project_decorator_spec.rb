@@ -5,5 +5,8 @@ describe SemaphoreProjectDecorator do
 
   subject { semaphore_project.decorate }
 
-  its(:current_build_url) { should == nil }
+  describe '#current_build_url' do
+    subject { super().current_build_url }
+    it { is_expected.to eq(nil) }
+  end
 end

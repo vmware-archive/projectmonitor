@@ -24,18 +24,18 @@ describe TeamCityXmlPayload do
 
         context "when build was successful" do
           let(:status) { 'SUCCESS' }
-          it { should be_success }
+          it { is_expected.to be_success }
         end
 
         context "when build had failed" do
           let(:status) { 'FAILURE' }
-          it { should be_failure }
+          it { is_expected.to be_failure }
         end
 
         context "with bad XML data" do
           let(:content) { "some non xml content" }
           it "should log erros" do
-            payload.should_receive("log_error")
+            expect(payload).to receive("log_error")
             payload.status_content = content
           end
         end
@@ -56,7 +56,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_success
+          expect(project.reload).to be_success
 
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -67,7 +67,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_failure
+          expect(project.reload).to be_failure
         end
 
         it "remains red when existing status is red" do
@@ -84,7 +84,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_failure
+          expect(project.reload).to be_failure
 
           content = <<-XML
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -95,7 +95,7 @@ describe TeamCityXmlPayload do
           payload.status_content = content
           payload_processor.process_payload(project: project, payload: payload)
 
-          project.reload.should be_failure
+          expect(project.reload).to be_failure
         end
       end
     end
@@ -114,17 +114,17 @@ describe TeamCityXmlPayload do
 
       context "with a valid response that the project is building" do
         let(:project_is_running) { true }
-        it { should be_building }
+        it { is_expected.to be_building }
       end
 
       context "with a valid response that the project is not building" do
         let(:project_is_running) { false }
-        it { should_not be_building }
+        it { is_expected.not_to be_building }
       end
 
       context "with an invalid response" do
         let(:content) { "<foo><bar>baz</bar></foo>" }
-        it { should_not be_building }
+        it { is_expected.not_to be_building }
       end
     end
   end
@@ -143,7 +143,7 @@ describe TeamCityXmlPayload do
       payload.status_content = content
       payload_processor.process_payload(project: project, payload: payload)
 
-      project.reload.should be_success
+      expect(project.reload).to be_success
       statuses = project.statuses
 
       content = <<-XML
@@ -156,8 +156,8 @@ describe TeamCityXmlPayload do
       payload.status_content = content
       payload_processor.process_payload(project: project, payload: payload)
 
-      project.reload.should be_success
-      project.statuses.should == statuses
+      expect(project.reload).to be_success
+      expect(project.statuses).to eq(statuses)
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'projects/edit' do
+describe 'projects/edit', :type => :view do
 
   describe "information about project creator" do
     context "when the creator is missing" do
@@ -8,7 +8,7 @@ describe 'projects/edit' do
         project = FactoryGirl.create(:travis_project, creator: nil)
         assign(:project, project)
         render
-        page.should have_no_content "Creator"
+        expect(page).to have_no_content "Creator"
       end
     end
 
@@ -22,11 +22,11 @@ describe 'projects/edit' do
       end
 
       it "has creator's name" do
-        page.should have_content project.creator.name
+        expect(page).to have_content project.creator.name
       end
 
       it "has creator's email" do
-        page.should have_content project.creator.email
+        expect(page).to have_content project.creator.email
       end
     end
   end
@@ -40,17 +40,17 @@ describe 'projects/edit' do
     end
 
     it 'has a visible fieldset for travis project fields' do
-      page.should have_css('.project-attributes#TravisProject')
-      page.should_not have_css('.project-attributes#TravisProject.hide')
-      page.should_not have_css('fieldset#build_setup #branch_name.hide')
+      expect(page).to have_css('.project-attributes#TravisProject')
+      expect(page).not_to have_css('.project-attributes#TravisProject.hide')
+      expect(page).not_to have_css('fieldset#build_setup #branch_name.hide')
     end
 
     it 'should render the alternative project specific fields as hidden' do
-      page.should have_css('.project-attributes#CruiseControlProject.hide')
-      page.should have_css('.project-attributes#JenkinsProject.hide')
-      page.should have_css('.project-attributes#TeamCityRestProject.hide')
-      page.should have_css('.project-attributes#TeamCityProject.hide')
-      page.should have_css('.project-attributes#SemaphoreProject.hide')
+      expect(page).to have_css('.project-attributes#CruiseControlProject.hide')
+      expect(page).to have_css('.project-attributes#JenkinsProject.hide')
+      expect(page).to have_css('.project-attributes#TeamCityRestProject.hide')
+      expect(page).to have_css('.project-attributes#TeamCityProject.hide')
+      expect(page).to have_css('.project-attributes#SemaphoreProject.hide')
     end
   end
 end

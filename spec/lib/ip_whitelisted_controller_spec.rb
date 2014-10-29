@@ -124,18 +124,18 @@ describe IPWhitelistedController, type: :request do
     let(:whitelisted_controller) { Class.new }
 
     before do
-      whitelisted_controller.stub(:before_filter)
+      allow(whitelisted_controller).to receive(:before_filter)
     end
 
     context 'an ip whitelist is specified' do
       context 'the whitelist contains single ip addresses' do
         it 'should add the authentication before filter' do
-          whitelisted_controller.should_receive(:before_filter).with(:authenticate_user!)
+          expect(whitelisted_controller).to receive(:before_filter).with(:authenticate_user!)
           whitelisted_controller.send(:include, IPWhitelistedController)
         end
 
         it 'should add the ip whitelist before filter' do
-          whitelisted_controller.should_receive(:before_filter).with(:restrict_ip_address)
+          expect(whitelisted_controller).to receive(:before_filter).with(:restrict_ip_address)
           whitelisted_controller.send(:include, IPWhitelistedController)
         end
       end
@@ -143,11 +143,11 @@ describe IPWhitelistedController, type: :request do
 
     context 'no ip whitelist is specified' do
       before do
-        ConfigHelper.stub(:get).with(:ip_whitelist).and_return(nil)
+        allow(ConfigHelper).to receive(:get).with(:ip_whitelist).and_return(nil)
       end
 
       it 'should not add any filters' do
-        whitelisted_controller.should_not_receive(:before_filter)
+        expect(whitelisted_controller).not_to receive(:before_filter)
         whitelisted_controller.send(:include, IPWhitelistedController)
       end
     end

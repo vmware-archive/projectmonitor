@@ -9,18 +9,29 @@ describe PollerWorkload do
   subject { workload }
 
   before do
-    project.stub(:handler) { handler }
-    ProjectWorkloadHandler.stub(:new).and_return(handler)
+    allow(project).to receive(:handler) { handler }
+    allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
   end
 
   it 'should tell the handler that the workload has been created' do
-    handler.should_receive(:workload_created).with(workload)
     subject
+    expect(handler).to have_received(:workload_created).with(workload)
   end
 
-  its(:incomplete_jobs) { should be_empty }
-  its(:complete?) { should be_true }
-  its(:unfinished_job_descriptions) { should be_empty }
+  describe '#incomplete_jobs' do
+    subject { super().incomplete_jobs }
+    it { is_expected.to be_empty }
+  end
+
+  describe '#complete?' do
+    subject { super().complete? }
+    it { is_expected.to be true }
+  end
+
+  describe '#unfinished_job_descriptions' do
+    subject { super().unfinished_job_descriptions }
+    it { is_expected.to be_empty }
+  end
 
   context 'with a project' do
     let(:project) { double(:project, feed_url: 'http://www.example.com', build_status_url: nil).as_null_object }
@@ -30,8 +41,15 @@ describe PollerWorkload do
       workload.add_job(:build_status_url, project.build_status_url)
     end
 
-    its(:incomplete_jobs) { should =~ [:feed_url] }
-    its(:unfinished_job_descriptions) { should == {feed_url: project.feed_url }}
+    describe '#incomplete_jobs' do
+      subject { super().incomplete_jobs }
+      it { is_expected.to match_array([:feed_url]) }
+    end
+
+    describe '#unfinished_job_descriptions' do
+      subject { super().unfinished_job_descriptions }
+      it { is_expected.to eq({feed_url: project.feed_url })}
+    end
 
     it 'should allow storing of content with a key' do
       workload.store(:feed_url, 'Blue Chips')
@@ -42,11 +60,18 @@ describe PollerWorkload do
         workload.store(:feed_url, 'Shazam')
       end
 
-      its(:complete?) { should be_true }
-      its(:unfinished_job_descriptions) { should == {} }
+      describe '#complete?' do
+        subject { super().complete? }
+        it { is_expected.to be true }
+      end
+
+      describe '#unfinished_job_descriptions' do
+        subject { super().unfinished_job_descriptions }
+        it { is_expected.to eq({}) }
+      end
 
       it 'returns the stored content' do
-        subject.recall(:feed_url).should == 'Shazam'
+        expect(subject.recall(:feed_url)).to eq('Shazam')
       end
 
     end

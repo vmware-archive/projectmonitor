@@ -18,7 +18,7 @@ describe RemoveUnusedTags::Job do
     it "removes unused tags" do
       RemoveUnusedTags::Job.new.perform
       remaining_tags = ActsAsTaggableOn::Tag.all.map(&:name)
-      remaining_tags.should =~ ['project-tag', 'aggregate-project-tag']
+      expect(remaining_tags).to match_array(['project-tag', 'aggregate-project-tag'])
     end
   end
 end

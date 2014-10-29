@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ProjectStatus do
+describe ProjectStatus, :type => :model do
   describe 'factories' do
     it 'should be valid project_status' do
-      FactoryGirl.build(:project_status).should be_valid
+      expect(FactoryGirl.build(:project_status)).to be_valid
     end
   end
 
@@ -14,12 +14,12 @@ describe ProjectStatus do
 
     context "for just one project" do
       it "returns statuses sorted by published_at" do
-        project.statuses.recent.should == [status1, status2]
+        expect(project.statuses.recent).to eq([status1, status2])
       end
 
       it "returns statuses that have a build_id" do
         status0 = project.statuses.create(build_id: nil, published_at: 1.year.ago)
-        project.statuses.recent.should_not include(status0)
+        expect(project.statuses.recent).not_to include(status0)
       end
     end
   end
@@ -30,19 +30,19 @@ describe ProjectStatus do
     let!(:status1) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
 
     it "returns the last status" do
-      project.statuses.latest.should == status1
+      expect(project.statuses.latest).to eq(status1)
     end
   end
 
   describe "#in_words" do
     it "returns success for a successful status" do
       status = project_statuses(:socialitis_status_green_01)
-      status.in_words.should == 'success'
+      expect(status.in_words).to eq('success')
     end
 
     it "returns failure for a failed status" do
       status = project_statuses(:socialitis_status_old_red_00)
-      status.in_words.should == 'failure'
+      expect(status.in_words).to eq('failure')
     end
   end
 end

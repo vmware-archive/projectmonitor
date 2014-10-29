@@ -10,10 +10,10 @@ feature "home" do
 
     it "should render project collection", js: true do
       visit root_path
-      page.should have_selector(".statuses .success")
+      expect(page).to have_selector(".statuses .success")
 
-      page.should have_selector(".time-since-last-build", text: "5d")
-      page.should have_content(project.code)
+      expect(page).to have_selector(".time-since-last-build", text: "5d")
+      expect(page).to have_content(project.code)
     end
   end
 
@@ -25,7 +25,7 @@ feature "home" do
       visit root_path
       click_on(aggregate.code)
 
-      page.should have_content(project.code)
+      expect(page).to have_content(project.code)
 
     end
   end

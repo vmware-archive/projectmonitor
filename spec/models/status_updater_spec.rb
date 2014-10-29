@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StatusUpdater do
+describe StatusUpdater, :type => :model do
   describe 'updating a project' do
     it 'pushes the status on the project' do
       status_updater = StatusUpdater.new
@@ -27,6 +27,8 @@ describe StatusUpdater do
       status_updater.update_project(project, status)
 
       oldest_status = old_statuses.first
+
+      project.reload
 
       expect(project.statuses.count).to eq(3)
       expect(project.statuses.last).to eq(status)

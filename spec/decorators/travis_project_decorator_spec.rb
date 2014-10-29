@@ -7,7 +7,7 @@ describe TravisProjectDecorator do
     let(:project) { FactoryGirl.build(:travis_project) }
 
     it "returns a url to the project" do
-      should == 'https://travis-ci.org/account/project'
+      is_expected.to eq('https://travis-ci.org/account/project')
     end
   end
 

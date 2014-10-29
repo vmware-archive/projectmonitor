@@ -9,34 +9,34 @@ describe 'UrlRetriever' do
     let(:url) { 'http://host:1010/path?a=b' }
 
     before do
-      Net::HTTP::Get.stub(:new).with('/path?a=b').and_return(get_request)
-      retriever.stub(:http).and_return(http_session)
-      http_session.stub(:request).with(get_request).and_return(response)
+      allow(Net::HTTP::Get).to receive(:new).with('/path?a=b').and_return(get_request)
+      allow(retriever).to receive(:http).and_return(http_session)
+      allow(http_session).to receive(:request).with(get_request).and_return(response)
     end
 
     context 'when not given a block' do
-      before { get_request.should_not_receive(:basic_auth) }
+      before { expect(get_request).not_to receive(:basic_auth) }
 
       subject { retriever.get }
 
-      it { should == response }
+      it { is_expected.to eq(response) }
     end
 
     context 'when given a block' do
-      before { get_request.should_receive(:basic_auth) }
+      before { expect(get_request).to receive(:basic_auth) }
 
       subject do
         retriever.get { |get_request| get_request.basic_auth }
       end
 
-      it { should == response }
+      it { is_expected.to eq(response) }
     end
 
     context 'when a connection refused error is raised' do
       specify do
-        lambda {
+        expect {
           retriever.get { raise Errno::ECONNREFUSED }
-        }.should raise_error(Net::HTTPError)
+        }.to raise_error(Net::HTTPError)
       end
     end
   end
@@ -48,12 +48,31 @@ describe 'UrlRetriever' do
 
       subject { retriever.http }
 
-      its(:address) { should == 'host' }
-      its(:open_timeout) { should == 30 }
-      its(:port) { should == 1010 }
-      its(:read_timeout) { should == 30 }
-      its(:use_ssl?) { should == false }
-      it { should respond_to :start }
+      describe '#address' do
+        subject { super().address }
+        it { is_expected.to eq('host') }
+      end
+
+      describe '#open_timeout' do
+        subject { super().open_timeout }
+        it { is_expected.to eq(30) }
+      end
+
+      describe '#port' do
+        subject { super().port }
+        it { is_expected.to eq(1010) }
+      end
+
+      describe '#read_timeout' do
+        subject { super().read_timeout }
+        it { is_expected.to eq(30) }
+      end
+
+      describe '#use_ssl?' do
+        subject { super().use_ssl? }
+        it { is_expected.to eq(false) }
+      end
+      it { is_expected.to respond_to :start }
     end
 
     context 'when the URI uses https' do
@@ -61,24 +80,50 @@ describe 'UrlRetriever' do
       let(:retriever) { UrlRetriever.new url }
       let(:url) { 'https://host:1010/path' }
 
-      before { ConfigHelper.stub(:get).with(:certificate_bundle).and_return(certificate_bundle_filename) }
+      before { allow(ConfigHelper).to receive(:get).with(:certificate_bundle).and_return(certificate_bundle_filename) }
 
       subject { retriever.http }
 
-      its(:address) { should == 'host' }
-      its(:ca_file) { should == Rails.root.join(certificate_bundle_filename).to_s }
-      its(:open_timeout) { should == 30 }
-      its(:port) { should == 1010 }
-      its(:read_timeout) { should == 30 }
-      its(:use_ssl?) { should == true }
-      it { should respond_to :start }
+      describe '#address' do
+        subject { super().address }
+        it { is_expected.to eq('host') }
+      end
+
+      describe '#ca_file' do
+        subject { super().ca_file }
+        it { is_expected.to eq(Rails.root.join(certificate_bundle_filename).to_s) }
+      end
+
+      describe '#open_timeout' do
+        subject { super().open_timeout }
+        it { is_expected.to eq(30) }
+      end
+
+      describe '#port' do
+        subject { super().port }
+        it { is_expected.to eq(1010) }
+      end
+
+      describe '#read_timeout' do
+        subject { super().read_timeout }
+        it { is_expected.to eq(30) }
+      end
+
+      describe '#use_ssl?' do
+        subject { super().use_ssl? }
+        it { is_expected.to eq(true) }
+      end
+      it { is_expected.to respond_to :start }
 
       context 'and verify_ssl is true' do
         let(:retriever) { UrlRetriever.new url, nil, nil, true }
 
         subject { retriever.http }
 
-        its(:verify_mode) { should == OpenSSL::SSL::VERIFY_PEER }
+        describe '#verify_mode' do
+          subject { super().verify_mode }
+          it { is_expected.to eq(OpenSSL::SSL::VERIFY_PEER) }
+        end
       end
 
       context 'and verify_ssl is false' do
@@ -86,7 +131,10 @@ describe 'UrlRetriever' do
 
         subject { retriever.http }
 
-        its(:verify_mode) { should == OpenSSL::SSL::VERIFY_NONE }
+        describe '#verify_mode' do
+          subject { super().verify_mode }
+          it { is_expected.to eq(OpenSSL::SSL::VERIFY_NONE) }
+        end
       end
     end
   end
@@ -99,8 +147,8 @@ describe 'UrlRetriever' do
     let(:username) { double('username') }
 
     before do
-      Net::HTTP::Get.stub(:new).with('/path.html?parameter=value').and_return(get_request)
-      retriever.stub(:http).and_return(http_session)
+      allow(Net::HTTP::Get).to receive(:new).with('/path.html?parameter=value').and_return(get_request)
+      allow(retriever).to receive(:http).and_return(http_session)
     end
 
     context 'when a username and password are supplied' do
@@ -109,13 +157,13 @@ describe 'UrlRetriever' do
       let(:verify_ssl) { double('verify_ssl') }
 
       before do
-        retriever.stub(:process_response).and_return('response body')
-        get_request.should_receive(:basic_auth).with(username, password)
+        allow(retriever).to receive(:process_response).and_return('response body')
+        expect(get_request).to receive(:basic_auth).with(username, password)
       end
 
       subject { retriever.retrieve_content }
 
-      it { should == 'response body' }
+      it { is_expected.to eq('response body') }
     end
 
     context 'when a username and password are not supplied' do
@@ -123,13 +171,13 @@ describe 'UrlRetriever' do
       let(:retriever) { UrlRetriever.new(url) }
 
       before do
-        retriever.stub(:process_response).and_return('response body')
-        get_request.should_not_receive(:basic_auth)
+        allow(retriever).to receive(:process_response).and_return('response body')
+        expect(get_request).not_to receive(:basic_auth)
       end
 
       subject { retriever.retrieve_content }
 
-      it { should == 'response body' }
+      it { is_expected.to eq('response body') }
     end
 
     context 'when the response status code is in the 200s' do
@@ -138,12 +186,12 @@ describe 'UrlRetriever' do
 
       subject { retriever.retrieve_content }
 
-      it { should == 'response body' }
+      it { is_expected.to eq('response body') }
     end
 
     context 'when the response status code is in the 300s' do
       before do
-        UrlRetriever.should_receive(:new).
+        expect(UrlRetriever).to receive(:new).
         with(new_location, nil, nil, true).
         and_return(double(:url_ret, retrieve_content: "hello, is it me you're looking for?"))
       end
@@ -154,7 +202,7 @@ describe 'UrlRetriever' do
 
       subject { retriever.retrieve_content }
 
-      it { should == "hello, is it me you're looking for?" }
+      it { is_expected.to eq("hello, is it me you're looking for?") }
     end
 
     context 'when the response status code is in the 400s to 500s' do
@@ -162,7 +210,7 @@ describe 'UrlRetriever' do
       let(:retriever) { UrlRetriever.new(url) }
 
       specify do
-        lambda { retriever.retrieve_content }.should raise_error(Net::HTTPError)
+        expect { retriever.retrieve_content }.to raise_error(Net::HTTPError)
       end
     end
   end
@@ -173,11 +221,30 @@ describe 'UrlRetriever' do
 
       subject { retriever.uri }
 
-      its(:host) { should == 'host' }
-      its(:path) { should == '/path' }
-      its(:port) { should == 1010 }
-      its(:query) { should == 'a=b' }
-      its(:scheme) { should == 'http' }
+      describe '#host' do
+        subject { super().host }
+        it { is_expected.to eq('host') }
+      end
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to eq('/path') }
+      end
+
+      describe '#port' do
+        subject { super().port }
+        it { is_expected.to eq(1010) }
+      end
+
+      describe '#query' do
+        subject { super().query }
+        it { is_expected.to eq('a=b') }
+      end
+
+      describe '#scheme' do
+        subject { super().scheme }
+        it { is_expected.to eq('http') }
+      end
     end
 
     context 'when a protocol is specified' do
@@ -185,11 +252,30 @@ describe 'UrlRetriever' do
 
       subject { retriever.uri }
 
-      its(:host) { should == 'host' }
-      its(:path) { should == '/path' }
-      its(:port) { should == 1010 }
-      its(:query) { should == 'a=b' }
-      its(:scheme) { should == 'gopher' }
+      describe '#host' do
+        subject { super().host }
+        it { is_expected.to eq('host') }
+      end
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to eq('/path') }
+      end
+
+      describe '#port' do
+        subject { super().port }
+        it { is_expected.to eq(1010) }
+      end
+
+      describe '#query' do
+        subject { super().query }
+        it { is_expected.to eq('a=b') }
+      end
+
+      describe '#scheme' do
+        subject { super().scheme }
+        it { is_expected.to eq('gopher') }
+      end
     end
   end
 end

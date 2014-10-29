@@ -15,10 +15,10 @@ feature 'configuration export' do
     visit configuration_path(format: 'txt')
 
     configuration = YAML.load page.source
-    configuration.should have_key('aggregate_projects')
-    configuration.should have_key('projects')
+    expect(configuration).to have_key('aggregate_projects')
+    expect(configuration).to have_key('projects')
     project_names = configuration['projects'].map {|project| project['name']}
-    project_names.should include(archived_project_name)
+    expect(project_names).to include(archived_project_name)
   end
 
 end

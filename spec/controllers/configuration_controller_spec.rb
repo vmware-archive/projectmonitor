@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ConfigurationController do
+describe ConfigurationController, :type => :controller do
   before { sign_in FactoryGirl.create(:user) }
 
   describe '#index' do
     subject { get :show }
 
     it 'should return the configuration' do
-      ConfigExport.should_receive(:export)
+      expect(ConfigExport).to receive(:export)
       subject
     end
   end
@@ -18,7 +18,7 @@ describe ConfigurationController do
     end
 
     it 'should change the configuration' do
-      ConfigExport.should_receive(:import).with("---\naggregated_projects: []\nprojects: []\n")
+      expect(ConfigExport).to receive(:import).with("---\naggregated_projects: []\nprojects: []\n")
       subject
     end
   end
@@ -28,21 +28,21 @@ describe ConfigurationController do
 
     it 'should find all the projects' do
       project_scope = double.as_null_object
-      Project.should_receive(:order).with(:name).and_return(project_scope)
+      expect(Project).to receive(:order).with(:name).and_return(project_scope)
       get :edit, tags: tags
     end
 
     it 'should find all the aggregate projects' do
       aggregate_scope = double
-      AggregateProject.should_receive(:order).with(:name).and_return(aggregate_scope)
+      expect(AggregateProject).to receive(:order).with(:name).and_return(aggregate_scope)
       get :edit, tags: tags
     end
 
     it 'gets a list of all the tags in the system' do
       tag_list = [ double(:tag, name: 'nyc') ]
-      ActsAsTaggableOn::Tag.should_receive(:order).with(:name).and_return tag_list
+      expect(ActsAsTaggableOn::Tag).to receive(:order).with(:name).and_return tag_list
       get :edit, tags: tags
-      assigns(:tags).should == ['nyc']
+      expect(assigns(:tags)).to eq(['nyc'])
     end
   end
 end

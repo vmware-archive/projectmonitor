@@ -19,8 +19,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include ViewHelpers, type: :view
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-
   config.order = 'random'
   config.include Rails.application.routes.url_helpers
 
@@ -30,5 +28,13 @@ RSpec.configure do |config|
   # https://github.com/rspec/rspec-rails/issues/252
   def (ActionDispatch::Integration::Session).fixture_path
     RSpec.configuration.fixture_path
+  end
+
+  config.before(:all) do
+    DeferredGarbageCollection.start
+  end
+
+  config.after(:all) do
+    DeferredGarbageCollection.reconsider
   end
 end

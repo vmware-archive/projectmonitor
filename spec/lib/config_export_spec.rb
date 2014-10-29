@@ -27,8 +27,8 @@ describe ConfigExport do
 
       ConfigExport.import yaml.to_yaml
 
-      jenkins_project.reload.name.should == 'New name'
-      jenkins_project.tag_list.should =~ %w[a b c]
+      expect(jenkins_project.reload.name).to eq('New name')
+      expect(jenkins_project.tag_list).to match_array(%w[a b c])
     end
 
     context 'given an old configuration file with obsolete fields' do

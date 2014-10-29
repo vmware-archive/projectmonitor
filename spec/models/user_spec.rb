@@ -1,23 +1,23 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe User do
+describe User, :type => :model do
 
   describe "factories" do
     it "has a name" do
-      FactoryGirl.build(:user).name.should be_present
+      expect(FactoryGirl.build(:user).name).to be_present
     end
 
     it "has an email" do
-      FactoryGirl.build(:user).email.should be_present
+      expect(FactoryGirl.build(:user).email).to be_present
     end
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:login) }
-    it { should validate_presence_of(:email) }
-    it { should validate_uniqueness_of(:email) }
-    it { should ensure_length_of(:name).is_at_most(100) }
+    it { is_expected.to validate_presence_of(:login) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to ensure_length_of(:name).is_at_most(100) }
   end
 
   describe ".find_first_by_auth_conditions" do
@@ -26,7 +26,7 @@ describe User do
     context 'when a condition is specified' do
       ['foo', 'FOO', 'foo@example.com', 'FOO@EXAMPLE.COM'].each do |condition|
         subject { User.find_first_by_auth_conditions(login: condition) }
-        it { should == user }
+        it { is_expected.to eq(user) }
       end
     end
 
@@ -34,8 +34,8 @@ describe User do
       subject { User.find_first_by_auth_conditions({}) }
 
       it "returns the first user" do
-        User.should_receive(:where).with({}).and_return(double(first: user))
-        subject.should == user
+        expect(User).to receive(:where).with({}).and_return(double(first: user))
+        expect(subject).to eq(user)
       end
     end
   end
@@ -46,7 +46,7 @@ describe User do
 
     context "when the user exists" do
       let!(:user) { FactoryGirl.create(:user, login: "foo", email: 'foo@example.com') }
-      it { should == user }
+      it { is_expected.to eq(user) }
     end
 
     context "when the user does not exist" do

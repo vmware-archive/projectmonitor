@@ -14,13 +14,13 @@ feature "authentication" do
 
     click_button "Sign in"
 
-    page.should have_content("Signed in successfully")
+    expect(page).to have_content("Signed in successfully")
 
     visit root_path
 
     click_link "log out"
 
-    page.should_not have_content "log out"
+    expect(page).not_to have_content "log out"
   end
 
   let(:legacy_user) do
@@ -37,6 +37,6 @@ feature "authentication" do
     fill_in "user_password", with: password
 
     click_button "Sign in"
-    page.should have_content("The system has been upgraded, your password needs to be reset before logging in.")
+    expect(page).to have_content("The system has been upgraded, your password needs to be reset before logging in.")
   end
 end

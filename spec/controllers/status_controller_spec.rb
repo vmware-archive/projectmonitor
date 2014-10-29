@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StatusController do
+describe StatusController, :type => :controller do
   describe "#create" do
 
     context "Travis project" do
@@ -49,21 +49,21 @@ describe StatusController do
       it "should have all the attributes" do
         post :create, project_id: project.guid, payload: failure_payload
 
-        ProjectStatus.last.should_not be_success
-        ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.published_at.to_s.should == Time.utc(2013, 1, 21, 16, 12, 15).to_s
+        expect(ProjectStatus.last).not_to be_success
+        expect(ProjectStatus.last.project_id).to eq(project.id)
+        expect(ProjectStatus.last.published_at.to_s).to eq(Time.utc(2013, 1, 21, 16, 12, 15).to_s)
       end
 
       it "should update last_refreshed_at" do
-        project.last_refreshed_at.should be_nil
+        expect(project.last_refreshed_at).to be_nil
         subject
-        project.reload.last_refreshed_at.should_not be_nil
+        expect(project.reload.last_refreshed_at).not_to be_nil
       end
 
       it "should update parsed_url" do
-        project.parsed_url.should be_nil
+        expect(project.parsed_url).to be_nil
         subject
-        project.reload.parsed_url.should == 'https://travis-ci.org/account/project/builds/4219108'
+        expect(project.reload.parsed_url).to eq('https://travis-ci.org/account/project/builds/4219108')
       end
     end
 
@@ -94,16 +94,16 @@ describe StatusController do
 
         it "should have all the attributes" do
           subject
-          ProjectStatus.last.should_not be_success
-          ProjectStatus.last.project_id.should == project.id
-          ProjectStatus.last.build_id.should == build_id
-          ProjectStatus.last.published_at.should_not be_nil
+          expect(ProjectStatus.last).not_to be_success
+          expect(ProjectStatus.last.project_id).to eq(project.id)
+          expect(ProjectStatus.last.build_id).to eq(build_id)
+          expect(ProjectStatus.last.published_at).not_to be_nil
         end
 
         it "should update parsed_url" do
-          project.parsed_url.should be_nil
+          expect(project.parsed_url).to be_nil
           subject
-          project.reload.parsed_url.should include parsed_url
+          expect(project.reload.parsed_url).to include parsed_url
         end
       end
 
@@ -166,16 +166,16 @@ describe StatusController do
 
       it "should have all the attributes" do
         subject
-        ProjectStatus.last.should be_success
-        ProjectStatus.last.project_id.should == project.id
-        ProjectStatus.last.build_id.should == 13
-        ProjectStatus.last.published_at.should_not be_nil
+        expect(ProjectStatus.last).to be_success
+        expect(ProjectStatus.last.project_id).to eq(project.id)
+        expect(ProjectStatus.last.build_id).to eq(13)
+        expect(ProjectStatus.last.published_at).not_to be_nil
       end
 
       it "should update parsed_url" do
-        project.parsed_url.should be_nil
+        expect(project.parsed_url).to be_nil
         subject
-        project.reload.parsed_url.should include 'bt2'
+        expect(project.reload.parsed_url).to include 'bt2'
       end
     end
 
@@ -193,7 +193,7 @@ describe StatusController do
       end
 
       before do
-        Project.stub(:find_by_guid).and_return(project)
+        allow(Project).to receive(:find_by_guid).and_return(project)
       end
 
       after do
@@ -201,11 +201,11 @@ describe StatusController do
       end
 
       it 'should set last_refreshed_at' do
-        project.should_receive(:last_refreshed_at=)
+        expect(project).to receive(:last_refreshed_at=)
       end
 
       it 'should save the project' do
-        project.should_receive(:save!)
+        expect(project).to receive(:save!)
       end
     end
 
@@ -214,12 +214,12 @@ describe StatusController do
       let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
 
       before do
-        Project.stub(:find_by_guid).and_return(project)
+        allow(Project).to receive(:find_by_guid).and_return(project)
       end
 
       it 'should save the project with its original last_refreshed_at date' do
-        project.should_receive(:save!)
-        project.should_not_receive(:last_refreshed_at=)
+        expect(project).to receive(:save!)
+        expect(project).not_to receive(:last_refreshed_at=)
 
         post :create, project_id: project.guid, "payload" => 'invalid_post_content'
       end
@@ -229,7 +229,7 @@ describe StatusController do
     context "when a project isn't found" do
       it "should return a 404" do
         post :create, project_id: "1234", "payload" => '{"id": 4219108}'
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
     end
 

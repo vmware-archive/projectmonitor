@@ -5,12 +5,14 @@ describe('RubyGemsRefresh.init', function() {
       "</div>"
     ].join("\n");
     setFixtures(fixtures);
-    jasmine.Clock.useMock();
-    jasmine.Ajax.useMock();
+    jasmine.clock().install();
+    jasmine.Ajax.install();
   });
 
   afterEach(function() {
     RubyGemsRefresh.cleanupTimeout();
+    jasmine.clock().uninstall();
+    jasmine.Ajax.uninstall();
   });
 
   describe("when the status is bad", function() {
@@ -20,8 +22,8 @@ describe('RubyGemsRefresh.init', function() {
       expect($(".rubygems")).toBeHidden();
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"bad\"}"
         });
@@ -38,8 +40,8 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       $(".rubygems").show();
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
+      jasmine.clock().tick(30001);
+      jasmine.Ajax.requests.mostRecent().response({
         status: 200,
         responseText: "{\"status\": \"good\"}"
       });
@@ -54,8 +56,8 @@ describe('RubyGemsRefresh.init', function() {
       expect($(".rubygems")).toBeHidden();
 
       for (var i=0; i < 4; i++) {
-        jasmine.Clock.tick(30001);
-        mostRecentAjaxRequest().response({
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"unreachable\"}"
         });
@@ -74,8 +76,8 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
+      jasmine.clock().tick(30001);
+      jasmine.Ajax.requests.mostRecent().response({
         status: 500,
         responseText: "{}"
       });
@@ -91,8 +93,8 @@ describe('RubyGemsRefresh.init', function() {
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
-      jasmine.Clock.tick(30001);
-      mostRecentAjaxRequest().response({
+      jasmine.clock().tick(30001);
+      jasmine.Ajax.requests.mostRecent().response({
         status: 200,
         responseText: "{\"status\": \"page broken\"}"
       });

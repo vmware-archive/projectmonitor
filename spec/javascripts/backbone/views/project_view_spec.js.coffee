@@ -7,7 +7,7 @@ describe "ProjectMonitor.Views.ProjectView", ->
       setFixtures(view.render().$el)
 
     it "should include build view", ->
-      expect($("section")).toContain("article.build")
+      expect($("section")).toContainElement("article.build")
 
   describe "four tile view", ->
     beforeEach ->
@@ -20,10 +20,10 @@ describe "ProjectMonitor.Views.ProjectView", ->
       expect($("section").parent().data("project_id")).toEqual(@model.get("project_id"))
 
     it "should include build view", ->
-      expect($("section")).toContain("article.build")
+      expect($("section")).toContainElement("article.build")
 
     it "should include tracker view", ->
-      expect($("section")).toContain("article.tracker")
+      expect($("section")).toContainElement("article.tracker")
 
     it "should include a link to the current build url", ->
       expect($("section .code a").attr('href')).toEqual(@model.get("build").get("current_build_url"))

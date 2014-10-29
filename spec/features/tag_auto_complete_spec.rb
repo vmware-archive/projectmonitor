@@ -31,9 +31,9 @@ feature "tag auto complete" do
 
     click_on 'Create'
 
-    current_path.should == edit_configuration_path
+    expect(current_path).to eq(edit_configuration_path)
 
-    page.should have_content('bar')
-    page.should have_content('baz')
+    expect(page).to have_content('bar')
+    expect(page).to have_content('baz')
   end
 end

@@ -1,6 +1,10 @@
 describe("project edit", function() {
   beforeEach(function() {
-    jasmine.Ajax.useMock();
+    jasmine.Ajax.install();
+  });
+
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
   });
 
   it('does not invoke validateFeedUrl on initialization', function() {
@@ -53,7 +57,7 @@ describe("project edit", function() {
       describe("should validate length of input field", function () {
         describe("when valid", function() {
           beforeEach(function() {
-            spyOn($, 'ajax').andCallFake(function (opts) {
+            spyOn($, 'ajax').and.callFake(function (opts) {
               opts.success({},"",{status: 200});
             });
             ProjectEdit.init();
@@ -70,7 +74,7 @@ describe("project edit", function() {
         describe("when not valid", function() {
           describe("when auth token is invalid", function () {
             beforeEach(function() {
-              spyOn($, 'ajax').andCallFake(function (opts) {
+              spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 401});
               });
               ProjectEdit.init();
@@ -88,7 +92,7 @@ describe("project edit", function() {
 
           describe("when project id is invalid", function() {
             beforeEach(function() {
-              spyOn($, 'ajax').andCallFake(function (opts) {
+              spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 404});
               });
               ProjectEdit.init();
@@ -106,7 +110,7 @@ describe("project edit", function() {
 
           describe("when some other kind of error occurs", function() {
             beforeEach(function() {
-              spyOn($, 'ajax').andCallFake(function (opts) {
+              spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 500});
               });
               ProjectEdit.init();
@@ -127,7 +131,7 @@ describe("project edit", function() {
 
     describe("when the authToken is not present", function() {
       beforeEach(function() {
-        spyOn($, 'ajax').andCallFake(function (opts) {
+        spyOn($, 'ajax').and.callFake(function (opts) {
           opts.error({status: 401});
         });
         ProjectEdit.init();
@@ -143,7 +147,7 @@ describe("project edit", function() {
 
     describe("when the projectId is not present", function() {
       beforeEach(function() {
-        spyOn($, 'ajax').andCallFake(function (opts) {
+        spyOn($, 'ajax').and.callFake(function (opts) {
           opts.error({status: 404});
         });
         ProjectEdit.init();
@@ -340,7 +344,7 @@ describe("project edit", function() {
     describe("when all the build configuration inputs are present", function() {
       describe("and the tracker returns a parseable build status", function() {
         beforeEach(function() {
-          spyOn($, 'ajax').andCallFake(function (opts) {
+          spyOn($, 'ajax').and.callFake(function (opts) {
             opts.success({status: true});
           });
           ProjectEdit.init();
@@ -357,7 +361,7 @@ describe("project edit", function() {
 
       describe("and the tracker does not return a parseable build status", function() {
         beforeEach(function() {
-          spyOn($, 'ajax').andCallFake(function (opts) {
+          spyOn($, 'ajax').and.callFake(function (opts) {
             opts.success({status: false, error_type: "Error Type", error_text: "Error Text"});
           });
           ProjectEdit.init();
@@ -376,7 +380,7 @@ describe("project edit", function() {
 
       describe("and the server does not respond correctly", function() {
         beforeEach(function() {
-          spyOn($, 'ajax').andCallFake(function (opts) {
+          spyOn($, 'ajax').and.callFake(function (opts) {
             opts.error({status: 404});
           });
           ProjectEdit.init();

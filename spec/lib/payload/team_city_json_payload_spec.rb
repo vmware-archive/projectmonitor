@@ -13,21 +13,21 @@ describe TeamCityJsonPayload do
     context 'when content is valid' do
       let(:expected_content) { double }
       before do
-        JSON.stub(:parse).and_return(expected_content)
+        allow(JSON).to receive(:parse).and_return(expected_content)
       end
 
-      it { should == [expected_content] }
+      it { is_expected.to eq([expected_content]) }
     end
 
     context 'when content is corrupt / badly encoded' do
       before do
-        JSON.stub(:parse).and_raise(JSON::ParserError)
+        allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
       end
 
       it 'should be marked as unprocessable' do
-        lambda {subject}.should raise_error Payload::InvalidContentException
-        payload.processable.should be_false
-        payload.build_processable.should be_false
+        expect {subject}.to raise_error Payload::InvalidContentException
+        expect(payload.processable).to be false
+        expect(payload.build_processable).to be false
       end
     end
   end
@@ -35,7 +35,7 @@ describe TeamCityJsonPayload do
   describe "#status_content" do
     context "invalid JSON" do
       it "should log erros" do
-        payload.should_receive(:log_error)
+        expect(payload).to receive(:log_error)
         payload.status_content = "non json content"
       end
     end
@@ -51,19 +51,19 @@ describe TeamCityJsonPayload do
     context 'should be building when build result is "running" and notify type is "started"' do
       let(:example_file) { 'building.txt' }
 
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     context 'should not be building when build result is not "running"' do
       let(:example_file) { 'building_not_running.txt'}
 
-      it { should be_false }
+      it { is_expected.to be false }
     end
 
     context 'should not be building when notify type is not "started"' do
       let(:example_file) { 'building_not_started.txt'}
 
-      it { should be_false }
+      it { is_expected.to be false }
     end
   end
 
@@ -71,12 +71,12 @@ describe TeamCityJsonPayload do
     subject { payload.parse_success(converted_content) }
 
     context 'the payload contains a successful build status' do
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     context 'the payload contains a failure build status' do
       let(:example_file) { "failure.txt" }
-      it { should be_false }
+      it { is_expected.to be false }
     end
   end
 
@@ -84,26 +84,26 @@ describe TeamCityJsonPayload do
     subject { payload.content_ready?(converted_content) }
 
     context 'the build has finished' do
-      it { should be_true }
+      it { is_expected.to be true }
     end
 
     context 'the build has not finished' do
       let(:example_file) { "building.txt" }
-      it { should be_false }
+      it { is_expected.to be false }
     end
   end
 
   describe '#parse_build_id' do
     subject { payload.parse_build_id(converted_content) }
-    it { should == '1' }
+    it { is_expected.to eq('1') }
   end
 
   describe '#parse_url' do
     context 'using the old success format' do
       it 'parses the response and builds a url' do
         return_value = payload.parse_url(converted_content)
-        payload.parsed_url.should eql("http://localhost:8111/viewType.html?buildTypeId=bt2")
-        return_value.should eql("http://localhost:8111/viewLog.html?buildId=1&tab=buildResultsDiv&buildTypeId=bt2")
+        expect(payload.parsed_url).to eql("http://localhost:8111/viewType.html?buildTypeId=bt2")
+        expect(return_value).to eql("http://localhost:8111/viewLog.html?buildId=1&tab=buildResultsDiv&buildTypeId=bt2")
       end
     end
 
@@ -112,13 +112,13 @@ describe TeamCityJsonPayload do
 
       it 'parses the response for a buildStatusUrl attribute' do
         payload.parse_url(converted_content)
-        payload.parsed_url.should eql("http://localhost:8111/viewLog.html?buildTypeId=Foo_Bar&buildId=7")
+        expect(payload.parsed_url).to eql("http://localhost:8111/viewLog.html?buildTypeId=Foo_Bar&buildId=7")
       end
     end
   end
 
   describe '#parse_published_at' do
     subject { payload.parse_published_at(converted_content) }
-    it { should be_an_instance_of(Time) }
+    it { is_expected.to be_an_instance_of(Time) }
   end
 end

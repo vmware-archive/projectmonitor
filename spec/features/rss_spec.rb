@@ -6,8 +6,8 @@ feature "rss" do
     before { visit '/builds.rss' }
 
     scenario "user sees an RSS feed of current builds statuses" do
-      page.should have_css("item guid")
-      page.should have_content("MyCode")
+      expect(page).to have_css("item guid")
+      expect(page).to have_content("MyCode")
     end
   end
 end
