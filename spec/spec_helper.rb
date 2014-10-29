@@ -29,4 +29,12 @@ RSpec.configure do |config|
   def (ActionDispatch::Integration::Session).fixture_path
     RSpec.configuration.fixture_path
   end
+
+  config.before(:all) do
+    DeferredGarbageCollection.start
+  end
+
+  config.after(:all) do
+    DeferredGarbageCollection.reconsider
+  end
 end
