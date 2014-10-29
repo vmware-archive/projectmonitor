@@ -21,7 +21,6 @@ gem 'bootstrap-sass'
 gem 'pivotal-sass'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'mime-types'
 gem 'nokogiri'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
@@ -37,7 +36,6 @@ gem 'pg'
 gem 'eventmachine'
 gem 'em-http-request'
 gem 'newrelic_rpm'
-gem 'hashie'
 gem 'unicorn'
 gem 'uglifier', '>= 1.3.0'
 gem 'clockwork'
@@ -46,7 +44,6 @@ gem 'ruby-openid', '~>2.5.0'
 
 group :production do
   gem 'rails_12factor'
-  gem 'therubyracer'
 end
 
 group :test do
