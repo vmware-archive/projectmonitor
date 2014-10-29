@@ -74,7 +74,6 @@ group :test, :development do
   gem 'jasmine-rails'
   gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails'
-  gem 'ffaker'
   gem 'guard-coffeescript'
   gem 'database_cleaner'
   gem 'capybara-webkit'

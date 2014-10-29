@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :aggregate_project do
-    name { Faker::Name.name }
+    sequence(:name) {|n| "#{@instance.class.name} #{n}"}
 
     factory :aggregate_project_with_project do
       after(:create) do |aggregate, evaluator|
