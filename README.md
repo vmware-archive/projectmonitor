@@ -67,15 +67,6 @@ production environment configuration so it's right for your database:
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
-### Set up memcached for performant/distributed caching
-Statuses are cached via an in-memory store by default.  If you want to use memcache,
-you'll need to ensure it's installed. It should be very easy to install if you have
-homebrew or another package manager:
-
-    brew install memcached
-
-After you have successfully installed memcached follow the instructions to run it.
-
 ### Authentication support
 #### IP Whitelist
 If you want to use Webhooks, your ProjectMonitor instance will need to be located on a

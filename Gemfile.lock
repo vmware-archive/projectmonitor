@@ -83,7 +83,6 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     daemons (1.1.9)
-    dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     delayed_job (4.0.0)
@@ -410,7 +409,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   compass-rails (~> 1.1.0)
   daemons
-  dalli
   database_cleaner
   delayed_job
   delayed_job_active_record
