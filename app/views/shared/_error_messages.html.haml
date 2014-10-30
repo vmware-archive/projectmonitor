@@ -1,0 +1,5 @@
+#errorExplanation.errorExplanation
+  %h2= "#{error_count} errors prevented this #{model_name} from being saved"
+  %ul
+    - error_messages.each do |error|
+      %li= error

@@ -1,7 +1,7 @@
 = link_to '&larr; Back to Projects'.html_safe, edit_configuration_path
 %h1 Add User
 %hr
-= error_messages_for :user
+= error_messages_for @user
 = form_for(@user, html: { class: "form-horizontal" }) do |f|
   .form-group
     = f.label :login, class: "col-sm-2 control-label"

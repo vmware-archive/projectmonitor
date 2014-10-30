@@ -114,7 +114,6 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
-    dynamic_form (1.1.4)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -420,7 +419,6 @@ DEPENDENCIES
   devise-encryptable
   did_you_mean
   draper
-  dynamic_form
   eco
   em-http-request
   eventmachine

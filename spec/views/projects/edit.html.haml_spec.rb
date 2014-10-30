@@ -1,43 +1,52 @@
 require 'spec_helper'
 
 describe 'projects/edit', :type => :view do
+  let(:creator) { nil }
+  let(:project) { FactoryGirl.create(:travis_project, creator: creator) }
+
+  before(:each) { assign(:project, project) }
 
   describe "information about project creator" do
+    before(:each) { render }
+
     context "when the creator is missing" do
       it "does not include creator's information" do
-        project = FactoryGirl.create(:travis_project, creator: nil)
-        assign(:project, project)
-        render
         expect(page).to have_no_content "Creator"
       end
     end
 
     context "when the creator is present" do
-      let(:project) { FactoryGirl.create(:travis_project, creator: creator) }
       let(:creator) { FactoryGirl.create(:user) }
 
-      before do
-        assign(:project, project)
-        render
-      end
-
-      it "has creator's name" do
+      it "has creator's name & email" do
         expect(page).to have_content project.creator.name
-      end
-
-      it "has creator's email" do
         expect(page).to have_content project.creator.email
       end
+    end
+  end
+
+  describe "error messages" do
+    it "should not be visible when the page is first rendered" do
+      render
+      expect(rendered.present?).to be true # detect false positives if page is blank
+      expect(page).to_not have_css("#errorExplanation")
+    end
+
+    it "should be visible when the project record is invalid" do
+      project.name = ""
+      project.valid? # ensure errors are present, mimic the controller Update action validation
+      render
+
+      expect(page).to have_css("#errorExplanation")
+      expect(page).to have_css("#errorExplanation li", count: project.errors.count)
+      expect(page).to have_css("#errorExplanation li", text: project.errors.full_messages.first)
     end
   end
 
   context 'Travis Project' do
     let(:project) { FactoryGirl.create(:travis_project) }
 
-    before do
-      assign(:project, project)
-      render
-    end
+    before(:each) { render }
 
     it 'has a visible fieldset for travis project fields' do
       expect(page).to have_css('.project-attributes#TravisProject')
