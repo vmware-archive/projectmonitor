@@ -4,7 +4,7 @@ require 'time'
 describe ProjectsController, :type => :controller do
   describe "with a logged in user" do
     before do
-      @current_user = FactoryGirl.create(:user)
+      @current_user = create(:user)
       sign_in @current_user
     end
 
@@ -16,8 +16,8 @@ describe ProjectsController, :type => :controller do
     end
 
     describe "#index" do
-      let!(:projects) { [FactoryGirl.create(:jenkins_project, code: "BETA")] }
-      let!(:aggregate_project) { FactoryGirl.create(:aggregate_project, code: "ALPH") }
+      let!(:projects) { [create(:jenkins_project, code: "BETA")] }
+      let!(:aggregate_project) { create(:aggregate_project, code: "ALPH") }
       let!(:aggregate_projects) { [aggregate_project] }
       let(:tags) { 'bleecker' }
 
@@ -133,7 +133,7 @@ describe ProjectsController, :type => :controller do
 
       describe "changing STI type" do
         subject { put :update, "id"=> project.id, "project" => project_params }
-        let!(:project) { FactoryGirl.create(:team_city_project) }
+        let!(:project) { create(:team_city_project) }
 
         context "when the parameters are valid" do
           let(:project_params) { {"type"=>"JenkinsProject", name: "foobar", "jenkins_base_url"=>"http://foo", "jenkins_build_name"=>"NAMe"} }
@@ -244,7 +244,7 @@ describe ProjectsController, :type => :controller do
 
       context "for a project with a saved password" do
         context "when a new password is entered in the form" do
-          let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "password") }
+          let!(:project) { create(:team_city_project, "auth_password" => "password") }
 
           it "should grab the existing project password" do
             expect(Project).not_to receive(:find).with(project.id.to_s)
@@ -253,7 +253,7 @@ describe ProjectsController, :type => :controller do
         end
 
         context "when a new password is not entered in the form" do
-          let!(:project) { FactoryGirl.create(:team_city_project, "auth_password" => "") }
+          let!(:project) { create(:team_city_project, "auth_password" => "") }
 
           it "should use the saved password to fetch" do
             expect(Project).to receive(:find).with(project.id.to_s)

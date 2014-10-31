@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TeamCityProject, :type => :model do
 
-  subject { FactoryGirl.build(:team_city_project) }
+  subject { build(:team_city_project) }
 
   describe 'validations' do
     context "when webhooks are enabled" do

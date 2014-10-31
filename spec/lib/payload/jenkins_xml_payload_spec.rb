@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe JenkinsXmlPayload do
-  let(:project) { FactoryGirl.create(:jenkins_project, jenkins_build_name: "ProjectMonitor") }
+  let(:project) { create(:jenkins_project, jenkins_build_name: "ProjectMonitor") }
   let(:status_content) { JenkinsAtomExample.new(atom).read }
   let(:jenkins_payload) { JenkinsXmlPayload.new(project.jenkins_build_name) }
   let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }

@@ -36,7 +36,7 @@ describe AggregateProject, :type => :model do
 
     describe "before_destroy" do
       let(:project) { projects(:socialitis) }
-      let!(:aggregate_project) { FactoryGirl.create :aggregate_project, projects: [project] }
+      let!(:aggregate_project) { create :aggregate_project, projects: [project] }
 
       it "should remove its id from its projects" do
         expect(project.aggregate_project_id).not_to be_nil
@@ -68,8 +68,8 @@ describe AggregateProject, :type => :model do
         let(:displayable_aggregate) { AggregateProject.displayable }
 
         it "should return enabled projects" do
-          enabled = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true
-          disabled = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false
+          enabled = create :aggregate_project, projects: [create(:project)], enabled: true
+          disabled = create :aggregate_project, projects: [create(:project)], enabled: false
 
           expect(displayable_aggregate).to include enabled
           expect(displayable_aggregate).not_to include disabled
@@ -81,7 +81,7 @@ describe AggregateProject, :type => :model do
         end
 
         it "should not return duplicate aggregate projects" do
-          enabled = FactoryGirl.create :aggregate_project, projects: [create(:project), create(:project)], enabled: true
+          enabled = create :aggregate_project, projects: [create(:project), create(:project)], enabled: true
 
           expect(displayable_aggregate.to_a.count(enabled)).to eq(1)
         end
@@ -98,10 +98,10 @@ describe AggregateProject, :type => :model do
         let(:displayable_aggregate) { AggregateProject.displayable "red"}
 
         it "should return enabled projects with the requested tags" do
-          disabled_red_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "red"
-          disabled_blue_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "blue"
-          enabled_red_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "red"
-          enabled_blue_project = FactoryGirl.create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "blue"
+          disabled_red_project = create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "red"
+          disabled_blue_project = create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "blue"
+          enabled_red_project = create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "red"
+          enabled_blue_project = create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "blue"
 
           expect(displayable_aggregate).to include enabled_red_project
           expect(displayable_aggregate).not_to include disabled_red_project, disabled_blue_project, enabled_blue_project
@@ -324,7 +324,7 @@ describe AggregateProject, :type => :model do
     context "when a project does not have a published_at date" do
       it "should be ignored" do
         project = projects(:red_currently_building)
-        other_project = FactoryGirl.create(:project)
+        other_project = create(:project)
 
         project.statuses.create(success: true, published_at: 1.day.ago, build_id: 100)
         status = project.statuses.create(success: false, published_at: 2.minutes.ago, build_id: 102)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Project, :type => :model do
-  let(:project) { FactoryGirl.create(:jenkins_project) }
+  let(:project) { create(:jenkins_project) }
 
   describe 'associations' do
     it { is_expected.to have_many :statuses }
@@ -19,17 +19,17 @@ describe Project, :type => :model do
     let!(:count) {  Project::MAX_STATUS - 1 }
 
     before do
-      project.statuses << FactoryGirl.create_list(:project_status, count, project: project)
+      project.statuses << create_list(:project_status, count, project: project)
     end
     context 'when the project is online' do
-      let(:project) { FactoryGirl.build(:jenkins_project).tap {|p| p.online = true } }
+      let(:project) { build(:jenkins_project).tap {|p| p.online = true } }
 
       it 'should set the last_refreshed_at' do
         expect(project.last_refreshed_at).to be_present
       end
 
       context 'when the project is offline' do
-        let(:project) { FactoryGirl.build(:jenkins_project) }
+        let(:project) { build(:jenkins_project) }
 
         it 'should not set the last_refreshed_at' do
           expect(project.last_refreshed_at).to be_nil
@@ -41,13 +41,13 @@ describe Project, :type => :model do
       it "trims semaphore urls" do
         url = "  http://example.com/feed.rss   "
         goal = "http://example.com/feed.rss"
-        project = FactoryGirl.create(:semaphore_project, semaphore_api_url: url)
+        project = create(:semaphore_project, semaphore_api_url: url)
         expect(project.feed_url).to eq(goal)
       end
 
       it "trims circleci urls" do
         goal = "https://circleci.com/api/v1/project/white space/project?circle-token=ABC"
-        project = FactoryGirl.create(:circleci_project,
+        project = create(:circleci_project,
                                      circleci_username: "white space",
                                      circleci_project_name: "project",
                                      circleci_auth_token: "ABC   "
@@ -68,7 +68,7 @@ describe Project, :type => :model do
     end
 
     describe "enabled" do
-      let!(:disabled_project) { FactoryGirl.create(:jenkins_project, enabled: false) }
+      let!(:disabled_project) { create(:jenkins_project, enabled: false) }
 
       it "should return only enabled projects" do
         expect(Project.enabled).to include projects(:pivots)
@@ -104,12 +104,12 @@ describe Project, :type => :model do
     describe '.updateable' do
       subject { Project.updateable }
 
-      let!(:enabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: true) }
-      let!(:disabled_webhooks_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: true) }
-      let!(:disabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: false) }
-      let!(:enabled_polling_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: false) }
-      let!(:enabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: true, webhooks_enabled: nil) }
-      let!(:disabled_nil_project) { FactoryGirl.create(:jenkins_project, enabled: false, webhooks_enabled: nil) }
+      let!(:enabled_webhooks_project) { create(:jenkins_project, enabled: true, webhooks_enabled: true) }
+      let!(:disabled_webhooks_project) { create(:jenkins_project, enabled: false, webhooks_enabled: true) }
+      let!(:disabled_polling_project) { create(:jenkins_project, enabled: false, webhooks_enabled: false) }
+      let!(:enabled_polling_project) { create(:jenkins_project, enabled: true, webhooks_enabled: false) }
+      let!(:enabled_nil_project) { create(:jenkins_project, enabled: true, webhooks_enabled: nil) }
+      let!(:disabled_nil_project) { create(:jenkins_project, enabled: false, webhooks_enabled: nil) }
 
       it { is_expected.not_to include enabled_webhooks_project }
       it { is_expected.not_to include disabled_webhooks_project }
@@ -122,11 +122,11 @@ describe Project, :type => :model do
     describe '.tracker_updateable' do
       subject { Project.tracker_updateable }
 
-      let!(:updateable1) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
-      let!(:updateable2) { FactoryGirl.create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
-      let!(:not_updateable1) { FactoryGirl.create(:jenkins_project, tracker_project_id: '1') }
-      let!(:not_updateable2) { FactoryGirl.create(:jenkins_project, tracker_auth_token: 'aafaf') }
-      let!(:not_updateable3) { FactoryGirl.create(:travis_project, tracker_project_id: '', tracker_auth_token: '') }
+      let!(:updateable1) { create(:jenkins_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:updateable2) { create(:travis_project, tracker_auth_token: 'aafaf', tracker_project_id: '1') }
+      let!(:not_updateable1) { create(:jenkins_project, tracker_project_id: '1') }
+      let!(:not_updateable2) { create(:jenkins_project, tracker_auth_token: 'aafaf') }
+      let!(:not_updateable3) { create(:travis_project, tracker_project_id: '', tracker_auth_token: '') }
 
       it { is_expected.to include updateable1 }
       it { is_expected.to include updateable2 }
@@ -257,7 +257,7 @@ describe Project, :type => :model do
     subject { project }
 
     context "the project has a failure status" do
-      let(:project) { FactoryGirl.create(:jenkins_project, online: true) }
+      let(:project) { create(:jenkins_project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: false, build_id: 1) }
 
       describe '#failure?' do
@@ -277,7 +277,7 @@ describe Project, :type => :model do
     end
 
     context "the project has a success status" do
-      let(:project) { FactoryGirl.create(:project, online: true) }
+      let(:project) { create(:project, online: true) }
       let!(:status) { ProjectStatus.create!(project: project, success: true, build_id: 1) }
 
       describe '#failure?' do
@@ -336,7 +336,7 @@ describe Project, :type => :model do
   end
 
   describe "#latest_status" do
-    let(:project) { FactoryGirl.create :project, name: "my_project" }
+    let(:project) { create :project, name: "my_project" }
     let!(:status) { project.statuses.create(success: true, build_id: 1) }
 
     it "returns the most recent status" do
@@ -465,7 +465,7 @@ describe Project, :type => :model do
 
   describe "validation" do
     it "has a valid Factory" do
-      expect(FactoryGirl.build(:project)).to be_valid
+      expect(build(:project)).to be_valid
     end
   end
 
@@ -520,7 +520,7 @@ describe Project, :type => :model do
   end
 
   describe "#generate_guid" do
-    let(:project) { FactoryGirl.build(:project) }
+    let(:project) { build(:project) }
 
     it "calls generate_guid" do
       expect(project).to receive :generate_guid
@@ -535,7 +535,7 @@ describe Project, :type => :model do
   end
 
   describe "#populate_iteration_story_state_counts" do
-    let(:project) { FactoryGirl.build(:project) }
+    let(:project) { build(:project) }
 
     it "initializes iteration_story_state_counts to an empty array" do
       project.populate_iteration_story_state_counts
@@ -550,10 +550,10 @@ describe Project, :type => :model do
 
   describe "#published_at" do
     subject { project.published_at }
-    let(:project) { FactoryGirl.create(:project)}
+    let(:project) { create(:project)}
 
     context "when there is a latest status" do
-      let(:status) { FactoryGirl.build(:project_status, published_at: 5.minutes.ago) }
+      let(:status) { build(:project_status, published_at: 5.minutes.ago) }
       before { project.statuses << status }
 
       it "returns the time the status was published" do

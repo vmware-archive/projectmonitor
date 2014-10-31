@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 feature 'Projects API' do
-  let(:user)                  { FactoryGirl.create(:user, password: 'jeffjeff') }
+  let(:user)                  { create(:user, password: 'jeffjeff') }
   let(:red_project)           { Project.find_by(code: 'ALRE') }
   let(:aggregate_project)     { AggregateProject.find_by(name: 'Aggregation') }
-  let!(:project_with_tracker) { FactoryGirl.create(:project_with_tracker_integration, code: "xxxx") }
+  let!(:project_with_tracker) { create(:project_with_tracker_integration, code: "xxxx") }
 
   background { log_in user, 'jeffjeff' }
 

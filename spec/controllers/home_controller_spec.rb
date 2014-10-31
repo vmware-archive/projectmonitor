@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'time'
 
 describe HomeController, :type => :controller do
-  let!(:projects) { [FactoryGirl.create(:jenkins_project)] }
-  let!(:aggregate_project) { FactoryGirl.create(:aggregate_project) }
+  let!(:projects) { [create(:jenkins_project)] }
+  let!(:aggregate_project) { create(:aggregate_project) }
   let!(:aggregate_projects) { [aggregate_project] }
 
   describe "#index" do

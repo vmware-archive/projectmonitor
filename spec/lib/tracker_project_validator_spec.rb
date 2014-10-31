@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TrackerProjectValidator do
   describe "validate" do
-    let(:project) { FactoryGirl.create(:project) }
+    let(:project) { create(:project) }
     let(:params) { {auth_token: auth_token, project_id: project_id, id: project.id } }
 
     subject do

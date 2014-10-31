@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectUpdater do
-  let(:project) { FactoryGirl.build(:jenkins_project) }
+  let(:project) { build(:jenkins_project) }
   let(:net_exception) { Net::HTTPError.new('Server error', 501) }
   let(:payload_log_entry) { PayloadLogEntry.new(status: "successful") }
   let(:payload_processor) { double(PayloadProcessor, process_payload: payload_log_entry ) }

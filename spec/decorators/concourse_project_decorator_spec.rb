@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ConcourseProjectDecorator do
-  let(:concourse_project) { FactoryGirl.build(:concourse_project) }
+  let(:concourse_project) { build(:concourse_project) }
 
   subject { concourse_project.decorate }
 

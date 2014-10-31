@@ -17,7 +17,7 @@ describe AggregateProjectsController, :type => :controller do
   end
 
   describe "with a logged in user" do
-    before { sign_in FactoryGirl.create(:user) }
+    before { sign_in create(:user) }
 
     describe "create" do
       context "when the aggregate project was successfully created" do

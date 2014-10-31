@@ -4,7 +4,7 @@ describe StatusController, :type => :controller do
   describe "#create" do
 
     context "Travis project" do
-      let!(:project) { FactoryGirl.create(:travis_project) }
+      let!(:project) { create(:travis_project) }
       let(:successful_payload) do
         URI.encode(open('spec/fixtures/travis_examples/success.json').read.gsub("4314974", "4219108"))
       end
@@ -68,7 +68,7 @@ describe StatusController, :type => :controller do
     end
 
     context "Jenkins project" do
-      let!(:project) { FactoryGirl.create(:project) }
+      let!(:project) { create(:project) }
       let(:build_id) { 7 }
       let(:build_url) { "job/projectmonitor_ci_test/#{build_id}/" }
       let(:parsed_url) { "job/projectmonitor_ci_test/" }
@@ -126,7 +126,7 @@ describe StatusController, :type => :controller do
     end
 
     context "TeamCity Rest project" do
-      let!(:project) { FactoryGirl.create(:team_city_rest_project) }
+      let!(:project) { create(:team_city_rest_project) }
       let(:payload) do
         {
           "buildStatus"=> "Running",
@@ -180,7 +180,7 @@ describe StatusController, :type => :controller do
     end
 
     context 'when processing the payload succeeded' do
-      let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
+      let(:project) { build(:jenkins_project, guid: '1')}
 
       let(:payload) do
         {'name'  => 'projectmonitor_ci_test',
@@ -211,7 +211,7 @@ describe StatusController, :type => :controller do
 
     context 'when processing the payload failed' do
 
-      let(:project) { FactoryGirl.build(:jenkins_project, guid: '1')}
+      let(:project) { build(:jenkins_project, guid: '1')}
 
       before do
         allow(Project).to receive(:find_by_guid).and_return(project)

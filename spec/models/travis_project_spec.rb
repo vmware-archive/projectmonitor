@@ -5,7 +5,7 @@ describe TravisProject, :type => :model do
   it { is_expected.to validate_presence_of(:travis_github_account) }
   it { is_expected.to validate_presence_of(:travis_repository) }
 
-  subject { FactoryGirl.build(:travis_project) }
+  subject { build(:travis_project) }
 
   describe 'validations' do
     context "when webhooks are enabled" do
@@ -38,7 +38,7 @@ describe TravisProject, :type => :model do
   describe "#has_status?" do
     subject { project.has_status?(status) }
 
-    let(:project) { FactoryGirl.create(:travis_project) }
+    let(:project) { create(:travis_project) }
 
     context "when the project has the status" do
       let!(:status) { project.statuses.create!(build_id: 99) }

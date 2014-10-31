@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature 'aggregate projects' do
-  let!(:aggregate_project) { FactoryGirl.create(:aggregate_project) }
-  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:aggregate_project) { create(:aggregate_project) }
+  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   context "manage projects" do
     before do

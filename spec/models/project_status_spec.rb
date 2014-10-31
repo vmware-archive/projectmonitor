@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectStatus, :type => :model do
   describe ".recent" do
-    let(:project) { FactoryGirl.create(:jenkins_project) }
+    let(:project) { create(:jenkins_project) }
     let!(:status2) { project.statuses.create(build_id: 2, published_at: 3.years.ago) }
     let!(:status1) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
 
@@ -19,7 +19,7 @@ describe ProjectStatus, :type => :model do
   end
 
   describe ".latest" do
-    let(:project) { FactoryGirl.create(:jenkins_project) }
+    let(:project) { create(:jenkins_project) }
     let!(:status2) { project.statuses.create(build_id: 2, published_at: 3.years.ago) }
     let!(:status1) { project.statuses.create(build_id: 1, published_at: 2.years.ago) }
 

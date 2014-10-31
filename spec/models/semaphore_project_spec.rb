@@ -4,7 +4,7 @@ describe SemaphoreProject, :type => :model do
 
   it { is_expected.to validate_presence_of(:semaphore_api_url) }
 
-  subject { FactoryGirl.build(:semaphore_project) }
+  subject { build(:semaphore_project) }
 
   describe '#feed_url' do
     subject { super().feed_url }

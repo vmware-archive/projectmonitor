@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CircleCiProjectDecorator do
-  let(:circleci_project) { FactoryGirl.build(:circleci_project) }
+  let(:circleci_project) { build(:circleci_project) }
 
   subject { circleci_project.decorate }
 

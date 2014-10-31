@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'projects/edit', :type => :view do
   let(:creator) { nil }
-  let(:project) { FactoryGirl.create(:travis_project, creator: creator) }
+  let(:project) { create(:travis_project, creator: creator) }
 
   before(:each) { assign(:project, project) }
 
@@ -16,7 +16,7 @@ describe 'projects/edit', :type => :view do
     end
 
     context "when the creator is present" do
-      let(:creator) { FactoryGirl.create(:user) }
+      let(:creator) { create(:user) }
 
       it "has creator's name & email" do
         expect(page).to have_content project.creator.name
@@ -44,7 +44,7 @@ describe 'projects/edit', :type => :view do
   end
 
   context 'Travis Project' do
-    let(:project) { FactoryGirl.create(:travis_project) }
+    let(:project) { create(:travis_project) }
 
     before(:each) { render }
 

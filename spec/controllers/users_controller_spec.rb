@@ -7,7 +7,7 @@ describe UsersController, :type => :controller do
   end
 
   describe "logged in as a user" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { create(:user) }
     before { sign_in(user) }
 
     it "shows a login page" do

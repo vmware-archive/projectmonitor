@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CruiseControlProject, :type => :model do
-  subject { FactoryGirl.build(:cruise_control_project) }
+  subject { build(:cruise_control_project) }
 
   describe "validations" do
     context "when webhooks are enabled" do
@@ -32,7 +32,7 @@ describe CruiseControlProject, :type => :model do
   end
 
   describe "#build_status_url" do
-    let(:project) { FactoryGirl.build(:cruise_control_project) }
+    let(:project) { build(:cruise_control_project) }
     subject { project.build_status_url }
 
     it { is_expected.to match %r{\Ahttp://www.example.com:80} }

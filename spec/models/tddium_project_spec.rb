@@ -7,7 +7,7 @@ describe TddiumProject, :type => :model do
     it { is_expected.to validate_presence_of(:tddium_auth_token) }
   end
 
-  subject { FactoryGirl.build(:tddium_project) }
+  subject { build(:tddium_project) }
 
   describe 'model' do
     it { is_expected.to validate_presence_of(:tddium_auth_token) }

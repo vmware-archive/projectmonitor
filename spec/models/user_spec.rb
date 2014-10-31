@@ -5,11 +5,11 @@ describe User, :type => :model do
 
   describe "factories" do
     it "has a name" do
-      expect(FactoryGirl.build(:user).name).to be_present
+      expect(build(:user).name).to be_present
     end
 
     it "has an email" do
-      expect(FactoryGirl.build(:user).email).to be_present
+      expect(build(:user).email).to be_present
     end
   end
 
@@ -21,7 +21,7 @@ describe User, :type => :model do
   end
 
   describe ".find_first_by_auth_conditions" do
-    let!(:user) { FactoryGirl.create(:user, login: "foo", email: 'foo@example.com') }
+    let!(:user) { create(:user, login: "foo", email: 'foo@example.com') }
 
     context 'when a condition is specified' do
       ['foo', 'FOO', 'foo@example.com', 'FOO@EXAMPLE.COM'].each do |condition|
@@ -45,7 +45,7 @@ describe User, :type => :model do
     subject { User.find_for_google_oauth2(access_token) }
 
     context "when the user exists" do
-      let!(:user) { FactoryGirl.create(:user, login: "foo", email: 'foo@example.com') }
+      let!(:user) { create(:user, login: "foo", email: 'foo@example.com') }
       it { is_expected.to eq(user) }
     end
 

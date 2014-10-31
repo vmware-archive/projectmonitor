@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SemaphoreProjectDecorator do
-  let(:semaphore_project) { FactoryGirl.build(:semaphore_project) }
+  let(:semaphore_project) { build(:semaphore_project) }
 
   subject { semaphore_project.decorate }
 

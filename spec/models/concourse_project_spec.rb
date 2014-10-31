@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ConcourseProject, :type => :model do
-  subject { FactoryGirl.build(:concourse_project) }
+  subject { build(:concourse_project) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :concourse_base_url }

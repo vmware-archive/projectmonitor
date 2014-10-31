@@ -23,13 +23,13 @@ describe ProjectsHelper, :type => :helper do
     subject { helper.project_webhooks_url(project) }
 
     context "when the project has a guid" do
-      let(:project) { FactoryGirl.build(:project) }
+      let(:project) { build(:project) }
       before { project.save }
       it { is_expected.to include project.guid }
     end
 
     context "when the project lacks a guid" do
-      let!(:project) { FactoryGirl.create(:project) }
+      let!(:project) { create(:project) }
       before { project.tap {|p| p.guid = nil}.save! }
 
       it "should generate a guid" do
@@ -45,7 +45,7 @@ describe ProjectsHelper, :type => :helper do
 
     context "when the project have a payload" do
       let(:payload) { PayloadLogEntry.new(status: "status") }
-      let(:project) { FactoryGirl.create(:project, payload_log_entries: [payload]) }
+      let(:project) { create(:project, payload_log_entries: [payload]) }
 
       context "when the project is enabled" do
         it { is_expected.to eq('Status') }
@@ -56,13 +56,13 @@ describe ProjectsHelper, :type => :helper do
         end
       end
       context "when the project is disabled" do
-        let(:project) { FactoryGirl.create(:project, enabled: false, payload_log_entries: [payload]) }
+        let(:project) { create(:project, enabled: false, payload_log_entries: [payload]) }
         it { is_expected.to eq('Disabled') }
       end
     end
 
     context "when the project doesn't have payloads" do
-      let(:project) { FactoryGirl.create(:project) }
+      let(:project) { create(:project) }
       it { is_expected.to eq('None') }
     end
   end

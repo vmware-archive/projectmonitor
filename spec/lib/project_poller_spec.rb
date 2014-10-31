@@ -33,7 +33,7 @@ describe ProjectPoller do
       end
 
       context 'and there is an updateable project' do
-        let(:project) { FactoryGirl.build(:jenkins_project) }
+        let(:project) { build(:jenkins_project) }
         let(:connection) { double(:connection, get: request) }
         let(:request) { double(:request, callback: nil, errback: nil) }
         let(:workload) { double(:workload, complete?: nil, unfinished_job_descriptions: {}) }

@@ -8,7 +8,7 @@ describe CircleCiProject, :type => :model do
     it { is_expected.to validate_presence_of(:circleci_username) }
   end
 
-  subject { FactoryGirl.build(:circleci_project) }
+  subject { build(:circleci_project) }
 
   describe 'model' do
     it { is_expected.to validate_presence_of(:circleci_auth_token) }

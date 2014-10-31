@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TeamCityProjectDecorator do
-  let(:team_city_project) { FactoryGirl.build(:team_city_project) }
+  let(:team_city_project) { build(:team_city_project) }
 
   subject { team_city_project.decorate }
 

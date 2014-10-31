@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CruiseControlXmlPayload do
-  let(:project) { FactoryGirl.create(:cruise_control_project, cruise_control_rss_feed_url: "http://foo.bar.com:3434/projects/Socialitis.rss") }
+  let(:project) { create(:cruise_control_project, cruise_control_rss_feed_url: "http://foo.bar.com:3434/projects/Socialitis.rss") }
   let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
   subject do

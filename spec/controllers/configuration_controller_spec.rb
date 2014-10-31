@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ConfigurationController, :type => :controller do
-  before { sign_in FactoryGirl.create(:user) }
+  before { sign_in create(:user) }
 
   describe '#index' do
     subject { get :show }

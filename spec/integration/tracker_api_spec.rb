@@ -7,7 +7,7 @@ describe TrackerApi, :type => :request do
     # ALERT: Always use a fake tracker project and a fake user with these tests
     # because they delete everything!
     let(:username) { "Test User" }
-    let(:project) { FactoryGirl.create :project, tracker_project_id: 1059836, tracker_auth_token: "e955bd05b35741ce257eaeca935180c0" }
+    let(:project) { create :project, tracker_project_id: 1059836, tracker_auth_token: "e955bd05b35741ce257eaeca935180c0" }
     let(:tracker_project) { PivotalTracker::Project.find project.tracker_project_id }
 
     before do

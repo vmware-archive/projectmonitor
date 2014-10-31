@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe JenkinsProject, :type => :model do
   describe 'validations' do
-    subject { FactoryGirl.build(:jenkins_project, webhooks_enabled: webhooks_enabled)}
+    subject { build(:jenkins_project, webhooks_enabled: webhooks_enabled)}
 
     context "when webhooks are enabled" do
       let(:webhooks_enabled) { true }

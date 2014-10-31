@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "authentication" do
   let(:password) { "monkey" }
-  let(:user) { FactoryGirl.create(:user, password: password) }
+  let(:user) { create(:user, password: password) }
 
   before { visit root_path }
 
@@ -24,7 +24,7 @@ feature "authentication" do
   end
 
   let(:legacy_user) do
-    user = FactoryGirl.build(:user)
+    user = build(:user)
     user.encrypted_password = 'xxx'
     user.save!
     user

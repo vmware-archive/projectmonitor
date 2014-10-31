@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 feature 'configuration export' do
-  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   before do
     log_in(user, "jeffjeff")
   end
 
   scenario 'obtain a configuration export' do
-    FactoryGirl.create(:aggregate_project)
-    project = FactoryGirl.create(:jenkins_project)
+    create(:aggregate_project)
+    project = create(:jenkins_project)
 
     visit configuration_path(format: 'txt')
 

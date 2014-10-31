@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TddiumPayload do
-  let(:project) { FactoryGirl.create(:tddium_project).tap {|p| p.tddium_project_name = 'Test A'} }
+  let(:project) { create(:tddium_project).tap {|p| p.tddium_project_name = 'Test A'} }
   let(:payload) { TddiumPayload.new('Test A') }
   let(:content) { TddiumExample.new(fixture_file).read }
   let(:fixture_file) { 'success.xml' }

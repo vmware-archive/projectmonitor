@@ -2,10 +2,10 @@ require 'spec_helper'
 
 feature "home" do
   context "when project has only build information" do
-    let!(:project) { FactoryGirl.create(:project) }
+    let!(:project) { create(:project) }
 
     before do
-      project.statuses << FactoryGirl.build(:project_status, success: true, published_at: 5.days.ago)
+      project.statuses << build(:project_status, success: true, published_at: 5.days.ago)
     end
 
     it "should render project collection", js: true do
@@ -18,8 +18,8 @@ feature "home" do
   end
 
   context "aggregate projects" do
-    let!(:aggregate) { FactoryGirl.create(:aggregate_project, code: 'GTFO', projects: [project]) }
-    let!(:project) { FactoryGirl.create(:travis_project) }
+    let!(:aggregate) { create(:aggregate_project, code: 'GTFO', projects: [project]) }
+    let!(:project) { create(:travis_project) }
 
     it "user sees the projects for an aggregate project", js: true do
       visit root_path

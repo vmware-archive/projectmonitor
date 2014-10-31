@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 feature "webhooks url" do
-  let!(:project) { FactoryGirl.build(:project, webhooks_enabled: true) }
-  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:project) { build(:project, webhooks_enabled: true) }
+  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   before do
     Project.destroy_all

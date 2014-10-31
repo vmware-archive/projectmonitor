@@ -1,8 +1,8 @@
 require "spec_helper"
 
 feature "projects" do
-  let!(:project) { FactoryGirl.create(:travis_project, travis_github_account: "pivotal", travis_repository: "projectmonitor") }
-  let!(:user) { FactoryGirl.create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:project) { create(:travis_project, travis_github_account: "pivotal", travis_repository: "projectmonitor") }
+  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   before do
     log_in(user, "jeffjeff")

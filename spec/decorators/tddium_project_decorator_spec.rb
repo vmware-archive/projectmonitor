@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TddiumProjectDecorator do
-  let(:tddium_project) { FactoryGirl.build(:tddium_project) }
+  let(:tddium_project) { build(:tddium_project) }
 
   subject { tddium_project.decorate }
 
