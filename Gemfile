@@ -21,7 +21,7 @@ gem 'nokogiri', '~> 1.6.3.1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'pivotal-tracker'
-gem 'rails', '4.0.10'
+gem 'rails', '4.0.11'
 gem 'rake'
 gem 'whenever', require: false
 gem 'rails-backbone'
