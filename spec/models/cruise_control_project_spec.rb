@@ -3,11 +3,6 @@ require 'spec_helper'
 describe CruiseControlProject, :type => :model do
   subject { FactoryGirl.build(:cruise_control_project) }
 
-  describe 'factories' do
-    subject { FactoryGirl.build(:cruise_control_project) }
-    it { is_expected.to be_valid }
-  end
-
   describe "validations" do
     context "when webhooks are enabled" do
       subject { Project.new(webhooks_enabled: true)}

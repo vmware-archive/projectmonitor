@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe JenkinsProject, :type => :model do
-  describe 'factories' do
-    subject { FactoryGirl.build(:jenkins_project) }
-
-    it { is_expected.to be_valid }
-  end
-
   describe 'validations' do
     subject { FactoryGirl.build(:jenkins_project, webhooks_enabled: webhooks_enabled)}
 

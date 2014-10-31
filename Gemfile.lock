@@ -145,10 +145,10 @@ GEM
     excon (0.40.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (4.3.0)
+    factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.3.0)
-      factory_girl (~> 4.3.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
@@ -425,7 +425,7 @@ DEPENDENCIES
   eco (~> 1.0.0)
   em-http-request
   eventmachine
-  factory_girl_rails
+  factory_girl_rails (~> 4.5.0)
   foreman (~> 0.75.0)
   guard-coffeescript
   guard-livereload

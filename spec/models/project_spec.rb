@@ -3,12 +3,6 @@ require 'spec_helper'
 describe Project, :type => :model do
   let(:project) { FactoryGirl.create(:jenkins_project) }
 
-  describe "factories" do
-    it "should be valid for project" do
-      expect(FactoryGirl.build(:project)).to be_valid
-    end
-  end
-
   describe 'associations' do
     it { is_expected.to have_many :statuses }
     it { is_expected.to have_many :payload_log_entries  }

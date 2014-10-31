@@ -10,10 +10,6 @@ describe CircleCiProject, :type => :model do
 
   subject { FactoryGirl.build(:circleci_project) }
 
-  describe 'factories' do
-    it { is_expected.to be_valid }
-  end
-
   describe 'model' do
     it { is_expected.to validate_presence_of(:circleci_auth_token) }
     it { is_expected.to validate_presence_of(:circleci_project_name) }

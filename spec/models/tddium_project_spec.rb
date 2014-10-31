@@ -9,10 +9,6 @@ describe TddiumProject, :type => :model do
 
   subject { FactoryGirl.build(:tddium_project) }
 
-  describe 'factories' do
-    it { is_expected.to be_valid }
-  end
-
   describe 'model' do
     it { is_expected.to validate_presence_of(:tddium_auth_token) }
     it { is_expected.to validate_presence_of(:tddium_project_name) }

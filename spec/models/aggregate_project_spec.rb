@@ -25,9 +25,6 @@ describe AggregateProject, :type => :model do
 
   context "validations" do
     it { is_expected.to validate_presence_of :name }
-    it "has a valid Factory" do
-      expect(FactoryGirl.build(:aggregate_project)).to be_valid
-    end
   end
 
   let(:aggregate_project) { AggregateProject.new(name: "Aggregate Project") }

@@ -3,11 +3,6 @@ require 'spec_helper'
 describe TeamCityRestProject, :type => :model do
   subject { FactoryGirl.build(:team_city_rest_project) }
 
-  describe 'factories' do
-    subject { FactoryGirl.build(:team_city_rest_project) }
-    it { is_expected.to be_valid }
-  end
-
   describe 'validations' do
     context "when webhooks are enabled" do
       subject { Project.new(webhooks_enabled: true)}

@@ -3,10 +3,6 @@ require 'spec_helper'
 describe ConcourseProject, :type => :model do
   subject { FactoryGirl.build(:concourse_project) }
 
-  describe 'factories' do
-    it { is_expected.to be_valid }
-  end
-
   describe 'validations' do
     it { is_expected.to validate_presence_of :concourse_base_url }
     it { is_expected.to validate_presence_of :concourse_job_name }
