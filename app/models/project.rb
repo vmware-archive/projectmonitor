@@ -1,5 +1,3 @@
-require 'acts-as-taggable-on'
-
 class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
