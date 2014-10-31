@@ -38,7 +38,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts-as-taggable-on (3.4.2)
       activerecord (>= 3.2, < 5)
-    addressable (2.3.5)
+    addressable (2.3.6)
     airbrake (4.1.0)
       builder
       multi_json
@@ -142,7 +142,7 @@ GEM
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    excon (0.25.1)
+    excon (0.40.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.3.0)
@@ -150,7 +150,6 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
-    fakeweb (1.3.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.9.3)
@@ -183,8 +182,9 @@ GEM
       libxml-ruby (~> 2.0)
     hashie (2.1.2)
     headless (1.0.1)
-    heroku-api (0.3.13)
-      excon (~> 0.25.0)
+    heroku-api (0.3.19)
+      excon (~> 0.38)
+      multi_json (~> 1.8)
     heroku_san (4.2.5)
       heroku-api (>= 0.1.2)
       rake
@@ -214,7 +214,7 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.9.2)
-    launchy (2.3.0)
+    launchy (2.4.2)
       addressable (~> 2.3)
     libxml-ruby (2.7.0)
     listen (1.2.2)
@@ -387,6 +387,9 @@ GEM
       ffi (>= 0.6.3)
     warden (1.2.1)
       rack (>= 1.0)
+    webmock (1.20.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
     websocket (1.0.7)
     whenever (0.8.2)
       activesupport (>= 2.3.4)
@@ -423,7 +426,6 @@ DEPENDENCIES
   em-http-request
   eventmachine
   factory_girl_rails
-  fakeweb
   foreman (~> 0.75.0)
   guard-coffeescript
   guard-livereload
@@ -464,4 +466,5 @@ DEPENDENCIES
   unicorn (~> 4.8.3)
   vagrant
   vcr (~> 2.9.3)
+  webmock (~> 1.20.0)
   whenever

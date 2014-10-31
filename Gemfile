@@ -44,7 +44,7 @@ end
 group :test do
   gem 'headless'
   gem 'vcr', '~> 2.9.3'
-  gem 'fakeweb'
+  gem 'webmock', '~> 1.20.0'
 end
 
 # NOTE: anything that will not work in travis should be here
