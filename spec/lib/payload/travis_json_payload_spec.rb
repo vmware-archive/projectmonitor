@@ -128,6 +128,13 @@ describe TravisJsonPayload do
       it { expect(payload.parse_url(content)).to eq("https://travis-ci.org/account/project/builds/4314974") }
     end
 
+    context "a travis pro project" do
+      it "uses the magnum base URL" do
+        payload.is_travis_pro = true
+        payload.slug = "account/project"
+        expect(payload.parse_url(content)).to eq("https://magnum.travis-ci.com/account/project/builds/4314974")
+      end
+    end
   end
 
   describe '#parse_build_id' do

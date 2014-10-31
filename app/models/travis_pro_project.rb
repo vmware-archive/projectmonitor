@@ -15,4 +15,8 @@ class TravisProProject < TravisProject
       uri.query = URI.encode_www_form(params)
     end.to_s
   end
+
+  def fetch_payload
+    super.tap{ |payload| payload.is_travis_pro = true }
+  end
 end

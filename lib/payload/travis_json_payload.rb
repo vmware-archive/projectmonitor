@@ -1,5 +1,5 @@
 class TravisJsonPayload < Payload
-  attr_accessor :slug
+  attr_accessor :slug, :is_travis_pro
 
   def branch=(new_branch)
     @branch = new_branch unless new_branch.blank?
@@ -45,13 +45,17 @@ class TravisJsonPayload < Payload
 
   def parse_url(content)
     if @slug
-      self.parsed_url = "https://travis-ci.org/#{@slug}/builds/#{content['id']}"
+      self.parsed_url = "#{base_url}/#{@slug}/builds/#{content['id']}"
     else
       self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
     end
   end
 
   private
+
+  def base_url
+    is_travis_pro ? "https://magnum.travis-ci.com" : "https://travis-ci.org"
+  end
 
   def specified_branch?(content)
     branch == content['branch']

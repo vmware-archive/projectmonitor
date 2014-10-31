@@ -28,12 +28,7 @@ class TravisProject < Project
     end
   end
 
-  def webhook_payload
-    TravisJsonPayload.new.tap do |payload|
-      payload.slug = slug
-      payload.branch = build_branch
-    end
-  end
+  alias_method :webhook_payload, :fetch_payload
 
   def requires_branch_name?
     true
