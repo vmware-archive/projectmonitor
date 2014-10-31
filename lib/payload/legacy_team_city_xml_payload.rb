@@ -11,16 +11,12 @@ class LegacyTeamCityXmlPayload < Payload
     content.attribute('activity').value != 'Building'
   end
 
-  def convert_content!(content)
-    parsed_content = Nokogiri::XML.parse(content)
-    raise Payload::InvalidContentException, "Error converting content" unless parsed_content.root
-    parsed_content.css('Build').to_a
+  def convert_content!(raw_content)
+    Array.wrap(convert_xml_content!(raw_content, true).css('Build'))
   end
 
-  def convert_build_content!(content)
-    parsed_content = Nokogiri::XML.parse(content)
-    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_content.root
-    parsed_content.css('Build')
+  def convert_build_content!(raw_content)
+    convert_xml_content!(raw_content, true).css('Build')
   end
 
   def parse_success(content)

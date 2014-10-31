@@ -64,20 +64,35 @@ class Payload
     build_status_content.present?
   end
 
-  def convert_content!(content)
-    content
+  def convert_content!(raw_content)
+    raw_content
   end
 
-  def convert_webhook_content!(content)
+  def convert_json_content!(raw_content)
+    Array.wrap(JSON.parse(raw_content))
+  rescue => e
+    handle_processing_exception e
+  end
+
+  def convert_xml_content!(raw_content, preserve_case = false)
+    raw_content.downcase! unless preserve_case
+    parsed_xml = Nokogiri::XML.parse(raw_content)
+    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
+    parsed_xml
+  rescue => e
+    handle_processing_exception e
+  end
+
+  def convert_webhook_content!(raw_content)
     begin
-      convert_content!(content)
+      convert_content!(raw_content)
     rescue InvalidContentException => e
       log_error e
     end
   end
 
-  def convert_build_content!(content)
-    convert_content!(content)
+  def convert_build_content!(raw_content)
+    convert_content!(raw_content)
   end
 
   def log_error(e)
@@ -86,7 +101,11 @@ class Payload
     self.backtrace = "#{e.message}\n#{e.backtrace.join("\n")}"
   end
 
+  def handle_processing_exception(e)
+    self.processable = self.build_processable = false
+    raise Payload::InvalidContentException, e.message
+  end
+
   attr_accessor :processable, :build_processable
   attr_reader :status_content, :build_status_content
-
 end

@@ -16,13 +16,8 @@ class SemaphorePayload < Payload
       specified_branch?(content)
   end
 
-  def convert_content!(content)
-    json = JSON.parse(content)
-    json = extract_builds_if_build_history_url(json)
-    Array.wrap(json)
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+  def convert_content!(raw_content)
+    extract_builds_if_build_history_url(convert_json_content!(raw_content))
   end
 
   def parse_success(content)
@@ -44,12 +39,8 @@ class SemaphorePayload < Payload
 
   private
 
-  def extract_builds_if_build_history_url(json)
-    if json.key? "builds"
-      json["builds"].first(15)
-    else
-      json
-    end
+  def extract_builds_if_build_history_url(result)
+    result.first.key?("builds") ? result.first["builds"].first(15) : result
   end
 
   def specified_branch?(content)

@@ -8,12 +8,8 @@ class CircleCiPayload < Payload
     content['status'] != 'running' && content['status'] != 'queued' && content['outcome'].present?
   end
 
-  def convert_content!(content)
-    json = JSON.parse(content)
-    Array.wrap(json)
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+  def convert_content!(raw_content)
+    convert_json_content!(raw_content)
   end
 
   def parse_success(content)

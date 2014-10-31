@@ -7,7 +7,7 @@ describe "Project", :type => :request do
       stub_jenkins!
 
       VCR.turned_off { patch "/projects/validate_build_info", project: project.attributes.merge(auth_password: "password") }
-      expect(response.body).to match /Error parsing content for build name twitter-for-dogs/
+      expect(response.body).to include "Error converting content"
     end
   end
 

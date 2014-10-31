@@ -13,22 +13,11 @@ class ConcoursePayload < Payload
     content['status'] != 'started'
   end
 
-  def convert_content!(content)
-    if content.present?
-      JSON.parse(content)
-    else
-      log_error("No content supplied")
-      self.processable = false
-      []
-    end
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+  def convert_content!(raw_content)
+    convert_json_content!(raw_content)
   end
 
-  def convert_build_content!(content)
-    convert_content!(content)
-  end
+  alias_method :convert_build_content!, :convert_content!
 
   def convert_webhook_content!(content)
     raise NotImplementedError

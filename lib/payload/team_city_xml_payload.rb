@@ -21,10 +21,8 @@ class TeamCityXmlPayload < Payload
     true
   end
 
-  def convert_content!(content)
-    parsed_content = Nokogiri::XML.parse(content)
-    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_content.root
-    parsed_content.css('build').to_a
+  def convert_content!(raw_content)
+    Array.wrap(convert_xml_content!(raw_content, true).css('build'))
   end
 
   def parse_success(content)

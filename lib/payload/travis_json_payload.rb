@@ -69,15 +69,7 @@ class TravisJsonPayload < Payload
     handle_processing_exception(e)
   end
 
-  def convert_content!(content)
-    parsed_content = JSON.parse(content)
-    Array.wrap(parsed_content)
-  rescue => e
-    handle_processing_exception(e)
-  end
-
-  def handle_processing_exception(e)
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+  def convert_content!(raw_content)
+    convert_json_content!(raw_content)
   end
 end

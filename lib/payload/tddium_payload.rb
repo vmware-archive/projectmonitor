@@ -13,25 +13,18 @@ class TddiumPayload < Payload
     content.attributes['activity'].value != 'Building'
   end
 
-  def convert_content!(content)
-    if content.present?
-      parsed = Nokogiri::XML.parse(content)
-      raise ArgumentError("Invalid XML") unless parsed.errors.count == 0
+  def convert_content!(raw_content)
+    if raw_content.present?
       # We need to explicitly cast to array because Nokogiri will insert nil entries when you do first(n). This will cause the application to die horribly.
-      parsed.css("Project[name=\"#{@project_name}\"]").to_a
+      convert_xml_content!(raw_content, true).css("Project[name=\"#{@project_name}\"]").to_a
     else
       log_error("No content supplied")
       self.processable = false
       []
     end
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
   end
 
-  def convert_build_content!(content)
-    convert_content!(content)
-  end
+  alias_method :convert_build_content!, :convert_content!
 
   def convert_webhook_content!(content)
     raise NotImplementedError

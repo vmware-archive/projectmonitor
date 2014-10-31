@@ -16,24 +16,11 @@ class JenkinsXmlPayload < Payload
     content.css('title').present?
   end
 
-  def convert_content!(content)
-    parsed_content = parse_content(content.downcase)
-    parsed_content.css('feed entry').to_a
+  def convert_content!(raw_content)
+    Array.wrap(convert_xml_content!(raw_content).css('feed entry'))
   end
 
-  def convert_build_content!(content)
-    parse_content(content)
-  end
-
-  def parse_content(content)
-    parsed_content = Nokogiri::XML.parse(content.downcase)
-    if parsed_content.root
-      return parsed_content
-    else
-      raise Payload::InvalidContentException, "Error parsing content for build name #{@build_name}"
-      self.processable = false
-    end
-  end
+  alias_method :convert_build_content!, :convert_xml_content!
 
   def parse_success(content)
     !!(content.css('title').first.content.downcase =~ /success|stable|back to normal/)

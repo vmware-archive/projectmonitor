@@ -3,11 +3,8 @@ class JenkinsJsonPayload < Payload
     status_content.first['build']['phase'] == 'STARTED'
   end
 
-  def convert_content!(content)
-    [JSON.parse(content)]
-  rescue => e
-    self.processable = self.build_processable = false
-    raise Payload::InvalidContentException, e.message
+  def convert_content!(raw_content)
+    convert_json_content!(raw_content)
   end
 
   def content_ready?(content)

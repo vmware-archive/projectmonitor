@@ -12,16 +12,12 @@ class CruiseControlXmlPayload < Payload
 
   private
 
-  def convert_content!(content)
-    parsed_xml = Nokogiri::XML.parse(content.downcase)
-    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
-    [parsed_xml]
+  def convert_content!(raw_content)
+    Array.wrap(convert_xml_content!(raw_content))
   end
 
-  def convert_build_content!(content)
-    parsed_xml = Nokogiri::XML.parse(content.downcase)
-    raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
-    parsed_xml
+  def convert_build_content!(raw_content)
+    convert_xml_content!(raw_content)
   end
 
   def content_ready?(content)
