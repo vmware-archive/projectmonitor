@@ -1,8 +1,8 @@
 ---
 applications:
 - name: project-monitor-production
-  memory: 512M
-  instances: 1
+  memory: 1024M
+  instances: 3
   host: project-monitor-production
   path: ../../
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
