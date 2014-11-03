@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe JenkinsProject, :type => :model do
   describe 'validations' do
-    subject { build(:jenkins_project, webhooks_enabled: webhooks_enabled)}
+    subject { build(:jenkins_project, webhooks_enabled: webhooks_enabled?)}
 
     context "when webhooks are enabled" do
-      let(:webhooks_enabled) { true }
+      let(:webhooks_enabled?) { true }
 
       it { is_expected.not_to validate_presence_of(:ci_base_url) }
-      it { is_expected.not_to validate_presence_of(:jenkins_build_name) }
+      it { is_expected.not_to validate_presence_of(:ci_build_name) }
     end
 
     context "when webhooks are not enabled" do
-      let(:webhooks_enabled) { false }
+      let(:webhooks_enabled?) { false }
 
       it { is_expected.to validate_presence_of :ci_base_url }
-      it { is_expected.to validate_presence_of :jenkins_build_name }
+      it { is_expected.to validate_presence_of :ci_build_name }
     end
   end
 
   describe "#feed_url" do
     subject { project.feed_url }
 
-    let(:project) { JenkinsProject.new(ci_base_url: "ci-server", jenkins_build_name: "specs") }
+    let(:project) { JenkinsProject.new(ci_base_url: "ci-server", ci_build_name: "specs") }
 
     it { is_expected.to eq("ci-server/job/specs/rssAll") }
   end
@@ -30,7 +30,7 @@ describe JenkinsProject, :type => :model do
   describe "#project_name" do
     subject { project.project_name }
 
-    let(:project) { JenkinsProject.new(jenkins_build_name: "specs") }
+    let(:project) { JenkinsProject.new(ci_build_name: "specs") }
 
     it { is_expected.to eq("specs") }
   end
@@ -64,7 +64,7 @@ describe JenkinsProject, :type => :model do
   describe "#fetch_payload" do
     subject { project.fetch_payload }
 
-    let(:project) { JenkinsProject.new(jenkins_build_name: "features") }
+    let(:project) { JenkinsProject.new(ci_build_name: "features") }
     let(:xml_payload) { double(:xml_payload) }
 
     before do

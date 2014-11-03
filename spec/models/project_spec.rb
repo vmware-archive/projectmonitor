@@ -49,7 +49,7 @@ describe Project, :type => :model do
         goal = "https://circleci.com/api/v1/project/white space/project?circle-token=ABC"
         project = create(:circleci_project,
                                      circleci_username: "white space",
-                                     circleci_project_name: "project",
+                                     ci_build_name: "project",
                                      circleci_auth_token: "ABC   "
         )
         expect(project.feed_url).to eq(goal)
@@ -481,19 +481,19 @@ describe Project, :type => :model do
     context "when a JenkinsProject" do
       let(:project_class) { JenkinsProject }
 
-      it { is_expected.to match_array(['ci_base_url', 'jenkins_build_name']) }
+      it { is_expected.to match_array(['ci_base_url', 'ci_build_name']) }
     end
 
     context "when a TeamCityProject" do
       let(:project_class) { TeamCityProject }
 
-      it { is_expected.to match_array(['ci_base_url', 'team_city_build_id']) }
+      it { is_expected.to match_array(['ci_base_url', 'ci_build_name']) }
     end
 
     context "when a TeamCityRestProject" do
       let(:project_class) { TeamCityRestProject }
 
-      it { is_expected.to match_array(['ci_base_url', 'team_city_rest_build_type_id']) }
+      it { is_expected.to match_array(['ci_base_url', 'ci_build_name']) }
     end
 
     context "when a TravisProject" do

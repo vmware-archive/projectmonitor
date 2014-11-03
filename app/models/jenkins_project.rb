@@ -1,14 +1,14 @@
 class JenkinsProject < Project
-  validates_presence_of :ci_base_url, :jenkins_build_name, unless: :webhooks_enabled
+  validates_presence_of :ci_base_url, :ci_build_name, unless: :webhooks_enabled
 
-  alias_attribute :project_name, :jenkins_build_name
+  alias_attribute :project_name, :ci_build_name
 
   def self.project_specific_attributes
-    ["jenkins_build_name", "ci_base_url"]
+    ["ci_build_name", "ci_base_url"]
   end
 
   def feed_url
-    "#{ci_base_url}/job/#{jenkins_build_name}/rssAll"
+    "#{ci_base_url}/job/#{ci_build_name}/rssAll"
   end
 
   def build_status_url
@@ -16,7 +16,7 @@ class JenkinsProject < Project
   end
 
   def fetch_payload
-    JenkinsXmlPayload.new(jenkins_build_name)
+    JenkinsXmlPayload.new(ci_build_name)
   end
 
   def webhook_payload

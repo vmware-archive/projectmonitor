@@ -1,6 +1,6 @@
 class CircleCiProject < Project
 
-  validates_presence_of :circleci_username, :circleci_project_name, :circleci_auth_token, unless: ->(project) { project.webhooks_enabled }
+  validates_presence_of :circleci_username, :ci_build_name, :circleci_auth_token, unless: ->(project) { project.webhooks_enabled }
 
   alias_attribute :build_status_url, :feed_url
 
@@ -9,7 +9,7 @@ class CircleCiProject < Project
   end
 
   def feed_url
-    "https://circleci.com/api/v1/project/#{circleci_username}/#{circleci_project_name}?circle-token=#{circleci_auth_token}"
+    "https://circleci.com/api/v1/project/#{circleci_username}/#{ci_build_name}?circle-token=#{circleci_auth_token}"
   end
 
   def fetch_payload

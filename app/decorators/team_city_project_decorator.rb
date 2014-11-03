@@ -4,7 +4,7 @@ class TeamCityProjectDecorator < ProjectDecorator
     if object.webhooks_enabled?
       object.parsed_url
     else
-      "#{object.ci_base_url}/viewType.html?buildTypeId=#{object.team_city_build_id}"
+      "#{object.ci_base_url}/viewType.html?buildTypeId=#{object.ci_build_name}"
     end
   end
 
