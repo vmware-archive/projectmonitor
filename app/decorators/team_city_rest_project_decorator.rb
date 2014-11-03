@@ -4,7 +4,7 @@ class TeamCityRestProjectDecorator < ProjectDecorator
     url = if object.webhooks_enabled?
       object.parsed_url
     else
-      "#{object.team_city_rest_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{object.team_city_rest_build_type_id}"
+      "#{object.ci_base_url}/viewType.html?tab=buildTypeStatusDiv&buildTypeId=#{object.team_city_rest_build_type_id}"
     end
 
     object.url_with_scheme(url)

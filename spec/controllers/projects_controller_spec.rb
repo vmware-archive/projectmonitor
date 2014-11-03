@@ -43,7 +43,7 @@ describe ProjectsController, :type => :controller do
           post :create, project: {
             name: 'name',
             type: JenkinsProject.name,
-            jenkins_base_url: 'http://www.example.com',
+            ci_base_url: 'http://www.example.com',
             jenkins_build_name: 'example'
           }
         end
@@ -136,7 +136,7 @@ describe ProjectsController, :type => :controller do
         let!(:project) { create(:team_city_project) }
 
         context "when the parameters are valid" do
-          let(:project_params) { {"type"=>"JenkinsProject", name: "foobar", "jenkins_base_url"=>"http://foo", "jenkins_build_name"=>"NAMe"} }
+          let(:project_params) { {type: "JenkinsProject", name: "foobar", ci_base_url: "http://foo", jenkins_build_name: "NAMe"} }
           it "should validate as the new type and save the record" do
             subject
             expect(Project.find(project.id).is_a? JenkinsProject).to be true
@@ -145,7 +145,7 @@ describe ProjectsController, :type => :controller do
 
         context "when the parameters are not valid" do
 
-          let(:project_params) { {"type"=>"JenkinsProject", "jenkins_build_name"=>nil} }
+          let(:project_params) { {type: "JenkinsProject", jenkins_build_name: nil} }
           it "should validate as the new type and save the record" do
             subject
             expect(Project.find(project.id).is_a? TeamCityProject).to be true

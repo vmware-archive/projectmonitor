@@ -5,14 +5,13 @@ class TeamCityRestProject < Project
 
   alias_attribute :build_status_url, :feed_url
   alias_attribute :project_name, :feed_url
-  alias_attribute :team_city_rest_base_url, :ci_base_url
 
   def self.project_specific_attributes
     ['ci_base_url', 'team_city_rest_build_type_id']
   end
 
   def feed_url
-    url_with_scheme "#{team_city_rest_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id}),personal:false"
+    url_with_scheme "#{ci_base_url}/app/rest/builds?locator=running:all,buildType:(id:#{team_city_rest_build_type_id}),personal:false"
   end
 
   def fetch_payload

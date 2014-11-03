@@ -7,14 +7,14 @@ describe JenkinsProject, :type => :model do
     context "when webhooks are enabled" do
       let(:webhooks_enabled) { true }
 
-      it { is_expected.not_to validate_presence_of(:jenkins_base_url) }
+      it { is_expected.not_to validate_presence_of(:ci_base_url) }
       it { is_expected.not_to validate_presence_of(:jenkins_build_name) }
     end
 
     context "when webhooks are not enabled" do
       let(:webhooks_enabled) { false }
 
-      it { is_expected.to validate_presence_of :jenkins_base_url }
+      it { is_expected.to validate_presence_of :ci_base_url }
       it { is_expected.to validate_presence_of :jenkins_build_name }
     end
   end
@@ -22,7 +22,7 @@ describe JenkinsProject, :type => :model do
   describe "#feed_url" do
     subject { project.feed_url }
 
-    let(:project) { JenkinsProject.new(jenkins_base_url: "ci-server", jenkins_build_name: "specs") }
+    let(:project) { JenkinsProject.new(ci_base_url: "ci-server", jenkins_build_name: "specs") }
 
     it { is_expected.to eq("ci-server/job/specs/rssAll") }
   end
@@ -38,7 +38,7 @@ describe JenkinsProject, :type => :model do
   describe "#build_status_url" do
     subject { project.build_status_url }
 
-    let(:project) { JenkinsProject.new(jenkins_base_url: base_url) }
+    let(:project) { JenkinsProject.new(ci_base_url: base_url) }
 
     context "when base_url is nil" do
       let(:base_url) { nil }

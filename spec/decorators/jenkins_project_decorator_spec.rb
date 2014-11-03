@@ -6,9 +6,9 @@ describe JenkinsProjectDecorator do
     subject { project.decorate.current_build_url }
 
     let(:project) { JenkinsProject.new(webhooks_enabled: webhooks_enabled,
-                                       jenkins_base_url: jenkins_base_url) }
-    let(:jenkins_base_url) { double(:jenkins_base_url) }
-    let(:parsed_url) { double(:parsed_url) }
+                                       ci_base_url: ci_base_url) }
+    let(:ci_base_url) { double(:ci_base_url) }
+    let(:parsed_url)  { double(:parsed_url) }
 
     before do
       project.parsed_url = parsed_url
@@ -23,7 +23,7 @@ describe JenkinsProjectDecorator do
     context "webhooks are disabled" do
       let(:webhooks_enabled) { false }
 
-      it { is_expected.to eq(jenkins_base_url) }
+      it { is_expected.to eq(ci_base_url) }
     end
   end
 

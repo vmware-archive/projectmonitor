@@ -32,13 +32,13 @@ FactoryGirl.define do
 
   factory :team_city_project, class: TeamCityProject do
     name
-    team_city_base_url "foo.bar.com:1234"
+    ci_base_url "foo.bar.com:1234"
     team_city_build_id "bt567"
   end
 
   factory :team_city_rest_project, class: TeamCityRestProject do
     name
-    team_city_rest_base_url "example.com"
+    ci_base_url "example.com"
     team_city_rest_build_type_id "bt456"
   end
 
@@ -63,6 +63,6 @@ FactoryGirl.define do
   factory :concourse_project, class: ConcourseProject do
     name
     concourse_job_name 'concourse-project'
-    concourse_base_url 'http://concourse.example.com:8080'
+    ci_base_url 'http://concourse.example.com:8080'
   end
 end
