@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031110446) do
+ActiveRecord::Schema.define(version: 20141103133449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,28 +79,28 @@ ActiveRecord::Schema.define(version: 20141031110446) do
     t.string   "deprecated_feed_url"
     t.string   "auth_username"
     t.string   "auth_password"
-    t.boolean  "enabled",                                 default: true
-    t.boolean  "building",                                default: false, null: false
+    t.boolean  "enabled",                                       default: true
+    t.boolean  "building",                                      default: false, null: false
     t.string   "type"
     t.integer  "aggregate_project_id"
     t.integer  "deprecated_latest_status_id"
     t.string   "code"
-    t.string   "deprecated_location",          limit: 20
+    t.string   "deprecated_location",                limit: 20
     t.string   "tracker_project_id"
     t.string   "tracker_auth_token"
-    t.integer  "current_velocity",                        default: 0,     null: false
+    t.integer  "current_velocity",                              default: 0,     null: false
     t.string   "last_ten_velocities"
     t.boolean  "tracker_online"
     t.string   "cruise_control_rss_feed_url"
-    t.string   "jenkins_base_url"
+    t.string   "deprecated_jenkins_base_url"
     t.string   "jenkins_build_name"
-    t.string   "team_city_base_url"
+    t.string   "deprecated_team_city_base_url"
     t.string   "team_city_build_id"
-    t.string   "team_city_rest_base_url"
+    t.string   "deprecated_team_city_rest_base_url"
     t.string   "team_city_rest_build_type_id"
     t.string   "travis_github_account"
     t.string   "travis_repository"
-    t.boolean  "online",                                  default: false
+    t.boolean  "online",                                        default: false
     t.string   "guid"
     t.boolean  "webhooks_enabled"
     t.string   "tracker_validation_status"
@@ -110,20 +110,21 @@ ActiveRecord::Schema.define(version: 20141031110446) do
     t.string   "tddium_auth_token"
     t.string   "tddium_project_name"
     t.string   "notification_email"
-    t.boolean  "verify_ssl",                              default: true
+    t.boolean  "verify_ssl",                                    default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stories_to_accept_count"
     t.integer  "open_stories_count"
     t.string   "build_branch"
-    t.text     "iteration_story_state_counts",            default: "{}"
+    t.text     "iteration_story_state_counts",                  default: "{}"
     t.integer  "creator_id"
     t.string   "circleci_auth_token"
     t.string   "circleci_project_name"
     t.string   "circleci_username"
     t.string   "travis_pro_token"
-    t.string   "concourse_base_url"
+    t.string   "deprecated_concourse_base_url"
     t.string   "concourse_job_name"
+    t.string   "ci_base_url"
   end
 
   add_index "projects", ["aggregate_project_id"], name: "index_projects_on_aggregate_project_id", using: :btree

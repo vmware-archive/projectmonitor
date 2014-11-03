@@ -145,7 +145,7 @@ describe ProjectsController, :type => :controller do
 
         context "when the parameters are not valid" do
 
-          let(:project_params) { {"type"=>"JenkinsProject", "jenkins_build_name"=>"NAMe"} }
+          let(:project_params) { {"type"=>"JenkinsProject", "jenkins_build_name"=>nil} }
           it "should validate as the new type and save the record" do
             subject
             expect(Project.find(project.id).is_a? TeamCityProject).to be true

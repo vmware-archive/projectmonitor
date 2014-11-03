@@ -51,6 +51,11 @@ class Project < ActiveRecord::Base
 
   delegate :success?, :indeterminate?, :failure?, :color, to: :state
 
+  alias_attribute :jenkins_base_url, :ci_base_url
+  alias_attribute :concourse_base_url, :ci_base_url
+  alias_attribute :team_city_base_url, :ci_base_url
+  alias_attribute :team_city_rest_base_url, :ci_base_url
+
   def populate_iteration_story_state_counts
     self.iteration_story_state_counts = []
   end

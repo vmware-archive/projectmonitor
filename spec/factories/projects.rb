@@ -3,7 +3,7 @@ FactoryGirl.define do
 
   factory :project, class: JenkinsProject do
     name
-    jenkins_base_url "http://www.example.com"
+    ci_base_url "http://www.example.com"
     jenkins_build_name "project"
 
     factory :project_with_tracker_integration do

@@ -14,6 +14,7 @@ en:
     label:
       project:
         jenkins_base_url: "Base URL"
+        ci_base_url: "Base URL"
         jenkins_build_name: "Build Name"
         travis_github_account: "Github Account"
         travis_repository: "Repository"

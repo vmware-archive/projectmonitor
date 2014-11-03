@@ -6,12 +6,12 @@ describe TeamCityRestProject, :type => :model do
   describe 'validations' do
     context "when webhooks are enabled" do
       subject { Project.new(webhooks_enabled: true)}
-      it { is_expected.not_to validate_presence_of(:team_city_rest_base_url) }
+      it { is_expected.not_to validate_presence_of(:ci_base_url) }
       it { is_expected.not_to validate_presence_of(:team_city_rest_build_type_id) }
     end
 
     context "when webhooks are not enabled" do
-      it { is_expected.to validate_presence_of(:team_city_rest_base_url) }
+      it { is_expected.to validate_presence_of(:ci_base_url) }
       it { is_expected.to validate_presence_of(:team_city_rest_build_type_id) }
 
       it { is_expected.to allow_value('bt123', 'bt1').for(:team_city_rest_build_type_id) }

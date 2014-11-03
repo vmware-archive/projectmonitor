@@ -481,19 +481,19 @@ describe Project, :type => :model do
     context "when a JenkinsProject" do
       let(:project_class) { JenkinsProject }
 
-      it { is_expected.to match_array(['jenkins_base_url', 'jenkins_build_name']) }
+      it { is_expected.to match_array(['ci_base_url', 'jenkins_build_name']) }
     end
 
     context "when a TeamCityProject" do
       let(:project_class) { TeamCityProject }
 
-      it { is_expected.to match_array(['team_city_base_url', 'team_city_build_id']) }
+      it { is_expected.to match_array(['ci_base_url', 'team_city_build_id']) }
     end
 
     context "when a TeamCityRestProject" do
       let(:project_class) { TeamCityRestProject }
 
-      it { is_expected.to match_array(['team_city_rest_base_url', 'team_city_rest_build_type_id']) }
+      it { is_expected.to match_array(['ci_base_url', 'team_city_rest_build_type_id']) }
     end
 
     context "when a TravisProject" do

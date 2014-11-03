@@ -1,7 +1,7 @@
 jenkins_project:
   name: JP
   type: JenkinsProject
-  jenkins_base_url: http://www.example.com
+  ci_base_url: http://www.example.com
   jenkins_build_name: example
   enabled: true
   code: JPP
