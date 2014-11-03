@@ -2,7 +2,7 @@ jenkins_project:
   name: JP
   type: JenkinsProject
   ci_base_url: http://www.example.com
-  jenkins_build_name: example
+  ci_build_name: example
   enabled: true
   code: JPP
   online: true
