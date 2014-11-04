@@ -11,3 +11,6 @@ class ProjectMonitor.Collections.Projects extends Backbone.Collection
   refresh: =>
     @fetch()
     setTimeout(@refresh, @timeout)
+
+  fetch: =>
+    super({reset: true})

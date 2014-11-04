@@ -10,10 +10,21 @@ feature "home" do
 
     it "should render project collection", js: true do
       visit root_path
-      expect(page).to have_selector(".statuses .success")
 
+      expect(page).to have_selector(".statuses .success")
       expect(page).to have_selector(".time-since-last-build", text: "5d")
       expect(page).to have_content(project.code)
+    end
+
+    it "should refresh the project collection", js: true do
+      visit root_path
+
+      expect(page).to_not have_selector(".time-since-last-build", text: "4d")
+
+      project.statuses << FactoryGirl.build(:project_status, success: true, published_at: 4.days.ago)
+      page.execute_script('window.ProjectMonitor.collectionData.projects.fetch()')
+
+      expect(page).to have_selector(".time-since-last-build", text: "4d")
     end
   end
 
@@ -26,7 +37,6 @@ feature "home" do
       click_on(aggregate.code)
 
       expect(page).to have_content(project.code)
-
     end
   end
 end
