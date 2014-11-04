@@ -49,13 +49,13 @@ FactoryGirl.define do
 
   factory :tddium_project, class: TddiumProject do
     name
-    tddium_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
+    ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
     ci_build_identifier 'Test Project A'
   end
 
   factory :circleci_project, class: CircleCiProject do
     name
-    circleci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
+    ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
     ci_build_identifier 'a-project'
     circleci_username 'username'
   end

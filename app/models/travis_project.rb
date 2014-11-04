@@ -8,9 +8,7 @@ class TravisProject < Project
   alias_attribute :project_name, :travis_github_account
 
   def self.project_specific_attributes
-    super.reject do |column|
-      column.start_with? "travis_pro_"
-    end
+    ['travis_github_account', 'travis_repository']
   end
 
   def feed_url

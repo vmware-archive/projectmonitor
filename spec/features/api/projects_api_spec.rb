@@ -51,7 +51,6 @@ feature 'Projects API' do
       expect(project['last_refreshed_at']).to be_nil
       expect(project['semaphore_api_url']).to be_nil
       expect(project['parsed_url']).to be_nil
-      expect(project['tddium_auth_token']).to be_nil
       expect(project['tddium_project_name']).to be_nil
       expect(project['notification_email']).to be_nil
       expect(project['verify_ssl']).to be true
@@ -60,7 +59,7 @@ feature 'Projects API' do
       expect(project['build_branch']).to be_nil
       expect(project['iteration_story_state_counts']).to eq({})
       expect(project['creator_id']).to be_nil
-      expect(project['circleci_auth_token']).to be_nil
+      expect(project['ci_auth_token']).to be_nil
       expect(project['circleci_project_name']).to be_nil
       expect(project['circleci_username']).to be_nil
       expect(project['tag_list']).to eq []

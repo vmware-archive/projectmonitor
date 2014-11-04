@@ -4,13 +4,13 @@ describe TddiumProject, :type => :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:ci_build_identifier) }
-    it { is_expected.to validate_presence_of(:tddium_auth_token) }
+    it { is_expected.to validate_presence_of(:ci_auth_token) }
   end
 
   subject { build(:tddium_project) }
 
   describe 'model' do
-    it { is_expected.to validate_presence_of(:tddium_auth_token) }
+    it { is_expected.to validate_presence_of(:ci_auth_token) }
     it { is_expected.to validate_presence_of(:ci_build_identifier) }
   end
 

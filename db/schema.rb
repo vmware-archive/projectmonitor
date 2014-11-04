@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104093438) do
+ActiveRecord::Schema.define(version: 20141104094442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20141104093438) do
     t.datetime "last_refreshed_at"
     t.string   "semaphore_api_url"
     t.string   "parsed_url"
-    t.string   "tddium_auth_token"
+    t.string   "deprecated_tddium_auth_token"
     t.string   "deprecated_tddium_project_name"
     t.string   "notification_email"
     t.boolean  "verify_ssl",                                         default: true
@@ -118,14 +118,15 @@ ActiveRecord::Schema.define(version: 20141104093438) do
     t.string   "build_branch"
     t.text     "iteration_story_state_counts",                       default: "{}"
     t.integer  "creator_id"
-    t.string   "circleci_auth_token"
+    t.string   "deprecated_circleci_auth_token"
     t.string   "deprecated_circleci_project_name"
     t.string   "circleci_username"
-    t.string   "travis_pro_token"
+    t.string   "deprecated_travis_pro_token"
     t.string   "deprecated_concourse_base_url"
     t.string   "deprecated_concourse_job_name"
     t.string   "ci_base_url"
     t.string   "ci_build_identifier"
+    t.string   "ci_auth_token"
   end
 
   add_index "projects", ["aggregate_project_id"], name: "index_projects_on_aggregate_project_id", using: :btree

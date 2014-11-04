@@ -37,7 +37,7 @@ feature "projects" do
     fill_in "project[name]", with: "Project Monitor"
     fill_in "Github Account", with: "pivotal"
     fill_in "Repository", with: "projectmonitor"
-    fill_in "Travis Pro Token", with: "travisprotoken"
+    fill_in "Auth Token", with: "travisprotoken"
 
     click_on "Create"
 

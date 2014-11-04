@@ -239,7 +239,7 @@ describe("project edit", function() {
         '    <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
         '  </div>' +
         '  <div class="project-attributes hide" id="TddiumProject">' +
-        '    <input id="project_tddium_auth_token" name="project[tddium_auth_token]" size="30" type="text">' +
+        '    <input id="project_ci_auth_token" name="project[ci_auth_token]" size="30" type="text">' +
         '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
         '  </div>' +
         '  <input id="project_auth_username" name="project[auth_username]" type="text">' +

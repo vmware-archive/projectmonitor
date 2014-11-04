@@ -50,7 +50,7 @@ describe Project, :type => :model do
         project = create(:circleci_project,
                                      circleci_username: "white space",
                                      ci_build_identifier: "project",
-                                     circleci_auth_token: "ABC   "
+                                     ci_auth_token: "ABC   "
         )
         expect(project.feed_url).to eq(goal)
       end
@@ -500,6 +500,36 @@ describe Project, :type => :model do
       let(:project_class) { TravisProject }
 
       it { is_expected.to match_array(['travis_github_account', 'travis_repository']) }
+    end
+
+    context "when a TravisProProject" do
+      let(:project_class) { TravisProProject }
+
+      it { is_expected.to match_array(['travis_github_account', 'travis_repository', 'ci_auth_token']) }
+    end
+
+    context "when a ConcourseProject" do
+      let(:project_class) { ConcourseProject }
+
+      it { is_expected.to match_array(['ci_base_url', 'ci_build_identifier']) }
+    end
+
+    context "when a CircleCiProject" do
+      let(:project_class) { CircleCiProject }
+
+      it { is_expected.to match_array(['circleci_username', 'ci_build_identifier', 'ci_auth_token']) }
+    end
+
+    context "when a SemaphoreProject" do
+      let(:project_class) { SemaphoreProject }
+
+      it { is_expected.to match_array(['semaphore_api_url']) }
+    end
+
+    context "when a TddiumProject" do
+      let(:project_class) { TddiumProject }
+
+      it { is_expected.to match_array(['ci_build_identifier', 'ci_auth_token']) }
     end
   end
 

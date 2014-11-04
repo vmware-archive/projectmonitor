@@ -30,6 +30,7 @@ en:
         tddium_project_name: "Tddium Project Name"
         concourse_base_url: "Base URL"
         concourse_job_name: "Job Name"
+        ci_auth_token: "Auth Token"
   project_types:
     cruise_control_project: "Cruise Control Project"
     jenkins_project: "Jenkins Project"
