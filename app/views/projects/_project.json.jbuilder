@@ -30,7 +30,7 @@ json.(project,
     :creator_id,
     :circleci_auth_token,
     :circleci_username,
-    :ci_build_name,
+    :ci_build_identifier,
     :ci_base_url)
 
 if project.tracker_project_id.present?

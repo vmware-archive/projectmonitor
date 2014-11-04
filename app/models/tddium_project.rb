@@ -1,6 +1,6 @@
 class TddiumProject < Project
 
-  validates_presence_of :ci_build_name, :tddium_auth_token, unless: ->(project) { project.webhooks_enabled }
+  validates_presence_of :ci_build_identifier, :tddium_auth_token, unless: ->(project) { project.webhooks_enabled }
 
   alias_attribute :build_status_url, :feed_url
 
@@ -9,7 +9,7 @@ class TddiumProject < Project
   end
 
   def fetch_payload
-    TddiumPayload.new(ci_build_name)
+    TddiumPayload.new(ci_build_identifier)
   end
 
 end

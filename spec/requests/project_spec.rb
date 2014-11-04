@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Project", :type => :request do
   describe "/validate_build_info" do
     it "returns log entry" do
-      project = create(:project, ci_build_name: 'twitter-for-dogs')
+      project = create(:project, ci_build_identifier: 'twitter-for-dogs')
       stub_jenkins!
 
       VCR.turned_off { patch "/projects/validate_build_info", project: project.attributes.merge(auth_password: "password") }

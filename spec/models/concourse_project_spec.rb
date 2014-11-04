@@ -5,7 +5,7 @@ describe ConcourseProject, :type => :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :ci_base_url }
-    it { is_expected.to validate_presence_of :ci_build_name }
+    it { is_expected.to validate_presence_of :ci_build_identifier }
   end
 
   describe 'accessors' do
@@ -17,8 +17,8 @@ describe ConcourseProject, :type => :model do
       it { expect(subject.build_status_url).to eq('http://concourse.example.com:8080/api/v1/jobs/concourse-project/builds') }
     end
 
-    describe '#ci_build_name' do
-      it { expect(subject.ci_build_name).to eq('concourse-project') }
+    describe '#ci_build_identifier' do
+      it { expect(subject.ci_build_identifier).to eq('concourse-project') }
     end
 
     describe '#fetch_payload' do

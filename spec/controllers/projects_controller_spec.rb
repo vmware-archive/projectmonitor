@@ -44,7 +44,7 @@ describe ProjectsController, :type => :controller do
             name: 'name',
             type: JenkinsProject.name,
             ci_base_url: 'http://www.example.com',
-            ci_build_name: 'example'
+            ci_build_identifier: 'example'
           }
         end
 
@@ -136,7 +136,7 @@ describe ProjectsController, :type => :controller do
         let!(:project) { create(:team_city_project) }
 
         context "when the parameters are valid" do
-          let(:project_params) { {type: "JenkinsProject", name: "foobar", ci_base_url: "http://foo", ci_build_name: "NAMe"} }
+          let(:project_params) { {type: "JenkinsProject", name: "foobar", ci_base_url: "http://foo", ci_build_identifier: "NAMe"} }
           it "should validate as the new type and save the record" do
             subject
             expect(Project.find(project.id).is_a? JenkinsProject).to be true

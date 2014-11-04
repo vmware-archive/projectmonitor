@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :project, class: JenkinsProject do
     name
     ci_base_url "http://www.example.com"
-    ci_build_name "project"
+    ci_build_identifier "project"
 
     factory :project_with_tracker_integration do
       tracker_project_id "123"
@@ -33,13 +33,13 @@ FactoryGirl.define do
   factory :team_city_project, class: TeamCityProject do
     name
     ci_base_url "foo.bar.com:1234"
-    ci_build_name "bt567"
+    ci_build_identifier "bt567"
   end
 
   factory :team_city_rest_project, class: TeamCityRestProject do
     name
     ci_base_url "example.com"
-    ci_build_name "bt456"
+    ci_build_identifier "bt456"
   end
 
   factory :semaphore_project, class: SemaphoreProject do
@@ -50,19 +50,19 @@ FactoryGirl.define do
   factory :tddium_project, class: TddiumProject do
     name
     tddium_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
-    ci_build_name 'Test Project A'
+    ci_build_identifier 'Test Project A'
   end
 
   factory :circleci_project, class: CircleCiProject do
     name
     circleci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
-    ci_build_name 'a-project'
+    ci_build_identifier 'a-project'
     circleci_username 'username'
   end
 
   factory :concourse_project, class: ConcourseProject do
     name
-    ci_build_name 'concourse-project'
+    ci_build_identifier 'concourse-project'
     ci_base_url 'http://concourse.example.com:8080'
   end
 end

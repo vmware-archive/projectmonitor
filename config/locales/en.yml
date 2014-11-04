@@ -16,7 +16,7 @@ en:
         jenkins_base_url: "Base URL"
         ci_base_url: "Base URL"
         jenkins_build_name: "Build Name"
-        ci_build_name: "Build Name"
+        ci_build_identifier: "Build Name"
         travis_github_account: "Github Account"
         travis_repository: "Repository"
         travis_pro_token: "Travis Pro Token"

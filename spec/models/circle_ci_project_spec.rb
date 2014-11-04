@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CircleCiProject, :type => :model do
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:ci_build_name) }
+    it { is_expected.to validate_presence_of(:ci_build_identifier) }
     it { is_expected.to validate_presence_of(:circleci_auth_token) }
     it { is_expected.to validate_presence_of(:circleci_username) }
   end
@@ -12,7 +12,7 @@ describe CircleCiProject, :type => :model do
 
   describe 'model' do
     it { is_expected.to validate_presence_of(:circleci_auth_token) }
-    it { is_expected.to validate_presence_of(:ci_build_name) }
+    it { is_expected.to validate_presence_of(:ci_build_identifier) }
   end
 
   describe 'accessors' do
@@ -24,8 +24,8 @@ describe CircleCiProject, :type => :model do
       it { expect(subject.build_status_url).to eq('https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
     end
 
-    describe '#ci_build_name' do
-      it { expect(subject.ci_build_name).to eq('a-project') }
+    describe '#ci_build_identifier' do
+      it { expect(subject.ci_build_identifier).to eq('a-project') }
     end
 
     describe '#fetch_payload' do

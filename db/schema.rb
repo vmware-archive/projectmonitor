@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103165327) do
+ActiveRecord::Schema.define(version: 20141104093438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20141103165327) do
     t.string   "deprecated_concourse_base_url"
     t.string   "deprecated_concourse_job_name"
     t.string   "ci_base_url"
-    t.string   "ci_build_name"
+    t.string   "ci_build_identifier"
   end
 
   add_index "projects", ["aggregate_project_id"], name: "index_projects_on_aggregate_project_id", using: :btree

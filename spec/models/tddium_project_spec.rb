@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TddiumProject, :type => :model do
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:ci_build_name) }
+    it { is_expected.to validate_presence_of(:ci_build_identifier) }
     it { is_expected.to validate_presence_of(:tddium_auth_token) }
   end
 
@@ -11,7 +11,7 @@ describe TddiumProject, :type => :model do
 
   describe 'model' do
     it { is_expected.to validate_presence_of(:tddium_auth_token) }
-    it { is_expected.to validate_presence_of(:ci_build_name) }
+    it { is_expected.to validate_presence_of(:ci_build_identifier) }
   end
 
   describe 'accessors' do
@@ -25,8 +25,8 @@ describe TddiumProject, :type => :model do
       it { is_expected.to eq('https://api.tddium.com/cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml') }
     end
 
-    describe '#ci_build_name' do
-      subject { super().ci_build_name }
+    describe '#ci_build_identifier' do
+      subject { super().ci_build_identifier }
       it { is_expected.to eq('Test Project A') }
     end
 
