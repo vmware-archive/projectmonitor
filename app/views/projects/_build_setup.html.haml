@@ -28,12 +28,11 @@
           .form-group
             = f.label field, class: "col-sm-2 control-label"
             .col-sm-4
-              - if field == "tddium_project_name"
-                = f.text_field field, disabled: !enabled, placeholder: "repo_name (branch_name)", class: "form-control"
-              - else
-                = f.text_field field, disabled: !enabled, class: "form-control"
-            - if field == "ci_auth_token"
+              = f.text_field field, disabled: !enabled, class: "form-control"
+            - if field == "ci_auth_token" && project_type == TravisProProject
               %p.help-block Find this on your Travis-CI.com profile
+            - if field == "ci_build_identifier" && project_type == TddiumProject
+              %p.help-block Project name format: 'repo_name (branch_name)'
   %fieldset#polling
     .form-group.verify_ssl_field
       .col-sm-offset-2.col-sm-10
