@@ -4,10 +4,6 @@ class ConcourseProject < Project
 
   alias_attribute :build_status_url, :feed_url
 
-  def self.project_specific_attributes
-    ['ci_base_url', 'ci_build_identifier']
-  end
-
   def feed_url
     "#{ci_base_url}/api/v1/jobs/#{ci_build_identifier}/builds"
   end

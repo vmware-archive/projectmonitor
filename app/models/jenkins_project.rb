@@ -3,10 +3,6 @@ class JenkinsProject < Project
 
   alias_attribute :project_name, :ci_build_identifier
 
-  def self.project_specific_attributes
-    ["ci_build_identifier", "ci_base_url"]
-  end
-
   def feed_url
     "#{ci_base_url}/job/#{ci_build_identifier}/rssAll"
   end

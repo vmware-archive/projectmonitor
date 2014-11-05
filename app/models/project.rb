@@ -56,7 +56,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.project_specific_attributes
-    columns.map(&:name).grep(/^#{project_attribute_prefix}_/)
+    ["ci_build_identifier", "ci_base_url"]
   end
 
   def self.with_aggregate_project(aggregate_project_id, &block)

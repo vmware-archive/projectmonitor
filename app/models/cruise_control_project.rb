@@ -4,6 +4,10 @@ class CruiseControlProject < Project
 
   alias_attribute :feed_url, :cruise_control_rss_feed_url
 
+  def self.project_specific_attributes
+    ['cruise_control_rss_feed_url']
+  end
+
   def project_name
     URI.parse(feed_url).path.scan(/^.*\/(.*)\.rss/i)[0][0] if feed_url.present?
   end
