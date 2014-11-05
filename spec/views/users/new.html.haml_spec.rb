@@ -16,9 +16,8 @@ describe "users/new", :type => :view do
       assign :user, user
       render
 
-      expect(page).to have_css("#errorExplanation")
-      expect(page).to have_css("#errorExplanation li", count: user.errors.count)
-      expect(page).to have_css("#errorExplanation li", text: user.errors.full_messages.first)
+      expect(page.find('#errorExplanation')).to have_css("li", count: user.errors.count)
+      expect(page.find('#errorExplanation')).to have_css("li", text: user.errors.full_messages.first)
     end
   end
 end

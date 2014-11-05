@@ -12,13 +12,13 @@ describe "projects/new", :type => :view do
 
   it 'should render all the project specific fields as hidden' do
     render
-    expect(page).to have_css('.project-attributes#CruiseControlProject.hide')
-    expect(page).to have_css('.project-attributes#JenkinsProject.hide')
-    expect(page).to have_css('.project-attributes#TeamCityRestProject.hide')
-    expect(page).to have_css('.project-attributes#TeamCityProject.hide')
-    expect(page).to have_css('.project-attributes#TravisProject.hide')
+    expect(page.find('#CruiseControlProject')).to have_class('hide')
+    expect(page.find('#JenkinsProject')).to have_class('hide')
+    expect(page.find('#TeamCityRestProject')).to have_class('hide')
+    expect(page.find('#TeamCityProject')).to have_class('hide')
+    expect(page.find('#TravisProject')).to have_class('hide')
 
-    expect(page).to have_css('fieldset#build_setup #branch_name.hide')
+    expect(page.find('#build_setup #branch_name')).to have_class('hide')
   end
 
   describe "error messages" do
@@ -35,9 +35,8 @@ describe "projects/new", :type => :view do
       assign :project, project
       render
 
-      expect(page).to have_css("#errorExplanation")
-      expect(page).to have_css("#errorExplanation li", count: project.errors.count)
-      expect(page).to have_css("#errorExplanation li", text: project.errors.full_messages.first)
+      expect(page.find('#errorExplanation')).to have_css("li", count: project.errors.count)
+      expect(page.find('#errorExplanation')).to have_css("li", text: project.errors.full_messages.first)
     end
   end
 

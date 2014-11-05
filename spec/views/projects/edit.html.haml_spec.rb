@@ -41,9 +41,8 @@ describe 'projects/edit', :type => :view do
       end
 
       it "should be visible" do
-        expect(page).to have_css("#errorExplanation")
-        expect(page).to have_css("#errorExplanation li", count: project.errors.count)
-        expect(page).to have_css("#errorExplanation li", text: project.errors.full_messages.first)
+        expect(page.find('#errorExplanation')).to have_css("li", count: project.errors.count)
+        expect(page.find('#errorExplanation')).to have_css("li", text: project.errors.full_messages.first)
       end
     end
   end
@@ -51,7 +50,7 @@ describe 'projects/edit', :type => :view do
   describe 'project-specific attributes' do
     it 'should the specific attributes for a given project type' do
       TravisProject.project_specific_attributes.each do |attribute|
-        expect(page).to have_css("#TravisProject #project_#{attribute}")
+        expect(page.find('#TravisProject')).to have_css("#project_#{attribute}")
       end
     end
 
@@ -59,48 +58,44 @@ describe 'projects/edit', :type => :view do
       all_attributes = ProjectsHelper::PROJECT_TYPE_NAMES.collect(&:project_specific_attributes).flatten.uniq
       unexpected_attributes = all_attributes - TravisProject.project_specific_attributes
 
-      unexpected_attributes.each do |attribute|
-        expect(page).not_to have_css("#TravisProject #project_#{attribute}")
+      unexpected_attributes.each do |unexpected_attribute|
+        expect(page.find('#TravisProject')).not_to have_css("#project_#{unexpected_attribute}")
       end
     end
 
     describe 'visibility' do
       it 'should show attributes specific to the current project type' do
-        expect(page).to     have_css("##{project.class}")
-        expect(page).not_to have_css("##{project.class}.hide")
-        expect(page).to     have_css('#build_setup #branch_name')
-        expect(page).not_to have_css('#build_setup #branch_name.hide')
+        expect(page.find("#TravisProject")).not_to have_class('hide')
+        expect(page.find('#build_setup #branch_name')).not_to have_class('hide')
       end
 
       it 'should hide attributes specific to other project types' do
-        expect(page).to have_css('#CruiseControlProject.hide')
-        expect(page).to have_css('#JenkinsProject.hide')
-        expect(page).to have_css('#TeamCityRestProject.hide')
-        expect(page).to have_css('#TeamCityProject.hide')
-        expect(page).to have_css('#SemaphoreProject.hide')
+        expect(page.find('#CruiseControlProject')).to have_class('hide')
+        expect(page.find('#JenkinsProject')).to have_class('hide')
+        expect(page.find('#TeamCityRestProject')).to have_class('hide')
+        expect(page.find('#TeamCityProject')).to have_class('hide')
+        expect(page.find('#SemaphoreProject')).to have_class('hide')
       end
     end
 
     describe 'a help block' do
       describe 'for the Travis Pro auth token' do
         it 'is shown for a Travis Pro project' do
-          expect(page).to have_css(".project-attributes#TravisProProject .help-block", text: "Find this on your Travis-CI.com profile")
+          expect(page.find('#TravisProProject')).to have_css(".help-block", text: "Find this on your Travis-CI.com profile")
         end
 
         it 'is not shown for a CircleCI project' do
-          expect(page).to have_css('.project-attributes#CircleCiProject')
-          expect(page).not_to have_css('.project-attributes#CircleCiProject .help-block')
+          expect(page.find('#CircleCiProject')).not_to have_css('.help-block')
         end
       end
 
       describe 'for specifying the project name' do
         it 'is shown for a Tddium project' do
-          expect(page).to have_css(".project-attributes#TddiumProject .help-block", text: "Project name format: 'repo_name (branch_name)'")
+          expect(page.find('#TddiumProject')).to have_css(".help-block", text: "Project name format: 'repo_name (branch_name)'")
         end
 
         it 'is not shown for a Jenkins project' do
-          expect(page).to have_css('.project-attributes#JenkinsProject')
-          expect(page).not_to have_css('.project-attributes#JenkinsProject .help-block')
+          expect(page.find('#JenkinsProject')).not_to have_css('.help-block')
         end
       end
     end
