@@ -6,17 +6,17 @@ class StatusController < ApplicationController
       payload = project.webhook_payload
       payload.remote_addr = request.env["REMOTE_ADDR"]
 
-      if payload.instance_of?(TeamCityJsonPayload)
-        payload.webhook_status_content = params['build'].to_json
-      elsif payload.instance_of?(SemaphorePayload)
-        payload.webhook_status_content = params.to_json
-      elsif payload.instance_of?(JenkinsJsonPayload) && params['build']
-        payload.webhook_status_content = params.to_json
-      elsif payload.instance_of?(CodeshipPayload)
-        payload.webhook_status_content = params.to_json
-      else
-        payload.webhook_status_content = request.body.read
-      end
+      payload.webhook_status_content =
+        case payload
+        when TeamCityJsonPayload
+          params['build'].to_json
+        when JenkinsJsonPayload
+          params['build'].present? ? params.to_json : request.body.read
+        when SemaphorePayload, CodeshipPayload
+          params.to_json
+        else
+          request.body.read
+        end
 
       log = PayloadProcessor.new(project_status_updater: StatusUpdater.new).process_payload(project: project, payload: payload)
       log.update_method = "Webhooks"
