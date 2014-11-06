@@ -78,25 +78,23 @@ describe 'projects/edit', :type => :view do
       end
     end
 
-    describe 'a help block' do
-      describe 'for the Travis Pro auth token' do
-        it 'is shown for a Travis Pro project' do
-          expect(page.find('#TravisProProject')).to have_css(".help-block", text: "Find this on your Travis-CI.com profile")
-        end
-
-        it 'is not shown for a CircleCI project' do
-          expect(page.find('#CircleCiProject')).not_to have_css('.help-block')
-        end
+    describe 'field labels' do
+      it 'is overriden for a specific projects' do
+        expect(page.find('#TeamCityRestProject')).to have_content("Build Type ID")
       end
 
-      describe 'for specifying the project name' do
-        it 'is shown for a Tddium project' do
-          expect(page.find('#TddiumProject')).to have_css(".help-block", text: "Project name format: 'repo_name (branch_name)'")
-        end
+      it 'remains the default otherwise' do
+        expect(page.find('#JenkinsProject')).to have_content("Build Name")
+      end
+    end
 
-        it 'is not shown for a Jenkins project' do
-          expect(page.find('#JenkinsProject')).not_to have_css('.help-block')
-        end
+    describe 'a help block' do
+      it 'is shown for a Travis Pro project' do
+        expect(page.find('#TravisProProject')).to have_css(".help-block", text: "Find this on your Travis-CI.com profile")
+      end
+
+      it 'is not shown when no tooltip is defined' do
+        expect(page.find('#CircleCiProject')).not_to have_css('.help-block')
       end
     end
 

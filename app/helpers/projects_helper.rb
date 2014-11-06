@@ -1,14 +1,8 @@
 module ProjectsHelper
-  PROJECT_TYPE_NAMES = [CruiseControlProject,
-                        JenkinsProject,
-                        SemaphoreProject,
-                        TeamCityRestProject,
-                        TeamCityProject,
-                        TravisProject,
-                        TravisProProject,
-                        TddiumProject,
-                        CircleCiProject,
-                        ConcourseProject]
+
+  PROJECT_META = YAML.load(File.read(Rails.root.join('config', 'project-meta.yml'))).with_indifferent_access
+
+  PROJECT_TYPE_NAMES = PROJECT_META[:types].map(&:constantize)
 
   def project_types
     [['', '']] + PROJECT_TYPE_NAMES.map do |type_class|
@@ -67,6 +61,19 @@ module ProjectsHelper
       end
     else
       "None"
+    end
+  end
+
+  ProjectAttribute = Struct.new(:name, :label, :tooltip)
+
+  def project_specific_attributes_for(project_class)
+    project_key = project_class.name.underscore
+
+    project_class.project_specific_attributes.each_with_object({}) do |field_name, hash|
+      label   = PROJECT_META[:labels].try(:[], field_name).try(:[], project_key)
+      tooltip = PROJECT_META[:tooltips].try(:[], field_name).try(:[], project_key)
+
+      hash[field_name.to_sym] = ProjectAttribute.new(field_name, label, tooltip)
     end
   end
 end

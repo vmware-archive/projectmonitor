@@ -24,15 +24,13 @@
     - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
       - enabled = f.object.type == project_type.name
       .project-attributes{ id: project_type,  class: "#{'hide' unless enabled}" }
-        - project_type.project_specific_attributes.each do |field|
+        - project_specific_attributes_for(project_type).each do |field, field_attributes|
           .form-group
-            = f.label field, class: "col-sm-2 control-label"
+            = f.label field, field_attributes.label, class: "col-sm-2 control-label"
             .col-sm-4
               = f.text_field field, disabled: !enabled, class: "form-control"
-            - if field == "ci_auth_token" && project_type == TravisProProject
-              %p.help-block Find this on your Travis-CI.com profile
-            - if field == "ci_build_identifier" && project_type == TddiumProject
-              %p.help-block Project name format: 'repo_name (branch_name)'
+            - if field_attributes.tooltip
+              %p.help-block= field_attributes.tooltip
   %fieldset#polling
     .form-group.verify_ssl_field
       .col-sm-offset-2.col-sm-10

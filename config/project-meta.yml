@@ -1,0 +1,26 @@
+types: [
+  'CruiseControlProject',
+  'JenkinsProject',
+  'SemaphoreProject',
+  'TeamCityRestProject',
+  'TeamCityProject',
+  'TravisProject',
+  'TravisProProject',
+  'TddiumProject',
+  'CircleCiProject',
+  'ConcourseProject'
+]
+
+labels:
+  ci_build_identifier:
+    team_city_rest_project: "Build Type ID"
+    team_city_project: "Build ID"
+    tddium_project: "Tddium Project Name"
+    concourse_project: "Job Name"
+
+tooltips:
+  ci_auth_token:
+    travis_pro_project: "Find this on your Travis-CI.com profile"
+    tddium_project: "Tddium Authentication Token"
+  ci_build_identifier:
+    tddium_project: "Project name format: 'repo_name (branch_name)'"

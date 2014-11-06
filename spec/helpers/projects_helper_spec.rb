@@ -109,4 +109,34 @@ describe ProjectsHelper, :type => :helper do
       end
     end
   end
+
+  describe "#project_specific_attributes_for" do
+    subject { helper.project_specific_attributes_for(JenkinsProject) }
+
+    it "returns a hash with an key for each specific attribute" do
+      expect(subject.keys).to match JenkinsProject.project_specific_attributes.map(&:to_sym)
+    end
+
+    describe "overriden field labels" do
+      subject { helper.project_specific_attributes_for(ConcourseProject) }
+
+      it "returns the new label text for the field" do
+        expect(subject[:ci_build_identifier].label).to eq("Job Name")
+      end
+    end
+
+    describe "field tooltip" do
+      it "returns the tooltip for the field, if present" do
+        travis_pro_helper = helper.project_specific_attributes_for(TravisProProject)
+
+        expect(travis_pro_helper[:ci_auth_token].tooltip).to eq("Find this on your Travis-CI.com profile")
+      end
+
+      it "is nil when there is no help block" do
+        jenkins_helper = helper.project_specific_attributes_for(JenkinsProject)
+
+        expect(jenkins_helper[:ci_build_identifier].tooltip).to be_nil
+      end
+    end
+  end
 end
