@@ -69,4 +69,10 @@ FactoryGirl.define do
     ci_build_identifier 'concourse-project'
     ci_base_url 'http://concourse.example.com:8080'
   end
+
+  factory :codeship_project, class: CodeshipProject do
+    name
+    ci_build_identifier '1234'
+    ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
+  end
 end

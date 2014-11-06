@@ -1,0 +1,15 @@
+{
+    "build": {
+        "branch": "master",
+        "build_id": 2778736,
+        "build_url": "https://www.codeship.io/projects/45716/builds/2778736",
+        "commit_id": "8ac6693793e05992a0fb978da559f06ff963f448",
+        "commit_url": "https://github.com/odlp/codeship-test/commit/8ac6693793e05992a0fb978da559f06ff963f448",
+        "committer": "odlp",
+        "message": "webhook test",
+        "project_full_name": "odlp/codeship-test",
+        "project_id": 45716,
+        "short_commit_id": "8ac66",
+        "status": "success"
+    }
+}

@@ -121,3 +121,13 @@ class CircleCiExample < FixtureFile
     super("circleci_examples", filename)
   end
 end
+
+class CodeshipExample < FixtureFile
+  def initialize(filename)
+    super("codeship_examples", filename)
+  end
+
+  def as_json
+    JSON.parse(read)
+  end
+end

@@ -1,0 +1,22 @@
+{
+    "builds": [
+        {
+            "branch": "master",
+            "commit_id": "13dac0ad91f8832f12c51d63ef67f571018e71f4",
+            "id": 2776521,
+            "message": "bar",
+            "status": "testing",
+            "uuid": "bc2156e0-47da-0132-33d9-06fb99bcef9e"
+        },
+        {
+            "branch": "master",
+            "commit_id": "24898efca06ed890090a5583230cc1970daa5b90",
+            "id": 2776509,
+            "message": "foo",
+            "status": "success",
+            "uuid": "8712e780-47da-0132-33d9-06fb99bcef9e"
+        }
+    ],
+    "id": 45716,
+    "repository_name": "odlp/codeship-test"
+}

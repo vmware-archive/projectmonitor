@@ -31,3 +31,4 @@ en:
     tddium_project: "Tddium Project"
     circle_ci_project: "CircleCi Project"
     concourse_project: "Concourse Project"
+    codeship_project: "Codeship Project"

@@ -8,6 +8,8 @@ projects' builds are highly visible/glanceable (a "Big Visible Chart").
 ProjectMonitor currently supports:
 
   * [CircleCI](http://circleci.com)
+  * [Codeship](https://www.codeship.io/)
+  * [Concourse](http://concourse.ci/)
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
   * [Jenkins](http://jenkins-ci.org/)
   * [Semaphore](http://www.semaphoreapp.com/)
@@ -15,7 +17,6 @@ ProjectMonitor currently supports:
   * [Travis CI](http://travis-ci.org/)
   * [Travis CI Pro](http://travis-ci.com/)
   * [tddium](http://www.tddium.com/)
-  * [Concourse](http://concourse.ci/)
 
 We use ProjectMonitor internally at Pivotal Labs to display the status of the
 builds for all our client projects. We also have an instance of ProjectMonitor

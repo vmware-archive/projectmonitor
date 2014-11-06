@@ -169,7 +169,7 @@ var ProjectEdit = {};
   o.toggleWebhooks = function () {
     if ($('input#project_webhooks_enabled_true:checked').length > 0) {
       var val = $("#project_type").val();
-      if(val != "TravisProject" && val != "TravisProProject"){
+      if(val != "TravisProject" && val != "TravisProProject" && val != "CodeshipProject"){
         $('#field_container').addClass('hide');
       }
 

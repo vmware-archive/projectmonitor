@@ -15,7 +15,8 @@ describe ProjectsHelper, :type => :helper do
                  ['Travis Pro Project', 'TravisProProject'],
                  ['Tddium Project', 'TddiumProject'],
                  ['CircleCi Project', 'CircleCiProject'],
-                 ['Concourse Project', 'ConcourseProject']])
+                 ['Concourse Project', 'ConcourseProject'],
+                 ['Codeship Project', 'CodeshipProject']])
     end
   end
 

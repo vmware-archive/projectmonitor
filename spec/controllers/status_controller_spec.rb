@@ -125,6 +125,30 @@ describe StatusController, :type => :controller do
       end
     end
 
+    context "Codeship project" do
+      let!(:project) { create(:codeship_project, webhooks_enabled: true) }
+      let(:payload)  { JSON.parse(open('spec/fixtures/codeship_examples/webhook.json').read) }
+      subject { post :create, payload.merge(project_id: project.guid) }
+
+      it "should create a new status" do
+        expect { subject }.to change(ProjectStatus, :count).by(1)
+      end
+
+      it "creates only one new status" do
+        expect {
+          subject
+          subject
+        }.to change(ProjectStatus, :count).by(1)
+      end
+
+      it "should have all the attributes" do
+        subject
+        expect(ProjectStatus.last).to be_success
+        expect(ProjectStatus.last.project_id).to eq(project.id)
+        expect(ProjectStatus.last.build_id).to eq(2778736)
+      end
+    end
+
     context "TeamCity Rest project" do
       let!(:project) { create(:team_city_rest_project) }
       let(:payload) do

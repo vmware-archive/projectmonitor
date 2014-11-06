@@ -8,7 +8,8 @@ types: [
   'TravisProProject',
   'TddiumProject',
   'CircleCiProject',
-  'ConcourseProject'
+  'ConcourseProject',
+  'CodeshipProject'
 ]
 
 labels:
@@ -17,10 +18,13 @@ labels:
     team_city_project: "Build ID"
     tddium_project: "Tddium Project Name"
     concourse_project: "Job Name"
+    codeship_project: "Project ID"
+  ci_auth_token:
+    tddium_project: "Tddium Authentication Token"
 
 tooltips:
   ci_auth_token:
     travis_pro_project: "Find this on your Travis-CI.com profile"
-    tddium_project: "Tddium Authentication Token"
   ci_build_identifier:
     tddium_project: "Project name format: 'repo_name (branch_name)'"
+    codeship_project: "Found in the URL when viewing your Codeship project: 'https://www.codeship.io/projects/%your-project-ID%'"

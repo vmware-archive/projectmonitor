@@ -12,6 +12,8 @@ class StatusController < ApplicationController
         payload.webhook_status_content = params.to_json
       elsif payload.instance_of?(JenkinsJsonPayload) && params['build']
         payload.webhook_status_content = params.to_json
+      elsif payload.instance_of?(CodeshipPayload)
+        payload.webhook_status_content = params.to_json
       else
         payload.webhook_status_content = request.body.read
       end
