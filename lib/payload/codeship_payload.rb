@@ -19,8 +19,8 @@ class CodeshipPayload < Payload
 
   alias_method :convert_build_content!, :convert_content!
 
-  def convert_webhook_content!(raw_content)
-    content = convert_json_content!(raw_content).first.try(:[], 'build')
+  def convert_webhook_content!(params)
+    content = params['build']
     @project_id = content['project_id']
 
     Array.wrap(content)

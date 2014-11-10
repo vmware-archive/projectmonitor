@@ -8,6 +8,10 @@ class TeamCityJsonPayload < Payload
     convert_json_content!(raw_content)
   end
 
+  def convert_webhook_content!(params)
+    Array.wrap(params['build'])
+  end
+
   def content_ready?(content)
     content['buildResult'] != 'running'
   end

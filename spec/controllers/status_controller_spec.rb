@@ -151,27 +151,7 @@ describe StatusController, :type => :controller do
 
     context "TeamCity Rest project" do
       let!(:project) { create(:team_city_rest_project) }
-      let(:payload) do
-        {
-          "buildStatus"=> "Running",
-          "buildResult"=> "success",
-          "notifyType"=> "buildFinished",
-          "buildRunner"=> "Command Line",
-          "buildFullName"=> "My Awesome Project :: RUN IT",
-          "buildName"=> "RUN IT",
-          "buildId"=> "13",
-          "buildTypeId"=> "bt2",
-          "projectName"=> "My Awesome Project",
-          "projectId"=> "project2",
-          "buildNumber"=> "7",
-          "agentName"=> "Default Agent",
-          "agentOs"=> "Mac OS X, version 10.7.4",
-          "agentHostname"=> "localhost",
-          "triggeredBy"=> "Dude",
-          "message"=> "Build My Awesome Project :: RUN IT has finished. This is build number 7, has a status of \"Running\" and was triggered by Dude",
-          "text"=> "My Awesome Project :: RUN IT has finished. Status: Running"
-        }
-      end
+      let(:payload)  { JSON.parse(open('spec/fixtures/teamcity_json_examples/webhook.json').read) }
 
       subject do
         post :create, project_id: project.guid, build: payload

@@ -73,7 +73,7 @@ describe CodeshipPayload do
 
       context 'webhook content' do
         let(:fixture_file) { 'webhook.json' }
-        let(:converted_webhook_content) { payload.convert_webhook_content!(content).first }
+        let(:converted_webhook_content) { payload.convert_webhook_content!(JSON.parse(content)).first }
 
         it { expect(payload.parse_build_id(converted_webhook_content)).to eq(2778736) }
       end
@@ -89,11 +89,11 @@ describe CodeshipPayload do
       subject { CodeshipPayload.new(nil) }
 
       it "converts the webhook content" do
-        expect(subject.convert_webhook_content!(content).first.keys).to include 'build_id', 'project_id'
+        expect(subject.convert_webhook_content!(JSON.parse(content)).first.keys).to include 'build_id', 'project_id'
       end
 
       it "sets the Project ID" do
-        expect{ subject.convert_webhook_content!(content) }
+        expect{ subject.convert_webhook_content!(JSON.parse(content)) }
           .to change{ subject.instance_variable_get(:@project_id) }.from(nil).to(45716)
       end
     end

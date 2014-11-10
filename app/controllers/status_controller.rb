@@ -8,12 +8,10 @@ class StatusController < ApplicationController
 
       payload.webhook_status_content =
         case payload
-        when TeamCityJsonPayload
-          params['build'].to_json
+        when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload
+          params
         when JenkinsJsonPayload
           params['build'].present? ? params.to_json : request.body.read
-        when SemaphorePayload, CodeshipPayload
-          params.to_json
         else
           request.body.read
         end

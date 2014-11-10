@@ -20,6 +20,10 @@ class SemaphorePayload < Payload
     extract_builds_if_build_history_url(convert_json_content!(raw_content))
   end
 
+  def convert_webhook_content!(params)
+    extract_builds_if_build_history_url(params)
+  end
+
   def parse_success(content)
     content['result'] == 'passed'
   end

@@ -15,11 +15,7 @@ class SemaphoreProject < Project
     end
   end
 
-  def webhook_payload
-    SemaphorePayload.new.tap do |payload|
-      payload.branch = build_branch
-    end
-  end
+  alias_method :webhook_payload, :fetch_payload
 
   def requires_branch_name?
     true
