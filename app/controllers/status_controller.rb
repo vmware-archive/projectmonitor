@@ -6,12 +6,12 @@ class StatusController < ApplicationController
       payload = project.webhook_payload
       payload.remote_addr = request.env["REMOTE_ADDR"]
 
+      params.merge!(parse_legacy_jenkins_notification) if is_legacy_jenkins_notification?(payload)
+
       payload.webhook_status_content =
         case payload
-        when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload
+        when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload
           params
-        when JenkinsJsonPayload
-          params['build'].present? ? params.to_json : request.body.read
         else
           request.body.read
         end
@@ -24,6 +24,21 @@ class StatusController < ApplicationController
       head :ok
     else
       head :not_found
+    end
+  end
+
+  private
+
+  # Jenkins notification plugin did not set content-type prior to 1.5
+  def is_legacy_jenkins_notification?(payload)
+    payload.is_a?(JenkinsJsonPayload) && params['build'].nil?
+  end
+
+  def parse_legacy_jenkins_notification
+    begin
+      JSON.parse(request.body.read)
+    rescue => e
+      raise ActionDispatch::ParamsParser::ParseError.new(e.message, e)
     end
   end
 end

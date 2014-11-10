@@ -221,11 +221,11 @@ describe StatusController, :type => :controller do
         allow(Project).to receive(:find_by_guid).and_return(project)
       end
 
-      it 'should save the project with its original last_refreshed_at date' do
-        expect(project).to receive(:save!)
+      it "should not update the project's last_refreshed_at date" do
         expect(project).not_to receive(:last_refreshed_at=)
 
-        post :create, project_id: project.guid, "payload" => 'invalid_post_content'
+        expect{ post :create, project_id: project.guid, "payload" => 'invalid_post_content' }
+          .to raise_error(ActionDispatch::ParamsParser::ParseError)
       end
 
     end

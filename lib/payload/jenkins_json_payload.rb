@@ -7,6 +7,10 @@ class JenkinsJsonPayload < Payload
     convert_json_content!(raw_content)
   end
 
+  def convert_webhook_content!(params)
+    Array.wrap(params)
+  end
+
   def content_ready?(content)
     content["build"]["phase"] != "STARTED"
   end
