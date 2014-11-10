@@ -67,11 +67,6 @@ describe ConcoursePayload do
       it { is_expected.to eq("1") }
     end
 
-    describe '#parse_published_at' do
-      subject { payload.parse_published_at(converted_content) }
-      it { is_expected.to eq(nil) }
-    end
-
     describe '#convert_webhook_content' do
       subject { payload.convert_webhook_content!(content) }
       it "raises an error" do

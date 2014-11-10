@@ -36,6 +36,6 @@ class ConcoursePayload < Payload
   end
 
   def parse_published_at(content)
-    nil
+    Time.now
   end
 end

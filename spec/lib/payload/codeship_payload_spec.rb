@@ -79,11 +79,6 @@ describe CodeshipPayload do
       end
     end
 
-    describe '#parse_published_at' do
-      subject { payload.parse_published_at(converted_content) }
-      it { is_expected.to eq(nil) }
-    end
-
     describe '#convert_webhook_content' do
       let(:fixture_file) { 'webhook.json' }
       subject { CodeshipPayload.new(nil) }
