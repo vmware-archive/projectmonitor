@@ -41,9 +41,14 @@ describe TravisJsonPayload do
   end
 
   describe '#convert_webhook_content!' do
-    context 'when supplied with an empty payload' do
-      let(:webhook_content) { TravisExample.new("webhook_success.txt").read }
-      it 'provides an empty string to JSON.parse' do
+    context 'when supplied with valid webhook content' do
+      let(:webhook_content) {
+        # Mimic controller
+        payload_content = Rack::Utils.parse_nested_query(TravisExample.new("webhook_success.txt").read)
+        ActionController::Parameters.new(payload_content)
+      }
+
+      it 'parses the content' do
         converted_content = TravisJsonPayload.new.convert_webhook_content!(webhook_content)
         expect(converted_content.first['id']).to eq(12150190)
       end

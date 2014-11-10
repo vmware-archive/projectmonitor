@@ -25,8 +25,13 @@ class TravisJsonPayload < Payload
       content['event_type'] != 'pull_request'
   end
 
-  def convert_webhook_content!(content)
-    decoded_payload = extract_payload_from(content)
+  def convert_webhook_content!(params)
+    begin
+      decoded_payload = URI.decode(params['payload'])
+    rescue => e
+      handle_processing_exception(e)
+    end
+
     convert_content!(decoded_payload)
   end
 
@@ -59,14 +64,6 @@ class TravisJsonPayload < Payload
 
   def specified_branch?(content)
     branch == content['branch']
-  end
-
-  def extract_payload_from(content)
-    nested_content = Rack::Utils.parse_nested_query(content)
-    payload = nested_content['payload']
-    URI.decode(payload)
-  rescue => e
-    handle_processing_exception(e)
   end
 
   def convert_content!(raw_content)
