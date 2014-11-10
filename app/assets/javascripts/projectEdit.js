@@ -110,6 +110,10 @@ var ProjectEdit = {};
       $webhooks_disabled.prop('checked', true);
     }
 
+    if (val == "CodeshipProject") {
+      $('#field_container').removeClass('hide');
+    }
+
     $('.auth_field').toggleClass('hide', use_feed);
 
     o.toggleWebhooks();
