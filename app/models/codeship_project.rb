@@ -11,9 +11,7 @@ class CodeshipProject < Project
     "https://www.codeship.io/api/v1/projects/#{ci_build_identifier}.json?api_key=#{ci_auth_token}"
   end
 
-  def build_status_url
-    "https://www.codeship.io/projects/#{ci_build_identifier}"
-  end
+  alias_method :build_status_url, :feed_url
 
   def fetch_payload
     CodeshipPayload.new(ci_build_identifier)

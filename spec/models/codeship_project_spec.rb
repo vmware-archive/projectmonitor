@@ -21,7 +21,7 @@ describe CodeshipProject, :type => :model do
   end
 
   describe '#build_status_url' do
-    it { expect(subject.build_status_url).to eq 'https://www.codeship.io/projects/1234' }
+    it { expect(subject.build_status_url).to eq subject.feed_url }
   end
 
   describe '#fetch_payload' do
