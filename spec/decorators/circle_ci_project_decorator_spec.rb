@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe CircleCiProjectDecorator do
-  let(:circleci_project) { build(:circleci_project) }
+  let(:circle_ci_project) { build(:circle_ci_project) }
 
-  subject { circleci_project.decorate }
+  subject { circle_ci_project.decorate }
 
   describe '#current_build_url' do
     subject { super().current_build_url }

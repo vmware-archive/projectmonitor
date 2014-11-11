@@ -47,7 +47,7 @@ describe Project, :type => :model do
 
       it "trims circleci urls" do
         goal = "https://circleci.com/api/v1/project/white space/project?circle-token=ABC"
-        project = create(:circleci_project,
+        project = create(:circle_ci_project,
                                      circleci_username: "white space",
                                      ci_build_identifier: "project",
                                      ci_auth_token: "ABC   "
