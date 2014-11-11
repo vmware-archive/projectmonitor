@@ -75,7 +75,7 @@ class Payload
   end
 
   def convert_xml_content!(raw_content, preserve_case = false)
-    raw_content.downcase! unless preserve_case
+    raw_content = raw_content.downcase unless preserve_case
     parsed_xml = Nokogiri::XML.parse(raw_content)
     raise Payload::InvalidContentException, "Error converting content for project #{@project_name}" unless parsed_xml.root
     parsed_xml

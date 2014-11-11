@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe JenkinsXmlPayload do
+  let(:fixture_dir) { 'jenkins_atom_examples' }
   let(:project) { create(:jenkins_project, ci_build_identifier: "ProjectMonitor") }
-  let(:status_content) { JenkinsAtomExample.new(atom).read }
+  let(:status_content) { load_fixture(fixture_dir, fixture_file) }
   let(:jenkins_payload) { JenkinsXmlPayload.new(project.ci_build_identifier) }
   let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
@@ -17,67 +18,61 @@ describe JenkinsXmlPayload do
 
       %w(success back_to_normal stable).each do |result|
         context "when build result was #{result}" do
-          let(:atom) { "#{result}.atom" }
+          let(:fixture_file) { "#{result}.atom" }
           it { is_expected.to be_success }
         end
       end
 
       context "when build had failed" do
-        let(:atom) { "failure.atom" }
+        let(:fixture_file) { "failure.atom" }
         it { is_expected.to be_failure }
       end
     end
 
     context "when building" do
       it "remains green when existing status is green" do
-        content = JenkinsAtomExample.new("success.atom").read
-        jenkins_payload.status_content = content
+        jenkins_payload.status_content = load_fixture(fixture_dir, "success.atom")
         payload_processor.process_payload(project: project, payload: jenkins_payload)
         statuses = project.statuses
-        content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
-        jenkins_payload.build_status_content = content
+        jenkins_payload.build_status_content = load_fixture(fixture_dir, 'jenkins_projectmonitor_building.atom')
         payload_processor.process_payload(project: project, payload: jenkins_payload)
         expect(project).to be_success
         expect(project.statuses).to eq(statuses)
       end
 
       it "remains red when existing status is red" do
-        content = JenkinsAtomExample.new("failure.atom").read
-        jenkins_payload.status_content = content
+        jenkins_payload.status_content = load_fixture(fixture_dir, "failure.atom")
         payload_processor.process_payload(project: project, payload: jenkins_payload)
         statuses = project.statuses
-        content = BuildingStatusExample.new("jenkins_projectmonitor_building.atom").read
-        jenkins_payload.build_status_content = content
+        jenkins_payload.build_status_content = load_fixture(fixture_dir, 'jenkins_projectmonitor_building.atom')
         payload_processor.process_payload(project: project, payload: jenkins_payload)
         expect(project).to be_failure
         expect(project.statuses).to eq(statuses)
       end
     end
-
   end
 
   describe "building status" do
-    let(:build_content) { BuildingStatusExample.new(atom).read }
+    let(:build_content) { load_fixture(fixture_dir, fixture_file) }
     before { jenkins_payload.build_status_content = build_content }
 
     context "when building" do
-      let(:atom) { "jenkins_projectmonitor_building.atom" }
+      let(:fixture_file) { "jenkins_projectmonitor_building.atom" }
       it { is_expected.to be_building }
     end
 
     context "when not building" do
-      let(:atom) { "jenkins_projectmonitor_not_building.atom" }
+      let(:fixture_file) { "jenkins_projectmonitor_not_building.atom" }
       it { is_expected.not_to be_building }
     end
   end
 
   describe "saving data" do
-    let(:example) { JenkinsAtomExample.new(atom) }
-    let(:status_content) { example.read }
+    let(:parsed_content) { Nokogiri::XML(status_content) }
     before { jenkins_payload.status_content = status_content }
 
     describe "when build was successful" do
-      let(:atom) { "success.atom" }
+      let(:fixture_file) { "success.atom" }
 
       describe '#latest_status' do
         subject { super().latest_status }
@@ -85,16 +80,16 @@ describe JenkinsXmlPayload do
       end
 
       it "return the link to the checkin" do
-        expect(subject.latest_status.url).to eq(example.first_css("entry:first link").attribute('href').value)
+        expect(subject.latest_status.url).to eq(parsed_content.at_css("entry:first link").attribute('href').value)
       end
 
       it "should return the published date of the checkin" do
-        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("entry:first published").content))
+        expect(subject.latest_status.published_at).to eq(Time.parse(parsed_content.at_css("entry:first published").content))
       end
     end
 
     describe "when build failed" do
-      let(:atom) { "failure.atom" }
+      let(:fixture_file) { "failure.atom" }
 
       describe '#latest_status' do
         subject { super().latest_status }
@@ -102,11 +97,11 @@ describe JenkinsXmlPayload do
       end
 
       it "return the link to the checkin" do
-        expect(subject.latest_status.url).to eq(example.first_css("entry:first link").attribute('href').value)
+        expect(subject.latest_status.url).to eq(parsed_content.at_css("entry:first link").attribute('href').value)
       end
 
       it "should return the published date of the checkin" do
-        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("entry:first published").content))
+        expect(subject.latest_status.published_at).to eq(Time.parse(parsed_content.at_css("entry:first published").content))
       end
     end
   end

@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe TravisJsonPayload do
 
-  let(:status_content) { TravisExample.new(json).read }
+  let(:status_content) { load_fixture('travis_examples', fixture_file) }
   let(:payload) { TravisJsonPayload.new.tap{|p| p.status_content = status_content} }
   let(:content) { payload.status_content.first }
-  let(:json) { "success.json" }
+  let(:fixture_file) { "success.json" }
 
   describe '#status_content' do
     subject { payload.status_content = status_content }
@@ -42,9 +42,11 @@ describe TravisJsonPayload do
 
   describe '#convert_webhook_content!' do
     context 'when supplied with valid webhook content' do
+      let(:fixture_file) { "webhook_success.txt" }
+
       let(:webhook_content) {
         # Mimic controller
-        payload_content = Rack::Utils.parse_nested_query(TravisExample.new("webhook_success.txt").read)
+        payload_content = Rack::Utils.parse_nested_query(status_content)
         ActionController::Parameters.new(payload_content)
       }
 
@@ -68,17 +70,17 @@ describe TravisJsonPayload do
     subject { payload.parse_success(content) }
 
     context 'the payload result is a success' do
-      let(:json) { "success.json" }
+      let(:fixture_file) { "success.json" }
       it { is_expected.to be true }
     end
 
     context 'the payload result is a failure' do
-      let(:json) { "failure.json" }
+      let(:fixture_file) { "failure.json" }
       it { is_expected.to be false }
     end
 
     context 'the payload build has errored' do
-      let(:json) { "errored.json" }
+      let(:fixture_file) { "errored.json" }
       it { is_expected.to be false }
     end
   end
@@ -87,22 +89,22 @@ describe TravisJsonPayload do
     subject { payload.content_ready?(content) }
 
     context 'the payload build has finished running' do
-      let(:json) { "success.json" }
+      let(:fixture_file) { "success.json" }
       it { is_expected.to be true }
     end
 
     context 'the payload build has not finished running' do
-      let(:json) { "building.json" }
+      let(:fixture_file) { "building.json" }
       it { is_expected.to be false }
     end
 
     context 'the payload build has not started running' do
-      let(:json) { "created.json" }
+      let(:fixture_file) { "created.json" }
       it { is_expected.to be false }
     end
 
     context 'the payload contains a build from a branch other than master' do
-      let(:json) { "branch.json" }
+      let(:fixture_file) { "branch.json" }
 
       context 'and the branch has not been specified' do
         it { is_expected.to be false }
@@ -116,7 +118,7 @@ describe TravisJsonPayload do
     end
 
     context 'the payload contains a build from pull request' do
-      let(:json) { "pull_request.json" }
+      let(:fixture_file) { "pull_request.json" }
       it { is_expected.to be false }
     end
   end
@@ -173,27 +175,27 @@ describe TravisJsonPayload do
     subject { payload }
 
     context 'the payload build has failed' do
-      let(:json) { "errored.json" }
+      let(:fixture_file) { "errored.json" }
       it { is_expected.not_to be_building }
     end
 
     context 'the payload build has errored' do
-      let(:json) { "failure.json" }
+      let(:fixture_file) { "failure.json" }
       it { is_expected.not_to be_building }
     end
 
     context 'the payload build has finished running' do
-      let(:json) { "success.json" }
+      let(:fixture_file) { "success.json" }
       it { is_expected.not_to be_building }
     end
 
     context 'the payload build has not finished running' do
-      let(:json) { "building.json" }
+      let(:fixture_file) { "building.json" }
       it { is_expected.to be_building }
     end
 
     context 'the payload build has not started running' do
-      let(:json) { "created.json" }
+      let(:fixture_file) { "created.json" }
       it { is_expected.to be_building }
     end
   end

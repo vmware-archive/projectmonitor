@@ -2,19 +2,16 @@ require 'spec_helper'
 
 describe SemaphorePayload do
 
-  let(:status_content) { SemaphoreExample.new(json).read }
+  let(:status_content) { load_fixture('semaphore_examples', fixture_file) }
   let(:payload) { SemaphorePayload.new.tap{|p| p.status_content = status_content} }
   let(:content) { payload.status_content.first }
-  let(:json) { "success.json" }
-
-  let(:status_content_history) { SemaphoreExample.new(json_history).read }
-  let(:json_history) { "success_history.json" }
+  let(:fixture_file) { "success.json" }
 
   describe '#convert_content!' do
     subject { payload.convert_content!(status_content) }
 
     context 'and status is pending' do
-      let(:json) { "pending.json" }
+      let(:fixture_file) { "pending.json" }
       let(:content) { {'result' => 'pending'} }
 
       it 'should be marked as unprocessable' do
@@ -50,8 +47,10 @@ describe SemaphorePayload do
     end
 
     context 'when the project has a branch history url' do
+      let(:fixture_file) { "success_history.json" }
+
       it "should return the builds array" do
-        history_content = payload.convert_content!(status_content_history)
+        history_content = payload.convert_content!(status_content)
         expect(history_content.count).to eq(2)
       end
     end
@@ -65,7 +64,7 @@ describe SemaphorePayload do
     end
 
     context 'the payload contains a failure build status' do
-      let(:json) { "failure.json" }
+      let(:fixture_file) { "failure.json" }
       it { is_expected.to be false }
     end
   end
@@ -74,7 +73,7 @@ describe SemaphorePayload do
     subject { payload.content_ready?(content) }
 
     context 'the build has not finished' do
-      let(:json) { "pending.json" }
+      let(:fixture_file) { "pending.json" }
       it { is_expected.to be false }
     end
 
@@ -83,7 +82,7 @@ describe SemaphorePayload do
     end
 
     context 'the payload contains a build from a branch other than master' do
-      let(:json) { "branch.json" }
+      let(:fixture_file) { "branch.json" }
 
       context 'and the branch has not been specified' do
         it { is_expected.to be false }

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ConcoursePayload do
   let(:payload) { ConcoursePayload.new('http://concourse.example.com:8080/jobs/concourse-project/builds') }
-  let(:content) { ConcourseExample.new(fixture_file).read }
+  let(:content) { load_fixture('concourse_examples', fixture_file) }
   let(:fixture_file) { 'success.json' }
   let(:converted_content) { payload.convert_content!(content).first }
 

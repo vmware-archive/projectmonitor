@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe JenkinsJsonPayload do
 
-  let(:status_content) { JenkinsJsonExample.new(example_file).read }
+  let(:status_content) { load_fixture('jenkins_json_examples', fixture_file) }
   let(:payload) { JenkinsJsonPayload.new }
   let(:converted_content) { payload.convert_content!(status_content).first }
-  let(:example_file) { "success.txt" }
+  let(:fixture_file) { "success.json" }
 
   describe '#status_content' do
     subject { payload.status_content = status_content }
@@ -43,7 +43,7 @@ describe JenkinsJsonPayload do
     end
 
     context 'the payload contains a failure build status' do
-      let(:example_file) { "failure.txt" }
+      let(:fixture_file) { "failure.json" }
       it { is_expected.to be false }
     end
   end
@@ -52,7 +52,7 @@ describe JenkinsJsonPayload do
     subject { payload.content_ready?(converted_content) }
 
     context 'the build has not finished' do
-      let(:example_file) { "building.txt" }
+      let(:fixture_file) { "building.json" }
       it { is_expected.to be false }
     end
 
@@ -73,7 +73,7 @@ describe JenkinsJsonPayload do
     end
 
     context 'should handle not having a full_url' do
-      let(:example_file) { "no_full_url.txt" }
+      let(:fixture_file) { "no_full_url.json" }
       it { is_expected.to include 'job/projectmonitor_ci_test/' }
     end
 

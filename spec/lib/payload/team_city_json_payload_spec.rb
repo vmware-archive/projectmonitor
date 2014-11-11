@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe TeamCityJsonPayload do
 
-  let(:status_content) { TeamCityJsonExample.new(example_file).read }
+  let(:status_content) { load_fixture('teamcity_json_examples', fixture_file) }
   let(:payload) { TeamCityJsonPayload.new.tap { |p| p.remote_addr = "localhost" } }
   let(:converted_content) { payload.convert_content!(status_content).first }
-  let(:example_file) { "success.txt" }
+  let(:fixture_file) { "success.json" }
 
   describe '#convert_content!' do
     subject { payload.convert_content!(status_content) }
@@ -49,19 +49,19 @@ describe TeamCityJsonPayload do
     end
 
     context 'should be building when build result is "running" and notify type is "started"' do
-      let(:example_file) { 'building.txt' }
+      let(:fixture_file) { 'building.json' }
 
       it { is_expected.to be true }
     end
 
     context 'should not be building when build result is not "running"' do
-      let(:example_file) { 'building_not_running.txt'}
+      let(:fixture_file) { 'building_not_running.json'}
 
       it { is_expected.to be false }
     end
 
     context 'should not be building when notify type is not "started"' do
-      let(:example_file) { 'building_not_started.txt'}
+      let(:fixture_file) { 'building_not_started.json'}
 
       it { is_expected.to be false }
     end
@@ -75,7 +75,7 @@ describe TeamCityJsonPayload do
     end
 
     context 'the payload contains a failure build status' do
-      let(:example_file) { "failure.txt" }
+      let(:fixture_file) { "failure.json" }
       it { is_expected.to be false }
     end
   end
@@ -88,7 +88,7 @@ describe TeamCityJsonPayload do
     end
 
     context 'the build has not finished' do
-      let(:example_file) { "building.txt" }
+      let(:fixture_file) { "building.json" }
       it { is_expected.to be false }
     end
   end
@@ -108,7 +108,7 @@ describe TeamCityJsonPayload do
     end
 
     context 'using the newer success format' do
-      let(:example_file) { "success_alternate.txt" }
+      let(:fixture_file) { "success_alternate.json" }
 
       it 'parses the response for a buildStatusUrl attribute' do
         payload.parse_url(converted_content)

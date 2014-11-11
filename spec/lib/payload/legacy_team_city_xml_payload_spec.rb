@@ -1,7 +1,9 @@
 require 'spec_helper'
+
 describe LegacyTeamCityXmlPayload do
+  let(:fixture_dir) { "teamcity_cradiator_xml_examples" }
   let(:project) { create(:team_city_project) }
-  let(:content) { TeamcityCradiatorXmlExample.new(xml).read }
+  let(:content) { load_fixture(fixture_dir, fixture_file) }
   let(:payload) { LegacyTeamCityXmlPayload.new }
   let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
@@ -15,7 +17,7 @@ describe LegacyTeamCityXmlPayload do
       before { payload.status_content = content }
 
       context "when latest build is successful" do
-        let(:xml) { "success.xml" }
+        let(:fixture_file) { "success.xml" }
         it { is_expected.to be_success }
 
         it "doesn't add a duplicate of the existing status" do
@@ -27,18 +29,17 @@ describe LegacyTeamCityXmlPayload do
       end
 
       context "when latest build has failed" do
-        let(:xml) { "failure.xml" }
+        let(:fixture_file) { "failure.xml" }
         it { is_expected.to be_failure }
       end
     end
 
     context "when building" do
       it "remains green when existing status is green" do
-        status_content = TeamcityCradiatorXmlExample.new("success.xml").read
-        payload.status_content = status_content
+        payload.status_content = load_fixture(fixture_dir, "success.xml")
         payload_processor.process_payload(project: project, payload: payload)
         statuses = project.statuses
-        build_content = BuildingStatusExample.new("team_city_building.xml").read
+        build_content = load_fixture(fixture_dir, 'team_city_building.xml')
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
         expect(project).to be_success
@@ -46,11 +47,10 @@ describe LegacyTeamCityXmlPayload do
       end
 
       it "remains red when existing status is red" do
-        status_content = TeamcityCradiatorXmlExample.new("failure.xml").read
-        payload.status_content = status_content
+        payload.status_content = load_fixture(fixture_dir, "failure.xml")
         payload_processor.process_payload(project: project, payload: payload)
         statuses = project.statuses
-        build_content = BuildingStatusExample.new("team_city_building.xml").read
+        build_content = load_fixture(fixture_dir, 'team_city_building.xml')
         payload.build_status_content = build_content
         payload_processor.process_payload(project: project, payload: payload)
         expect(project).to be_failure
@@ -60,13 +60,11 @@ describe LegacyTeamCityXmlPayload do
   end
 
   describe "saving data" do
-    let(:example) { TeamcityCradiatorXmlExample.new(xml) }
-    let(:content) { example.read }
-
+    let(:parsed_content) { Nokogiri::XML(content) }
     before { payload.status_content = content }
 
     describe "when build was successful" do
-      let(:xml)  { "success.xml" }
+      let(:fixture_file)  { "success.xml" }
 
       describe '#latest_status' do
         subject { super().latest_status }
@@ -74,16 +72,16 @@ describe LegacyTeamCityXmlPayload do
       end
 
       it "should return the link to the checkin" do
-        expect(subject.latest_status.url).to eq(example.first_css("Build").attribute("webUrl").value)
+        expect(subject.latest_status.url).to eq(parsed_content.at_css("Build").attribute("webUrl").value)
       end
 
       it "should return the published date of the checkin" do
-        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("Build").attribute("lastBuildTime").content))
+        expect(subject.latest_status.published_at).to eq(Time.parse(parsed_content.at_css("Build").attribute("lastBuildTime").content))
       end
     end
 
     describe "when build failed" do
-      let(:xml) { "failure.xml" }
+      let(:fixture_file) { "failure.xml" }
 
       describe '#latest_status' do
         subject { super().latest_status }
@@ -91,26 +89,24 @@ describe LegacyTeamCityXmlPayload do
       end
 
       it "should return the link to the checkin" do
-        expect(subject.latest_status.url).to eq(example.first_css("Build").attribute('webUrl').value)
+        expect(subject.latest_status.url).to eq(parsed_content.at_css("Build").attribute('webUrl').value)
       end
 
       it "should return the published date of the checkin" do
-        expect(subject.latest_status.published_at).to eq(Time.parse(example.first_css("Build").attribute("lastBuildTime").value))
+        expect(subject.latest_status.published_at).to eq(Time.parse(parsed_content.at_css("Build").attribute("lastBuildTime").value))
       end
     end
   end
 
   describe "building status" do
-    let(:build_content) { BuildingStatusExample.new(xml).read }
-    let(:xml) { "team_city_building.xml" }
+    let(:build_content) { load_fixture(fixture_dir, "team_city_building.xml") }
     before { payload.build_status_content = build_content }
 
     it { is_expected.to be_building }
 
     it "should set building to false on the project when it is not building" do
       expect(subject).to be_building
-      build_content = BuildingStatusExample.new("team_city_not_building.xml").read
-      payload.build_status_content = build_content
+      payload.build_status_content = load_fixture(fixture_dir, "team_city_not_building.xml")
       payload_processor.process_payload(project: project, payload: payload)
       expect(project).not_to be_building
     end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TddiumPayload do
   let(:project) { create(:tddium_project).tap {|p| p.tddium_project_name = 'Test A'} }
   let(:payload) { TddiumPayload.new('Test A') }
-  let(:content) { TddiumExample.new(fixture_file).read }
+  let(:content) { load_fixture('tddium_examples', fixture_file) }
   let(:fixture_file) { 'success.xml' }
   let(:converted_content) { payload.convert_content!(content).first }
 

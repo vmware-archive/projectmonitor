@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CodeshipPayload do
   let(:payload) { CodeshipPayload.new(45716) }
-  let(:content) { CodeshipExample.new(fixture_file).read }
+  let(:content) { load_fixture('codeship_examples', fixture_file) }
   let(:fixture_file) { 'success.json' }
   let(:converted_content) { payload.convert_content!(content).first }
 
