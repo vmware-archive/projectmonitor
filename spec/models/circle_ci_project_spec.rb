@@ -2,17 +2,12 @@ require 'spec_helper'
 
 describe CircleCiProject, :type => :model do
 
+  subject { build(:circle_ci_project) }
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:ci_build_identifier) }
     it { is_expected.to validate_presence_of(:ci_auth_token) }
     it { is_expected.to validate_presence_of(:circleci_username) }
-  end
-
-  subject { build(:circle_ci_project) }
-
-  describe 'model' do
-    it { is_expected.to validate_presence_of(:ci_auth_token) }
-    it { is_expected.to validate_presence_of(:ci_build_identifier) }
   end
 
   describe 'accessors' do
