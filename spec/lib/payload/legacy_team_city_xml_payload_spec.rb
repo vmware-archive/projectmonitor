@@ -1,10 +1,14 @@
 require 'spec_helper'
+require Rails.root.join('spec', 'shared', 'xml_payload_examples')
 
 describe LegacyTeamCityXmlPayload do
-  let(:fixture_dir) { "teamcity_cradiator_xml_examples" }
-  let(:project) { create(:team_city_project) }
-  let(:content) { load_fixture(fixture_dir, fixture_file) }
-  let(:payload) { LegacyTeamCityXmlPayload.new }
+  let(:fixture_ext)     { "xml" }
+  let(:fixture_dir)     { "teamcity_cradiator_xml_examples" }
+  let(:fixture_content) { load_fixture(fixture_dir, fixture_file) }
+  let(:build_content)   { load_fixture(fixture_dir, 'team_city_building.xml') }
+
+  let(:project)           { create(:team_city_project) }
+  let(:payload)           { LegacyTeamCityXmlPayload.new }
   let(:payload_processor) { PayloadProcessor.new(project_status_updater: StatusUpdater.new) }
 
   subject do
@@ -12,13 +16,14 @@ describe LegacyTeamCityXmlPayload do
     project
   end
 
+  it_behaves_like "a XML payload"
+
   describe "project status" do
     context "when not currently building" do
-      before { payload.status_content = content }
+      before { payload.status_content = fixture_content }
 
       context "when latest build is successful" do
         let(:fixture_file) { "success.xml" }
-        it { is_expected.to be_success }
 
         it "doesn't add a duplicate of the existing status" do
           latest_status = subject.latest_status
@@ -27,41 +32,12 @@ describe LegacyTeamCityXmlPayload do
           expect(project.statuses).to eq(statuses)
         end
       end
-
-      context "when latest build has failed" do
-        let(:fixture_file) { "failure.xml" }
-        it { is_expected.to be_failure }
-      end
-    end
-
-    context "when building" do
-      it "remains green when existing status is green" do
-        payload.status_content = load_fixture(fixture_dir, "success.xml")
-        payload_processor.process_payload(project: project, payload: payload)
-        statuses = project.statuses
-        build_content = load_fixture(fixture_dir, 'team_city_building.xml')
-        payload.build_status_content = build_content
-        payload_processor.process_payload(project: project, payload: payload)
-        expect(project).to be_success
-        expect(project.statuses).to eq(statuses)
-      end
-
-      it "remains red when existing status is red" do
-        payload.status_content = load_fixture(fixture_dir, "failure.xml")
-        payload_processor.process_payload(project: project, payload: payload)
-        statuses = project.statuses
-        build_content = load_fixture(fixture_dir, 'team_city_building.xml')
-        payload.build_status_content = build_content
-        payload_processor.process_payload(project: project, payload: payload)
-        expect(project).to be_failure
-        expect(project.statuses).to eq(statuses)
-      end
     end
   end
 
   describe "saving data" do
-    let(:parsed_content) { Nokogiri::XML(content) }
-    before { payload.status_content = content }
+    let(:parsed_content) { Nokogiri::XML(fixture_content) }
+    before { payload.status_content = fixture_content }
 
     describe "when build was successful" do
       let(:fixture_file)  { "success.xml" }
@@ -118,25 +94,6 @@ describe LegacyTeamCityXmlPayload do
           expect(payload).to receive("log_error")
           payload.build_status_content = wrong_status_content
         end
-      end
-    end
-  end
-
-  describe "with invalid xml" do
-    let(:content) { "<foo><bar>baz</bar></foo>" }
-    before { payload.status_content = content }
-
-    it { is_expected.not_to be_building }
-
-    it "should not create a status" do
-      expect { subject }.not_to change(ProjectStatus, :count)
-    end
-
-    context "bad XML data" do
-      let(:wrong_status_content) { "some non xml content" }
-      it "should log errors" do
-        expect(payload).to receive("log_error")
-        payload.status_content = wrong_status_content
       end
     end
   end
