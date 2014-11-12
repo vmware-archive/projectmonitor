@@ -1,5 +1,4 @@
 class TrackerPayloadParser
-  require 'json'
 
   attr_reader :current_velocity, :last_ten_velocities, :iteration_story_state_counts
 
@@ -31,21 +30,18 @@ private
 
   def parse_current_iteration_story_state_counts(current_iteration_payload)
     current_iteration_document = Nokogiri::XML.parse(current_iteration_payload)
-    story_counts = []
 
-    STORY_STATES.each do |state|
-      story_counts << {"label" => "#{state}", "value" => parse_stories(current_iteration_document, state)}
+    STORY_STATES.each_with_object([]) do |state, array|
+      array << {"label" => "#{state}", "value" => parse_stories(current_iteration_document, state)}
     end
-
-    story_counts
   end
 
   def parse_stories(iteration_document, state)
     stories = iteration_document.xpath(".//current_state[text() = '#{state}']/parent::story")
-    points = sum_story_points(stories)
+    sum_story_points(stories)
   end
 
   def sum_story_points(stories)
-    stories.xpath('.//estimate').map(&:text).map(&:to_i).select { |x| x >= 0 }.sum
+    stories.xpath('.//estimate').map{ |s| s.text.to_i }.select{ |x| x >= 0 }.sum
   end
 end
