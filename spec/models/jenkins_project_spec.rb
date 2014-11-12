@@ -53,7 +53,7 @@ describe JenkinsProject, :type => :model do
         it { is_expected.to eq("http://ci-server:8080/cc.xml") }
       end
 
-      context "when the base_url does not hav a scheme specified" do
+      context "when the base_url does not have a scheme specified" do
         let(:base_url) { "ci-server:8080" }
 
         it { is_expected.to eq("ci-server:8080/cc.xml") }

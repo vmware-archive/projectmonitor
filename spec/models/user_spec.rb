@@ -7,10 +7,6 @@ describe User, :type => :model do
     it "has a name" do
       expect(build(:user).name).to be_present
     end
-
-    it "has an email" do
-      expect(build(:user).email).to be_present
-    end
   end
 
   describe 'validations' do

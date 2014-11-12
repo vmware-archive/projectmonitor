@@ -13,20 +13,14 @@ describe StatusUpdater, :type => :model do
 
     it 'removes older statuses beyond the max_status count' do
       status_updater = StatusUpdater.new(max_status: 3)
-      project = Project.create!(name: 'Bob', type: 'Project')
+      project = create(:project)
 
-      old_statuses = []
-
-      3.times do
-        old_status = ProjectStatus.create!(build_id: 1)
-        status_updater.update_project(project, old_status)
-        old_statuses << old_status
-      end
-
-      status = ProjectStatus.create!(build_id: 1)
-      status_updater.update_project(project, status)
-
+      old_statuses = create_list(:project_status, 3)
+      old_statuses.each { |old_status| status_updater.update_project(project, old_status) }
       oldest_status = old_statuses.first
+
+      status = create(:project_status)
+      status_updater.update_project(project, status)
 
       project.reload
 

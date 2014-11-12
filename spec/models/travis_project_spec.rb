@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe TravisProject, :type => :model do
 
-  it { is_expected.to validate_presence_of(:travis_github_account) }
-  it { is_expected.to validate_presence_of(:travis_repository) }
-
   subject { build(:travis_project) }
 
   describe 'validations' do
@@ -21,18 +18,15 @@ describe TravisProject, :type => :model do
   end
 
   describe '#feed_url' do
-    subject { super().feed_url }
-    it { is_expected.to eq('https://api.travis-ci.org/repositories/account/project/builds.json') }
+    it { expect(subject.feed_url).to eq('https://api.travis-ci.org/repositories/account/project/builds.json') }
   end
 
   describe '#project_name' do
-    subject { super().project_name }
-    it { is_expected.to eq('account') }
+    it { expect(subject.project_name).to eq('account') }
   end
 
   describe '#build_status_url' do
-    subject { super().build_status_url }
-    it { is_expected.to eq('https://api.travis-ci.org/repositories/account/project/builds.json') }
+    it { expect(subject.build_status_url).to eq('https://api.travis-ci.org/repositories/account/project/builds.json') }
   end
 
   describe "#has_status?" do

@@ -27,8 +27,7 @@ describe CruiseControlProject, :type => :model do
   end
 
   describe '#feed_url' do
-    subject { super().feed_url }
-    it { is_expected.to eq("http://www.example.com/project.rss") }
+    it { expect(subject.feed_url).to eq("http://www.example.com/project.rss") }
   end
 
   describe "#build_status_url" do

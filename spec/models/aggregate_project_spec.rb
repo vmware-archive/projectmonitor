@@ -5,16 +5,8 @@ describe AggregateProject, :type => :model do
     describe "complete_aggregate_project" do
       let(:aggregate_project_with_project) { create(:aggregate_project_with_project) }
 
-      it "should have a name" do
-        expect(aggregate_project_with_project.name).not_to be_nil
-      end
-
       it "should have a code" do
         expect(aggregate_project_with_project.code).not_to be_nil
-      end
-
-      it "should be valid" do
-        expect(aggregate_project_with_project).to be_valid
       end
 
       it "should have a sub project" do
@@ -48,10 +40,6 @@ describe AggregateProject, :type => :model do
 
   describe "scopes" do
     describe "with_statuses" do
-      before do
-        aggregate_project.save!
-      end
-
       it "returns only projects with statuses" do
         projects = AggregateProject.with_statuses
         expect(projects.length).to be > 0
@@ -68,8 +56,8 @@ describe AggregateProject, :type => :model do
         let(:displayable_aggregate) { AggregateProject.displayable }
 
         it "should return enabled projects" do
-          enabled = create :aggregate_project, projects: [create(:project)], enabled: true
-          disabled = create :aggregate_project, projects: [create(:project)], enabled: false
+          enabled  = create :aggregate_project_with_project, enabled: true
+          disabled = create :aggregate_project_with_project, enabled: false
 
           expect(displayable_aggregate).to include enabled
           expect(displayable_aggregate).not_to include disabled
@@ -98,10 +86,10 @@ describe AggregateProject, :type => :model do
         let(:displayable_aggregate) { AggregateProject.displayable "red"}
 
         it "should return enabled projects with the requested tags" do
-          disabled_red_project = create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "red"
-          disabled_blue_project = create :aggregate_project, projects: [create(:project)], enabled: false, tag_list: "blue"
-          enabled_red_project = create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "red"
-          enabled_blue_project = create :aggregate_project, projects: [create(:project)], enabled: true, tag_list: "blue"
+          disabled_red_project  = create :aggregate_project_with_project, enabled: false, tag_list: "red"
+          disabled_blue_project = create :aggregate_project_with_project, enabled: false, tag_list: "blue"
+          enabled_red_project   = create :aggregate_project_with_project, enabled: true, tag_list: "red"
+          enabled_blue_project  = create :aggregate_project_with_project, enabled: true, tag_list: "blue"
 
           expect(displayable_aggregate).to include enabled_red_project
           expect(displayable_aggregate).not_to include disabled_red_project, disabled_blue_project, enabled_blue_project

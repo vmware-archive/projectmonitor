@@ -9,11 +9,6 @@ describe TddiumProject, :type => :model do
 
   subject { build(:tddium_project) }
 
-  describe 'model' do
-    it { is_expected.to validate_presence_of(:ci_auth_token) }
-    it { is_expected.to validate_presence_of(:ci_build_identifier) }
-  end
-
   describe 'accessors' do
     describe '#feed_url' do
       subject { super().feed_url }
