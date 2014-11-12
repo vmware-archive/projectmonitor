@@ -56,6 +56,10 @@ class TravisJsonPayload < Payload
     end
   end
 
+  def convert_content!(raw_content)
+    convert_json_content!(raw_content)
+  end
+
   private
 
   def base_url
@@ -64,9 +68,5 @@ class TravisJsonPayload < Payload
 
   def specified_branch?(content)
     branch == content['branch']
-  end
-
-  def convert_content!(raw_content)
-    convert_json_content!(raw_content)
   end
 end

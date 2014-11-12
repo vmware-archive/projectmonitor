@@ -1,95 +1,29 @@
 require 'spec_helper'
+require Rails.root.join('spec', 'shared', 'json_payload_examples')
 
 describe TeamCityJsonPayload do
 
-  let(:status_content) { load_fixture('teamcity_json_examples', fixture_file) }
-  let(:payload) { TeamCityJsonPayload.new.tap { |p| p.remote_addr = "localhost" } }
-  let(:converted_content) { payload.convert_content!(status_content).first }
-  let(:fixture_file) { "success.json" }
+  let(:fixture_file)      { "success.json" }
+  let(:fixture_content)   { load_fixture('teamcity_json_examples', fixture_file) }
+  let(:payload)           { TeamCityJsonPayload.new.tap { |p| p.remote_addr = "localhost" } }
+  let(:converted_content) { payload.convert_content!(fixture_content).first }
 
-  describe '#convert_content!' do
-    subject { payload.convert_content!(status_content) }
-
-    context 'when content is valid' do
-      let(:expected_content) { double }
-      before do
-        allow(JSON).to receive(:parse).and_return(expected_content)
-      end
-
-      it { is_expected.to eq([expected_content]) }
-    end
-
-    context 'when content is corrupt / badly encoded' do
-      before do
-        allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
-      end
-
-      it 'should be marked as unprocessable' do
-        expect {subject}.to raise_error Payload::InvalidContentException
-        expect(payload.processable).to be false
-        expect(payload.build_processable).to be false
-      end
-    end
-  end
-
-  describe "#status_content" do
-    context "invalid JSON" do
-      it "should log erros" do
-        expect(payload).to receive(:log_error)
-        payload.status_content = "non json content"
-      end
-    end
-  end
+  it_behaves_like "a JSON payload"
 
   describe '#building?' do
+    # success.json & building.json covered in shared examples
 
-    subject do
-      payload.status_content = status_content
-      payload.building?
-    end
-
-    context 'should be building when build result is "running" and notify type is "started"' do
-      let(:fixture_file) { 'building.json' }
-
-      it { is_expected.to be true }
-    end
+    before(:each) { payload.build_status_content = fixture_content }
+    subject { payload }
 
     context 'should not be building when build result is not "running"' do
       let(:fixture_file) { 'building_not_running.json'}
-
-      it { is_expected.to be false }
+      it { is_expected.to_not be_building }
     end
 
     context 'should not be building when notify type is not "started"' do
       let(:fixture_file) { 'building_not_started.json'}
-
-      it { is_expected.to be false }
-    end
-  end
-
-  describe '#parse_success' do
-    subject { payload.parse_success(converted_content) }
-
-    context 'the payload contains a successful build status' do
-      it { is_expected.to be true }
-    end
-
-    context 'the payload contains a failure build status' do
-      let(:fixture_file) { "failure.json" }
-      it { is_expected.to be false }
-    end
-  end
-
-  describe '#content_ready?' do
-    subject { payload.content_ready?(converted_content) }
-
-    context 'the build has finished' do
-      it { is_expected.to be true }
-    end
-
-    context 'the build has not finished' do
-      let(:fixture_file) { "building.json" }
-      it { is_expected.to be false }
+      it { is_expected.to_not be_building }
     end
   end
 

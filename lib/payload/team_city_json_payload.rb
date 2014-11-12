@@ -1,7 +1,9 @@
 class TeamCityJsonPayload < Payload
 
   def building?
-    status_content.first['buildResult'] == 'running' && status_content.first['notifyType'] == 'buildStarted'
+    content = build_status_content.first || status_content.first
+
+    content['buildResult'] == 'running' && content['notifyType'] == 'buildStarted'
   end
 
   def convert_content!(raw_content)

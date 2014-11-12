@@ -1,65 +1,14 @@
 require 'spec_helper'
+require Rails.root.join('spec', 'shared', 'json_payload_examples')
 
 describe JenkinsJsonPayload do
 
-  let(:status_content) { load_fixture('jenkins_json_examples', fixture_file) }
-  let(:payload) { JenkinsJsonPayload.new }
-  let(:converted_content) { payload.convert_content!(status_content).first }
-  let(:fixture_file) { "success.json" }
+  let(:fixture_file)      { "success.json" }
+  let(:fixture_content)   { load_fixture('jenkins_json_examples', fixture_file) }
+  let(:payload)           { JenkinsJsonPayload.new }
+  let(:converted_content) { payload.convert_content!(fixture_content).first }
 
-  describe '#status_content' do
-    subject { payload.status_content = status_content }
-
-    context 'when content is valid' do
-      let(:expected_content) { double }
-      before do
-        allow(JSON).to receive(:parse).and_return(expected_content)
-      end
-
-      it 'should parse content' do
-        subject
-        expect(payload.status_content).to eq([expected_content])
-      end
-    end
-
-    context 'when content is corrupt / badly encoded' do
-      before do
-        allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
-      end
-
-      it 'should be marked as unprocessable' do
-        subject
-        expect(payload.processable).to be false
-        expect(payload.build_processable).to be false
-      end
-    end
-  end
-
-  describe '#parse_success' do
-    subject { payload.parse_success(converted_content) }
-
-    context 'the payload contains a successful build status' do
-      it { is_expected.to be true }
-    end
-
-    context 'the payload contains a failure build status' do
-      let(:fixture_file) { "failure.json" }
-      it { is_expected.to be false }
-    end
-  end
-
-  describe '#content_ready?' do
-    subject { payload.content_ready?(converted_content) }
-
-    context 'the build has not finished' do
-      let(:fixture_file) { "building.json" }
-      it { is_expected.to be false }
-    end
-
-    context 'the build has finished' do
-      it { is_expected.to be true }
-    end
-  end
+  it_behaves_like "a JSON payload"
 
   describe '#parse_url' do
     subject { payload.parse_url(converted_content) }

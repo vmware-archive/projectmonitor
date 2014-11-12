@@ -1,6 +1,8 @@
 class JenkinsJsonPayload < Payload
   def building?
-    status_content.first['build']['phase'] == 'STARTED'
+    content = build_status_content.first || status_content.first
+
+    content['build']['phase'] == 'STARTED'
   end
 
   def convert_content!(raw_content)
