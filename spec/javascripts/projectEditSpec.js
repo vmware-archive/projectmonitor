@@ -305,6 +305,12 @@ describe("project edit", function() {
         expect($('#field_container').hasClass('hide')).toBeFalsy();
       });
 
+      it("shows the field_container when a CircleCI is selected", function() {
+        $('#project_type').val('CircleCi').change();
+        expect($('#field_container')).toExist();
+        expect($('#field_container').hasClass('hide')).toBeFalsy();
+      });
+
       it("hides the branch field when another project type is selected", function() {
         $('#project_type').val('JenkinsProject').change();
         expect($('#branch_name').hasClass('hide')).toBeTruthy();
