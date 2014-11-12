@@ -14,10 +14,9 @@ describe PayloadLogEntry do
     let!(:entry1) { PayloadLogEntry.create(created_at: 2.years.ago) }
     let!(:entry2) { PayloadLogEntry.create(created_at: 1.year.ago) }
     let!(:entry3) { PayloadLogEntry.create }
-    let(:latest) { PayloadLogEntry.latest }
 
     it "should return the latest" do
-      expect(PayloadLogEntry.last).to eq(PayloadLogEntry.last)
+      expect(PayloadLogEntry.latest).to eq(entry3)
     end
   end
 end
