@@ -11,7 +11,7 @@ class ConsolidateBaseUrlColumns < ActiveRecord::Migration
     @@old_columns.each do |old_column|
       # Copy data across
       Project.where.not(old_column => nil).each do |project|
-        project.update(ci_base_url: project[old_column])
+        project.update_attribute(:ci_base_url, project[old_column])
       end
 
       # Prefix old columns with 'deprecated'
