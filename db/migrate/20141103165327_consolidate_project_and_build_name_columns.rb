@@ -11,7 +11,7 @@ class ConsolidateProjectAndBuildNameColumns < ActiveRecord::Migration
     @@old_columns.each do |old_column|
       # Copy data across
       Project.where.not(old_column => nil).each do |project|
-        project.update(ci_build_name: project[old_column])
+        project.update_attribute(:ci_build_name, project[old_column])
       end
 
       # Prefix old columns with 'deprecated'
