@@ -13,9 +13,6 @@ describe TeamCityRestProject, :type => :model do
     context "when webhooks are not enabled" do
       it { is_expected.to validate_presence_of(:ci_base_url) }
       it { is_expected.to validate_presence_of(:ci_build_identifier) }
-
-      it { is_expected.to allow_value('bt123', 'bt1').for(:ci_build_identifier) }
-      it { is_expected.not_to allow_value('x123', "karate chop!\nbt123").for(:ci_build_identifier) }
     end
   end
 

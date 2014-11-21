@@ -9,7 +9,7 @@ class CircleCiProject < Project
   end
 
   def feed_url
-    "https://circleci.com/api/v1/project/#{circleci_username}/#{ci_build_identifier}?circle-token=#{ci_auth_token}"
+    "https://circleci.com/api/v1/project/#{circleci_username}/#{ci_build_identifier}/tree/#{build_branch.presence || "master"}?circle-token=#{ci_auth_token}"
   end
 
   def fetch_payload
@@ -18,6 +18,10 @@ class CircleCiProject < Project
 
   def accept_mime_types
     "application/json"
+  end
+
+  def requires_branch_name?
+    true
   end
 
 end

@@ -11,12 +11,33 @@ describe CircleCiProject, :type => :model do
   end
 
   describe 'accessors' do
-    describe '#feed_url' do
-      it { expect(subject.feed_url).to eq('https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
-    end
+    subject { build(:circle_ci_project, build_branch: branch_name) }
+    let(:branch_name) { "foo" }
 
-    describe '#build_status_url' do
-      it { expect(subject.build_status_url).to eq('https://circleci.com/api/v1/project/username/a-project?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+    describe "branch related" do
+      context "when a branch is specified" do
+        let(:branch_name) { "foo" }
+
+        describe '#feed_url' do
+          it { expect(subject.feed_url).to eq('https://circleci.com/api/v1/project/username/a-project/tree/foo?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+        end
+
+        describe '#build_status_url' do
+          it { expect(subject.build_status_url).to eq('https://circleci.com/api/v1/project/username/a-project/tree/foo?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+        end
+      end
+
+      context "when a branch is not specified" do
+        let(:branch_name) { nil }
+
+        describe '#feed_url' do
+          it { expect(subject.feed_url).to eq('https://circleci.com/api/v1/project/username/a-project/tree/master?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+        end
+
+        describe '#build_status_url' do
+          it { expect(subject.build_status_url).to eq('https://circleci.com/api/v1/project/username/a-project/tree/master?circle-token=b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2') }
+        end
+      end
     end
 
     describe '#ci_build_identifier' do

@@ -94,7 +94,7 @@ var ProjectEdit = {};
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
 
-    var use_feed = _.contains(["TravisProject", "TravisProProject", "SemaphoreProject"], val);
+    var use_feed = _.contains(["TravisProject", "TravisProProject", "SemaphoreProject", "CircleCiProject"], val);
     $('#branch_name').toggleClass('hide', !use_feed);
     $('#field_container').toggleClass('hide', !use_feed);
 
