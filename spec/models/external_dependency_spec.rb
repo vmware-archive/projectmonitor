@@ -42,13 +42,13 @@ describe ExternalDependency, :type => :model do
 
   context 'rubygems status' do
     it 'initialized an up status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-up"></span></td></tr></tbody></table>' }
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<span class="status__subheading--up">UP</span>' }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"good\"}")
     end
 
     it 'initialized a down status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<table class="services"><tbody><tr><td class="status"><span class="status status-down"></span></td></tr></tbody></table>' }
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<span class="status__subheading--down">DOWN</span>' }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"bad\"}")
     end
