@@ -12,8 +12,8 @@ gem "delayed_job_active_record", "~> 4.0.0.beta3"
 gem "delayed_job_web"
 gem "devise"
 gem "devise-encryptable"
-# NOTE: Newer versions of draper are currently incompatible with this codebase
-gem "draper", "< 0.13"
+
+gem "draper"
 gem "dynamic_form"
 gem "foreman"
 gem 'sass-rails', '~> 4.0.0'
@@ -26,6 +26,8 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "pivotal-tracker", '0.5.8'
 gem 'rails', '~> 4.0.0'
+gem 'sprockets', '2.11.0'
+
 gem "rake"
 gem "xpath"
 gem 'whenever', :require => false
