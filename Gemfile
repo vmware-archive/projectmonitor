@@ -78,7 +78,6 @@ group :test, :development do
   gem 'pry-nav'
   gem 'pry-rails'
   gem 'pry'
-  gem 'vagrant'
   gem 'timecop'
   gem 'did_you_mean'
 end
