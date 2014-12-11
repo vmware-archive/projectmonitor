@@ -71,8 +71,8 @@ production environment configuration so it's right for your database:
 ### Authentication support
 #### IP Whitelist
 If you want to use Webhooks, your ProjectMonitor instance will need to be located on a
-publically accessible server. If you don't want your ProjectMonitor dashboard to also be
-publically accessible, you can whitelist access by IP address.
+publicly accessible server. If you don't want your ProjectMonitor dashboard to also be
+publicly accessible, you can whitelist access by IP address.
 
 The whitelist is disabled by default, but can be enabled by uncommenting the "ip_whitelist" property
 in settings.yml and adding a list of IP addresses to whitelist. If you're running ProjectMonitor
