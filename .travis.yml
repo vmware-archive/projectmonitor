@@ -12,8 +12,7 @@ notifications:
     - common-effort@pivotallabs.com
   webhooks:
     urls:
-    - http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status
-    - http://requestb.in/1e5spuq1
+    - http://pulse.pivotallabs.com/projects/8b131d6e-a840-484a-8e95-fce826ec8a34/status
     on_start: true
 rvm:
   - 2.0.0
