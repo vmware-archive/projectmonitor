@@ -529,7 +529,7 @@ describe Project, :type => :model do
     context "when a TddiumProject" do
       let(:project_class) { TddiumProject }
 
-      it { is_expected.to match_array(['ci_build_identifier', 'ci_auth_token']) }
+      it { is_expected.to match_array(['ci_build_identifier', 'ci_base_url', 'ci_auth_token']) }
     end
   end
 

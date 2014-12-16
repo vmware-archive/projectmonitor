@@ -53,6 +53,7 @@ FactoryGirl.define do
 
   factory :tddium_project do
     name
+    ci_base_url 'https://api.tddium.com'
     ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
     ci_build_identifier 'Test Project A'
   end

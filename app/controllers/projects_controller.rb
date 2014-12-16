@@ -130,7 +130,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(%i(aggregate_project_id auth_password auth_username
                                        build_branch code cruise_control_rss_feed_url enabled
                                        jenkins_base_url jenkins_build_name name online
-                                       semaphore_api_url tag_list tddium_auth_token tddium_project_name
+                                       semaphore_api_url tag_list tddium_auth_token tddium_base_url tddium_project_name
                                        team_city_base_url team_city_build_name tracker_auth_token
                                        tracker_online tracker_project_id travis_github_account
                                        travis_repository type verify_ssl webhooks_enabled

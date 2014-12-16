@@ -4,6 +4,7 @@ describe TddiumProject, :type => :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:ci_build_identifier) }
+    it { is_expected.to validate_presence_of(:ci_base_url) }
     it { is_expected.to validate_presence_of(:ci_auth_token) }
   end
 
@@ -11,8 +12,9 @@ describe TddiumProject, :type => :model do
 
   describe 'accessors' do
     describe '#feed_url' do
-      subject { super().feed_url }
-      it { is_expected.to eq('https://api.tddium.com/cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml') }
+      let(:tddium_url) { 'http://tddium.acmecorp.com' }
+      subject { FactoryGirl.build(:tddium_project, :ci_base_url => tddium_url).feed_url }
+      it { is_expected.to eq([tddium_url, 'cc/b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2/cctray.xml'].join('/')) }
     end
 
     describe '#build_status_url' do
