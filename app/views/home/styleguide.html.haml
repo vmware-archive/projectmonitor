@@ -13,6 +13,7 @@
   tracker = {velocity: 9, volatility: 10, delivered: 9, open: 5, velocities: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40], iteration_story_state_counts: JSON.parse('[{"label":"unstarted","value":4},{"label":"started","value":8},{"label":"finished","value":3},{"label":"delivered","value":8},{"label":"accepted","value":15},{"label":"rejected","value":4}]')}
   new_relic = new ProjectMonitor.Models.NewRelic({times: [10, 20, 50, 80, 100, 90, 80, 90, 40, 40]})
   airbrake = new ProjectMonitor.Models.Airbrake({error_count: 9, last_error: "RuntimeError: Workflow"})
+  github_issues = new ProjectMonitor.Models.GithubIssues({open_stories: 10, new_stories: 2})
 
   project = new ProjectMonitor.Models.Project({project_id: 123, build: build_success})
   view = new ProjectMonitor.Views.ProjectView {model: project}
@@ -50,6 +51,11 @@
   $(".projects").append $html
 
   project = new ProjectMonitor.Models.Project({project_id: 123, build: build_success, tracker: tracker, airbrake: airbrake, new_relic: new_relic})
+  view = new ProjectMonitor.Views.ProjectView {model: project}
+  $html = view.render().$el
+  $(".projects").append $html
+
+  project = new ProjectMonitor.Models.Project({project_id: 123, build: build_success, github_issues: github_issues})
   view = new ProjectMonitor.Views.ProjectView {model: project}
   $html = view.render().$el
   $(".projects").append $html

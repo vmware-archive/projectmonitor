@@ -1,0 +1,9 @@
+<div class="title">Github Issues</div>
+<dl class="unresolved-errors">
+  <dt>Open Stories</dt>
+  <dd class="error-count"><%= @open_stories %></dd>
+</dl>
+<dl class="unresolved-errors">
+  <dt>New Stories</dt>
+  <dd class="error-count"><%= @new_stories %></dd>
+</dl>
