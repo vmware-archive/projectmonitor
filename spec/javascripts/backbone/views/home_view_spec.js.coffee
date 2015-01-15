@@ -14,8 +14,8 @@ describe "ProjectMonitor.Views.HomeView", ->
   it "should render standalong tile", ->
     expect(@view.render().$el).toContainElement("li.project")
 
-  it "should render only the latest ten builds", ->
-    expect(@view.render().$el.find('.statuses li').size()).toEqual(10)
+  it "should render only the latest five builds", ->
+    expect(@view.render().$el.find('.statuses li').size()).toEqual(5)
 
   describe "when the collection triggers an add event", ->
     it 'should render three tiles', ->
