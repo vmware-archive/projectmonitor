@@ -9,7 +9,7 @@
       <span class="last-build-label">Last build:</span>
       <span class="time-since-last-build"><%= @published_at %></span>
       <ol class="statuses">
-        <% for status in @statuses[0..9]: %>
+        <% for status in @statuses[0..4]: %>
           <li class="<%= if status.success then 'success' else 'failure' %>">
             <a href="<%= status.url %>" target="_blank">
               <span>

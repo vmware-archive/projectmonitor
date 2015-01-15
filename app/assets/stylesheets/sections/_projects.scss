@@ -18,6 +18,11 @@ $history-height: 32px !default;
 $statusbar-font-size: 30px !default;
 
 .dashboard {
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
   ol.projects {
     list-style: none;
     display: block;
@@ -36,9 +41,14 @@ $statusbar-font-size: 30px !default;
       }
 
       .history {
+        .statuses {
+          float: right;
+          margin-right: 15px;
+        }
+
         ol {
           overflow: hidden;
-          height: 80px;
+          height: auto;
           list-style: none;
 
           li {
@@ -49,24 +59,34 @@ $statusbar-font-size: 30px !default;
             float:left;
 
             span {
-              font-size: 48px;
-              vertical-align: bottom;
+              font-size: 26px;
+              vertical-align: middle;
             }
 
             a {
               text-decoration: none;
               color: black;
+              line-height: 1px;
             }
 
             &.success span:after {
               content: $success-unicode-glyph;
             }
 
-            &.failure span:after {
-              content: $failure-unicode-glyph;
-              line-height: 30px;
-            }
+            &.success {
+              a {
+                line-height: 23px;
+              }
 
+              span:before {
+                content: $success-unicode-glyph;
+              }
+
+            }
+            &.failure span:before {
+              content: $failure-unicode-glyph;
+              line-height: 17px;
+            }
             a {
               font-size: 0;
               display: block;

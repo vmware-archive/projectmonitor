@@ -21,7 +21,7 @@ class SemaphorePayload < Payload
   end
 
   def convert_webhook_content!(params)
-    extract_builds_if_build_history_url(params)
+    extract_builds_if_build_history_url(Array.wrap(params))
   end
 
   def parse_success(content)

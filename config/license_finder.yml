@@ -1,0 +1,20 @@
+--- 
+whitelist: 
+- MIT
+- Apache 2.0
+- ruby
+- BSD
+- ISC
+- LGPL-3
+- GPLv2
+- LGPL
+- Apache License 2.0
+- LGPL-3.0
+- Apache License Version 2.0
+- 2-clause BSDL
+- New BSD
+- commercial
+ignore_groups: []
+
+dependencies_file_dir: ./doc/
+project_name: # project name

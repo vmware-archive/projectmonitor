@@ -95,10 +95,11 @@ ol.projects {
 
 .project {
   float: left;
-  width: 600px;
-  background-color: #2E2E29;
+  width: 300px;
   padding: 10px;
-  margin: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   @include roman_font;
 }
 
@@ -154,7 +155,7 @@ ol.projects {
 
 .one-tile, .two-tile {
   article {
-    width: 600px;
+    width: 100%;
   }
 }
 
