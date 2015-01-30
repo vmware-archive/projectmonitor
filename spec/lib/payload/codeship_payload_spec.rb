@@ -5,10 +5,21 @@ describe CodeshipPayload do
 
   let(:fixture_file)      { "success.json" }
   let(:fixture_content)   { load_fixture('codeship_examples', fixture_file) }
-  let(:payload)           { CodeshipPayload.new(45716) }
+  let(:payload)           { CodeshipPayload.new(45716, 'master') }
   let(:converted_content) { payload.convert_content!(fixture_content).first }
 
   it_behaves_like "a JSON payload"
+
+  it 'filters builds by branch name' do
+    content = payload.convert_content!(fixture_content)
+    expect(content.length).to eq(1)
+  end
+
+  it 'filters no branches if branch name is empty' do
+    payload = CodeshipPayload.new(45716, '')
+    content = payload.convert_content!(fixture_content)
+    expect(content.length).to eq(2)
+  end
 
   describe '#parse_url' do
     before(:each) {}

@@ -112,6 +112,7 @@ var ProjectEdit = {};
 
     if (val == "CodeshipProject") {
       $('#field_container').removeClass('hide');
+      $('#branch_name').removeClass('hide');
     }
 
     $('.auth_field').toggleClass('hide', use_feed);
