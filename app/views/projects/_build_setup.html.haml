@@ -19,7 +19,7 @@
     = f.label :build_branch, "Branch Name", class: "col-sm-2 control-label"
     .col-sm-4
       = f.text_field :build_branch, class: "form-control"
-    %p.help-block Default is 'master'
+    %p.help-block Default is 'master'. Codeship projects can utilize regex matching.
   #field_container
     - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
       - enabled = f.object.type == project_type.name
