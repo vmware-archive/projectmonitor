@@ -1,8 +1,9 @@
 class CodeshipPayload < Payload
 
-  def initialize(project_id)
+  def initialize(project_id, branch_name='master')
     super()
     @project_id = project_id
+    @branch_name = branch_name
   end
 
   def building?
@@ -14,7 +15,8 @@ class CodeshipPayload < Payload
   end
 
   def convert_content!(raw_content)
-    convert_json_content!(raw_content).first.try(:[], 'builds') || []
+    builds = convert_json_content!(raw_content).first.try(:[], 'builds') || []
+    filter_builds(builds)
   end
 
   alias_method :convert_build_content!, :convert_content!
@@ -43,4 +45,12 @@ class CodeshipPayload < Payload
     Time.now
   end
 
+  private
+
+  def filter_builds(builds)
+    return builds if @branch_name.empty?
+    builds.reject do |build|
+      !(build['branch'] =~ /^#{@branch_name}$/)
+    end
+  end
 end

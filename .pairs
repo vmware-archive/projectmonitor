@@ -21,11 +21,14 @@ pairs:
   jt: JT Archie ; jarchie
   jn: Jordi Noguera; jordi
   lg: Lauren Gilchrist; lgilchrist
+  lk: Lenny Koepsell; lkoepsell
   lm: Lucas Marks; lmarks
+  mc: Michael McCormick; mmccormick
   md: Mike Dalessio; mdalessio
   mh: Matt Horan; mhoran
   mk: Mike Kenyon; mkenyon
   mw: Matt Wismer; mwismer
+  rb: Rachel Brindle; rbrindle
   rg: Rob Gallagher; rgallagher
   rm: Ryan Moran; rmoran
   rpw: Ross Popoff-Walker; rpw
@@ -39,4 +42,4 @@ pairs:
 email:
   prefix: pair
   no_solo_prefix: true
-  domain: pivotallabs.com
+  domain: pivotal.io

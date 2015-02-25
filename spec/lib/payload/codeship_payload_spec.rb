@@ -5,10 +5,31 @@ describe CodeshipPayload do
 
   let(:fixture_file)      { "success.json" }
   let(:fixture_content)   { load_fixture('codeship_examples', fixture_file) }
-  let(:payload)           { CodeshipPayload.new(45716) }
+  let(:payload)           { CodeshipPayload.new(45716, 'master') }
   let(:converted_content) { payload.convert_content!(fixture_content).first }
 
   it_behaves_like "a JSON payload"
+
+  context 'filtering on the branch name' do
+    it 'can match the exact branch name' do
+      content = CodeshipPayload.new(45716, 'master').convert_content!(fixture_content)
+      expect(content.length).to eq(1)
+      expect(content.first['branch']).to eq('master')
+    end
+
+    it 'can accept a ruby-flavor regex' do
+      content = CodeshipPayload.new(45716, '.*other.*').convert_content!(fixture_content)
+      expect(content.length).to eq(1)
+      expect(content.first['branch']).to eq('some-other-branch')
+    end
+
+    it 'does not happen when the branch name is empty' do
+      content = CodeshipPayload.new(45716, '').convert_content!(fixture_content)
+      expect(content.length).to eq(2)
+      expect(content.first['branch']).to eq('some-other-branch')
+      expect(content.last['branch']).to eq('master')
+    end
+  end
 
   describe '#parse_url' do
     before(:each) {}

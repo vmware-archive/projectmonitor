@@ -1,6 +1,6 @@
 .form-group
   = f.label :code, class: "col-sm-2 control-label"
-  .col-sm-2
+  .col-sm-1
     = f.text_field :code, maxlength: 4, class: "form-control"
 .form-group
   = f.label :name, class: "col-sm-2 control-label"
@@ -14,7 +14,7 @@
         Enabled?
 .form-group
   = f.label :tag_list, "Tags", class: "col-sm-2 control-label"
-  .col-sm-2
+  .col-sm-4
     = f.text_field :tag_list, size: 40, class: "form-control"
   %p.help-block (separate with commas)
 .row

@@ -1,6 +1,14 @@
 {
     "builds": [
         {
+            "branch": "some-other-branch",
+            "commit_id": "4e8d4725208656930064b1bad75ea84a0f7905f1",
+            "id": 2776510,
+            "message": "bar",
+            "status": "success",
+            "uuid": "1b753670-8ae3-0132-94a2-10ddb1a45481"
+        },
+        {
             "branch": "master",
             "commit_id": "24898efca06ed890090a5583230cc1970daa5b90",
             "id": 2776509,
