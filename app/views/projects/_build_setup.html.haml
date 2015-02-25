@@ -17,7 +17,7 @@
           Polling
   .form-group#branch_name{ class: f.object.requires_branch_name? ? nil : 'hide' }
     = f.label :build_branch, "Branch Name", class: "col-sm-2 control-label"
-    .col-sm-3
+    .col-sm-4
       = f.text_field :build_branch, class: "form-control"
     %p.help-block Default is 'master'
   #field_container
