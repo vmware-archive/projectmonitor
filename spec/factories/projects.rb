@@ -23,10 +23,13 @@ FactoryGirl.define do
     name
     travis_github_account "account"
     travis_repository "project"
+  end
 
-    factory :travis_pro_project do
-      ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
-    end
+  factory :travis_pro_project do
+    name
+    travis_github_account "account"
+    travis_repository "project"
+    ci_auth_token 'b5bb9d8014a0f9b1d61e21e796d78dccdf1352f2'
   end
 
   factory :cruise_control_project do

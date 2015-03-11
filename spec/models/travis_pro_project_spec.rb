@@ -9,4 +9,12 @@ describe TravisProProject, :type => :model do
     it { is_expected.to start_with "https://api.travis-ci.com" }
     it { is_expected.to end_with "?token=#{token}" }
   end
+
+  describe 'webhook_payload' do
+    subject(:webhook_payload) { TravisProProject.new.webhook_payload }
+    it 'sets is_travis_pro to true' do
+      expect(webhook_payload.is_travis_pro).to be(true)
+    end
+
+  end
 end

@@ -10,10 +10,10 @@ class StatusController < ApplicationController
 
       payload.webhook_status_content =
         case payload
-        when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload
-          params
-        else
-          request.body.read
+          when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload
+            params
+          else
+            request.body.read
         end
 
       log = PayloadProcessor.new(project_status_updater: StatusUpdater.new).process_payload(project: project, payload: payload)

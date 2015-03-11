@@ -1,83 +1,85 @@
 {
-"id": 4314974,
-"repository_id": 96210,
-"number": "311",
-"config": {
-"language": "ruby",
-"branches": {
-"only": [
-"master"
-]
-},
-"bundler_args": "--without mysql development",
-"notifications": {
-"email": [
-"common-effort@pivotallabs.com"
-],
-"webhooks": [
-"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
-]
-},
-"rvm": [
-"1.9.3"
-],
-"before_script": [
-"bundle exec rake travis:setup",
-"export DISPLAY=:99",
-"sh -e /etc/init.d/xvfb start"
-],
-"script": "bundle exec rake travis",
-".result": "configured"
-},
-"result": 0,
-"status": 0,
-"started_at": "2013-01-22T21:16:20Z",
-"finished_at": "2013-01-22T21:20:56Z",
-"duration": 276,
-"commit": "35387faa8cd81dfa77d908374967aaed143ef75b",
-"branch": "master",
-"message": "Whenever does not allow resolution smaller than 1 minute",
-"committed_at": "2013-01-22T20:21:14Z",
-"author_name": "Michael Schubert",
-"author_email": "michael@schubert.cx",
-"committer_name": "Michael Schubert",
-"committer_email": "michael@schubert.cx",
-"compare_url": "https://github.com/pivotal/projectmonitor/compare/4835f3b1923a...35387faa8cd8",
-"event_type": "push",
-"matrix": [
-{
-"id": 4314975,
-"repository_id": 96210,
-"number": "311.1",
-"config": {
-"language": "ruby",
-"branches": {
-"only": [
-"master"
-]
-},
-"bundler_args": "--without mysql development",
-"notifications": {
-"email": [
-"common-effort@pivotallabs.com"
-],
-"webhooks": [
-"http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
-]
-},
-"rvm": "1.9.3",
-"before_script": [
-"bundle exec rake travis:setup",
-"export DISPLAY=:99",
-"sh -e /etc/init.d/xvfb start"
-],
-"script": "bundle exec rake travis",
-".result": "configured"
-},
-"result": 0,
-"started_at": "2013-01-22T21:16:20Z",
-"finished_at": "2013-01-22T21:20:56Z",
-"allow_failure": false
-}
-]
+  "id": 4314974,
+  "repository_id": 96210,
+  "number": "311",
+  "build_url": "https://travis-ci.org/account/project/builds/4314974",
+  "config": {
+    "language": "ruby",
+    "branches": {
+      "only": [
+        "master"
+      ]
+    },
+    "bundler_args": "--without mysql development",
+    "notifications": {
+      "email": [
+        "common-effort@pivotallabs.com"
+      ],
+      "webhooks": [
+        "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+      ]
+    },
+
+    "rvm": [
+      "1.9.3"
+    ],
+    "before_script": [
+      "bundle exec rake travis:setup",
+      "export DISPLAY=:99",
+      "sh -e /etc/init.d/xvfb start"
+    ],
+    "script": "bundle exec rake travis",
+    ".result": "configured"
+  },
+  "result": 0,
+  "status": 0,
+  "started_at": "2013-01-22T21:16:20Z",
+  "finished_at": "2013-01-22T21:20:56Z",
+  "duration": 276,
+  "commit": "35387faa8cd81dfa77d908374967aaed143ef75b",
+  "branch": "master",
+  "message": "Whenever does not allow resolution smaller than 1 minute",
+  "committed_at": "2013-01-22T20:21:14Z",
+  "author_name": "Michael Schubert",
+  "author_email": "michael@schubert.cx",
+  "committer_name": "Michael Schubert",
+  "committer_email": "michael@schubert.cx",
+  "compare_url": "https://github.com/pivotal/projectmonitor/compare/4835f3b1923a...35387faa8cd8",
+  "event_type": "push",
+  "matrix": [
+    {
+      "id": 4314975,
+      "repository_id": 96210,
+      "number": "311.1",
+      "config": {
+        "language": "ruby",
+        "branches": {
+          "only": [
+            "master"
+          ]
+        },
+        "bundler_args": "--without mysql development",
+        "notifications": {
+          "email": [
+            "common-effort@pivotallabs.com"
+          ],
+          "webhooks": [
+            "http://projectmonitor-staging.pivotallabs.com/projects/d30b8651-bd0f-40ac-87c2-0fd662363e91/status"
+          ]
+        },
+        "rvm": "1.9.3",
+        "before_script": [
+          "bundle exec rake travis:setup",
+          "export DISPLAY=:99",
+          "sh -e /etc/init.d/xvfb start"
+        ],
+        "script": "bundle exec rake travis",
+        ".result": "configured"
+      },
+      "result": 0,
+      "started_at": "2013-01-22T21:16:20Z",
+      "finished_at": "2013-01-22T21:20:56Z",
+      "allow_failure": false
+    }
+  ]
 }

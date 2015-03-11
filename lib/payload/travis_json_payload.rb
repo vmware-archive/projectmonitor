@@ -50,7 +50,7 @@ class TravisJsonPayload < Payload
 
   def parse_url(content)
     if @slug
-      self.parsed_url = "#{base_url}/#{@slug}/builds/#{content['id']}"
+      self.parsed_url = content['build_url']
     else
       self.parsed_url = "https://api.travis-ci.org/builds/#{content['id']}"
     end
