@@ -13,10 +13,6 @@
       %p.help-block
         = "#{f.object.creator.name} (#{f.object.creator.email})"
 .form-group
-  = f.label :type, "Project Type", class: "col-sm-2 control-label"
-  .col-sm-3
-    = f.select :type, project_types, {}, class: "form-control"
-.form-group
   .col-sm-offset-2.col-sm-2
     .checkbox
       = f.label :enabled do
@@ -34,6 +30,7 @@
     = f.text_field :tag_list, class: "form-control col-sm-4"
   %p.help-block Separate with commas
 
+= render 'project_type', f: f
 = render 'build_setup', f: f
 = render 'tracker_setup', f: f
 

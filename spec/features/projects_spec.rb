@@ -12,7 +12,7 @@ feature "projects" do
   scenario "admin creates a Travis project", js: true do
     click_on "Add Project"
 
-    select "Travis Project", from: "Project Type"
+    select "Travis Project", from: "Provider"
     choose "project_webhooks_enabled_false"
     fill_in "project[name]", with: "Project Monitor"
 
@@ -32,7 +32,7 @@ feature "projects" do
   scenario "admin creates a Travis Pro project", js: true do
     click_on "Add Project"
 
-    select "Travis Pro Project", from: "Project Type"
+    select "Travis Pro Project", from: "Provider"
     choose "project_webhooks_enabled_false"
     fill_in "project[name]", with: "Project Monitor"
     fill_in "Github Account", with: "pivotal"
@@ -47,9 +47,9 @@ feature "projects" do
   scenario "admin changes project type and must reselect webhooks or polling", js: true do
     click_on "Add Project"
 
-    select "Semaphore Project", from: "Project Type"
+    select "Semaphore Project", from: "Provider"
     choose "project_webhooks_enabled_true"
-    select "CircleCi Project", from: "Project Type"
+    select "CircleCi Project", from: "Provider"
 
     expect(find('#project_webhooks_enabled_true')).not_to be_checked
     expect(find('#project_webhooks_enabled_false')).not_to be_checked

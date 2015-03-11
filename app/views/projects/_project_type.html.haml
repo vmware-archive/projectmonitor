@@ -1,0 +1,7 @@
+%hr
+%fieldset#project_type_section
+  %h3 Project Type
+  .form-group
+    = f.label :type, "Provider", class: "col-sm-2 control-label"
+    .col-sm-3
+      = f.select :type, project_types, {}, class: "form-control"

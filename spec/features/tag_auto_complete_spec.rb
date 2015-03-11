@@ -18,7 +18,7 @@ feature "tag auto complete" do
   it "populates a dropdown with possible completions when you type in the tag box", js: true do
     visit(new_project_path)
     fill_in('project[name]', with: 'foo')
-    select('Jenkins Project', from: 'Project Type')
+    select('Jenkins Project', from: 'Provider')
     choose "Polling"
     fill_in('Base URL', with: 'http://foo.bar.com')
     fill_in('Build Name', with: 'foobar')
