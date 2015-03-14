@@ -120,6 +120,13 @@ var ProjectEdit = {};
     o.toggleWebhooks();
   };
 
+  o.setProviderSpecificVisibility = function () {
+    $('.provider-specific').addClass('hide');
+    if (val = $('select#project_type').val()) {
+      $('.provider-specific.' + val).removeClass('hide');
+    };
+  }
+
   var isEmpty = function(element) {
     return $(element).val() === "";
   }
@@ -199,11 +206,13 @@ var ProjectEdit = {};
   o.init = function () {
     $('#project_tracker_auth_token, #project_tracker_project_id, input[type=submit]')
     .change(handleParameterChange);
-    $('#project_type').change(o.handleProjectTypeChange).change(o.validateFeedUrl);
+    $('#project_type').change(o.handleProjectTypeChange).change(o.validateFeedUrl).change(o.setProviderSpecificVisibility);
     $('#field_container :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
     $('#build_setup input.refresh').click(o.validateFeedUrl);
     $('#change_password a').click(showPasswordField);
+
+    $(document).ready(o.setProviderSpecificVisibility); // To handle redirect back to page after following link
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 

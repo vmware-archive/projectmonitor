@@ -36,6 +36,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'clockwork'
 gem 'jbuilder', '~> 2.2.4'
 gem 'ruby-openid', '~> 2.5.0'
+gem 'kramdown'
 
 group :production do
   gem 'rails_12factor'

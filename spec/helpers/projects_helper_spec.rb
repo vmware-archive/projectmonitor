@@ -140,4 +140,21 @@ describe ProjectsHelper, :type => :helper do
       end
     end
   end
+
+  describe '#build_setup_instructions_for' do
+    it 'returns the contents of the file in docs/build_setup with the name of the passed project type' do
+      html_text = Kramdown::Document.new('If you want Travis Pro to connect via polling, you will need your Travis CI token.
+You can find this by logging into [Travis CI Pro](https://magnum.travis-ci.com),
+clicking your name in the top-right corner, choosing *Accounts*,
+then choosing the *Profile* tab. Copy the value listed as your *Token*
+into the Project Monitor *New Project* page as your **Travis Pro Token**.
+
+').to_html
+      expect(helper.build_setup_instructions_for(TravisProProject)).to eq(html_text)
+    end
+
+    it 'should return a Kramdowned empty string when there is no associated file' do
+      expect(helper.build_setup_instructions_for(nil)).to eq(Kramdown::Document.new('').to_html)
+    end
+  end
 end

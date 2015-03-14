@@ -214,6 +214,7 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.9.2)
+    kramdown (1.6.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libxml-ruby (2.7.0)
@@ -437,6 +438,7 @@ DEPENDENCIES
   jbuilder (~> 2.2.4)
   jquery-rails (~> 3.1.2)
   jshint_on_rails
+  kramdown
   launchy
   newrelic_rpm
   nokogiri (~> 1.6.3.1)

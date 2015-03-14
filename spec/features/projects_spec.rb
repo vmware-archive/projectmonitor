@@ -33,6 +33,7 @@ feature "projects" do
     click_on "Add Project"
 
     select "Travis Pro Project", from: "Provider"
+
     choose "project_webhooks_enabled_false"
     fill_in "project[name]", with: "Project Monitor"
     fill_in "Github Account", with: "pivotal"
@@ -42,6 +43,14 @@ feature "projects" do
     click_on "Create"
 
     expect(page).to have_content("Project was successfully created")
+  end
+
+  scenario "admin selects a Jenkins project and sees the Jenkins documentation", js: true do
+    click_on "Add Project"
+
+    select "Jenkins Project", from: "Provider"
+
+    expect(page).to have_content('If you want Jenkins')
   end
 
   scenario "admin changes project type and must reselect webhooks or polling", js: true do

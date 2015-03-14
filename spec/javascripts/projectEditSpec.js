@@ -1,20 +1,20 @@
-describe("project edit", function() {
-  beforeEach(function() {
+describe("project edit", function () {
+  beforeEach(function () {
     jasmine.Ajax.install();
   });
 
-  afterEach(function() {
+  afterEach(function () {
     jasmine.Ajax.uninstall();
   });
 
-  it('does not invoke validateFeedUrl on initialization', function() {
+  it('does not invoke validateFeedUrl on initialization', function () {
     spyOn(ProjectEdit, 'validateFeedUrl');
     ProjectEdit.init();
     expect(ProjectEdit.validateFeedUrl).not.toHaveBeenCalled();
   });
 
-  describe("validations on pivotal tracker setup", function() {
-    beforeEach(function() {
+  describe("validations on pivotal tracker setup", function () {
+    beforeEach(function () {
       var fixtures = "<fieldset id='tracker_setup'><input id='project_tracker_online'/>" +
         "<input id='project_tracker_auth_token' type='text'/>" +
         "<span id='project_tracker_auth_token_status'>" +
@@ -31,34 +31,34 @@ describe("project edit", function() {
     });
 
     describe("when the project is online", function () {
-      beforeEach(function() {
+      beforeEach(function () {
         $('#project_tracker_online').val("1");
         ProjectEdit.init();
       });
 
-      it("should not validate anything and show success", function() {
+      it("should not validate anything and show success", function () {
         expect($('.success')).not.toHaveClass('hide');
         expect($('.pending, .failure, .unconfigured')).toHaveClass('hide');
       });
     });
 
-    describe("when both projectId and authToken are missing", function() {
-      beforeEach(function() {
+    describe("when both projectId and authToken are missing", function () {
+      beforeEach(function () {
         ProjectEdit.init();
       });
 
-      it("should not validate anything", function() {
+      it("should not validate anything", function () {
         expect($('#tracker_status .unconfigured')).not.toHaveClass('hide');
         expect($('.success, .failure, .pending')).toHaveClass('hide');
       });
     });
 
-    describe("when both projectId and authToken are present", function() {
+    describe("when both projectId and authToken are present", function () {
       describe("should validate length of input field", function () {
-        describe("when valid", function() {
-          beforeEach(function() {
+        describe("when valid", function () {
+          beforeEach(function () {
             spyOn($, 'ajax').and.callFake(function (opts) {
-              opts.success({},"",{status: 200});
+              opts.success({}, "", {status: 200});
             });
             ProjectEdit.init();
           });
@@ -71,9 +71,9 @@ describe("project edit", function() {
           });
         });
 
-        describe("when not valid", function() {
+        describe("when not valid", function () {
           describe("when auth token is invalid", function () {
-            beforeEach(function() {
+            beforeEach(function () {
               spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 401});
               });
@@ -90,8 +90,8 @@ describe("project edit", function() {
             });
           });
 
-          describe("when project id is invalid", function() {
-            beforeEach(function() {
+          describe("when project id is invalid", function () {
+            beforeEach(function () {
               spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 404});
               });
@@ -108,8 +108,8 @@ describe("project edit", function() {
             });
           });
 
-          describe("when some other kind of error occurs", function() {
-            beforeEach(function() {
+          describe("when some other kind of error occurs", function () {
+            beforeEach(function () {
               spyOn($, 'ajax').and.callFake(function (opts) {
                 opts.error({status: 500});
               });
@@ -129,15 +129,15 @@ describe("project edit", function() {
       });
     });
 
-    describe("when the authToken is not present", function() {
-      beforeEach(function() {
+    describe("when the authToken is not present", function () {
+      beforeEach(function () {
         spyOn($, 'ajax').and.callFake(function (opts) {
           opts.error({status: 401});
         });
         ProjectEdit.init();
       });
 
-      it("should show the auth token error", function() {
+      it("should show the auth token error", function () {
         $('input#project_tracker_project_id').val("1111111").change();
         expect($('#project_tracker_project_id_status .failure')).toHaveClass('hide');
         expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
@@ -145,15 +145,15 @@ describe("project edit", function() {
       });
     });
 
-    describe("when the projectId is not present", function() {
-      beforeEach(function() {
+    describe("when the projectId is not present", function () {
+      beforeEach(function () {
         spyOn($, 'ajax').and.callFake(function (opts) {
           opts.error({status: 404});
         });
         ProjectEdit.init();
       });
 
-      it("should show the project id error", function() {
+      it("should show the project id error", function () {
         $('input#project_tracker_auth_token').val("2222222").change();
         expect($('.success, .pending, .unconfigured')).toHaveClass('hide');
         expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
@@ -161,57 +161,57 @@ describe("project edit", function() {
       });
     });
 
-    describe("when clicking submit", function() {
-      describe("when neither the auth token nor project id are present", function() {
-        beforeEach(function() {
+    describe("when clicking submit", function () {
+      describe("when neither the auth token nor project id are present", function () {
+        beforeEach(function () {
           $('input#project_tracker_project_id').val("");
           $('input#project_tracker_auth_token').val("");
           ProjectEdit.init();
           $('input[type=submit]').click();
         });
 
-        it("should not show any error messages", function() {
+        it("should not show any error messages", function () {
           expect($('.failure')).toHaveClass('hide');
           expect($('#tracker_status .unconfigured')).not.toHaveClass('hide');
         });
       });
 
-      describe("when the auth token and project id are present", function() {
-        beforeEach(function() {
+      describe("when the auth token and project id are present", function () {
+        beforeEach(function () {
           $('input#project_tracker_project_id').val("590337");
           $('input#project_tracker_auth_token').val("881c7bc3264a00d280225ea409225fe8");
           ProjectEdit.init();
           $('input[type=submit]').click();
         });
 
-        it("should not show any error messages", function() {
+        it("should not show any error messages", function () {
           expect($('.failure')).toHaveClass('hide');
         });
       });
 
-      describe("when the auth token is not present", function() {
-        beforeEach(function() {
+      describe("when the auth token is not present", function () {
+        beforeEach(function () {
           $('input#project_tracker_project_id').val("590337");
           $('input#project_tracker_auth_token').val("");
           ProjectEdit.init();
           $('input[type=submit]').click();
         });
 
-        it("should show the auth token error", function() {
+        it("should show the auth token error", function () {
           expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
           expect($('#tracker_status .failure')).not.toHaveClass('hide');
         });
       });
 
-      describe("when the project id is not present", function() {
-        beforeEach(function() {
+      describe("when the project id is not present", function () {
+        beforeEach(function () {
           $('input#project_tracker_project_id').val("");
           $('input#project_tracker_auth_token').val("881c7bc3264a00d280225ea409225fe8");
           ProjectEdit.init();
           $('input[type=submit]').click();
         });
 
-        it("should show the project id error", function() {
+        it("should show the project id error", function () {
           expect($('#project_tracker_project_id_status .failure')).not.toHaveClass('hide');
           expect($('#tracker_status .failure')).not.toHaveClass('hide');
         });
@@ -219,8 +219,8 @@ describe("project edit", function() {
     });
   });
 
-  describe("Feed URL fields", function() {
-    beforeEach(function() {
+  describe("Build setup fields", function () {
+    beforeEach(function () {
       setFixtures(
         '<select id="project_type" name="project[type]">' +
         '  <option value=""></option>' +
@@ -232,14 +232,14 @@ describe("project edit", function() {
         '  <option value="CircleCiProject">CircleCiProject</option>' +
         '</select>' +
         '<div id="field_container" class="hide">' +
-        '  <div class="project-attributes" id="CruiseControlProject">' +
+        '  <div class="project-attributes provider-specific CruiseControlProject" id="CruiseControlProject">' +
         '    <input id="project_cruise_control_rss_feed_url" name="project[cruise_control_rss_feed_url]"/>' +
         '  </div>' +
-        '  <div class="project-attributes hide" id="JenkinsProject">' +
+        '  <div class="project-attributes provider-specific hide JenkinsProject" id="JenkinsProject">' +
         '    <input id="project_jenkins_base_url" name="project[jenkins_base_url]"/>' +
         '    <input id="project_jenkins_build_name" name="project[jenkins_build_name]" type="text">' +
         '  </div>' +
-        '  <div class="project-attributes hide" id="TddiumProject">' +
+        '  <div class="project-attributes provider-specific hide TddiumProject" id="TddiumProject">' +
         '    <input id="project_ci_auth_token" name="project[ci_auth_token]" size="30" type="text">' +
         '    <input id="project_ci_base_url" name="project[ci_base_url]">' +
         '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
@@ -263,95 +263,123 @@ describe("project edit", function() {
         '    <label for="project_build_branch">Branch Name</label>' +
         '    <input id="project_build_branch" name="project[build_branch]" size="30" type="text" class="">' +
         '  </p>' +
-        '</fieldset>');
+        '</fieldset>' +
+        '<div class="hide provider-specific JenkinsProject"></div>' +
+        '<div class="provider-specific CruiseControlProject"></div>'
+      );
     });
 
     describe("changing available inputs", function () {
-      beforeEach(function() {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('JenkinsProject').change();
       });
 
-      it("makes the Jenkins project div visible", function() {
+      it("makes the Jenkins project div visible", function () {
         expect($('.project-attributes#JenkinsProject')).toExist();
         expect($('.project-attributes#JenkinsProject').hasClass('hide')).toBeFalsy();
         expect($('#project_jenkins_base_url').attr('disabled')).toBeFalsy();
       });
 
-      it("makes the Cruise Control project div invisible", function() {
+      it("makes the Cruise Control project div invisible", function () {
         expect($('.project-attributes#CruiseControlProject').hasClass('hide')).toBeTruthy();
         expect($('#project_cruise_control_rss_feed_url').attr('disabled')).toBeTruthy();
       });
     });
 
-    describe("showing the branch field", function() {
-      beforeEach(function() {
+    describe("changing the provider type to a non-empty value", function() {
+      beforeEach(function () {
+        ProjectEdit.init();
+        $('#project_type').val('JenkinsProject').change();
+      });
+      it("unhides elements with provider-specific class and the project name class", function() {
+        expect($('.provider-specific.JenkinsProject').hasClass('hide')).toBeFalsy();
+      });
+      it("hides the previously visible provider-specific class and leaves the others alone", function() {
+        expect($('.provider-specific.TddiumProject').hasClass('hide')).toBeTruthy();
+        expect($('.provider-specific.CruiseControlProject').hasClass('hide')).toBeTruthy();
+      });
+    });
+
+    describe("changing the provider type to an empty value", function() {
+      beforeEach(function () {
+        ProjectEdit.init();
+        $('#project_type').val('').change();
+      });
+      it("hides the previously visible provider-specific class and leaves the others alone", function() {
+        expect($('.provider-specific.TddiumProject').hasClass('hide')).toBeTruthy();
+        expect($('.provider-specific.CruiseControlProject').hasClass('hide')).toBeTruthy();
+      });
+    });
+
+    describe("showing the branch field", function () {
+      beforeEach(function () {
         ProjectEdit.init();
       });
 
-      it("shows the branch field when a Travis Project is selected", function() {
+      it("shows the branch field when a Travis Project is selected", function () {
         $('#project_type').val('TravisProject').change();
         expect($('#branch_name')).toExist();
         expect($('#branch_name').hasClass('hide')).toBeFalsy();
       });
 
-      it("shows the branch field when a Semaphore Project is selected", function() {
+      it("shows the branch field when a Semaphore Project is selected", function () {
         $('#project_type').val('SemaphoreProject').change();
         expect($('#branch_name')).toExist();
         expect($('#branch_name').hasClass('hide')).toBeFalsy();
       });
 
-      it("shows the field_container when a Travis Project is selected", function() {
+      it("shows the field_container when a Travis Project is selected", function () {
         $('#project_type').val('TravisProject').change();
         expect($('#field_container')).toExist();
         expect($('#field_container').hasClass('hide')).toBeFalsy();
       });
 
-      it("shows the field_container when a CircleCI is selected", function() {
+      it("shows the field_container when a CircleCI is selected", function () {
         $('#project_type').val('CircleCiProject').change();
         expect($('#field_container')).toExist();
         expect($('#field_container').hasClass('hide')).toBeFalsy();
       });
 
-      it("hides the branch field when another project type is selected", function() {
+      it("hides the branch field when another project type is selected", function () {
         $('#project_type').val('JenkinsProject').change();
         expect($('#branch_name').hasClass('hide')).toBeTruthy();
       });
 
-      it("hides the field_container when another project type is selected", function() {
+      it("hides the field_container when another project type is selected", function () {
         $('#project_type').val('JenkinsProject').change();
         expect($('#field_container').hasClass('hide')).toBeTruthy();
       });
     });
 
-    describe("disable webhook and default to polling on projects that do not support webhooks", function() {
-      beforeEach(function() {
+    describe("disable webhook and default to polling on projects that do not support webhooks", function () {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('TddiumProject').change();
       });
 
-      it("Tddium projects", function() {
+      it("Tddium projects", function () {
         expect($('#project_webhooks_enabled_true').attr('disabled')).toBeTruthy();
         expect($('#project_webhooks_enabled_false').prop('checked')).toBeTruthy();
       });
     });
 
-    describe("when changing from webhooks to polling", function() {
-      beforeEach(function() {
+    describe("when changing from webhooks to polling", function () {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('JenkinsProject').change();
         $('#project_webhooks_enabled_true').click();
         $('#project_type').val('TddiumProject').change();
       });
-      it("should display the Tddium fieldset", function() {
+      it("should display the Tddium fieldset", function () {
         expect($('fieldset#TddiumProject').hasClass('hide')).toBeFalsy();
         expect($('fieldset#polling').hasClass('hide')).toBeFalsy();
       });
     });
 
-    describe("when all the build configuration inputs are present", function() {
-      describe("and the tracker returns a parseable build status", function() {
-        beforeEach(function() {
+    describe("when all the build configuration inputs are present", function () {
+      describe("and the tracker returns a parseable build status", function () {
+        beforeEach(function () {
           spyOn($, 'ajax').and.callFake(function (opts) {
             opts.success({status: true});
           });
@@ -362,13 +390,13 @@ describe("project edit", function() {
           $('#project_auth_username').val('alice').change();
         });
 
-        it("should display the success message", function() {
+        it("should display the success message", function () {
           expect($("#build_status .success")).not.toHaveClass("hide");
         });
       });
 
-      describe("and the tracker does not return a parseable build status", function() {
-        beforeEach(function() {
+      describe("and the tracker does not return a parseable build status", function () {
+        beforeEach(function () {
           spyOn($, 'ajax').and.callFake(function (opts) {
             opts.success({status: false, error_type: "Error Type", error_text: "Error Text"});
           });
@@ -380,14 +408,14 @@ describe("project edit", function() {
           $('#project_auth_username').val('alice').change();
         });
 
-        it("should display the server's error message", function() {
+        it("should display the server's error message", function () {
           expect($("#build_status .failure")).not.toHaveClass("hide");
           expect($("#build_status .failure").attr('title')).toBe("Error Type: 'Error Text'");
         });
       });
 
-      describe("and the server does not respond correctly", function() {
-        beforeEach(function() {
+      describe("and the server does not respond correctly", function () {
+        beforeEach(function () {
           spyOn($, 'ajax').and.callFake(function (opts) {
             opts.error({status: 404});
           });
@@ -398,65 +426,66 @@ describe("project edit", function() {
           $('#project_auth_username').val('user').change();
         });
 
-        it("should display the failure message", function() {
+        it("should display the failure message", function () {
           expect($("#build_status .failure")).not.toHaveClass("hide");
         });
-        it("should add a tooltip indicating a server error", function() {
+        it("should add a tooltip indicating a server error", function () {
           expect($('#build_status .failure').attr('title')).toBe('Server Error');
         });
       });
     });
 
-    describe("when some of the build configuration inputs are blank", function() {
-      beforeEach(function() {
+    describe("when some of the build configuration inputs are blank", function () {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('JenkinsProject').change();
         $('#project_jenkins_base_url').val("").change();
         $('#project_jenkins_build_name').val("foobar").change();
       });
 
-      it("should display the Some Fields Empty message", function() {
+      it("should display the Some Fields Empty message", function () {
         expect($("#build_status .empty_fields")).not.toHaveClass("hide");
       });
     });
 
-    describe("when the project type is blank but an input is filled in", function() {
-      beforeEach(function() {
+    describe("when the project type is blank but an input is filled in", function () {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_auth_username').val('alice').change();
       });
 
-      it("should display the unconfigured message", function() {
+      it("should display the unconfigured message", function () {
         expect($("#build_status .unconfigured")).not.toHaveClass("hide");
       });
     });
 
-    describe("when all of the build configuration inputs are blank", function() {
-      beforeEach(function() {
+    describe("when all of the build configuration inputs are blank", function () {
+      beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('JenkinsProject').change();
         $('#project_jenkins_base_url').val("").change();
       });
 
-      it("should display the unconfigured message", function() {
+      it("should display the unconfigured message", function () {
         expect($("#build_status .unconfigured")).not.toHaveClass("hide");
       });
     });
   });
-  describe("toggling payload strategy", function() {
+  describe("toggling payload strategy", function () {
 
 
-    describe("when not a travis build", function(){
-      beforeEach(function() {
-        setFixtures('<div id="project_type"></div>' +
-                    '<div id="field_container"></div>' +
-                    '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
-                    '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-                    '<fieldset id="webhook_url" /><fieldset id="polling" />')
+    describe("when not a travis build", function () {
+      beforeEach(function () {
+        setFixtures(
+          '<div id="project_type"></div>' +
+          '<div id="field_container"></div>' +
+          '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+          '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+          '<fieldset id="webhook_url" /><fieldset id="polling" />')
         ProjectEdit.init();
       });
 
-      it("should toggle webhooks and polling when checked", function() {
+      it("should toggle webhooks and polling when checked", function () {
         expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
@@ -475,18 +504,18 @@ describe("project edit", function() {
       });
     })
 
-    describe("when a travis build", function(){
-      beforeEach(function() {
+    describe("when a travis build", function () {
+      beforeEach(function () {
         setFixtures('<div id="project_type"></div>' +
-                    '<div id="field_container"></div>' +
-                    '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
-                    '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-                    '<fieldset id="webhook_url" /><fieldset id="polling" />')
+        '<div id="field_container"></div>' +
+        '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+        '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+        '<fieldset id="webhook_url" /><fieldset id="polling" />')
         $('#project_type').val("TravisProject")
         ProjectEdit.init();
       });
 
-      it("should toggle webhooks and polling when checked", function() {
+      it("should toggle webhooks and polling when checked", function () {
         expect($('#webhook_url')).not.toHaveClass('hide');
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).not.toHaveClass('hide');

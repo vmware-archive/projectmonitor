@@ -69,6 +69,11 @@ describe 'projects/edit', :type => :view do
         expect(page.find('#build_setup #branch_name')).not_to have_class('hide')
       end
 
+      it 'should show instructions specific to project' do
+        setup_instructions = 'If you want Travis Pro to connect via polling, you will need your Travis CI token.'
+        expect(page).to have_css('.build_setup_instructions', text: setup_instructions)
+      end
+
       it 'should hide attributes specific to other project types' do
         expect(page.find('#CruiseControlProject')).to have_class('hide')
         expect(page.find('#JenkinsProject')).to have_class('hide')

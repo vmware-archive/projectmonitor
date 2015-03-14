@@ -50,7 +50,7 @@ module ProjectsHelper
         content_tag(:span, class: "last_status #{latest.status}") do
           color_class = {
             'successful' => 'text-success',
-            'failed'    => 'text-danger'
+            'failed' => 'text-danger'
           }[latest.status]
           content_tag(:a, latest, href: project_payload_log_entries_path(project), class: color_class)
         end
@@ -70,10 +70,25 @@ module ProjectsHelper
     project_key = project_class.name.underscore
 
     project_class.project_specific_attributes.each_with_object({}) do |field_name, hash|
-      label   = PROJECT_META[:labels].try(:[], field_name).try(:[], project_key)
+      label = PROJECT_META[:labels].try(:[], field_name).try(:[], project_key)
       tooltip = PROJECT_META[:tooltips].try(:[], field_name).try(:[], project_key)
 
       hash[field_name.to_sym] = ProjectAttribute.new(field_name, label, tooltip)
     end
   end
+
+  def build_setup_instructions_for(project_type)
+    file_name = project_type.to_s.underscore + '.md'
+    markdown = File.read(Rails.root.join('docs', 'adding_a_project', file_name)) rescue ''
+    markdown = remove_header_for_markdown(markdown)
+    Kramdown::Document.new(markdown).to_html
+  end
+
+  private
+
+  def remove_header_for_markdown(markdown)
+    header_regex = (/(#+.*\n+)/)
+    markdown.sub(header_regex, '')
+  end
+
 end
