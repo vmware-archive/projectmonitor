@@ -124,7 +124,7 @@ var ProjectEdit = {};
     $('.provider-specific').addClass('hide');
     if (val = $('select#project_type').val()) {
       $('.provider-specific.' + val).removeClass('hide');
-    };
+    }
   }
 
   var isEmpty = function(element) {
