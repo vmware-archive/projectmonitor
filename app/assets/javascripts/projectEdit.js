@@ -131,6 +131,20 @@ var ProjectEdit = {};
     return $(element).val() === "";
   }
 
+  var humanReadableErrorHTML = function(error) {
+    var string = "";
+    var error_text = error.error_text;
+    var project_type = $("#project_type").val();
+    if (project_type === "JenkinsProject") {
+      if (error_text.indexOf("404") > -1) {
+        var url = error_text.match(/from ([\w:\/]+),/)[1];
+        string += "<p>Error 404: Could not find a project with the specified information</p> <p>URL: " + url + "</p>";
+      }
+    }
+    return string
+  }
+
+
   o.validateFeedUrl = function () {
     $('.success, .failure, .unconfigured, .empty_fields', '#polling').addClass('hide');
 
@@ -158,10 +172,12 @@ var ProjectEdit = {};
         if (result.status) {
           $('#polling .pending').addClass('hide');
           $('#build_status .success').removeClass('hide');
+          $('.error-message').addClass('hide');
         }
         else {
           $('#polling .pending').addClass('hide');
           $('#polling .failure').removeClass('hide').attr("title",result.error_type + ": '" + result.error_text + "'");
+          $('.error-message').html(humanReadableErrorHTML(result)).removeClass('hide');
         }
       },
       error: function (result) {
@@ -179,6 +195,8 @@ var ProjectEdit = {};
   };
 
   o.toggleWebhooks = function () {
+    $('.error-message').addClass('hide');
+
     if ($('input#project_webhooks_enabled_true:checked').length > 0) {
       var val = $("#project_type").val();
       if(val != "TravisProject" && val != "TravisProProject" && val != "CodeshipProject"){

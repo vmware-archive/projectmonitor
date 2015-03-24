@@ -88,6 +88,11 @@ describe("project edit", function () {
               expect($('#project_tracker_auth_token_status .failure')).not.toHaveClass('hide');
               expect($('#tracker_status .failure')).not.toHaveClass('hide');
             });
+
+            it("should show the error message", function () {
+              expect($('.error-message')).not.toHaveClass('hide');
+            });
+            
           });
 
           describe("when project id is invalid", function () {
