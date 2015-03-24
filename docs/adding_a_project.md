@@ -72,6 +72,15 @@ CodeShip only supports webhooks
 3. Click __Project Settings > Notifications__
 4. In the Webhook section, check "enabled" and enter the url found on this page after you click the "webhooks" button
 
+## Concourse
+
+__Polling__
+
+If you want to connect to Concourse via polling, you'll need to ensure that your Concourse instance is accessible by the machine running ProjectMonitor.
+
+1. Enter the URL for the Concourse server into the Base URL field in the form below
+2. Enter the job name into the form below
+
 ## CruiseControl.NET
 
 _note: this is not the cruisecontrol.rb found on sourceforge- rather it is CruiseControl.NET found at http://cruisecontrolnet.org/_
