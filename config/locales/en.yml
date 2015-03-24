@@ -18,7 +18,7 @@ en:
         ci_auth_token: "Auth Token"
         travis_github_account: "Github Account"
         travis_repository: "Repository"
-        cruise_control_rss_feed_url: "Feed URL"
+        cruise_control_rss_feed_url: "RSS Feed URL"
         semaphore_api_url: "Semaphore API URL"
   project_types:
     cruise_control_project: "Cruise Control Project"

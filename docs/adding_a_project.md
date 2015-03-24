@@ -22,12 +22,78 @@ ProjectMonitor is accessible by the machine hosting your CI instance.
 If you want to set up a project to connect via polling instead, you'll typically need
 to enter the base URL, build name or ID, and your login credentials with the CI service.
 
+## CircleCI
+
+__Webhooks__
+
+1. Configure webhooks by creating a `circle.yml` file in your repository. This has the ability to configure your webhooks.
+
+2. copy the following into your `circle.yml` replacing the url with the url you get from clicking the webhooks button below
+
+~~~
+notify:
+webhooks:
+- url: https://site.com/path/to/your/webhooks/url
+~~~
+
+__Polling__
+
+1. Add your CircleCI username to the form below
+2. Add your repo name to the field Build Name in the form below
+2. Add an API token from your [account dashboard](https://circleci.com/account/api).
+To test it, view it in your browser or call the API using curl:
+
+~~~
+$ curl https://circleci.com/api/v1/me?circle-token=:token
+~~~
+
+You should see a response like the following:
+
+~~~
+{
+"user_key_fingerprint" : null,
+"days_left_in_trial" : -238,
+"plan" : "p16",
+"trial_end" : "2011-12-28T22:02:15Z",
+"basic_email_prefs" : "smart",
+"admin" : true,
+"login" : "pbiggar"
+}
+~~~
+
+Finally, add the API token to the "Auth Token" field in the form below.
+
+## CodeShip
+
+CodeShip only supports webhooks
+
+1. Go to your codeship account
+2. Select your project that you want to have on ProjectMonitor
+3. Click __Project Settings > Notifications__
+4. In the Webhook section, check "enabled" and enter the url found on this page after you click the "webhooks" button
+
+## CruiseControl.NET
+
+_note: this is not the cruisecontrol.rb found on sourceforge- rather it is CruiseControl.NET found at http://cruisecontrolnet.org/_
+
+__Polling__
+
+1. Click the RSS Feed on your project page
+2. Copy-paste the link that you visit into the form under RSS Feed URL
+
 ## Jenkins
+
+__Polling__
+
+If you want to connect to Jenkins via polling, you'll need to ensure that your Jenkins instance is accessible by the machine running ProjectMonitor.
+
+1. Enter the URL for the Jenkins server into the Base URL field in the form below
+2. Enter the project name into the Build Name field in the form below
+
+__Webhooks__
 
 If you want Jenkins to connect via Webhooks, you will need the
 [Jenkins notification plugin](https://wiki.jenkins-ci.org/display/JENKINS/Notification+Plugin).
-
-If you want to connect to Jenkins via polling, you'll need to ensure that your Jenkins instance is accessible by the machine running ProjectMonitor.
 
 ## Semaphore
 
@@ -67,6 +133,26 @@ For TeamCity projects, find the buildTypeId (usually something like 'bt2') from 
     http://teamcity:8111/app/rest/builds?locator=running:all,buildType:
     http://teamcity:8111/viewType.html?buildTypeId=
     http://teamcity:8111/viewLog.html?buildId=1&tab=buildResultsDiv&buildTypeId=
+
+You will also need a valid user account and password.
+
+If you want TeamCity to connect via Webhooks, you'll need to install the
+[TcWebHooks plugin](http://sourceforge.net/apps/trac/tcplugins/wiki/TcWebHooks) on
+your TeamCity instance. When setting up the webhook in TeamCity, make sure the payload
+format is set to "JSON" (it might show up as "JSON (beta)").
+
+If you want to connect to TeamCity via polling, you will need to ensure that your TeamCity instance
+is accessible by the machine running ProjectMonitor.
+
+## TeamCity Rest
+
+For TeamCity REST projects, find the buildTypeId. You can find this by
+
+1. Selecting the Project from TeamCity
+2. Selecting the build associated with that project
+3. Looking at the URL for that build. ```www.domain.com/viewType.html?buildTypeId=YourProject_BuildTypeId```
+
+In the example above, the build type id is the last argument in the URL
 
 You will also need a valid user account and password.
 
