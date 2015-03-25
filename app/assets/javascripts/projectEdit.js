@@ -144,9 +144,17 @@ var ProjectEdit = {};
     if (project_type === "TravisProject") {
       string += "<p>Could not find a Travis Project with the Github Account / Repository Name combination entered. Please check the input and verify that it mactches your Travis CI account</p>"
     }
+    if (project_type === "TeamCityRestProject") {
+      if (error_text.indexOf("401") > -1) {
+        string += "<p>Error 401: Authentication error. Check to make sure you are using the correct username and password</p>"
+      }
+      if (error_text.indexOf("404") > -1) {
+        var url = error_text.match(/Got 404 response status from ([\w:\/.?=]+),/)[1];
+        string += "<p>Error 404: Could not find a project with the specified information</p> <p>URL: " + url + "</p>";
+      }
+    }
     return string
-
-  }
+  };
 
 
   o.validateFeedUrl = function () {
