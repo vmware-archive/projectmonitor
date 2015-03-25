@@ -146,7 +146,7 @@ var ProjectEdit = {};
       string += "<p>Could not find a Travis Project with the Github Account / Repository Name combination entered."+
       "Please check the input and verify that it mactches your Travis CI account</p>"
     }
-    if (project_type === "TeamCityRestProject") {
+    if (project_type === "TeamCityRestProject" || project_type === "TeamCityProject") {
       if (error_text.indexOf("401") > -1) {
         string += "<p>Error 401: Authentication error. Check to make sure you are using the correct username and password</p>"
       }
