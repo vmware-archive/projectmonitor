@@ -436,6 +436,7 @@ describe("project edit", function () {
         });
         it("should add a tooltip indicating a server error", function () {
           expect($('#build_status .failure').attr('title')).toBe('Server Error');
+          expect($('.error-message')).not.toHaveClass('hide');
         });
       });
     });
