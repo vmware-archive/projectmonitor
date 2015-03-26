@@ -51,7 +51,7 @@ FactoryGirl.define do
 
   factory :semaphore_project do
     name
-    semaphore_api_url 'https://semaphoreapp.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh'
+    semaphore_api_url 'https://semaphoreci.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh'
   end
 
   factory :tddium_project do

@@ -7,11 +7,11 @@ describe SemaphoreProject, :type => :model do
   subject { build(:semaphore_project) }
 
   describe '#feed_url' do
-    it { expect(subject.feed_url).to eq('https://semaphoreapp.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh') }
+    it { expect(subject.feed_url).to eq('https://semaphoreci.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh') }
   end
 
   describe '#build_status_url' do
-    it { expect(subject.build_status_url).to eq('https://semaphoreapp.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh') }
+    it { expect(subject.build_status_url).to eq('https://semaphoreci.com/api/v1/projects/2fd4e1c67a2d28fced849ee1bb76e7391b93eb12/123/status?auth_token=nyargh') }
   end
 
   describe '#fetch_payload' do

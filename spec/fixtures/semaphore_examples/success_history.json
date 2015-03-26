@@ -1,12 +1,12 @@
 {
    "branch_name":"gh-pages",
-   "branch_url":"https://semaphoreapp.com/projects/972/branches/10353",
-   "branch_status_url":"https://semaphoreapp.com/api/v1/projects/3c027095f5446fdf67aac7bf5f11004044571b1e/10353/status?auth_token=EJ7JX4GXK3ZSQ7yvHNxM",
-   "branch_history_url":"https://semaphoreapp.com/api/v1/projects/3c027095f5446fdf67aac7bf5f11004044571b1e/10353?auth_token=EJ7JX4GXK3ZSQ7yvHNxM",
+   "branch_url":"https://semaphoreci.com/projects/972/branches/10353",
+   "branch_status_url":"https://semaphoreci.com/api/v1/projects/3c027095f5446fdf67aac7bf5f11004044571b1e/10353/status?auth_token=EJ7JX4GXK3ZSQ7yvHNxM",
+   "branch_history_url":"https://semaphoreci.com/api/v1/projects/3c027095f5446fdf67aac7bf5f11004044571b1e/10353?auth_token=EJ7JX4GXK3ZSQ7yvHNxM",
    "project_name":"projectmonitor",
    "builds":[
       {
-         "build_url":"https://semaphoreapp.com/projects/972/branches/10353/builds/2",
+         "build_url":"https://semaphoreci.com/projects/972/branches/10353/builds/2",
          "build_number":2,
          "result":"passed",
          "started_at":"2012-11-08T18:36:55Z",
@@ -21,7 +21,7 @@
          }
       },
       {
-         "build_url":"https://semaphoreapp.com/projects/972/branches/10353/builds/1",
+         "build_url":"https://semaphoreci.com/projects/972/branches/10353/builds/1",
          "build_number":1,
          "result":"failed",
          "started_at":"2012-11-06T18:46:19Z",

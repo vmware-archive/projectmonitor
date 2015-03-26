@@ -106,15 +106,34 @@ If you want Jenkins to connect via Webhooks, you will need the
 
 ## Semaphore
 
-When configuring [Semaphore](http://semaphoreapp.com), you should use the Branch History URL from the API section of your Project Settings page.
+To configure Semaphore, you must create the Semaphore API URL.
 
-This ensures that no build statuses will be missed.
+The format of this URL is 
 
-If you notice that there are build statuses missing in project monitor, ensure that you are NOT using the Branches URL from the API section (vs. the
-recommended Branch History URL).  The Branches URL from the API section returns only the latest build status, instead of the history, so if builds occurred
-between status fetches, they would be missed and not be reflected in project monitor.
+~~~
+semaphoreci.com/api/v1/projects/<Project hash_id>/<branch id>?auth_token=<auth_token>
+~~~
 
-## TDDium / Solano CI
+You can get the Project hash_id and auth_token from your project's settings api page. You can get there from the Semaphore main page by 
+
+1. Clicking the setting button for your project
+2. Clicking the API button on the settings screen
+
+In order to get your branch id, you must get it from an api call to Semaphore. One way to do this is enter the following url into your browser window
+
+~~~
+semaphoreci.com/api/v1/projects/<Project hash_id>/branches
+~~~
+
+where the project hash_id is the same as the one from your API page. Get the ID from the returned json file for the branch you are interested in tracking and insert it in the original URL from the top of these instructions.
+
+Example result
+
+~~~
+[{"id":383597,"name":"master","branch_url":"path/to/project/branch"}]
+~~~
+
+Finally, enter the finished API URL in the form below## TDDium / Solano CI
 
 TDDium / Solano only supports connecting via polling, not Webhooks.
 

@@ -210,7 +210,7 @@ May impact other areas.</description>
         <estimate type="integer">2</estimate>
         <current_state>accepted</current_state>
         <description>SemaphoreApp is a hosted solution similar to TravisCI, but supports private projects.
-Docs available at http://docs.semaphoreapp.com/api</description>
+Docs available at http://docs.semaphoreci.com/api</description>
         <name>Add support for SemaphoreApp as a build agent</name>
         <created_at type="datetime">2012/08/15 01:30:13 UTC</created_at>
         <updated_at type="datetime">2012/08/21 15:04:30 UTC</updated_at>

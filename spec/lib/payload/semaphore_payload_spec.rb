@@ -40,7 +40,7 @@ describe SemaphorePayload do
   end
 
   describe '#parse_url' do
-    it { expect(payload.parse_url(converted_content)).to eq('https://semaphoreapp.com/projects/123/branches/456/builds/1') }
+    it { expect(payload.parse_url(converted_content)).to eq('https://semaphoreci.com/projects/123/branches/456/builds/1') }
   end
 
   describe '#parse_build_id' do

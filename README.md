@@ -12,7 +12,7 @@ ProjectMonitor currently supports:
   * [Concourse](http://concourse.ci/)
   * [Cruise Control](http://cruisecontrolrb.thoughtworks.com/)
   * [Jenkins](http://jenkins-ci.org/)
-  * [Semaphore](http://www.semaphoreapp.com/)
+  * [Semaphore](http://www.semaphoreci.com/)
   * [Solano CI (formerly loved as tddium)](http://solanolabs.com/)
   * [TeamCity](http://www.jetbrains.com/teamcity/)
   * [Travis CI](http://travis-ci.org/)

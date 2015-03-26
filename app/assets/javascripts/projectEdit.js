@@ -155,6 +155,11 @@ var ProjectEdit = {};
         string += "<p>Error 404: Could not find a project with the specified information</p> <p>URL: " + url + "</p>";
       }
     }
+    else if (project_type === "SemaphoreProject") {
+      if (error_text.indexOf(757) > -1) {
+        string += "<p>Error 757: Unexpected token in request</p>"
+      }
+    }
 
     if (string === "") {
       string += error_text

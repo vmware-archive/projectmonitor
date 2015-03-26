@@ -1,8 +1,8 @@
 {
    "branch_name":"master",
-   "branch_url":"https://semaphoreapp.com/projects/123/branches/456",
+   "branch_url":"https://semaphoreci.com/projects/123/branches/456",
    "project_name":"Semaphore Project",
-   "build_url":"https://semaphoreapp.com/projects/123/branches/456/builds/1",
+   "build_url":"https://semaphoreci.com/projects/123/branches/456/builds/1",
    "build_number":1,
    "result":"failed",
    "started_at":"2012-08-16T02:15:34-07:00",
