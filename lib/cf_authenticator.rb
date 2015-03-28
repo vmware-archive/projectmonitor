@@ -3,14 +3,14 @@ class CF_authenticator
 
   end
 
-  def authenticate_with(username,password)
-      authResult = `cf auth #{username} #{password}`
-      if authResult.include?("FAILED")
+  def authenticate_with(username,password,org,space)
+      auth_result = `cf auth #{username} #{password}`
+      if auth_result.include?("FAILED")
         puts 'Authentication failed, exiting'
         exit
       end
-      authResult = `cf t -o pivotallabs -s project-monitor`
-      if authResult.include?("FAILED")
+      auth_result = `cf t -o #{org} -s #{space}`
+      if auth_result.include?("FAILED")
         puts 'Authentication failed, exiting'
         exit
       end

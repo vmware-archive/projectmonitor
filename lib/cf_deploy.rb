@@ -2,16 +2,16 @@ class CF_deploy
   require 'cf_authenticator'
   require 'cf_git_tagger'
 
-  ENV_HASH = {:staging => 'project-monitor-staging', :production => 'project-monitor-production'}
-
-  def initialize(stdin, stdout, env, cf_authenticator = CF_authenticator.new(), cf_git_tagger = CF_git_tagger.new())
-    if env == nil
-      puts "Exit Code 1: Please supply a deployment environment name and try again. \nExample: 'rake cf_deploy[staging]'"
+  def initialize(stdin, stdout, org, space, env, cf_authenticator = CF_authenticator.new(), cf_git_tagger = CF_git_tagger.new())
+    if env == nil or env == ''
+      puts "Exit Code 1: Please supply a full deployment environment name and try again. \neg: 'rake cf_deploy[org-name,space-name,deployment-environment]'"
       exit(1)
     end
     @stdin = stdin
     @stdout = stdout
-    @actual_env = ENV_HASH[env.to_sym]
+    @org = org
+    @space = space
+    @actual_env = env
     @authenticator = cf_authenticator
     @git_tagger = cf_git_tagger
   end
@@ -21,14 +21,7 @@ class CF_deploy
       puts "Exit Code 1: Invalid deployment environment. Possible environments include 'staging' and 'production'"
       exit(1)
     end
-
-    if @actual_env == "project-monitor-production"
-      confirm_deploy
-    end
-    if @actual_env == "project-monitor-staging"
-      execute_deploy
-    end
-
+    confirm_deploy
   end
 
   def confirm_deploy
@@ -56,7 +49,7 @@ class CF_deploy
     username = wait_for_input_with('CF Email?: ')
     puts 'CF Password?: '
     password = @stdin.noecho(&:gets).chomp
-    @authenticator.authenticate_with(username,password)
+    @authenticator.authenticate_with(username,password,@org,@space)
   end
 
   def git_tag
