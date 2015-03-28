@@ -45,6 +45,23 @@ describe CF_deploy do
     end
   end
 
+  describe 'not authenticating for a non-production build' do
+    it 'should just begin the push process for non-production build' do
+      authenticator_double = double(CF_authenticator)
+      git_tagger_double = double(CF_git_tagger)
+      stdin_double = double(STDIN)
+      allow(authenticator_double).to receive(:authenticate_with)
+      allow(git_tagger_double).to receive(:tag_commit_with_message)
+      allow(stdin_double).to receive(:gets) {'return value'}
+      allow(stdin_double).to receive(:noecho) {'return value'}
+
+      cf_deploy_under_test = CF_deploy.new(stdin_double, STDOUT, 'staging', authenticator_double, git_tagger_double)
+      cf_deploy_under_test.deploy_to_env
+      expect(authenticator_double).to have_received(:authenticate_with).with(any_args)
+      expect(git_tagger_double).to have_received(:tag_commit_with_message).with(any_args)
+    end
+  end
+
   describe 'authenticating with CloudFoundry' do
     it 'should prompt the user for a username and password and authenticate with those inputs' do
       stdin_double = double(STDIN)

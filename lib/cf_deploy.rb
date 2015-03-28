@@ -2,7 +2,7 @@ class CF_deploy
   require 'cf_authenticator'
   require 'cf_git_tagger'
 
-  ENV_hash = {'staging' => 'project-monitor-staging', 'production' => 'project-monitor-production'}
+  ENV_HASH = {:staging => 'project-monitor-staging', :production => 'project-monitor-production'}
 
   def initialize(stdin, stdout, env, cf_authenticator = CF_authenticator.new(), cf_git_tagger = CF_git_tagger.new())
     if env == nil
@@ -11,7 +11,7 @@ class CF_deploy
     end
     @stdin = stdin
     @stdout = stdout
-    @actual_env = ENV_hash[env]
+    @actual_env = ENV_HASH[env.to_sym]
     @authenticator = cf_authenticator
     @git_tagger = cf_git_tagger
   end
@@ -25,6 +25,10 @@ class CF_deploy
     if @actual_env == "project-monitor-production"
       confirm_deploy
     end
+    if @actual_env == "project-monitor-staging"
+      execute_deploy
+    end
+
   end
 
   def confirm_deploy
@@ -43,6 +47,9 @@ class CF_deploy
 
   def execute_deploy
     @stdout.puts "Deploying to #{@actual_env}"
+    authenticate
+    git_tag
+    push_to_cf
   end
 
   def authenticate
@@ -54,8 +61,8 @@ class CF_deploy
 
   def git_tag
     sha = `git rev-parse HEAD`.chomp
-    tagName = Time.now.strftime("%d-%m-%Y::%H:%M")
-    @git_tagger.tag_commit_with_message tagName, sha, "pushing to #{@actual_env}"
+    tag_name = Time.now.strftime("%d-%m-%Y--%H-%M")
+    @git_tagger.tag_commit_with_message tag_name, sha, "pushing to #{@actual_env}"
   end
 
   private
@@ -65,12 +72,14 @@ class CF_deploy
   end
 
   def push_to_cf
-    if (@actual_env === 'project-monitor-staging')
-      `cf push project-monitor-staging -f config/cf/manifest-staging.yml`
+    puts 'pushing to Cloud Foundry...'
+    if @actual_env === 'project-monitor-staging'
+      puts `cf push project-monitor-staging -f config/cf/manifest-staging.yml`
     end
-    if (@actual_env === 'project-monitor-production')
-      `cf push project-monitor-production -f config/cf/manifest-production.yml`
+    if @actual_env === 'project-monitor-production'
+      puts `cf push project-monitor-production -f config/cf/manifest-production.yml`
     end
+    puts `cf logout`
   end
 
 end
