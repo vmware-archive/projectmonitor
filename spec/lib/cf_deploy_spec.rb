@@ -55,7 +55,7 @@ describe CF_deploy do
       cf_deploy_under_test = CF_deploy.new(stdin_double, STDOUT, 'pivotallabs', 'project-monitor', 'staging', authenticator_double)
       expect { cf_deploy_under_test.authenticate }.to output("CF Email?: \nCF Password?: \n").to_stdout
 
-      expect(authenticator_double).to have_received(:authenticate_with).with(randString1, randString2)
+      expect(authenticator_double).to have_received(:authenticate_with).with(randString1, randString2, 'pivotallabs', 'project-monitor')
     end
   end
 
