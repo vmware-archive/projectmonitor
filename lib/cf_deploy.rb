@@ -66,12 +66,7 @@ class CF_deploy
 
   def push_to_cf
     puts 'pushing to Cloud Foundry...'
-    if @actual_env === 'project-monitor-staging'
-      puts `cf push project-monitor-staging -f config/cf/manifest-staging.yml`
-    end
-    if @actual_env === 'project-monitor-production'
-      puts `cf push project-monitor-production -f config/cf/manifest-production.yml`
-    end
+    puts `cf push #{@actual_env}`
     puts `cf logout`
   end
 
