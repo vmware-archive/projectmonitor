@@ -2,7 +2,7 @@
 %fieldset#build_setup
   %h3 Build Setup
   .form-group
-    = f.label :webhooks_enabled, "Payload Strategy", class: "col-sm-2 control-label"
+    = f.label :webhooks_enabled, 'Payload Strategy', class: 'col-sm-2 control-label'
     .col-sm-10
       .radio.row
         = f.label :webhooks_enabled_true do
@@ -16,9 +16,9 @@
           = f.radio_button :webhooks_enabled, false
           Polling
   .form-group#branch_name{ class: f.object.requires_branch_name? ? nil : 'hide' }
-    = f.label :build_branch, "Branch Name", class: "col-sm-2 control-label"
+    = f.label :build_branch, 'Branch Name', class: 'col-sm-2 control-label'
     .col-sm-4
-      = f.text_field :build_branch, class: "form-control"
+      = f.text_field :build_branch, class: 'form-control'
     %p.help-block Default is 'master'. Codeship projects can utilize regex matching.
   #field_container
     - ProjectsHelper::PROJECT_TYPE_NAMES.each do |project_type|
@@ -26,9 +26,9 @@
       .project-attributes{ id: project_type,  class: "#{'hide' unless enabled}" }
         - project_specific_attributes_for(project_type).each do |field, field_attributes|
           .form-group
-            = f.label field, field_attributes.label, class: "col-sm-2 control-label"
+            = f.label field, field_attributes.label, class: 'col-sm-2 control-label'
             .col-sm-4
-              = f.text_field field, disabled: !enabled, class: "form-control"
+              = f.text_field field, disabled: !enabled, class: 'form-control'
             - if field_attributes.tooltip
               %p.help-block= field_attributes.tooltip
   %fieldset#polling
@@ -39,22 +39,22 @@
             = f.check_box :verify_ssl
             Verify SSL Certificate?
     .form-group.auth_field
-      = f.label :auth_username, "Feed Username", class: "col-sm-2 control-label"
+      = f.label :auth_username, 'Feed Username', class: 'col-sm-2 control-label'
       .col-sm-4
         = f.text_field :auth_username, size: 40, class: 'optional form-control', autocomplete: 'off'
       %p.help-block Basic or digest authentication
     .form-group.auth_field
-      = f.label :auth_password, "Feed Password", class: "col-sm-2 control-label"
+      = f.label :auth_password, 'Feed Password', class: 'col-sm-2 control-label'
       .col-sm-4
         %input{ id: 'password_changed', name: 'password_changed', type: 'hidden', value: 'false' }
-        = f.password_field :auth_password, class: "form-control"
+        = f.password_field :auth_password, class: 'form-control'
       %p.help-block
         - if f.object.auth_password.present?
           %span#change_password.label.label-success Saved
         - else
           %span#change_password.label.label-default Not Set
     .form-group
-      = f.label :online, "CI status", class: "col-sm-2 control-label"
+      = f.label :online, 'CI status', class: 'col-sm-2 control-label'
       = f.hidden_field :online
       .col-sm-4
         %p.help-block#build_status
@@ -65,7 +65,7 @@
           %span.label.label-warning.empty_fields.hide Some Fields Empty
           &nbsp;
           %input{ class: 'refresh btn btn-default btn-xs', type: 'button', value: 'Refresh' }
-          %span{:class => "error-message hide"}
+          %span{:class => 'error-message hide'}
     .row
       .col-sm-offset-2.col-sm-10
         %p.text-muted= project_refreshed_at(f.object)

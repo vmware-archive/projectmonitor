@@ -12,13 +12,13 @@ module ProjectsHelper
 
   def project_webhooks_url(project)
     if project.guid.present?
-      "Your webhooks URL is " + project_status_url(project.guid).to_s
+      'Your webhooks URL is ' + project_status_url(project.guid).to_s
     else
       unless project.new_record?
         project.generate_guid
         project.save!
       end
-      ""
+      ''
     end
   end
 
@@ -35,12 +35,12 @@ module ProjectsHelper
   def project_last_status_text(project)
     if latest = project.payload_log_entries.latest
       if project.enabled
-        latest.status || "Unknown Status"
+        latest.status || 'Unknown Status'
       else
-        "disabled"
+        'disabled'
       end
     else
-      "none"
+      'none'
     end.titleize
   end
 
@@ -56,11 +56,11 @@ module ProjectsHelper
         end
       else
         content_tag(:span, class: "last_status #{latest.status}") do
-          content_tag(:p, "Disabled")
+          content_tag(:p, 'Disabled')
         end
       end
     else
-      "None"
+      'None'
     end
   end
 
@@ -90,5 +90,4 @@ module ProjectsHelper
     header_regex = (/(#+.*\n+)/)
     markdown.sub(header_regex, '')
   end
-
 end

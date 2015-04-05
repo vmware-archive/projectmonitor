@@ -1,14 +1,14 @@
 %h1 Sign in
 %hr
-= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" }) do |f|
+= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
   .form-group
-    = f.label :login, 'Login or Email', class: "col-sm-2 control-label"
+    = f.label :login, 'Login or Email', class: 'col-sm-2 control-label'
     .col-sm-2
-      = f.text_field :login, class: "form-control"
+      = f.text_field :login, class: 'form-control'
   .form-group
-    = f.label :password, class: "col-sm-2 control-label"
+    = f.label :password, class: 'col-sm-2 control-label'
     .col-sm-2
-      = f.password_field :password, class: "form-control"
+      = f.password_field :password, class: 'form-control'
   - if devise_mapping.rememberable?
     .form-group
       .col-sm-offset-2.col-sm-2
@@ -18,9 +18,9 @@
             Remember Me
     .row
       .col-sm-offset-2.col-sm-2
-        = f.submit "Sign in", class: "btn btn-primary"
+        = f.submit 'Sign in', class: 'btn btn-primary'
 %hr
   .row
     .col-sm-offset-2.col-sm-4
-      = render "devise/shared/links"
+      = render 'devise/shared/links'
 

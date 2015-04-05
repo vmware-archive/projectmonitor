@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
 
   has_many :payload_log_entries
   belongs_to :aggregate_project
-  belongs_to :creator, class_name: "User"
+  belongs_to :creator, class_name: 'User'
 
   serialize :last_ten_velocities, Array
   serialize :iteration_story_state_counts, JSON
@@ -89,15 +89,15 @@ class Project < ActiveRecord::Base
 
   def red_build_count
     return 0 if breaking_build.nil? || !online?
-    statuses.red.where("id >= ?", breaking_build.id).count
+    statuses.red.where('id >= ?', breaking_build.id).count
   end
 
   def feed_url
-    raise NotImplementedError, "Must implement feed_url in subclasses"
+    raise NotImplementedError, 'Must implement feed_url in subclasses'
   end
 
   def build_status_url
-    raise NotImplementedError, "Must implement build_status_url in subclasses"
+    raise NotImplementedError, 'Must implement build_status_url in subclasses'
   end
 
   def tracker_project_url
@@ -124,7 +124,7 @@ class Project < ActiveRecord::Base
     @breaking_build ||= if last_green.nil?
                           recent_statuses.red.last
                         else
-                          recent_statuses.red.where("build_id > ?", last_green.build_id).first
+                          recent_statuses.red.where('build_id > ?', last_green.build_id).first
                         end
   end
 
@@ -138,7 +138,7 @@ class Project < ActiveRecord::Base
   alias tracker_configured?  tracker_project?
 
   def payload
-    raise NotImplementedError, "Must implement payload in subclasses"
+    raise NotImplementedError, 'Must implement payload in subclasses'
   end
 
   def has_status?(status)

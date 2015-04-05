@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(login) = :value OR lower(email) = :value", { value: login.downcase }]).first
+      where(conditions).where(['lower(login) = :value OR lower(email) = :value', { value: login.downcase }]).first
     else
       where(conditions).first
     end
@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token.info
-    user = User.where(email: data["email"]).first
-    user || User.create!(name: data["name"],
-                        email: data["email"],
-                        login: data["email"].split('@').first,
+    user = User.where(email: data['email']).first
+    user || User.create!(name: data['name'],
+                        email: data['email'],
+                        login: data['email'].split('@').first,
                         password: Devise.friendly_token[0,20])
   end
 

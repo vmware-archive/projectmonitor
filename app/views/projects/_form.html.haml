@@ -1,14 +1,14 @@
 .form-group
-  = f.label :code, class: "col-sm-2 control-label"
+  = f.label :code, class: 'col-sm-2 control-label'
   .col-sm-1
-    = f.text_field :code, maxlength: 4, class: "form-control"
+    = f.text_field :code, maxlength: 4, class: 'form-control'
 .form-group
-  = f.label :name, class: "col-sm-2 control-label"
+  = f.label :name, class: 'col-sm-2 control-label'
   .col-sm-4
-    = f.text_field :name, class: "form-control"
+    = f.text_field :name, class: 'form-control'
 - if f.object.creator.present?
   .form-group
-    = f.label :creator, class: "col-sm-2 control-label"
+    = f.label :creator, class: 'col-sm-2 control-label'
     .col-sm-4
       %p.help-block
         = "#{f.object.creator.name} (#{f.object.creator.email})"
@@ -19,15 +19,15 @@
         = f.check_box :enabled
         Enabled?
 .form-group
-  = f.label :aggregate_project_id, "Aggregate Project", class: "col-sm-2 control-label"
+  = f.label :aggregate_project_id, 'Aggregate Project', class: 'col-sm-2 control-label'
   .col-sm-3
-    = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {prompt: false, disabled: lambda { |ap| !ap.enabled? }, include_blank: true}, class: "form-control")
+    = collection_select(:project, :aggregate_project_id, AggregateProject.all, :id, :name, {prompt: false, disabled: lambda { |ap| !ap.enabled? }, include_blank: true}, class: 'form-control')
 .form-group
   :javascript
     autocomplete("#project_tag_list", #{ ActsAsTaggableOn::Tag.all.map(&:name) });
-  = f.label :tag_list, "Tags", class: "col-sm-2 control-label"
+  = f.label :tag_list, 'Tags', class: 'col-sm-2 control-label'
   .col-sm-4
-    = f.text_field :tag_list, class: "form-control col-sm-4"
+    = f.text_field :tag_list, class: 'form-control col-sm-4'
   %p.help-block Separate with commas
 
 = render 'project_type', f: f
@@ -38,7 +38,7 @@
 %hr
   .row
     .col-sm-offset-2.col-sm-1
-      = submit_tag @project.new_record? ? "Create" : "Update", class: 'btn btn-primary'
+      = submit_tag @project.new_record? ? 'Create' : 'Update', class: 'btn btn-primary'
     .pull-right
       - if !@project.new_record?
         = link_to 'Remove Project', project_path(@project), data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-danger'

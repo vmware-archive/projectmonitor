@@ -21,6 +21,6 @@ class ProjectDecorator < Draper::Decorator
   # To know more about this method, see:
   #   http://api.rubyonrails.org/classes/ActiveModel/Conversion.html#method-i-to_partial_path
   def to_partial_path
-    "projects/project"
+    'projects/project'
   end
 end

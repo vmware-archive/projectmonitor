@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
   def create
     super
   rescue BCrypt::Errors::InvalidHash
-    flash[:error] = "The system has been upgraded, your password needs to be reset before logging in."
+    flash[:error] = 'The system has been upgraded, your password needs to be reset before logging in.'
     redirect_to new_user_password_path
   end
 

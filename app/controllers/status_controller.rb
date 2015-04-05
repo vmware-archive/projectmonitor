@@ -4,7 +4,7 @@ class StatusController < ApplicationController
   def create
     if project = Project.find_by_guid(params.delete(:project_id))
       payload = project.webhook_payload
-      payload.remote_addr = request.env["REMOTE_ADDR"]
+      payload.remote_addr = request.env['REMOTE_ADDR']
 
       params.merge!(parse_legacy_jenkins_notification) if is_legacy_jenkins_notification?(payload)
 
@@ -17,7 +17,7 @@ class StatusController < ApplicationController
         end
 
       log = PayloadProcessor.new(project_status_updater: StatusUpdater.new).process_payload(project: project, payload: payload)
-      log.update_method = "Webhooks"
+      log.update_method = 'Webhooks'
       log.save!
 
       project.save!
