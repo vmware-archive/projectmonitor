@@ -1,0 +1,12 @@
+development: &development
+  adapter: postgresql
+  database: projectmonitor_development
+  host: localhost
+
+test:
+  <<: *development
+  database: projectmonitor_test
+
+production:
+  <<: *development
+  database: projectmonitor_production

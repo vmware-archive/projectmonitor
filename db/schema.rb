@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20141104094442) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "aggregate_projects", force: true do |t|
     t.string   "name"
     t.boolean  "enabled",               default: true
@@ -74,6 +71,8 @@ ActiveRecord::Schema.define(version: 20141104094442) do
     t.integer  "build_id"
   end
 
+  add_index "project_statuses", ["project_id", "published_at"], name: "index_project_statuses_on_project_id_and_others", using: :btree
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.string   "deprecated_feed_url"
@@ -116,7 +115,7 @@ ActiveRecord::Schema.define(version: 20141104094442) do
     t.integer  "stories_to_accept_count"
     t.integer  "open_stories_count"
     t.string   "build_branch"
-    t.text     "iteration_story_state_counts",                       default: "{}"
+    t.text     "iteration_story_state_counts"
     t.integer  "creator_id"
     t.string   "deprecated_circleci_auth_token"
     t.string   "deprecated_circleci_project_name"

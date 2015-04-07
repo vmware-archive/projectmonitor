@@ -57,7 +57,7 @@ feature 'Projects API' do
       expect(project['stories_to_accept_count']).to be_nil
       expect(project['open_stories_count']).to be_nil
       expect(project['build_branch']).to be_nil
-      expect(project['iteration_story_state_counts']).to eq({})
+      expect(project['iteration_story_state_counts']).to eq(nil)
       expect(project['creator_id']).to be_nil
       expect(project['ci_auth_token']).to be_nil
       expect(project['circleci_project_name']).to be_nil

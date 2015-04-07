@@ -27,7 +27,7 @@ gem 'whenever', require: false
 gem 'rails-backbone', git: 'https://github.com/codebrew/backbone-rails', tag: 'v1.1.2'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'eco', '~> 1.0.0'
-gem 'pg', '>= 0.17.1'
+gem 'mysql2'
 gem 'eventmachine'
 gem 'em-http-request'
 gem 'newrelic_rpm'
