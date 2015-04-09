@@ -12,5 +12,4 @@ class AggregateProjectDecorator < Draper::Decorator
   def css_class
     "project #{status_in_words} aggregate"
   end
-
 end

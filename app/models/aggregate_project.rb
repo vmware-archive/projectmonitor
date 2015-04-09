@@ -6,7 +6,7 @@ class AggregateProject < ActiveRecord::Base
   scope :enabled, -> { where(enabled: true) }
   scope :with_statuses, -> { joins(projects: :statuses).uniq }
   scope :displayable, lambda { |tags = nil|
-    scope = enabled.joins(:projects).select("DISTINCT aggregate_projects.*").order('code ASC')
+    scope = enabled.joins(:projects).select('DISTINCT aggregate_projects.*').order('code ASC')
     return scope.tagged_with(tags, any: true) if tags
     scope
   }
@@ -39,7 +39,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def code
-    super.presence || name.downcase.gsub(" ", '')[0..3]
+    super.presence || name.downcase.gsub(' ', '')[0..3]
   end
 
   def status
@@ -86,6 +86,6 @@ class AggregateProject < ActiveRecord::Base
   def red_build_count
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:failure?)
-    red_project.statuses.where("id >= ?", red_project.breaking_build.id).count
+    red_project.statuses.where('id >= ?', red_project.breaking_build.id).count
   end
 end

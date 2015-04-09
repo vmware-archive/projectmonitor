@@ -1,13 +1,13 @@
 class Project::State
   def initialize(online: false, success: nil)
     state_text = if !online
-                   "offline"
+                   'offline'
                  elsif success == false
-                   "failure"
+                   'failure'
                  elsif success
-                   "success"
+                   'success'
                  else
-                   "indeterminate"
+                   'indeterminate'
                  end
     @state = ActiveSupport::StringInquirer.new(state_text)
   end
@@ -36,10 +36,10 @@ class Project::State
 
   def color
     {
-      "offline" => "white",
-      "success" => "green",
-      "failure" => "red",
-      "indeterminate" => "yellow"
+      'offline' => 'white',
+      'success' => 'green',
+      'failure' => 'red',
+      'indeterminate' => 'yellow'
     }[state.to_s]
   end
 

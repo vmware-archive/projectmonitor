@@ -2,23 +2,23 @@
 %fieldset#tracker_setup
   %h3 Tracker Setup
   .form-group
-    = f.label :tracker_project_id, "Tracker project id", class: "col-sm-2 control-label"
+    = f.label :tracker_project_id, 'Tracker project id', class: 'col-sm-2 control-label'
     .col-sm-4
-      = f.text_field :tracker_project_id, class: "form-control"
+      = f.text_field :tracker_project_id, class: 'form-control'
     %p.help-block
       %span#project_tracker_project_id_status
         %span.label.label-success.success.hide &#10004;
         %span.label.label-danger.failure.hide &#10008;
   .form-group
-    = f.label :tracker_auth_token, "Tracker auth token", class: "col-sm-2 control-label"
+    = f.label :tracker_auth_token, 'Tracker auth token', class: 'col-sm-2 control-label'
     .col-sm-4
-      = f.text_field :tracker_auth_token, class: "form-control"
+      = f.text_field :tracker_auth_token, class: 'form-control'
     %p.help-block
       %span#project_tracker_auth_token_status
         %span.label.label-success.success.hide &#10004;
         %span.label.label-danger.failure.hide &#10008;
   .form-group
-    = f.label :tracker_online, "Tracker status", class: "col-sm-2 control-label"
+    = f.label :tracker_online, 'Tracker status', class: 'col-sm-2 control-label'
     = f.hidden_field :tracker_online
     .col-sm-2#tracker_status
       %p.help-block

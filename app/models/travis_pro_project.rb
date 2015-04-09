@@ -1,5 +1,5 @@
 class TravisProProject < TravisProject
-  BASE_API_URL = "https://api.travis-ci.com"
+  BASE_API_URL = 'https://api.travis-ci.com'
 
   validates_presence_of :ci_auth_token, unless: ->(project) { project.webhooks_enabled }
 

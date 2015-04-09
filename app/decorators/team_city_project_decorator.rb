@@ -7,5 +7,4 @@ class TeamCityProjectDecorator < ProjectDecorator
       "#{object.ci_base_url}/viewType.html?buildTypeId=#{object.ci_build_identifier}"
     end
   end
-
 end

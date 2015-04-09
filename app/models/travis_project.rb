@@ -2,7 +2,7 @@ class TravisProject < Project
 
   validates_presence_of :travis_github_account, :travis_repository, unless: ->(project) { project.webhooks_enabled }
 
-  BASE_API_URL = "https://api.travis-ci.org"
+  BASE_API_URL = 'https://api.travis-ci.org'
 
   alias_attribute :build_status_url, :feed_url
   alias_attribute :project_name, :travis_github_account

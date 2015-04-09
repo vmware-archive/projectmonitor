@@ -9,5 +9,4 @@ class TeamCityRestProjectDecorator < ProjectDecorator
 
     object.url_with_scheme(url)
   end
-
 end

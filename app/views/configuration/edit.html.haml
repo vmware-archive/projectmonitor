@@ -2,12 +2,12 @@
   .panel-heading
     .h3 Configuration
   .panel-body
-    = label_tag :tag, "Filter by Tag:"
+    = label_tag :tag, 'Filter by Tag:'
     = select_tag(:tag, options_for_select(@tags.unshift('')))
     = hidden_field_tag(:current_tag, params[:tags])
 
-    = label_tag :polling_status, "Filter by Polling Status:"
-    = select_tag(:polling_status, options_for_select(["", "Successful", "Failed", "None", "Disabled"]))
+    = label_tag :polling_status, 'Filter by Polling Status:'
+    = select_tag(:polling_status, options_for_select(['', 'Successful', 'Failed', 'None', 'Disabled']))
 
     %hr
     %h4
@@ -29,13 +29,13 @@
           %th Actions
       %tbody
         - @projects.each do |project|
-          %tr{id: "project-#{project.id}", data: { tags: project.tag_list.to_json, "polling-status" => project_last_status_text(project)}}
+          %tr{id: "project-#{project.id}", data: { tags: project.tag_list.to_json, 'polling-status' => project_last_status_text(project)}}
             %td= h project.code
             %td= h project.name
             %td
               = content_tag 'span', title: "#{project.feed_url}#{project.has_auth? ? ' (under auth)' : ''}" do
                 = t("project_types.#{project.class.name.underscore}")
-                = image_tag("icons/lock.png") if project.has_auth?
+                = image_tag('icons/lock.png') if project.has_auth?
             %td.text-center
               - if project.enabled?
                 ✓
@@ -43,20 +43,20 @@
                 %span{style: "color: #AA1224;"} ✕
               %td
                 = project_last_status(project)
-            %td.text-center= project.aggregate_project.present? ? project.aggregate_project.name : ""
+            %td.text-center= project.aggregate_project.present? ? project.aggregate_project.name : ''
             %td.tag_list
               - project.tag_list.each do |tag|
                 = link_to tag, root_path({tags: tag})
-            %td.age= project.updated_at.present? ? time_ago_in_words(project.updated_at) : "N/A"
-            %td.webhooks.text-center= project.webhooks_enabled ? "✓" : "✕"
+            %td.age= project.updated_at.present? ? time_ago_in_words(project.updated_at) : 'N/A'
+            %td.webhooks.text-center= project.webhooks_enabled ? '✓' : '✕'
             %td.actions
-              = link_to 'Edit', edit_project_path(project), class: "btn btn-xs btn-default"
-              = link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-default"
+              = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
+              = link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default'
 
     %hr
     %h4
       Aggregate Projects
-      = link_to 'Add Aggregate Project +', new_aggregate_project_path, class: "btn btn-primary btn-xs"
+      = link_to 'Add Aggregate Project +', new_aggregate_project_path, class: 'btn btn-primary btn-xs'
     - unless @aggregate_projects.empty?
       %table.projects.table.table-striped.table-hover
         %thead
@@ -69,16 +69,16 @@
             %th Actions
         %tbody
           - for aggregate_project in @aggregate_projects
-            %tr{id: "aggregate-project-#{aggregate_project.id}", data: { tags: aggregate_project.tag_list.to_json, "polling-status" => "" }}
+            %tr{id: "aggregate-project-#{aggregate_project.id}", data: { tags: aggregate_project.tag_list.to_json, 'polling-status' => '' }}
               %td= h aggregate_project.name
               %td.text-center
                 - if aggregate_project.enabled?
                   ✓
                 - else
-                  %span{style: "color: #AA1224;"} ✕
+                  %span{style: 'color: #AA1224;'} ✕
               %td.tag_list= aggregate_project.tag_list
               %td.count= aggregate_project.projects.count
-              %td.age= aggregate_project.updated_at.present? ? time_ago_in_words(aggregate_project.updated_at) : "N/A"
+              %td.age= aggregate_project.updated_at.present? ? time_ago_in_words(aggregate_project.updated_at) : 'N/A'
               %td.actions
-                = link_to 'Edit', edit_aggregate_project_path(aggregate_project), class: "btn btn-xs btn-default"
-                = link_to 'Delete', aggregate_project_path(aggregate_project), method: :delete, class:"btn btn-xs btn-default"
+                = link_to 'Edit', edit_aggregate_project_path(aggregate_project), class: 'btn btn-xs btn-default'
+                = link_to 'Delete', aggregate_project_path(aggregate_project), method: :delete, class:'btn btn-xs btn-default'
