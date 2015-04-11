@@ -1,6 +1,6 @@
 namespace "truncate" do
-  TRUNCATE_DEFAULT_DURATION = 3
-  TRUNCATE_DEFAULT_COUNT = 15
+  TRUNCATE_DEFAULT_DURATION = 1
+  TRUNCATE_DEFAULT_COUNT = 2
 
   desc "Truncate Payload Log Entries that are older than a certain date or successful (Default: #{TRUNCATE_DEFAULT_DURATION} days ago)"
   task :payload_log_entries, [:duration] => :environment do |task, args|
