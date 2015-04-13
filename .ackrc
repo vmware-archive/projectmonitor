@@ -1,0 +1,5 @@
+--ignore-dir=log
+--ignore-dir=tmp
+--ignore-dir=.idea
+--ignore-file=match:tags
+--ignore-file=match:gems.tags

@@ -1,7 +1,7 @@
 pairs:
+  ad: Anthony Dreessen; adreessen
   ak: Alex Kwiatkowski; akwiatkowski
   ap: Andy Pliszka; apliszka
-  ad: Anthony Dreessen; adreessen
   ark: Andrew Kitchen; akitchen
   bb: Brian Butz; bbutz
   bg: Bryan Goldstein; bgoldstein
@@ -15,12 +15,13 @@ pairs:
   eg: Edgar Gonzalez; edgar
   gs: Graham Siener; gsiener
   jam: Joe Masilotti; jmasilotti
+  britz: Johnathon Britz; jbritz
   jb: Jonathan Berger; jonathanpberger
   jm: Jonathan Mukai-Heidt; jmukai
+  jn: Jordi Noguera; jordi
   jr: John Ryan; jryan
   js: Jeff Saracco; jeff
   jt: JT Archie ; jarchie
-  jn: Jordi Noguera; jordi
   lg: Lauren Gilchrist; lgilchrist
   lk: Lenny Koepsell; lkoepsell
   lm: Lucas Marks; lmarks
@@ -35,10 +36,10 @@ pairs:
   rm: Ryan Moran; rmoran
   rpw: Ross Popoff-Walker; rpw
   se: Steve Ellis; sellis
+  sr: Sid Raval; sraval
   ss: Sabrina Staedt; sstaedt
   tj: Tim Johnson; tjohnson
   wp: Ward Penney; wp
-  sr: Sid Raval; sraval
   yn: Yuki Nishijima; ynishijima
 
 email:
