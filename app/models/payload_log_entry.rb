@@ -1,6 +1,8 @@
 class PayloadLogEntry < ActiveRecord::Base
   belongs_to :project
-  after_create :remove_duplicates
+  after_create :purge_old_logs
+
+  LOG_ENTRIES_TO_KEEP = 20
 
   default_scope { order('created_at DESC') }
   scope :reverse_chronological, -> () { order('created_at DESC') }
@@ -13,13 +15,8 @@ class PayloadLogEntry < ActiveRecord::Base
     "#{update_method} #{status}"
   end
 
-  def remove_duplicates
-    if status == 'failed'
-      PayloadLogEntry.where(project_id: project_id).order(created_at: :asc).limit(2).each do |entry|
-        if entry.id != id && entry.status == 'failed' && entry.error_text == error_text
-          entry.delete()
-        end
-      end
-    end
+  def purge_old_logs
+     payloads = PayloadLogEntry.where(project_id: project_id).order(created_at: :desc).limit(LOG_ENTRIES_TO_KEEP)
+     PayloadLogEntry.where("created_at < ? and project_id = ?", payloads.last.created_at, project_id).delete_all
   end
 end

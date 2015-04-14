@@ -265,13 +265,11 @@ GEM
       sass-rails (>= 3.2)
     pivotal-tracker (0.5.12)
       builder
-      builder
       crack
       happymapper (>= 0.3.2)
       nokogiri (>= 1.4.3)
       nokogiri (>= 1.5.5)
       nokogiri-happymapper (>= 0.5.4)
-      rest-client (~> 1.6.0)
       rest-client (~> 1.6.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
