@@ -10,4 +10,5 @@ module Clockwork
 
   every(1.day, 'truncate:payload_log_entries')
   every(1.day, 'truncate:project_statuses[1000]')
+  every(1.minute, 'trim_payload_log_entries')
 end

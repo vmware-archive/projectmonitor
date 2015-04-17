@@ -1,6 +1,7 @@
 class CF_deploy
   require 'cf_authenticator'
   require 'cf_git_tagger'
+  require 'io/console'
 
   def initialize(stdin, stdout, org, space, env, cf_authenticator = CF_authenticator.new(), cf_git_tagger = CF_git_tagger.new())
     if env == nil or env == ''
