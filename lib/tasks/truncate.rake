@@ -14,12 +14,9 @@ namespace "truncate" do
     PayloadLogEntry.where("status = 'successful'").delete_all
   end
 
-  desc "Truncate Project Statuses down to a smaller number (Default: #{TRUNCATE_DEFAULT_COUNT})"
+  desc "Truncate Project Statuses for each project down to a given number (Default: #{TRUNCATE_DEFAULT_COUNT})"
   task :project_statuses, [:count] => :environment do |task, args|
     count = (args[:count] ? args[:count].to_i : TRUNCATE_DEFAULT_COUNT)
-    Project.all.map do |proj|
-      latest_statuses = proj.statuses.order('created_at DESC').limit(count)
-      proj.statuses.where(['id NOT IN (?)', latest_statuses.collect(&:id)]).delete_all
-    end
+    ProjectStatusesTrimmer.run(count)
   end
 end
