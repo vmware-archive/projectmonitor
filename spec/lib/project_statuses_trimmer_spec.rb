@@ -14,7 +14,7 @@ describe ProjectStatusesTrimmer do
   end
 
   it 'reduces the number of project statuses to the newest N requested amount for each project' do
-    subject.run(10)
+    ProjectStatusesTrimmer.run(10)
     expect(ProjectStatus.count).to eq(35)
   end
 end
