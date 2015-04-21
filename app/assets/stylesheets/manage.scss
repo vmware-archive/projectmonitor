@@ -51,6 +51,17 @@ $font_family_base: $pivotal_font_family;
   }
 }
 
-table.projects thead tr th {
-  border-bottom: 0px solid black;
+table.projects {
+  thead tr {
+    border-bottom: 0px solid black;
+  }
+  th {
+    border-bottom: 0px solid black;
+  }
+  th, td {
+    padding: 2px 10px;
+  }
+  th:first-child, td:first-child {
+    padding-left: 0;
+  }
 }
