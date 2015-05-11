@@ -1,0 +1,61 @@
+{
+    "payload": {
+        "dont_build": null,
+        "committer_name": "A Committer",
+        "usage_queued_at": "2013-10-15T08:47:30.007Z",
+        "branch": "master",
+        "body": "",
+        "author_date": "1381826832",
+        "node": [
+            {
+                "username": "ubuntu",
+                "ssh_enabled": null,
+                "port": 64593,
+                "public_ip_addr": "54.205.161.69"
+            }
+        ],
+        "committer_date": "1381826832",
+        "retries": null,
+        "parallel": 1,
+        "committer_email": "committer@example.com",
+        "build_time_millis": 80579,
+        "why": "github",
+        "author_email": "committer@example.com",
+        "ssh_enabled": null,
+        "start_time": "2013-10-15T08:47:30.089Z",
+        "stop_time": "2013-10-15T08:48:50.668Z",
+        "lifecycle": "finished",
+        "user": {
+            "is_user": true,
+            "login": "auser",
+            "name": "A User",
+            "email": "user@example.com"
+        },
+        "subject": "Commit Message",
+        "messages": [ ],
+        "job_name": null,
+        "retry_of": null,
+        "previous_successful_build": {
+            "build_time_millis": 78602,
+            "status": "success",
+            "build_num": 171
+        },
+        "outcome": "success",
+        "status": "success",
+        "vcs_revision": "15711e8d52fdb1b76b5bc12bbe715feac08a7bc5",
+        "build_num": 172,
+        "vcs_url": "https://github.com/auser/project",
+        "timedout": false,
+        "previous": {
+            "build_time_millis": 78602,
+            "status": "success",
+            "build_num": 171
+        },
+        "canceled": false,
+        "infrastructure_fail": false,
+        "failed": null,
+        "build_url": "https://circleci.com/gh/auser/project/172",
+        "author_name": "Committer",
+        "queued_at": "2013-10-15T08:47:30.035Z"
+    }
+}

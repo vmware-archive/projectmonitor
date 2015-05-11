@@ -12,6 +12,10 @@ class CircleCiPayload < Payload
     convert_json_content!(raw_content)
   end
 
+  def convert_webhook_content!(raw_content)
+    Array.wrap(JSON.parse(raw_content)['payload'])
+  end
+
   def parse_success(content)
     content['outcome'] == 'success'
   end
