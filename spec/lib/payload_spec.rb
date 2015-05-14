@@ -14,4 +14,9 @@ describe Payload do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe '#build_branch_matches anything by default' do
+    subject { super().build_branch_matches('anything')}
+    it { is_expected.to eq(true) }
+  end
 end

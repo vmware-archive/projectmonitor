@@ -37,4 +37,8 @@ class CircleCiPayload < Payload
     end
   end
 
+  def build_branch_matches(branch_name)
+    !!(/#{branch_name}/ =~ status_content.first['branch'])
+  end
+
 end

@@ -8,6 +8,9 @@ class PayloadProcessor
   def process_payload(project: nil, payload: nil)
     self.project = project
     self.payload = payload
+
+    return unless payload.build_branch_matches (project.build_branch.presence || 'master')
+
     add_statuses
     update_building_status
     payload_log

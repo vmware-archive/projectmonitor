@@ -41,4 +41,14 @@ describe CircleCiPayload do
       expect(webhook_content.first.keys).to include 'committer_name', 'build_url'
     end
   end
+
+  describe '#build_branch_matches' do
+    it 'calls a regex based on input branch_name' do
+      result = payload.build_branch_matches 'mas.*'
+      expect(result).to eq(true)
+
+      result = payload.build_branch_matches 'staging'
+      expect(result).to eq(false)
+    end
+  end
 end
