@@ -23,7 +23,4 @@ class CruiseControlProject < Project
     CruiseControlXmlPayload.new(name)
   end
 
-  def webhook_payload
-    CruiseControlXmlPayload.new(name)
-  end
 end

@@ -26,8 +26,6 @@ class TravisProject < Project
     end
   end
 
-  alias_method :webhook_payload, :fetch_payload
-
   def requires_branch_name?
     true
   end

@@ -178,6 +178,10 @@ class Project < ActiveRecord::Base
     name.match(/(.*)Project/)[1].underscore
   end
 
+  def webhook_payload
+    fetch_payload
+  end
+  
   private
 
   def trim_urls_and_tokens
@@ -193,4 +197,5 @@ class Project < ActiveRecord::Base
   def fetch_statuses
     Delayed::Job.enqueue(StatusFetcher::Job.new(self), priority: 0)
   end
+
 end

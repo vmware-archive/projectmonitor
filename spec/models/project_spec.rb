@@ -595,4 +595,10 @@ describe Project, :type => :model do
       it { is_expected.to be_nil }
     end
   end
+
+  it "has a webhook_payload method" do
+    Project.subclasses.each { |project_class|
+      expect(project_class.method_defined? :webhook_payload).to be(true), "#{project_class} is a Project subclass that does not have a required 'webhook_payload' method defined."
+    }
+  end
 end

@@ -21,5 +21,4 @@ class CodeshipProject < Project
     CodeshipPayload.new(ci_build_identifier, build_branch)
   end
 
-  alias_method :webhook_payload, :fetch_payload
 end
