@@ -1,59 +1,62 @@
-[
 {
-  "dont_build" : null,
-  "committer_name" : "Committer",
-  "usage_queued_at" : "2013-10-11T13:34:58.516Z",
-  "branch" : "master",
-  "body" : "",
-  "author_date" : "1381498483",
-  "node" : [ {
-    "username" : "ubuntu",
-    "ssh_enabled" : null,
-    "port" : 64707,
-    "public_ip_addr" : "54.234.236.40"
-  } ],
-  "committer_date" : "1381498483",
-  "retries" : [ 161 ],
-  "parallel" : 1,
-  "committer_email" : "committer@example.com",
-  "build_time_millis" : 58238,
-  "why" : "github",
-  "author_email" : "committer@example.com",
-  "ssh_enabled" : null,
-  "start_time" : "2013-10-11T13:35:00.532Z",
-  "stop_time" : "2013-10-11T13:35:58.770Z",
-  "lifecycle" : "finished",
-  "user" : {
-    "is_user" : true,
-    "login" : "auser",
-    "name" : "A User",
-    "email" : "auser@example.com"
-  },
-  "subject" : "Bad Commit",
-  "messages" : [ ],
-  "job_name" : null,
-  "retry_of" : null,
-  "previous_successful_build" : {
-    "build_time_millis" : 91977,
-    "status" : "success",
-    "build_num" : 159
-  },
-  "outcome" : "failed",
-  "status" : "failed",
-  "vcs_revision" : "f9ee87bed057a5b631d6e1a0ad5ad7fb23e01659",
-  "build_num" : 160,
-  "vcs_url" : "https://github.com/auser/project",
-  "timedout" : false,
-  "previous" : {
-    "build_time_millis" : 91977,
-    "status" : "success",
-    "build_num" : 159
-  },
-  "canceled" : false,
-  "infrastructure_fail" : false,
-  "failed" : true,
-  "build_url" : "https://circleci.com/gh/auser/project/160",
-  "author_name" : "Committer",
-  "queued_at" : "2013-10-11T13:34:58.564Z"
+  "payload": {
+
+    "dont_build": null,
+    "committer_name": "Committer",
+    "usage_queued_at": "2013-10-11T13:34:58.516Z",
+    "branch": "master",
+    "body": "",
+    "author_date": "1381498483",
+    "node": [
+      {
+        "username": "ubuntu",
+        "ssh_enabled": null,
+        "port": 64707,
+        "public_ip_addr": "54.234.236.40"
+      }
+    ],
+    "committer_date": "1381498483",
+    "retries": [ 161 ],
+    "parallel": 1,
+    "committer_email": "committer@example.com",
+    "build_time_millis": 58238,
+    "why": "github",
+    "author_email": "committer@example.com",
+    "ssh_enabled": null,
+    "start_time": "2013-10-11T13:35:00.532Z",
+    "stop_time": "2013-10-11T13:35:58.770Z",
+    "lifecycle": "finished",
+    "user": {
+      "is_user": true,
+      "login": "auser",
+      "name": "A User",
+      "email": "auser@example.com"
+    },
+    "subject": "Bad Commit",
+    "messages": [ ],
+    "job_name": null,
+    "retry_of": null,
+    "previous_successful_build": {
+      "build_time_millis": 91977,
+      "status": "success",
+      "build_num": 159
+    },
+    "outcome": "failed",
+    "status": "failed",
+    "vcs_revision": "f9ee87bed057a5b631d6e1a0ad5ad7fb23e01659",
+    "build_num": 160,
+    "vcs_url": "https://github.com/auser/project",
+    "timedout": false,
+    "previous": {
+      "build_time_millis": 91977,
+      "status": "success",
+      "build_num": 159
+    },
+    "canceled": false,
+    "infrastructure_fail": false,
+    "failed": true,
+    "build_url": "https://circleci.com/gh/auser/project/160",
+    "author_name": "Committer",
+    "queued_at": "2013-10-11T13:34:58.564Z"
+  }
 }
-]
