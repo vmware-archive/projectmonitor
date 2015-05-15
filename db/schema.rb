@@ -11,16 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104094442) do
+ActiveRecord::Schema.define(version: 20150515205647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "btree_gin"
+  enable_extension "btree_gist"
+  enable_extension "citext"
+  enable_extension "cube"
+  enable_extension "dblink"
+  enable_extension "dict_int"
+  enable_extension "dict_xsyn"
+  enable_extension "earthdistance"
+  enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
+  enable_extension "intarray"
+  enable_extension "ltree"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
+  enable_extension "pgrowlocks"
+  enable_extension "pgstattuple"
+  enable_extension "tablefunc"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
+  enable_extension "xml2"
 
   create_table "aggregate_projects", force: true do |t|
     t.string   "name"
     t.boolean  "enabled",               default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "code"
     t.string   "location",   limit: 20
   end
@@ -34,24 +55,30 @@ ActiveRecord::Schema.define(version: 20141104094442) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "deprecated_sf_users_backup_20130220", id: false, force: true do |t|
+    t.integer "id"
+    t.string  "login", limit: 40
+    t.string  "email", limit: 100
+  end
+
   create_table "external_dependencies", force: true do |t|
     t.string   "name"
     t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "raw_response"
   end
 
   create_table "payload_log_entries", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "project_id"
     t.string   "status"
     t.string   "update_method"
