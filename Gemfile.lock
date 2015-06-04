@@ -471,3 +471,6 @@ DEPENDENCIES
   vcr (~> 2.9.3)
   webmock (~> 1.20.0)
   whenever
+
+BUNDLED WITH
+   1.10.2
