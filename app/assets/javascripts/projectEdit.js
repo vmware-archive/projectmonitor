@@ -85,7 +85,25 @@ var ProjectEdit = {};
 
   o.handleProjectTypeChange = function () {
     var val = $(this).val();
+    o.setProjectTypeVisibility(val);
+    var $buildSetup = $('#build_setup');
 
+
+    var $webhooks_enabled = $buildSetup.find('#project_webhooks_enabled_true');
+    var $webhooks_disabled = $buildSetup.find('#project_webhooks_enabled_false');
+
+    $webhooks_enabled.prop('disabled', val == "TddiumProject");
+
+    $webhooks_enabled.prop('checked', false);
+    $webhooks_disabled.prop('checked', false);
+
+    if (val == "TddiumProject") {
+      $webhooks_disabled.prop('checked', true);
+    }
+    o.toggleWebhooks();
+  }
+
+  o.setProjectTypeVisibility = function (val) {
     var $disabled_fieldsets = $('.project-attributes', $('#field_container'));
     $disabled_fieldsets.addClass('hide');
     $(':input', $disabled_fieldsets).attr('disabled', true);
@@ -94,31 +112,18 @@ var ProjectEdit = {};
     $enabled_fieldset.removeClass('hide');
     $(':input', $enabled_fieldset).attr('disabled', false);
 
-    var use_feed = _.contains(["TravisProject", "TravisProProject", "SemaphoreProject", "CircleCiProject"], val);
-    $('#branch_name').toggleClass('hide', !use_feed);
-    $('#field_container').toggleClass('hide', !use_feed);
-
-    var $buildSetup = $('#build_setup');
-    var $webhooks_enabled = $buildSetup.find('#project_webhooks_enabled_true');
-    var $webhooks_disabled = $buildSetup.find('#project_webhooks_enabled_false');
-
-    $webhooks_enabled.prop('disabled', val == "TddiumProject");
-    $webhooks_enabled.prop('checked', false);
-    $webhooks_disabled.prop('checked', false);
-
-    if (val == "TddiumProject") {
-      $webhooks_disabled.prop('checked', true);
-    }
+    var use_feed = !(_.contains(["TravisProject", "TravisProProject", "SemaphoreProject", "CircleCiProject"], val));
+    $('#branch_name').toggleClass('hide', use_feed);
+    $('#field_container').toggleClass('hide', use_feed);
 
     if (val == "CodeshipProject") {
       $('#field_container').removeClass('hide');
       $('#branch_name').removeClass('hide');
     }
 
-    $('.auth_field').toggleClass('hide', use_feed);
+    $('.auth_field').toggleClass('hide', !use_feed);
 
-    o.toggleWebhooks();
-  };
+  }
 
   o.setProviderSpecificVisibility = function () {
     $('.provider-specific').addClass('hide');
@@ -255,6 +260,8 @@ var ProjectEdit = {};
     $('#change_password a').click(showPasswordField);
 
     $(document).ready(o.setProviderSpecificVisibility); // To handle redirect back to page after following link
+
+    o.setProjectTypeVisibility($('#project_type').val());
 
     if ($('input[name="project[webhooks_enabled]"]').length > 0) { o.toggleWebhooks(); }
 

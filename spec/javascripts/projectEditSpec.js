@@ -249,8 +249,10 @@ describe("project edit", function () {
         '    <input id="project_ci_base_url" name="project[ci_base_url]">' +
         '    <input id="project_tddium_project_name" name="project[tddium_project_name]" placeholder="repo_name (branch_name)" size="30" type="text">' +
         '  </div>' +
-        '  <input id="project_auth_username" name="project[auth_username]" type="text">' +
-        '  <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
+        '  <div class="auth_field">' +
+        '    <input id="project_auth_username" name="project[auth_username]" type="text">' +
+        '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
+        '  </div>' +
         '</div>' +
         '<fieldset id="polling">' +
         '  <input id="project_online" name="project[online]" type="hidden"/>' +
@@ -272,6 +274,16 @@ describe("project edit", function () {
         '<div class="hide provider-specific JenkinsProject"></div>' +
         '<div class="provider-specific CruiseControlProject"></div>'
       );
+    });
+
+    describe("initial form load", function () {
+      beforeEach(function () {
+        $('#project_type').val('TravisProject');
+        ProjectEdit.init();
+      });
+      it("hides the auth (feed) fields", function () {
+        expect($('.auth_field').hasClass('hide')).toBeTruthy();
+      });
     });
 
     describe("changing available inputs", function () {
