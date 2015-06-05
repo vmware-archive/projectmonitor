@@ -16,8 +16,6 @@ var ProjectFilters = {};
     var tag = $tagSelect.val();
     var pollingStatus = $pollingStatusSelect.val();
 
-    console.log(tag, pollingStatus);
-
     _.each($projectTable.find("tbody tr"), function(tr) {
       $(tr).show();
 

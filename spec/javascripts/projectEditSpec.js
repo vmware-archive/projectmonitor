@@ -92,7 +92,7 @@ describe("project edit", function () {
             it("should show the error message", function () {
               expect($('.error-message')).not.toHaveClass('hide');
             });
-            
+
           });
 
           describe("when project id is invalid", function () {
@@ -292,26 +292,26 @@ describe("project edit", function () {
       });
     });
 
-    describe("changing the provider type to a non-empty value", function() {
+    describe("changing the provider type to a non-empty value", function () {
       beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('JenkinsProject').change();
       });
-      it("unhides elements with provider-specific class and the project name class", function() {
+      it("unhides elements with provider-specific class and the project name class", function () {
         expect($('.provider-specific.JenkinsProject').hasClass('hide')).toBeFalsy();
       });
-      it("hides the previously visible provider-specific class and leaves the others alone", function() {
+      it("hides the previously visible provider-specific class and leaves the others alone", function () {
         expect($('.provider-specific.TddiumProject').hasClass('hide')).toBeTruthy();
         expect($('.provider-specific.CruiseControlProject').hasClass('hide')).toBeTruthy();
       });
     });
 
-    describe("changing the provider type to an empty value", function() {
+    describe("changing the provider type to an empty value", function () {
       beforeEach(function () {
         ProjectEdit.init();
         $('#project_type').val('').change();
       });
-      it("hides the previously visible provider-specific class and leaves the others alone", function() {
+      it("hides the previously visible provider-specific class and leaves the others alone", function () {
         expect($('.provider-specific.TddiumProject').hasClass('hide')).toBeTruthy();
         expect($('.provider-specific.CruiseControlProject').hasClass('hide')).toBeTruthy();
       });
@@ -479,8 +479,7 @@ describe("project edit", function () {
   });
   describe("toggling payload strategy", function () {
 
-
-    describe("when not a travis build", function () {
+    describe("when not project type that requires additional fields for webhooks", function () {
       beforeEach(function () {
         setFixtures(
           '<div id="project_type"></div>' +
@@ -508,36 +507,39 @@ describe("project edit", function () {
         expect($('#polling')).toHaveClass('hide');
         expect($('#field_container')).toHaveClass('hide');
       });
-    })
+    });
 
-    describe("when a travis build", function () {
+    describe("for project types which require the additional fields for webhooks", function () {
       beforeEach(function () {
         setFixtures('<div id="project_type"></div>' +
-        '<div id="field_container"></div>' +
-        '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
-        '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
-        '<fieldset id="webhook_url" /><fieldset id="polling" />')
-        $('#project_type').val("TravisProject")
-        ProjectEdit.init();
+          '<div id="field_container"></div>' +
+          '<input checked="checked" id="project_webhooks_enabled_true" name="project[webhooks_enabled]" type="radio" value="true">' +
+          '<input id="project_webhooks_enabled_false" name="project[webhooks_enabled]" type="radio" value="false">' +
+          '<fieldset id="webhook_url" /><fieldset id="polling" />');
       });
+      var projectTypes = ['TravisProject', 'TravisProProject', 'CodeshipProject'];
+      projectTypes.map(function (projectType) {
 
-      it("should toggle webhooks and polling when checked", function () {
-        expect($('#webhook_url')).not.toHaveClass('hide');
-        expect($('#polling')).toHaveClass('hide');
-        expect($('#field_container')).not.toHaveClass('hide');
+        it("should toggle webhooks and polling when checked", function () {
+          $('#project_type').val(projectType);
+          ProjectEdit.init();
+          expect($('#webhook_url')).not.toHaveClass('hide');
+          expect($('#polling')).toHaveClass('hide');
+          expect($('#field_container')).not.toHaveClass('hide');
 
-        $('input#project_webhooks_enabled_false').prop('checked', true);
-        $('input#project_webhooks_enabled_true').removeAttr('checked').change();
-        expect($('#webhook_url')).toHaveClass('hide');
-        expect($('#polling')).not.toHaveClass('hide');
-        expect($('#field_container')).not.toHaveClass('hide');
+          $('input#project_webhooks_enabled_false').prop('checked', true);
+          $('input#project_webhooks_enabled_true').removeAttr('checked').change();
+          expect($('#webhook_url')).toHaveClass('hide');
+          expect($('#polling')).not.toHaveClass('hide');
+          expect($('#field_container')).not.toHaveClass('hide');
 
-        $('input#project_webhooks_enabled_false').removeAttr('checked');
-        $('input#project_webhooks_enabled_true').prop('checked', true).change();
-        expect($('#webhook_url')).not.toHaveClass('hide');
-        expect($('#polling')).toHaveClass('hide');
-        expect($('#field_container')).not.toHaveClass('hide');
+          $('input#project_webhooks_enabled_false').removeAttr('checked');
+          $('input#project_webhooks_enabled_true').prop('checked', true).change();
+          expect($('#webhook_url')).not.toHaveClass('hide');
+          expect($('#polling')).toHaveClass('hide');
+          expect($('#field_container')).not.toHaveClass('hide');
+        });
       });
-    })
+    });
   });
 });
