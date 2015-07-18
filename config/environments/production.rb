@@ -11,6 +11,6 @@ ProjectMonitor::Application.configure do
   config.assets.compress = true
   config.assets.digest = true
 
-  config.log_formatter = ::Logger::Formatter.new
+  config.logger = Logger.new(STDOUT)
   config.log_level = :info
 end

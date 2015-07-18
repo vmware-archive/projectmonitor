@@ -188,6 +188,19 @@ like so:
 
 ## Deployment
 
+### Cloud Foundry
+To deploy to staging:
+
+```
+cf push -f ./config/cf/manifest-staging.yml
+```
+
+To deploy to production:
+
+```
+cf push -f ./config/cf/manifest-production.yml
+```
+
 ### Heroku
 To get running on Heroku, after you have cloned and bundled, run the following commands:
 
