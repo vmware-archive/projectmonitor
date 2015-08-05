@@ -511,7 +511,7 @@ describe Project, :type => :model do
     context "when a ConcourseProject" do
       let(:project_class) { ConcourseProject }
 
-      it { is_expected.to match_array(['ci_base_url', 'ci_build_identifier']) }
+      it { is_expected.to match_array(['ci_base_url', 'ci_build_identifier', 'concourse_pipeline_name']) }
     end
 
     context "when a CircleCiProject" do

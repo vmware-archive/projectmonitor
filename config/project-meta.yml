@@ -21,6 +21,8 @@ labels:
     codeship_project: "Project ID"
   ci_auth_token:
     tddium_project: "Tddium Authentication Token"
+  concourse_pipeline_name:
+    concourse_project: "Pipeline Name"
 
 tooltips:
   ci_auth_token:
