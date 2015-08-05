@@ -6,7 +6,7 @@ describe('GithubRefresh.init', function () {
       (github.hasClass('unreachable') ? 1 : 0) +
       (github.hasClass('impaired') ? 1 : 0);
     expect(classCount).toBe(1);
-  };
+  }
 
   beforeEach(function () {
     var fixtures = [
