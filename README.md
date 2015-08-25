@@ -201,6 +201,16 @@ To deploy to production:
 cf push -f ./config/cf/manifest-production.yml
 ```
 
+You can specify the admin credentials by editing the `env` section in your manifest:
+```
+applications:
+- name: project-monitor-production
+  env:
+    PROJECT_MONITOR_LOGIN: REPLACE_WITH_ADMIN_LOGIN
+    PROJECT_MONITOR_EMAIL: REPLACE_WITH_ADMIN_EMAIL
+    PROJECT_MONITOR_PASSWORD: REPLACE_WITH_ADMIN_PASSWORD
+```
+
 ### Heroku
 To get running on Heroku, after you have cloned and bundled, run the following commands:
 
