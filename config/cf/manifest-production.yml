@@ -8,7 +8,6 @@ applications:
   command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   services:
   - db-production
-  - logentries-production-web
 - name: project-monitor-production-worker
   memory: 512M
   instances: 1
@@ -17,7 +16,6 @@ applications:
   no-route: true
   services:
   - db-production
-  - logentries-production-worker
 - name: project-monitor-production-clockwork
   memory: 512M
   instances: 1
@@ -26,7 +24,6 @@ applications:
   no-route: true
   services:
   - db-production
-  - logentries-production-clockwork
 - name: project-monitor-production-poller
   memory: 1024M
   instances: 1
@@ -35,4 +32,3 @@ applications:
   no-route: true
   services:
   - db-production
-  - logentries-production-poller
