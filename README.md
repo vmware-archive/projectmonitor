@@ -27,6 +27,10 @@ projects Pivotal Labs maintains (such as Jasmine) and of non-Pivotal projects
 
 [![](http://f.cl.ly/items/2R2U392y1D2B033I0z3J/Screen%20Shot%202013-04-02%20at%208.27.44%20PM.png)](http://ci.pivotallabs.com)
 
+In practice, ProjectMonitor is often displayed on publicly-viewable monitors mounted to the wall. This provides transparency into the health of the build(s) that entire team can see at a glance. When a build goes red (fails), the next person or pair to finish their story can take a look at what broke before starting new work. If a build goes red a lot over a period of time, it can prompt a conversation about what isn't working.
+
+![ProjectMonitor in use](http://i.imgur.com/HRy31hX.jpg)
+
 ## Table of Contents
 
 1. [Installation](#installation)
@@ -51,7 +55,7 @@ ProjectMonitor is a Rails application. To get the code, execute the following:
     bundle install
 
 ### Initial Setup
-We have provided an example file for `database.yml`. Run the following to 
+We have provided an example file for `database.yml`. Run the following to
 automatically generate these files for you:
 
     rake setup
@@ -141,7 +145,7 @@ Now you need to add a project or two! Keep reading the *Configuration* section f
 ## Configuration
 
 Each build that you want ProjectMonitor to display is called a "project" in
-ProjectMonitor. You can log in to set up projects by clicking the "Manage Projects" 
+ProjectMonitor. You can log in to set up projects by clicking the "Manage Projects"
 link in the bottom-right corner of the main ProjectMonitor screen. You can either
 create a user using the console as follows:
 
@@ -204,14 +208,14 @@ cf push -f ./config/cf/manifest-production.yml
 ### Heroku
 To get running on Heroku, after you have cloned and bundled, run the following commands:
 
-NB: These instructions are for the basic authentication strategy. 
+NB: These instructions are for the basic authentication strategy.
 
     heroku create
     git push heroku master
     heroku run rake db:migrate
     heroku config:add REST_AUTH_SITE_KEY=<unique, private and long alphanumeric key, e.g. abcd1234edfg78910>
     heroku config:add REST_AUTH_DIGEST_STRETCHES=<count of number of times to apply the digest, 10 recommended>
-    heroku run console 
+    heroku run console
 
 When inside the console, run the creating a new user step above. You should then be able to access your server and start using it.
 
