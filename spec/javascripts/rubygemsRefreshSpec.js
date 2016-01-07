@@ -15,7 +15,7 @@ describe('RubyGemsRefresh.init', function() {
     jasmine.Ajax.uninstall();
   });
 
-  describe("when the status is bad", function() {
+  describe("when the status is critical", function() {
     it("shows the rubygems notification", function() {
       spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
@@ -25,7 +25,7 @@ describe('RubyGemsRefresh.init', function() {
         jasmine.clock().tick(30001);
         jasmine.Ajax.requests.mostRecent().response({
           status: 200,
-          responseText: "{\"status\": \"bad\"}"
+          responseText: "{\"status\": \"critical\"}"
         });
       }
 
@@ -35,7 +35,47 @@ describe('RubyGemsRefresh.init', function() {
     });
   });
 
-  describe("when the status is good", function() {
+  describe("when the status is major", function() {
+    it("shows the rubygems notification", function() {
+      spyOn(RubyGemsRefresh, "clearStatuses");
+      RubyGemsRefresh.init();
+      expect($(".rubygems")).toBeHidden();
+
+      for (var i=0; i < 4; i++) {
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
+          status: 200,
+          responseText: "{\"status\": \"major\"}"
+        });
+      }
+
+      expect($(".rubygems")).toBeVisible();
+      expect($(".rubygems")).toHaveClass('bad');
+      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
+    });
+  });
+
+  describe("when the status is minor", function() {
+    it("shows the rubygems impaired notification", function() {
+      spyOn(RubyGemsRefresh, "clearStatuses");
+      RubyGemsRefresh.init();
+      expect($(".rubygems")).toBeHidden();
+
+      for (var i=0; i < 4; i++) {
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
+          status: 200,
+          responseText: "{\"status\": \"minor\"}"
+        });
+      }
+
+      expect($(".rubygems")).toBeVisible();
+      expect($(".rubygems")).toHaveClass('impaired');
+      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
+    });
+  });
+
+  describe("when the status is none", function() {
     it("does not show the rubygems notification", function() {
       RubyGemsRefresh.init();
       $(".rubygems").show();
@@ -43,7 +83,7 @@ describe('RubyGemsRefresh.init', function() {
       jasmine.clock().tick(30001);
       jasmine.Ajax.requests.mostRecent().response({
         status: 200,
-        responseText: "{\"status\": \"good\"}"
+        responseText: "{\"status\": \"none\"}"
       });
       expect($(".rubygems")).toBeHidden();
     });
@@ -64,6 +104,25 @@ describe('RubyGemsRefresh.init', function() {
       }
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('unreachable');
+      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
+    });
+  });
+
+  describe("when rubygems is unparsable", function() {
+    it("shows page broken notification", function() {
+      spyOn(RubyGemsRefresh, "clearStatuses");
+      RubyGemsRefresh.init();
+      expect($(".rubygems")).toBeHidden();
+
+      for (var i=0; i < 4; i++) {
+        jasmine.clock().tick(30001);
+        jasmine.Ajax.requests.mostRecent().response({
+          status: 200,
+          responseText: "{\"status\": \"page broken\"}"
+        });
+      }
+      expect($(".rubygems")).toBeVisible();
+      expect($(".rubygems")).toHaveClass('broken');
       expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
     });
   });

@@ -41,16 +41,34 @@ describe ExternalDependency, :type => :model do
   end
 
   context 'rubygems status' do
-    it 'initialized an up status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<span class="status__subheading--up">UP</span>' }
+    it 'initialized an none status' do
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<div class="page-status status-none">All Systems Operational</div>' }
 
-      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"good\"}")
+      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"none\"}")
     end
 
-    it 'initialized a down status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<span class="status__subheading--down">DOWN</span>' }
+    it 'initialized a minor status' do
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<div class="page-status status-minor">Minor or something</div>' }
 
-      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"bad\"}")
+      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"minor\"}")
+    end
+
+    it 'initialized a major status' do
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<div class="page-status status-major">Major or something</div>' }
+
+      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"major\"}")
+    end
+
+    it 'initialized a critical status' do
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<div class="page-status status-critical">Critial or something</div>' }
+
+      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"critical\"}")
+    end
+
+    it 'initialized a page broken status' do
+      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'<div>Cannot find anything here</div>' }
+
+      expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"page broken\"}")
     end
 
     it 'initialized an unreachable status when it recieved no response' do
