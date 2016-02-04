@@ -17,7 +17,7 @@ notifications:
     - http://pulse.pivotallabs.com/projects/8b131d6e-a840-484a-8e95-fce826ec8a34/status
     on_start: true
 rvm:
-  - 2.0.0
+  - 2.3.0
 
 cache:
   bundler: true

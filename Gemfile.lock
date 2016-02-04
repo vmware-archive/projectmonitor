@@ -100,9 +100,7 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
-    did_you_mean (0.3.1)
-      binding_of_caller
-      text
+    did_you_mean (1.0.0)
     diff-lcs (1.2.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -130,7 +128,7 @@ GEM
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
-    eventmachine (1.0.3)
+    eventmachine (1.0.9.1)
     excon (0.40.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -201,7 +199,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jshint_on_rails (1.0.3)
-    json (1.8.1)
+    json (1.8.3)
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.9.2)
@@ -356,7 +354,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    text (1.2.3)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -467,4 +464,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.10.2
+   1.11.2
