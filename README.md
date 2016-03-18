@@ -87,8 +87,10 @@ behind a load balancer (e.g. on a hosted provider such as Heroku), you'll probab
 Project monitor uses [Devise](https://github.com/plataformatec/devise) to provide both database backed authentication and
 Google OAuth2 logins.
 
-Regular password authentication for managing project settings is enabled by default and can be switched off
-by setting the `password_auth_enabled` setting to `false`. To ensure strong
+Regular password authentication for managing project settings is enabled by default. 
+Run `rake db:seed` to create the default `admin`:`password` account.
+
+To switch off password auth, set `password_auth_enabled` setting to `false`. To ensure strong
 password encryption you should adjust the value for `password_auth_pepper` and
 `password_auth_stretches` appropriately.
 
