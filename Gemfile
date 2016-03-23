@@ -5,7 +5,6 @@ gem 'acts-as-taggable-on', '~> 3.4.2'
 gem 'airbrake', '~> 4.1.0'
 gem 'bourbon', '~> 3.2.3'
 gem 'choices', '~> 0.4.0'
-gem 'daemons', '~> 1.1.9'
 gem 'delayed_job_active_record', '~> 4.0.2'
 gem 'delayed_job_web', '~> 1.2.9'
 gem 'devise'
@@ -43,7 +42,6 @@ group :production do
 end
 
 group :test do
-  gem 'headless'
   gem 'vcr'
   gem 'webmock', '~> 1.20.0'
 end
@@ -54,11 +52,9 @@ group :development do
   gem 'heroku_san'
   gem 'guard-livereload'
   gem 'rb-fsevent', '~> 0.9.1'
-  gem 'ruby-prof'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'foreman', '~> 0.75.0'
   gem 'guard-ctags-bundler'
 end
@@ -71,7 +67,6 @@ group :test, :development do
   gem 'capybara', '~> 2.4.4'
   gem 'jasmine'
   gem 'jasmine-rails'
-  gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'guard', '~> 1.8.1'
   gem 'guard-coffeescript'
@@ -82,5 +77,4 @@ group :test, :development do
   gem 'pry'
   gem 'vagrant'
   gem 'timecop'
-  gem 'did_you_mean'
 end
