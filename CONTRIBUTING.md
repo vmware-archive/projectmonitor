@@ -4,7 +4,7 @@ This is the CONTRIBUTING.md for our project. Great to have you here. Have a look
 
 ## Resources
 
-Product Manager: [Graham Siener](mailto:gsiener@pivotallabs.com)  
+Product Manager: [Mike McCormick](mailto:mmccormick@pivotal.io)  
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs).  
 The public Tracker project for ProjectMonitor is [here](http://www.pivotaltracker.com/projects/2872).
 
