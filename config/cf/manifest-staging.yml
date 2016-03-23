@@ -5,10 +5,14 @@ applications:
   instances: 1
   host: project-monitor-staging
   path: ../../
-  command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  command: bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   services:
   - db-staging
   - logentries-staging-web
+  env:
+    PROJECT_MONITOR_LOGIN: REPLACE_WITH_ADMIN_LOGIN
+    PROJECT_MONITOR_EMAIL: REPLACE_WITH_ADMIN_EMAIL
+    PROJECT_MONITOR_PASSWORD: REPLACE_WITH_ADMIN_PASSWORD
 - name: project-monitor-staging-worker
   memory: 512M
   instances: 1
