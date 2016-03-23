@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.3.0'
 
 gem 'acts-as-taggable-on', '~> 3.4.2'
 gem 'airbrake', '~> 4.1.0'
@@ -21,10 +21,10 @@ gem 'nokogiri', '~> 1.6.3.1'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'pivotal-tracker'
-gem 'rails', '4.0.11'
+gem 'rails', '~> 4.1.14'
 gem 'rake'
 gem 'whenever', require: false
-gem 'rails-backbone', git: 'https://github.com/codebrew/backbone-rails', tag: 'v1.1.2'
+gem 'rails-backbone'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'eco', '~> 1.0.0'
 gem 'pg', '>= 0.17.1'
@@ -44,7 +44,7 @@ end
 
 group :test do
   gem 'headless'
-  gem 'vcr', '~> 2.9.3'
+  gem 'vcr'
   gem 'webmock', '~> 1.20.0'
 end
 
@@ -66,16 +66,17 @@ end
 group :test, :development do
   gem 'launchy'
   gem 'jshint_on_rails'
-  gem 'rspec-rails', '~> 3.1.0'
-  gem 'shoulda-matchers'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', '~> 2.7.0'
   gem 'capybara', '~> 2.4.4'
   gem 'jasmine'
   gem 'jasmine-rails'
   gem 'selenium-webdriver', '>= 2.25.0' # NOTE: selenium-webdriver >= 2.25.0 is needed for the latest Firefox
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'guard', '~> 1.8.1'
   gem 'guard-coffeescript'
   gem 'database_cleaner'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '~>1.3.1'
   gem 'pry-nav'
   gem 'pry-rails'
   gem 'pry'
