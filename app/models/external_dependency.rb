@@ -26,11 +26,11 @@ class ExternalDependency
 
       begin
         doc = Nokogiri::HTML(UrlRetriever.new('http://status.rubygems.org/').retrieve_content)
-        page_status = doc.at_css("span[class^='status__subheading']")
+        page_status = doc.at_css("div[class^='page-status']")
 
-        if page_status['class'].include? 'up'
+        if page_status['class'].include? 'status-none'
           output[:status] = 'good'
-        elsif page_status['class'].include? 'down'
+        elsif page_status['class'].include? 'status'
           output[:status] = 'bad'
         else
           output[:status] = 'page broken'
