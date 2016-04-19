@@ -15,21 +15,21 @@ var RubyGemsRefresh = (function () {
         timeout: (pollIntervalSeconds - 1) * 1000,
         success: function(response) {
           var status = response.status;
-          if(status == 'good') {
+          if(status == 'none') {
             $rubygemsTile.slideUp();
             failureCount = 0;
           }
           else {
             failureCount++;
             if (failureCount >= failureThreshold) {
-              if (status == 'bad') {
-                RubyGemsRefresh.markAsDown();
-              }
-              else if(status == 'page broken') {
-                RubyGemsRefresh.markAsBroken();
-              }
-              else {
+              if (status == 'unreachable') {
                 RubyGemsRefresh.markAsUnreachable();
+              } else if (status == 'page broken') {
+                RubyGemsRefresh.markAsBroken();
+              } else if (status == 'minor') {
+                RubyGemsRefresh.markAsImpaired();
+              } else {
+                RubyGemsRefresh.markAsDown();
               }
             }
           }
@@ -43,6 +43,13 @@ var RubyGemsRefresh = (function () {
 
     cleanupTimeout : function () {
       clearTimeout(timeoutFunction);
+    },
+
+    markAsImpaired: function () {
+      $rubygemsTile.find('a').text("RUBYGEMS IS IMPAIRED");
+      RubyGemsRefresh.clearStatuses();
+      $rubygemsTile.addClass('impaired');
+      $rubygemsTile.slideDown();
     },
 
     markAsUnreachable: function () {
@@ -70,6 +77,7 @@ var RubyGemsRefresh = (function () {
       $rubygemsTile.removeClass('unreachable');
       $rubygemsTile.removeClass('bad');
       $rubygemsTile.removeClass('broken');
+      $rubygemsTile.removeClass('impaired')
     }
   };
 })();
