@@ -3,7 +3,6 @@ json.(project,
     :name,
     :enabled,
     :code,
-    :tag_list,
     :created_at,
     :updated_at,
     :deprecated_location,
@@ -45,6 +44,7 @@ if project.tracker_project_id.present?
   end
 end
 
+json.tag_list             project.tags.map(&:name)
 json.project_id           project.id
 json.building             project.building?
 json.online               project.online?
@@ -55,7 +55,7 @@ json.build do
   json.building project.building?
   json.status   project.status_in_words
 
-  json.statuses project.statuses.recent do |status|
+  json.statuses project.recent_statuses do |status|
     json.(status, :success, :url)
   end
 end

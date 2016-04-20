@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
     class_name: 'ProjectStatus',
     dependent: :destroy,
     before_add: :update_refreshed_at
+  has_many :recent_statuses, -> { recent(RECENT_STATUS_COUNT) }, class_name: "ProjectStatus"
 
   has_many :payload_log_entries
   belongs_to :aggregate_project
@@ -68,11 +69,7 @@ class Project < ActiveRecord::Base
   end
 
   def latest_status
-    statuses.latest
-  end
-
-  def recent_statuses
-    statuses.recent.limit(RECENT_STATUS_COUNT)
+    recent_statuses.first
   end
 
   def status

@@ -7,9 +7,9 @@ class ProjectsController < ApplicationController
 
   def index
     if params[:aggregate_project_id].present?
-      projects = AggregateProject.find(params[:aggregate_project_id]).projects.decorate
+      projects = AggregateProject.find(params[:aggregate_project_id]).projects.includes(:recent_statuses, :tags).decorate
     else
-      standalone_projects = Project.standalone.displayable(params[:tags]).decorate
+      standalone_projects = Project.standalone.displayable(params[:tags]).includes(:recent_statuses, :tags).decorate
       aggregate_projects = AggregateProject.displayable(params[:tags]).decorate
       projects = standalone_projects + aggregate_projects
     end

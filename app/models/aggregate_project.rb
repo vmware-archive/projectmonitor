@@ -56,7 +56,7 @@ class AggregateProject < ActiveRecord::Base
   end
 
   def recent_statuses
-    ProjectStatus.where(project_id: project_ids).recent.limit(Project::RECENT_STATUS_COUNT)
+    ProjectStatus.where(project_id: project_ids).recent(Project::RECENT_STATUS_COUNT)
   end
 
   def red_since
