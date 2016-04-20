@@ -64,7 +64,7 @@ class Project < ActiveRecord::Base
   end
 
   def code
-    super.presence || name.downcase.gsub(" ", '')[0..3]
+    super.presence || name && name.downcase.gsub(" ", '')[0..3]
   end
 
   def latest_status

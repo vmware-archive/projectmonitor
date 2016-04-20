@@ -12,7 +12,8 @@ describe IPWhitelistedController, type: :request do
       def index; head :ok; end
     end
 
-    app.routes.eval_block ->{ get 'admin_dashboard', to: "admin_dashboard#index" }
+    # Might be able to replace this with `with_routing` ...
+    app.routes.send(:eval_block, ->{ get 'admin_dashboard', to: "admin_dashboard#index" })
   end
 
   after :all do

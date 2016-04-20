@@ -24,7 +24,7 @@ gem 'omniauth-google-oauth2', '0.2.0'
 gem 'omniauth-oauth2', '1.1.1'
 
 gem 'pivotal-tracker'
-gem 'rails', '~> 4.1.14'
+gem 'rails', '~> 4.2.6'
 gem 'rake'
 gem 'whenever', require: false
 gem 'rails-backbone'

@@ -189,7 +189,7 @@ describe ProjectsController, :type => :controller do
 
         it "renders nothing" do
           post :validate_build_info, {}
-          expect(response.body).to eq(" ")
+          expect(response.body).to be_blank
         end
       end
 
