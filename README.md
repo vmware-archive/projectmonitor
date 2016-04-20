@@ -88,7 +88,8 @@ Project monitor uses [Devise](https://github.com/plataformatec/devise) to provid
 Google OAuth2 logins.
 
 Regular password authentication for managing project settings is enabled by default. 
-Run `rake db:seed` to create the default `admin`:`password` account.
+Run `rake db:seed` with the environment variables `PROJECT_MONITOR_LOGIN`, `PROJECT_MONITOR_EMAIL` and
+`PROJECT_MONITOR_PASSWORD` set to create a new account.
 
 To switch off password auth, set `password_auth_enabled` setting to `false`. To ensure strong
 password encryption you should adjust the value for `password_auth_pepper` and
@@ -205,16 +206,6 @@ To deploy to production:
 
 ```
 cf push -f ./config/cf/manifest-production.yml
-```
-
-You can specify the admin credentials by editing the `env` section in your manifest:
-```
-applications:
-- name: project-monitor-production
-  env:
-    PROJECT_MONITOR_LOGIN: REPLACE_WITH_ADMIN_LOGIN
-    PROJECT_MONITOR_EMAIL: REPLACE_WITH_ADMIN_EMAIL
-    PROJECT_MONITOR_PASSWORD: REPLACE_WITH_ADMIN_PASSWORD
 ```
 
 ### Heroku

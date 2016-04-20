@@ -5,11 +5,13 @@
 # Create or update the admin user
 # The credentials can be specified through environment variables or by changing the default values below.
 # `dup` is required to ensure strings passed to activerecord are not frozen
-login = ENV.fetch('PROJECT_MONITOR_LOGIN', 'admin').dup
-email = ENV.fetch('PROJECT_MONITOR_EMAIL', 'admin@example.com').dup
-password = ENV.fetch('PROJECT_MONITOR_PASSWORD', 'password').dup
+if ENV['PROJECT_MONITOR_PASSWORD']
+  login = ENV.fetch('PROJECT_MONITOR_LOGIN')
+  email = ENV.fetch('PROJECT_MONITOR_EMAIL')
+  password = ENV.fetch('PROJECT_MONITOR_PASSWORD')
 
-user = User.where(login: login).first_or_initialize
-user.email = email
-user.password = password
-user.save!
+  user = User.where(login: login).first_or_initialize
+  user.email = email
+  user.password = password
+  user.save!
+end

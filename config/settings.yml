@@ -25,6 +25,14 @@ defaults: &defaults
   # password_auth_stretches: <rest_auth_digest_stretches>
 
   #
+  # If you want a default admin login to be created by `rake db:seed` (run on every push)
+  # add the credentials using these vars
+  #
+  # PROJECT_MONITOR_LOGIN: REPLACE_WITH_ADMIN_LOGIN
+  # PROJECT_MONITOR_EMAIL: REPLACE_WITH_ADMIN_EMAIL
+  # PROJECT_MONITOR_PASSWORD: REPLACE_WITH_ADMIN_PASSWORD
+
+  #
   # Should we authenticate people using OAuth2?
   #
   oauth2_enabled: false

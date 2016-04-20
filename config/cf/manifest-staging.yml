@@ -9,10 +9,6 @@ applications:
   services:
   - db-staging
   - logentries-staging-web
-  env:
-    PROJECT_MONITOR_LOGIN: REPLACE_WITH_ADMIN_LOGIN
-    PROJECT_MONITOR_EMAIL: REPLACE_WITH_ADMIN_EMAIL
-    PROJECT_MONITOR_PASSWORD: REPLACE_WITH_ADMIN_PASSWORD
 - name: project-monitor-staging-worker
   memory: 512M
   instances: 1
