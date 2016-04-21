@@ -61,6 +61,7 @@ group :development do
   gem 'better_errors'
   gem 'foreman', '~> 0.75.0'
   gem 'guard-ctags-bundler'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
