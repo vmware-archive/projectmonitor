@@ -127,25 +127,6 @@ describe('RubyGemsRefresh.init', function() {
     });
   });
 
-  // marking this disabled, as we removed this functionality in
-  // e0d9cdd3720f5f34a292f5ff719483a7a4968bb0
-  xdescribe("when our app is unreachable", function() {
-    it("shows unreachable", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
-      RubyGemsRefresh.init();
-      expect($(".rubygems")).toBeHidden();
-
-      jasmine.clock().tick(30001);
-      jasmine.Ajax.requests.mostRecent().response({
-        status: 500,
-        responseText: "{}"
-      });
-      expect($(".rubygems")).toBeVisible();
-      expect($(".rubygems")).toHaveClass('unreachable');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
-    });
-  });
-
   describe("when page is broken/raises parsing error", function() {
     it("shows page broken error", function() {
       spyOn(RubyGemsRefresh, "clearStatuses");
