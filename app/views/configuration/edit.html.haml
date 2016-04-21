@@ -29,7 +29,7 @@
           %th Actions
       %tbody
         - @projects.each do |project|
-          %tr{id: "project-#{project.id}", data: { tags: project.tag_list.to_json, 'polling-status' => project_last_status_text(project)}}
+          %tr{id: "project-#{project.id}", data: { tags: project.tags.map(&:name).to_json, 'polling-status' => project_last_status_text(project)}}
             %td= h project.code
             %td= h project.name
             %td
@@ -45,8 +45,8 @@
                 = project_last_status(project)
             %td.text-center= project.aggregate_project.present? ? project.aggregate_project.name : ''
             %td.tag_list
-              - project.tag_list.each do |tag|
-                = link_to tag, root_path({tags: tag})
+              - project.tags.each do |tag|
+                = link_to tag, root_path({tags: tag.name})
             %td.age= project.updated_at.present? ? time_ago_in_words(project.updated_at) : 'N/A'
             %td.webhooks.text-center= project.webhooks_enabled ? '✓' : '✕'
             %td.actions

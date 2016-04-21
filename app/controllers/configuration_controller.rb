@@ -16,7 +16,7 @@ class ConfigurationController < ApplicationController
   end
 
   def edit
-    @projects = Project.order(:name)
+    @projects = Project.order(:name).includes(:tags, :latest_payload_log_entry)
     @aggregate_projects = AggregateProject.order(:name)
     @tags = ActsAsTaggableOn::Tag.order(:name).map(&:name)
   end
