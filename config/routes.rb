@@ -26,9 +26,6 @@ ProjectMonitor::Application.routes.draw do
     end
     resources :projects, only: [:index]
   end
-  resources :messages, only: [:index, :new, :create, :edit, :update, :destroy] do
-    get :load_message
-  end
 
   authenticate :user do
     get "/jobs" => DelayedJobWeb, anchor: false
