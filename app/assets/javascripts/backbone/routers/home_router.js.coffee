@@ -1,7 +1,9 @@
 class ProjectMonitor.Routers.HomeRouter extends Backbone.Router
   initialize: (options) ->
     @projects = new ProjectMonitor.Collections.Projects()
-    @projects.reset options.projects
+    @projects.on 'sync', ->
+      $(".loading-message").hide()
+
     window.ProjectMonitor.collectionData = {projects: @projects}
 
   routes:

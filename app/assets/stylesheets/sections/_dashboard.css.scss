@@ -14,6 +14,26 @@ body.dashboard {
     z-index: 1000;
   }
 
+  .loading-message {
+    color: #f3f3f3;
+    font-size: 60px;
+    padding: 20px;
+    animation-name: showLater;
+    animation-duration: 1s;
+
+    .dot1 {
+      animation: fadeInOut 0.5s 0.1s infinite alternate;
+    }
+
+    .dot2 {
+      animation: fadeInOut 0.5s 0.25s infinite alternate;
+    }
+
+    .dot3 {
+      animation: fadeInOut 0.5s 0.4s infinite alternate;
+    }
+  }
+
   .github, .heroku, .rubygems {
     text-align: center;
     display: none;
@@ -171,4 +191,28 @@ ol.projects {
 
 .clearfix {
   clear: both;
+}
+
+@keyframes showLater {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

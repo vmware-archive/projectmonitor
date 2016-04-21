@@ -5,10 +5,13 @@
     = link_to 'HEROKU IS DOWN', 'http://status.heroku.com'
   .rubygems
     = link_to 'RUBYGEMS IS DOWN', 'http://status.rubygems.org'
+.loading-message
+  Loading Projects
+  %span.dot1> .
+  %span.dot2> .
+  %span.dot3> .
 .tiles
-:javascript
-  var projects = #{@projects.to_json};
 :coffeescript
   $ ->
-    new ProjectMonitor.Routers.HomeRouter({projects: projects})
+    new ProjectMonitor.Routers.HomeRouter()
     Backbone.history.start({pushState: true})
