@@ -27,7 +27,7 @@
     autocomplete("#project_tag_list", #{ ActsAsTaggableOn::Tag.all.map(&:name) });
   = f.label :tag_list, 'Tags', class: 'col-sm-2 control-label'
   .col-sm-4
-    = f.text_field :tag_list, class: 'form-control col-sm-4'
+    = f.text_field :tag_list, value: f.object.tag_list.to_s, class: 'form-control col-sm-4'
   %p.help-block Separate with commas
 
 = render 'project_type', f: f

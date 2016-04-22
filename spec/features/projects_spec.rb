@@ -1,7 +1,13 @@
 require "spec_helper"
 
 feature "projects" do
-  let!(:project) { create(:travis_project, travis_github_account: "pivotal", travis_repository: "projectmonitor") }
+  let!(:project) do
+    create(:travis_project,
+           travis_github_account: "pivotal",
+           travis_repository: "projectmonitor",
+           tag_list: "computers, websites"
+    )
+  end
   let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
 
   before do
@@ -82,5 +88,6 @@ feature "projects" do
     project.reload
     expect(project.travis_github_account).to eq(new_account)
     expect(project.travis_repository).to eq(new_project)
+    expect(project.tag_list).to match_array(['computers', 'websites'])
   end
 end

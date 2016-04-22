@@ -15,7 +15,7 @@
 .form-group
   = f.label :tag_list, 'Tags', class: 'col-sm-2 control-label'
   .col-sm-4
-    = f.text_field :tag_list, size: 40, class: 'form-control'
+    = f.text_field :tag_list, value: f.object.tag_list.to_s, size: 40, class: 'form-control'
   %p.help-block (separate with commas)
 .row
   .col-sm-offset-2.col-sm-1
