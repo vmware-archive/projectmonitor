@@ -29,8 +29,21 @@ describe ProjectUpdater do
       project_updater.update(project)
     end
 
-    it 'should create a payload log entry' do
-      expect { project_updater.update(project) }.to change(PayloadLogEntry, :count).by(1)
+
+    describe 'on an unsaved project' do
+      it 'should not create a payload log entry' do
+        expect { project_updater.update(project) }.not_to change(PayloadLogEntry, :count)
+      end
+    end
+
+    describe 'on a persisted project' do
+      before do
+        project.save!
+      end
+
+      it 'should create a payload log entry' do
+        expect { project_updater.update(project) }.to change(PayloadLogEntry, :count).by(1)
+      end
     end
 
     context 'when fetching the status succeeds' do
