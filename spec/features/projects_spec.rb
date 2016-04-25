@@ -8,7 +8,7 @@ feature "projects" do
            tag_list: "computers, websites"
     )
   end
-  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:user) { create(:user, password: "jeffjeff") }
 
   before do
     log_in(user, "jeffjeff")

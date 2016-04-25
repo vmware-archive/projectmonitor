@@ -153,7 +153,7 @@ link in the bottom-right corner of the main ProjectMonitor screen. You can eithe
 create a user using the console as follows:
 
     rails c production
-    User.create!(login: 'john', name: 'John Doe', email: 'jdoe@example.com', password: 'password', password_confirmation: 'password')
+    User.create!(login: 'john', name: 'John Doe', email: 'jdoe@example.com', password: 'password')
 
 Or, if you have set up Google OAuth2 as per above, you can simply log in with Google to create a new user account.
 

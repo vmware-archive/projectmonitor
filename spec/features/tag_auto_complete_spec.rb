@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "tag auto complete" do
-  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:user) { create(:user, password: "jeffjeff") }
 
   before do
     ActsAsTaggableOn::Tag.create! name: 'bar'

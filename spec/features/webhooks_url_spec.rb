@@ -3,7 +3,7 @@ require 'spec_helper'
 
 feature "webhooks url" do
   let!(:project) { build(:project, webhooks_enabled: true) }
-  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:user) { create(:user, password: "jeffjeff") }
 
   before do
     Project.destroy_all

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'aggregate projects' do
   let!(:aggregate_project) { create(:aggregate_project, tag_list: 'computers, websites') }
-  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:user) { create(:user, password: "jeffjeff") }
 
   context "manage projects" do
     before do
