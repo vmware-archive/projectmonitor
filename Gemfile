@@ -52,7 +52,6 @@ end
 
 # NOTE: anything that will not work in travis should be here
 group :development do
-  gem 'awesome_print'
   gem 'heroku_san'
   gem 'guard-livereload'
   gem 'rb-fsevent', '~> 0.9.1'
@@ -65,6 +64,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'awesome_print'
   gem 'launchy'
   gem 'jshint_on_rails'
   gem 'rspec-rails'
