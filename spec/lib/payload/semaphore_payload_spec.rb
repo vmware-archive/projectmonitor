@@ -24,17 +24,25 @@ describe SemaphorePayload do
   describe '#content_ready?' do
     subject { payload.content_ready?(converted_content) }
 
-    context 'the payload contains a build from a branch other than master' do
-      let(:fixture_file) { "branch.json" }
+    context 'the status items do not contain branch information (polling)' do
+      let(:fixture_file) { "success_history.json" }
 
-      context 'and the branch has not been specified' do
-        it { is_expected.to be false }
-      end
+      it { is_expected.to be true }
+    end
 
-      context 'and the branch has been specified' do
-        before { payload.branch = 'staging' }
+    context 'the status items contain branch information (webhooks)' do
+      context 'the payload contains a build from a branch other than master' do
+        let(:fixture_file) { "branch.json" }
 
-        it { is_expected.to be true }
+        context 'and the branch has not been specified' do
+          it { is_expected.to be false }
+        end
+
+        context 'and the branch has been specified' do
+          before { payload.branch = 'staging' }
+
+          it { is_expected.to be true }
+        end
       end
     end
   end

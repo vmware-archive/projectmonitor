@@ -48,6 +48,6 @@ class SemaphorePayload < Payload
   end
 
   def specified_branch?(content)
-    branch == content['branch_name']
+    content['branch_name'].blank? || branch == content['branch_name']
   end
 end
