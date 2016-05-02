@@ -114,10 +114,15 @@ The format of this URL is
 semaphoreci.com/api/v1/projects/<Project hash_id>/<branch id>?auth_token=<auth_token>
 ~~~
 
-You can get the Project hash_id and auth_token from your project's settings api page. You can get there from the Semaphore main page by 
+You can get the Project hash_id from your project's settings api page. From the Semaphore main page,
 
 1. Clicking the setting button for your project
-2. Clicking the API button on the settings screen
+2. Clicking 'Admin' on the left menu
+
+You can get the auth token from your account page. Get there by
+
+1. Clicking your username in the upper-right corner
+2. Clicking 'Settings'
 
 In order to get your branch id, you have two options.
 
