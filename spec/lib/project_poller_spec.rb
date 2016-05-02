@@ -10,16 +10,14 @@ describe ProjectPoller do
       allow(EM).to receive(:add_periodic_timer)
     end
 
-    after do
-      poller.run
-    end
-
     it 'should call EM::run' do
       expect(EM).to receive(:run)
+      poller.run
     end
 
     it 'should add a periodic timer to poll projects' do
       expect(EM).to receive(:add_periodic_timer)
+      poller.run
     end
 
     context 'the ci poller periodic timer has elapsed' do
@@ -30,6 +28,7 @@ describe ProjectPoller do
 
       it 'should get the updateable projects' do
         expect(Project).to receive(:updateable)
+        poller.run
       end
 
       context 'and there is an updateable project' do
@@ -48,6 +47,7 @@ describe ProjectPoller do
           handler = double
           allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
           expect(PollerWorkload).to receive(:new).with(handler)
+          poller.run
         end
 
         context 'when there are jobs to complete' do
@@ -57,18 +57,22 @@ describe ProjectPoller do
 
           it 'should be initialized with the feed url and timeouts' do
             expect(EM::HttpRequest).to receive(:new).with('http://www.example.com/job/project/rssAll', connect_timeout: 60, inactivity_timeout: 30)
+            poller.run
           end
 
           it 'should call get and follow up to 10 redirects' do
             expect(connection).to receive(:get).with(redirects: 10)
+            poller.run
           end
 
           it 'should register for a response' do
             expect(request).to receive(:callback)
+            poller.run
           end
 
           it 'should register for an error' do
             expect(request).to receive(:errback)
+            poller.run
           end
 
           context 'and authentication is required' do
@@ -79,6 +83,7 @@ describe ProjectPoller do
 
             it 'should set the authorization header' do
               expect(connection).to receive(:get).with(redirects: 10, head: {'authorization' => [username, nil]})
+              poller.run
             end
           end
 
@@ -90,6 +95,22 @@ describe ProjectPoller do
 
             it 'should set the authorization header' do
               expect(connection).to receive(:get).with(redirects: 10, head: {'Accept' => mime_type})
+              poller.run
+            end
+          end
+
+          context 'when the project has an invalid URL' do
+            before do
+              allow(EM::HttpRequest).to receive(:new).and_raise(Addressable::URI::InvalidURIError.new)
+            end
+
+            it 'does not make a new workload' do
+              handler = double
+              allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
+              expect(PollerWorkload).to receive(:new).with(handler)
+              expect {
+                poller.run
+              }.to output(/ERROR/).to_stdout
             end
           end
 
@@ -103,10 +124,12 @@ describe ProjectPoller do
 
             it 'should store the payload in the workload' do
               expect(workload).to receive(:store).with(:feed_url, client.response)
+              poller.run
             end
 
             it 'should determine if the workload is complete' do
               expect(workload).to receive(:complete?)
+              poller.run
             end
 
             context 'and the workload is complete' do
@@ -117,6 +140,7 @@ describe ProjectPoller do
 
               it 'should remove the workload' do
                 expect(poller).to receive(:remove_workload)
+                poller.run
               end
             end
           end
@@ -131,10 +155,12 @@ describe ProjectPoller do
 
             it 'should mark the project as failed' do
               expect(workload).to receive(:failed)
+              poller.run
             end
 
             it 'should remove the workload' do
               expect(poller).to receive(:remove_workload)
+              poller.run
             end
           end
         end
@@ -157,6 +183,7 @@ describe ProjectPoller do
 
       it 'should get the tracker updateable projects' do
         expect(Project).to receive(:tracker_updateable)
+        poller.run
       end
 
       context 'and there are tracker updateable projects' do
@@ -168,6 +195,7 @@ describe ProjectPoller do
 
         it 'should create a workload' do
           expect(PollerWorkload).to receive(:new)
+          poller.run
         end
 
         context 'when there are jobs to complete' do
@@ -177,10 +205,12 @@ describe ProjectPoller do
 
           it 'should set the tracker header' do
             expect(connection).to receive(:get).with(redirects: 10, head: {'X-TrackerToken' => project.tracker_auth_token})
+            poller.run
           end
 
           it 'should be initialized with the tracker_url and timeouts' do
             expect(EM::HttpRequest).to receive(:new).with("http://#{project.tracker_project_url}", connect_timeout: 60, inactivity_timeout: 30)
+            poller.run
           end
         end
       end
