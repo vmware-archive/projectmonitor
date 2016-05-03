@@ -8,15 +8,6 @@ class HomeController < ApplicationController
   respond_to :json, only: [:github_status, :heroku_status, :rubygems_status, :index]
 
   def index
-    if aggregate_project_id = params[:aggregate_project_id]
-      projects = AggregateProject.find(aggregate_project_id).projects
-    else
-      aggregate_projects = AggregateProject.displayable(params[:tags])
-      standalone_projects = Project.standalone.displayable(params[:tags])
-      projects = standalone_projects.concat(aggregate_projects).sort_by { |p| p.code.downcase }
-    end
-
-    @projects = projects
   end
 
   def builds
