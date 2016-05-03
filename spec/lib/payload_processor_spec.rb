@@ -45,6 +45,7 @@ describe PayloadProcessor do
         let(:project) { create(:project) }
         let(:status) { build(:project_status, success: nil) }
         before {
+          allow(payload).to receive(:building?).and_return(false)
           expect(status).to be_invalid
         }
 
