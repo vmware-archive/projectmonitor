@@ -45,7 +45,11 @@ describe CircleCiProject, :type => :model do
     end
 
     describe '#fetch_payload' do
-      it { expect(subject.fetch_payload).to be_an_instance_of(CircleCiPayload) }
+      it { expect(subject.fetch_payload).to be_an_instance_of(CircleCiFetchPayload) }
+    end
+
+    describe '#webhook_payload' do
+      it { expect(subject.webhook_payload).to be_an_instance_of(CircleCiWebhookPayload) }
     end
   end
 end

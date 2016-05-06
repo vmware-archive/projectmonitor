@@ -13,10 +13,12 @@ class CircleCiProject < Project
   end
 
   def fetch_payload
-    CircleCiPayload.new
+    CircleCiFetchPayload.new
   end
 
-  alias_method :webhook_payload, :fetch_payload
+  def webhook_payload
+    CircleCiWebhookPayload.new
+  end
 
   def accept_mime_types
     'application/json'
