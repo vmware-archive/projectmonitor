@@ -30,4 +30,7 @@ describe CircleCiPayload do
     it { expect(payload.parse_published_at(converted_content).round).to eq(Time.utc(2013, 10, 15, 8, 47, 30)) }
   end
 
+  describe '#build_branch' do
+    it { expect(payload.build_branch).to eq('master') }
+  end
 end

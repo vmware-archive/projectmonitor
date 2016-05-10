@@ -106,6 +106,10 @@ class Payload
     raise Payload::InvalidContentException, e.message
   end
 
+  def build_branch
+    nil
+  end
+
   attr_accessor :processable, :build_processable
   attr_reader :status_content, :build_status_content
 end
