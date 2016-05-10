@@ -7,7 +7,7 @@ describe PayloadProcessor do
   let(:project_status_updater) { double }
   let(:processor) { PayloadProcessor.new(project_status_updater: project_status_updater) }
 
-  describe "#process" do
+  describe "#process_payload" do
     context "when the payload has processable statuses" do
       before do
         allow(payload).to receive(:status_is_processable?).and_return(true)
@@ -104,6 +104,67 @@ ERROR
       end
     end
 
+    context 'when the payload processor supports build_branch' do
+      before do
+        allow(payload).to receive(:status_is_processable?).and_return(true)
+        allow(payload).to receive(:each_status).and_yield(status)
+      end
+
+      context 'and the payload is for the correct branch' do
+        before do
+          allow(project).to receive(:build_branch).and_return("master")
+          allow(payload).to receive(:build_branch).and_return("master")
+        end
+
+        it "sets the project as online" do
+          expect(project).to receive(:online=).with(true)
+
+          processor.process_payload(project: project, payload: payload)
+        end
+
+        it "initializes a ProjectStatus for every payload status" do
+          status = double(ProjectStatus, valid?: true).as_null_object
+          allow(project).to receive(:has_status?).and_return(false)
+          allow(payload).to receive(:each_status).and_yield(status).and_yield(status)
+          expect(project_status_updater).to receive(:update_project).twice
+          processor.process_payload(project: project, payload: payload)
+        end
+
+        it "add a status to the project if the project does not have a matching status" do
+          allow(project).to receive(:has_status?).and_return(false)
+          expect(project_status_updater).to receive(:update_project).with(project, status)
+          processor.process_payload(project: project, payload: payload)
+        end
+
+        it "does not add the status to the project if a matching status exists" do
+          allow(project).to receive(:has_status?).and_return(true)
+          expect(project_status_updater).not_to receive(:update_project)
+          processor.process_payload(project: project, payload: payload)
+        end
+      end
+
+      context 'and the payload is for a different branch' do
+        before do
+          allow(project).to receive(:build_branch).and_return("master")
+          allow(payload).to receive(:build_branch).and_return("feature")
+        end
+
+        it "does not sets the project as online" do
+          expect(project).to_not receive(:online=).with(true)
+          processor.process_payload(project: project, payload: payload)
+        end
+
+        it "does not initialize a ProjectStatus for every payload status" do
+          expect(project_status_updater).to_not receive(:update_project)
+          processor.process_payload(project: project, payload: payload)
+        end
+
+        it "does not add a status to the project if the project does not have a matching status" do
+          expect(project_status_updater).to_not receive(:update_project)
+          processor.process_payload(project: project, payload: payload)
+        end
+      end
+    end
   end
 
   describe "parse_url" do

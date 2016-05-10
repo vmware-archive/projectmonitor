@@ -36,4 +36,7 @@ class CircleCiPayload < Payload
     end
   end
 
+  def build_branch
+    status_content.first["branch"]
+  end
 end

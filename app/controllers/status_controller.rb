@@ -17,10 +17,12 @@ class StatusController < ApplicationController
         end
 
       log = PayloadProcessor.new(project_status_updater: StatusUpdater.new).process_payload(project: project, payload: payload)
-      log.update_method = 'Webhooks'
-      log.save!
+      if log.present?
+        log.update_method = 'Webhooks'
+        log.save!
 
-      project.save!
+        project.save!
+      end
       head :ok
     else
       head :not_found
