@@ -26,4 +26,5 @@ class CircleCiProject < Project
     true
   end
 
+  alias_method :webhook_payload, :fetch_payload
 end

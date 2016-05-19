@@ -15,6 +15,10 @@ class CircleCiPayload < Payload
     handle_processing_exception e
   end
 
+  def convert_webhook_content!(raw_content)
+    Array.wrap(JSON.parse(raw_content)['payload'])
+  end
+
   def parse_success(content)
     content['outcome'] == 'success'
   end
@@ -34,6 +38,10 @@ class CircleCiPayload < Payload
     else
       Time.now
     end
+  end
+
+  def build_branch_matches(branch_name)
+    !!(/#{branch_name}/ =~ status_content.first['branch'])
   end
 
 end

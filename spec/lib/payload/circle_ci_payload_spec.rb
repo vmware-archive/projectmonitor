@@ -30,4 +30,25 @@ describe CircleCiPayload do
     it { expect(payload.parse_published_at(converted_content).round).to eq(Time.utc(2013, 10, 15, 8, 47, 30)) }
   end
 
+
+  describe '#convert_webhook_content' do
+    let(:fixture_file) { 'webhook_success.json' }
+    subject { CircleCiPayload.new }
+
+    it "converts the input's 'payload' field into a single-item array" do
+      webhook_content = subject.convert_webhook_content!(fixture_content)
+      expect(webhook_content.size).to eq(1)
+      expect(webhook_content.first.keys).to include 'committer_name', 'build_url'
+    end
+  end
+
+  describe '#build_branch_matches' do
+    it 'calls a regex based on input branch_name' do
+      result = payload.build_branch_matches 'mas.*'
+      expect(result).to eq(true)
+
+      result = payload.build_branch_matches 'staging'
+      expect(result).to eq(false)
+    end
+  end
 end

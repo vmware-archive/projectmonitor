@@ -14,6 +14,19 @@ describe PayloadProcessor do
         allow(payload).to receive(:each_status).and_yield(status)
       end
 
+      it "does nothing if build_branch_matches is false" do
+        allow(payload).to receive(:build_branch_matches).and_return(false)
+        expect(project).to_not receive(:online=)
+        processor.process_payload project: project, payload: payload
+      end
+
+      it "defaults to using master branch when no build_branch is specified" do
+        allow(project).to receive(:build_branch).and_return nil
+        expect(payload).to receive(:build_branch_matches).with 'master'
+        expect(payload).to_not receive(:build_branch_matches).with nil
+        processor.process_payload project: project, payload: payload
+      end
+
       it "sets the project as online" do
         expect(project).to receive(:online=).with(true)
         processor.process_payload(project: project, payload: payload)
