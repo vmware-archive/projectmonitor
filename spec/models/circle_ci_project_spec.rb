@@ -46,6 +46,14 @@ describe CircleCiProject, :type => :model do
 
     describe '#fetch_payload' do
       it { expect(subject.fetch_payload).to be_an_instance_of(CircleCiPayload) }
+
+      describe 'when a branch name is specified' do
+        subject { build(:circle_ci_project, build_branch: 'abracadabra') }
+
+        it 'sets build_branch for the created payload' do
+          expect(subject.fetch_payload.branch).to eq(subject.build_branch)
+        end
+      end
     end
   end
 end

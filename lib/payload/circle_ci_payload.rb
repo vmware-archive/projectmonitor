@@ -1,11 +1,21 @@
 class CircleCiPayload < Payload
+  def branch=(new_branch)
+    @branch = new_branch unless new_branch.blank?
+  end
+
+  def branch
+    @branch ||= 'master'
+  end
 
   def building?
     status_content.first['status'] == 'running' || status_content.first['status'] == 'queued'
   end
 
   def content_ready?(content)
-    content['status'] != 'running' && content['status'] != 'queued' && content['outcome'].present?
+    content['status'] != 'running' &&
+      content['status'] != 'queued' &&
+      content['outcome'].present? &&
+      specified_branch?(content)
   end
 
   def convert_content!(raw_content)
@@ -37,4 +47,9 @@ class CircleCiPayload < Payload
     end
   end
 
+  private
+
+  def specified_branch?(content)
+    branch == content['branch']
+  end
 end

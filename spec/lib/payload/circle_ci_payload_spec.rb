@@ -16,6 +16,14 @@ describe CircleCiPayload do
       let(:fixture_file) { "outcome_is_empty.json" }
       it { expect(payload.content_ready?(converted_content)).to be false }
     end
+
+    context 'the payload contains a build from a branch other than the desired branch' do
+      subject { payload.content_ready?(converted_content) }
+
+      before { payload.branch = 'staging' }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe '#parse_url' do
