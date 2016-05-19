@@ -8,9 +8,11 @@ class PayloadProcessor
   def process_payload(project: nil, payload: nil)
     self.project = project
     self.payload = payload
-    add_statuses
-    update_building_status
-    payload_log
+    if correct_branch?
+      add_statuses
+      update_building_status
+      payload_log
+    end
   end
 
   private
@@ -54,4 +56,7 @@ Payload returned an invalid status: #{status.inspect}
 ERROR
   end
 
+  def correct_branch?
+    self.project.build_branch.blank? || self.project.build_branch == self.payload.build_branch
+  end
 end

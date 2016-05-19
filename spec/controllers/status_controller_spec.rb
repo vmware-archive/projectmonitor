@@ -140,12 +140,72 @@ describe StatusController, :type => :controller do
           subject
         }.to change(ProjectStatus, :count).by(1)
       end
+    end
 
-      it "should have all the attributes" do
-        subject
-        expect(ProjectStatus.last).to be_success
-        expect(ProjectStatus.last.project_id).to eq(project.id)
-        expect(ProjectStatus.last.build_id).to eq(2778736)
+    context "CircleCI project" do
+      let(:payload)  { JSON.parse(open('spec/fixtures/circleci_examples/webhook.json').read) }
+
+      subject { post :create, {project_id: project.guid} }
+
+      before { @request.env['RAW_POST_DATA'] = payload.merge(project_id: project.guid).to_json }
+
+      context 'when the update is for the blank branch' do
+        let!(:project) { create(:circle_ci_project, webhooks_enabled: true, build_branch: '') }
+
+        it "should create a new status" do
+          expect { subject }.to change(ProjectStatus, :count).by(1)
+        end
+
+        it "creates only one new status" do
+          expect {
+            subject
+            subject
+          }.to change(ProjectStatus, :count).by(1)
+        end
+
+        it "should have all the attributes" do
+          subject
+          expect(ProjectStatus.last).to be_success
+          expect(ProjectStatus.last.project_id).to eq(project.id)
+          expect(ProjectStatus.last.build_id).to eq(2778736)
+        end
+      end
+
+      context 'when the update is for the correct branch' do
+        let!(:project) { create(:circle_ci_project, webhooks_enabled: true, build_branch: 'master') }
+
+        it "should create a new status" do
+          expect { subject }.to change(ProjectStatus, :count).by(1)
+        end
+
+        it "creates only one new status" do
+          expect {
+            subject
+            subject
+          }.to change(ProjectStatus, :count).by(1)
+        end
+
+        it "should have all the attributes" do
+          subject
+          expect(ProjectStatus.last).to be_success
+          expect(ProjectStatus.last.project_id).to eq(project.id)
+          expect(ProjectStatus.last.build_id).to eq(2778736)
+        end
+      end
+
+      context 'when the update is for different branch' do
+        let!(:project) { create(:circle_ci_project, webhooks_enabled: true, build_branch: 'feature') }
+
+        it "should not create a new status" do
+          expect { subject }.to_not change(ProjectStatus, :count)
+        end
+
+        it "does not create new status" do
+          expect {
+            subject
+            subject
+          }.to_not change(ProjectStatus, :count)
+        end
       end
     end
 
