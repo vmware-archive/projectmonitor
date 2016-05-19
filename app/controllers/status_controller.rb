@@ -10,7 +10,7 @@ class StatusController < ApplicationController
 
       payload.webhook_status_content =
         case payload
-          when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload
+          when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload, CircleCiPayload
             params
           else
             request.body.read
