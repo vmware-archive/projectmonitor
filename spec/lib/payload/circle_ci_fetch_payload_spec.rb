@@ -1,11 +1,11 @@
 require 'spec_helper'
 require Rails.root.join('spec', 'shared', 'json_payload_examples')
 
-describe CircleCiPayload do
+describe CircleCiFetchPayload do
 
   let(:fixture_file)      { "success.json" }
-  let(:fixture_content)   { load_fixture('circleci_examples', fixture_file) }
-  let(:payload)           { CircleCiPayload.new.tap{|p| p.status_content = fixture_content} }
+  let(:fixture_content)   { load_fixture('circleci_fetch_examples', fixture_file) }
+  let(:payload)           { CircleCiFetchPayload.new.tap{|p| p.status_content = fixture_content} }
   let(:converted_content) { payload.status_content.first }
 
   it_behaves_like "a JSON payload"
