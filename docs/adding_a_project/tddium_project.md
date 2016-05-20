@@ -18,7 +18,7 @@ If you access that link, the XML returned will look something like:
 
 ~~~
 <Projects>
-<Project name="FooBar (master)" webUrl="https://ci.solanolabs.com:443/reports/1359512" lastBuildLabel="1359512" lastBuildTime="2015-03-24 17:19:48" lastBuildStatus="Unknown" activity="Sleeping"/>
+  <Project name="FooBar (master)" webUrl="https://ci.solanolabs.com:443/reports/1359512" lastBuildLabel="1359512" lastBuildTime="2015-03-24 17:19:48" lastBuildStatus="Unknown" activity="Sleeping"/>
 </Projects>
 ~~~
 
