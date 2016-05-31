@@ -23,12 +23,6 @@ RSpec.configure do |config|
 
   Capybara.javascript_driver = :webkit
 
-  # TODO: This fixes a bug in RSpec, see here:
-  # https://github.com/rspec/rspec-rails/issues/252
-  def (ActionDispatch::Integration::Session).fixture_path
-    RSpec.configuration.fixture_path
-  end
-
   config.before(:all) do
     DeferredGarbageCollection.start
   end

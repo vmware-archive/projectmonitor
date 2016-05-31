@@ -13,7 +13,7 @@ describe User, :type => :model do
     it { is_expected.to validate_presence_of(:login) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email) }
-    it { is_expected.to ensure_length_of(:name).is_at_most(100) }
+    it { is_expected.to validate_length_of(:name).is_at_most(100) }
   end
 
   describe ".find_first_by_auth_conditions" do

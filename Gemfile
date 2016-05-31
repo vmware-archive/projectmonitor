@@ -47,7 +47,7 @@ end
 
 group :test do
   gem 'vcr'
-  gem 'webmock', '~> 1.20.0'
+  gem 'webmock'
 end
 
 # NOTE: anything that will not work in travis should be here
@@ -68,13 +68,13 @@ group :test, :development do
   gem 'launchy'
   gem 'jshint_on_rails'
   gem 'rspec-rails'
-  gem 'shoulda-matchers', '~> 2.7.0'
-  gem 'capybara', '~> 2.4.4'
+  gem 'shoulda-matchers'
+  gem 'capybara'
   gem 'jasmine'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'guard', '~> 1.8.1'
+  gem 'factory_girl_rails'
+  gem 'guard'
   gem 'database_cleaner'
-  gem 'capybara-webkit', '~>1.3.1'
+  gem 'capybara-webkit'
   gem 'pry-nav'
   gem 'pry-rails'
   gem 'pry'
