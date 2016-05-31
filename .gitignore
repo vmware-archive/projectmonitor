@@ -18,7 +18,6 @@ tags
 *.out
 .tddium*
 *.swp
-spec/javascripts/compiled/
 spec/tmp/
 .vagrant
 manifest.yml

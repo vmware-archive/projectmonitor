@@ -6,7 +6,7 @@ namespace :travis do
   end
 
   desc "Run specs"
-  task :ci => ['db:create', 'db:migrate', :spec, :jshint, 'jasmine:compile_coffeescript', 'jasmine:ci']
+  task :ci => ['db:create', 'db:migrate', :spec, :jshint, 'jasmine:ci']
 end
 
 task :travis => 'travis:ci'

@@ -31,25 +31,15 @@ To run tests, run:
 
 ### Javascript tests
 
-To run Jasmine tests, run this once when setting up the project or if you haven't consistently been running guard:
+To run Jasmine tests from the command line, run:
 
-    rake jasmine:compile_coffeescript
+    bundle exec rake jasmine:ci
 
-To keep your jasmine tests current, run:
+To run Jasmine tests from the browser, run:
 
-    guard
+    bundle exec rake jasmine
 
-Install phantomjs if needed:
-
-    brew install phantomjs
-
-Then, to run Jasmine tests from the command line, run:
-
-    RAILS_ENV=test bundle exec rake spec:javascript
-
-To run Jasmine tests from the browser, with a rails server running, visit [http://localhost:3000/specs](http://localhost:3000/specs)
-
-See the [jasmine-rails](https://github.com/searls/jasmine-rails) documentation for more details.
+and visit the server [probably http://localhost:8888/](http://localhost:8888/) in the browser.
 
 ### Set up Vagrant
 
@@ -79,7 +69,6 @@ Project Monitor has been moved under the "Pivotal" organization. In order to hav
 
 ## Gotchas (when things do not appear to be working as expected, try these...)
 
-* If you're testing anything with CoffeeScript, you probably want to run `guard` so that the files are re-compiled each time.
 * Are the workers running? Have you checked the worker log in log/delayed_job.log?
 * You can run `rake projectmonitor:fetch_statuses` to force update the builds.
 

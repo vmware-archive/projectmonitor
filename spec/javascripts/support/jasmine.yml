@@ -40,7 +40,7 @@ stylesheets:
 #
 helpers:
   - helpers/**/*.js
-  - compiled/backbone/factories/*.js
+  - "backbone/factories/*.{js,coffee,js.coffee}"
 
 # spec_files
 #
@@ -53,7 +53,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - "**/*[Ss]pec.{js,coffee}"
+  - "**/*[Ss]pec.{js,coffee,js.coffee}"
 
 # src_dir
 #
