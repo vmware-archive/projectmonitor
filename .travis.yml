@@ -23,8 +23,10 @@ cache:
   bundler: true
 
 before_script:
+  - 'npm install phantomjs-prebuilt@2.1.7'
   - "bundle exec rake travis:setup"
   - "export DISPLAY=:99"
+  - "export PATH=node_modules/.bin/:$PATH"
   - "sh -e /etc/init.d/xvfb start"
 
 script: "bundle exec rake travis"
