@@ -34,7 +34,7 @@ class Project < ActiveRecord::Base
     .where.not(tracker_project_id: [nil, ''])
   }
 
-  scope :displayable, lambda { |tags|
+  scope :displayable, lambda { |tags = nil|
     scope = enabled.order('code ASC')
     return scope.tagged_with(tags, any: true) if tags
     scope

@@ -3,13 +3,15 @@ class ProjectsController < ApplicationController
   before_filter :load_project, only: [:edit, :update, :destroy]
   around_filter :scope_by_aggregate_project
 
+  DEFAULT_PROJECTS_TO_DISPLAY = 100
+
   respond_to :json, only: [:index, :show]
 
   def index
     if params[:aggregate_project_id].present?
       projects = AggregateProject.find(params[:aggregate_project_id]).projects.includes(:recent_statuses, :tags).decorate
     else
-      standalone_projects = Project.standalone.displayable(params[:tags]).includes(:recent_statuses, :tags).decorate
+      standalone_projects = Project.limit(project_limit).standalone.displayable(params[:tags]).includes(:recent_statuses, :tags).decorate
       aggregate_projects = AggregateProject.displayable(params[:tags]).decorate
       projects = standalone_projects + aggregate_projects
     end
@@ -133,5 +135,13 @@ class ProjectsController < ApplicationController
                                        circleci_username circleci_project_name circleci_auth_token travis_pro_token
                                        concourse_base_url concourse_job_name ci_base_url ci_build_identifier ci_auth_token
                                        concourse_pipeline_name id))
+  end
+
+  def project_limit
+    if params[:limit].present?
+      (params[:limit] == 'all') ? nil : params[:limit]
+    else
+      DEFAULT_PROJECTS_TO_DISPLAY
+    end
   end
 end

@@ -14,5 +14,8 @@
         - if current_user
           = link_to 'log out', destroy_user_session_path, class: 'projects_path', method: :delete
           |
+        - if params[:limit] != 'all'
+          = link_to 'show all projects', root_path(limit: :all), class: 'projects_path'
+          |
         = link_to 'manage projects', edit_configuration_path, class: 'projects_path'
       .clearfix

@@ -16,24 +16,36 @@ describe ProjectsController, :type => :controller do
     end
 
     describe "#index" do
-      let!(:projects) { [create(:jenkins_project, code: "BETA")] }
-      let!(:aggregate_project) { create(:aggregate_project, code: "ALPH") }
-      let!(:aggregate_projects) { [aggregate_project] }
-      let(:tags) { 'bleecker' }
+      describe 'filtering by tags' do
+        let!(:projects) { [create(:jenkins_project, code: "BETA", aggregate_project_id: aggregate_project.id)] }
+        let!(:aggregate_project) { create(:aggregate_project, code: "ALPH", enabled: true) }
+        let!(:aggregate_projects) { [aggregate_project] }
+        let(:tags) { 'bleecker' }
 
-      before do
-        allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
-        allow(Project).to receive_message_chain(:standalone, :displayable, :includes).and_return(projects)
-        allow(projects).to receive_message_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
+        before do
+          aggregate_project.tags.create(name: tags)
+        end
 
-        expect(aggregate_projects).to receive(:decorate).and_return(aggregate_projects)
-        expect(projects).to receive(:decorate).and_return(projects)
+        it 'gets a collection of aggregate projects by tag' do
+          get :index, tags: tags, format: :json
+
+          expect(assigns(:projects)).to match_array(aggregate_projects)
+        end
       end
 
-      it 'gets a collection of aggregate projects by tag' do
-        expect(AggregateProject).to receive(:displayable).with(tags)
-        expect(Project.standalone).to receive(:displayable).with(tags)
-        get :index, tags: tags, format: :json
+      describe "limiting the number of displayed projects" do
+        it "shows only the desired amount of projects (but all aggregate projects)" do
+          project_limit = 1
+          get :index, limit: project_limit, format: :json
+
+          expect(assigns(:projects).length).to eq(AggregateProject.displayable.count + project_limit)
+        end
+
+        it "shows all projects if the limit is set to 'all'" do
+          get :index, limit: 'all', format: :json
+
+          expect(assigns(:projects).length).to eq(AggregateProject.displayable.count + Project.standalone.displayable.count)
+        end
       end
     end
 
