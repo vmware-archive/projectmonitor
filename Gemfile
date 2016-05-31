@@ -53,7 +53,7 @@ end
 # NOTE: anything that will not work in travis should be here
 group :development do
   gem 'heroku_san'
-  gem 'guard-livereload'
+  gem 'guard-livereload', require: false
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'spring'
   gem 'spring-commands-rspec'
