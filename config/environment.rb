@@ -1,7 +1,8 @@
-# Load the rails application
+# Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
-ProjectMonitor::Application.initialize!
+# Initialize the Rails application.
+Rails.application.initialize!
 
 Time::DATE_FORMATS[:db_time] = "%H:%M"
 Time::DATE_FORMATS[:db_day] = "%A"
