@@ -29,6 +29,7 @@ $statusbar-font-size: 30px !default;
       a {
         text-decoration: none;
         color: black;
+        white-space: nowrap;
       }
 
       > div {
