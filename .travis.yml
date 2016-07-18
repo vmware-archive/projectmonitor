@@ -2,11 +2,6 @@ language: ruby
 sudo: false
 cache: bundler
 
-branches:
-  only:
-    - master
-    - staging
-
 bundler_args: --without mysql development
 
 notifications:
