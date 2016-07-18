@@ -17,7 +17,6 @@ describe('RubyGemsRefresh.init', function() {
 
   describe("when the status is bad", function() {
     it("shows the rubygems notification", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
@@ -31,7 +30,6 @@ describe('RubyGemsRefresh.init', function() {
 
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('impaired');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
     });
   });
 
@@ -51,7 +49,6 @@ describe('RubyGemsRefresh.init', function() {
 
   describe("when rubygems is unreachable", function() {
     it("shows unreachable", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
@@ -64,13 +61,11 @@ describe('RubyGemsRefresh.init', function() {
       }
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('unreachable');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
     });
   });
 
   describe("when rubygems is unparsable", function() {
     it("shows page broken notification", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
@@ -83,13 +78,11 @@ describe('RubyGemsRefresh.init', function() {
       }
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('broken');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
     });
   });
 
   describe("when page is broken/raises parsing error", function() {
     it("shows page broken error", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
       expect($(".rubygems")).toBeHidden();
 
@@ -101,7 +94,6 @@ describe('RubyGemsRefresh.init', function() {
 
       expect($(".rubygems")).toBeVisible();
       expect($(".rubygems")).toHaveClass('broken');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
     });
   });
 

@@ -11,15 +11,14 @@
 //= require d3.v3.js
 
 //= require_tree ./initializers
+//= require ./refreshers/refresher
+//= require_tree ./refreshers
 
 //= require autocomplete
 //= require backtraceHide
 //= require projectEdit
 //= require versionCheck
 //= require projectCheck
-//= require githubRefresh
-//= require herokuRefresh
-//= require rubygemsRefresh
 //= require projectFilters
 
 $(function() {
