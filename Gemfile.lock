@@ -1,36 +1,36 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.2.6)
-      actionpack (= 4.2.6)
-      actionview (= 4.2.6)
-      activejob (= 4.2.6)
+    actionmailer (4.2.7)
+      actionpack (= 4.2.7)
+      actionview (= 4.2.7)
+      activejob (= 4.2.7)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.6)
-      actionview (= 4.2.6)
-      activesupport (= 4.2.6)
+    actionpack (4.2.7)
+      actionview (= 4.2.7)
+      activesupport (= 4.2.7)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (4.2.6)
-      activesupport (= 4.2.6)
+    actionview (4.2.7)
+      activesupport (= 4.2.7)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    activejob (4.2.6)
-      activesupport (= 4.2.6)
+    activejob (4.2.7)
+      activesupport (= 4.2.7)
       globalid (>= 0.3.0)
-    activemodel (4.2.6)
-      activesupport (= 4.2.6)
+    activemodel (4.2.7)
+      activesupport (= 4.2.7)
       builder (~> 3.1)
-    activerecord (4.2.6)
-      activemodel (= 4.2.6)
-      activesupport (= 4.2.6)
+    activerecord (4.2.7)
+      activemodel (= 4.2.7)
+      activesupport (= 4.2.7)
       arel (~> 6.0)
-    activesupport (4.2.6)
+    activesupport (4.2.7)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -39,11 +39,11 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.4.0)
-    airbrake (4.1.0)
+    airbrake (4.3.8)
       builder
       multi_json
     arel (6.0.3)
-    autoprefixer-rails (6.3.6.2)
+    autoprefixer-rails (6.3.7)
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
@@ -75,23 +75,23 @@ GEM
       activesupport
       tzinfo
     coderay (1.1.1)
-    coffee-rails (4.1.1)
+    coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
+      railties (>= 4.0.0, < 5.2.x)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
-    cookiejar (0.3.0)
+    cookiejar (0.3.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
-    delayed_job (4.0.6)
-      activesupport (>= 3.0, < 5.0)
-    delayed_job_active_record (4.0.3)
-      activerecord (>= 3.0, < 5.0)
-      delayed_job (>= 3.0, < 4.1)
+    delayed_job (4.1.2)
+      activesupport (>= 3.0, < 5.1)
+    delayed_job_active_record (4.1.1)
+      activerecord (>= 3.0, < 5.1)
+      delayed_job (>= 3.0, < 5)
     delayed_job_web (1.2.10)
       activerecord (> 3.0.0)
       delayed_job (> 2.0.3)
@@ -105,9 +105,9 @@ GEM
     devise-encryptable (0.2.0)
       devise (>= 2.1.0)
     diff-lcs (1.2.5)
-    domain_name (0.5.20160310)
+    domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
-    draper (1.4.0)
+    draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -118,9 +118,9 @@ GEM
       execjs
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
-    em-http-request (1.1.3)
+    em-http-request (1.1.5)
       addressable (>= 2.3.4)
-      cookiejar (<= 0.3.0)
+      cookiejar (!= 0.3.1)
       em-socksify (>= 0.3)
       eventmachine (>= 1.0.3)
       http_parser.rb (>= 0.6.0)
@@ -222,14 +222,16 @@ GEM
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
-    mime-types (2.99.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     nenv (0.3.0)
     netrc (0.11.0)
-    newrelic_rpm (3.15.2.317)
+    newrelic_rpm (3.16.0.318)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -278,16 +280,16 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.2.6)
-      actionmailer (= 4.2.6)
-      actionpack (= 4.2.6)
-      actionview (= 4.2.6)
-      activejob (= 4.2.6)
-      activemodel (= 4.2.6)
-      activerecord (= 4.2.6)
-      activesupport (= 4.2.6)
+    rails (4.2.7)
+      actionmailer (= 4.2.7)
+      actionpack (= 4.2.7)
+      actionview (= 4.2.7)
+      activejob (= 4.2.7)
+      activemodel (= 4.2.7)
+      activerecord (= 4.2.7)
+      activesupport (= 4.2.7)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.6)
+      railties (= 4.2.7)
       sprockets-rails
     rails-backbone (1.2.0)
       coffee-rails
@@ -307,9 +309,9 @@ GEM
       rails_stdout_logging
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
-    railties (4.2.6)
-      actionpack (= 4.2.6)
-      activesupport (= 4.2.6)
+    railties (4.2.7)
+      actionpack (= 4.2.7)
+      activesupport (= 4.2.7)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.16.0)
@@ -320,10 +322,10 @@ GEM
     request_store (1.3.1)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
-    rest-client (1.8.0)
+    rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rspec-core (3.5.1)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -341,14 +343,14 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    ruby-openid (2.5.0)
+    ruby-openid (2.7.0)
     ruby_dep (1.3.1)
     ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
-    sass-rails (5.0.4)
-      railties (>= 4.0.0, < 5.0)
+    sass-rails (5.0.5)
+      railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
@@ -365,16 +367,16 @@ GEM
     spring (1.7.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    sprockets (3.6.0)
+    sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.4)
+    sprockets-rails (3.1.1)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.4)
+    tilt (2.0.5)
     timecop (0.8.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -383,9 +385,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicorn (4.8.3)
+    unicorn (5.1.0)
       kgio (~> 2.6)
-      rack
       raindrops (~> 0.7)
     vagrant (1.5.0)
     vcr (3.0.3)
@@ -395,7 +396,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    whenever (0.9.4)
+    whenever (0.9.7)
       chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -405,7 +406,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  airbrake (~> 4.1.0)
+  airbrake (~> 4.3.8)
   awesome_print
   better_errors
   bootstrap-sass
@@ -416,11 +417,11 @@ DEPENDENCIES
   clockwork
   coffee-rails
   database_cleaner
-  delayed_job_active_record (~> 4.0.2)
-  delayed_job_web (~> 1.2.9)
+  delayed_job_active_record
+  delayed_job_web
   devise (~> 4.2.0)
   devise-encryptable
-  draper (~> 1.4.0)
+  draper
   eco
   em-http-request
   eventmachine
@@ -455,14 +456,14 @@ DEPENDENCIES
   rake
   rb-fsevent
   rspec-rails
-  ruby-openid (~> 2.5.0)
+  ruby-openid
   sass-rails
   shoulda-matchers
   spring
   spring-commands-rspec
   timecop
   uglifier
-  unicorn (~> 4.8.3)
+  unicorn
   vagrant
   vcr
   webmock
