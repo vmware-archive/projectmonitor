@@ -28,7 +28,7 @@ describe('HerokuRefresh.init', function() {
         });
       }
       expect($(".heroku")).toBeVisible();
-      expect($(".heroku")).toHaveClass('bad');
+      expect($(".heroku")).toHaveClass('impaired');
     });
   });
 

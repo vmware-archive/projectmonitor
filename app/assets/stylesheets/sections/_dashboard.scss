@@ -42,14 +42,9 @@ body.dashboard {
     z-index: 1000;
     margin-bottom: 3px;
 
-    &.bad {
-      opacity: 0.94;
-      @include striped-background(orange, $gray);
-    }
-
     &.impaired {
-      opacity: 0.3;
-      background-color: yellow;
+      opacity: 0.90;
+      @include striped-background(orange, $gray);
     }
 
     &.unreachable {

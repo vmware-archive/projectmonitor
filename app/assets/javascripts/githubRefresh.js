@@ -24,10 +24,8 @@ var GithubRefresh = (function () {
             if (failureCount >= failureThreshold) {
               if (status == 'unreachable') {
                 GithubRefresh.markAsUnreachable();
-              } else if (status == 'minor') {
-                GithubRefresh.markAsImpaired();
               } else {
-                GithubRefresh.markAsDown();
+                GithubRefresh.markAsImpaired();
               }
             }
           }
@@ -44,7 +42,6 @@ var GithubRefresh = (function () {
     },
 
     clearFormattingClasses: function () {
-      $githubTile.removeClass('bad');
       $githubTile.removeClass('impaired');
       $githubTile.removeClass('unreachable');
     },
@@ -53,13 +50,6 @@ var GithubRefresh = (function () {
       $githubTile.find('a').text("GITHUB IS UNREACHABLE");
       GithubRefresh.clearFormattingClasses();
       $githubTile.addClass('unreachable');
-      $githubTile.slideDown();
-    },
-
-    markAsDown: function () {
-      $githubTile.find('a').text("GITHUB IS DOWN");
-      GithubRefresh.clearFormattingClasses();
-      $githubTile.addClass('bad');
       $githubTile.slideDown();
     },
 

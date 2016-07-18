@@ -28,7 +28,7 @@ var HerokuRefresh = (function () {
           else {
             failureCount++;
             if (failureCount >= failureThreshold) {
-              HerokuRefresh.markAsDown();
+              HerokuRefresh.markAsImpaired();
             }
           }
         },
@@ -45,16 +45,21 @@ var HerokuRefresh = (function () {
 
     markAsUnreachable: function () {
       $herokuTile.find('a').text("HEROKU IS UNREACHABLE");
-      $herokuTile.removeClass('bad');
+      HerokuRefresh.clearStatuses();
       $herokuTile.addClass('unreachable');
       $herokuTile.slideDown();
     },
 
-    markAsDown: function () {
-      $herokuTile.find('a').text("HEROKU IS DOWN");
-      $herokuTile.removeClass('unreachable');
-      $herokuTile.addClass('bad');
+    markAsImpaired: function () {
+      $herokuTile.find('a').text("HEROKU IS IMPAIRED");
+      HerokuRefresh.clearStatuses();
+      $herokuTile.addClass('impaired');
       $herokuTile.slideDown();
+    },
+
+    clearStatuses: function () {
+      $herokuTile.removeClass('unreachable');
+      $herokuTile.removeClass('impaired')
     }
   };
 })();

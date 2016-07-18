@@ -15,7 +15,7 @@ describe('RubyGemsRefresh.init', function() {
     jasmine.Ajax.uninstall();
   });
 
-  describe("when the status is critical", function() {
+  describe("when the status is bad", function() {
     it("shows the rubygems notification", function() {
       spyOn(RubyGemsRefresh, "clearStatuses");
       RubyGemsRefresh.init();
@@ -26,46 +26,6 @@ describe('RubyGemsRefresh.init', function() {
         jasmine.Ajax.requests.mostRecent().response({
           status: 200,
           responseText: "{\"status\": \"critical\"}"
-        });
-      }
-
-      expect($(".rubygems")).toBeVisible();
-      expect($(".rubygems")).toHaveClass('bad');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
-    });
-  });
-
-  describe("when the status is major", function() {
-    it("shows the rubygems notification", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
-      RubyGemsRefresh.init();
-      expect($(".rubygems")).toBeHidden();
-
-      for (var i=0; i < 4; i++) {
-        jasmine.clock().tick(30001);
-        jasmine.Ajax.requests.mostRecent().response({
-          status: 200,
-          responseText: "{\"status\": \"major\"}"
-        });
-      }
-
-      expect($(".rubygems")).toBeVisible();
-      expect($(".rubygems")).toHaveClass('bad');
-      expect(RubyGemsRefresh.clearStatuses).toHaveBeenCalled();
-    });
-  });
-
-  describe("when the status is minor", function() {
-    it("shows the rubygems impaired notification", function() {
-      spyOn(RubyGemsRefresh, "clearStatuses");
-      RubyGemsRefresh.init();
-      expect($(".rubygems")).toBeHidden();
-
-      for (var i=0; i < 4; i++) {
-        jasmine.clock().tick(30001);
-        jasmine.Ajax.requests.mostRecent().response({
-          status: 200,
-          responseText: "{\"status\": \"minor\"}"
         });
       }
 

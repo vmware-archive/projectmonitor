@@ -2,8 +2,7 @@ describe('GithubRefresh.init', function () {
 
   function expectOneFormattingClass() {
     var github = $(".github")
-    var classCount = (github.hasClass('bad') ? 1 : 0) +
-      (github.hasClass('unreachable') ? 1 : 0) +
+    var classCount = (github.hasClass('unreachable') ? 1 : 0) +
       (github.hasClass('impaired') ? 1 : 0);
     expect(classCount).toBe(1);
   }
@@ -23,25 +22,6 @@ describe('GithubRefresh.init', function () {
     GithubRefresh.cleanupTimeout();
     jasmine.clock().uninstall();
     jasmine.Ajax.uninstall();
-  });
-
-  describe("when the status is bad", function () {
-    it("shows the github notification", function () {
-      GithubRefresh.init();
-      expect($(".github")).toBeHidden();
-
-      for (var i = 0; i < 4; i++) {
-        jasmine.clock().tick(30001);
-        jasmine.Ajax.requests.mostRecent().response({
-          status: 200,
-          responseText: "{\"status\": \"bad\"}"
-        });
-      }
-      expect($(".github")).toBeVisible();
-      expect($(".github").find('a').text()).toEqual('GITHUB IS DOWN');
-      expect($(".github")).toHaveClass('bad');
-      expectOneFormattingClass();
-    });
   });
 
   describe("when the status is good", function () {

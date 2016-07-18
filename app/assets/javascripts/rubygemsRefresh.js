@@ -26,10 +26,8 @@ var RubyGemsRefresh = (function () {
                 RubyGemsRefresh.markAsUnreachable();
               } else if (status == 'page broken') {
                 RubyGemsRefresh.markAsBroken();
-              } else if (status == 'minor') {
-                RubyGemsRefresh.markAsImpaired();
               } else {
-                RubyGemsRefresh.markAsDown();
+                RubyGemsRefresh.markAsImpaired();
               }
             }
           }
@@ -59,13 +57,6 @@ var RubyGemsRefresh = (function () {
       $rubygemsTile.slideDown();
     },
 
-    markAsDown: function () {
-      $rubygemsTile.find('a').text("RUBYGEMS IS DOWN");
-      RubyGemsRefresh.clearStatuses();
-      $rubygemsTile.addClass('bad');
-      $rubygemsTile.slideDown();
-    },
-
     markAsBroken: function () {
       $rubygemsTile.find('a').text("CANNOT PARSE RUBYGEMS STATUS");
       RubyGemsRefresh.clearStatuses();
@@ -75,7 +66,6 @@ var RubyGemsRefresh = (function () {
 
     clearStatuses: function () {
       $rubygemsTile.removeClass('unreachable');
-      $rubygemsTile.removeClass('bad');
       $rubygemsTile.removeClass('broken');
       $rubygemsTile.removeClass('impaired')
     }
