@@ -1,4 +1,30 @@
-@import 'pivotal';
+// Formerly of https://github.com/pivotal/pivotal-styles-sass
+$pivotal_red: #B90020;
+$pivotal_blue: #6D99D3;
+$pivotal_yellow: #C59E16;
+$pivotal_grey: #999999;
+$pivotal_dark_grey: #5D5C5C;
+$pivotal_font_family: ars-maquette-web, sans-serif;
+
+[colspan] {
+  text-align: center;
+}
+
+[colspan="1"] {
+  text-align: left;
+}
+
+[rowspan] {
+  vertical-align: middle;
+}
+
+[rowspan="1"] {
+  vertical-align: top;
+}
+
+.numerical {
+  text-align: right;
+}
 
 $brand_primary: $pivotal_blue;
 $brand_danger: $pivotal_red;

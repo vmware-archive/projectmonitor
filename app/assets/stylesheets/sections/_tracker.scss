@@ -1,7 +1,7 @@
 %raised-box-style {
   background-color: lighten($blue, 10%);
-  @include border-radius(1px);
-  @include box-shadow(1px 1px 3px rgba(0,0,0,0.8));
+  border-radius: 1px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 article.tracker {
@@ -9,7 +9,7 @@ article.tracker {
   height: 159px;
   padding: 5px 5px 5px 15px;
   position: relative;
-  @include box-sizing(border-box);
+  box-sizing: border-box;
 
   .no-connection {
     height: 127px;
