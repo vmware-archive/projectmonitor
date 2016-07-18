@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe SessionsController, :type => :controller do
+  include Devise::Controllers::UrlHelpers
+  include Devise::OmniAuth::UrlHelpers
+
+  # To satisfy `omniauth_authorize_url`
+  def main_app
+    Rails.application.class.routes.url_helpers
+  end
+
   before do
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -17,7 +25,7 @@ describe SessionsController, :type => :controller do
       before { allow(Rails.configuration).to receive(:password_auth_enabled).and_return(false) }
       subject { get :new }
 
-      it { is_expected.to redirect_to user_omniauth_authorize_url(:google_oauth2, only_path: true) }
+      it { is_expected.to redirect_to omniauth_authorize_url(:user, :google_oauth2, only_path: true) }
     end
   end
 

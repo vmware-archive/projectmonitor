@@ -13,7 +13,7 @@ class SessionsController < Devise::SessionsController
     if ConfigHelper.get(:password_auth_enabled)
       super
     else
-      redirect_to user_omniauth_authorize_url(:google_oauth2)
+      redirect_to omniauth_authorize_url(:user, :google_oauth2)
     end
   end
 

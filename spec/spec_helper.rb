@@ -15,7 +15,7 @@ RSpec.configure do |config|
   config.use_instantiated_fixtures  = false
   config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :aggregate_projects
 
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ViewHelpers, type: :view
 
   config.order = 'random'
