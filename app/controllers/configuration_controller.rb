@@ -1,5 +1,5 @@
 class ConfigurationController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   respond_to :text, only: :show
 
@@ -7,7 +7,7 @@ class ConfigurationController < ApplicationController
     headers['Content-Type'] = 'text/plain'
     headers['Content-Disposition'] = %{attachment; filename="configuration.yml"}
     headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-    render text: ConfigExport.export
+    render plain: ConfigExport.export
   end
 
   def create

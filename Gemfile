@@ -1,28 +1,29 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '4.0.0.pre'
 gem 'airbrake', '~> 4.3.8'
 gem 'bourbon'
 gem 'choices'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+gem 'sinatra', github: 'sinatra/sinatra'
 gem 'devise', '~> 4.2.0'
 gem 'devise-encryptable'
-gem 'draper'
+gem 'draper', '3.0.0.pre1'
 gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'nokogiri'
 
-gem 'oauth2', '0.8.1'
-gem 'omniauth', '1.1.4'
-gem 'omniauth-google-oauth2', '0.2.0'
-gem 'omniauth-oauth2', '1.1.1'
+gem 'oauth2'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-oauth2'
 
 gem 'pivotal-tracker'
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0'
 gem 'rake'
 gem 'whenever', require: false
 gem 'rails-backbone'
@@ -46,6 +47,7 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
+  gem 'rails-controller-testing', require: false
 end
 
 # NOTE: anything that will not work in travis should be here
@@ -58,7 +60,6 @@ group :development do
   gem 'better_errors'
   gem 'foreman'
   gem 'guard-ctags-bundler'
-  gem 'quiet_assets'
 end
 
 group :test, :development do

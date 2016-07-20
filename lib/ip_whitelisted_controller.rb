@@ -6,8 +6,8 @@ module IPWhitelistedController
   def self.included(base)
     return unless ConfigHelper.get(:ip_whitelist)
 
-    base.before_filter :restrict_ip_address
-    base.before_filter :authenticate_user!
+    base.before_action :restrict_ip_address
+    base.before_action :authenticate_user!
   end
 
   private

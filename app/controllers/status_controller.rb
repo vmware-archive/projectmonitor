@@ -1,17 +1,15 @@
 class StatusController < ApplicationController
-  skip_filter :restrict_ip_address, :authenticate_user!
+  skip_before_action :restrict_ip_address, :authenticate_user!, raise: false
 
   def create
     if project = Project.find_by_guid(params.delete(:project_id))
       payload = project.webhook_payload
       payload.remote_addr = request.env['REMOTE_ADDR']
 
-      params.merge!(parse_legacy_jenkins_notification) if is_legacy_jenkins_notification?(payload)
-
       payload.webhook_status_content =
         case payload
           when TeamCityJsonPayload, SemaphorePayload, CodeshipPayload, TravisJsonPayload, JenkinsJsonPayload, CircleCiPayload
-            params
+            params_for_webhook_status_content(payload)
           else
             request.body.read
         end
@@ -29,6 +27,14 @@ class StatusController < ApplicationController
 
   private
 
+  def params_for_webhook_status_content(payload)
+    if is_legacy_jenkins_notification?(payload)
+      params.merge(parse_legacy_jenkins_notification)
+    else
+      params
+    end
+  end
+
   # Jenkins notification plugin did not set content-type prior to 1.5
   def is_legacy_jenkins_notification?(payload)
     payload.is_a?(JenkinsJsonPayload) && params['build'].nil?
@@ -38,7 +44,7 @@ class StatusController < ApplicationController
     begin
       JSON.parse(request.body.read)
     rescue => e
-      raise ActionDispatch::ParamsParser::ParseError.new(e.message, e)
+      raise ActionDispatch::ParamsParser::ParseError.new
     end
   end
 end

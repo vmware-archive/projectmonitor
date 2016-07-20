@@ -11,7 +11,7 @@ class StatusUpdater
 
     if project.statuses.count > @max_statuses
       keepers = project.statuses.order('created_at DESC').limit(@max_statuses)
-      ProjectStatus.delete_all(['project_id = ? AND id not in (?)', project.id, keepers.map(&:id)]) if keepers.any?
+      ProjectStatus.where(['project_id = ? AND id not in (?)', project.id, keepers.map(&:id)]).delete_all if keepers.any?
     end
   end
 end

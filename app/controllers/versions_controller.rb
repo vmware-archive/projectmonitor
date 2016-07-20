@@ -1,11 +1,11 @@
 class VersionsController < ApplicationController
-  skip_filter :authenticate_user!
+  skip_before_action :authenticate_user!, raise: false
 
   DEFAULT_VERSION = '1'
   VERSION_PATH    = File.join(Rails.root, 'VERSION')
 
   def show
-    render text: version
+    render plain: version
   end
 
   private

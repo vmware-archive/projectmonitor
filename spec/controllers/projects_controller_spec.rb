@@ -267,7 +267,7 @@ describe ProjectsController, :type => :controller do
         context "when a new password is entered in the form" do
           it "should grab the existing project password" do
             post :validate_build_info, {
-              project: project.attributes.merge(auth_password: 'new_password')
+              project: project.attributes.merge('auth_password' => 'new_password')
             }
             expect(@project_to_update.auth_password).to eq('new_password')
           end

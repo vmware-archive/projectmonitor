@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
 
   scope :enabled, -> { where(enabled: true) }
   scope :standalone, -> { where(aggregate_project_id: nil) }
-  scope :with_statuses, -> { joins(:statuses).uniq }
+  scope :with_statuses, -> { joins(:statuses).distinct }
 
   scope :updateable, -> {
     enabled.where(webhooks_enabled: [nil, false])

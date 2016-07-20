@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   layout 'home'
 
-  skip_filter :authenticate_user!
+  skip_before_action :authenticate_user!, raise: false
 
   respond_to :html, only: [:styleguide]
   respond_to :rss, only: :builds

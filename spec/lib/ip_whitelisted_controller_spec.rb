@@ -8,7 +8,7 @@ describe IPWhitelistedController, type: :request do
     # The existing controllers are loaded before its configured and it causes this
     # module not to do anything.
     class AdminDashboardController < ApplicationController
-      include IPWhitelistedController and skip_filter :authenticate_user!
+      include IPWhitelistedController and skip_before_action :authenticate_user!, raise: false
       def index; head :ok; end
     end
 
@@ -125,18 +125,18 @@ describe IPWhitelistedController, type: :request do
     let(:whitelisted_controller) { Class.new }
 
     before do
-      allow(whitelisted_controller).to receive(:before_filter)
+      allow(whitelisted_controller).to receive(:before_action)
     end
 
     context 'an ip whitelist is specified' do
       context 'the whitelist contains single ip addresses' do
         it 'should add the authentication before filter' do
-          expect(whitelisted_controller).to receive(:before_filter).with(:authenticate_user!)
+          expect(whitelisted_controller).to receive(:before_action).with(:authenticate_user!)
           whitelisted_controller.send(:include, IPWhitelistedController)
         end
 
         it 'should add the ip whitelist before filter' do
-          expect(whitelisted_controller).to receive(:before_filter).with(:restrict_ip_address)
+          expect(whitelisted_controller).to receive(:before_action).with(:restrict_ip_address)
           whitelisted_controller.send(:include, IPWhitelistedController)
         end
       end
@@ -148,7 +148,7 @@ describe IPWhitelistedController, type: :request do
       end
 
       it 'should not add any filters' do
-        expect(whitelisted_controller).not_to receive(:before_filter)
+        expect(whitelisted_controller).not_to receive(:before_action)
         whitelisted_controller.send(:include, IPWhitelistedController)
       end
     end

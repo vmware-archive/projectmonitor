@@ -5,6 +5,7 @@ require 'webmock/rspec'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'pry'
+require 'rails-controller-testing'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
@@ -14,6 +15,12 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.use_instantiated_fixtures  = false
   config.global_fixtures = :project_statuses, :projects, :taggings, :tags, :aggregate_projects
+
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, type: type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+    config.include ::Rails::Controller::Testing::Integration, type: type
+  end
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ViewHelpers, type: :view

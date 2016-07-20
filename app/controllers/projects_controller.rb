@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  skip_filter :authenticate_user!, only: [:show, :status, :index]
-  before_filter :load_project, only: [:edit, :update, :destroy]
-  around_filter :scope_by_aggregate_project
+  skip_before_action :authenticate_user!, only: [:show, :status, :index], raise: false
+  before_action :load_project, only: [:edit, :update, :destroy]
+  around_action :scope_by_aggregate_project
 
   DEFAULT_PROJECTS_TO_DISPLAY = 100
 
