@@ -5,7 +5,7 @@ describe "ProjectMonitor.Models.Project", ->
     expect(project.get("build")).toBeDefined()
     expect(project.get("tracker")).toBeDefined()
 
-  it "should not include undefined airbrake model", ->
+  it "should not include undefined tracker model", ->
     project = BackboneFactory.create("project")
 
     expect(project.get("tracker")).not.toBeDefined()

@@ -1,9 +1,0 @@
-<div class="title">New Relic</div>
-
-<dl class="velocity-block times">
-  <% for time in @times: %>
-    <dd>
-      <span style="height: <%= time %>%"></span>
-    </dd>
-  <% end %>
-</dl>

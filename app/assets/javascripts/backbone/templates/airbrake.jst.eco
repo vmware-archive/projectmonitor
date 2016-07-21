@@ -1,8 +1,0 @@
-<div class="title">Airbrake</div>
-<dl class="unresolved-errors">
-  <dt>Unresolved errors</dt>
-  <dd class="error-count"><%= @error_count %></dd>
-</dl>
-<dl class="last-error">
-  <dd><%= @last_error %></dd>
-</dl>
