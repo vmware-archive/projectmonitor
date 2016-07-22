@@ -76,8 +76,10 @@ describe AggregateProject, :type => :model do
 
         it "should return the projects in alphabetical order" do
           scope = double
-          allow(AggregateProject).to receive_message_chain(:enabled,:joins,:select) { scope }
-          expect(scope).to receive(:order).with('code ASC')
+          allow(AggregateProject).to receive_message_chain(:enabled,:joins,:group) { scope }
+          expect(scope).to receive(:order).with('aggregate_projects.code ASC').and_return(scope)
+          expect(scope).to receive(:pluck)
+
           AggregateProject.displayable
         end
       end

@@ -5,7 +5,17 @@ class ProjectStatus < ActiveRecord::Base
   validates :build_id, presence: true
 
   scope :recent, -> (count = Project::RECENT_STATUS_COUNT) {
-    rankings = "SELECT id, RANK() OVER(PARTITION BY project_id ORDER BY published_at DESC, build_id DESC) rank FROM project_statuses"
+    rankings = <<-SQL.strip_heredoc
+      SELECT   id,
+      (CASE project_statuses.project_id
+                  WHEN @curType
+                  THEN @curRow := @curRow + 1
+                  ELSE @curRow := 1 AND @curType := project_statuses.project_id END
+               ) AS rank
+      FROM     project_statuses,
+               (SELECT @curRow := 0, @curType := '') r
+      ORDER BY project_statuses.published_at desc, project_statuses.build_id desc
+    SQL
 
     joins("INNER JOIN (#{rankings}) rankings ON rankings.id = project_statuses.id")
       .where("rankings.rank < :count", count: count + 1)

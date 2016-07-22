@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+  class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
@@ -109,6 +109,10 @@ class Project < ActiveRecord::Base
 
   def tracker_current_iteration_url
     "https://www.pivotaltracker.com/services/v3/projects/#{tracker_project_id}/iterations/current"
+  end
+
+  def iteration_story_state_counts
+    attributes["iteration_story_state_counts"] ||= {}
   end
 
   def to_s

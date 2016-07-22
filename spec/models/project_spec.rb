@@ -596,6 +596,18 @@ describe Project, :type => :model do
     end
   end
 
+  describe '#iteration_story_state_counts' do
+    it 'defaults to an empty hash' do
+      subject = described_class.new
+
+      expect(subject.iteration_story_state_counts).to eq({})
+
+      subject.iteration_story_state_counts = { a: 2 }
+
+      expect(subject.iteration_story_state_counts).to eq({'a' => 2})
+    end
+  end
+
   it "has a webhook_payload method" do
     Project.subclasses.each { |project_class|
       expect(project_class.method_defined? :webhook_payload).to be(true), "#{project_class} is a Project subclass that does not have a required 'webhook_payload' method defined."

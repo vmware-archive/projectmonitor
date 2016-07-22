@@ -6,9 +6,10 @@ class AggregateProject < ActiveRecord::Base
   scope :enabled, -> { where(enabled: true) }
   scope :with_statuses, -> { joins(projects: :statuses).uniq }
   scope :displayable, lambda { |tags = nil|
-    scope = enabled.joins(:projects).select('DISTINCT aggregate_projects.*').order('code ASC')
+    scope = enabled.joins(:projects).group(:id).order('aggregate_projects.code ASC')
     return scope.tagged_with(tags, any: true) if tags
-    scope
+
+    where(id: scope.pluck(:id))
   }
 
   acts_as_taggable
