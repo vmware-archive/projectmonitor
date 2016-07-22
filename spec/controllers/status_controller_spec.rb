@@ -15,7 +15,7 @@ describe StatusController, :type => :controller do
         URI.encode(open('spec/fixtures/travis_examples/created.json').read)
       end
 
-      subject { post :create, project_id: project.guid, payload: successful_payload }
+      subject { post :create, params: { project_id: project.guid, payload: successful_payload } }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -27,15 +27,15 @@ describe StatusController, :type => :controller do
 
       it "doesn't create new status recores for 'on_start' notifications" do
         expect {
-          post :create, project_id: project.guid, payload: on_start_payload
+          post :create, params: { project_id: project.guid, payload: on_start_payload }
         }.not_to change(ProjectStatus, :count)
       end
 
       it "also creates a new status when it receives successful notification after failure" do
-        post :create, project_id: project.guid, payload: failure_payload
+        post :create, params: { project_id: project.guid, payload: failure_payload }
 
         expect {
-          post :create, project_id: project.guid, payload: successful_payload
+          post :create, params: { project_id: project.guid, payload: successful_payload }
         }.to change { project.status.success }.from(false).to(true)
       end
 
@@ -47,7 +47,7 @@ describe StatusController, :type => :controller do
       end
 
       it "should have all the attributes" do
-        post :create, project_id: project.guid, payload: failure_payload
+        post :create, params: { project_id: project.guid, payload: failure_payload }
 
         expect(ProjectStatus.last).not_to be_success
         expect(ProjectStatus.last.project_id).to eq(project.id)
@@ -110,7 +110,7 @@ describe StatusController, :type => :controller do
       context "payload sent as raw post data (deprecated)" do
         subject do
           request.env['RAW_POST_DATA'] = payload
-          post :create, project_id: project.guid
+          post :create, params: { project_id: project.guid }
         end
 
         it_behaves_like "a Jenkins webhook build"
@@ -118,7 +118,7 @@ describe StatusController, :type => :controller do
 
       context "payload sent as params" do
         subject do
-          post :create, JSON.parse(payload).merge(project_id: project.guid)
+          post :create, params: JSON.parse(payload).merge(project_id: project.guid)
         end
 
         it_behaves_like "a Jenkins webhook build"
@@ -128,7 +128,7 @@ describe StatusController, :type => :controller do
     context "Codeship project" do
       let!(:project) { create(:codeship_project, webhooks_enabled: true) }
       let(:payload)  { JSON.parse(open('spec/fixtures/codeship_examples/webhook.json').read) }
-      subject { post :create, payload.merge(project_id: project.guid) }
+      subject { post :create, params: payload.merge(project_id: project.guid) }
 
       it "should create a new status" do
         expect { subject }.to change(ProjectStatus, :count).by(1)
@@ -154,7 +154,7 @@ describe StatusController, :type => :controller do
       let(:payload)  { JSON.parse(open('spec/fixtures/teamcity_json_examples/webhook.json').read) }
 
       subject do
-        post :create, project_id: project.guid, build: payload
+        post :create, params: { project_id: project.guid, build: payload }
       end
 
       it "should create a new status" do
@@ -201,7 +201,7 @@ describe StatusController, :type => :controller do
       end
 
       after do
-        post :create, payload.merge(project_id: project.guid)
+        post :create, params: payload.merge(project_id: project.guid)
       end
 
       it 'should set last_refreshed_at' do
@@ -224,7 +224,7 @@ describe StatusController, :type => :controller do
       it "should not update the project's last_refreshed_at date" do
         expect(project).not_to receive(:last_refreshed_at=)
 
-        expect{ post :create, project_id: project.guid, "payload" => 'invalid_post_content' }
+        expect{ post :create, params: { project_id: project.guid, "payload" => 'invalid_post_content' } }
           .to raise_error(ActionDispatch::ParamsParser::ParseError)
       end
 
@@ -232,7 +232,7 @@ describe StatusController, :type => :controller do
 
     context "when a project isn't found" do
       it "should return a 404" do
-        post :create, project_id: "1234", "payload" => '{"id": 4219108}'
+        post :create, params: {project_id: "1234", "payload" => '{"id": 4219108}'}
         expect(response.response_code).to eq(404)
       end
     end

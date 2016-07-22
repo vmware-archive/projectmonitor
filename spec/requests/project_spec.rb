@@ -14,19 +14,19 @@ describe "Project", :type => :request do
     end
 
     it "returns log entry" do
-      patch "/projects/validate_build_info", project: project.attributes.merge(auth_password: "password")
+      patch "/projects/validate_build_info", params: { project: project.attributes.merge(auth_password: "password") }
       expect(response.body).to include "Error converting content"
     end
 
     it "does not duplicate projects when validating a persisted project" do
       expect {
-        patch "/projects/validate_build_info", project: project.attributes.merge(auth_password: "password")
+        patch "/projects/validate_build_info", params: { project: project.attributes.merge(auth_password: "password") }
       }.not_to change { Project.count }
     end
 
     it "does not create a project when validating an unpersisted project" do
       expect {
-        patch "/projects/validate_build_info", project: project.attributes.except('id').merge(auth_password: "password")
+        patch "/projects/validate_build_info", params: { project: project.attributes.except('id').merge(auth_password: "password") }
       }.not_to change { Project.count }
     end
   end
@@ -35,7 +35,7 @@ describe "Project", :type => :request do
     it "returns validation status" do
       project = create(:project)
 
-      post "/projects/validate_tracker_project", { id: project.id, auth_token: 'token', project_id: project.id }
+      post "/projects/validate_tracker_project", params: { id: project.id, auth_token: 'token', project_id: project.id }
       expect(response.status).to be(202)
     end
   end

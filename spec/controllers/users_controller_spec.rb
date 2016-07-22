@@ -18,8 +18,8 @@ describe UsersController, :type => :controller do
 
     it "creates a new user" do
       expect {
-        post :create, user: { login: 'newuser', email: 'newuser@example.com',
-          password: 'password', password_confirmation: 'password' }
+        post :create, params: { user: { login: 'newuser', email: 'newuser@example.com',
+          password: 'password', password_confirmation: 'password' } }
         expect(response).to redirect_to(root_path)
         expect(assigns(:user)).not_to be_new_record
         expect(assigns(:user)).to be_valid
@@ -29,8 +29,8 @@ describe UsersController, :type => :controller do
 
     it "should handle a bad user" do
       expect {
-        post :create, user: { login: 'newuser', email: 'newuser@example.com',
-          password: 'password', password_confirmation: 'notpassword' }
+        post :create, params: { user: { login: 'newuser', email: 'newuser@example.com',
+          password: 'password', password_confirmation: 'notpassword' } }
         expect(response).to be_success
         expect(assigns(:user)).not_to be_valid
       }.to change(User, :count).by(0)

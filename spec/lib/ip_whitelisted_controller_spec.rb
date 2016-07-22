@@ -27,7 +27,7 @@ describe IPWhitelistedController, type: :request do
 
       context 'when the proxy IP list is empty' do
         it 'should deny access' do
-          get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => nil
+          get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => nil }
           expect(response).to be_redirect
         end
       end
@@ -35,28 +35,28 @@ describe IPWhitelistedController, type: :request do
       context 'when the proxy IP list is not empty' do
         context "and the client IP is in the whitelist" do
           it 'should allow access' do
-            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '8.8.8.8'
+            get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => '8.8.8.8' }
             expect(response).to be_success
           end
         end
 
         context "and the client IP is not in the whitelist" do
           it 'should deny access' do
-            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '1.1.1.1'
+            get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => '1.1.1.1' }
             expect(response).to be_redirect
           end
         end
 
         context "and the client IP is in the whitelist range" do
           it 'should allow access' do
-            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '6.6.6.15'
+            get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => '6.6.6.15' }
             expect(response).to be_success
           end
         end
 
         context "and the client IP is not in the whitelist range" do
           it 'should deny access' do
-            get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => '6.6.6.16'
+            get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => '6.6.6.16' }
             expect(response).to be_redirect
           end
         end
@@ -64,14 +64,14 @@ describe IPWhitelistedController, type: :request do
         context 'when there are multiple proxy IP addresses' do
           context "and it looks like it (probably) has remote ip in the whitelist" do
             it 'should allow access' do
-              get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => "8.8.8.8, 127.0.0.1, 192.168.1.1"
+              get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => "8.8.8.8, 127.0.0.1, 192.168.1.1" }
               expect(response).to be_success
             end
           end
 
           context "and the last client IP is not in the whitelist" do
             it 'should deny access' do
-              get '/admin_dashboard', nil, 'HTTP_X_FORWARDED_FOR' => "192.168.1.1, 127.0.0.1, 203.1.1.0"
+              get '/admin_dashboard', params: nil, headers: { 'HTTP_X_FORWARDED_FOR' => "192.168.1.1, 127.0.0.1, 203.1.1.0" }
               expect(response).to be_redirect
             end
           end
@@ -84,7 +84,7 @@ describe IPWhitelistedController, type: :request do
 
       context 'when the client IP is missing' do
         it 'should deny access' do
-          get '/admin_dashboard', nil, 'REMOTE_ADDR' => nil
+          get '/admin_dashboard', params: nil, headers: { 'REMOTE_ADDR' => nil }
           expect(response).to be_redirect
         end
       end
@@ -92,27 +92,27 @@ describe IPWhitelistedController, type: :request do
       context 'when the client IP is present' do
         context 'and the client IP is in the whitelist' do
           it 'should allow access' do
-            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '8.8.8.8'
+            get '/admin_dashboard', params: nil, headers: { 'REMOTE_ADDR' => '8.8.8.8' }
             expect(response).to be_success
           end
         end
 
         context 'and the client IP is not in the whitelist' do
           it 'should deny access' do
-            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '173.194.43.2'
+            get '/admin_dashboard', params: nil, headers: { 'REMOTE_ADDR' => '173.194.43.2' }
             expect(response).to be_redirect
           end
         end
 
         context 'and the client IP is in the whitelist range' do
           it 'should allow all ip addresses in range' do
-            get '/admin_dashboard', nil, 'REMOTE_ADDR' => '6.6.6.15'
+            get '/admin_dashboard', params: nil, headers: { 'REMOTE_ADDR' => '6.6.6.15' }
             expect(response).to be_success
           end
 
           context 'and the client IP is outside the whitelist range' do
             it 'should deny access' do
-              get '/admin_dashboard', nil, 'REMOTE_ADDR' => '6.6.6.16'
+              get '/admin_dashboard', params: nil, headers: { 'REMOTE_ADDR' => '6.6.6.16' }
               expect(response).to be_redirect
             end
           end

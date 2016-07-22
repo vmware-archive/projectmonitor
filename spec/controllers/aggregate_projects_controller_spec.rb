@@ -4,7 +4,7 @@ describe AggregateProjectsController, :type => :controller do
   describe "with no logged in user" do
     describe "show" do
       let(:aggregate_project) { aggregate_projects(:internal_projects_aggregate) }
-      before { get :show, id: aggregate_project.to_param, format: 'json' }
+      before { get :show, params: { id: aggregate_project.to_param }, format: 'json' }
 
       it "should be_success" do
         expect(response).to be_success
@@ -21,7 +21,7 @@ describe AggregateProjectsController, :type => :controller do
 
     describe "create" do
       context "when the aggregate project was successfully created" do
-        before { post :create, aggregate_project: { name: "new name" } }
+        before { post :create, params: { aggregate_project: { name: "new name" } } }
 
         it "should set the flash" do
           expect(flash[:notice]).to eq('Aggregate project was successfully created.')
@@ -31,14 +31,14 @@ describe AggregateProjectsController, :type => :controller do
       end
 
       context "when the aggregate project was not successfully created" do
-        before { post :create, aggregate_project: { name: nil } }
+        before { post :create, params: { aggregate_project: { name: nil } } }
         it { is_expected.to render_template :new }
       end
     end
 
     describe "update" do
       context "when the aggregate project was successfully updated" do
-        before { put :update, id: aggregate_projects(:internal_projects_aggregate), aggregate_project: { name: "new name" } }
+        before { put :update, params: { id: aggregate_projects(:internal_projects_aggregate), aggregate_project: { name: "new name" } } }
 
         it "should set the flash" do
           expect(flash[:notice]).to eq('Aggregate project was successfully updated.')
@@ -48,13 +48,13 @@ describe AggregateProjectsController, :type => :controller do
       end
 
       context "when the aggregate project was not successfully updated" do
-        before { put :update, id: aggregate_projects(:internal_projects_aggregate), aggregate_project: { name: nil } }
+        before { put :update, params: { id: aggregate_projects(:internal_projects_aggregate), aggregate_project: { name: nil } } }
         it { is_expected.to render_template :edit }
       end
     end
 
     describe "destroy" do
-      subject { delete :destroy, id: aggregate_projects(:internal_projects_aggregate) }
+      subject { delete :destroy, params: { id: aggregate_projects(:internal_projects_aggregate) } }
 
       it "should destroy the aggregate project" do
         expect { subject }.to change(AggregateProject, :count).by(-1)

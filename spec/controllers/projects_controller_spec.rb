@@ -11,7 +11,7 @@ describe ProjectsController, :type => :controller do
     context "when nested under an aggregate project" do
       it "should scope by aggregate_project_id" do
         expect(Project).to receive(:with_aggregate_project).with('1')
-        get :index, aggregate_project_id: 1
+        get :index, params: { aggregate_project_id: 1 }
       end
     end
 
@@ -27,7 +27,7 @@ describe ProjectsController, :type => :controller do
         end
 
         it 'gets a collection of aggregate projects by tag' do
-          get :index, tags: tags, format: :json
+          get :index, params: { tags: tags }, format: :json
 
           expect(assigns(:projects)).to match_array(aggregate_projects)
         end
@@ -36,13 +36,13 @@ describe ProjectsController, :type => :controller do
       describe "limiting the number of displayed projects" do
         it "shows only the desired amount of projects (but all aggregate projects)" do
           project_limit = 1
-          get :index, limit: project_limit, format: :json
+          get :index, params: { limit: project_limit }, format: :json
 
           expect(assigns(:projects).length).to eq(AggregateProject.displayable.count + project_limit)
         end
 
         it "shows all projects if the limit is set to 'all'" do
-          get :index, limit: 'all', format: :json
+          get :index, params: { limit: 'all' }, format: :json
 
           expect(assigns(:projects).length).to eq(AggregateProject.displayable.count + Project.standalone.displayable.count)
         end
@@ -52,12 +52,12 @@ describe ProjectsController, :type => :controller do
     describe "#create" do
       context "when the project is valid" do
         def do_post
-          post :create, project: {
+          post :create, params: { project: {
             name: 'name',
             type: JenkinsProject.name,
             ci_base_url: 'http://www.example.com',
             ci_build_identifier: 'example'
-          }
+          } }
         end
 
         it "should create a project of the correct type" do
@@ -78,14 +78,14 @@ describe ProjectsController, :type => :controller do
       end
 
       context "when the project is invalid" do
-        before { post :create, project: { name: nil, type: JenkinsProject.name} }
+        before { post :create, params: { project: { name: nil, type: JenkinsProject.name} } }
         it { is_expected.to render_template :new }
       end
     end
 
     describe "#update" do
       context "when the project was successfully updated" do
-        before { put :update, id: projects(:jenkins_project), project: { name: "new name" } }
+        before { put :update, params: { id: projects(:jenkins_project), project: { name: "new name" } } }
 
         it "should set the flash" do
           expect(flash[:notice]).to eq('Project was successfully updated.')
@@ -95,7 +95,7 @@ describe ProjectsController, :type => :controller do
       end
 
       context "when the project was not successfully updated" do
-        before { put :update, id: projects(:jenkins_project), project: { name: nil } }
+        before { put :update, params: { id: projects(:jenkins_project), project: { name: nil } } }
         it { is_expected.to render_template :edit }
       end
 
@@ -104,7 +104,7 @@ describe ProjectsController, :type => :controller do
         let(:project) { projects(:socialitis).tap {|p| p.auth_password = 'existing password'} }
         subject { project.auth_password }
         before do
-          put :update, id: projects(:socialitis).id, password_changed: changed, project: {auth_password: new_password }
+          put :update, params: {id: projects(:socialitis).id, password_changed: changed, project: {auth_password: new_password }}
           project.reload
         end
 
@@ -144,7 +144,7 @@ describe ProjectsController, :type => :controller do
       end
 
       describe "changing STI type" do
-        subject { put :update, "id"=> project.id, "project" => project_params }
+        subject { put :update, params: { "id"=> project.id, "project" => project_params } }
         let!(:project) { create(:team_city_project) }
 
         context "when the parameters are valid" do
@@ -167,7 +167,7 @@ describe ProjectsController, :type => :controller do
     end
 
     describe "#destroy" do
-      subject { delete :destroy, id: projects(:jenkins_project) }
+      subject { delete :destroy, params: { id: projects(:jenkins_project) } }
 
       it "should destroy the project" do
         expect { subject }.to change(JenkinsProject, :count).by(-1)
@@ -186,21 +186,21 @@ describe ProjectsController, :type => :controller do
         project = projects(:jenkins_project)
         expect(TrackerProjectValidator).to receive(:delay) { TrackerProjectValidator }
         expect(TrackerProjectValidator).to receive :validate
-        post :validate_tracker_project, { auth_token: "12354", project_id: "98765", id: project.id }
+        post :validate_tracker_project, params: { auth_token: "12354", project_id: "98765", id: project.id }
       end
     end
 
     describe '#validate_build_info' do
-      let(:parsed_response) { JSON.parse(post(:validate_build_info, {project: {type: TravisProject}}).body)}
+      let(:parsed_response) { JSON.parse(post(:validate_build_info, params: {project: {type: TravisProject}}).body)}
 
       context 'when the payload is missing' do
         it "returns 422" do
-          post :validate_build_info, {}
+          post :validate_build_info, params: {}
           expect(response).to be_unprocessable
         end
 
         it "renders nothing" do
-          post :validate_build_info, {}
+          post :validate_build_info, params: {}
           expect(response.body).to be_blank
         end
       end
@@ -266,7 +266,7 @@ describe ProjectsController, :type => :controller do
 
         context "when a new password is entered in the form" do
           it "should grab the existing project password" do
-            post :validate_build_info, {
+            post :validate_build_info, params: {
               project: project.attributes.merge('auth_password' => 'new_password')
             }
             expect(@project_to_update.auth_password).to eq('new_password')
@@ -275,7 +275,7 @@ describe ProjectsController, :type => :controller do
 
         context "when a new password is not entered in the form" do
           it "should use the saved password to fetch" do
-            post :validate_build_info, {project: project.attributes.except('auth_password')}
+            post :validate_build_info, params: {project: project.attributes.except('auth_password')}
             expect(@project_to_update.auth_password).to eq('old_password')
           end
         end
