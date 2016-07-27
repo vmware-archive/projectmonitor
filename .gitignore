@@ -20,7 +20,5 @@ tags
 *.swp
 spec/tmp/
 .vagrant
-manifest.yml
-manifest-*.yml
 gems.tags
 .byebug_history

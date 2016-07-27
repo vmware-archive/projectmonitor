@@ -199,13 +199,15 @@ like so:
 To deploy to staging:
 
 ```
-cf push -f ./config/cf/manifest-staging.yml
+cf target -s project-monitor-staging -o IAD
+cf push
 ```
 
 To deploy to production:
 
 ```
-cf push -f ./config/cf/manifest-production.yml
+cf taget -s project-monitor-production -o IAD
+cf push
 ```
 
 ### Heroku
