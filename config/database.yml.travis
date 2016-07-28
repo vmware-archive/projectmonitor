@@ -1,13 +1,11 @@
-postgres: &postgres
-  adapter: postgresql
+mysql: &mysql
+  adapter: mysql2
   host: localhost
-  port: 5432
-  username: postgres
-  password:
-  encoding: unicode
+  username: travis
+  encoding: utf8
 
 common: &common
-  <<: *postgres
+  <<: *mysql
 
 development: &development
   <<: *common
