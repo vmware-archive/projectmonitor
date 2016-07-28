@@ -45,6 +45,8 @@
   validates :name, presence: true
   validates :type, presence: true
 
+  serialize :code
+
   before_create :generate_guid
   before_create :populate_iteration_story_state_counts
 

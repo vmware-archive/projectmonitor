@@ -31,12 +31,19 @@ feature "home" do
   context "aggregate projects" do
     let!(:aggregate) { create(:aggregate_project, code: 'GTFO', projects: [project]) }
     let!(:project) { create(:travis_project) }
+    let!(:emoji_project) { create(:travis_project, code: "\u{1F4A9}") }
 
     it "user sees the projects for an aggregate project", js: true do
       visit root_path
       click_on(aggregate.code)
 
       expect(page).to have_content(project.code)
+    end
+
+    it "renders emoji correctly", js: true do
+      visit root_path
+
+      expect(page).to have_content("\u{1F4A9}")
     end
   end
 end
