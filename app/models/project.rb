@@ -1,4 +1,4 @@
-  class Project < ActiveRecord::Base
+class Project < ActiveRecord::Base
 
   RECENT_STATUS_COUNT = 8
   DEFAULT_POLLING_INTERVAL = 30
@@ -30,8 +30,8 @@
 
   scope :tracker_updateable, -> {
     enabled
-    .where.not(tracker_auth_token: [nil, ''])
-    .where.not(tracker_project_id: [nil, ''])
+      .where.not(tracker_auth_token: [nil, ''])
+      .where.not(tracker_project_id: [nil, ''])
   }
 
   scope :displayable, lambda { |tags = nil|
@@ -140,7 +140,8 @@
   def tracker_project?
     tracker_project_id.present? && tracker_auth_token.present?
   end
-  alias tracker_configured?  tracker_project?
+
+  alias tracker_configured? tracker_project?
 
   def payload
     raise NotImplementedError, 'Must implement payload in subclasses'
@@ -186,11 +187,11 @@
   def webhook_payload
     fetch_payload
   end
-  
+
   private
 
   def trim_urls_and_tokens
-    self.class.columns.select{|column| column.name.end_with?('_url', '_token') }.each do |column|
+    self.class.columns.select { |column| column.name.end_with?('_url', '_token') }.each do |column|
       write_attribute(column.name, read_attribute(column.name).try(:strip))
     end
   end
