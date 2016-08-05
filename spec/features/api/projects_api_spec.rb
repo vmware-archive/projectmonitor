@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Projects API' do
   let(:user)                  { create(:user, password: 'jeffjeff') }
-  let(:red_project)           { Project.find_by(code: 'ALRE') }
+  let(:red_project)           { Project.find_by(name: 'Red Currently Building') }
   let(:aggregate_project)     { AggregateProject.find_by(name: 'Aggregation') }
   let!(:project_with_tracker) { create(:project_with_tracker_integration, code: "xxxx") }
 
