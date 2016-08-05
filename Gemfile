@@ -38,6 +38,7 @@ gem 'clockwork'
 gem 'jbuilder'
 gem 'ruby-openid'
 gem 'kramdown'
+gem 'lograge', '~> 0.4'
 
 group :production do
   gem 'rails_12factor'
