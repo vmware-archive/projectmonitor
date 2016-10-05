@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ConcourseProjectDecorator do
-  let(:concourse_project) { build(:concourse_project) }
+describe ConcourseV1ProjectDecorator do
+  let(:concourse_v1_project) { build(:concourse_v1_project) }
 
-  subject { concourse_project.decorate }
+  subject { concourse_v1_project.decorate }
 
   describe '#current_build_url' do
     subject { super().current_build_url }

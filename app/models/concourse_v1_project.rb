@@ -1,4 +1,4 @@
-class ConcourseProject < Project
+class ConcourseV1Project < Project
 
   validates_presence_of :ci_build_identifier, :ci_base_url, :concourse_pipeline_name
 

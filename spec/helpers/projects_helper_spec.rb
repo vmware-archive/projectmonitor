@@ -15,7 +15,8 @@ describe ProjectsHelper, :type => :helper do
                  ['Travis Pro Project', 'TravisProProject'],
                  ['Tddium Project', 'TddiumProject'],
                  ['CircleCi Project', 'CircleCiProject'],
-                 ['Concourse Project', 'ConcourseProject'],
+                 ['Concourse Project (version 1.x)', 'ConcourseV1Project'],
+                 ['Concourse Project', 'ConcourseV2Project'],
                  ['Codeship Project', 'CodeshipProject']])
     end
   end
@@ -111,7 +112,7 @@ describe ProjectsHelper, :type => :helper do
     end
 
     describe "overriden field labels" do
-      subject { helper.project_specific_attributes_for(ConcourseProject) }
+      subject { helper.project_specific_attributes_for(ConcourseV1Project) }
 
       it "returns the new label text for the field" do
         expect(subject[:ci_build_identifier].label).to eq("Job Name")

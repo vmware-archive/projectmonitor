@@ -508,8 +508,8 @@ describe Project, :type => :model do
       it { is_expected.to match_array(['travis_github_account', 'travis_repository', 'ci_auth_token']) }
     end
 
-    context "when a ConcourseProject" do
-      let(:project_class) { ConcourseProject }
+    context "when a ConcourseV1Project" do
+      let(:project_class) { ConcourseV1Project }
 
       it { is_expected.to match_array(['ci_base_url', 'ci_build_identifier', 'concourse_pipeline_name']) }
     end

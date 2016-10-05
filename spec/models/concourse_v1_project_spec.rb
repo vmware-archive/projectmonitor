@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ConcourseProject, :type => :model do
-  subject { build(:concourse_project) }
+describe ConcourseV1Project, :type => :model do
+  subject { build(:concourse_v1_project) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :ci_base_url }

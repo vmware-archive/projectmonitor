@@ -68,7 +68,7 @@ FactoryGirl.define do
     circleci_username 'username'
   end
 
-  factory :concourse_project do
+  factory :concourse_v1_project do
     name
     concourse_pipeline_name 'concourse-pipeline'
     ci_build_identifier 'concourse-project'
