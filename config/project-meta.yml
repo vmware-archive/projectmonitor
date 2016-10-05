@@ -9,7 +9,8 @@ types: [
   'TddiumProject',
   'CircleCiProject',
   'ConcourseProject',
-  'CodeshipProject'
+  'CodeshipProject',
+  'ConcourseV2Project',
 ]
 
 labels:
@@ -18,11 +19,13 @@ labels:
     team_city_project: "Build ID"
     tddium_project: "Tddium Project Name"
     concourse_project: "Job Name"
+    concourseV2_project: "Job Name"
     codeship_project: "Project ID"
   ci_auth_token:
     tddium_project: "Tddium Authentication Token"
   concourse_pipeline_name:
     concourse_project: "Pipeline Name"
+    concourseV2_project: "Pipeline Name"
 
 tooltips:
   ci_auth_token:
