@@ -70,6 +70,13 @@ FactoryGirl.define do
 
   factory :concourse_v1_project do
     name
+    concourse_pipeline_name 'concourse-v1-pipeline'
+    ci_build_identifier 'concourse-v1-project'
+    ci_base_url 'http://concourse-v1.example.com:8080'
+  end
+
+  factory :concourse_project do
+    name
     concourse_pipeline_name 'concourse-pipeline'
     ci_build_identifier 'concourse-project'
     ci_base_url 'http://concourse.example.com:8080'

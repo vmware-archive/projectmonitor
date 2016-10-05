@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ConcourseV1Project, :type => :model do
-  subject { build(:concourse_v1_project) }
+describe ConcourseProject, :type => :model do
+  subject { build(:concourse_project) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :ci_base_url }
@@ -11,15 +11,15 @@ describe ConcourseV1Project, :type => :model do
 
   describe 'accessors' do
     describe '#feed_url' do
-      it { expect(subject.feed_url).to eq('http://concourse-v1.example.com:8080/api/v1/pipelines/concourse-v1-pipeline/jobs/concourse-v1-project/builds') }
+      it { expect(subject.feed_url).to eq('http://concourse.example.com:8080/api/v1/teams/main/pipelines/concourse-pipeline/jobs/concourse-project/builds') }
     end
 
     describe '#build_status_url' do
-      it { expect(subject.build_status_url).to eq('http://concourse-v1.example.com:8080/api/v1/pipelines/concourse-v1-pipeline/jobs/concourse-v1-project/builds') }
+      it { expect(subject.build_status_url).to eq('http://concourse.example.com:8080/api/v1/teams/main/pipelines/concourse-pipeline/jobs/concourse-project/builds') }
     end
 
     describe '#ci_build_identifier' do
-      it { expect(subject.ci_build_identifier).to eq('concourse-v1-project') }
+      it { expect(subject.ci_build_identifier).to eq('concourse-project') }
     end
 
     describe '#fetch_payload' do
