@@ -21,6 +21,9 @@ RSpec.configure do |config|
   config.order = 'random'
   config.include Rails.application.routes.url_helpers
 
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   Capybara.javascript_driver = :webkit
 
   config.before(:all) do

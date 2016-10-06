@@ -1,11 +1,8 @@
 class PollerWorkload
 
-  def initialize(handler)
-    @handler = handler
+  def initialize
     @job_descriptions = {}
     @job_results = {}
-
-    @handler.workload_created(self)
   end
 
   def unfinished_job_descriptions
@@ -30,11 +27,6 @@ class PollerWorkload
 
   def store(key, content)
     @job_results[key] = content
-    @handler.workload_complete(self) if complete?
-  end
-
-  def failed(error)
-    @handler.workload_failed(self, error)
   end
 
   def add_job(key, url)

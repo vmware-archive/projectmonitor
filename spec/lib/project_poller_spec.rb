@@ -41,12 +41,15 @@ describe ProjectPoller do
           allow(Project).to receive_message_chain(:updateable, :find_each).and_yield(project)
           allow(PollerWorkload).to receive(:new).and_return(workload)
           allow(EM::HttpRequest).to receive(:new).and_return(connection)
+          allow(workload).to receive(:add_job).with(:feed_url, 'http://www.example.com/job/project/rssAll')
+          allow(workload).to receive(:add_job).with(:build_status_url, 'http://www.example.com/cc.xml')
         end
 
         it 'should create a project workload' do
           handler = double
           allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
-          expect(PollerWorkload).to receive(:new).with(handler)
+          allow(handler).to receive(:workload_created)
+          expect(PollerWorkload).to receive(:new)
           poller.run
         end
 
@@ -105,9 +108,10 @@ describe ProjectPoller do
             end
 
             it 'does not make a new workload' do
-              handler = double
+              handler = double(:handler)
+              allow(handler).to receive(:workload_created).with(workload)
               allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
-              expect(PollerWorkload).to receive(:new).with(handler)
+              expect(PollerWorkload).to receive(:new)
               expect {
                 poller.run
               }.to output(/ERROR/).to_stdout
@@ -147,14 +151,18 @@ describe ProjectPoller do
 
           context 'when an error occurs' do
             let(:client) { double(:client, error: double) }
+            let(:handler) { double(:handler) }
 
             before do
               allow(request).to receive(:errback).and_yield(client)
               allow(workload).to receive(:failed)
+              allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
+              allow(handler).to receive(:workload_created).with(workload)
+              allow(handler).to receive(:workload_failed).with(workload, client.error)
             end
 
             it 'should mark the project as failed' do
-              expect(workload).to receive(:failed)
+              expect(handler).to receive(:workload_failed).with(workload, client.error)
               poller.run
             end
 

@@ -2,21 +2,9 @@ require 'spec_helper'
 
 describe PollerWorkload do
 
-  let(:project) { double(:project) }
-  let(:handler) { double(:handler, workload_created: nil, workload_complete: nil) }
-  let(:workload) { PollerWorkload.new(handler) }
+  let(:workload) { PollerWorkload.new }
 
   subject { workload }
-
-  before do
-    allow(project).to receive(:handler) { handler }
-    allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
-  end
-
-  it 'should tell the handler that the workload has been created' do
-    subject
-    expect(handler).to have_received(:workload_created).with(workload)
-  end
 
   describe '#incomplete_jobs' do
     subject { super().incomplete_jobs }
@@ -33,12 +21,13 @@ describe PollerWorkload do
     it { is_expected.to be_empty }
   end
 
-  context 'with a project' do
-    let(:project) { double(:project, feed_url: 'http://www.example.com', build_status_url: nil).as_null_object }
+  describe 'adding jobs' do
+    let(:feed_url) { 'http://www.example.com' }
+    let(:build_status_url) { nil }
 
     before do
-      workload.add_job(:feed_url, project.feed_url)
-      workload.add_job(:build_status_url, project.build_status_url)
+      workload.add_job(:feed_url, feed_url)
+      workload.add_job(:build_status_url, build_status_url)
     end
 
     describe '#incomplete_jobs' do
@@ -48,7 +37,7 @@ describe PollerWorkload do
 
     describe '#unfinished_job_descriptions' do
       subject { super().unfinished_job_descriptions }
-      it { is_expected.to eq({feed_url: project.feed_url })}
+      it { is_expected.to eq({feed_url: feed_url })}
     end
 
     it 'should allow storing of content with a key' do

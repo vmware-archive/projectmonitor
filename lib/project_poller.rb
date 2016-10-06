@@ -52,7 +52,7 @@ class ProjectPoller
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_tracker_request(project, description)
-        add_workload_handlers(project, workload, job_id, request)
+        add_workload_callbacks(project, workload, job_id, request, handler)
       end
     end
   end
@@ -64,7 +64,7 @@ class ProjectPoller
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_ci_request(project, description)
-        add_workload_handlers(project, workload, job_id, request) if request
+        add_workload_callbacks(project, workload, job_id, request, handler) if request
       end
     end
   end
@@ -97,20 +97,30 @@ class ProjectPoller
     end
   end
 
-  def add_workload_handlers(project, workload, job_id, request)
+  def add_workload_callbacks(project, workload, job_id, request, handler)
     request.callback do |client|
       workload.store(job_id, client.response)
-      remove_workload(project) if workload.complete?
+
+      if workload.complete?
+        handler.workload_complete(workload)
+        remove_workload(project)
+      end
     end
 
     request.errback do |client|
-      workload.failed(client.error)
+      handler.workload_failed(workload, client.error)
       remove_workload(project)
     end
   end
 
   def find_or_create_workload(project, handler)
-    @workloads[project] ||= PollerWorkload.new(handler)
+    unless @workloads.has_key? project
+      workload = PollerWorkload.new
+      @workloads[project] = workload
+      handler.workload_created(workload)
+    end
+
+    @workloads[project]
   end
 
   def remove_workload(project)
