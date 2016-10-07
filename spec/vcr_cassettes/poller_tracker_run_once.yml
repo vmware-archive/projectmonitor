@@ -1,0 +1,1130 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jenkins.mono-project.com/cc.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 07 Oct 2016 16:49:10 GMT
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '778'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: <Projects><Project activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="93"
+        webUrl="https://jenkins.mono-project.com/job/t/" name="Mono - 4.8 branch -
+        OSX, Windows" lastBuildTime="2016-10-07T11:57:18Z"/><Project activity="Sleeping"
+        lastBuildStatus="Success" lastBuildLabel="32" webUrl="https://jenkins.mono-project.com/job/test-gtksharp-mainline/"
+        name="Gtk# - master branch - Linux" lastBuildTime="2016-08-30T12:44:46Z"/><Project
+        activity="Sleeping" lastBuildStatus="Success" lastBuildLabel="57" webUrl="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/"
+        name="Gtk# - 2.12 branch - Linux" lastBuildTime="2016-10-04T17:08:55Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="22" webUrl="https://jenkins.mono-project.com/job/test-libgdiplus-mainline/"
+        name="libgdiplus - master branch - Linux" lastBuildTime="2016-05-25T17:58:51Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="393" webUrl="https://jenkins.mono-project.com/job/test-mono-acceptancetests/"
+        name="Mono - master branch - Linux - Third-party acceptance tests" lastBuildTime="2016-10-06T19:56:00Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="5045" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline/"
+        name="Mono - master branch - OSX" lastBuildTime="2016-10-07T13:03:43Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="100" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.4/"
+        name="Mono - 4.4 branch - Linux" lastBuildTime="2016-08-12T19:02:39Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="114" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.6/"
+        name="Mono - 4.6 branch - Linux" lastBuildTime="2016-10-06T21:40:45Z"/><Project
+        activity="Sleeping" lastBuildStatus="Success" lastBuildLabel="95" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.8/"
+        name="Mono - 4.8 branch - Linux" lastBuildTime="2016-10-07T11:57:18Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="372" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-bitcode/"
+        name="Mono - master branch - Linux - Bitcode" lastBuildTime="2016-10-07T03:13:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="81" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-bitcode-valgrind/"
+        name="Mono - master branch - Linux - Bitcode - Valgrind" lastBuildTime="2016-10-07T03:03:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="16" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-checked/"
+        name="Mono - master branch - Linux - Checked" lastBuildTime="2016-10-07T02:13:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="280" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-coop/"
+        name="Mono - master branch - Linux - Cooperative GC" lastBuildTime="2016-10-07T03:39:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="130" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-docker/"
+        name="Mono - master branch - Linux - Docker-based Distributions" lastBuildTime="2016-10-07T04:00:26Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="1003" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-linux/"
+        name="Mono - master branch - Linux" lastBuildTime="2016-10-07T11:56:42Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="83" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-mobile_static/"
+        name="Mono - master branch - Linux - FullAOT" lastBuildTime="2016-10-07T00:53:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="35" webUrl="https://jenkins.mono-project.com/job/test-mono-profilerstresstests/"
+        name="Mono - master branch - Linux - Profiler stress tests" lastBuildTime="2016-10-06T19:26:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="4021" webUrl="https://jenkins.mono-project.com/job/test-monodevelop-mainline/"
+        name="MonoDevelop - master branch - Linux" lastBuildTime="2016-10-07T16:24:26Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="29" webUrl="https://jenkins.mono-project.com/job/test-sdb-mainline/"
+        name="sdb - master branch - Linux" lastBuildTime="2016-07-01T16:41:46Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="113" webUrl="https://jenkins.mono-project.com/job/u/"
+        name="Mono - 4.6 branch - OSX, Windows" lastBuildTime="2016-10-06T21:40:45Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="3776" webUrl="https://jenkins.mono-project.com/job/z/"
+        name="Mono - master branch - community-supported architectures" lastBuildTime="2016-10-07T00:44:17Z"/></Projects>
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 16:49:10 GMT
+- request:
+    method: get
+    uri: https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/rssAll
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 07 Oct 2016 16:49:10 GMT
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/atom+xml;charset=UTF-8
+      Content-Length:
+      - '597'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+          <feed xmlns="http://www.w3.org/2005/Atom"><title>Gtk# - 2.12 branch - Linux all builds</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/"/><updated>2016-10-04T17:08:55Z</updated><author><name>Jenkins Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>test-gtksharp-mainline-2.12 #57 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/57/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:57</id><published>2016-10-04T17:08:55Z</published><updated>2016-10-04T17:08:55Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #56 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/56/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:56</id><published>2016-09-29T23:43:41Z</published><updated>2016-09-29T23:43:41Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #55 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/55/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:55</id><published>2016-09-29T16:05:53Z</published><updated>2016-09-29T16:05:53Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #54 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/54/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:54</id><published>2016-09-26T19:55:40Z</published><updated>2016-09-26T19:55:40Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #53 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/53/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:53</id><published>2016-09-22T23:50:30Z</published><updated>2016-09-22T23:50:30Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #52 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/52/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:52</id><published>2016-09-22T23:43:00Z</published><updated>2016-09-22T23:43:00Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #51 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/51/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:51</id><published>2016-09-20T18:48:26Z</published><updated>2016-09-20T18:48:26Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #50 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/50/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:50</id><published>2016-09-20T02:29:02Z</published><updated>2016-09-20T02:29:02Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #49 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/49/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:49</id><published>2016-09-19T10:40:49Z</published><updated>2016-09-19T10:40:49Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #48 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/48/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:48</id><published>2016-09-19T09:58:27Z</published><updated>2016-09-19T09:58:27Z</updated></entry></feed>
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 16:49:10 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/2872
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Trackertoken:
+      - secret-tracker-api-key
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Date:
+      - Fri, 07 Oct 2016 16:49:10 GMT
+      X-Request-Id:
+      - 221141d6fb47a16f8f0bf9f90562e233
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"c419cf0fb9349b219502d5ba977367a7"
+      X-Runtime:
+      - '0.052667'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTNjMTY3MzQ3NmU5NGVlZTBjNTE4M2I5ODVhY2FlMjQyBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN0CUdgOAkp8QKOg1uYW5vX251bWk%2BOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIHBXA6C29mZnNldGkAOgl6b25lSSIIVVRDBjsARkkiEF9jc3JmX3Rva2VuBjsARkkiMUZhREUxeENsTjYrbnFKcHY2R1FjSDZVQVVHc2dkNVhFUDh1M3lEVnkzVEE9BjsARg%3D%3D--7e160309c23afd2b33df3184938d5d64a98a2b3a;
+        path=/; expires=Fri, 14-Oct-2016 16:49:10 GMT; secure; HttpOnly
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      X-Tracker-Client-Pinger-Interval:
+      - '12'
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <project>
+          <id>2872</id>
+          <name>Project Monitor</name>
+          <iteration_length type="integer">1</iteration_length>
+          <week_start_day>Monday</week_start_day>
+          <point_scale>0,1,2,4,8</point_scale>
+          <account>Pivotal Labs</account>
+          <first_iteration_start_time type="datetime">2008/11/24 00:00:00 EST</first_iteration_start_time>
+          <current_iteration_number type="integer">411</current_iteration_number>
+          <enable_tasks type="boolean">true</enable_tasks>
+          <velocity_scheme>Average of 2 iterations</velocity_scheme>
+          <current_velocity>1</current_velocity>
+          <initial_velocity>1</initial_velocity>
+          <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
+          <labels>*blocked*,*needs clarification*,*obsolete*,block,blocked,blocking,cf,circle-ci,code climate,codeship,concourse,config,cruise-control,documentation,github,github issues,heroku,interview,jenkins,login,needs_acceptance,needs_design,new ui,newrelic,obsolete,openid,polling refactor,pws,refactor,security,semaphore,stale-builds,status,switch-to-heroku,tddium,team-city,teamcity,teamcity updates,tracker,travis,travis-ci,webhooks,windows</labels>
+          <last_activity_at type="datetime">2016/10/06 13:34:36 EDT</last_activity_at>
+          <allow_attachments>true</allow_attachments>
+          <public>true</public>
+          <use_https>true</use_https>
+          <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
+          <commit_mode>false</commit_mode>
+          <memberships type="array">
+            <membership>
+              <id>60510</id>
+              <person>
+                <email>ehieatt@pivotal.io</email>
+                <name>Edward Hieatt</name>
+                <initials>EH</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>60513</id>
+              <person>
+                <email>jmoore@pivotal.io</email>
+                <name>Joe Moore</name>
+                <initials>JLM</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>63851</id>
+              <person>
+                <email>ctong@pivotal.io</email>
+                <name>Chris Tong</name>
+                <initials>CT</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>104343</id>
+              <person>
+                <email>tschultz@pivotal.io</email>
+                <name>Tyler Schultz</name>
+                <initials>T$</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>108681</id>
+              <person>
+                <email>oafekaizen@pivotal.io</email>
+                <name>Ofri Afek</name>
+                <initials>OA</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>202109</id>
+              <person>
+                <email>ian@ezabel.com</email>
+                <name>Ian Zabel</name>
+                <initials>IZ</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>382931</id>
+              <person>
+                <email>mbarinek@pivotal.io</email>
+                <name>Mike Barinek</name>
+                <initials>MB</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>429928</id>
+              <person>
+                <email>dgoudreau@pivotal.io</email>
+                <name>David Goudreau</name>
+                <initials>dmg</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>527077</id>
+              <person>
+                <email>rrichard@pivotal.io</email>
+                <name>Ryan Richard</name>
+                <initials>RR</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>547009</id>
+              <person>
+                <email>jknowles@pivotal.io</email>
+                <name>Josh Knowles</name>
+                <initials>JK</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>980171</id>
+              <person>
+                <email>cboone@pivotal.io</email>
+                <name>Chris Boone</name>
+                <initials>cb</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1082087</id>
+              <person>
+                <email>mkocher@pivotal.io</email>
+                <name>Matthew Kocher</name>
+                <initials>MK✈</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1123723</id>
+              <person>
+                <email>tlabeeuw@pivotal.io</email>
+                <name>Tim Labeeuw (τλ)</name>
+                <initials>ŦŁ</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1146167</id>
+              <person>
+                <email>mgangl@pivotallabs.com</email>
+                <name>Mark Gangl</name>
+                <initials>ᙢ ≠ ᘜ</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1146169</id>
+              <person>
+                <email>myoung@pivotal.io</email>
+                <name>Micah Young</name>
+                <initials>Σ᚛</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1262927</id>
+              <person>
+                <email>chansen@pivotal.io</email>
+                <name>Charles Hansen</name>
+                <initials>Charles</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1682259</id>
+              <person>
+                <email>mike@mikegrafton.com</email>
+                <name>Mike Grafton</name>
+                <initials>mag</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>1777607</id>
+              <person>
+                <email>mparker@pivotal.io</email>
+                <name>Matthew Parker</name>
+                <initials>MP</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2004831</id>
+              <person>
+                <email>jberger@pivotal.io</email>
+                <name>Jonathan Berger</name>
+                <initials>JPB</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2046829</id>
+              <person>
+                <email>mroyal@pivotal.io</email>
+                <name>Matt Royal</name>
+                <initials>♛</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2182787</id>
+              <person>
+                <email>dwfrank@pivotal.io</email>
+                <name>Davis W. Frank</name>
+                <initials>DⓌF</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>2427239</id>
+              <person>
+                <email>mdalessio@pivotal.io</email>
+                <name>Mike Dalessio</name>
+                <initials>FJ</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>2524237</id>
+              <person>
+                <email>gsiener@pivotal.io</email>
+                <name>Graham Siener</name>
+                <initials>GS</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>2528807</id>
+              <person>
+                <email>bryan@brynary.com</email>
+                <name>Bryan Helmkamp</name>
+                <initials>BH</initials>
+              </person>
+              <role>Viewer</role>
+            </membership>
+            <membership>
+              <id>2561035</id>
+              <person>
+                <email>apliszka@pivotal.io</email>
+                <name>Andy Pliszka</name>
+                <initials>AP</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2735027</id>
+              <person>
+                <email>ehendrickson@pivotal.io</email>
+                <name>Elisabeth Hendrickson</name>
+                <initials>ESH</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>2735031</id>
+              <person>
+                <email>ken@pivotallabs.com</email>
+                <name>Ken Mayer</name>
+                <initials>KM</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2758739</id>
+              <person>
+                <email>shagemann@pivotal.io</email>
+                <name>Stephan Hagemann</name>
+                <initials>すは</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2764799</id>
+              <person>
+                <email>steve@thoughtmerchants.com</email>
+                <name>Steve Berry</name>
+                <initials>SB</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2772337</id>
+              <person>
+                <email>asharma@pivotal.io</email>
+                <name>Arjun Sharma</name>
+                <initials>AS</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>2852425</id>
+              <person>
+                <email>wpenney@pivotal.io</email>
+                <name>Ward Penney</name>
+                <initials>WP</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3025159</id>
+              <person>
+                <email>dmcmanus@pivotal.io</email>
+                <name>Drew McManus</name>
+                <initials>✰DMc</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3318741</id>
+              <person>
+                <email>avonderhaar@pivotal.io</email>
+                <name>Aaron VonderHaar</name>
+                <initials>AV</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3352806</id>
+              <person>
+                <email>dgoddard@pivotal.io</email>
+                <name>Dave Goddard</name>
+                <initials>DG</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3555140</id>
+              <person>
+                <email>avance@pivotal.io</email>
+                <name>Austin Vance</name>
+                <initials>AV</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3564348</id>
+              <person>
+                <email>tgrathwell@pivotal.io</email>
+                <name>Travis Grathwell</name>
+                <initials>TG✰ ☎</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3564352</id>
+              <person>
+                <email>cobyrne@pivotal.io</email>
+                <name>Colin O'Byrne</name>
+                <initials>CO</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3846236</id>
+              <person>
+                <email>rmoran@pivotal.io</email>
+                <name>Ryan Moran</name>
+                <initials>???</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>3859990</id>
+              <person>
+                <email>akitchen@pivotal.io</email>
+                <name>Andrew Kitchen</name>
+                <initials>AK</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>3859994</id>
+              <person>
+                <email>bbutz@pivotal.io</email>
+                <name>Brian Butz</name>
+                <initials>BB</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>3861030</id>
+              <person>
+                <email>shurst@pivotal.io</email>
+                <name>Spencer Hurst</name>
+                <initials>SH</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>3992666</id>
+              <person>
+                <email>mtrombleymccann@pivotal.io</email>
+                <name>Molly Trombley-McCann</name>
+                <initials>MTM</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>3992668</id>
+              <person>
+                <email>snandi@pivotal.io</email>
+                <name>Shatarupa Nandi</name>
+                <initials>SN</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>4104816</id>
+              <person>
+                <email>sraval@pivotal.io</email>
+                <name>Sid Raval</name>
+                <initials>SR</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>4104820</id>
+              <person>
+                <email>ynishijima@pivotal.io</email>
+                <name>Yuki Nishijima</name>
+                <initials>YN</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>4558862</id>
+              <person>
+                <email>egonzalez@pivotal.io</email>
+                <name>Edgar Gonzalez</name>
+                <initials>EG⚾</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>4803512</id>
+              <person>
+                <email>opeate@pivotal.io</email>
+                <name>Oliver Peate</name>
+                <initials>OP</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>4891404</id>
+              <person>
+                <email>dalin@pivotal.io</email>
+                <name>Daphne Lin</name>
+                <initials>DL</initials>
+              </person>
+              <role>Viewer</role>
+            </membership>
+            <membership>
+              <id>4908092</id>
+              <person>
+                <email>atomanyih@pivotal.io</email>
+                <name>August Toman-Yih</name>
+                <initials>◔ᴥ◔</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>5051104</id>
+              <person>
+                <email>mmccormick@pivotal.io</email>
+                <name>Michael McCormick</name>
+                <initials>mc</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>5248740</id>
+              <person>
+                <email>adreessen@pivotal.io</email>
+                <name>Anthony Dreessen</name>
+                <initials>AD</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>5390884</id>
+              <person>
+                <email>jbritz@pivotal.io</email>
+                <name>Johnathon Britz</name>
+                <initials>britz</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>5408674</id>
+              <person>
+                <email>jfriese@pivotal.io</email>
+                <name>Jared Friese</name>
+                <initials>JF!</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>5482276</id>
+              <person>
+                <email>dkaplan@pivotal.io</email>
+                <name>Daniel Kaplan</name>
+                <initials>DK</initials>
+              </person>
+              <role>Member</role>
+            </membership>
+            <membership>
+              <id>7625799</id>
+              <person>
+                <email>ifisher@pivotal.io</email>
+                <name>Ian Fisher</name>
+                <initials>IF</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>7625801</id>
+              <person>
+                <email>ekoren@pivotal.io</email>
+                <name>Elana Koren</name>
+                <initials>EK</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>7631619</id>
+              <person>
+                <email>hfarley@pivotal.io</email>
+                <name>Heather Farley</name>
+                <initials>HF</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+            <membership>
+              <id>7631621</id>
+              <person>
+                <email>wschaefer@pivotal.io</email>
+                <name>Whitney Schaefer</name>
+                <initials>WS☃</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+          </memberships>
+          <integrations type="array">
+          </integrations>
+        </project>
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 16:49:10 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/2872/iterations/current
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Trackertoken:
+      - secret-tracker-api-key
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Date:
+      - Fri, 07 Oct 2016 16:49:10 GMT
+      X-Request-Id:
+      - e6838e18b7c2392f9d383b40be564631
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"c6cd694029cfe902fb4e10639f74829d"
+      X-Runtime:
+      - '0.067867'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTE1MjBjODdmZTY5M2NhMjdmNDk4MzJmZjNkNmMzNDlmBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN0CUdgIf%2FpsQKOg1uYW5vX251bWkCqQM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgeTcDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxY1RtWDllV1dlenVDcTQvOEZ4QS9BUUpzeGhLNmtYRm9ZTU12QjBXQTREdz0GOwBG--1fcd2096b7ed8a05a36286b2f59dd1eb1d298fdb;
+        path=/; expires=Fri, 14-Oct-2016 16:49:10 GMT; secure; HttpOnly
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      X-Tracker-Client-Pinger-Interval:
+      - '12'
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <iterations type="array">
+          <iteration>
+            <id type="integer">411</id>
+            <number type="integer">411</number>
+            <start type="datetime">2016/10/03 00:00:00 EDT</start>
+            <finish type="datetime">2016/10/10 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+              <story>
+                <id type="integer">89058356</id>
+                <project_id type="integer">2872</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/89058356</url>
+                <estimate type="integer">4</estimate>
+                <current_state>started</current_state>
+                <description>http://www.go.cd/</description>
+                <name>Support Go.cd Builds</name>
+                <requested_by>Michael McCormick</requested_by>
+                <owned_by>Anthony Dreessen</owned_by>
+                <created_at type="datetime">2015/02/24 19:20:48 EST</created_at>
+                <updated_at type="datetime">2016/03/07 19:34:57 EST</updated_at>
+                <notes type="array">
+                  <note>
+                    <id type="integer">97595624</id>
+                    <text>Relevant documentation for go.cd: http://www.go.cd/documentation/user/current/api/index.html</text>
+                    <author>Anthony Dreessen</author>
+                    <noted_at type="datetime">2015/04/10 12:35:48 EDT</noted_at>
+                  </note>
+                </notes>
+                <tasks type="array">
+                  <task>
+                    <id type="integer">30532834</id>
+                    <description>Set up local implementation of GO</description>
+                    <position type="integer">1</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2015/04/01 17:11:58 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">30532842</id>
+                    <description>See what notification types are available for GO</description>
+                    <position type="integer">2</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2015/04/01 17:12:13 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">30532846</id>
+                    <description>Create new project type for GO</description>
+                    <position type="integer">3</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2015/04/01 17:12:31 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">30532856</id>
+                    <description>Update documentation to contain the steps taken to get the integration to work successfully</description>
+                    <position type="integer">4</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2015/04/01 17:13:07 EDT</created_at>
+                  </task>
+                </tasks>
+              </story>
+              <story>
+                <id type="integer">96330816</id>
+                <project_id type="integer">2872</project_id>
+                <story_type>bug</story_type>
+                <url>https://www.pivotaltracker.com/story/show/96330816</url>
+                <current_state>delivered</current_state>
+                <description></description>
+                <name>Feed authentication fields being erroneously displayed on initial display/refresh of Edit Page for project types that don't need it (e.g. Travis, ...)</name>
+                <requested_by>Peter Alfvin</requested_by>
+                <owned_by>Peter Alfvin</owned_by>
+                <created_at type="datetime">2015/06/05 19:24:52 EDT</created_at>
+                <updated_at type="datetime">2016/03/08 02:58:56 EST</updated_at>
+                <notes type="array">
+                  <note>
+                    <id type="integer">102725720</id>
+                    <text>Commit by Nick Mahoney and Peter Alfvin
+        https://github.com/pivotal/projectmonitor/commit/2acf5e9766e61a21d321c4ff588460aaa313fae8
+
+        Hide feed fields on project edit for project types that don't need them
+        [finishes #96330816]</text>
+                    <author>Graham Siener</author>
+                    <noted_at type="datetime">2015/06/05 19:58:16 EDT</noted_at>
+                  </note>
+                </notes>
+              </story>
+              <story>
+                <id type="integer">99474480</id>
+                <project_id type="integer">2872</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/99474480</url>
+                <estimate type="integer">2</estimate>
+                <current_state>started</current_state>
+                <description>Because leaving yourself logged-in via Okta on the CI machines is not secure. We need to be able to see our CI status without compromising security.</description>
+                <name>Allow visitors to view project status without logging in</name>
+                <requested_by>Molly Trombley-McCann</requested_by>
+                <owned_by>Molly Trombley-McCann</owned_by>
+                <created_at type="datetime">2015/07/20 19:49:23 EDT</created_at>
+                <updated_at type="datetime">2016/03/08 06:18:17 EST</updated_at>
+              </story>
+              <story>
+                <id type="integer">131657693</id>
+                <project_id type="integer">2872</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/131657693</url>
+                <estimate type="integer">2</estimate>
+                <current_state>started</current_state>
+                <description>Currently, the Concourse integration is incompatible with Concourse 2.0. They have added a `/team` element to the api paths that is breaking the integration.
+
+        Concourse 1.x: `https://jetway.pivotal.io/api/v1/pipelines/augur-production/jobs/build/builds`
+
+        Concourse 2.0+: `https://jetway.pivotal.io/api/v1/teams/main/pipelines/augur-production/jobs/build/builds`
+
+        Recommend we change the current Concourse integration to &quot;Concourse 1.x&quot; and add a new &quot;Concourse&quot; integration that supports 2.0+.</description>
+                <name>Add support for Concourse 2.0+</name>
+                <requested_by>Ian Fisher</requested_by>
+                <owned_by>Ian Fisher</owned_by>
+                <created_at type="datetime">2016/10/04 13:59:17 EDT</created_at>
+                <updated_at type="datetime">2016/10/06 13:34:36 EDT</updated_at>
+                <notes type="array">
+                  <note>
+                    <id type="integer">151763981</id>
+                    <text>Commit by Ian Fisher
+        https://github.com/pivotal/projectmonitor/commit/3284ec32ded18aecf2b7c5e687969dc554aaa736
+
+        Added Concourse v2 project type
+
+        [#131657693]
+
+        Signed-off-by: Elana Koren &lt;ekoren@pivotal.io&gt;</text>
+                    <author>Ian Fisher</author>
+                    <noted_at type="datetime">2016/10/06 13:34:34 EDT</noted_at>
+                  </note>
+                  <note>
+                    <id type="integer">151763983</id>
+                    <text>Commit by Ian Fisher
+        https://github.com/pivotal/projectmonitor/commit/fa45f17350998392dff0b02a8f02b40b890c686f
+
+        Renamed ConcourseProject to ConcourseV1Project
+
+        - Preparing to name ConcourseV2 to just Concourse
+
+        [#131657693]</text>
+                    <author>Ian Fisher</author>
+                    <noted_at type="datetime">2016/10/06 13:34:35 EDT</noted_at>
+                  </note>
+                  <note>
+                    <id type="integer">151763985</id>
+                    <text>Commit by Ian Fisher
+        https://github.com/pivotal/projectmonitor/commit/f07af0f32d4ad1e7746b60f12e09f68c7b7623b6
+
+        Renamed new ConcourseV2Project to ConcourseProject
+
+        - Preparing to name ConcourseV2 to just Concourse
+
+        [#131657693]</text>
+                    <author>Ian Fisher</author>
+                    <noted_at type="datetime">2016/10/06 13:34:35 EDT</noted_at>
+                  </note>
+                  <note>
+                    <id type="integer">151763987</id>
+                    <text>Commit by Ian Fisher
+        https://github.com/pivotal/projectmonitor/commit/39637c7ab456de954c940aff722c3c961982f69a
+
+        Don't manually stop the event machine run loop
+
+        - This does not seem to be needed according to event machine docs. Exiting early can be useful when, e.g., reading the first n bytes of a request, but we always want to fully process all requests.
+
+        [#131657693]
+
+        Signed-off-by: Elana Koren &lt;ekoren@pivotal.io&gt;</text>
+                    <author>Ian Fisher</author>
+                    <noted_at type="datetime">2016/10/06 13:34:35 EDT</noted_at>
+                  </note>
+                  <note>
+                    <id type="integer">151763989</id>
+                    <text>Commit by Elana Koren
+        https://github.com/pivotal/projectmonitor/commit/97e22f707871a18d8a7ff8cf6b8d1227b691b210
+
+        move handler actions out of PollerWorkload [#131657693]
+
+        Signed-off-by: Ian Fisher &lt;loktar@gmail.com&gt;</text>
+                    <author>Elana Koren</author>
+                    <noted_at type="datetime">2016/10/06 13:34:36 EDT</noted_at>
+                  </note>
+                </notes>
+                <tasks type="array">
+                  <task>
+                    <id type="integer">48451803</id>
+                    <description>What is current_build_url for? Concourse v1 overrides it. Do we need it for v2+?</description>
+                    <position type="integer">1</position>
+                    <complete type="boolean">true</complete>
+                    <created_at type="datetime">2016/10/05 13:54:46 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">48453589</id>
+                    <description>Fix auth for concourse v2</description>
+                    <position type="integer">2</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2016/10/05 14:45:01 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">48453451</id>
+                    <description>Allow configuration of team name</description>
+                    <position type="integer">3</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2016/10/05 14:41:48 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">48487695</id>
+                    <description>Refactor duplication between `poll_tracker` and `poll_projects` in `project_poller.rb`</description>
+                    <position type="integer">4</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2016/10/06 13:23:39 EDT</created_at>
+                  </task>
+                  <task>
+                    <id type="integer">48487731</id>
+                    <description>Revisit project poller spec 'does not make a new workload' line 110 - seems to be asserting the wrong thing, possibly leaking memory as a bug</description>
+                    <position type="integer">5</position>
+                    <complete type="boolean">false</complete>
+                    <created_at type="datetime">2016/10/06 13:24:32 EDT</created_at>
+                  </task>
+                </tasks>
+              </story>
+            </stories>
+          </iteration>
+        </iterations>
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 16:49:10 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/2872/iterations/done?offset=-10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Trackertoken:
+      - secret-tracker-api-key
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Date:
+      - Fri, 07 Oct 2016 16:49:10 GMT
+      X-Request-Id:
+      - f6f87877e8127eba658a4e02ac978b55
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"4e16182b5c7e5fc0573febc4e9bc736a"
+      X-Runtime:
+      - '0.065982'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWFkMTIyYWU3YTM0YmViODdhMGNhOWEyYzUwMDhhOGU3BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN0CUdgMw2p8QKOg1uYW5vX251bWkCEwM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgd4cDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxdVNOMlpZOENaUUpWQVo3dlp6SlZSL3RFVWh2ZjVRdDlrM1lZTzJIM0V4ND0GOwBG--86e33c307f8b024384e2852b934aa75411393173;
+        path=/; expires=Fri, 14-Oct-2016 16:49:10 GMT; secure; HttpOnly
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      X-Tracker-Client-Pinger-Interval:
+      - '12'
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <iterations type="array">
+          <iteration>
+            <id type="integer">401</id>
+            <number type="integer">401</number>
+            <start type="datetime">2016/07/25 00:00:00 EDT</start>
+            <finish type="datetime">2016/08/01 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">402</id>
+            <number type="integer">402</number>
+            <start type="datetime">2016/08/01 00:00:00 EDT</start>
+            <finish type="datetime">2016/08/08 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">403</id>
+            <number type="integer">403</number>
+            <start type="datetime">2016/08/08 00:00:00 EDT</start>
+            <finish type="datetime">2016/08/15 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">404</id>
+            <number type="integer">404</number>
+            <start type="datetime">2016/08/15 00:00:00 EDT</start>
+            <finish type="datetime">2016/08/22 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">405</id>
+            <number type="integer">405</number>
+            <start type="datetime">2016/08/22 00:00:00 EDT</start>
+            <finish type="datetime">2016/08/29 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">406</id>
+            <number type="integer">406</number>
+            <start type="datetime">2016/08/29 00:00:00 EDT</start>
+            <finish type="datetime">2016/09/05 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">407</id>
+            <number type="integer">407</number>
+            <start type="datetime">2016/09/05 00:00:00 EDT</start>
+            <finish type="datetime">2016/09/12 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">408</id>
+            <number type="integer">408</number>
+            <start type="datetime">2016/09/12 00:00:00 EDT</start>
+            <finish type="datetime">2016/09/19 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">409</id>
+            <number type="integer">409</number>
+            <start type="datetime">2016/09/19 00:00:00 EDT</start>
+            <finish type="datetime">2016/09/26 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+          <iteration>
+            <id type="integer">410</id>
+            <number type="integer">410</number>
+            <start type="datetime">2016/09/26 00:00:00 EDT</start>
+            <finish type="datetime">2016/10/03 00:00:00 EDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+            </stories>
+          </iteration>
+        </iterations>
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 16:49:10 GMT
+recorded_with: VCR 3.0.3

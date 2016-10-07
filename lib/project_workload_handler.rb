@@ -18,7 +18,7 @@ class ProjectWorkloadHandler
     update_ci_status(workload, status_content, build_status_content)
   end
 
-  def workload_failed(workload, e)
+  def workload_failed(e)
     error_text = e.try(:message)
     error_backtrace = e.try(:backtrace).try(:join,"\n")
     project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.try(:message)}", update_method: "Polling", status: "failed", backtrace: "#{error_text}\n#{error_backtrace}")

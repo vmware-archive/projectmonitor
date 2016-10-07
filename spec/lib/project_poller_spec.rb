@@ -158,11 +158,11 @@ describe ProjectPoller do
               allow(workload).to receive(:failed)
               allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
               allow(handler).to receive(:workload_created).with(workload)
-              allow(handler).to receive(:workload_failed).with(workload, client.error)
+              allow(handler).to receive(:workload_failed).with(client.error)
             end
 
             it 'should mark the project as failed' do
-              expect(handler).to receive(:workload_failed).with(workload, client.error)
+              expect(handler).to receive(:workload_failed).with(client.error)
               poller.run
             end
 

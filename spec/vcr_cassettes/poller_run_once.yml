@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jenkins.mono-project.com/cc.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 06 Oct 2016 18:56:31 GMT
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '765'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: <Projects><Project activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="91"
+        webUrl="https://jenkins.mono-project.com/job/t/" name="Mono - 4.8 branch -
+        OSX, Windows" lastBuildTime="2016-10-05T15:57:36Z"/><Project activity="Sleeping"
+        lastBuildStatus="Success" lastBuildLabel="32" webUrl="https://jenkins.mono-project.com/job/test-gtksharp-mainline/"
+        name="Gtk# - master branch - Linux" lastBuildTime="2016-08-30T12:44:46Z"/><Project
+        activity="Sleeping" lastBuildStatus="Success" lastBuildLabel="57" webUrl="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/"
+        name="Gtk# - 2.12 branch - Linux" lastBuildTime="2016-10-04T17:08:55Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="22" webUrl="https://jenkins.mono-project.com/job/test-libgdiplus-mainline/"
+        name="libgdiplus - master branch - Linux" lastBuildTime="2016-05-25T17:58:51Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="392" webUrl="https://jenkins.mono-project.com/job/test-mono-acceptancetests/"
+        name="Mono - master branch - Linux - Third-party acceptance tests" lastBuildTime="2016-10-05T20:01:51Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="5038" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline/"
+        name="Mono - master branch - OSX" lastBuildTime="2016-10-06T07:07:48Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="100" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.4/"
+        name="Mono - 4.4 branch - Linux" lastBuildTime="2016-08-12T19:02:39Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="113" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.6/"
+        name="Mono - 4.6 branch - Linux" lastBuildTime="2016-10-02T00:18:36Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="93" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-4.8/"
+        name="Mono - 4.8 branch - Linux" lastBuildTime="2016-10-05T15:57:36Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="371" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-bitcode/"
+        name="Mono - master branch - Linux - Bitcode" lastBuildTime="2016-10-06T03:13:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="80" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-bitcode-valgrind/"
+        name="Mono - master branch - Linux - Bitcode - Valgrind" lastBuildTime="2016-10-06T03:03:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="15" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-checked/"
+        name="Mono - master branch - Linux - Checked" lastBuildTime="2016-10-06T02:13:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="279" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-coop/"
+        name="Mono - master branch - Linux - Cooperative GC" lastBuildTime="2016-10-06T03:39:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="129" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-docker/"
+        name="Mono - master branch - Linux - Docker-based Distributions" lastBuildTime="2016-10-06T04:00:30Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="997" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-linux/"
+        name="Mono - master branch - Linux" lastBuildTime="2016-10-06T07:07:48Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="82" webUrl="https://jenkins.mono-project.com/job/test-mono-mainline-mobile_static/"
+        name="Mono - master branch - Linux - FullAOT" lastBuildTime="2016-10-06T00:53:00Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="34" webUrl="https://jenkins.mono-project.com/job/test-mono-profilerstresstests/"
+        name="Mono - master branch - Linux - Profiler stress tests" lastBuildTime="2016-10-05T19:26:33Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="4007" webUrl="https://jenkins.mono-project.com/job/test-monodevelop-mainline/"
+        name="MonoDevelop - master branch - Linux" lastBuildTime="2016-10-06T18:15:21Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="29" webUrl="https://jenkins.mono-project.com/job/test-sdb-mainline/"
+        name="sdb - master branch - Linux" lastBuildTime="2016-07-01T16:41:46Z"/><Project
+        activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="112" webUrl="https://jenkins.mono-project.com/job/u/"
+        name="Mono - 4.6 branch - OSX, Windows" lastBuildTime="2016-10-02T00:18:36Z"/><Project
+        activity="Building" lastBuildStatus="Failure" lastBuildLabel="3771" webUrl="https://jenkins.mono-project.com/job/z/"
+        name="Mono - master branch - community-supported architectures" lastBuildTime="2016-10-06T07:07:48Z"/></Projects>
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 18:56:31 GMT
+- request:
+    method: get
+    uri: https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/rssAll
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 06 Oct 2016 18:56:31 GMT
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/atom+xml;charset=UTF-8
+      Content-Length:
+      - '597'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+          <feed xmlns="http://www.w3.org/2005/Atom"><title>Gtk# - 2.12 branch - Linux all builds</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/"/><updated>2016-10-04T17:08:55Z</updated><author><name>Jenkins Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>test-gtksharp-mainline-2.12 #57 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/57/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:57</id><published>2016-10-04T17:08:55Z</published><updated>2016-10-04T17:08:55Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #56 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/56/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:56</id><published>2016-09-29T23:43:41Z</published><updated>2016-09-29T23:43:41Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #55 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/55/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:55</id><published>2016-09-29T16:05:53Z</published><updated>2016-09-29T16:05:53Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #54 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/54/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:54</id><published>2016-09-26T19:55:40Z</published><updated>2016-09-26T19:55:40Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #53 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/53/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:53</id><published>2016-09-22T23:50:30Z</published><updated>2016-09-22T23:50:30Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #52 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/52/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:52</id><published>2016-09-22T23:43:00Z</published><updated>2016-09-22T23:43:00Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #51 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/51/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:51</id><published>2016-09-20T18:48:26Z</published><updated>2016-09-20T18:48:26Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #50 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/50/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:50</id><published>2016-09-20T02:29:02Z</published><updated>2016-09-20T02:29:02Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #49 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/49/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:49</id><published>2016-09-19T10:40:49Z</published><updated>2016-09-19T10:40:49Z</updated></entry><entry><title>test-gtksharp-mainline-2.12 #48 (stable)</title><link rel="alternate" type="text/html" href="https://jenkins.mono-project.com/job/test-gtksharp-mainline-2.12/48/"/><id>tag:hudson.dev.java.net,2016:test-gtksharp-mainline-2.12:48</id><published>2016-09-19T09:58:27Z</published><updated>2016-09-19T09:58:27Z</updated></entry></feed>
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 18:56:31 GMT
+recorded_with: VCR 3.0.3

@@ -84,7 +84,7 @@ describe ProjectWorkloadHandler do
       allow(error).to receive(:backtrace).and_return(["backtrace", "more"])
     end
 
-    after { handler.workload_failed(workload, error) }
+    after { handler.workload_failed(error) }
 
     it 'should add a log entry' do
       allow(error).to receive(:message).and_return("message")

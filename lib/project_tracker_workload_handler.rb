@@ -26,7 +26,7 @@ class ProjectTrackerWorkloadHandler
     project.save!
   end
 
-  def workload_failed(workload, error)
+  def workload_failed(_)
     project.tracker_online = false
     project.save!
   end

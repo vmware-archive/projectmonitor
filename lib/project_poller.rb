@@ -39,12 +39,16 @@ class ProjectPoller
   def run_once
     @run_once = true
 
-    EM.run do
-      poll_projects
+    if updateable_projects.count > 0
+      EM.run do
+        poll_projects
+      end
     end
 
-    EM.run do
-      poll_tracker
+    if projects_with_tracker.count > 0
+      EM.run do
+        poll_tracker
+      end
     end
   end
 
@@ -54,8 +58,16 @@ class ProjectPoller
 
   private
 
+  def updateable_projects
+    Project.updateable
+  end
+
+  def projects_with_tracker
+    Project.tracker_updateable
+  end
+
   def poll_tracker
-    Project.tracker_updateable.find_each do |project|
+    projects_with_tracker.find_each do |project|
       handler = ProjectTrackerWorkloadHandler.new(project)
       workload = find_or_create_workload(project, handler)
 
@@ -67,7 +79,7 @@ class ProjectPoller
   end
 
   def poll_projects
-    Project.updateable.find_each do |project|
+    updateable_projects.find_each do |project|
       handler = ProjectWorkloadHandler.new(project)
       workload = find_or_create_workload(project, handler)
 
@@ -120,7 +132,7 @@ class ProjectPoller
     end
 
     request.errback do |client|
-      handler.workload_failed(workload, client.error)
+      handler.workload_failed(client.error)
       remove_workload(project)
       finish_workload
     end
