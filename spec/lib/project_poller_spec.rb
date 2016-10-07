@@ -225,4 +225,11 @@ describe ProjectPoller do
     end
   end
 
+  describe '#stop' do
+    it 'should call EM.stop_event_loop' do
+      expect(EM).to receive(:stop_event_loop)
+      poller.stop
+    end
+  end
+
 end

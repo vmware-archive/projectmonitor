@@ -19,9 +19,12 @@ class ProjectPoller
     @connection_timeout = 60
     @inactivity_timeout = 30
     @max_follow_redirects = 10
+    @pending = 0
   end
 
   def run
+    @run_once = false
+
     EM.run do
       EM.add_periodic_timer(@poll_period) do
         poll_projects
@@ -34,6 +37,8 @@ class ProjectPoller
   end
 
   def run_once
+    @run_once = true
+
     EM.run do
       poll_projects
     end
@@ -41,6 +46,10 @@ class ProjectPoller
     EM.run do
       poll_tracker
     end
+  end
+
+  def stop
+    EM.stop_event_loop
   end
 
   private
@@ -98,6 +107,8 @@ class ProjectPoller
   end
 
   def add_workload_callbacks(project, workload, job_id, request, handler)
+    begin_workload
+
     request.callback do |client|
       workload.store(job_id, client.response)
 
@@ -105,11 +116,13 @@ class ProjectPoller
         handler.workload_complete(workload)
         remove_workload(project)
       end
+      finish_workload
     end
 
     request.errback do |client|
       handler.workload_failed(workload, client.error)
       remove_workload(project)
+      finish_workload
     end
   end
 
@@ -125,6 +138,15 @@ class ProjectPoller
 
   def remove_workload(project)
     @workloads.delete(project)
+  end
+
+  def begin_workload
+    @pending += 1
+  end
+
+  def finish_workload
+    @pending -= 1
+    stop if @run_once && @pending.zero?
   end
 
 end
