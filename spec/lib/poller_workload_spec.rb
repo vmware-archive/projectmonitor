@@ -7,17 +7,17 @@ describe PollerWorkload do
   subject { workload }
 
   describe '#incomplete_jobs' do
-    subject { super().incomplete_jobs }
+    subject { workload.incomplete_jobs }
     it { is_expected.to be_empty }
   end
 
   describe '#complete?' do
-    subject { super().complete? }
+    subject { workload.complete? }
     it { is_expected.to be true }
   end
 
   describe '#unfinished_job_descriptions' do
-    subject { super().unfinished_job_descriptions }
+    subject { workload.unfinished_job_descriptions }
     it { is_expected.to be_empty }
   end
 
@@ -31,12 +31,12 @@ describe PollerWorkload do
     end
 
     describe '#incomplete_jobs' do
-      subject { super().incomplete_jobs }
+      subject { workload.incomplete_jobs }
       it { is_expected.to match_array([:feed_url]) }
     end
 
     describe '#unfinished_job_descriptions' do
-      subject { super().unfinished_job_descriptions }
+      subject { workload.unfinished_job_descriptions }
       it { is_expected.to eq({feed_url: feed_url })}
     end
 
@@ -50,12 +50,12 @@ describe PollerWorkload do
       end
 
       describe '#complete?' do
-        subject { super().complete? }
+        subject { workload.complete? }
         it { is_expected.to be true }
       end
 
       describe '#unfinished_job_descriptions' do
-        subject { super().unfinished_job_descriptions }
+        subject { workload.unfinished_job_descriptions }
         it { is_expected.to eq({}) }
       end
 
