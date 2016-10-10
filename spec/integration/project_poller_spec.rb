@@ -17,7 +17,6 @@ describe ProjectPoller do
         subject.run_once
       end
 
-      puts PayloadLogEntry.all.inspect
       expect(PayloadLogEntry.count).to eq(log_entry_count + 1)
     end
 
