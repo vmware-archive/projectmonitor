@@ -6,11 +6,6 @@ class ProjectWorkloadHandler
     @project = project
   end
 
-  def workload_created(workload)
-    workload.add_job(:feed_url, project.feed_url)
-    workload.add_job(:build_status_url, project.build_status_url)
-  end
-
   def workload_complete(workload)
     status_content = workload.recall(:feed_url)
     build_status_content = workload.recall(:build_status_url)

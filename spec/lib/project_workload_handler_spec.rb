@@ -7,20 +7,6 @@ describe ProjectWorkloadHandler do
 
   let(:workload) { double }
 
-  describe '#workload_created' do
-    after { handler.workload_created(workload) }
-
-    before { allow(workload).to receive(:add_job) }
-
-    it 'should add the feed_url' do
-      expect(workload).to receive(:add_job).with(:feed_url, project.feed_url)
-    end
-
-    it 'should add the build_status_url' do
-      expect(workload).to receive(:add_job).with(:build_status_url, project.build_status_url)
-    end
-  end
-
   describe '#workload_complete' do
     let(:project) { create(:project) }
     let(:workload) { double.as_null_object }

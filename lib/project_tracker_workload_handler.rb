@@ -6,12 +6,6 @@ class ProjectTrackerWorkloadHandler
     @project = project
   end
 
-  def workload_created(workload)
-    workload.add_job(:project, project.tracker_project_url)
-    workload.add_job(:current_iteration, project.tracker_current_iteration_url)
-    workload.add_job(:iterations, project.tracker_iterations_url)
-  end
-
   def workload_complete(workload)
     project_payload = workload.recall(:project)
     current_iteration_payload = workload.recall(:current_iteration)

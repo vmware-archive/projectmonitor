@@ -8,7 +8,7 @@ FactoryGirl.define do
 
     factory :project_with_tracker_integration do
       tracker_project_id "123"
-      tracker_auth_token "foo"
+      tracker_auth_token "tracker-token"
       tracker_online true
       current_velocity 15
       stories_to_accept_count 7

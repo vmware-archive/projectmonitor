@@ -2,32 +2,40 @@ class ProjectPollerHelper
 
   def initialize
     @workloads = {}
-    @connection_timeout = 60
-    @inactivity_timeout = 30
-    @max_follow_redirects = 10
     @pending = 0
+    @polling_strategy_factory = ProjectPollingStrategyFactory.new
   end
 
   def poll_projects(&completion_callback)
     updateable_projects.find_each do |project|
-      handler = ProjectWorkloadHandler.new(project)
-      workload = find_or_create_workload(project, handler)
+      polling_strategy = @polling_strategy_factory.build_ci_strategy(project)
 
-      workload.unfinished_job_descriptions.each do |job_id, description|
-        request = create_ci_request(project, description)
-        add_workload_callbacks(project, workload, job_id, request, handler, &completion_callback) if request
+      workload = find_or_create_workload(project, polling_strategy)
+      workload.unfinished_job_descriptions.each do |job_id, job_description|
+        request = polling_strategy.fetch_status(project, job_description)
+        if request
+          handler = ProjectWorkloadHandler.new(project)
+          add_workload_callbacks(project, workload, job_id, request, handler, &completion_callback)
+        else
+          remove_workload(project)
+        end
       end
     end
   end
 
   def poll_tracker(&completion_callback)
     projects_with_tracker.find_each do |project|
-      handler = ProjectTrackerWorkloadHandler.new(project)
-      workload = find_or_create_workload(project, handler)
+      polling_strategy = @polling_strategy_factory.build_tracker_strategy
 
-      workload.unfinished_job_descriptions.each do |job_id, description|
-        request = create_tracker_request(project, description)
-        add_workload_callbacks(project, workload, job_id, request, handler, &completion_callback)
+      workload = find_or_create_workload(project, polling_strategy)
+      workload.unfinished_job_descriptions.each do |job_id, job_description|
+        request = polling_strategy.fetch_status(project, job_description)
+        if request
+          handler = ProjectTrackerWorkloadHandler.new(project)
+          add_workload_callbacks(project, workload, job_id, request, handler, &completion_callback)
+        else
+          remove_workload(project)
+        end
       end
     end
   end
@@ -42,41 +50,12 @@ class ProjectPollerHelper
 
   private
 
-  def find_or_create_workload(project, handler)
+  def find_or_create_workload(project, polling_strategy)
     unless @workloads.has_key? project
-      workload = PollerWorkload.new
+      workload = polling_strategy.create_workload(project)
       @workloads[project] = workload
-      handler.workload_created(workload)
     end
     @workloads[project]
-  end
-
-  def create_tracker_request(project, url)
-    create_request(url, head: {'X-TrackerToken' => project.tracker_auth_token})
-  end
-
-  def create_ci_request(project, url)
-    get_options = {}
-    if project.auth_username.present?
-      get_options[:head] = {'authorization' => [project.auth_username, project.auth_password]}
-    end
-    if project.accept_mime_types.present?
-      headers = get_options[:head] || {}
-      get_options[:head] = headers.merge("Accept" => project.accept_mime_types)
-    end
-
-    create_request(url, get_options)
-  end
-
-  def create_request(url, options = {})
-    url = "http://#{url}" unless /\A\S+:\/\// === url
-    begin
-      connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
-      get_options = {redirects: @max_follow_redirects}.merge(options)
-      connection.get get_options
-    rescue Addressable::URI::InvalidURIError => e
-      puts "ERROR parsing URL: \"#{url}\""
-    end
   end
 
   def add_workload_callbacks(project, workload, job_id, request, handler, &completion_callback)
