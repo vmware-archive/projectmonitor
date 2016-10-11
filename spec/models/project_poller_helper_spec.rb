@@ -7,120 +7,119 @@ describe 'ProjectPollerHelper' do
   let(:request) { double(:request, callback: nil, errback: nil) }
   let(:workload) { double(:workload, complete?: nil, unfinished_job_descriptions: {}) }
 
+  let(:ci_strategy) { double(:polling_strategy, create_workload: workload) }
+  let(:polling_strategy_factory) { double(:polling_strategy_factory, build_ci_strategy: ci_strategy) }
+
   before do
     allow(Project).to receive_message_chain(:updateable, :find_each).and_yield(project)
     allow(PollerWorkload).to receive(:new).and_return(workload)
     allow(EM::HttpRequest).to receive(:new).and_return(connection)
   end
 
-  subject { ProjectPollerHelper.new }
+  subject { ProjectPollerHelper.new(polling_strategy_factory) }
 
   describe '#poll_projects' do
-    before do
-      allow(workload).to receive(:add_job).with(:feed_url, 'http://www.example.com/job/project/rssAll')
-      allow(workload).to receive(:add_job).with(:build_status_url, 'http://www.example.com/cc.xml')
-      allow(workload).to receive(:unfinished_job_descriptions).and_return({feed_url: project.feed_url})
-      allow(ProjectWorkloadHandler).to receive(:new).and_return(handler)
+    let(:updateable_projects) { double(:updateable_projects) }
+
+    xcontext 'when there are no projects to update' do
+
     end
 
-    context 'and there is an updateable project' do
-      it 'should create a project workload' do
-        expect {
-          subject.poll_projects
-        }.to change { subject.instance_variable_get(:@workloads).count }.by (1)
+    context 'when there are projects to update' do
+
+      let(:project1) { build(:project, name: 'project 1') }
+      let(:project2) { build(:project, name: 'project 2') }
+      let(:job_description) { {feed_url: 'https://feed/url'} }
+
+      before do
+        allow(workload).to receive(:unfinished_job_descriptions).and_return(job_description)
+        allow(ci_strategy).to receive(:create_handler).and_return(handler)
+
+        allow(Project).to receive(:updateable).and_return(updateable_projects)
+        allow(updateable_projects).to receive(:find_each).and_yield(project1)
       end
 
-      it 'should get the updateable projects' do
-        expect(Project).to receive(:updateable)
+      it 'should fetch status for each updateable project' do
+        allow(updateable_projects).to receive(:find_each).and_yield(project1).and_yield(project2)
+        expect(ci_strategy).to receive(:fetch_status).with(project1, 'https://feed/url')
+        expect(ci_strategy).to receive(:fetch_status).with(project2, 'https://feed/url')
+
         subject.poll_projects
       end
 
-      context 'when there are jobs to complete' do
+      context 'when polling a project succeeds' do
+        let(:workload) { double(:workload, complete?: true, unfinished_job_descriptions: {}) }
+
         before do
-          allow(workload).to receive(:unfinished_job_descriptions).and_return({feed_url: project.feed_url})
+          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'response body')
+          allow(workload).to receive(:store).with(job_description.keys.first, 'response body')
+          allow(handler).to receive(:workload_complete).with(workload)
         end
 
-        it 'should register for a response' do
-          expect(request).to receive(:callback)
+        it 'should notify the handler when all jobs in the workload are complete' do
+          allow(workload).to receive(:unfinished_job_descriptions).and_return(
+              {job_1: 'https://job/1', job_2: 'https://job/2'}
+          )
+
+          transcript = []
+          allow(workload).to receive(:store).with(:job_1, 'response body') { transcript << 'store job 1' }
+          allow(workload).to receive(:store).with(:job_2, 'response body') { transcript << 'store job 2' }
+          allow(workload).to receive(:complete?) { transcript.count == 2 }
+          allow(handler).to receive(:workload_complete).with(workload) { transcript << 'workload complete' }
+
           subject.poll_projects
+
+          expect(transcript).to eq(['store job 1', 'store job 2', 'workload complete'])
         end
 
-        it 'should register for an error' do
-          expect(request).to receive(:errback)
+        it 'should remove the workload when complete' do
           subject.poll_projects
+
+          expect(subject.instance_variable_get(:@workloads)).to be_empty
         end
 
-        context 'when the project has an invalid URL' do
-          before do
-            allow(EM::HttpRequest).to receive(:new).and_raise(Addressable::URI::InvalidURIError.new)
+        it 'should call the completion callback' do
+          callback_called = false
+          subject.poll_projects do
+            callback_called = true
           end
 
-          it 'does not keep the related workload' do
-            allow(ProjectWorkloadHandler).to receive(:new).and_return(double(:handler))
-
-            subject.poll_projects
-
-            expect(subject.instance_variable_get(:@workloads)).to eq({})
-          end
-        end
-
-        context 'when a response is received' do
-          let(:client) { double(:client, response: double) }
-
-          before do
-            allow(request).to receive(:callback).and_yield(client)
-            allow(workload).to receive(:store)
-          end
-
-          it 'should store the payload in the workload' do
-            expect(workload).to receive(:store).with(:feed_url, client.response)
-            subject.poll_projects
-          end
-
-          it 'should determine if the workload is complete' do
-            expect(workload).to receive(:complete?)
-            subject.poll_projects
-          end
-
-          context 'and the workload is complete' do
-            before do
-              allow(workload).to receive(:complete?).and_return(true)
-              allow(workload).to receive(:recall)
-              allow(handler).to receive(:workload_complete)
-            end
-
-            it 'should remove the workload' do
-              subject.poll_projects
-
-              expect(subject.instance_variable_get(:@workloads)).to eq({})
-            end
-          end
+          expect(callback_called).to be_truthy
         end
       end
 
-      context 'when an error occurs' do
-        let(:client) { double(:client, error: double) }
-
+      context 'when polling the project fails' do
         before do
-          allow(request).to receive(:errback).and_yield(client)
-          allow(handler).to receive(:workload_failed).with(client.error)
+          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::FAILED, 'it broke')
+          allow(handler).to receive(:workload_failed).with('it broke')
         end
 
-        it 'should mark the project as failed' do
-          expect(handler).to receive(:workload_failed).with(client.error)
+        it 'should not notify the handler that the workload failed' do
+          expect(handler).to_not receive(:workload_complete)
+          expect(handler).to receive(:workload_failed).with('it broke')
+
           subject.poll_projects
         end
 
         it 'should remove the workload' do
           subject.poll_projects
 
-          expect(subject.instance_variable_get(:@workloads)).to eq({})
+          expect(subject.instance_variable_get(:@workloads).values).to be_empty
+        end
+
+        it 'should call the completion callback' do
+          callback_called = false
+          subject.poll_projects do
+            callback_called = true
+          end
+
+          expect(callback_called).to be_truthy
         end
       end
     end
   end
 
-  describe '#poll_tracker' do
+  xdescribe '#poll_tracker' do
     before do
       allow(Project).to receive(:tracker_updateable).and_return(double.as_null_object)
     end

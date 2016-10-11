@@ -3,6 +3,10 @@ class CIPollingStrategy
     @requester = requester
   end
 
+  def create_handler(project)
+    ProjectWorkloadHandler.new(project)
+  end
+
   def create_workload(project)
     workload = PollerWorkload.new
     workload.add_job(:feed_url, project.feed_url)
