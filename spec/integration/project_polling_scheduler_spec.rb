@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe ProjectPoller do
+describe ProjectPollingScheduler do
 
-  subject { ProjectPoller.new }
+  subject { ProjectPollingScheduler.new }
 
   describe '#run_once' do
     before do

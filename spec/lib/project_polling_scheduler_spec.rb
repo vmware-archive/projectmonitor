@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe ProjectPoller do
+describe ProjectPollingScheduler do
 
   let (:helper) { double(:project_poller_helper) }
 
-  subject { ProjectPoller.new(helper) }
+  subject { ProjectPollingScheduler.new(helper) }
 
   describe '#run' do
     before do

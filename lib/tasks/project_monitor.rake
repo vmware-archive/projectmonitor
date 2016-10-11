@@ -1,13 +1,13 @@
 namespace :projectmonitor do
   desc 'Start the long running project poller process'
   task :poller => :environment do
-    ProjectPoller.new.run
+    ProjectPollingScheduler.new.run
   end
 
   desc 'Update the status for each active project'
   task :fetch_statuses => :environment do
     if Delayed::Job.present?
-      ProjectPoller.new.delay(priority: 0).run_once
+      ProjectPollingScheduler.new.delay(priority: 0).run_once
     end
   end
 

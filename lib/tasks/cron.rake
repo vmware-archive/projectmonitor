@@ -1,7 +1,7 @@
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do |t, args|
   if Delayed::Job.present?
-    ProjectPoller.new.delay(priority: 0).run_once
+    ProjectPollingScheduler.new.delay(priority: 0).run_once
   end
 end
 
