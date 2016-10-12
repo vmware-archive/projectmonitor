@@ -26,6 +26,14 @@ class CIPollingStrategy
       request_options[:head] = headers.merge('Accept' => project.accept_mime_types)
     end
 
-    @requester.initiate_request(url, request_options)
+    request = @requester.initiate_request(url, request_options)
+
+    request.callback do |client|
+      yield PollState::SUCCEEDED, client.response
+    end
+
+    request.errback do |client|
+      yield PollState::FAILED, client.error
+    end
   end
 end

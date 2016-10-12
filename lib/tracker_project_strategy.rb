@@ -17,6 +17,14 @@ class TrackerProjectStrategy
   end
 
   def fetch_status(project, url)
-    @requester.initiate_request(url, head: {'X-TrackerToken' => project.tracker_auth_token})
+    request = @requester.initiate_request(url, head: {'X-TrackerToken' => project.tracker_auth_token})
+
+    request.callback do |client|
+      yield PollState::SUCCEEDED, client.response
+    end
+
+    request.errback do |client|
+      yield PollState::FAILED, client.error
+    end
   end
 end

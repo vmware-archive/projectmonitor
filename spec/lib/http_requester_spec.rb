@@ -39,12 +39,12 @@ describe HttpRequester do
       end
 
       it 'should return nil' do
-        expect(subject.initiate_request('http://dsjkls', {})).to be_nil
+        expect(subject.initiate_request('http://some/url', {})).to be_nil
       end
 
       it 'should log an error' do
         expect {
-          subject.initiate_request('http://dsjkls', {})
+          subject.initiate_request('http://some/url', {})
         }.to output(/ERROR/).to_stdout
       end
     end
