@@ -10,13 +10,13 @@ class ConcourseProjectStrategy
 
   def create_workload(project)
     workload = PollerWorkload.new
-    workload.add_job(:concourse_project, project)
+    workload.add_job(:concourse_project, project.feed_url)
     workload
   end
 
   # returns a request that gets callback/errback assigned to it
   def fetch_status(project, url)
-    @concourse_authenticator.authenticate do |session_token|
+    @concourse_authenticator.authenticate(project.auth_url, project.auth_username, project.auth_password) do |session_token|
       request_options = {
           head: {'Set-Cookie' => "ATC-Authorization=Bearer #{session_token}"}
       }
@@ -30,7 +30,6 @@ class ConcourseProjectStrategy
 
       request.callback do |client|
         yield PollState::SUCCEEDED, client.response
-
       end
 
       request.errback do |client|

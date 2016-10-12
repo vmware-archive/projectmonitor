@@ -19,11 +19,11 @@ class ConcourseAuthenticator
       end
 
       request.errback do |client|
-        # do we actually want to yield this?
         yield PollState::FAILED, client.error
       end
     else
       puts 'Error: Is your Concourse project set up correctly?'
+      yield PollState::FAILED
     end
   end
 end

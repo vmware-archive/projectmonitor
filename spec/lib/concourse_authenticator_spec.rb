@@ -34,8 +34,18 @@ describe ConcourseAuthenticator do
 
       it 'should log an error' do
         expect {
-          subject.authenticate('https://auth/url', 'user', 'pass')
+          subject.authenticate('https://auth/url', 'user', 'pass') {}
         }.to output(/Error/).to_stdout
+      end
+
+      it 'should yield a failure' do
+        flag = false
+
+        subject.authenticate('url', 'uname', 'pw') do |_flag, response|
+          flag = _flag
+        end
+
+        expect(flag).to eq(PollState::FAILED)
       end
     end
 

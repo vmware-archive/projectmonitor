@@ -4,7 +4,11 @@ describe ConcourseProjectStrategy do
   let(:request_double) { double(:request) }
   let(:client_double) { double(:client, response: 'some response', error: 'some error') }
   let(:requester) { double(:http_requester, initiate_request: request_double) }
-  let(:project) { build(:concourse_project) }
+  let(:project) { build(:concourse_project,
+                        ci_base_url: 'http://concourse.com',
+                        auth_username: 'me',
+                        auth_password: 'pw')
+  }
   let(:concourse_authenticator) { double(:concourse_authenticator) }
 
   subject { ConcourseProjectStrategy.new(requester, concourse_authenticator) }
@@ -15,7 +19,7 @@ describe ConcourseProjectStrategy do
     before do
       allow(request_double).to receive(:callback).and_return(client_double)
       allow(request_double).to receive(:errback).and_return(client_double)
-      allow(concourse_authenticator).to receive(:authenticate).and_yield('session-token')
+      allow(concourse_authenticator).to receive(:authenticate).with(project.auth_url, project.auth_username, project.auth_password).and_yield('session-token')
     end
 
     it 'makes a request to the auth endpoint, then makes a request for the build status' do
