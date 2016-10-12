@@ -8,6 +8,10 @@ class ConcourseProject < Project
     "#{ci_base_url}/api/v1/teams/main/pipelines/#{concourse_pipeline_name}/jobs/#{ci_build_identifier}/builds"
   end
 
+  def auth_url
+    "#{ci_base_url}/api/v1/teams/main/auth/token"
+  end
+
   def fetch_payload
     ConcoursePayload.new(feed_url)
   end

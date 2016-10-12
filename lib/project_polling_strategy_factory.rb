@@ -2,7 +2,8 @@ class ProjectPollingStrategyFactory
   def build_ci_strategy(project)
     case project
       when ConcourseProject
-        ConcourseProjectStrategy.new
+        requester = HttpRequester.new
+        ConcourseProjectStrategy.new(requester, ConcourseAuthenticator.new(requester))
       else
         CIPollingStrategy.new(HttpRequester.new)
     end
