@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jetway.pivotal.io/api/v1/teams/main/auth/token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      # Manually edited credentials
+      - Basic dXNlcjpwYXNz
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      X-Concourse-Version:
+      - 2.2.1
+      Date:
+      - Thu, 13 Oct 2016 16:04:11 GMT
+      Content-Length:
+      - '492'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      # Manually edited session token
+      string: '{"type":"Bearer","value":"fixture-session-token"}
+
+'
+    http_version:
+  recorded_at: Thu, 13 Oct 2016 16:04:11 GMT
+- request:
+    method: get
+    uri: https://jetway.pivotal.io/api/v1/teams/main/pipelines/augur-production/jobs/build/builds
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      # Manually edited session token
+      - ATC-Authorization=Bearer fixture-session-token
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Concourse-Version:
+      - 2.2.1
+      Date:
+      - Thu, 13 Oct 2016 16:04:11 GMT
+      Content-Length:
+      - '788'
+      Content-Type:
+      - text/plain; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"id":2988,"team_name":"main","name":"3","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/3","api_url":"/api/v1/builds/2988","pipeline_name":"augur-production","start_time":1473799359,"end_time":1473799519},{"id":2754,"team_name":"main","name":"2","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/2","api_url":"/api/v1/builds/2754","pipeline_name":"augur-production","start_time":1473179210,"end_time":1473179373},{"id":2610,"team_name":"main","name":"1","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/1","api_url":"/api/v1/builds/2610","pipeline_name":"augur-production","start_time":1472578253,"end_time":1472578414}]
+
+'
+    http_version: 
+  recorded_at: Thu, 13 Oct 2016 16:04:11 GMT
+recorded_with: VCR 3.0.3

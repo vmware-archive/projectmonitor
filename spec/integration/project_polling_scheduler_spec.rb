@@ -40,6 +40,27 @@ describe ProjectPollingScheduler do
       expect(p.tracker_online).to eq(true)
     end
 
+    it 'should update concourse (V2) projects' do
+      project = create(:concourse_project)
+      project.update_attributes(
+          ci_base_url: 'https://jetway.pivotal.io',
+          ci_build_identifier: 'build',
+          concourse_pipeline_name: 'augur-production',
+          auth_username: 'user',
+          auth_password: 'pass'
+      )
+
+      log_entry_count = PayloadLogEntry.count
+
+      # This cassette was manually modified to remove the actual credentials and session token and
+      # replace them with fixture values
+      VCR.use_cassette('poller_concourse_run_once') do
+        subject.run_once
+      end
+
+      expect(PayloadLogEntry.count).to eq(log_entry_count + 1)
+    end
+
     it 'should exit gracefully when there are no projects' do
       Project.delete_all
 

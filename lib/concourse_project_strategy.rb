@@ -18,7 +18,7 @@ class ConcourseProjectStrategy
   def fetch_status(project, url)
     @concourse_authenticator.authenticate(project.auth_url, project.auth_username, project.auth_password) do |session_token|
       request_options = {
-          head: {'Set-Cookie' => "ATC-Authorization=Bearer #{session_token}"}
+          head: {'Cookie' => "ATC-Authorization=Bearer #{session_token}"}
       }
 
       if project.accept_mime_types.present?

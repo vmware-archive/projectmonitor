@@ -23,7 +23,7 @@ describe ConcourseProjectStrategy do
     end
 
     it 'makes a request to the auth endpoint, then makes a request for the build status' do
-      expect(requester).to receive(:initiate_request).with(url, {head: {'Set-Cookie' => 'ATC-Authorization=Bearer session-token'}}).and_return(request_double)
+      expect(requester).to receive(:initiate_request).with(url, {head: {'Cookie' => 'ATC-Authorization=Bearer session-token'}}).and_return(request_double)
 
       subject.fetch_status(project, url)
     end
