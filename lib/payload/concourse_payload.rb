@@ -14,6 +14,7 @@ class ConcoursePayload < Payload
   end
 
   def convert_content!(raw_content)
+    puts "raw content: #{pp raw_content}"
     convert_json_content!(raw_content)
   end
 

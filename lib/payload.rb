@@ -3,7 +3,8 @@ class Payload
   class InvalidContentException < ::StandardError
   end
 
-  attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr
+  attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr, :processable, :build_processable
+  attr_reader :status_content, :build_status_content
 
   def initialize
     self.processable = true
@@ -105,7 +106,4 @@ class Payload
     self.processable = self.build_processable = false
     raise Payload::InvalidContentException, e.message
   end
-
-  attr_accessor :processable, :build_processable
-  attr_reader :status_content, :build_status_content
 end

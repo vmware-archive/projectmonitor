@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       Authorization:
-      # Manually edited credentials
+      # Manually set fixture credentials
       - Basic dXNlcjpwYXNz
   response:
     status:
@@ -20,19 +20,52 @@ http_interactions:
       X-Concourse-Version:
       - 2.2.1
       Date:
-      - Thu, 13 Oct 2016 16:04:11 GMT
+      - Thu, 13 Oct 2016 19:19:07 GMT
       Content-Length:
       - '492'
       Connection:
       - close
     body:
       encoding: UTF-8
-      # Manually edited session token
-      string: '{"type":"Bearer","value":"fixture-session-token"}
+      # Manually set fixture-session
+      string: '{"type":"Bearer","value":"fixture-session"}
 
 '
-    http_version:
-  recorded_at: Thu, 13 Oct 2016 16:04:11 GMT
+    http_version: 
+  recorded_at: Thu, 13 Oct 2016 19:19:07 GMT
+- request:
+    method: get
+    uri: https://jetway.pivotal.io/api/v1/teams/main/auth/token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      # Manually set fixture credentials
+      - Basic dXNlcjpwYXNz
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      X-Concourse-Version:
+      - 2.2.1
+      Date:
+      - Thu, 13 Oct 2016 19:19:07 GMT
+      Content-Length:
+      - '492'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      # Manually set fixture-session
+      string: '{"type":"Bearer","value":"fixture-session"}
+
+'
+    http_version: 
+  recorded_at: Thu, 13 Oct 2016 19:19:07 GMT
 - request:
     method: get
     uri: https://jetway.pivotal.io/api/v1/teams/main/pipelines/augur-production/jobs/build/builds
@@ -41,8 +74,8 @@ http_interactions:
       string: ''
     headers:
       Cookie:
-      # Manually edited session token
-      - ATC-Authorization=Bearer fixture-session-token
+      # Manually set fixture-session
+      - ATC-Authorization=Bearer fixture-session
   response:
     status:
       code: 200
@@ -51,7 +84,7 @@ http_interactions:
       X-Concourse-Version:
       - 2.2.1
       Date:
-      - Thu, 13 Oct 2016 16:04:11 GMT
+      - Thu, 13 Oct 2016 19:19:08 GMT
       Content-Length:
       - '788'
       Content-Type:
@@ -64,5 +97,37 @@ http_interactions:
 
 '
     http_version: 
-  recorded_at: Thu, 13 Oct 2016 16:04:11 GMT
+  recorded_at: Thu, 13 Oct 2016 19:19:08 GMT
+- request:
+    method: get
+    uri: https://jetway.pivotal.io/api/v1/teams/main/pipelines/augur-production/jobs/build/builds
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      # Manually set fixture-session
+      - ATC-Authorization=Bearer fixture-session
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Concourse-Version:
+      - 2.2.1
+      Date:
+      - Thu, 13 Oct 2016 19:19:08 GMT
+      Content-Length:
+      - '788'
+      Content-Type:
+      - text/plain; charset=utf-8
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"id":2988,"team_name":"main","name":"3","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/3","api_url":"/api/v1/builds/2988","pipeline_name":"augur-production","start_time":1473799359,"end_time":1473799519},{"id":2754,"team_name":"main","name":"2","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/2","api_url":"/api/v1/builds/2754","pipeline_name":"augur-production","start_time":1473179210,"end_time":1473179373},{"id":2610,"team_name":"main","name":"1","status":"succeeded","job_name":"build","url":"/teams/main/pipelines/augur-production/jobs/build/builds/1","api_url":"/api/v1/builds/2610","pipeline_name":"augur-production","start_time":1472578253,"end_time":1472578414}]
+
+'
+    http_version: 
+  recorded_at: Thu, 13 Oct 2016 19:19:08 GMT
 recorded_with: VCR 3.0.3

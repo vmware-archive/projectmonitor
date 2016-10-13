@@ -10,7 +10,8 @@ class ConcourseProjectStrategy
 
   def create_workload(project)
     workload = PollerWorkload.new
-    workload.add_job(:concourse_project, project.feed_url)
+    workload.add_job(:feed_url, project.feed_url)
+    workload.add_job(:build_status_url, project.build_status_url)
     workload
   end
 

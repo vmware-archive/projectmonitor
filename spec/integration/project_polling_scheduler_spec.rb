@@ -41,6 +41,8 @@ describe ProjectPollingScheduler do
     end
 
     it 'should update concourse (V2) projects' do
+      PayloadLogEntry.delete_all
+
       project = create(:concourse_project)
       project.update_attributes(
           ci_base_url: 'https://jetway.pivotal.io',
@@ -50,15 +52,14 @@ describe ProjectPollingScheduler do
           auth_password: 'pass'
       )
 
-      log_entry_count = PayloadLogEntry.count
-
       # This cassette was manually modified to remove the actual credentials and session token and
       # replace them with fixture values
       VCR.use_cassette('poller_concourse_run_once') do
         subject.run_once
       end
 
-      expect(PayloadLogEntry.count).to eq(log_entry_count + 1)
+      expect(PayloadLogEntry.count).to eq(1)
+      expect(PayloadLogEntry.last.status).to eq('successful')
     end
 
     it 'should exit gracefully when there are no projects' do
