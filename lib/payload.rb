@@ -3,12 +3,12 @@ class Payload
   class InvalidContentException < ::StandardError
   end
 
-  attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr, :processable, :build_processable
+  attr_accessor :parsed_url, :error_text, :error_type, :backtrace, :remote_addr, :parsed_successfully, :build_parsed_successfully
   attr_reader :status_content, :build_status_content
 
   def initialize
-    self.processable = true
-    self.build_processable = true
+    self.parsed_successfully = true
+    self.build_parsed_successfully = true
   end
 
   def each_status
@@ -45,12 +45,12 @@ class Payload
     end
   end
 
-  def status_is_processable?
-    has_status_content? && !!processable
+  def status_is_parseable?
+    has_status_content? && !!parsed_successfully
   end
 
-  def build_status_is_processable?
-    has_build_status_content? && !!build_processable
+  def build_status_is_parseable?
+    has_build_status_content? && !!build_parsed_successfully
   end
 
   def building?
@@ -103,7 +103,7 @@ class Payload
   end
 
   def handle_processing_exception(e)
-    self.processable = self.build_processable = false
+    self.parsed_successfully = self.build_parsed_successfully = false
     raise Payload::InvalidContentException, e.message
   end
 end

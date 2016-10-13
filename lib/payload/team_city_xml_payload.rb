@@ -9,8 +9,8 @@ class TeamCityXmlPayload < Payload
     status_content.first.attribute('running').present?
   end
 
-  def build_status_is_processable?
-    status_is_processable?
+  def build_status_is_parseable?
+    status_is_parseable?
   end
 
   private

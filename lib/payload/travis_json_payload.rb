@@ -13,8 +13,8 @@ class TravisJsonPayload < Payload
     status_content.first['started_at'].present? && status_content.first['finished_at'].nil?
   end
 
-  def build_status_is_processable?
-    status_is_processable?
+  def build_status_is_parseable?
+    status_is_parseable?
   end
 
   def content_ready?(content)

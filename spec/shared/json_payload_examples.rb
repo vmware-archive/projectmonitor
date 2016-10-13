@@ -7,18 +7,18 @@ RSpec.shared_examples "a JSON payload" do
         payload.status_content = 'invalid string'
       end
 
-      it 'should be marked as unprocessable' do
+      it 'should be marked as unparseable' do
         allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
         expect {payload.convert_content!(fixture_content)}.to raise_error Payload::InvalidContentException
-        expect(payload.processable).to be false
-        expect(payload.build_processable).to be false
+        expect(payload.parsed_successfully).to be false
+        expect(payload.build_parsed_successfully).to be false
       end
     end
   end
 
-  describe "#processable" do
+  describe "#parsed_successfully" do
     context 'with invalid status content' do
-      subject { payload.processable }
+      subject { payload.parsed_successfully }
       before(:each) { payload.status_content = fixture_content }
 
       context 'with empty string' do

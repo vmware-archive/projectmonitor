@@ -4,13 +4,13 @@ describe Payload do
   describe "#initialize" do
     subject { Payload.new }
 
-    describe '#processable' do
-      subject { super().processable }
+    describe '#parsed_successfully' do
+      subject { super().parsed_successfully }
       it { is_expected.to eq(true) }
     end
 
-    describe '#build_processable' do
-      subject { super().build_processable }
+    describe '#build_parsed_successfully' do
+      subject { super().build_parsed_successfully }
       it { is_expected.to eq(true) }
     end
   end

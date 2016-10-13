@@ -8,9 +8,9 @@ describe PayloadProcessor do
   let(:processor) { PayloadProcessor.new(project_status_updater: project_status_updater) }
 
   describe "#process" do
-    context "when the payload has processable statuses" do
+    context "when the payload's statuses can be parsed successfully" do
       before do
-        allow(payload).to receive(:status_is_processable?).and_return(true)
+        allow(payload).to receive(:status_is_parseable?).and_return(true)
         allow(payload).to receive(:each_status).and_yield(status)
       end
 
@@ -68,8 +68,8 @@ ERROR
       end
     end
 
-    context "when the payload statuses are not processable" do
-      before { allow(payload).to receive(:status_is_processable?).and_return(false) }
+    context "when the payload statuses are not parseable" do
+      before { allow(payload).to receive(:status_is_parseable?).and_return(false) }
 
       it "skips accessing each status" do
         expect(payload).not_to receive(:each_status)
@@ -82,8 +82,8 @@ ERROR
       end
     end
 
-    context "when payload has a processable building_status" do
-      before { allow(payload).to receive(:build_status_is_processable?).and_return(true) }
+    context "when payload has a parseable building_status" do
+      before { allow(payload).to receive(:build_status_is_parseable?).and_return(true) }
 
       it "sets the project building status to that of the payload" do
         building = double(:boolean)
@@ -95,8 +95,8 @@ ERROR
       end
     end
 
-    context "when the payload build_status is not processable" do
-      before { allow(payload).to receive(:build_status_is_processable?).and_return(false) }
+    context "when the payload build_status is not parseable" do
+      before { allow(payload).to receive(:build_status_is_parseable?).and_return(false) }
 
       it "sets the project as not building" do
         expect(project).to receive(:building=).with(false)
@@ -108,7 +108,7 @@ ERROR
 
   describe "parse_url" do
     before do
-      allow(payload).to receive(:status_is_processable?).and_return(true)
+      allow(payload).to receive(:status_is_parseable?).and_return(true)
       allow(payload).to receive(:parsed_url) { 'http://www.example.com' }
     end
 

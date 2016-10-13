@@ -16,13 +16,13 @@ class PayloadProcessor
   private
 
   def payload_log
-    success = payload.status_is_processable? || payload.build_status_is_processable?
+    success = payload.status_is_parseable? || payload.build_status_is_parseable?
     status = success ? "successful" : "failed"
     project.payload_log_entries.build(status: status, error_type: "#{payload.error_type}", error_text: "#{payload.error_text}", backtrace: "#{payload.backtrace}")
   end
 
   def add_statuses
-    if payload.status_is_processable?
+    if payload.status_is_parseable?
       project.online = true
       add_statuses_from_payload
       project.parsed_url = payload.parsed_url if payload.parsed_url.present?
@@ -32,7 +32,7 @@ class PayloadProcessor
   end
 
   def update_building_status
-    project.building = payload.build_status_is_processable? && payload.building?
+    project.building = payload.build_status_is_parseable? && payload.building?
   end
 
   def add_statuses_from_payload

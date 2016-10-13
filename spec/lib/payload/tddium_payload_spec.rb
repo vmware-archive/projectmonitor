@@ -8,7 +8,7 @@ describe TddiumPayload do
   let(:converted_content) { payload.convert_content!(content).first }
 
   context 'with an invalid POST' do
-    subject { payload.processable }
+    subject { payload.parsed_successfully }
     before do
       expect(payload).to receive(:log_error)
       payload.status_content = content

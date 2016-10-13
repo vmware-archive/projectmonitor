@@ -19,7 +19,7 @@ class TddiumPayload < Payload
       convert_xml_content!(raw_content, true).css("Project[name=\"#{@project_name}\"]").to_a
     else
       log_error("No content supplied")
-      self.processable = false
+      self.parsed_successfully = false
       []
     end
   end
