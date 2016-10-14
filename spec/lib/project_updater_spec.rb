@@ -70,7 +70,7 @@ describe ProjectUpdater do
 
     context 'when fetching the status fails' do
       before do
-        allow(polling_strategy).to receive(:fetch_status).with(project, project.feed_url).and_yield(PollState::FAILED, '{}', 500)
+        allow(polling_strategy).to receive(:fetch_status).with(project, project.feed_url).and_yield(PollState::FAILED, 'authorization failed', 401)
       end
 
       it 'should create a payload log entry' do
@@ -80,6 +80,13 @@ describe ProjectUpdater do
         end.to change(PayloadLogEntry, :count).by(1)
 
         expect(PayloadLogEntry.last.status).to eq('failed')
+      end
+
+      it 'should save a useful error message' do
+        project_updater.update(project)
+        project.save!
+
+        expect(PayloadLogEntry.last.error_text).to eq("Got 401 response status from http://www.example.com/job/project/rssAll, body = 'authorization failed'")
       end
 
       it 'should set the project to offline' do

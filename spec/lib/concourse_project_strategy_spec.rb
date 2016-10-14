@@ -19,7 +19,9 @@ describe ConcourseProjectStrategy do
     before do
       allow(request_double).to receive(:callback).and_return(client_double)
       allow(request_double).to receive(:errback).and_return(client_double)
-      allow(concourse_authenticator).to receive(:authenticate).with(project.auth_url, project.auth_username, project.auth_password).and_yield('session-token')
+      allow(concourse_authenticator).to receive(:authenticate).
+          with(project.auth_url, project.auth_username, project.auth_password).
+          and_yield(PollState::SUCCEEDED, 200, 'session-token')
     end
 
     it 'makes a request to the auth endpoint, then makes a request for the build status' do

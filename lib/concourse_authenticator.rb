@@ -5,6 +5,7 @@ class ConcourseAuthenticator
     @requester = requester
   end
 
+  # Yields PollState, status code, session token or error message
   def authenticate(url, username, password)
     request_options = {}
 
@@ -13,17 +14,22 @@ class ConcourseAuthenticator
     request = @requester.initiate_request(url, request_options)
     if request
       request.callback do |client|
-        body = client.response
-        json = JSON.parse(body)
-        yield json['value']
+        case client.response_header.status
+          when 200..299
+            body = client.response
+            json = JSON.parse(body)
+            yield PollState::SUCCEEDED, client.response_header.status, json['value']
+          else
+            yield PollState::FAILED, client.response_header.status, 'authorization failed'
+        end
       end
 
       request.errback do |client|
-        yield PollState::FAILED, client.error
+        yield PollState::FAILED, -1, 'network error'
       end
     else
       puts 'Error: Is your Concourse project set up correctly?'
-      yield PollState::FAILED
+      yield PollState::FAILED, -1, 'failed'
     end
   end
 end

@@ -17,9 +17,9 @@ class ConcourseProjectStrategy
 
   # returns a request that gets callback/errback assigned to it
   def fetch_status(project, url)
-    @concourse_authenticator.authenticate(project.auth_url, project.auth_username, project.auth_password) do |session_token|
+    @concourse_authenticator.authenticate(project.auth_url, project.auth_username, project.auth_password) do |poll_state, status_code, response|
       request_options = {
-          head: {'Cookie' => "ATC-Authorization=Bearer #{session_token}"}
+          head: {'Cookie' => "ATC-Authorization=Bearer #{response}"}
       }
 
       if project.accept_mime_types.present?
