@@ -53,7 +53,6 @@ feature 'Projects API' do
       expect(project['parsed_url']).to be_nil
       expect(project['tddium_project_name']).to be_nil
       expect(project['notification_email']).to be_nil
-      expect(project['verify_ssl']).to be true
       expect(project['stories_to_accept_count']).to be_nil
       expect(project['open_stories_count']).to be_nil
       expect(project['build_branch']).to be_nil

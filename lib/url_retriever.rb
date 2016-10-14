@@ -2,11 +2,10 @@ require 'net/http'
 require 'net/https'
 
 class UrlRetriever
-  def initialize(url, username = nil, password = nil, verify_ssl = true)
+  def initialize(url, username = nil, password = nil)
     @url = url
     @username = username
     @password = password
-    @verify_ssl = verify_ssl
   end
 
   def get
@@ -21,11 +20,6 @@ class UrlRetriever
     Net::HTTP.new(uri.host, uri.port).tap do |http|
       if uri.scheme == 'https'
         http.use_ssl = true
-        if @verify_ssl
-          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        else
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        end
         http.ca_file = Rails.root.join(ConfigHelper.get(:certificate_bundle)).to_s
       end
       http.read_timeout = 30
@@ -58,7 +52,7 @@ class UrlRetriever
       when 200..299
         response.body
       when 300..399
-        UrlRetriever.new(response.header['location'], @username, @password, @verify_ssl).retrieve_content
+        UrlRetriever.new(response.header['location'], @username, @password).retrieve_content
       # when 400..599
       else
         raise Net::HTTPError.new("Got #{response.code} response status from #{@url}, body = '#{response.body}'", nil)

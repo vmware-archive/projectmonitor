@@ -32,12 +32,6 @@
             - if field_attributes.tooltip
               %p.help-block= field_attributes.tooltip
   %fieldset#polling
-    .form-group.verify_ssl_field
-      .col-sm-offset-2.col-sm-10
-        .checkbox
-          = f.label :verify_ssl do
-            = f.check_box :verify_ssl
-            Verify SSL Certificate?
     .form-group.auth_field
       = f.label :auth_username, 'Feed Username', class: 'col-sm-2 control-label'
       .col-sm-4

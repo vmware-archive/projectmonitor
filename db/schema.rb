@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005175656) do
+ActiveRecord::Schema.define(version: 20161014204405) do
 
   create_table "aggregate_projects", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 20161005175656) do
     t.string   "deprecated_tddium_auth_token",            limit: 255
     t.string   "deprecated_tddium_project_name",          limit: 255
     t.string   "notification_email",                      limit: 255
-    t.boolean  "verify_ssl",                                            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stories_to_accept_count",                 limit: 4

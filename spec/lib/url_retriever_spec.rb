@@ -114,28 +114,6 @@ describe 'UrlRetriever' do
         it { is_expected.to eq(true) }
       end
       it { is_expected.to respond_to :start }
-
-      context 'and verify_ssl is true' do
-        let(:retriever) { UrlRetriever.new url, nil, nil, true }
-
-        subject { retriever.http }
-
-        describe '#verify_mode' do
-          subject { super().verify_mode }
-          it { is_expected.to eq(OpenSSL::SSL::VERIFY_PEER) }
-        end
-      end
-
-      context 'and verify_ssl is false' do
-        let(:retriever) { UrlRetriever.new url, nil, nil, false }
-
-        subject { retriever.http }
-
-        describe '#verify_mode' do
-          subject { super().verify_mode }
-          it { is_expected.to eq(OpenSSL::SSL::VERIFY_NONE) }
-        end
-      end
     end
   end
 
@@ -153,8 +131,7 @@ describe 'UrlRetriever' do
 
     context 'when a username and password are supplied' do
       let(:response) { double('HTTPResponse') }
-      let(:retriever) { UrlRetriever.new(url, username, password, verify_ssl) }
-      let(:verify_ssl) { double('verify_ssl') }
+      let(:retriever) { UrlRetriever.new(url, username, password) }
 
       before do
         allow(retriever).to receive(:process_response).and_return('response body')
@@ -192,12 +169,12 @@ describe 'UrlRetriever' do
     context 'when the response status code is in the 300s' do
       before do
         expect(UrlRetriever).to receive(:new).
-        with(new_location, nil, nil, true).
-        and_return(double(:url_ret, retrieve_content: "hello, is it me you're looking for?"))
+            with(new_location, nil, nil).
+            and_return(double(:url_ret, retrieve_content: "hello, is it me you're looking for?"))
       end
 
       let(:new_location) { 'http://placekitten.com/500/500' }
-      let(:response) { double('HTTPResponse', body: nil, header: { 'location' => new_location }, code: (rand 300..399).to_s) }
+      let(:response) { double('HTTPResponse', body: nil, header: {'location' => new_location}, code: (rand 300..399).to_s) }
       let(:retriever) { UrlRetriever.new(url) }
 
       subject { retriever.retrieve_content }
