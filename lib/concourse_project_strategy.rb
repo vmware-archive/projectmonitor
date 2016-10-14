@@ -30,7 +30,12 @@ class ConcourseProjectStrategy
       request = @requester.initiate_request(url, request_options)
 
       request.callback do |client|
-        yield PollState::SUCCEEDED, client.response, client.response_header.status
+        case client.response_header.status
+          when 200..299
+            yield PollState::SUCCEEDED, client.response, client.response_header.status
+          else
+            yield PollState::FAILED, client.response, client.response_header.status
+        end
       end
 
       request.errback do |client|
