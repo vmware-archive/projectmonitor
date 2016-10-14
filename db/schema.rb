@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014204405) do
+ActiveRecord::Schema.define(version: 20161014211931) do
 
   create_table "aggregate_projects", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20161014204405) do
     t.string   "ci_build_identifier",                     limit: 255
     t.string   "ci_auth_token",                           limit: 255
     t.string   "concourse_pipeline_name",                 limit: 255
+    t.string   "team_name",                               limit: 255
   end
 
   add_index "projects", ["aggregate_project_id"], name: "index_projects_on_aggregate_project_id", using: :btree

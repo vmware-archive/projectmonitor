@@ -5,11 +5,11 @@ class ConcourseProject < Project
   alias_attribute :build_status_url, :feed_url
 
   def feed_url
-    "#{ci_base_url}/api/v1/teams/main/pipelines/#{concourse_pipeline_name}/jobs/#{ci_build_identifier}/builds"
+    "#{ci_base_url}/api/v1/teams/#{team_name}/pipelines/#{concourse_pipeline_name}/jobs/#{ci_build_identifier}/builds"
   end
 
   def auth_url
-    "#{ci_base_url}/api/v1/teams/main/auth/token"
+    "#{ci_base_url}/api/v1/teams/#{team_name}/auth/token"
   end
 
   def fetch_payload
@@ -17,6 +17,6 @@ class ConcourseProject < Project
   end
 
   def self.project_specific_attributes
-    ['concourse_pipeline_name', 'ci_build_identifier', 'ci_base_url']
+    ['ci_base_url', 'team_name', 'concourse_pipeline_name', 'ci_build_identifier']
   end
 end

@@ -103,5 +103,15 @@ describe 'projects/edit', :type => :view do
       end
     end
 
+    describe 'concourse team name' do
+      it 'should not be visible for non-concourse projects' do
+        expect(page.find('#ConcourseV1Project')).not_to have_content("Team name")
+      end
+
+      it 'should be visible for concourse v2+ projects' do
+        expect(page.find('#ConcourseProject')).to have_content("Team name")
+      end
+    end
+
   end
 end

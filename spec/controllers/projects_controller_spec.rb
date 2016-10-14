@@ -75,6 +75,21 @@ describe ProjectsController, :type => :controller do
         end
 
         it { expect(do_post).to redirect_to edit_configuration_path }
+
+        describe 'and it is a ConcourseProject' do
+          it 'should let you save the projects team name' do
+            post :create, project: {
+                name: 'name',
+                type: ConcourseProject.name,
+                ci_base_url: 'http://www.example.com',
+                ci_build_identifier: 'example',
+                concourse_pipeline_name: 'pipeline',
+                team_name: 'iad'
+            }
+
+            expect(Project.last.team_name).to eq('iad')
+          end
+        end
       end
 
       context "when the project is invalid" do

@@ -135,7 +135,7 @@ class ProjectsController < ApplicationController
                                        travis_repository type webhooks_enabled
                                        circleci_username circleci_project_name circleci_auth_token travis_pro_token
                                        concourse_base_url concourse_job_name ci_base_url ci_build_identifier ci_auth_token
-                                       concourse_pipeline_name id))
+                                       concourse_pipeline_name id team_name))
   end
 
   def project_limit
