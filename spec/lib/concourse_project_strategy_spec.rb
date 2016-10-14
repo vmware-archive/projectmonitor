@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ConcourseProjectStrategy do
   let(:request_double) { double(:request) }
-  let(:client_double) { double(:client, response: 'some response', error: 'some error') }
+  let(:client_double) { double(:client, response: 'some response', error: 'some error', response_header: double(:response_header, status: 200)) }
   let(:requester) { double(:http_requester, initiate_request: request_double) }
   let(:project) { build(:concourse_project,
                         ci_base_url: 'http://concourse.com',

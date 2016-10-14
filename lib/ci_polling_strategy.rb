@@ -29,11 +29,11 @@ class CIPollingStrategy
     request = @requester.initiate_request(url, request_options)
 
     request.callback do |client|
-      yield PollState::SUCCEEDED, client.response
+      yield PollState::SUCCEEDED, client.response, client.response_header.status
     end
 
     request.errback do |client|
-      yield PollState::FAILED, client.error
+      yield PollState::FAILED, client.error, -1
     end
   end
 end

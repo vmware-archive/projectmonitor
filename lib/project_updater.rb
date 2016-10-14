@@ -1,14 +1,15 @@
 class ProjectUpdater
-  def initialize(payload_processor: nil)
+  def initialize(payload_processor, polling_strategy_factory)
     @payload_processor = payload_processor
+    @polling_strategy_factory = polling_strategy_factory
   end
 
   def update(project)
     payload = project.fetch_payload
 
     begin
-      fetch_status(project, payload)
-      fetch_building_status(project, payload) unless project.feed_url == project.build_status_url
+      payload.status_content = fetch_status(project, project.feed_url)
+      payload.build_status_content = fetch_status(project, project.build_status_url) unless project.feed_url == project.build_status_url
 
       log = @payload_processor.process_payload(project: project, payload: payload)
       log.update_method = "Polling"
@@ -27,13 +28,23 @@ class ProjectUpdater
 
   private
 
-  def fetch_status(project, payload)
-    retriever = UrlRetriever.new(project.feed_url, project.auth_username, project.auth_password, project.verify_ssl)
-    payload.status_content = retriever.retrieve_content
-  end
+  def fetch_status(project, url)
+    response_body = nil
 
-  def fetch_building_status(project, payload)
-    retriever = UrlRetriever.new(project.build_status_url, project.auth_username, project.auth_password, project.verify_ssl)
-    payload.build_status_content = retriever.retrieve_content
+    EM.run do
+      strategy = @polling_strategy_factory.build_ci_strategy(project)
+      strategy.fetch_status(project, url) do |_, response_or_error, status_code|
+        EM.stop
+
+        case status_code
+          when 200..299
+            response_body = response_or_error
+          else
+            raise Net::HTTPError.new("Got #{status_code} response status from #{url}, body = '#{response_or_error}'", nil)
+        end
+      end
+    end
+
+    response_body
   end
 end

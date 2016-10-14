@@ -11,6 +11,10 @@ namespace :projectmonitor do
     end
   end
 
+  task :fetch_statuses_now => :environment do
+    ProjectPollingScheduler.new.run_once
+  end
+
   desc 'Export the configuration to a yml file'
   task :export => :environment do |task, args|
     puts ConfigExport.export

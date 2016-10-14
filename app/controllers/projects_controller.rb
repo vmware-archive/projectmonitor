@@ -82,7 +82,8 @@ class ProjectsController < ApplicationController
 
     status_updater = StatusUpdater.new
     project_updater = ProjectUpdater.new(
-      payload_processor: PayloadProcessor.new(project_status_updater: status_updater)
+      PayloadProcessor.new(project_status_updater: status_updater),
+      ProjectPollingStrategyFactory.new
     )
     log_entry = project_updater.update(project)
 

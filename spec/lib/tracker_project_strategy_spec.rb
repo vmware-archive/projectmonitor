@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe TrackerProjectStrategy do
-  let(:request_double) { double(:request) }
-  let(:client_double) { double(:client, response: 'some response', error: 'some error') }
-  let(:requester) { double(:http_requester, initiate_request: request_double) }
+  let(:request) { double(:request) }
+  let(:client_response_header) { double(:client_response_header, status: 200) }
+  let(:client) { double(:client, response: 'some response', error: 'some error', response_header: client_response_header) }
+  let(:requester) { double(:http_requester, initiate_request: request) }
   let(:project) { build(:project_with_tracker_integration) }
 
 
-  let(:requester) { double(:http_requester, initiate_request: request_double) }
+  let(:requester) { double(:http_requester, initiate_request: request) }
   subject { TrackerProjectStrategy.new(requester) }
 
   describe '#create_workload' do
@@ -27,8 +28,8 @@ describe TrackerProjectStrategy do
     let(:url) { project.tracker_project_url }
 
     before do
-      allow(request_double).to receive(:callback).and_return(client_double)
-      allow(request_double).to receive(:errback).and_return(client_double)
+      allow(request).to receive(:callback).and_return(client)
+      allow(request).to receive(:errback).and_return(client)
     end
 
     it 'makes a request with the tracker token' do
@@ -40,25 +41,31 @@ describe TrackerProjectStrategy do
     end
 
     it 'yields a success message when the request is made successfully' do
-      expect(request_double).to receive(:callback).and_yield(client_double)
+      expect(request).to receive(:callback).and_yield(client)
       flag = false
+      status_code = nil
 
-      subject.fetch_status(project, url) do |_flag, response|
+      subject.fetch_status(project, url) do |_flag, response, status|
         flag = _flag
+        status_code = status
       end
 
       expect(flag).to eq(PollState::SUCCEEDED)
+      expect(status_code).to eq(200)
     end
 
     it 'yields an error message when the request is made unsuccessfully' do
-      expect(request_double).to receive(:errback).and_yield(client_double)
+      expect(request).to receive(:errback).and_yield(client)
       flag = false
+      status_code = nil
 
-      subject.fetch_status(project, url) do |_flag, response|
+      subject.fetch_status(project, url) do |_flag, response, status|
         flag = _flag
+        status_code = status
       end
 
       expect(flag).to eq(PollState::FAILED)
+      expect(status_code).to eq(-1)
     end
   end
 end
