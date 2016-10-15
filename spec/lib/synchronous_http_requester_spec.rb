@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'UrlRetriever' do
+describe 'SynchronousHttpRequester' do
   describe '#retrieve_content' do
     let(:get_request) { double('HTTP::Get') }
     let(:http_session) { double('Net::HTTP', request: response) }
@@ -12,7 +12,7 @@ describe 'UrlRetriever' do
       allow(Net::HTTP::Get).to receive(:new).with('/path.html?parameter=value').and_return(get_request)
     end
 
-    subject { UrlRetriever.new(net_http_builder) }
+    subject { SynchronousHttpRequester.new(net_http_builder) }
 
     context 'when the response status code is in the 200s' do
       it 'returns the response body' do

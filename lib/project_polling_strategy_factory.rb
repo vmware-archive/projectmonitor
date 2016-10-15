@@ -2,14 +2,14 @@ class ProjectPollingStrategyFactory
   def build_ci_strategy(project)
     case project
       when ConcourseProject
-        requester = HttpRequester.new
+        requester = AsynchronousHttpRequester.new
         ConcourseProjectStrategy.new(requester, ConcourseAuthenticator.new(requester))
       else
-        CIPollingStrategy.new(HttpRequester.new)
+        CIPollingStrategy.new(AsynchronousHttpRequester.new)
     end
   end
 
   def build_tracker_strategy
-    TrackerProjectStrategy.new(HttpRequester.new)
+    TrackerProjectStrategy.new(AsynchronousHttpRequester.new)
   end
 end

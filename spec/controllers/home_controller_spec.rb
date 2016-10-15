@@ -9,7 +9,7 @@ describe HomeController, :type => :controller do
 
         before do
           Timecop.travel(35.seconds.from_now)
-          expect_any_instance_of(UrlRetriever).to receive(:retrieve_content).and_raise(error)
+          expect_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content).and_raise(error)
         end
 
         after do

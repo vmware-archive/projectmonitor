@@ -25,7 +25,7 @@ class ExternalDependency
       output = {}
 
       begin
-        response_body = UrlRetriever.new('https://pclby00q90vc.statuspage.io/api/v2/status.json').retrieve_content
+        response_body = SynchronousHttpRequester.new('https://pclby00q90vc.statuspage.io/api/v2/status.json').retrieve_content
         output[:status] = extract_rubygems_status(response_body)
       rescue StandardError => e
         output[:status] = 'unreachable'
@@ -38,7 +38,7 @@ class ExternalDependency
 
     def retrieve_nice_api_status url
       begin
-        content = UrlRetriever.new(url).retrieve_content
+        content = SynchronousHttpRequester.new(url).retrieve_content
       rescue
         content = { 'status' => 'unreachable' }.to_json
       end

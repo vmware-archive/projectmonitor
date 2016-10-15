@@ -1,7 +1,7 @@
 require 'net/http'
 require 'net/https'
 
-class UrlRetriever
+class SynchronousHttpRequester
   def initialize(net_http_builder)
     @net_http_builder = net_http_builder
   end

@@ -42,37 +42,37 @@ describe ExternalDependency, :type => :model do
 
   context 'rubygems status' do
     it 'initialized an none status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"none\",\"description\":\"All Systems Operational\"}}" }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"none\",\"description\":\"All Systems Operational\"}}" }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"none\"}")
     end
 
     it 'initialized a minor status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"minor\",\"description\":\"Some minor issues\"}}" }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"minor\",\"description\":\"Some minor issues\"}}" }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"minor\"}")
     end
 
     it 'initialized a major status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"major\",\"description\":\"Some major issues\"}}" }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"major\",\"description\":\"Some major issues\"}}" }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"major\"}")
     end
 
     it 'initialized a critical status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"critical\",\"description\":\"Some critical issues\"}}" }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {"{\"status\":{\"indicator\":\"critical\",\"description\":\"Some critical issues\"}}" }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"critical\"}")
     end
 
     it 'initialized an unreachable status when it recieved an unparsable response' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { "{\"foo\":\"bar\"}" }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { "{\"foo\":\"bar\"}" }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"unreachable\"}")
     end
 
     it 'initialized an unreachable status when it recieved no response' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { raise 'error' }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { raise 'error' }
 
       expect(ExternalDependency.rubygems_status).to eq("{\"status\":\"unreachable\"}")
     end
@@ -80,19 +80,19 @@ describe ExternalDependency, :type => :model do
 
   context 'github status' do
     it 'initialized an up status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {'{"status":"good","last_updated":"2013-01-15T20:03:16Z"}'}
 
       expect(ExternalDependency.github_status).to eq("{\"status\":\"good\",\"last_updated\":\"2013-01-15T20:03:16Z\"}")
     end
 
     it 'initialized a down status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) {'{"status":"down","last_updated":"2013-01-15T20:03:16Z"}'}
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) {'{"status":"down","last_updated":"2013-01-15T20:03:16Z"}'}
 
       expect(ExternalDependency.github_status).to eq("{\"status\":\"down\",\"last_updated\":\"2013-01-15T20:03:16Z\"}")
     end
 
     it 'initialized a unreachable status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { raise 'error' }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { raise 'error' }
 
       expect(ExternalDependency.github_status).to eq("{\"status\":\"unreachable\"}")
     end
@@ -100,19 +100,19 @@ describe ExternalDependency, :type => :model do
 
   context 'heroku status' do
     it 'initalized an up status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { '{"status":{"Production":"green","Development":"green"},"issues":[]}' }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { '{"status":{"Production":"green","Development":"green"},"issues":[]}' }
 
       expect(JSON.parse(ExternalDependency.heroku_status)['status']['Production']).to eq("green")
     end
 
     it 'initalized a down status' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { '{"status":{"Production":"red","Development":"red"},"issues":[]}' }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { '{"status":{"Production":"red","Development":"red"},"issues":[]}' }
 
       expect(JSON.parse(ExternalDependency.heroku_status)['status']['Production']).not_to eq("green")
     end
 
     it 'initalized an unreachable status when it receives no response' do
-      allow_any_instance_of(UrlRetriever).to receive(:retrieve_content) { raise 'error' }
+      allow_any_instance_of(SynchronousHttpRequester).to receive(:retrieve_content) { raise 'error' }
 
       expect(JSON.parse(ExternalDependency.heroku_status)['status']).to eq("unreachable")
     end

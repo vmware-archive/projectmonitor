@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ConcourseAuthenticator do
 
-  let(:requester) { double(:http_requester, initiate_request: request) }
+  let(:requester) { double(:asynchronous_http_requester, initiate_request: request) }
   let(:request) { double(:request) }
   let(:response_header) { double(:response_header, status: 200) }
   let(:client) { double(:client, response: '{"some": "json"}', error: 'some error', response_header: response_header) }

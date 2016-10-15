@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe HttpRequester do
+describe AsynchronousHttpRequester do
 
-  subject { HttpRequester.new }
+  subject { AsynchronousHttpRequester.new }
 
   let(:connection) { double(:connection) }
 

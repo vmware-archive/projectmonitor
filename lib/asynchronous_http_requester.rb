@@ -1,4 +1,4 @@
-class HttpRequester
+class AsynchronousHttpRequester
   def initialize
     @connection_timeout = 60
     @inactivity_timeout = 30

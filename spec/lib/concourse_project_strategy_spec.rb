@@ -4,7 +4,7 @@ describe ConcourseProjectStrategy do
   let(:request) { double(:request) }
   let(:response_header) { double(:response_header, status: 200) }
   let(:client) { double(:client, response: 'some response', error: 'some error', response_header: response_header) }
-  let(:requester) { double(:http_requester, initiate_request: request) }
+  let(:requester) { double(:asynchronous_http_requester, initiate_request: request) }
   let(:project) { build(:concourse_project,
                         ci_base_url: 'http://concourse.com',
                         auth_username: 'me',

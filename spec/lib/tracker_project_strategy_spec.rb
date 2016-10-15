@@ -4,7 +4,7 @@ describe TrackerProjectStrategy do
   let(:request) { double(:request) }
   let(:client_response_header) { double(:client_response_header, status: 200) }
   let(:client) { double(:client, response: 'some response', error: 'some error', response_header: client_response_header) }
-  let(:requester) { double(:http_requester, initiate_request: request) }
+  let(:requester) { double(:asynchronous_http_requester, initiate_request: request) }
   let(:project) { build(:project_with_tracker_integration) }
 
 
