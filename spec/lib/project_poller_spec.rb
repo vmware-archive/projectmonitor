@@ -29,7 +29,7 @@ describe ProjectPoller do
         let(:workload) { double(:workload, complete?: true, unfinished_job_descriptions: {}) }
 
         before do
-          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'response body')
+          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'response body', 200)
           allow(workload).to receive(:store)
           allow(handler).to receive(:workload_complete).with(workload)
         end
@@ -58,11 +58,33 @@ describe ProjectPoller do
 
           expect(callback_called).to be_truthy
         end
+
+        context 'when one of the jobs could not determine the build status' do
+          before do
+            allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'project not found', 404)
+            allow(workload).to receive(:unfinished_job_descriptions).and_return({job_1: 'https://job/1'})
+            allow(handler).to receive(:workload_failed).with('project not found')
+          end
+
+          it 'should notify the handler that the workload failed' do
+            expect(handler).to receive(:workload_failed).with('project not found')
+            subject.poll_project(project, ci_strategy, workload, &completion_block)
+          end
+
+          it 'should call the completion callback' do
+            callback_called = false
+            subject.poll_project(project, ci_strategy, workload) do
+              callback_called = true
+            end
+
+            expect(callback_called).to be_truthy
+          end
+        end
       end
 
       context 'when polling the project fails' do
         before do
-          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::FAILED, 'it broke')
+          allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::FAILED, 'it broke', -1)
           allow(handler).to receive(:workload_failed).with('it broke')
         end
 

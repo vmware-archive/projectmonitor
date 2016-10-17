@@ -52,21 +52,5 @@ describe ConcourseProjectStrategy do
 
       expect(flag).to eq(PollState::FAILED)
     end
-
-    it 'yields an error message when the request fails for other reasons' do
-      allow(response_header).to receive(:status).and_return(404)
-      expect(request).to receive(:callback).and_yield(client)
-
-      block_called = false
-
-      subject.fetch_status(project, url) do |poll_state, response, status_code|
-        expect(poll_state).to eq(PollState::FAILED)
-        expect(response).to eq('some response')
-        expect(status_code).to eq(404)
-        block_called = true
-      end
-
-      expect(block_called).to eq(true)
-    end
   end
 end

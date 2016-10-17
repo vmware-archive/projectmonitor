@@ -10,20 +10,21 @@ class ProjectWorkloadHandler
     status_content = workload.recall(:feed_url)
     build_status_content = workload.recall(:build_status_url)
 
-    update_ci_status(workload, status_content, build_status_content)
+    update_ci_status(status_content, build_status_content)
   end
 
   def workload_failed(e)
     error_text = e.try(:message)
     error_backtrace = e.try(:backtrace).try(:join,"\n")
     project.payload_log_entries.build(error_type: "#{e.class}", error_text: "#{e.try(:message)}", update_method: "Polling", status: "failed", backtrace: "#{error_text}\n#{error_backtrace}")
-    project.building = project.online = false
+    project.building = false
+    project.online = false
     project.save!
   end
 
 private
 
-  def update_ci_status(workload, status_content, build_status_content = nil)
+  def update_ci_status(status_content, build_status_content = nil)
     payload = project.fetch_payload
 
     payload.status_content = status_content
