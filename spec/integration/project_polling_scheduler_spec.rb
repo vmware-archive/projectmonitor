@@ -31,12 +31,12 @@ describe ProjectPollingScheduler do
       p = Project.find(project.id)
       expect(p.current_velocity).to eq(1)
       expect(p.last_ten_velocities).to eq([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-      expect(p.iteration_story_state_counts).to eq [{"label"=>"unstarted", "value"=>0},
-                                                    {"label"=>"started", "value"=>8},
-                                                    {"label"=>"finished", "value"=>0},
-                                                    {"label"=>"delivered", "value"=>0},
-                                                    {"label"=>"accepted", "value"=>0},
-                                                    {"label"=>"rejected", "value"=>0}]
+      expect(p.iteration_story_state_counts).to eq [{'label' => 'unstarted', 'value' => 0},
+                                                    {'label' => 'started', 'value' => 8},
+                                                    {'label' => 'finished', 'value' => 0},
+                                                    {'label' => 'delivered', 'value' => 0},
+                                                    {'label' => 'accepted', 'value' => 0},
+                                                    {'label' => 'rejected', 'value' => 0}]
       expect(p.tracker_online).to eq(true)
     end
 
