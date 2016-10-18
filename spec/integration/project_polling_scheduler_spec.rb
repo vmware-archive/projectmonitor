@@ -10,14 +10,33 @@ describe ProjectPollingScheduler do
     end
 
     it 'should update ci projects (even when there are no projects with tracker integrations)' do
-      create(:jenkins_project, ci_base_url: 'https://jenkins.mono-project.com', ci_build_identifier: 'test-gtksharp-mainline-2.12')
-      log_entry_count = PayloadLogEntry.count
+      create(:jenkins_project)
 
-      VCR.use_cassette('poller_run_once') do
+      stub_request(:get, 'http://www.example.com/job/project/rssAll')
+          .to_return(body: File.new('spec/fixtures/jenkins_atom_examples/success.atom'), status: 200)
+      stub_request(:get, 'http://www.example.com/cc.xml')
+          .to_return(body: File.new('spec/fixtures/jenkins_atom_examples/jenkins_projectmonitor_not_building.atom'), status: 200)
+
+      expect {
         subject.run_once
-      end
+      }.to change { PayloadLogEntry.count }.by 1
 
-      expect(PayloadLogEntry.count).to eq(log_entry_count + 1)
+      expect(PayloadLogEntry.last.status).to eq('successful')
+    end
+
+    it 'should gracefully handle ci projects that fail to update successfully' do
+      create(:jenkins_project)
+
+      stub_request(:get, 'http://www.example.com/job/project/rssAll')
+          .to_return(body: File.new('spec/fixtures/jenkins_atom_examples/invalid_xml.atom'), status: 200)
+      stub_request(:get, 'http://www.example.com/cc.xml')
+          .to_return(body: File.new('spec/fixtures/jenkins_atom_examples/invalid_xml.atom'), status: 200)
+
+      expect {
+        subject.run_once
+      }.to change { PayloadLogEntry.count }.by 1
+
+      expect(PayloadLogEntry.last.status).to eq('failed')
     end
 
     it 'should update tracker projects' do
