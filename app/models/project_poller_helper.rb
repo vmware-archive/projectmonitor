@@ -9,6 +9,7 @@ class ProjectPollerHelper
 
   def poll_projects(&all_projects_complete)
     updateable_projects.find_each do |project|
+      puts "polling #{project}"
       polling_strategy = @polling_strategy_factory.build_ci_strategy(project)
       workload = find_or_create_workload(project, polling_strategy)
       @project_poller.poll_project(

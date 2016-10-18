@@ -18,6 +18,7 @@ class ProjectPollingScheduler
   end
 
   def run
+    puts "running"
     EM.run do
       EM.add_periodic_timer(@poll_period) do
         @helper.poll_projects
