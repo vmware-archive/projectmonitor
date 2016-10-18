@@ -6,10 +6,10 @@ class ProjectTrackerWorkloadHandler
     @project = project
   end
 
-  def workload_complete(workload)
-    project_payload = workload.recall(:project)
-    current_iteration_payload = workload.recall(:current_iteration)
-    iterations_payload = workload.recall(:iterations)
+  def workload_complete(job_results)
+    project_payload = job_results[:project]
+    current_iteration_payload = job_results[:current_iteration]
+    iterations_payload = job_results[:iterations]
 
     tracker = TrackerPayloadParser.new(project_payload, current_iteration_payload, iterations_payload)
 

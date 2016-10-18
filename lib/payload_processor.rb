@@ -18,7 +18,12 @@ class PayloadProcessor
   def payload_log
     success = payload.status_is_parseable? || payload.build_status_is_parseable?
     status = success ? "successful" : "failed"
-    project.payload_log_entries.build(status: status, error_type: "#{payload.error_type}", error_text: "#{payload.error_text}", backtrace: "#{payload.backtrace}")
+    PayloadLogEntry.new(
+        status: status,
+        error_type: "#{payload.error_type}",
+        error_text: "#{payload.error_text}",
+        backtrace: "#{payload.backtrace}"
+    )
   end
 
   def add_statuses

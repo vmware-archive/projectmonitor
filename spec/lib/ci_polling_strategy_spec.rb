@@ -13,7 +13,7 @@ describe CIPollingStrategy do
     it 'should return a workload with feed and build status jobs' do
       workload = subject.create_workload(build(:jenkins_project))
 
-      expect(workload.unfinished_job_descriptions).to eq({
+      expect(workload.job_urls).to eq({
                                                              feed_url: 'http://www.example.com/job/project/rssAll',
                                                              build_status_url: 'http://www.example.com/cc.xml',
                                                          })

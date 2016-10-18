@@ -11,11 +11,9 @@ class ProjectPollerHelper
     updateable_projects.find_each do |project|
       polling_strategy = @polling_strategy_factory.build_ci_strategy(project)
       workload = find_or_create_workload(project, polling_strategy)
-      project_polling_complete = lambda do
-        finish_workload(project, &all_projects_complete)
-      end
-
-      @project_poller.poll_project(project, polling_strategy, workload, &project_polling_complete)
+      @project_poller.poll_project(
+          project, polling_strategy, workload.job_urls,
+          &project_polling_complete(workload, project, polling_strategy, &all_projects_complete))
     end
   end
 
@@ -23,11 +21,9 @@ class ProjectPollerHelper
     projects_with_tracker.find_each do |project|
       polling_strategy = @polling_strategy_factory.build_tracker_strategy
       workload = find_or_create_workload(project, polling_strategy)
-      project_polling_complete = lambda do
-        finish_workload(project, &all_projects_complete)
-      end
-
-      @project_poller.poll_project(project, polling_strategy, workload, &project_polling_complete)
+      @project_poller.poll_project(
+          project, polling_strategy, workload.job_urls,
+          &project_polling_complete(workload, project, polling_strategy, &all_projects_complete))
     end
   end
 
@@ -40,6 +36,18 @@ class ProjectPollerHelper
   end
 
   private
+
+  def project_polling_complete(workload, project, polling_strategy, &all_projects_complete)
+    lambda do |success_flag, job_results_or_error|
+      handler = polling_strategy.create_handler(project)
+      if success_flag
+        handler.workload_complete(job_results_or_error)
+      else
+        handler.workload_failed(job_results_or_error)
+      end
+      finish_workload(project, &all_projects_complete)
+    end
+  end
 
   def find_or_create_workload(project, polling_strategy)
     unless @workloads.has_key? project

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectPoller do
   let(:project) { build(:project, name: 'project 1') }
-  let(:workload) { double(:workload, complete?: nil) }
+  let(:jobs) { {job_1: 'https://url/1', job_2: 'https://url/2'} }
   let(:ci_strategy) { double(:polling_strategy) }
   let(:completion_block) { Proc.new { nil } }
   let(:handler) { double(:handler) }
@@ -11,10 +11,7 @@ describe ProjectPoller do
 
   describe '#poll_project' do
     context 'when there are projects to update' do
-      let(:job_description) { {url_1: 'https://url/1', url_2: 'https://url/2'} }
-
       before do
-        allow(workload).to receive(:unfinished_job_descriptions).and_return(job_description)
         allow(ci_strategy).to receive(:create_handler).and_return(handler)
       end
 
@@ -22,38 +19,33 @@ describe ProjectPoller do
         expect(ci_strategy).to receive(:fetch_status).with(project, 'https://url/1')
         expect(ci_strategy).to receive(:fetch_status).with(project, 'https://url/2')
 
-        subject.poll_project(project, ci_strategy, workload, &completion_block)
+        subject.poll_project(project, ci_strategy, jobs, &completion_block)
+      end
+
+      it 'should call the completion callback immediately if there are no jobs' do
+        jobs = {}
+
+        callback_called = false
+        subject.poll_project(project, ci_strategy, jobs) do |success_flag, response|
+          callback_called = true
+          expect(success_flag).to eq(false)
+          expect(response).to eq('no jobs found')
+        end
+
+        expect(callback_called).to be_truthy
       end
 
       context 'when polling a project succeeds' do
-        let(:workload) { double(:workload, complete?: true, unfinished_job_descriptions: {}) }
-
         before do
           allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'response body', 200)
-          allow(workload).to receive(:store)
-          allow(handler).to receive(:workload_complete).with(workload)
-        end
-
-        it 'should notify the handler when all jobs in the workload are complete' do
-          allow(workload).to receive(:unfinished_job_descriptions).and_return(
-              {job_1: 'https://job/1', job_2: 'https://job/2'}
-          )
-
-          transcript = []
-          allow(workload).to receive(:store).with(:job_1, 'response body') { transcript << 'store job 1' }
-          allow(workload).to receive(:store).with(:job_2, 'response body') { transcript << 'store job 2' }
-          allow(workload).to receive(:complete?) { transcript.count == 2 }
-          allow(handler).to receive(:workload_complete).with(workload) { transcript << 'workload complete' }
-
-          subject.poll_project(project, ci_strategy, workload, &completion_block)
-
-          expect(transcript).to eq(['store job 1', 'store job 2', 'workload complete'])
         end
 
         it 'should call the completion callback' do
           callback_called = false
-          subject.poll_project(project, ci_strategy, workload) do
+          subject.poll_project(project, ci_strategy, jobs) do |success_flag, response|
             callback_called = true
+            expect(success_flag).to eq(true)
+            expect(response).to eq({job_1: 'response body', job_2: 'response body'})
           end
 
           expect(callback_called).to be_truthy
@@ -62,22 +54,26 @@ describe ProjectPoller do
         context 'when one of the jobs could not determine the build status' do
           before do
             allow(ci_strategy).to receive(:fetch_status).and_yield(PollState::SUCCEEDED, 'project not found', 404)
-            allow(workload).to receive(:unfinished_job_descriptions).and_return({job_1: 'https://job/1'})
-            allow(handler).to receive(:workload_failed).with('project not found')
-          end
-
-          it 'should notify the handler that the workload failed' do
-            expect(handler).to receive(:workload_failed).with('project not found')
-            subject.poll_project(project, ci_strategy, workload, &completion_block)
           end
 
           it 'should call the completion callback' do
             callback_called = false
-            subject.poll_project(project, ci_strategy, workload) do
+            subject.poll_project(project, ci_strategy, jobs) do |success_flag, response|
               callback_called = true
+              expect(success_flag).to eq(false)
+              expect(response).to eq('project not found')
             end
 
             expect(callback_called).to be_truthy
+          end
+
+          it 'should abort the polling and not fetch further jobs' do
+            call_count = 0
+            subject.poll_project(project, ci_strategy, jobs) do
+              call_count += 1
+            end
+
+            expect(call_count).to eq(1)
           end
         end
       end
@@ -88,17 +84,13 @@ describe ProjectPoller do
           allow(handler).to receive(:workload_failed).with('it broke')
         end
 
-        it 'should notify the handler that the workload failed' do
-          expect(handler).to_not receive(:workload_complete)
-          expect(handler).to receive(:workload_failed).with('it broke')
-
-          subject.poll_project(project, ci_strategy, workload, &completion_block)
-        end
-
         it 'should call the completion callback' do
           callback_called = false
-          subject.poll_project(project, ci_strategy, workload) do
+
+          subject.poll_project(project, ci_strategy, jobs) do |success_flag, response|
             callback_called = true
+            expect(success_flag).to be_falsey
+            expect(response).to eq 'it broke'
           end
 
           expect(callback_called).to be_truthy
