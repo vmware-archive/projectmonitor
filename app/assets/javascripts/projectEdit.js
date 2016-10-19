@@ -181,11 +181,11 @@ var ProjectEdit = {};
       return;
     }
 
-    var $inputs = $('#field_container :input:not(.hide):not(.optional):enabled');
-    if(_.some($inputs, isEmpty)){
-      if(_.every($inputs, isEmpty)){
+    var $inputs = $('#field_container :input:not(button):not(.hide):not(.optional):not([type=hidden]):enabled');
+    if (_.some($inputs, isEmpty)) {
+      if (_.every($inputs, isEmpty)) {
         $('#polling .unconfigured').removeClass('hide');
-      }else{
+      } else {
         $('#polling .empty_fields').removeClass('hide');
       }
       return;
@@ -242,10 +242,10 @@ var ProjectEdit = {};
     }
   };
 
-  var showPasswordField = function () {
-    $('#new_password').removeClass('hide');
+  var enablePasswordField = function () {
     $('#change_password').addClass('hide');
-    $('#new_password input').focus();
+    $('#project_auth_password').removeAttr('disabled');
+    $('#project_auth_password').focus();
     $('#password_changed').val('true');
     return false;
   };
@@ -257,7 +257,7 @@ var ProjectEdit = {};
     $('#field_container :input').change(o.validateFeedUrl);
     $('input[name="project[webhooks_enabled]"]').change(o.toggleWebhooks);
     $('#build_setup input.refresh').click(o.validateFeedUrl);
-    $('#change_password a').click(showPasswordField);
+    $('#change_password').click(enablePasswordField);
 
     $(document).ready(o.setProviderSpecificVisibility); // To handle redirect back to page after following link
 

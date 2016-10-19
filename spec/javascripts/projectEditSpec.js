@@ -251,7 +251,9 @@ describe("project edit", function () {
         '  </div>' +
         '  <div class="auth_field">' +
         '    <input id="project_auth_username" name="project[auth_username]" type="text">' +
-        '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional">' +
+        '    <input id="project_auth_password" name="project[auth_password]" type="text" class="optional" disabled>' +
+        '    <input id="password_changed" name="password_changed" type="hidden" value="false">' +
+        '    <button id="change_password">Change Password</button>' +
         '  </div>' +
         '</div>' +
         '<fieldset id="polling">' +
@@ -277,13 +279,40 @@ describe("project edit", function () {
     });
 
     describe("initial form load", function () {
-      beforeEach(function () {
-        $('#project_type').val('TravisProject');
-        ProjectEdit.init();
+      describe("projects without username/password", function () {
+        beforeEach(function () {
+          $('#project_type').val('TravisProject');
+          ProjectEdit.init();
+        });
+
+        it("hides the auth (feed) fields", function () {
+          expect($('.auth_field').hasClass('hide')).toBeTruthy();
+        });
       });
-      it("hides the auth (feed) fields", function () {
-        expect($('.auth_field').hasClass('hide')).toBeTruthy();
-      });
+    });
+
+    describe('changing the password', function () {
+        beforeEach(function () {
+            ProjectEdit.init();
+        });
+
+        describe("when the user clicks 'change password'", function () {
+            it("should enable the password field", function () {
+                expect($('#project_auth_password')).toHaveAttr('disabled');
+                $('#change_password').click();
+                expect($('#project_auth_password')).not.toHaveAttr('disabled');
+            });
+
+          it("should hide the 'change password' button", function () {
+            $('#change_password').click();
+            expect($('#change_password')).toHaveClass('hide');
+          });
+
+            it("should set the hidden 'password_changed' form field to true", function () {
+                $('#change_password').click();
+                expect($('#password_changed')).toHaveValue('true');
+            });
+        });
     });
 
     describe("changing available inputs", function () {

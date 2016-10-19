@@ -41,12 +41,13 @@
       = f.label :auth_password, 'Feed Password', class: 'col-sm-2 control-label'
       .col-sm-4
         %input{ id: 'password_changed', name: 'password_changed', type: 'hidden', value: 'false' }
-        = f.password_field :auth_password, class: 'form-control'
+        = f.password_field :auth_password, class: 'form-control', disabled: true
       %p.help-block
         - if f.object.auth_password.present?
-          %span#change_password.label.label-success Saved
+          %span.label.label-success Saved
         - else
-          %span#change_password.label.label-default Not Set
+          %span.label.label-default Not Set
+        %button{id: 'change_password', class: 'button-link'} Change password
     .form-group
       = f.label :online, 'CI status', class: 'col-sm-2 control-label'
       = f.hidden_field :online

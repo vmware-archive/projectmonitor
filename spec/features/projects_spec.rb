@@ -8,6 +8,8 @@ feature "projects" do
            tag_list: "computers, websites"
     )
   end
+  let!(:jenkins_project) { create(:jenkins_project) }
+
   let!(:user) { create(:user, password: "jeffjeff") }
 
   before do
@@ -89,5 +91,37 @@ feature "projects" do
     expect(project.travis_github_account).to eq(new_account)
     expect(project.travis_repository).to eq(new_project)
     expect(project.tag_list).to match_array(['computers', 'websites'])
+  end
+
+  context "editing a project with a password", js: true do
+    it "changes the password successfully after clicking 'change password'" do
+      within "#project-#{jenkins_project.id}" do
+        click_link "Edit"
+      end
+
+      click_on "Change password"
+      fill_in "Password", with: "new password"
+
+      click_on "Update"
+      expect(page).to have_content("Project was successfully updated")
+
+      jenkins_project.reload
+      expect(jenkins_project.auth_password).to eq("new password")
+    end
+
+    it "does not change the password when you don't click 'change password'" do
+      jenkins_project.auth_password = "original password"
+      jenkins_project.save!
+
+      within "#project-#{jenkins_project.id}" do
+        click_link "Edit"
+      end
+
+      click_on "Update"
+      expect(page).to have_content("Project was successfully updated")
+
+      jenkins_project.reload
+      expect(jenkins_project.auth_password).to eq("original password")
+    end
   end
 end

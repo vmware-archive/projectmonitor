@@ -9,12 +9,11 @@ class ProjectPollerHelper
 
   def poll_projects(&all_projects_complete)
     updateable_projects.find_each do |project|
-      puts "polling #{project}"
       polling_strategy = @polling_strategy_factory.build_ci_strategy(project)
       workload = find_or_create_workload(project, polling_strategy)
       @project_poller.poll_project(
-          project, polling_strategy, workload.job_urls,
-          &project_polling_complete(workload, project, polling_strategy, &all_projects_complete))
+      project, polling_strategy, workload.job_urls,
+          &project_polling_complete(project, polling_strategy, &all_projects_complete))
     end
   end
 
@@ -24,7 +23,7 @@ class ProjectPollerHelper
       workload = find_or_create_workload(project, polling_strategy)
       @project_poller.poll_project(
           project, polling_strategy, workload.job_urls,
-          &project_polling_complete(workload, project, polling_strategy, &all_projects_complete))
+          &project_polling_complete(project, polling_strategy, &all_projects_complete))
     end
   end
 
@@ -38,7 +37,7 @@ class ProjectPollerHelper
 
   private
 
-  def project_polling_complete(workload, project, polling_strategy, &all_projects_complete)
+  def project_polling_complete(project, polling_strategy, &all_projects_complete)
     lambda do |success_flag, job_results_or_error|
       handler = polling_strategy.create_handler(project)
       if success_flag
