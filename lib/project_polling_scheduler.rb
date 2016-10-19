@@ -18,13 +18,15 @@ class ProjectPollingScheduler
   end
 
   def run
-    puts "running"
+    Rails.logger.info 'scheduling timer to poll all projects (run)'
     EM.run do
       EM.add_periodic_timer(@poll_period) do
+        Rails.logger.info 'polling all projects (run)'
         @helper.poll_projects
       end
 
       EM.add_periodic_timer(@tracker_poll_period) do
+        Rails.logger.info 'polling all tracker projects (run)'
         @helper.poll_tracker
       end
     end
@@ -33,6 +35,7 @@ class ProjectPollingScheduler
   def run_once
     if @helper.updateable_projects.count > 0
       EM.run do
+        Rails.logger.info 'polling all projects (run_once)'
         @helper.poll_projects do
           EM.stop_event_loop
         end
@@ -41,6 +44,7 @@ class ProjectPollingScheduler
 
     if @helper.projects_with_tracker.count > 0
       EM.run do
+        Rails.logger.info 'polling all tracker projects (run_once)'
         @helper.poll_tracker do
           EM.stop_event_loop
         end
