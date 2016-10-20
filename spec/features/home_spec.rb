@@ -5,7 +5,7 @@ feature "home" do
     let!(:project) { create(:project) }
 
     before do
-      project.statuses << build(:project_status, success: true, published_at: 5.days.ago)
+      project.statuses << build(:project_status, success: true, build_id: 1, published_at: 5.days.ago)
     end
 
     it "should render project collection", js: true do
@@ -21,7 +21,7 @@ feature "home" do
 
       expect(page).to_not have_selector(".time-since-last-build", text: "4d")
 
-      project.statuses << FactoryGirl.build(:project_status, success: true, published_at: 4.days.ago)
+      project.statuses << build(:project_status, success: true, build_id: 2, published_at: 4.days.ago)
       page.execute_script('window.ProjectMonitor.collectionData.projects.fetch()')
 
       expect(page).to have_selector(".time-since-last-build", text: "4d")

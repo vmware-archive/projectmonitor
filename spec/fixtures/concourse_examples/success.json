@@ -3,6 +3,7 @@
         "id": 2,
         "job_name": "concourse-project",
         "name": "1",
-        "status": "succeeded"
+        "status": "succeeded",
+        "start_time": 1472578253
     }
 ]

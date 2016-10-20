@@ -36,6 +36,6 @@ class ConcoursePayload < Payload
   end
 
   def parse_published_at(content)
-    Time.now
+    Time.at(content['start_time'])
   end
 end
