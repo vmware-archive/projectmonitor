@@ -7,8 +7,8 @@ describe ProjectStatus, :type => :model do
 
   describe ".recent" do
     context "for just one project" do
-      it "returns statuses sorted by published_at" do
-        expect(project.statuses.recent).to eq([status1, status2])
+      it "returns statuses sorted by build_id and then published_at" do
+        expect(project.statuses.recent).to eq([status2, status1])
       end
 
       it "returns statuses that have a build_id" do
@@ -20,7 +20,7 @@ describe ProjectStatus, :type => :model do
 
   describe ".latest" do
     it "returns the last status" do
-      expect(project.statuses.latest).to eq(status1)
+      expect(project.statuses.latest).to eq(status2)
     end
   end
 

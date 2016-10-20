@@ -20,7 +20,7 @@ class ProjectStatus < ActiveRecord::Base
     joins("INNER JOIN (#{rankings}) rankings ON rankings.id = project_statuses.id")
       .where("rankings.rank < :count", count: count + 1)
       .where.not(build_id: nil)
-      .order(published_at: :desc, build_id: :desc)
+      .order(build_id: :desc, published_at: :desc)
   }
 
   scope :green, -> {

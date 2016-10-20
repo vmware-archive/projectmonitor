@@ -227,6 +227,17 @@ describe Project, :type => :model do
     end
   end
 
+  describe '#recent_statuses' do
+    it 'should return the recent build statuses in build id order' do
+      project.statuses.build(build_id: 2, published_at: 1.minute.ago)
+      project.statuses.build(build_id: 1, published_at: 2.minute.ago)
+      project.statuses.build(build_id: 3, published_at: 3.minute.ago)
+      project.save!
+
+      expect(project.recent_statuses.map(&:build_id)).to eq([3, 2, 1])
+    end
+  end
+
   describe "tracker integration" do
     let(:project) { Project.new }
 

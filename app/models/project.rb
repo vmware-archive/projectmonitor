@@ -8,10 +8,10 @@ class Project < ActiveRecord::Base
     class_name: 'ProjectStatus',
     dependent: :destroy,
     before_add: :update_refreshed_at
-  has_many :recent_statuses, -> { recent(RECENT_STATUS_COUNT) }, class_name: "ProjectStatus"
+  has_many :recent_statuses, -> { recent(RECENT_STATUS_COUNT) }, class_name: 'ProjectStatus'
 
   has_many :payload_log_entries
-  has_one :latest_payload_log_entry, -> { recent(1) }, class_name: "PayloadLogEntry"
+  has_one :latest_payload_log_entry, -> { recent(1) }, class_name: 'PayloadLogEntry'
 
   belongs_to :aggregate_project
   belongs_to :creator, class_name: 'User'
@@ -114,7 +114,7 @@ class Project < ActiveRecord::Base
   end
 
   def iteration_story_state_counts
-    attributes["iteration_story_state_counts"] ||= {}
+    attributes['iteration_story_state_counts'] ||= {}
   end
 
   def to_s
