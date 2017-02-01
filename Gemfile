@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.3.3'
+
+ruby '~> 2.3.1'
 
 gem 'acts-as-taggable-on'
 gem 'airbrake', '~> 4.3.8'
