@@ -234,7 +234,6 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    mysql2 (0.4.4)
     nenv (0.3.0)
     netrc (0.11.0)
     newrelic_rpm (3.16.0.318)
@@ -262,6 +261,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
+    pg (0.20.0)
     phantomjs (2.1.1.0)
     pivotal-tracker (0.5.13)
       builder
@@ -445,13 +445,13 @@ DEPENDENCIES
   kramdown
   launchy
   lograge (~> 0.4)
-  mysql2
   newrelic_rpm
   nokogiri
   oauth2 (= 0.8.1)
   omniauth (= 1.1.4)
   omniauth-google-oauth2 (= 0.2.0)
   omniauth-oauth2 (= 1.1.1)
+  pg
   pivotal-tracker
   pry
   pry-nav
@@ -480,4 +480,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.2
+   1.14.6
