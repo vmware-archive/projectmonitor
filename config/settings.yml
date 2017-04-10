@@ -46,10 +46,9 @@ defaults: &defaults
   # Specify a whitelist of IP addresses allowed to access authentication
   # functions
   #
-  # ip_whitelist:
-  #   - 192.168.1.1
-  #   - 127.0.0.1
-  #   - 203.24.97.1
+   ip_whitelist:
+     - 50.207.61.146
+     - 208.184.53.154
   #
   # If you have a load balancer in front of the application server (for
   # instance on Heroku https://devcenter.heroku.com/articles/ssl-endpoint) set
