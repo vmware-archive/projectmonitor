@@ -46,9 +46,9 @@ defaults: &defaults
   # Specify a whitelist of IP addresses allowed to access authentication
   # functions
   #
-   ip_whitelist:
-     - 50.207.61.146
-     - 208.184.53.154
+  ip_whitelist:
+    - 50.207.61.146   # GSC HQ - Comcast Business
+    - 208.184.53.154  # WeWork Triangle Building
   #
   # If you have a load balancer in front of the application server (for
   # instance on Heroku https://devcenter.heroku.com/articles/ssl-endpoint) set
