@@ -55,7 +55,7 @@ defaults: &defaults
   # instance on Heroku https://devcenter.heroku.com/articles/ssl-endpoint) set
   # this to true so that filtering does not consider the proxy's ip address.
   #
-  # ip_whitelist_request_proxied: true
+  ip_whitelist_request_proxied: true
   certificate_bundle: 'config/ca-certificates.crt'
 
 development:
