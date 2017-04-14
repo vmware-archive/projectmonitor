@@ -1,3 +1,5 @@
 tmp/
 log/
 spec/
+.bundle
+.idea

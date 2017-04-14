@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature 'aggregate projects' do
-  let!(:aggregate_project) { create(:aggregate_project) }
-  let!(:user) { create(:user, password: "jeffjeff", password_confirmation: "jeffjeff") }
+  let!(:aggregate_project) { create(:aggregate_project, tag_list: 'computers, websites') }
+  let!(:user) { create(:user, password: "jeffjeff") }
 
   context "manage projects" do
     before do
@@ -37,6 +37,9 @@ feature 'aggregate projects' do
 
       expect(page).to have_content('Aggregate project was successfully updated.')
       expect(page).to have_content('Updated Name')
+
+      aggregate_project.reload
+      expect(aggregate_project.tag_list).to match_array(['computers', 'websites'])
     end
   end
 end

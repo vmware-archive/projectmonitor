@@ -69,18 +69,12 @@ describe ProjectsHelper, :type => :helper do
   end
 
   describe "#project_last_status" do
-    let(:project) { double(:project) }
+    let(:payload) { PayloadLogEntry.new(status: "status") }
+    let(:payload_log_entries) { [payload] }
     let(:enabled) { nil }
-
+    let(:project) { create(:project, payload_log_entries: payload_log_entries, enabled: enabled) }
 
     context "when there is payload log entries" do
-      let(:status) { double(:status) }
-
-      before do
-        allow(project).to receive(:enabled?).and_return(enabled)
-        allow(project).to receive_message_chain(:payload_log_entries, :latest, :status).and_return([status])
-      end
-
       context "when the project is enabled" do
         let(:enabled) { true }
 
@@ -101,9 +95,7 @@ describe ProjectsHelper, :type => :helper do
     end
 
     context "when there are no payload log entries" do
-      before do
-        allow(project).to receive_message_chain(:payload_log_entries, :latest).and_return(nil)
-      end
+      let(:payload_log_entries) { [] }
 
       it "should return the text None" do
         expect(helper.project_last_status(project)).to eq("None")

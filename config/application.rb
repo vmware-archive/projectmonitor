@@ -11,7 +11,7 @@ module ProjectMonitor
     config.encoding = 'utf-8'
     config.i18n.fallbacks = true
 
-    config.serve_static_assets = true
+    config.serve_static_files = true
 
     config.assets.compile = true
     config.assets.enabled = true

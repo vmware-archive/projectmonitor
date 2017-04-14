@@ -13,7 +13,9 @@ class CircleCiProject < Project
   end
 
   def fetch_payload
-    CircleCiPayload.new
+    CircleCiPayload.new.tap do |payload|
+      payload.branch = build_branch
+    end
   end
 
   alias_method :webhook_payload, :fetch_payload

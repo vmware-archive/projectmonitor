@@ -72,7 +72,7 @@ class ProjectPoller
 
       workload.unfinished_job_descriptions.each do |job_id, description|
         request = create_ci_request(project, description)
-        add_workload_handlers(project, workload, job_id, request)
+        add_workload_handlers(project, workload, job_id, request) if request
       end
     end
   end
@@ -96,10 +96,13 @@ class ProjectPoller
 
   def create_request(url, options = {})
     url = "http://#{url}" unless /\A\S+:\/\// === url
-    connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
-
-    get_options = {redirects: @max_follow_redirects}.merge(options)
-    connection.get get_options
+    begin
+      connection = EM::HttpRequest.new url, connect_timeout: @connection_timeout, inactivity_timeout: @inactivity_timeout
+      get_options = {redirects: @max_follow_redirects}.merge(options)
+      connection.get get_options
+    rescue Addressable::URI::InvalidURIError => e
+      puts "ERROR parsing URL: \"#{url}\""
+    end
   end
 
   def add_workload_handlers(project, workload, job_id, request)

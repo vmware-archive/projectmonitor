@@ -24,17 +24,45 @@ describe SemaphorePayload do
   describe '#content_ready?' do
     subject { payload.content_ready?(converted_content) }
 
-    context 'the payload contains a build from a branch other than master' do
-      let(:fixture_file) { "branch.json" }
+    context 'the status items do not contain branch information (polling)' do
+      let(:fixture_file) { "success_history.json" }
 
-      context 'and the branch has not been specified' do
-        it { is_expected.to be false }
+      it { is_expected.to be true }
+    end
+
+    context 'the status items contain branch information (webhooks)' do
+      context 'the payload contains a build from a branch other than master' do
+        let(:fixture_file) { "branch.json" }
+
+        context 'and the branch has not been specified' do
+          it { is_expected.to be false }
+        end
+
+        context 'and the branch has been specified' do
+          before { payload.branch = 'staging' }
+
+          it { is_expected.to be true }
+        end
       end
+    end
+  end
 
-      context 'and the branch has been specified' do
-        before { payload.branch = 'staging' }
+  describe '#convert_webhook_content!' do
+    context 'the payload is an array containing a build hsitory' do
+      let(:fixture_file) { "success_history.json" }
 
-        it { is_expected.to be true }
+      let(:params) { [JSON.parse(fixture_content)] }
+
+      it "returns the first build content" do
+        expect(payload.convert_webhook_content!(params)).to eq params.first["builds"].first(15)
+      end
+    end
+
+    context 'the payload is just one build' do
+      let(:params) { JSON.parse(fixture_content) }
+
+      it "returns the payload" do
+        expect(payload.convert_webhook_content!(params)).to eq Array.wrap(params)
       end
     end
   end

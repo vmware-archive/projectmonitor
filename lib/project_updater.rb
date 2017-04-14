@@ -12,7 +12,9 @@ class ProjectUpdater
 
       log = @payload_processor.process_payload(project: project, payload: payload)
       log.update_method = "Polling"
-      log.save!
+      if project.persisted?
+        log.save!
+      end
 
       log
     rescue => e

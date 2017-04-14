@@ -7,61 +7,95 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMTFhTWYwWkxKK3dQeW4vRGQ0YnMyQTBBM0JaMWM5YTdDS082TnZjT2hTbkE9Og9zZXNzaW9uX2lkIiU2NTFiNGFjNTE4NzM1MzNkNDI3ZThmOTQ3ZGZiMTJlNDoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIB0IsDABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--96b28cbd665972f67e81f2cd5129b5d10758c094;
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:37 GMT
+      X-Request-Id:
+      - ddd7f0473182944c25e8fce08549de2c
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"c49b20d4e9129c406ba2c514f93c7d95"'
+      X-Runtime:
+      - '0.087448'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTZjYWQzMDQ1MTk4MGNkMmQ0N2ZmYTdmYzcyYzYyOTYwBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgOr3TroKOg1uYW5vX251bWkCsQE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdDMDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxcGRwN3JVQjVoU1F5VjVaM1JQZllaei94Z3BkRkVpdzlyOUo5a0loMzFjWT0GOwBG--16ba821b87d66d9bed76dad39949afa79d10571f;
         path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '107'
-      etag:
-      - '"e7cc1511b28060751e932769a808a99e"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-      content-encoding:
-      - gzip
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA4VUyW7bMBC95ysEndNQspVmgcK0KNBb0Yt9JmhpbLGhSIEc
-        xfXfd0htjoOkgACRb94MZy+f/7Y6eQXnlTVPaX6TpQmYytbKHJ7S7ebnl/v0
-        mV+VnbN/oEJ+lSSlqnme3T7cr7+WjM4BMrIFjuAxGYkli1CkIziJZF5oMAds
-        Ejx18JQqg3AAl/KcrFxQot4R4EV4lA5FLU/8lzX0K9kFHJidJWPCV1IDz67z
-        69X1umTnYCDJqrK9wehl78G1UmllJFpXskkWeHvlPIrFo8EDVC2MjtcSIVxT
-        vsrygmVrts6T7O4xy+hLtpsfJfvYRoys6p0D8nh5xPTtDtxlZiiKj6jRDhi5
-        0yBQ+hc/6u6s1SBNytH1ULJzRlR5BW0rhSfKVgNUoO9UenmAxO6TdTL740t2
-        STz3e5KF0k0OzlggKqNQSS0WYkZFvgQDcwhc2L2orYElI16gFb6xR56vqJdi
-        ej5jBVta7kB7XrLxMGBUTFmheg1BS/yghgXLiyS/fSzuHtcPQw21fKsZ0ye1
-        tkcyg7JqWiqhH/P8Hg/srt9pVfG91J5qMd6CgPpPNIidn2QLEMS7/uCFNLWo
-        GuuAjg4Eda1qJYaCT0r/owVTlW1bhaK19ax2DgVKCyG5vlHd1ETSOXlKQ8Bv
-        xANAEA19kRcPt6tiWgCR2ZEVayYWARBmbB64b8vE3ZAP1JxRHF+J+nFjbMIS
-        2dJ8LhtkFI/94/lmOzeTn31ib18vHc0B/300wVA8D9GwJdpY0LN7tEWtS2tp
-        2Ffv0xHeXcS0Ftm8F/8Bbxkx2EkFAAA=
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:11 GMT
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <project>
+          <id>1059836</id>
+          <name>test project</name>
+          <iteration_length type="integer">1</iteration_length>
+          <week_start_day>Monday</week_start_day>
+          <point_scale>0,1,2,3</point_scale>
+          <account>testusermailinator</account>
+          <first_iteration_start_time type="datetime">2016/03/21 07:00:00 UTC</first_iteration_start_time>
+          <current_iteration_number type="integer">1</current_iteration_number>
+          <enable_tasks type="boolean">true</enable_tasks>
+          <velocity_scheme>Average of 3 iterations</velocity_scheme>
+          <current_velocity>10</current_velocity>
+          <initial_velocity>10</initial_velocity>
+          <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
+          <labels></labels>
+          <last_activity_at type="datetime">2016/03/23 22:46:36 UTC</last_activity_at>
+          <allow_attachments>true</allow_attachments>
+          <public>false</public>
+          <use_https>false</use_https>
+          <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
+          <commit_mode>false</commit_mode>
+          <memberships type="array">
+            <membership>
+              <id>4149524</id>
+              <person>
+                <email>testuser@mailinator.com</email>
+                <name>Test User</name>
+                <initials>TU</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+          </memberships>
+          <integrations type="array">
+          </integrations>
+        </project>
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:37 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -79,69 +113,81 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
-          <accepted_at>2014-04-07T15:48:11+00:00</accepted_at>
+          <accepted_at>2016-03-16T22:46:37+00:00</accepted_at>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '371'
-      user-agent:
+      Content-Length:
+      - '337'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '208'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMXVOOGNRWDlDbnBwV0c2cW5rRlFHQTI1eUtYSFdGa1QyQ3RBYUtWb05oUkk9Og9zZXNzaW9uX2lkIiVkYzRhZjI5ODE4N2Y5YjRhOTFlMzdhNDZjYzkzM2E0NjoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICWbMbABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--1ee5f73ccc8ee9bc54b7326bdf79e96d230037ef;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:38 GMT
+      X-Request-Id:
+      - 80ab6ccadf312b74b8991e4f97629af3
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260921
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"5ca2d5fc3d332e96262a5d124afe71c0"'
+      X-Runtime:
+      - '0.263074'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWE2ZjBkOTE0MWU3N2M5NTJlMWY4NDdlZTk0ODVlMDkyBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgEPGW7oKOg1uYW5vX251bWkC4gI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdzgDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxYzY5cGZKWUdxRzhvcWtxZVNPYUlTM1NHVzlkSVF5bzc2SDdydmZnZUhWMD0GOwBG--f9d3cd003a1914be1968ed715e86c7a8f8d587a2;
         path=/; secure; HttpOnly
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460422
-      etag:
-      - '"fb5f3511ad6b1da83734817492a15f7c"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460422</id>
+          <id type="integer">116260921</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460422</url>
+          <url>https://www.pivotaltracker.com/story/show/116260921</url>
           <estimate type="integer">1</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 1</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:12 UTC</updated_at>
-          <accepted_at type="datetime">2014/04/07 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:37 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:37 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:12 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:38 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -159,67 +205,79 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '329'
-      user-agent:
+      Content-Length:
+      - '295'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '189'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      etag:
-      - '"2957228c4452ecf12d040f28cd608c52"'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWd3YnRhalQrSnRXUWphOWdKaldJc3g5U3laM2E1VnVBdk1MZEY4VGJFUmM9Og9zZXNzaW9uX2lkIiUyN2MxNjczYzc2NTNjNTZmMGU0NjIzMWRhNDFiYjdhZjoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICU%2Fs3ABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--901f4f411bffdc9209efbbfd272a6babd757c41e;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:39 GMT
+      X-Request-Id:
+      - 5b7b5c9c0cb92ce827a761a0705ebe3c
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260927
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"aa6cd178c47599f0db8889b32a729159"'
+      X-Runtime:
+      - '0.271748'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWVlZTI0NzM1ZDg1ZGEyNDZjMjAzNTQ4N2QxMGU5NjBhBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgLbac7oKOg1uYW5vX251bWkCfgI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdjgDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxUHlGNDNTeGM2SVNSL2tBNzRGOGVJVksrRnA3TzFVejMxWXhNZnZ2Qzd5Yz0GOwBG--f88e2f6df3c22062621007c2a36ff0c094765d77;
         path=/; secure; HttpOnly
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460426
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460426</id>
+          <id type="integer">116260927</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460426</url>
+          <url>https://www.pivotaltracker.com/story/show/116260927</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 1</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:13 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:39 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:39 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:13 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:39 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -237,69 +295,81 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
-          <accepted_at>2014-03-31T15:48:13+00:00</accepted_at>
+          <accepted_at>2016-03-09T22:46:39+00:00</accepted_at>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '371'
-      user-agent:
+      Content-Length:
+      - '337'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '230'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMURPZnB1cEJWZDJIVHpVR25BV1lQQjhSV1ptOFJFWDJycjNqQ012ZjlRaWs9Og9zZXNzaW9uX2lkIiU5NDhmNzA0MTAzMWZiZjgxN2U0ODFlMTQxNWIzMTI0ZDoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIBTrcTABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--da4b540a5d00fe3e758dd4694cd9f145d021c8e4;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:40 GMT
+      X-Request-Id:
+      - 618d66ac6aca025136ec8eb6ac76f989
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260929
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"747ce1f58e59bc53ace778aec2441025"'
+      X-Runtime:
+      - '0.235829'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTRkOTk0NmExYTZiYzU1OWViYmVmY2IyMjA0ZDJhMDkxBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgL%2Ffh7oKOg1uYW5vX251bWkCPwI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdXUDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxdGVVenptOW54OTJyUzlpS29qWCtyUTdJUmFicHN4MUxQSVhHY2ZHMzdSUT0GOwBG--06c90c8a7de013ddf838514e552f487d04b3aee2;
         path=/; secure; HttpOnly
-      etag:
-      - '"f63f7c44ea3be780bc47b77db48d271f"'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460428
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460428</id>
+          <id type="integer">116260929</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460428</url>
+          <url>https://www.pivotaltracker.com/story/show/116260929</url>
           <estimate type="integer">2</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 2</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:12 UTC</updated_at>
-          <accepted_at type="datetime">2014/03/31 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:40 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:40 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:13 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:40 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -317,67 +387,79 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '329'
-      user-agent:
+      Content-Length:
+      - '295'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWNwR09zZFVVTGgyN0V2YktDRXN5VGswRGxGNkptWU9MQ2U5ZW00dXhMeEk9Og9zZXNzaW9uX2lkIiUxZmY1NGY0ZDBjZDZjMmE1NDlhNDVkNGRhMTc2ZjhjNToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICHvurABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--04f6992d2338f4c37e0a04e0ec04241ebdaf9415;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:41 GMT
+      X-Request-Id:
+      - a0863d7b2f888fb3d7fcdbd33ba34e34
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260935
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"e97470e8ea99e51dcf576776b816f4b6"'
+      X-Runtime:
+      - '0.239829'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTM1OTAyNTY4N2ZkODdhMTgyMGVkYjU0OWZhODE2YjczBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgG8QmroKOg1uYW5vX251bWkBvzoNbmFub19kZW5pBjoNc3VibWljcm8iBxkQOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFnc01XZHZGTXN2dlBvdWRBcUIrc09leThuVnN6TGt6NXVkdGs2ZTBUV2tJPQY7AEY%3D--8543c31e6389c4c9a72c4bfccda0c02e3539ca8c;
         path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460434
-      x-runtime:
-      - '229'
-      etag:
-      - '"2f1a6d23d9c850a9cebc59b7a58c182e"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460434</id>
+          <id type="integer">116260935</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460434</url>
+          <url>https://www.pivotaltracker.com/story/show/116260935</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 2</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:14 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:14 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:41 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:41 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:14 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:41 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -395,69 +477,81 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
-          <accepted_at>2014-03-24T15:48:14+00:00</accepted_at>
+          <accepted_at>2016-03-02T22:46:41+00:00</accepted_at>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '371'
-      user-agent:
+      Content-Length:
+      - '337'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '208'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWlUMGJXMGZIUmMzemlRUVlyU0NodVM5NXBHUFcrbU9IQTN3U1h0UjdhVUE9Og9zZXNzaW9uX2lkIiVhOWE4ZGUwZTdiOTZiMzBlYTY4OGMyZmY4YjhkYjE1YzoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIDSofPABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--ae0836a40e412c39ec95de65d401400ba2f56408;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:42 GMT
+      X-Request-Id:
+      - 0ee1ed7b992b343f252ae39fdf2c64ca
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260937
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"ff980f6231ecff6a256d6bea24cf58fa"'
+      X-Runtime:
+      - '0.235532'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTk1ZGNkNmVlMjQ0NTc1YTQ3Y2Q4OTU5ZjhhYzU5OTFiBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgLNDqboKOg1uYW5vX251bWkCUwI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdZUDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxWnZyalI5cTU2K2sxOGJQQnYxd09vbXhCUlA3eUQ0VXVQRVNxYnlCN1pNdz0GOwBG--6baf63179a93782fca0587e4cddda2e4c2e6e6dd;
         path=/; secure; HttpOnly
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460436
-      etag:
-      - '"818a5bb14f6df00bceca4f863cd2adfc"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460436</id>
+          <id type="integer">116260937</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460436</url>
+          <url>https://www.pivotaltracker.com/story/show/116260937</url>
           <estimate type="integer">3</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 3</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:15 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:15 UTC</updated_at>
-          <accepted_at type="datetime">2014/03/24 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:42 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:42 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:15 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:42 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -475,67 +569,79 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '329'
-      user-agent:
+      Content-Length:
+      - '295'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '235'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWwrWEZMTGdQbERWUW11WENTSTdnS2JUdnBDNDRTUnRxcHlGWnpxS0RsMDA9Og9zZXNzaW9uX2lkIiU2NDdiZjQ0ZjY2Y2RiNjg0NDJmMzc5MWIyZmIwYjk5ZToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICs2ebABjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--95acda1ed125b4ae43e54741b7719971131506d0;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:43 GMT
+      X-Request-Id:
+      - e133d18b0e9fe5d15f2f306720649153
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260945
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"87c4b9ce0fe9c413c736652cfe553341"'
+      X-Runtime:
+      - '0.259788'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWVlZmQ2MWYwMDBiMjMyZDVjNTg1MGE5NDlhYTMwOTU0BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgHR2uroKOg1uYW5vX251bWkB6ToNbmFub19kZW5pBjoNc3VibWljcm8iByMwOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFaQkJyd2h2WUcxLy9GL2dDUzdsdHJFbHg1QnMrYWxpZ0Nhc1dzTVFieWRJPQY7AEY%3D--4067944b13f42ae23c443661321a8e7ead38af8a;
         path=/; secure; HttpOnly
-      etag:
-      - '"ca95b4311287a8580282eef73e0ea98f"'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460438
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460438</id>
+          <id type="integer">116260945</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460438</url>
+          <url>https://www.pivotaltracker.com/story/show/116260945</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 3</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:14 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:14 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:43 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:43 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:16 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:44 GMT
 - request:
     method: post
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -553,67 +659,79 @@ http_interactions:
           <owned_by/>
           <labels/>
           <project_id>1059836</project_id>
-          <other_id/>
-          <integration_id/>
         </story>
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      content-length:
-      - '327'
-      user-agent:
+      Content-Length:
+      - '293'
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '559'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '740'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMW5jTlJsYVdoSzNxUkNpTWdidk9heUg2L2RVMUIzUGord2ViQTF6RFIwZXM9Og9zZXNzaW9uX2lkIiU0OWU2YzMwNzM5MGY4ODE1OTVmYTc2YWM0OTIyZTY2ZjoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIAZQgrBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--845c02de931d070d977055faad643e8ea0884601;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:44 GMT
+      X-Request-Id:
+      - 1400b705a77adceb22e21404b4777cfb
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260947
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"4d8070546009049ba78da973fb694144"'
+      X-Runtime:
+      - '0.269184'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTNmNGJjMzc0OGNmMzZlNWQ5YmM3OWE4MzMwZjlhNjUwBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgEf8yroKOg1uYW5vX251bWkCFgE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgcngDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxdEViK3hNRmFmdFdXNWpsQlVRMWpEMWxWQjZLRjh2bVYyR3FvaENGdDloVT0GOwBG--35b33a01146365985c987613cd0a7484909bfd82;
         path=/; secure; HttpOnly
-      location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460440
-      etag:
-      - '"13a227b10101b504d3ca90ffad1c3854"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460440</id>
+          <id type="integer">116260947</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460440</url>
+          <url>https://www.pivotaltracker.com/story/show/116260947</url>
           <estimate type="integer">0</estimate>
           <current_state>unstarted</current_state>
           <description></description>
           <name>Test (unstarted)</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:17 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:17 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:44 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:44 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:17 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:45 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836
@@ -621,61 +739,95 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '67'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMTNmZG11S20rWm1rblMxZ25xVndOd05SQ0g1TExWVi9MUjhtM1ZOT1RzK2c9Og9zZXNzaW9uX2lkIiViNGFmZjc2YzQyZTBlYTkzYTIyZmRjZGEwNjY1ZmMxOToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIB9tRvBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--fa22b894d8f46990398f2ce7764829b8ea111304;
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:45 GMT
+      X-Request-Id:
+      - b055c7f8f6ef16e0b82dca28b5f85752
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"ad4e2d84386e2c962c566802aecf6ab4"'
+      X-Runtime:
+      - '0.073293'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTM4NmNlMTVlZjhhZmIwMTdkODFlNjMwZWQyNTc4ODAyBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgPQb27oKOg1uYW5vX251bWkCPAI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdXIDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxVUhWMGtCcUhOb0MrZHdSNDVZaVhhRGVxUmRGTFFhTXdxeXozMUs1emMyUT0GOwBG--23477cda3ec7bd56158ba30d546b4e2c600f130b;
         path=/; secure; HttpOnly
-      etag:
-      - '"61830f0f9f684a66ecdb5976bdaebf2d"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-      content-encoding:
-      - gzip
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA4VUyW7bMBC95ysEndNQspVmgcK0KNBb0Yt9JmhpbLGhSIEc
-        xfXfd0htjoOkgACRb94MZy+f/7Y6eQXnlTVPaX6TpQmYytbKHJ7S7ebnl/v0
-        mV+VnbN/oEJ+lSSlqnme3T7cr7+WjM4BMrIFjuAxGYkli1CkIziJZF5oMAds
-        Ejx18JQqg3AAl/KcrFxQot4R4EV4lA5FLU/8lzX0K9kFHJidJWPCV1IDz67z
-        69X1umTnYCDJqrK9wehl78G1UmllJFpXskkWeHvlPIrFo8EDVC2MjtcSIVxT
-        vsrygmVrtiqS7O4xy+hLtpsfJfvYRoys6p0D8nh5xPTtDtxlZoqSfUSNdsDI
-        nQaB0r/4UXdnrQZpUo6uh5KdM6LKK2hbKTxRthqgAn2n0ssDJHafrJPZH1+y
-        S+K535OMU5onB2csEJVRqKQWM5hnVORLMDCHwIXdi9oaWDLiBVrhG3vk+Yp6
-        KabnM1awpeUOtOclGw8DRsWUFarXELTED2pYsLxI8tvH4v4xvxtqqOVbzZg+
-        qbU9khmUVdNSCf2Y5/d4YHf9TquK76X2VIvxFgTUf6JB7PwkW4Ag3vUHL6Sp
-        RdVYB3R0IKhrVSsxFHxS+h8tmKps2yoUra1ntXMoUFoIyfWN6qYmks7JUxoC
-        fiMeAIJo6Iu8eLhdUYMOCyAyO7JizcQiAMKMzQP3bZm4G/KBmjOK4ytRP26M
-        TVgiW5rPZYOM4rF/PN9s52bys0/s7eulozngv48mGIrnIRq2RBsLenaPtqh1
-        aS0N++p9OsK7i5jWIpv34j8DzDuiSQUAAA==
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:17 GMT
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <project>
+          <id>1059836</id>
+          <name>test project</name>
+          <iteration_length type="integer">1</iteration_length>
+          <week_start_day>Monday</week_start_day>
+          <point_scale>0,1,2,3</point_scale>
+          <account>testusermailinator</account>
+          <first_iteration_start_time type="datetime">2016/02/29 08:00:00 UTC</first_iteration_start_time>
+          <current_iteration_number type="integer">4</current_iteration_number>
+          <enable_tasks type="boolean">true</enable_tasks>
+          <velocity_scheme>Average of 3 iterations</velocity_scheme>
+          <current_velocity>2</current_velocity>
+          <initial_velocity>10</initial_velocity>
+          <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
+          <labels></labels>
+          <last_activity_at type="datetime">2016/03/23 22:46:44 UTC</last_activity_at>
+          <allow_attachments>true</allow_attachments>
+          <public>false</public>
+          <use_https>false</use_https>
+          <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
+          <commit_mode>false</commit_mode>
+          <memberships type="array">
+            <membership>
+              <id>4149524</id>
+              <person>
+                <email>testuser@mailinator.com</email>
+                <name>Test User</name>
+                <initials>TU</initials>
+              </person>
+              <role>Owner</role>
+            </membership>
+          </memberships>
+          <integrations type="array">
+          </integrations>
+        </project>
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:45 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/iterations/current
@@ -683,60 +835,123 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '103'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMXNkdGJoVW15TFBkenhhR2MyLzUxcVo3ZzUzMU5wT1lqTzRvTnJ1S3A5WFE9Og9zZXNzaW9uX2lkIiVmYzBjZGFjMWU1NWNjZmExZTY3YzA0MWIzNTU3N2Q4MDoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIBDsArBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--a082e22221d7d9c592bc13b0ef915aa45cec68cd;
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:46 GMT
+      X-Request-Id:
+      - 1916123c771994baefbd9312b992d10c
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"7aa6d60915a27a4a1aecdadeabd4299e"'
+      X-Runtime:
+      - '0.114138'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTg2NDQ3MDA2NDBkODU0ODhkNzE1NWIzMGY5MWY5OGFlBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgMdY6LoKOg1uYW5vX251bWkB3DoNbmFub19kZW5pBjoNc3VibWljcm8iBiI6C29mZnNldGkAOgl6b25lSSIIVVRDBjsARkkiEF9jc3JmX3Rva2VuBjsARkkiMVFTMmxxN0kyVGNYRVhiOE9EcDRwME00cHlvM2tkRmJTbVRtc2dsODBkZ3c9BjsARg%3D%3D--97b8841f22ff678d88e6b8472a21cd870e4b1e95;
         path=/; secure; HttpOnly
-      etag:
-      - '"b3d4182d9a6e13d7e9c8562f6c69735d"'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-      content-encoding:
-      - gzip
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA+1XS2/bMAy+91cYPq2HRX41cQ3FPWzYeYfkHKg2k2jza5Lc
-        LP9+lOxYTrvuARhFAhTIhebHjwz5haHpw8+ycJ5ASF5XS9efea4DVVbnvNot
-        3fXqy8fYfUhvKFcgmEKMdNSxgaXLhGBHN71xHOvTlrbzHsMrBTsQbhpRwvPe
-        W7XlI4jfIDpHj5KKCdWDcqZA8RLcNPD8iHgR8SPH8xLzcb5+XlFi4H3olldc
-        7l+NDfxnsR2+D1bAyo1UAqqdOnFsi5opN/UpOfMOldaCw8u2mFZIVYtjB3yl
-        NfP7aO6Fi8B2yAAbUX+DTG1e9tL37u7jcE6JhYwSmIQbPaJ0C0y1AnRzhmdm
-        QCZBK4p0r1STEHI4HGYNf6oVK5Rg2XcQs6wuuzAi9/WB2CJ1mCUBiXPB6Tyf
-        pkfJyTVCZ63AvipsL4akORQcdQc5JecOS5+DzARvtOxSSsaWxVSshHSF2ZwP
-        A+Otg7MyDosT8KNFFOSbx2OHX0sQlJw9t/BMYPcQzP4oQv8uiRZJGDvr1Sf8
-        GkPMKG/baPn+H5GNORH1QxzMf9RVFKBOTr+8S9WVKfJdV+PlpnUVJ34wia6Q
-        KOyIptNVONroF6srXeSV6ArX/1vtK5RDNJWueqIJdRVfwb4Kscgr0VX4rit9
-        X0URXiQX/z+oi5xOV21ljuIJ76uB8fZNVbWYalv1RH/ZVt2phRe9PrZQNacX
-        H3wJsgY6fwHyJa04Og0AAA==
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:18 GMT
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <iterations type="array">
+          <iteration>
+            <id type="integer">4</id>
+            <number type="integer">4</number>
+            <start type="datetime">2016/03/21 00:00:00 PDT</start>
+            <finish type="datetime">2016/03/28 00:00:00 PDT</finish>
+            <team_strength type="float">1</team_strength>
+            <stories type="array">
+              <story>
+                <id type="integer">116260927</id>
+                <project_id type="integer">1059836</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/116260927</url>
+                <estimate type="integer">0</estimate>
+                <current_state>delivered</current_state>
+                <description></description>
+                <name>Test (delivered) 1</name>
+                <requested_by>Test User</requested_by>
+                <created_at type="datetime">2016/03/23 22:46:39 UTC</created_at>
+                <updated_at type="datetime">2016/03/23 22:46:39 UTC</updated_at>
+              </story>
+              <story>
+                <id type="integer">116260935</id>
+                <project_id type="integer">1059836</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/116260935</url>
+                <estimate type="integer">0</estimate>
+                <current_state>delivered</current_state>
+                <description></description>
+                <name>Test (delivered) 2</name>
+                <requested_by>Test User</requested_by>
+                <created_at type="datetime">2016/03/23 22:46:41 UTC</created_at>
+                <updated_at type="datetime">2016/03/23 22:46:41 UTC</updated_at>
+              </story>
+              <story>
+                <id type="integer">116260945</id>
+                <project_id type="integer">1059836</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/116260945</url>
+                <estimate type="integer">0</estimate>
+                <current_state>delivered</current_state>
+                <description></description>
+                <name>Test (delivered) 3</name>
+                <requested_by>Test User</requested_by>
+                <created_at type="datetime">2016/03/23 22:46:43 UTC</created_at>
+                <updated_at type="datetime">2016/03/23 22:46:43 UTC</updated_at>
+              </story>
+              <story>
+                <id type="integer">116260947</id>
+                <project_id type="integer">1059836</project_id>
+                <story_type>feature</story_type>
+                <url>https://www.pivotaltracker.com/story/show/116260947</url>
+                <estimate type="integer">0</estimate>
+                <current_state>unstarted</current_state>
+                <description></description>
+                <name>Test (unstarted)</name>
+                <requested_by>Test User</requested_by>
+                <created_at type="datetime">2016/03/23 22:46:44 UTC</created_at>
+                <updated_at type="datetime">2016/03/23 22:46:44 UTC</updated_at>
+              </story>
+            </stories>
+          </iteration>
+        </iterations>
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:46 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
@@ -744,664 +959,675 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '62'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMXNMOHhoVGk4TkUwSFJNaWVUYmFRRFNzeDJLUmVUTFR3M0RJNzVQdi9qWDQ9Og9zZXNzaW9uX2lkIiU5OTcyZGJjYWJhYTc3M2Q4YTAwNzIwMWJkODAxMjVkZToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIAegxLBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--d333a21f58ca8a3975957aabdceee6c41bb85805;
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:47 GMT
+      X-Request-Id:
+      - 97b9e34c5225d8bddfe862ba4b150571
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"ed1befcf6e34f53a2481b04861a52322"'
+      X-Runtime:
+      - '0.070011'
+      X-Rack-Cache:
+      - miss
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWNjMGI0NTAwMDZkN2QyOTY0YmFkYTA4ZmQyOTVmMmE3BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgBIN9roKOg1uYW5vX251bWkB3joNbmFub19kZW5pBjoNc3VibWljcm8iByIgOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFId1R4ejRSdm9iYmErRmV4VnZGazZxc1F4MktYS2FoaHBBdkI3M1JvYWo0PQY7AEY%3D--e9ef7ffae1b8c235ff10f6931de7ac6774b5fc4f;
         path=/; secure; HttpOnly
-      etag:
-      - '"93d27751d3734afd4d630b518fc034a4"'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-      content-encoding:
-      - gzip
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA+VYXXOiMBR991dkeGof1gCJggzSh53ZX6DPDhvutmwVaAh1
-        /fd7ISi6Ox3bgjYzzvgQknvPPYTjyUf48GezJq8gyzTP5pYzti0CmciTNHuc
-        W8vFj2++9RCNwlLlMoWSqF0BcyuWMt5ZROUqXmMS5oi8ylTTjEaENOG7uoXt
-        NGmz0kzBI0grms741OZsGtI0aYMKmf8GoVb/Bzv2ZObXsV1Im9MUWdWMol8Q
-        q0pCSI/6dPVKrqMnpYqA0u12Oy7S15q0krF4BjkW+Uan0PIp39KOWJ2mAaBU
-        6SZW8O9LsJDuh9pIUUkJmVqVCsOjWAgoFCQhPe3XqAmUQqaFwlmPQnr8pMez
-        eAPRAgsQrNM86H4JLxX2QrL6udPjyxJkSE/6daiQOCkYGKuWeoKP+C5gRa7t
-        cGpz6nDiTALuB86ELBffkeohp61XFXXWx0C6nBZkPxVvU2HURSpuYNv401SO
-        kmqY9tM2zXeoi3mGqqshdl5d7pXUhXUurS4vYLPe6upAPqUu5gyqLu76hnpX
-        Teym1IXe5fZWVwdigroYw3+liStjQ+y8upwreRfWubx32f1XRi/Yg3xCXbhO
-        ewN7l6Hq4u6tqevrvWtwdTHPUHU1xM57l33GuxJYp3ha6r+tvzsg3ZOrGBnz
-        ey+TuAlrQU6N7IN7c+4aujdviN2uRoayI6aF1k8jjJu5B+I1MUM1coXDHGqE
-        9/aRDqSnRkw9hbF3ncK+ZK25znWSORrhOMsmnqV4Tay/j1QZ3jbKAa4Z7w5I
-        95c/VqEBeEO4SAvyhovobQneWkejvzcPrmvnFgAA
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:18 GMT
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <stories type="array" count="7" total="7">
+          <story>
+            <id type="integer">116260937</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260937</url>
+            <estimate type="integer">3</estimate>
+            <current_state>accepted</current_state>
+            <description></description>
+            <name>Test 3</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:42 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:42 UTC</updated_at>
+            <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
+          </story>
+          <story>
+            <id type="integer">116260929</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260929</url>
+            <estimate type="integer">2</estimate>
+            <current_state>accepted</current_state>
+            <description></description>
+            <name>Test 2</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:40 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:40 UTC</updated_at>
+            <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
+          </story>
+          <story>
+            <id type="integer">116260921</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260921</url>
+            <estimate type="integer">1</estimate>
+            <current_state>accepted</current_state>
+            <description></description>
+            <name>Test 1</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:37 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:37 UTC</updated_at>
+            <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
+          </story>
+          <story>
+            <id type="integer">116260927</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260927</url>
+            <estimate type="integer">0</estimate>
+            <current_state>delivered</current_state>
+            <description></description>
+            <name>Test (delivered) 1</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:39 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:39 UTC</updated_at>
+          </story>
+          <story>
+            <id type="integer">116260935</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260935</url>
+            <estimate type="integer">0</estimate>
+            <current_state>delivered</current_state>
+            <description></description>
+            <name>Test (delivered) 2</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:41 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:41 UTC</updated_at>
+          </story>
+          <story>
+            <id type="integer">116260945</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260945</url>
+            <estimate type="integer">0</estimate>
+            <current_state>delivered</current_state>
+            <description></description>
+            <name>Test (delivered) 3</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:43 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:43 UTC</updated_at>
+          </story>
+          <story>
+            <id type="integer">116260947</id>
+            <project_id type="integer">1059836</project_id>
+            <story_type>feature</story_type>
+            <url>https://www.pivotaltracker.com/story/show/116260947</url>
+            <estimate type="integer">0</estimate>
+            <current_state>unstarted</current_state>
+            <description></description>
+            <name>Test (unstarted)</name>
+            <requested_by>Test User</requested_by>
+            <created_at type="datetime">2016/03/23 22:46:44 UTC</created_at>
+            <updated_at type="datetime">2016/03/23 22:46:44 UTC</updated_at>
+          </story>
+        </stories>
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:47 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460436
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260937
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMVR0RmV6Mm1PczQzbU9ITnljNnBnRUUwTnRjQzI5UTJROHlsVFFwM3hmMWc9Og9zZXNzaW9uX2lkIiVkYTc4ZTRkOTY5YzFhZGE3YmQ3Y2NjOThmN2JiNzBlZDoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHID4%2FDPBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--9e324e735a48f861d0b635cedc6f97010d198967;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:48 GMT
+      X-Request-Id:
+      - 04f3624300711c8b5f490ddb1e3449bb
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"ff980f6231ecff6a256d6bea24cf58fa"'
+      X-Runtime:
+      - '0.187167'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTkyMGNlMTdhNmRiMDE4M2NkZTM4N2UwOTkzYTQzM2ZkBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgGEHA7sKOg1uYW5vX251bWlXOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIHCCA6C29mZnNldGkAOgl6b25lSSIIVVRDBjsARkkiEF9jc3JmX3Rva2VuBjsARkkiMXJyOXZXVVlRaTEwUDRkVVF5RTVuM24rT0FmQTFBRVNTMnI5eUtGdTdOZU09BjsARg%3D%3D--70f93f860faaa0d52a693a7f6a537be5e16b1389;
         path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '200'
-      etag:
-      - '"818a5bb14f6df00bceca4f863cd2adfc"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460436</id>
+          <id type="integer">116260937</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460436</url>
+          <url>https://www.pivotaltracker.com/story/show/116260937</url>
           <estimate type="integer">3</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 3</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:15 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:15 UTC</updated_at>
-          <accepted_at type="datetime">2014/03/24 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:42 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:42 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:19 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:48 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460376
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260929
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '186'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWoxUldIZmRJZWdIM0Q0YmpaM3ZWVUpTS09UOTh6Y284VmRnTGhaNkMwT0E9Og9zZXNzaW9uX2lkIiUwNDEwOTAzMjEyNTM5NzNiY2ZjYTVkYzRlNzQ5Mjk4YjoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIA%2B4DzBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--56a812bdc84ea2c634322a4d61fe8643e3998405;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:49 GMT
+      X-Request-Id:
+      - ec31745ebd1ee5201c1bc5a5d7bfd9e1
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"747ce1f58e59bc53ace778aec2441025"'
+      X-Runtime:
+      - '0.211230'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWE5OGQwMjYzYjgzNWE3NTA2ZGU2Nzc1NTZkZWE1OGQ2BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgDhzEbsKOg1uYW5vX251bWkCPQM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgeCkDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxOTRiNE1zQnUyU202aHZZUUJuK2hoQnZBRW9kNUhaSDJ1M0trN0tiUUt5MD0GOwBG--b606f76070f7f1e47b14ce6da3d7d6b1e94905fa;
         path=/; secure; HttpOnly
-      etag:
-      - '"d89feaae984edc9383777debbf58e063"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460376</id>
+          <id type="integer">116260929</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460376</url>
+          <url>https://www.pivotaltracker.com/story/show/116260929</url>
           <estimate type="integer">2</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 2</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:47:39 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:47:39 UTC</updated_at>
-          <accepted_at type="datetime">2014/03/31 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:40 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:40 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:19 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:49 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460428
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260921
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '637'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMXk2SkdwZEZ2NDZwQkF3RmlKNUhhUWUyK09kd2c3WnZrZ20vOUFSeDlFNlU9Og9zZXNzaW9uX2lkIiU3ZmExNDMyY2EyMTFmODI5NTVjZWMwNTEwMjdmZjczOToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIBH8kXBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--61235e7a295b65fa6226b0972abb6a77ebb2a9c7;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:50 GMT
+      X-Request-Id:
+      - 33a3815da65408e3c07d5293e953626b
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"5ca2d5fc3d332e96262a5d124afe71c0"'
+      X-Runtime:
+      - '0.173320'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTExOTFmMzVlYmU2ZDU2NzA4NjM2ZWU2MzNmMzQ1ZTdiBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgKqWILsKOg1uYW5vX251bWkCHQM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgd5cDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxajdZbUJxemhXOENxendnaWNCbncvR1J1U3F5bFV0Y2RrVmY0WHMyVW5yYz0GOwBG--b0b892df4e661c0446493cd03bf997cbb55c06ac;
         path=/; secure; HttpOnly
-      etag:
-      - '"f63f7c44ea3be780bc47b77db48d271f"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460428</id>
+          <id type="integer">116260921</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460428</url>
-          <estimate type="integer">2</estimate>
-          <current_state>accepted</current_state>
-          <description></description>
-          <name>Test 2</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:12 UTC</updated_at>
-          <accepted_at type="datetime">2014/03/31 12:00:00 UTC</accepted_at>
-        </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:20 GMT
-- request:
-    method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460332
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
-      - gzip, deflate
-      x-trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      content-type:
-      - application/xml
-      user-agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      content-type:
-      - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '171'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      etag:
-      - '"97733e4325f1109585dc4455b1a7d9c7"'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMU9rb1NNOHl6ei9sZVR2bHh1cTVROStRY0JrMk50ZHJkclpNQXFxRTE3SUk9Og9zZXNzaW9uX2lkIiU3NDYyYjlhNDFkNmU1YWU5MDlhMjE5MmI0Mzc5OTgzNToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIBbBVPBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--86d72d13e2253198d89e8f26f59f84891e893f1c;
-        path=/; secure; HttpOnly
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">69460332</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460332</url>
+          <url>https://www.pivotaltracker.com/story/show/116260921</url>
           <estimate type="integer">1</estimate>
           <current_state>accepted</current_state>
           <description></description>
           <name>Test 1</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:47:05 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:47:05 UTC</updated_at>
-          <accepted_at type="datetime">2014/04/07 12:00:00 UTC</accepted_at>
+          <created_at type="datetime">2016/03/23 22:46:37 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:37 UTC</updated_at>
+          <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:21 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:50 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460422
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260927
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '617'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWp1cWU2TU0xbjFlRjJxdkM5WlZRY3l5YUI4clFlWlBPM2NrOUdUQkVQaGM9Og9zZXNzaW9uX2lkIiU2ZDUyNjlmNDc0MzJiOWM2ZjhlNTkzYzdlNGQzYzE3NToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIAaxGHBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--41013bce507350fc295bcf18604ac42a18f37784;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:51 GMT
+      X-Request-Id:
+      - 401c6a24582259dfd2a3f164b64313a9
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"aa6cd178c47599f0db8889b32a729159"'
+      X-Runtime:
+      - '0.173544'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWU1OWY2MDFjMDM5MjQ1MWNiNmI3ODZlM2Y1ZjJlYzM3BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgJYyLrsKOg1uYW5vX251bWkkOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIHAxA6C29mZnNldGkAOgl6b25lSSIIVVRDBjsARkkiEF9jc3JmX3Rva2VuBjsARkkiMU8rZFRXdXdtVHpRa1NJbjQvQi9KbjdNTEJSU3JZTzk2eXBmMXZmTGhPbG89BjsARg%3D%3D--1cbfccb6b741dec390c935c56ed78e3709ba790f;
         path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '203'
-      etag:
-      - '"fb5f3511ad6b1da83734817492a15f7c"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460422</id>
+          <id type="integer">116260927</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460422</url>
-          <estimate type="integer">1</estimate>
-          <current_state>accepted</current_state>
-          <description></description>
-          <name>Test 1</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:12 UTC</updated_at>
-          <accepted_at type="datetime">2014/04/07 12:00:00 UTC</accepted_at>
-        </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:21 GMT
-- request:
-    method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460372
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
-      - gzip, deflate
-      x-trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      content-type:
-      - application/xml
-      user-agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      content-type:
-      - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMUI2SVZxWkhOOTFIVHR1aWhKelkzdUlMUE9FV0o4VjBlblNUN1BFeHJPbnc9Og9zZXNzaW9uX2lkIiU1ZDQxNmQ5YjRhYzc5YWViOWIwNzkyZDIzNTdlYTliNjoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIC5eGrBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--08859b61238a981ff6120b076941f148527641e2;
-        path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '169'
-      etag:
-      - '"eda7172ed7ed6b7e3b4c2eebebe436ac"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">69460372</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460372</url>
+          <url>https://www.pivotaltracker.com/story/show/116260927</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 1</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:47:38 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:47:38 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:39 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:39 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:22 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:51 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460426
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260935
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '182'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMWlaekRLcTU5VFlWaFlnWnFRcks0YXpOVUEyV2wzOTlBeHEyRVRkVkVoUnM9Og9zZXNzaW9uX2lkIiU3MDhiNTVjZmUyYzEwYWM1NThmMmI5MDIwOTMzZjM3ODoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHIALfXDBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--04973a873f50a10f60750262fe12a60b316b9886;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:52 GMT
+      X-Request-Id:
+      - 567b7e4306ac6e6fa667109c1bf522bf
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"e97470e8ea99e51dcf576776b816f4b6"'
+      X-Runtime:
+      - '0.198329'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTk4MTM4MzZjZGUxMjViZDM4M2Q5MzA2N2UxMjMyYzFlBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgJ%2FUQ7sKOg1uYW5vX251bWkCygM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgaXOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFUdzRPR1R5NXlOVy9VZU1zUTlOdEpYOExEVWx3Zys4QkF1MXdENUlyZkV3PQY7AEY%3D--25309d338616352fc1899efc7fd6ce34c0339252;
         path=/; secure; HttpOnly
-      etag:
-      - '"2957228c4452ecf12d040f28cd608c52"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460426</id>
+          <id type="integer">116260935</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460426</url>
-          <estimate type="integer">0</estimate>
-          <current_state>delivered</current_state>
-          <description></description>
-          <name>Test (delivered) 1</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:12 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:13 UTC</updated_at>
-        </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:23 GMT
-- request:
-    method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460434
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
-      - gzip, deflate
-      x-trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      content-type:
-      - application/xml
-      user-agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      content-type:
-      - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMVRsR3JpVVhCNXM1QUoyOUYyTElVYUZQaVRYdnhYSUNIOVpKQlgzOU1nMkU9Og9zZXNzaW9uX2lkIiU4YzhjZjg4OWU3ZjlhM2NiY2QyMzg3Y2VmOWM4MTllZToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHID4fHvBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--3d09a28935b392d289962fc58131198562da09ec;
-        path=/; secure; HttpOnly
-      cache-control:
-      - private, max-age=0, must-revalidate
-      x-runtime:
-      - '190'
-      etag:
-      - '"2f1a6d23d9c850a9cebc59b7a58c182e"'
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">69460434</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460434</url>
+          <url>https://www.pivotaltracker.com/story/show/116260935</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 2</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:14 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:14 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:41 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:41 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:23 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:52 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460438
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260945
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '561'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '199'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      etag:
-      - '"ca95b4311287a8580282eef73e0ea98f"'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMTNZbFYyRU5XQVVpRjcxMDJwOXlMZG1RVDRwVlRVTkx6QTB1ZkVrdTVQODg9Og9zZXNzaW9uX2lkIiU4YWQ4MTIyMWZlMWJlMzUzMDEyYTJmYzhmYjY4NjczODoPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICcFX7BBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--f79ba46d1e01e25a3c24f1b64010a1cb6ed49bde;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:53 GMT
+      X-Request-Id:
+      - 241e44d8a9a048e1c8382443db781e22
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"87c4b9ce0fe9c413c736652cfe553341"'
+      X-Runtime:
+      - '0.210819'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWVlMTRkZTIzM2NjZDNjYTAwNmZmNjgxODA3MjdiMGVhBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgCe7UrsKOg1uYW5vX251bWkCNAI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdWQDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxRUsxamwvOWFEN3lVNWF1Z3B5KzhjWGJ1M1hScGF0OENjYUdTYTVvd0xPVT0GOwBG--397e8d4756614727bca04284425d8783e2001812;
         path=/; secure; HttpOnly
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460438</id>
+          <id type="integer">116260945</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460438</url>
+          <url>https://www.pivotaltracker.com/story/show/116260945</url>
           <estimate type="integer">0</estimate>
           <current_state>delivered</current_state>
           <description></description>
           <name>Test (delivered) 3</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:14 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:14 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:43 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:43 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:24 GMT
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:53 GMT
 - request:
     method: delete
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/69460440
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260947
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept:
-      - '*/*; q=0.5, application/xml'
-      accept-encoding:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
       - gzip, deflate
-      x-trackertoken:
+      X-Trackertoken:
       - e955bd05b35741ce257eaeca935180c0
-      content-type:
+      Content-Type:
       - application/xml
-      user-agent:
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      content-type:
+      Content-Type:
       - application/xml; charset=utf-8
-      content-length:
-      - '559'
-      status:
-      - '200'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.14
-      x-runtime:
-      - '214'
-      cache-control:
-      - private, max-age=0, must-revalidate
-      etag:
-      - '"13a227b10101b504d3ca90ffad1c3854"'
-      set-cookie:
-      - t_session=BAh7CDoQX2NzcmZfdG9rZW4iMUZrem45Z2RMbG9Qd21aeVRxeVhmdzdib1FjRm1nYkcrRlpTNlFEYUVjeTg9Og9zZXNzaW9uX2lkIiUzNTJkMDAyZWE1MjRlYmQyMDI4YzM3YjM5MTNjODMwZToPZXhwaXJlc19hdEl1OglUaW1lDa%2BOHICzaYfBBjofQG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25G--931a1bac362f7bb0802334cb6ae2e5ff044357ca;
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      Date:
+      - Wed, 23 Mar 2016 22:46:54 GMT
+      X-Request-Id:
+      - 0d206d676595263f0854f16472afbc5a
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"4d8070546009049ba78da973fb694144"'
+      X-Runtime:
+      - '0.170279'
+      X-Rack-Cache:
+      - invalidate, pass
+      Set-Cookie:
+      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWY5NzgzNmVkOTBlMjE2YjA2YzJlZDI5NmZhNWI5MTM3BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgEovY7sKOg1uYW5vX251bWkCaAM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgeHIDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxb0RSMFhjQS96S0E4R3Jjd0FCeWM5WnpIVUlWVWh5emNSVUlzaTlQRm1Baz0GOwBG--b779021ede4fbb56c99cf137a40acc5f2d11c163;
         path=/; secure; HttpOnly
-      server:
-      - nginx/1.2.2 + Phusion Passenger 3.0.14 (mod_rails/mod_rack)
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      Server:
+      - nginx + Phusion Passenger
+      X-Frame-Options:
+      - DENY
+      Pragma:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Cache-Control:
+      - no-store, private, no-cache
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?>
         <story>
-          <id type="integer">69460440</id>
+          <id type="integer">116260947</id>
           <project_id type="integer">1059836</project_id>
           <story_type>feature</story_type>
-          <url>http://www.pivotaltracker.com/story/show/69460440</url>
+          <url>https://www.pivotaltracker.com/story/show/116260947</url>
           <estimate type="integer">0</estimate>
           <current_state>unstarted</current_state>
           <description></description>
           <name>Test (unstarted)</name>
           <requested_by>Test User</requested_by>
-          <created_at type="datetime">2014/04/14 15:48:17 UTC</created_at>
-          <updated_at type="datetime">2014/04/14 15:48:17 UTC</updated_at>
+          <created_at type="datetime">2016/03/23 22:46:44 UTC</created_at>
+          <updated_at type="datetime">2016/03/23 22:46:44 UTC</updated_at>
         </story>
-    http_version: '1.1'
-  recorded_at: Mon, 14 Apr 2014 15:48:24 GMT
-recorded_with: VCR 2.9.0
+    http_version: 
+  recorded_at: Wed, 23 Mar 2016 22:46:54 GMT
+recorded_with: VCR 3.0.1

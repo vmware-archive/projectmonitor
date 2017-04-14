@@ -16,6 +16,14 @@ describe CircleCiPayload do
       let(:fixture_file) { "outcome_is_empty.json" }
       it { expect(payload.content_ready?(converted_content)).to be false }
     end
+
+    context 'the payload contains a build from a branch other than the desired branch' do
+      subject { payload.content_ready?(converted_content) }
+
+      before { payload.branch = 'staging' }
+
+      it { is_expected.to be false }
+    end
   end
 
   describe '#parse_url' do
@@ -30,4 +38,12 @@ describe CircleCiPayload do
     it { expect(payload.parse_published_at(converted_content).round).to eq(Time.utc(2013, 10, 15, 8, 47, 30)) }
   end
 
+  describe '#convert_webhook_content' do
+    let(:fixture_file) { 'webhook.json' }
+    subject { CircleCiPayload.new }
+
+    it "converts the webhook content" do
+      expect(subject.convert_webhook_content!(JSON.parse(fixture_content)).first.keys).to include 'build_num', 'build_url'
+    end
+  end
 end

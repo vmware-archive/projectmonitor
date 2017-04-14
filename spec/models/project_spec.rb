@@ -340,7 +340,7 @@ describe Project, :type => :model do
     let!(:status) { project.statuses.create(success: true, build_id: 1) }
 
     it "returns the most recent status" do
-      expect(project.statuses).to receive(:latest)
+      expect(project.recent_statuses).to receive(:first)
       project.latest_status
     end
   end

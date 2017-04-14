@@ -1,5 +1,5 @@
-[
-  {
+{
+  "payload": {
     "dont_build": null,
     "committer_name": "A Committer",
     "usage_queued_at": "2013-10-15T08:47:30.007Z",
@@ -40,7 +40,7 @@
       "status": "success",
       "build_num": 171
     },
-    "outcome": "",
+    "outcome": "success",
     "status": "success",
     "vcs_revision": "15711e8d52fdb1b76b5bc12bbe715feac08a7bc5",
     "build_num": 172,
@@ -58,4 +58,4 @@
     "author_name": "Committer",
     "queued_at": "2013-10-15T08:47:30.035Z"
   }
-]
+}

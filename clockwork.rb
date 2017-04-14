@@ -1,5 +1,4 @@
 require 'clockwork'
-require 'clockwork/manager_with_database_tasks'
 require_relative './config/boot'
 require_relative './config/environment'
 

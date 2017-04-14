@@ -10,7 +10,7 @@ class TravisProProject < TravisProject
   # Add ?token= or &token= to the feed_url, as appropriate
   def feed_url
     URI.parse(super).tap do |uri|
-      params = URI.decode_www_form(uri.query || []) << ['token', ci_auth_token]
+      params = URI.decode_www_form(uri.query || '') << ['token', ci_auth_token]
       uri.query = URI.encode_www_form(params)
     end.to_s
   end

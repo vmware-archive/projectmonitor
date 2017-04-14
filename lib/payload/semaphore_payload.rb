@@ -21,7 +21,7 @@ class SemaphorePayload < Payload
   end
 
   def convert_webhook_content!(params)
-    extract_builds_if_build_history_url(params)
+    extract_builds_if_build_history_url(Array.wrap(params))
   end
 
   def parse_success(content)
@@ -48,6 +48,6 @@ class SemaphorePayload < Payload
   end
 
   def specified_branch?(content)
-    branch == content['branch_name']
+    content['branch_name'].blank? || branch == content['branch_name']
   end
 end

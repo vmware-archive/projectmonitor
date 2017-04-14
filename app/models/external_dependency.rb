@@ -25,19 +25,8 @@ class ExternalDependency
       output = {}
 
       begin
-        doc = Nokogiri::HTML(UrlRetriever.new('http://status.rubygems.org/').retrieve_content)
-        page_status = doc.at_css("span[class^='status__subheading']")
-
-        if page_status['class'].include? 'up'
-          output[:status] = 'good'
-        elsif page_status['class'].include? 'down'
-          output[:status] = 'bad'
-        else
-          output[:status] = 'page broken'
-        end
-
-      rescue Nokogiri::SyntaxError => e
-        output[:status] = 'page broken'
+        response_body = UrlRetriever.new('https://pclby00q90vc.statuspage.io/api/v2/status.json').retrieve_content
+        output[:status] = extract_rubygems_status(response_body)
       rescue StandardError => e
         output[:status] = 'unreachable'
       end
@@ -58,6 +47,10 @@ class ExternalDependency
 
     def refresh_status(name)
       send("#{name}_status")
+    end
+
+    def extract_rubygems_status(response_body)
+      JSON.parse(response_body).fetch('status', {}).fetch('indicator', 'unreachable')
     end
   end
 end

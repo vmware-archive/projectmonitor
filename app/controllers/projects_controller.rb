@@ -7,9 +7,9 @@ class ProjectsController < ApplicationController
 
   def index
     if params[:aggregate_project_id].present?
-      projects = AggregateProject.find(params[:aggregate_project_id]).projects.decorate
+      projects = AggregateProject.find(params[:aggregate_project_id]).projects.includes(:recent_statuses, :tags).decorate
     else
-      standalone_projects = Project.standalone.displayable(params[:tags]).decorate
+      standalone_projects = Project.standalone.displayable(params[:tags]).includes(:recent_statuses, :tags).decorate
       aggregate_projects = AggregateProject.displayable(params[:tags]).decorate
       projects = standalone_projects + aggregate_projects
     end
@@ -73,15 +73,15 @@ class ProjectsController < ApplicationController
   def validate_build_info
     head(422) and return if !params.has_key?(:project)
 
-    project = params[:project][:type].constantize.new(project_params)
-
-    if existing_project_missing_password?
-      existing_project = Project.find(params[:project][:id])
-      project.auth_password = existing_project.auth_password if existing_project
-    end
+    project_id = params[:project][:id]
+    project = project_id.present? ?
+      Project.find(project_id).tap { |p| p.assign_attributes(project_params) } :
+      params[:project][:type].constantize.new(project_params)
 
     status_updater = StatusUpdater.new
-    project_updater = ProjectUpdater.new(payload_processor: PayloadProcessor.new(project_status_updater: status_updater))
+    project_updater = ProjectUpdater.new(
+      payload_processor: PayloadProcessor.new(project_status_updater: status_updater)
+    )
     log_entry = project_updater.update(project)
 
     render json: {
@@ -122,10 +122,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def existing_project_missing_password?
-    params[:project][:id].present? && params[:project][:auth_password].empty?
-  end
-
   def project_params
     params.require(:project).permit(%i(aggregate_project_id auth_password auth_username
                                        build_branch code cruise_control_rss_feed_url enabled
@@ -136,6 +132,6 @@ class ProjectsController < ApplicationController
                                        travis_repository type verify_ssl webhooks_enabled
                                        circleci_username circleci_project_name circleci_auth_token travis_pro_token
                                        concourse_base_url concourse_job_name ci_base_url ci_build_identifier ci_auth_token
-                                       concourse_pipeline_name))
+                                       concourse_pipeline_name id))
   end
 end

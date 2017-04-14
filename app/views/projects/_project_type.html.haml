@@ -9,4 +9,4 @@
     - enabled = f.object.type == project_type.name
     .provider-specific{ class: "#{'hide' unless enabled} #{project_type}" }
       .col-md-2
-      .col-md-10.build_setup_instructions= build_setup_instructions_for(project_type).html_safe
+      .col-md-10.build_setup_instructions= preserve(build_setup_instructions_for(project_type).html_safe)

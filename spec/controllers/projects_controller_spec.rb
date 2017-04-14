@@ -23,7 +23,7 @@ describe ProjectsController, :type => :controller do
 
       before do
         allow(AggregateProject).to receive(:displayable).and_return(aggregate_projects)
-        allow(Project).to receive_message_chain(:standalone, :displayable).and_return(projects)
+        allow(Project).to receive_message_chain(:standalone, :displayable, :includes).and_return(projects)
         allow(projects).to receive_message_chain(:concat, :sort_by).and_return(aggregate_projects + projects)
 
         expect(aggregate_projects).to receive(:decorate).and_return(aggregate_projects)
@@ -189,7 +189,7 @@ describe ProjectsController, :type => :controller do
 
         it "renders nothing" do
           post :validate_build_info, {}
-          expect(response.body).to eq(" ")
+          expect(response.body).to be_blank
         end
       end
 
@@ -243,21 +243,28 @@ describe ProjectsController, :type => :controller do
       end
 
       context "for a project with a saved password" do
-        context "when a new password is entered in the form" do
-          let!(:project) { create(:team_city_project, "auth_password" => "password") }
+        let!(:project) { create(:team_city_project, "auth_password" => "old_password") }
 
+        before do
+          expect_any_instance_of(ProjectUpdater).to receive(:update) do |instance, project|
+            @project_to_update = project
+            project.payload_log_entries.build
+          end
+        end
+
+        context "when a new password is entered in the form" do
           it "should grab the existing project password" do
-            expect(Project).not_to receive(:find).with(project.id.to_s)
-            post :validate_build_info, {project: project.attributes}
+            post :validate_build_info, {
+              project: project.attributes.merge(auth_password: 'new_password')
+            }
+            expect(@project_to_update.auth_password).to eq('new_password')
           end
         end
 
         context "when a new password is not entered in the form" do
-          let!(:project) { create(:team_city_project, "auth_password" => "") }
-
           it "should use the saved password to fetch" do
-            expect(Project).to receive(:find).with(project.id.to_s)
-            post :validate_build_info, {project: project.attributes}
+            post :validate_build_info, {project: project.attributes.except('auth_password')}
+            expect(@project_to_update.auth_password).to eq('old_password')
           end
         end
       end

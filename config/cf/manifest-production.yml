@@ -5,7 +5,8 @@ applications:
   instances: 3
   host: project-monitor-production
   path: ../../
-  command: bundle exec rake db:migrate && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  buildpack: ruby_buildpack
+  command: bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   services:
   - db-production
   - logentries-production-web
@@ -13,6 +14,7 @@ applications:
   memory: 512M
   instances: 1
   path: ../../
+  buildpack: ruby_buildpack
   command: bundle exec rake jobs:work
   no-route: true
   services:
@@ -22,6 +24,7 @@ applications:
   memory: 512M
   instances: 1
   path: ../../
+  buildpack: ruby_buildpack
   command: bundle exec clockwork ./clockwork.rb
   no-route: true
   services:
@@ -31,6 +34,7 @@ applications:
   memory: 1024M
   instances: 1
   path: ../../
+  buildpack: ruby_buildpack
   command: bundle exec rake projectmonitor:poller
   no-route: true
   services:

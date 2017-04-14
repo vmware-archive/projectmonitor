@@ -1,5 +1,5 @@
-{
-  "payload": {
+[
+  {
     "dont_build": null,
     "committer_name": "A Committer",
     "usage_queued_at": "2013-10-15T08:47:30.007Z",
@@ -58,4 +58,4 @@
     "author_name": "Committer",
     "queued_at": "2013-10-15T08:47:30.035Z"
   }
-}
+]

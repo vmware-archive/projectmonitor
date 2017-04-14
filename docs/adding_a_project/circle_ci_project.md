@@ -8,8 +8,8 @@ __Webhooks__
 
 ~~~
 notify:
-webhooks:
-- url: https://site.com/path/to/your/webhooks/url
+  webhooks:
+    - url: https://site.com/path/to/your/webhooks/url
 ~~~
 
 __Polling__
@@ -27,13 +27,13 @@ You should see a response like the following:
 
 ~~~
 {
-"user_key_fingerprint" : null,
-"days_left_in_trial" : -238,
-"plan" : "p16",
-"trial_end" : "2011-12-28T22:02:15Z",
-"basic_email_prefs" : "smart",
-"admin" : true,
-"login" : "pbiggar"
+  "user_key_fingerprint" : null,
+  "days_left_in_trial" : -238,
+  "plan" : "p16",
+  "trial_end" : "2011-12-28T22:02:15Z",
+  "basic_email_prefs" : "smart",
+  "admin" : true,
+  "login" : "pbiggar"
 }
 ~~~
 
