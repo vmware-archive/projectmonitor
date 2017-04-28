@@ -2,9 +2,13 @@
 applications:
 - name: project-monitor-web
   memory: 512M
+  host: pulse
+  domain: pivotal.io
   instances: 1
   command: bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  services:
+    - rails-mysql
 
 - name: project-monitor-worker
   memory: 512M
@@ -12,6 +16,9 @@ applications:
   command: bundle exec rake jobs:work
   no-route: true
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  health-check-type: none
+  services:
+    - rails-mysql
 
 - name: project-monitor-clock
   memory: 512M
@@ -19,6 +26,9 @@ applications:
   command: bundle exec clockwork ./clockwork.rb
   no-route: true
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  health-check-type: none
+  services:
+    - rails-mysql
 
 - name: project-monitor-poller
   memory: 1024M
@@ -26,3 +36,6 @@ applications:
   command: bundle exec rake projectmonitor:poller
   no-route: true
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  health-check-type: none
+  services:
+    - rails-mysql

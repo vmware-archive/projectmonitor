@@ -8,5 +8,5 @@ test:
   database: projectmonitor_test
 
 production:
-  <<: *development
+  adapter: mysql2
   database: projectmonitor_production
