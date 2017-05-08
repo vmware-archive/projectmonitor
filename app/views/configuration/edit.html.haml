@@ -76,7 +76,9 @@
                   ✓
                 - else
                   %span{style: 'color: #AA1224;'} ✕
-              %td.tag_list= aggregate_project.tag_list
+              %td.tag_list
+                - aggregate_project.tags.each do |tag|
+                  = link_to tag, root_path({tags: tag.name})
               %td.count= aggregate_project.projects.count
               %td.age= aggregate_project.updated_at.present? ? time_ago_in_words(aggregate_project.updated_at) : 'N/A'
               %td.actions
