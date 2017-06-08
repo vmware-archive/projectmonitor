@@ -67,6 +67,26 @@ describe SemaphorePayload do
     end
   end
 
+  describe '#convert_webhook_content!' do
+    context 'the payload is an array containing a build hsitory' do
+      let(:fixture_file) { "success_history.json" }
+
+      let(:params) { [JSON.parse(fixture_content)] }
+
+      it "returns the first build content" do
+        expect(payload.convert_webhook_content!(params)).to eq params.first["builds"].first(15)
+      end
+    end
+
+    context 'the payload is just one build' do
+      let(:params) { JSON.parse(fixture_content) }
+
+      it "returns the payload" do
+        expect(payload.convert_webhook_content!(params)).to eq Array.wrap(params)
+      end
+    end
+  end
+
   describe '#parse_url' do
     it { expect(payload.parse_url(converted_content)).to eq('https://semaphoreci.com/projects/123/branches/456/builds/1') }
   end
