@@ -24,6 +24,16 @@ describe CircleCiPayload do
 
       it { is_expected.to be false }
     end
+
+    context 'project is set up to use wildcard branch' do
+      # let(:payload) { CircleCiPayload.new.tap{|p| p.status_content = fixture_content} }
+
+      subject { payload.content_ready?(converted_content) }
+
+      before { payload.branch = '*' }
+
+      it { is_expected.to be true }
+    end
   end
 
   describe '#parse_url' do
