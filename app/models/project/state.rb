@@ -2,7 +2,7 @@ class Project::State
   def initialize(online: false, success: nil)
     state_text = if !online
                    'offline'
-                 elsif success == false
+                 elsif 'failed'
                    'failure'
                  elsif success
                    'success'

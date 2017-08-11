@@ -50,6 +50,6 @@ class CircleCiPayload < Payload
   private
 
   def specified_branch?(content)
-    branch == content['branch']
+    branch == content['branch'] || branch == '*'
   end
 end
