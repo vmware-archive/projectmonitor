@@ -17,6 +17,7 @@ gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'nokogiri'
+gem 'puma'
 
 gem 'oauth2', '0.8.1'
 gem 'omniauth', '1.1.4'
