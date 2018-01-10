@@ -4,21 +4,25 @@ applications:
   memory: 512M
   instances: 1
   command: bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
 
 - name: project-monitor-worker
   memory: 512M
   instances: 1
   command: bundle exec rake jobs:work
   no-route: true
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
 
 - name: project-monitor-clock
   memory: 512M
   instances: 1
   command: bundle exec clockwork ./clockwork.rb
   no-route: true
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
 
 - name: project-monitor-poller
   memory: 1024M
   instances: 1
   command: bundle exec rake projectmonitor:poller
   no-route: true
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
