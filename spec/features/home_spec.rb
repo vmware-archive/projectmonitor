@@ -19,7 +19,8 @@ feature "home" do
     it "should refresh the project collection", js: true do
       visit root_path
 
-      expect(page).to_not have_selector(".time-since-last-build", text: "4d")
+      expect(page).to have_selector(".time-since-last-build", text: "5d")
+      expect(page).not_to have_selector(".time-since-last-build", text: "4d")
 
       project.statuses << build(:project_status, success: true, build_id: 2, published_at: 4.days.ago)
       page.execute_script('window.ProjectMonitor.collectionData.projects.fetch()')
