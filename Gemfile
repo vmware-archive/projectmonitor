@@ -18,6 +18,7 @@ gem 'haml-rails'
 gem 'html2haml', '~> 2.2.0'
 gem 'jquery-rails'
 gem 'nokogiri', '1.8.2'
+gem 'loofah', '2.2.2'
 
 gem 'oauth2', '1.4.0'
 gem 'omniauth', '~> 1.8.1'
