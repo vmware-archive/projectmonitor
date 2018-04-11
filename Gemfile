@@ -25,6 +25,7 @@ gem 'omniauth', '~> 1.8.1'
 gem 'omniauth-google-oauth2', '0.5.3'
 gem 'omniauth-oauth2', '1.5.0'
 
+gem 'rack-protection', '1.5.5'
 gem 'pivotal-tracker'
 gem 'rails', '~> 4.2.6'
 gem 'rails-dom-testing', '~> 1.0.8'

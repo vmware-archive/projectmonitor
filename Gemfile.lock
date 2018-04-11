@@ -282,7 +282,7 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.9)
-    rack-protection (1.5.3)
+    rack-protection (1.5.5)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -460,6 +460,7 @@ DEPENDENCIES
   pry-nav
   pry-rails
   quiet_assets
+  rack-protection (= 1.5.5)
   rails (~> 4.2.6)
   rails-backbone
   rails-dom-testing (~> 1.0.8)
