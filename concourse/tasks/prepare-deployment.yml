@@ -1,0 +1,19 @@
+params:
+  PROJECTMONITOR_HOST:
+  PROJECTMONITOR_DOMAIN:
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotaliad/project-monitor
+
+inputs:
+  - name: project-monitor-repo
+
+run:
+  path: project-monitor-repo/concourse/scripts/prepare-deployment-manifest.sh
+
+outputs:
+  - name: prepared-deployment

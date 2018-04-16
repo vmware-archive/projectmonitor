@@ -22,3 +22,4 @@ spec/tmp/
 .vagrant
 gems.tags
 .byebug_history
+*credentials*.yml

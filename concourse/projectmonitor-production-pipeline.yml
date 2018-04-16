@@ -1,0 +1,45 @@
+resources:
+  - name: project-monitor-repo
+    type: git
+    source: 
+      uri: "https://github.com/pivotal/projectmonitor.git"
+
+  - name: cf-deploy
+    type: cf
+    source:
+      api: ((api-endpoint))
+      username: ((cf-username))
+      password: ((cf-password))
+      organization: ((cf-org))
+      space: ((cf-space))
+      skip_cert_check: true
+
+jobs:
+  - name: unit-tests
+    plan: 
+      - get: project-monitor-repo
+        trigger: true
+      - task: Run all unit tests
+        timeout: 59m
+        file: project-monitor-repo/concourse/tasks/concourse-unit-tests.yml
+
+  - name: deploy-projectmonitor
+    plan:
+      - get: project-monitor-repo
+        trigger: true
+        passed: [unit-tests]
+      - task: deploy-projectmonitor
+        file: project-monitor-repo/concourse/tasks/prepare-deployment.yml
+        params:
+          PROJECTMONITOR_HOST: ((projectmonitor-host))
+          PROJECTMONITOR_DOMAIN: ((projectmonitor-domain))
+        output_mapping: {prepared-deployment: prepared-deployment}
+      - put: cf-deploy
+        params:
+          path: prepared-deployment
+          manifest: prepared-deployment/manifest.yml
+          current_app_name: project-monitor-web
+          show_app_log: true
+
+
+
