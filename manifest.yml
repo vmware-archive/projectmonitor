@@ -2,8 +2,8 @@
 applications:
 - name: project-monitor-web
   memory: 512M
-  host: pulse
-  domain: pivotal.io
+  host: ${HOST}
+  domain: ${DOMAIN}
   instances: 1
   command: bundle exec rake db:migrate && bundle exec rake db:seed && bundle exec unicorn -p $PORT -c ./config/unicorn.rb
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
