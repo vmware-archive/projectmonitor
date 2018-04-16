@@ -196,19 +196,21 @@ like so:
 ## Deployment
 
 ### Cloud Foundry
+ProjectMonitor requires a database that can handle more than 4 concurrent connections, otherwise occasional errors might pop up.
+
 To deploy to staging:
 
 ```
 cf target -s project-monitor-staging -o IAD
-cf create-service cleardb boost rails-mysql
+cf create-service DB_SERVICE DB_SERVICE_PLAN rails-mysql
 cf push
 ```
 
 To deploy to production:
 
 ```
-cf taget -s project-monitor-production -o IAD
-cf create-service cleardb boost rails-mysql
+cf target -s project-monitor-production -o IAD
+cf create-service DB_SERVICE DB_SERVICE_PLAN rails-mysql
 cf push
 ```
 
