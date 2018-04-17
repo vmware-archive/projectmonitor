@@ -13,11 +13,11 @@ RUN /root/.rbenv/plugins/ruby-build/install.sh
 ENV PATH /root/.rbenv/bin:$PATH
 
 # Pick Ruby version
-RUN rbenv install 2.3.1
-RUN rbenv global 2.3.1
+RUN rbenv install 2.3.1 && rbenv rehash && rbenv global 2.3.1
+ENV PATH /root/.rbenv/shims:$PATH
 
 # Install bundler
-RUN /bin/bash -c 'eval "$(rbenv init -)" && gem install bundler'
+RUN gem install bundler
 
 # Install capybara dependencies
 RUN apt-get install -y qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
@@ -38,3 +38,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server libmysqlclien
 
 # Install timezone data
 RUN apt-get install -y tzdata
+
+# Install Rails
+RUN gem install rails
+
+# Rails apps run on port:3000 by default
+EXPOSE 3000
+
+# https://github.com/opsxcq/docker-vulnerable-dvwa/issues/3 mysql does not start without "touching" the /mysql files
+ENTRYPOINT chown -R mysql:mysql /var/lib/mysql && service mysql start && exec /bin/bash "$@"
