@@ -38,6 +38,3 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server libmysqlclien
 
 # Install timezone data
 RUN apt-get install -y tzdata
-
-# https://github.com/opsxcq/docker-vulnerable-dvwa/issues/3 mysql does not start without "touching" the /mysql files
-CMD chown -R mysql:mysql /var/lib/mysql && service mysql start && bash
