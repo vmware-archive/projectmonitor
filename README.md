@@ -34,9 +34,10 @@ In practice, ProjectMonitor is often displayed on publicly-viewable monitors mou
 ## Table of Contents
 
 1. [Installation](#installation)
-2. [Configuration](#configuration)
-3. [Deployment](#deployment)
-4. [Ideas and Improvements](#ideas-and-improvements)
+2. [Custom Configuration](#custom-configuration)
+3. [In-app Configuration](#in-app-configuration)
+4. [Deployment](#deployment)
+5. [Ideas and Improvements](#ideas-and-improvements)
 
 ## Linked Documents
 
@@ -47,28 +48,59 @@ In practice, ProjectMonitor is often displayed on publicly-viewable monitors mou
 ## Installation
 
 ### Get the code
-ProjectMonitor is a Rails application. To get the code, execute the following:
+To get the code, execute the following:
 
     git clone git://github.com/pivotal/projectmonitor.git
     cd projectmonitor
-    brew install qt
-    bundle install
+    
+### Get Docker
+ProjectMonitor provides a one-line setup using Docker
 
-### Initial Setup
-We have provided an example file for `database.yml`. Run the following to
-automatically generate these files for you:
+Download and install docker from [the official Docker website](https://docs.docker.com/install/)
 
-    rake setup
+### Run the app locally with the default configuration
 
-You likely need to edit the generated files.  See below.
+	docker run -p 3000:3000 -v `pwd`:/projectmonitor pivotaliad/project-monitor \
+	bash -c "cd projectmonitor && bundle install && RAILS_ENV=development rake local:start"
+
+The app will be available at: [http://0.0.0.0:3000](http://0.0.0.0:3000)
+
+Add a user: 
+
+	docker exec CONTAINER_ID_OR_NAME \
+	bash -c 'cd projectmonitor && \
+	echo "User.create!(login: \"jane\", name: \"Jane Martinez\", email: \"jmartinez@example.com\", password: \"password\")" | \
+	rails c development'
+
+To stop: `docker kill <container-id>`
+
+### Local development
+	docker run -p 3000:3000 -v `pwd`:/projectmonitor pivotaliad/project-monitor
+
+Inside the container run:
+	
+	bundle install
+
+To run tests:
+   
+	rake local:test
+	
+see [Custom Configuration](#custom-configuration) for DB setup
+
+## Custom configuration
 
 ### Set up the database
-You'll need a database. Create it with whatever name you want.  If you have not
-run `rake setup`, copy `database.yml.example` to `database.yml`.  Edit the
+You'll need a database. Create it with whatever name you want. For defaults, copy `database.yml.example` to `database.yml`.  Edit the
 production environment configuration so it's right for your database:
 
+First, get the defaults copied:
+
     cp config/database.yml.example config/database.yml
-    <edit database.yml>
+
+Edit the defaults in `config/database.yml`
+
+Create the db and set the tables:
+
     RAILS_ENV=production rake db:create
     RAILS_ENV=production rake db:migrate
 
@@ -143,9 +175,9 @@ Execute:
 
 ### Next Steps
 
-Now you need to add a project or two! Keep reading the *Configuration* section for instructions.
+Now you need to add a project or two! Keep reading the *In-app Configuration* section for instructions.
 
-## Configuration
+## In-app Configuration
 
 Each build that you want ProjectMonitor to display is called a "project" in
 ProjectMonitor. You can log in to set up projects by clicking the "Manage Projects"
@@ -198,18 +230,23 @@ like so:
 ### Cloud Foundry
 ProjectMonitor requires a database that can handle more than 4 concurrent connections, otherwise occasional errors might pop up.
 
-To deploy to staging:
+Create a CF space and add a db service named `rails-mysql`
+
+The default way to deploy to CF is using the attached [concourse](https://concourse-ci.org/) pipeline. Follow the concourse installation steps to setup concourse-ci.
+
+Add credentials to: `concourse/projectmonitor-production-credentials.yml`
+
+Set the pipilene: 
+
+	fly set-pipeline -c concourse/projectmonitor-production-pipeline.yml -p PIPELINE_NAME \
+	-l concourse/projectmonitor-production-credentials.yml -t TARGET_NAME
+	
+The pipeline will deploy the latest stable version with default configuration every time it is updated.
+
+For manual CF deployment:
 
 ```
-cf target -s project-monitor-staging -o IAD
-cf create-service DB_SERVICE DB_SERVICE_PLAN rails-mysql
-cf push
-```
-
-To deploy to production:
-
-```
-cf target -s project-monitor-production -o IAD
+cf target -s SPACE -o ORG
 cf create-service DB_SERVICE DB_SERVICE_PLAN rails-mysql
 cf push
 ```
@@ -233,7 +270,7 @@ Got a burning idea that just needs to be implemented? Check the CONTRIBUTE.md fi
 
 The google group for Project Monitor is [projectmonitor_pivotallabs](http://groups.google.com/group/projectmonitor_pivotallabs)
 
-Copyright (c) 2016 Pivotal Labs. This software is licensed under the MIT License.
+Copyright (c) 2018 Pivotal Labs. This software is licensed under the MIT License.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pivotal/projectmonitor/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
