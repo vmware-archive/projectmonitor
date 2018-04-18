@@ -75,7 +75,7 @@ Add a user:
 To stop: `docker kill <container-id>`
 
 ### Local development
-	docker run -p 3000:3000 -v `pwd`:/projectmonitor pivotaliad/project-monitor
+	docker run -it -p 3000:3000 -v `pwd`:/projectmonitor pivotaliad/project-monitor
 
 Inside the container run:
 	
