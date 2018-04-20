@@ -234,7 +234,15 @@ Create a CF space and add a db service named `rails-mysql`
 
 The default way to deploy to CF is using the attached [concourse](https://concourse-ci.org/) pipeline. Follow the concourse installation steps to setup concourse-ci.
 
-Add credentials to: `concourse/projectmonitor-production-credentials.yml`
+create a credentials yml at `concourse/projectmonitor-production-credentials.yml`
+
+populate it with 
+
+	api-endpoint: <replace with CF api endpoint ex: api.run.cfapps.io>
+	cf-username: <replace with CF username>
+	cf-password: <replace with CF password>
+	cf-org: <replace with CF organization name>
+	cf-space: <replace with CF space name>
 
 Set the pipilene: 
 
