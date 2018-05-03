@@ -251,6 +251,11 @@ Set the pipilene:
 	
 The pipeline will deploy the latest stable version with default configuration every time it is updated.
 
+Add a user once deployed:
+
+	cf ssh project-monitor-web -t -c "/tmp/lifecycle/launcher /home/vcap/app 'rails c' ''"
+	User.create!(login: 'jane', name: 'Jane Martinez', email: 'jmartinez@example.com', password: 'password')
+	
 For manual CF deployment:
 
 ```
