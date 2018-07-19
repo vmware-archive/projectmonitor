@@ -4,6 +4,7 @@ ruby '~> 2.3.1'
 
 gem 'acts-as-taggable-on'
 gem 'airbrake', '~> 4.3.8'
+gem 'brakeman'
 gem 'bourbon'
 gem 'choices'
 gem 'daemons'
