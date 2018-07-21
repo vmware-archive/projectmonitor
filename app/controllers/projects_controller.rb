@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    klass = params[:project][:type].present? ? params[:project][:type].constantize : Project
+    klass = params[:project][:type].present? ? ProjectTypeHelper.find_type(params[:project][:type]) : Project
     @project = klass.new(project_params)
     @project.creator = current_user
     if @project.save
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
     Project.transaction do
       old_class = @project.class
       if params[:project][:type] && @project.type != params[:project][:type]
-        @project = @project.becomes(params[:project][:type].constantize)
+        @project = @project.becomes(ProjectTypeHelper.find_type(params[:project][:type]))
         if project = Project.where(id: @project.id)
           project.update_all(type: params[:project][:type])
         end
@@ -78,7 +78,7 @@ class ProjectsController < ApplicationController
     project_id = params[:project][:id]
     project = project_id.present? ?
       Project.find(project_id).tap { |p| p.assign_attributes(project_params) } :
-      params[:project][:type].constantize.new(project_params)
+      ProjectTypeHelper.find_type(params[:project][:type]).new(project_params)
 
     status_updater = StatusUpdater.new
     project_updater = ProjectUpdater.new(

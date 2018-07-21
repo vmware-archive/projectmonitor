@@ -1,1123 +1,6 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:39 GMT
-      X-Request-Id:
-      - ec0cd0e0052a62b3b9136f86b9322ba5
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"a82a2e76465f10f95b8ae74e5cd97a6f"'
-      X-Runtime:
-      - '0.157187'
-      X-Rack-Cache:
-      - miss
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWRlYmIwMWQzOGQ4NGUyY2JkMDgzZmZkMDVlZTU0MjVhBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgLRydbYKOg1uYW5vX251bWkCuwE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdEMDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxVklmVjQ0UTM0dlNjMUhVbXEweU9pNHAvcDJOZDEvVDNOc1dQaTBrOW5iUT0GOwBG--6f572ea6f0b251c7782962c11db827b0e5d2aaa2;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <project>
-          <id>1059836</id>
-          <name>test project</name>
-          <iteration_length type="integer">1</iteration_length>
-          <week_start_day>Monday</week_start_day>
-          <point_scale>0,1,2,3</point_scale>
-          <account>testusermailinator</account>
-          <first_iteration_start_time type="datetime">2016/03/21 07:00:00 UTC</first_iteration_start_time>
-          <current_iteration_number type="integer">1</current_iteration_number>
-          <enable_tasks type="boolean">true</enable_tasks>
-          <velocity_scheme>Average of 3 iterations</velocity_scheme>
-          <current_velocity>10</current_velocity>
-          <initial_velocity>10</initial_velocity>
-          <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
-          <labels></labels>
-          <last_activity_at type="datetime">2016/03/23 21:52:08 UTC</last_activity_at>
-          <allow_attachments>true</allow_attachments>
-          <public>false</public>
-          <use_https>false</use_https>
-          <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
-          <commit_mode>false</commit_mode>
-          <memberships type="array">
-            <membership>
-              <id>4149524</id>
-              <person>
-                <email>testuser@mailinator.com</email>
-                <name>Test User</name>
-                <initials>TU</initials>
-              </person>
-              <role>Owner</role>
-            </membership>
-          </memberships>
-          <integrations type="array">
-          </integrations>
-        </project>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:39 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test 1</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>1</estimate>
-          <current_state>accepted</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-          <accepted_at>2016-03-16T22:45:39+00:00</accepted_at>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '337'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:40 GMT
-      X-Request-Id:
-      - 65702a949d6837605803786e334387be
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260837
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"3f79e82a1a4a01ac13d04a2f004f040a"'
-      X-Runtime:
-      - '0.246534'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWRmZTYzZjcwNTRkZWFhM2ZiMTIwNmEzZDcwMThiNmU5BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgBjMhLYKOg1uYW5vX251bWkCvwE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdEcDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxUGpZWU5aSkp1TERqZHlzNDJmaWlLREsvd0oyT3BrL081WURZdGxhck5Fcz0GOwBG--a6141f998899d858363c0702875409bb68a9a83f;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260837</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260837</url>
-          <estimate type="integer">1</estimate>
-          <current_state>accepted</current_state>
-          <description></description>
-          <name>Test 1</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:40 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:40 UTC</updated_at>
-          <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:40 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test (delivered) 1</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>0</estimate>
-          <current_state>delivered</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '295'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:41 GMT
-      X-Request-Id:
-      - 339ff2fa0b40a9067626cc4c4aac9944
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260839
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"627298d96d3dd80eb2a8367fc6fae2c0"'
-      X-Runtime:
-      - '0.218464'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWM5YWQ4MTZiN2ZjMDFjMmFlMmUwMTQyYTEyZDBlZjA3BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgP8llLYKOg1uYW5vX251bWkB7ToNbmFub19kZW5pBjoNc3VibWljcm8iByNwOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjF5c04wSmNLaDhvRHBCb2pWWXFBQkdnZms1RGxsWlE3VnlmM1kxYVducW9RPQY7AEY%3D--3e82c1fc9d5e2da92add3eb82f8b859307c58d10;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260839</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260839</url>
-          <estimate type="integer">0</estimate>
-          <current_state>delivered</current_state>
-          <description></description>
-          <name>Test (delivered) 1</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:41 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:41 UTC</updated_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:41 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test 2</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>2</estimate>
-          <current_state>accepted</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-          <accepted_at>2016-03-09T22:45:41+00:00</accepted_at>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '337'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:42 GMT
-      X-Request-Id:
-      - a44e608f9f40e38d0c81198caf01f4f7
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260841
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"447401f700d79a51313f56ba0ed16244"'
-      X-Runtime:
-      - '0.273623'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTU4MjkzZDQ1YzhjM2Q2MDdlOTI1ZWYxODAxN2IwZTU0BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgKIho7YKOg1uYW5vX251bWkCHAM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgd5YDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxcXRFNHN5RTFjL3pjaVcxNkpXdkNDdXdVdDFhVkJsdld2UGZEMlhRMDRqRT0GOwBG--7180a1ef8e4e2ab3b464782bff9df7fdbbc98334;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260841</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260841</url>
-          <estimate type="integer">2</estimate>
-          <current_state>accepted</current_state>
-          <description></description>
-          <name>Test 2</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:42 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:42 UTC</updated_at>
-          <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:42 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test (delivered) 2</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>0</estimate>
-          <current_state>delivered</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '295'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:43 GMT
-      X-Request-Id:
-      - 2e63e7da610f685028e7420060d0ca4b
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260843
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"8d67f85717c536d22ce3ea9e51711e3c"'
-      X-Runtime:
-      - '0.261217'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTU3MWYwMDgzNTNjNTU2ZDVkYjg3MWU5ZGU2MTRiNzhiBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgCx9urYKOg1uYW5vX251bWkBzToNbmFub19kZW5pBjoNc3VibWljcm8iByBQOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFTNWJ2dzZQaWppZVViN3dnQWpHYVlHQS92d2JGVTBnRmtvYk1FNnpzd0pZPQY7AEY%3D--6d13cf4ae2251e7c827c8f764056648eb361138b;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260843</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260843</url>
-          <estimate type="integer">0</estimate>
-          <current_state>delivered</current_state>
-          <description></description>
-          <name>Test (delivered) 2</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:43 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:43 UTC</updated_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:44 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test 3</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>3</estimate>
-          <current_state>accepted</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-          <accepted_at>2016-03-02T22:45:44+00:00</accepted_at>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '337'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:44 GMT
-      X-Request-Id:
-      - 0c543349d4df78a3b0c17c66e40aa5f0
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260845
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"14bb996faecce67cbf1efc829012637e"'
-      X-Runtime:
-      - '0.289693'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTAwM2Q3YWJkYjY2OTkwMzU4OTJlNTc4ZTE0YTY0MGNhBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgLPGybYKOg1uYW5vX251bWkCUwI6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgdZUDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxZW5Edmkvc05abm0vR1hidWt4c09VUlpUaW1neDh1bTUrUE00UFUvWVFMOD0GOwBG--4fb2ec3b7792a15238431c9ca39bb8c8e3aac686;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260845</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260845</url>
-          <estimate type="integer">3</estimate>
-          <current_state>accepted</current_state>
-          <description></description>
-          <name>Test 3</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:44 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:44 UTC</updated_at>
-          <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:45 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test (delivered) 3</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>0</estimate>
-          <current_state>delivered</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '295'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:45 GMT
-      X-Request-Id:
-      - f9a69250b3a63d18a3b77c9b89959722
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260849
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"e213beefe43bb759e5dd78744401063b"'
-      X-Runtime:
-      - '0.284178'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWU0OTdjZGI5YjU1MGJiZDc5YjJiNzg4NDQ0NmEzOWRkBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgCuV2rYKOg1uYW5vX251bWkClAM6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgeRYDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxL25VekErU1k1RTBvK2g4NlZ6TENIOVhjcU4raDFzN2hLR0d2VklMdHQ2cz0GOwBG--aaa01541ccf32de297b077cb995d65c83a340a82;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260849</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260849</url>
-          <estimate type="integer">0</estimate>
-          <current_state>delivered</current_state>
-          <description></description>
-          <name>Test (delivered) 3</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:45 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:45 UTC</updated_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:46 GMT
-- request:
-    method: post
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0"?>
-        <story>
-          <name>Test (unstarted)</name>
-          <description/>
-          <story_type>feature</story_type>
-          <estimate>0</estimate>
-          <current_state>unstarted</current_state>
-          <requested_by>Test User</requested_by>
-          <owned_by/>
-          <labels/>
-          <project_id>1059836</project_id>
-        </story>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      Content-Length:
-      - '293'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:47 GMT
-      X-Request-Id:
-      - b58ea5fcb92812e9f66347f3621f904a
-      Location:
-      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260851
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"48e1b7af910905b4b027263eac6eb2c4"'
-      X-Runtime:
-      - '0.267330'
-      X-Rack-Cache:
-      - invalidate, pass
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJWVmOTMzYTBmZWQxMTViYzk3M2MxZTQxOTBlMjUzYTc5BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgDev8LYKOg1uYW5vX251bWkCTQE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgczMDoLb2Zmc2V0aQA6CXpvbmVJIghVVEMGOwBGSSIQX2NzcmZfdG9rZW4GOwBGSSIxeTMwUDZ0blhtWEYxQ01yWVFFNk9WMVcrczl4bmZRZ2NldzcvS2I1SnZoND0GOwBG--9bcf002ff040585beadb750fa16abba8280ef906;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <story>
-          <id type="integer">116260851</id>
-          <project_id type="integer">1059836</project_id>
-          <story_type>feature</story_type>
-          <url>https://www.pivotaltracker.com/story/show/116260851</url>
-          <estimate type="integer">0</estimate>
-          <current_state>unstarted</current_state>
-          <description></description>
-          <name>Test (unstarted)</name>
-          <requested_by>Test User</requested_by>
-          <created_at type="datetime">2016/03/23 22:45:47 UTC</created_at>
-          <updated_at type="datetime">2016/03/23 22:45:47 UTC</updated_at>
-        </story>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:47 GMT
-- request:
-    method: get
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:48 GMT
-      X-Request-Id:
-      - 7ff5fbd81ab2279dd3f2534cae50ab8c
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"dc8c55d4b172ad0585b2bdb52ccaf695"'
-      X-Runtime:
-      - '0.090522'
-      X-Rack-Cache:
-      - miss
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJThlNGNiNWJjYmExY2Q0M2YxZWJhNWE3MmU3NDhlYWMwBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgNqXALcKOg1uYW5vX251bWkaOg1uYW5vX2RlbmkGOg1zdWJtaWNybyIHAhA6C29mZnNldGkAOgl6b25lSSIIVVRDBjsARkkiEF9jc3JmX3Rva2VuBjsARkkiMUJiek9FQWx5cmI4elcxbG5vaVFtMTdXZ3pwUFF4c1RFWmpYK2YrSGIvY2M9BjsARg%3D%3D--639ab851ea38109731a03bd68cdaa995f16a3d4d;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <project>
-          <id>1059836</id>
-          <name>test project</name>
-          <iteration_length type="integer">1</iteration_length>
-          <week_start_day>Monday</week_start_day>
-          <point_scale>0,1,2,3</point_scale>
-          <account>testusermailinator</account>
-          <first_iteration_start_time type="datetime">2016/02/29 08:00:00 UTC</first_iteration_start_time>
-          <current_iteration_number type="integer">4</current_iteration_number>
-          <enable_tasks type="boolean">true</enable_tasks>
-          <velocity_scheme>Average of 3 iterations</velocity_scheme>
-          <current_velocity>2</current_velocity>
-          <initial_velocity>10</initial_velocity>
-          <number_of_done_iterations_to_show>12</number_of_done_iterations_to_show>
-          <labels></labels>
-          <last_activity_at type="datetime">2016/03/23 22:45:47 UTC</last_activity_at>
-          <allow_attachments>true</allow_attachments>
-          <public>false</public>
-          <use_https>false</use_https>
-          <bugs_and_chores_are_estimatable>false</bugs_and_chores_are_estimatable>
-          <commit_mode>false</commit_mode>
-          <memberships type="array">
-            <membership>
-              <id>4149524</id>
-              <person>
-                <email>testuser@mailinator.com</email>
-                <name>Test User</name>
-                <initials>TU</initials>
-              </person>
-              <role>Owner</role>
-            </membership>
-          </memberships>
-          <integrations type="array">
-          </integrations>
-        </project>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:48 GMT
-- request:
-    method: get
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/iterations/done
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:49 GMT
-      X-Request-Id:
-      - 9b46310eb9d6c72dc86c9787800ada17
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"c423fd9d8c093ac13cc6a074442ddaa9"'
-      X-Runtime:
-      - '0.104551'
-      X-Rack-Cache:
-      - miss
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTQ3MTNiMmRjOWRiZDRhYTRkNzY4N2M5NTZkZmI3NDgxBjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgB%2FdEbcKOg1uYW5vX251bWkBxToNbmFub19kZW5pBjoNc3VibWljcm8iBxlwOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFJamorYWhwVFJMRGNYR2x4NURiaWNQWmpVRE1kK2JFdzV1RmRNa09GQlZBPQY7AEY%3D--73b32a49fa4030f3b38a19e3b1578b3892612c06;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <iterations type="array">
-          <iteration>
-            <id type="integer">1</id>
-            <number type="integer">1</number>
-            <start type="datetime">2016/02/29 00:00:00 PST</start>
-            <finish type="datetime">2016/03/07 00:00:00 PST</finish>
-            <team_strength type="float">1</team_strength>
-            <stories type="array">
-              <story>
-                <id type="integer">116260845</id>
-                <project_id type="integer">1059836</project_id>
-                <story_type>feature</story_type>
-                <url>https://www.pivotaltracker.com/story/show/116260845</url>
-                <estimate type="integer">3</estimate>
-                <current_state>accepted</current_state>
-                <description></description>
-                <name>Test 3</name>
-                <requested_by>Test User</requested_by>
-                <created_at type="datetime">2016/03/23 22:45:44 UTC</created_at>
-                <updated_at type="datetime">2016/03/23 22:45:44 UTC</updated_at>
-                <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
-              </story>
-            </stories>
-          </iteration>
-          <iteration>
-            <id type="integer">2</id>
-            <number type="integer">2</number>
-            <start type="datetime">2016/03/07 00:00:00 PST</start>
-            <finish type="datetime">2016/03/14 00:00:00 PDT</finish>
-            <team_strength type="float">1</team_strength>
-            <stories type="array">
-              <story>
-                <id type="integer">116260841</id>
-                <project_id type="integer">1059836</project_id>
-                <story_type>feature</story_type>
-                <url>https://www.pivotaltracker.com/story/show/116260841</url>
-                <estimate type="integer">2</estimate>
-                <current_state>accepted</current_state>
-                <description></description>
-                <name>Test 2</name>
-                <requested_by>Test User</requested_by>
-                <created_at type="datetime">2016/03/23 22:45:42 UTC</created_at>
-                <updated_at type="datetime">2016/03/23 22:45:42 UTC</updated_at>
-                <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
-              </story>
-            </stories>
-          </iteration>
-          <iteration>
-            <id type="integer">3</id>
-            <number type="integer">3</number>
-            <start type="datetime">2016/03/14 00:00:00 PDT</start>
-            <finish type="datetime">2016/03/21 00:00:00 PDT</finish>
-            <team_strength type="float">1</team_strength>
-            <stories type="array">
-              <story>
-                <id type="integer">116260837</id>
-                <project_id type="integer">1059836</project_id>
-                <story_type>feature</story_type>
-                <url>https://www.pivotaltracker.com/story/show/116260837</url>
-                <estimate type="integer">1</estimate>
-                <current_state>accepted</current_state>
-                <description></description>
-                <name>Test 1</name>
-                <requested_by>Test User</requested_by>
-                <created_at type="datetime">2016/03/23 22:45:40 UTC</created_at>
-                <updated_at type="datetime">2016/03/23 22:45:40 UTC</updated_at>
-                <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
-              </story>
-            </stories>
-          </iteration>
-        </iterations>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:49 GMT
-- request:
-    method: get
-    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      X-Trackertoken:
-      - e955bd05b35741ce257eaeca935180c0
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/xml; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Status:
-      - 200 OK
-      Date:
-      - Wed, 23 Mar 2016 22:45:50 GMT
-      X-Request-Id:
-      - 15f5a04ba6084321efb5f3b4cae83f10
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Etag:
-      - '"643a0eb2ff16d22a3275b9d2f043f7fa"'
-      X-Runtime:
-      - '0.075689'
-      X-Rack-Cache:
-      - miss
-      Set-Cookie:
-      - t_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFVEkiJTdjNGU2MDExMWYyOWE0ODEwMzIzNmY4ZmUzZjRiMjY4BjsAVEkiD2V4cGlyZXNfYXQGOwBGSXU6CVRpbWUN1gsdgMXbHrcKOg1uYW5vX251bWkCuAE6DW5hbm9fZGVuaQY6DXN1Ym1pY3JvIgZEOgtvZmZzZXRpADoJem9uZUkiCFVUQwY7AEZJIhBfY3NyZl90b2tlbgY7AEZJIjFHcHFocS8zbXpzeXdYMVlra0pJaG85eUxZNlpkdkdUaFdNOHl1MU1vbkhvPQY7AEY%3D--314ebd42ee9221b6072494d91df6ec56bab64e19;
-        path=/; secure; HttpOnly
-      X-Powered-By:
-      - Phusion Passenger Enterprise
-      Server:
-      - nginx + Phusion Passenger
-      X-Frame-Options:
-      - DENY
-      Pragma:
-      - no-cache
-      Expires:
-      - Thu, 01 Jan 1970 00:00:01 GMT
-      Cache-Control:
-      - no-store, private, no-cache
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <stories type="array" count="7" total="7">
-          <story>
-            <id type="integer">116260845</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260845</url>
-            <estimate type="integer">3</estimate>
-            <current_state>accepted</current_state>
-            <description></description>
-            <name>Test 3</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:44 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:44 UTC</updated_at>
-            <accepted_at type="datetime">2016/03/02 12:00:00 UTC</accepted_at>
-          </story>
-          <story>
-            <id type="integer">116260841</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260841</url>
-            <estimate type="integer">2</estimate>
-            <current_state>accepted</current_state>
-            <description></description>
-            <name>Test 2</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:42 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:42 UTC</updated_at>
-            <accepted_at type="datetime">2016/03/09 12:00:00 UTC</accepted_at>
-          </story>
-          <story>
-            <id type="integer">116260837</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260837</url>
-            <estimate type="integer">1</estimate>
-            <current_state>accepted</current_state>
-            <description></description>
-            <name>Test 1</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:40 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:40 UTC</updated_at>
-            <accepted_at type="datetime">2016/03/16 12:00:00 UTC</accepted_at>
-          </story>
-          <story>
-            <id type="integer">116260839</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260839</url>
-            <estimate type="integer">0</estimate>
-            <current_state>delivered</current_state>
-            <description></description>
-            <name>Test (delivered) 1</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:41 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:41 UTC</updated_at>
-          </story>
-          <story>
-            <id type="integer">116260843</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260843</url>
-            <estimate type="integer">0</estimate>
-            <current_state>delivered</current_state>
-            <description></description>
-            <name>Test (delivered) 2</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:43 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:43 UTC</updated_at>
-          </story>
-          <story>
-            <id type="integer">116260849</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260849</url>
-            <estimate type="integer">0</estimate>
-            <current_state>delivered</current_state>
-            <description></description>
-            <name>Test (delivered) 3</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:45 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:45 UTC</updated_at>
-          </story>
-          <story>
-            <id type="integer">116260851</id>
-            <project_id type="integer">1059836</project_id>
-            <story_type>feature</story_type>
-            <url>https://www.pivotaltracker.com/story/show/116260851</url>
-            <estimate type="integer">0</estimate>
-            <current_state>unstarted</current_state>
-            <description></description>
-            <name>Test (unstarted)</name>
-            <requested_by>Test User</requested_by>
-            <created_at type="datetime">2016/03/23 22:45:47 UTC</created_at>
-            <updated_at type="datetime">2016/03/23 22:45:47 UTC</updated_at>
-          </story>
-        </stories>
-    http_version: 
-  recorded_at: Wed, 23 Mar 2016 22:45:50 GMT
-- request:
     method: delete
     uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/116260845
     body:
@@ -1638,4 +521,3085 @@ http_interactions:
         </story>
     http_version: 
   recorded_at: Wed, 23 Mar 2016 22:45:57 GMT
-recorded_with: VCR 3.0.1
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157289
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:43 GMT
+      Etag:
+      - W/"65cddb483519fe165aec88c933092667"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=MHNCNU1GTU1SYW4xVFBQNGtIRS9rL1ZrMktQb3ZEQ1BtOEw1ajlqMWFSazA1Ty9tR3lzZm15K3dSKytjb2dqa2dWd1djd2JMai9GQXhYNi9kVk1ZK0d5TU5lbW5MMkorQ3ZoZnFBeXpDZHE3WG5oUUxnNTdUSndKVFhpYjdoTDUwc3N5TzlSSG5KWTJLVlhkR05oR0JxQnJFQzliSjFNdmhPb1F2RTB0Sjk3LzZsdWhiNk8vSVFCSngzMG5Ya1lMVytITVBYZk1nYnUyVzR5SDU0eDVJeUJHWHNpckJWWDQ0RGc4dU5sQnpOelBXc1kzdW1FdU0zaExwMVlRQS9venI3ZHZjMHRjTUxtUDZHcG9zajEzQyttRFJabmQyaTVUZHNSamZ3UytFYktkK1J4RkdnUG9rNU5iRm9yY25TRmw5WnZxRVowV3VyTWI5d0szY3RKdm1KM1RMS28renExdXZmV0dabjJOZU04PS0tMCtKT0x3Q3YwMnBQOU9ROGJGQUpKZz09--2b7440190ea588f94d4e4ef2ef30a9ecce471cda;
+        path=/; expires=Wed, 25 Jul 2018 23:36:43 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 030dbdba-a2f9-4e74-ab5c-9339872115b4
+      X-Runtime:
+      - '0.283374'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - c22dd869-2ac3-40d9-5d12-73ae82478fd6
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSTVPDIBC991cwuVtIYts0Q+nBGX9Be84grC3afAibxv57
+        gVgbHT04w2Xfvvf2LcC37/WJnME60zabJJ2zhECjWm2awybZ7x7vimQrZtxh
+        ay9iRgg3muClg01iGoQD2ESki3W6WGXFmlOjI6ez7QsorH7hssW6yJec3ihR
+        Ef2rYCyeQWJvgdMJFii9PYkjYudKSodhmHfm3KI8oZXqFexctfWooO7YDnQS
+        KgiDATg0tUT4mT/n9NqKPNVbCw1WDj1ZSKWgQ9CcfscDU4NT1nTo705wOq1C
+        t5E1iJ23Jn5CLAJq4a33GOjq6TJ29w4sp9/wGMP6i/A0iZ+BtS/9BpCIjKUF
+        ZSuaFiTLy3xZ3jOy3z34iF+aOKvvguZ/FjdNtLiu/3eMJc1WJM1KxvwZY0xE
+        /u+MzyJmHwAAAP//AwBeF6XbbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:43 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157287
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:44 GMT
+      Etag:
+      - W/"9ee83d9bd0bcab16f4b7888e1f3181ad"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WHdNV3BQbUNESzdmN3dMTVRBbXZ1b2pJMm1Ja1FUMDRoUFRTUjdoUHJwQkhvcGZ1QVA3ZFBIaEJvUURxNmF6RWtGclY4RmxqL1hnMmQweCswV0l2RHg2aG54MFRQWVM1T3M0SlZRT2ZQbGEyQWZKSVAveHdKdnFPTVJFMFAyMlgzbTZGZk9QcEhUU2dEUzExK21LK25FMkQvaEx6MzlieGJWaTBXOEx5MWgrd3dDcVdWdS9UUGl4Y0NDa1hlY1luck83WWFxbFBnT0x4UEkxQ0VUTFdsVVVhQ0NkOXBOT0l3N2lmZHdoSWpYWFQ1TW83bnljYVhSMnY1WmhmTnhwT1pHMllkMHAwMjA4dUVXSHFnekVmeDJweFBnMmh0azJBSU1JdlBhZ0cvYnJsdGVDNTZ1endKR0o3VE1OQ0xUQXFZTHdib0gvd0xrcnZTMkc4a25DUGVGWkk4YVdIQ1orQmczanhBaU92U3RNPS0tMWtQUXczRlhoajBxdVZyRCtRRjF3UT09--b7ef45081842dd5fe6e16c677cf95c8bd67b93b5;
+        path=/; expires=Wed, 25 Jul 2018 23:36:44 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 53dfbf10-bddb-4d8d-adb8-e0fd97030fb4
+      X-Runtime:
+      - '0.257896'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 1ce50461-0626-4eb8-7d2d-21eb223da8b9
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSy07DMBC89yss36nzoG0aue4BiS9oz5Gxl9bQPLA3Df17
+        bIfSgBASki87OzM7a5tv3+sTOYN1pm02NJ0nlECjWm2aw4bud493Bd2KGXfY
+        2ouYEcKNJnjpYENNg3AAS0W6WKeLVVasODM6cjrbvoDC6hduslgX+ZKzGyUq
+        on8VjMUzSOwtcDbBAqW3J3FE7FzJ2DAM886cW5QntFK9gp2rth4VzB3bgU1C
+        BWEwAIemlgg/82ecXVuRp3procHKoScLqRR0CJqz73hganDKmg793QnOplXo
+        NrIGsfPWxE+IRUAtvPUeA109Xcbu3oHl7BseY1h/EZ4m8TOw9qXfAKjIkrRg
+        yYqlBcnyMl+W+Zrsdw8+4pcmzuq7oPmfxU0TLa7r/xUjuSdpViaJP2OMicj/
+        nfFZxOwDAAD//wMA/xw9XGwCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:44 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157285
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:44 GMT
+      Etag:
+      - W/"c2b49d901257a86a497766a1a7ba1b3d"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=Vzh4RENxMmZ1TUduZytEc3Y1UWVjbnp1S0VvSTBLam1MN1A0RWJTTUhXdE1BY2RNYTAvanJtQUVCR2NncUVvTWY5b0Z3L1V1VllCQjFOcHU5TGszeFgvbkZlYllLc1Q2ckxLYi94MkJ5VGR5Z29GZUNhZGI2Z1paandRTy8xVUJrYlZSWS9pcWhTSzAxMzhPV0lWOTR4a05IUHVYTTlnTG9CMm9ncy9uYUdLMVpCcXZKUHpiSlgrRVREZ0xlcTZJbmZFTW9rMTBXcC9aMTZXRFoyYnlCZmVJdWVzWGZhekZEQXNrdHdNd0w2Znp2OSs5NDloR290U2RwV20vVlBUd0UreDhSZXBHdC9JdGZvR21qaUFyMDQxVUZkcTFrMGozai9GNVRmaWtqTDVxRUI2MGI4SmZ2UzgzOTljRXRyOVFlNm54Z3l6TFVLVUs3OTk2L1pJWHlLMi83MjRyQzMrZUFYUWF1azNNbUR3PS0tcXJSaU8xeklLYU1JSy93YTNCdElWdz09--507085d4424e21d09a8d64f76a160d48e84d6f00;
+        path=/; expires=Wed, 25 Jul 2018 23:36:44 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - e159c6a2-3b67-48dc-aaf2-bc386ef72d3f
+      X-Runtime:
+      - '0.256229'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 99a67ea1-30d6-4283-4f4c-7a34f1a27f43
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSy27DIBC85ysQ9wZjy4ljYXKo1C9IzpaLtwlt/Cis4+bv
+        C7hpHLWqVInLzs4Mswti+9GcyBmM1V1bUL6MKIFWdbVuDwXd754eMrqVC2Gx
+        Mxe5IETomuClh4LqFuEAhkqebni6jrNUMF0HTm+6V1BY/sKN0k2WrAS7UYIi
+        +JfeWL5AhYMBwWaYpwzmJI+Ivc0ZG8dx2etzh9UJTaXewCxV10wKZo/dyGah
+        vNAbgEXdVAg/8gt2bQWeGoyBFkuLjiwrpaBHqAW7xz2zBquM7tHtTgo2r3y3
+        rRqQO2dNuGCh8KiB98FhUJfPl6m7t2AEu8NDDOMW4WgVfgWuXekmACrjiGcs
+        WjOekTjJk1WeZGS/e3QRvzXhrqH3mv9Z3DTB4jr+nzE44XEeRe5MMWYi93em
+        Z5GLTwAAAP//AwCy+ilubAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:44 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157286
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:45 GMT
+      Etag:
+      - W/"8e3795d6b5cf7c577ec359f7be2bfac3"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WFBlMXd1VUQrcVF2VklheTg4ZU9lZTVRaFVsY1lIWXJLMlAzTXBXckxHR2NxZm4rQ3dLMkZ2SG1hTU5nQXBqd0lZUGxEL3EydlN1MzJycjFvSmt1SjNrS3hQYnB1dzhTTzlBeVMzS1NudWxGWFpqNzdRQVIwc0R3ZjlNcEcvYjJyOE1mcDRxNW9VeGVaMFFuclVUcGwrT2hrS3ZmbkdwcHNJaXVTOUhzc2p3SFVFRm9ycStZZXdrWDhaNjlWc3VMWDFTOHk1dGRhRXZ3K0RHdG9WQ0JFaWJZK29VYlBOSC8rNmxmbVIyTXkxSExSR3JadmJTZDQwSWV6Nk9JajBUYzV2VWI0SmI4cUgvRmdTNFE4V0VNVHQzbnJvRUdQMDEwdW1SL3I4YlpuNitzelFsZ1B1SWlVQ3ZqM3ZQL05IM05UVTRkbUtQWEs1TmI4MXB6Qnp5bEQ0VU5MR2phck5reWFnbVZ5bTRwMGtBPS0tOHlHS2dBUzhnTzVBVTI2a21jZUYxUT09--ad2e78025ff83361019d529f7a87d8bd974aa03f;
+        path=/; expires=Wed, 25 Jul 2018 23:36:45 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 6ca165e5-47f8-46e0-99ad-cfdf0fd8ef11
+      X-Runtime:
+      - '0.244536'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 598e6e4a-247b-4c0c-519c-a652663ef28d
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzW7CMBCE7zyF5VN7KE6IgICMOVTqE8A5SuMtuE3idL0h
+        5e1rm5afikuP3vlmPF5Zrr+amh0AnbHtiqfjhDNoK6tNu1vx7eblKedrNZKO
+        LB7ViDFpNKNjBytuWoIdIFfpdJFO55N8JoXRkenQvkNFxR02mS7yzJMXJDpi
+        fhGC1RuU1CNIcTULSI+12hN1binEMAzjzhwslTVhWX0AjivbnBzC7e0grkoF
+        YwgAR6YpCf72T6T4lSJX9YjQUuHIw0pDbfx+QEtxKwRUg6vQdOSXp6S4PgW1
+        LRtQG5/NHs4pjyyVIgqBQPjsvQ66eD2eyK0DlOJmHjuh34rHSvppr/3RPwe4
+        miRpLpK5SHM2yZbZbJnlbLt59nXPnnhX3wXP/yIuHv8HTutVo28AAAD//wMA
+        WejjcDQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:45 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157288
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:45 GMT
+      Etag:
+      - W/"4b1f8e38a1f5294178828f977cc0d7e1"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=YTY4OUlGNm1qRVU4dGpnOHJvbm5iYWVWdWpsYloxMVFRNXVDL2hiUUVqWTIxbWtWcFVvblVQUzErdHdPS1dxTThHZUptSVR5Q3JDSEw1b05NMVFoZWtlb1lPV09ZRzRNK0RIRmVid25BaVJGbm54aUVmY0RFQWllNWE4WXN0UCtzZmRSQmZobEJucFJLL3ZmNWhLb2grUjUzUlhBQ3plNXpHcWhFMUtVWERKSTJRQlVRMWthVWFud1VHdXlnOWo2VHJNRGQyQ1hqV2JEbE1jdExTK0pOemlpR0NxVU5sNG01K3BRVzRtRUJQd3dKaEJ0dU5nM3RIRURGeTVsQU1zeUZQTVJrUGQ1azZOWHdUaktJRHorRGZhOE1Jb2VNSHZxaWZxQ0FXSVdGZ3dFTWJkS0xXeDJ2TytBc3h2TFhVWTlZdjdCbHdiZmxwUDFOWWhMcFowZFJHd3llbVUyK1ZqcTJMZEVZemFQT1o0PS0tUldJUlpoOFF4Z0p2NmZIZ1FNUURTUT09--168087d8a9dc93a3d20c8fa38f60c16ddb9686c7;
+        path=/; expires=Wed, 25 Jul 2018 23:36:45 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 49c169fe-a4df-4912-862f-e1317de416d0
+      X-Runtime:
+      - '0.230252'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 15b6a854-b66e-4fcb-6453-0e3ca3ab6b90
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730Kyyc4UOdHLWnlugcknqA9RyFeWkMSh/Wm
+        oW+P7UJ/EBeO3vlmPF5Zrj/bhh0AnbHdiqfThDPoaqtNt1vx7eb5oeBrNZGO
+        LB7VhDFpNKNjDytuOoIdIFfpbJHOHrOikMLoyPRo36Cm8g82mS2KfC7FBYmO
+        mF+GYPUKFQ0IUlzNAjJgo/ZEvVsKMY7jtDcHS1VDWNXvgNPatieHcHs7iqtS
+        wRgCwJFpK4Lf/RMpfqTI1QMidFQ68rDS0Bi/H9BS3AoB1eBqND355Skprk9B
+        7aoW1MZns7tzyj3LpIhCIBA+Bq+DLl+OJ3LrAKW4mcdO6LfisYq+22t/9M8B
+        rrIkLUTyKNKCZfkyny/zBdtunnzdsyfeNfTB87+Ii8f/gdN61eQLAAD//wMA
+        wo9RCzQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:45 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157290
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:46 GMT
+      Etag:
+      - W/"69cbed9192ad3390c127b029ffb3df00"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=T3dDN3BkWDNvL0RRUnJoMld1UER5a0dROE55NDNQbk5CT2VSNElvcm5ZSEFuUEEzUFlGd0Q2RVZaS1FZd2ltNG9nTGowRHlhcWhzVitIa3RQOWFXd2d3MllPOTArcjJGRnJURDhSbWVQdEtVdjcrK08rTFJMdmkxRE8yUk5NR0dYa3Zma2pBZjhqRkhtZzBRVUREMXk0SkFRMUplelJ5RkR3VWhSYm5NMm5CZnluMEQ0eEZoemVudkEzeTZEdVlqYmZFMDVsRXpFL3FDbkdEOVBqQVVtZUVzNmk3TkYzelQ5RkUxUTZSdEhlV2lHWmxhVFRGZURNQllaME5vN3dzZFpVU3dhaTV4Q0g4NURRVGxIUklzM3ZDVFcydzV0MTliSTUrbE50MmxmeXN3UHJXZ3MwWi9CQTQycWZHNS9CeC9STEJPY0dyMGZsVTZjMS90SFdWb1pvdjZTbWVDNEdwZDBSYnowWjJRTGx3PS0tbFlldUdKSS9Eb3ZHQW4zcXJ3Z2U4QT09--506363ab69f1c40ba2f4ffe87c3f7cceea8f1143;
+        path=/; expires=Wed, 25 Jul 2018 23:36:46 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 7821df14-5e22-4454-b49a-beed3cfe81c8
+      X-Runtime:
+      - '0.246936'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 931ed7b4-ea6d-486b-5bfb-c93cb2084679
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSFoqUJgQFs74BLDu1OYK0bapN7dU
+        3t4kKD+OG5e55zsnJ3ci159NzQ6Azth2xdNxwhm0ldWm3a34dvP8kPO1GklH
+        Fo9qxJg0mtGxgxU3LcEOkKt0ukin88kikcLoyHRo36Ci4g82mS7ybCbFBYmO
+        mF+EYPUKJfUIUlzNAtJjrfZEnVsKMQzDuDMHS2VNWFbvgOPKNieHcHs7iKtS
+        wRgCwJFpSoLf/X3vHylyVY8ILRWOPKw01MbvB7QUt0JANbgKTUd+eUqK61NQ
+        27IBtfHZ7O6ccs8yKaIQCISP3uugi5fjidw6QClu5rET+q14rKTv9tof/XOA
+        q0mS5iKZizRnk2yZzZaPKdtunnzdsyfe1XfB87+Ii8f/gdN61egLAAD//wMA
+        UE65vzQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:46 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157291
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:36:46 GMT
+      Etag:
+      - W/"c513b3ec549edec6fb5b6ac8d40a57ae"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=R2d1dkV6Vndwck96MDNNN29iK2JqWDhLU0c1ZmwwWEZXUkFzMlJHT3hQTEtXd2FPMG1oWDZHOVNwa3dNU3NrRHdTeVo0QmNBZWFSaUVLWjlYbGZQOVZxV1NmVGtKVEllR3Y5Vk14Y3JpTlJMWVlTbUR5ek1PekwwZWx4OE4rbjNNQy9tY0VJRjg4d3FQTmprWEpLYWxMcVlXcnk3Njdha2VIRm1yTnU1aVpnK3JLSEM5dXB1djhNWEFCZEVESUFoRWJOTWJRNWdtdGxjaURRdWZYZWhNMUtXSmVWSVNoQlQvbWkxclE3Rk43SExPc1p6N2JheFBXVXRSa0VmbWxxYWpLMmVQK0hPVWhrUGJjdDd1bHNzaFVXdWxBQnJkeWFsNDY4TEJ4SXlXOXBFYXpvMHFPT0hvbTExN1ZOaUlIR043WnEzKzZwSWUvNWk0MGRxQld3K1ptNUxEckZxaElpS3NSRnIyRWE2SXVNPS0taysvcXpmTHdhYkNGQXEvNUpndlp1UT09--8b9581fb411d1ddd9ad632073a7bc7fdbf93c700;
+        path=/; expires=Wed, 25 Jul 2018 23:36:46 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 4e7db34f-6757-4010-b782-0fea70e5b7bc
+      X-Runtime:
+      - '0.211493'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 53133a8b-dc9f-4389-5e07-1255e931f0e8
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSBoQKEwIC2d8Alh3anOFKG3qzS2V
+        tzcJyo/jxlUm93zn9PRO1Oqz3rMDoLeuWXI5zDiDpnLGNtsl36yfH3K+0gPl
+        yeFRDxhT1jA6trDktiHYAnItJ3M5mY3mUglrEtOie4OKij/YbDLPx1MlLkhy
+        pPwiButXKKlDUOJqFpEO93pH1PqFEH3fD1t7cFTuCcvqHXBYufrkEH7nenFV
+        KhpjAHiydUnwu3+mxI+UuKpDhIYKTwHWXRNOJDBK3AoRNeArtC2F5Wklrm9R
+        bcoa9Dpks7tzyr0SaRx1hI8uqGCKl+OJ23hAJW7mqRGGnQSspO/uJlzDzwDX
+        o0zmIpsJmbPReDGeLh4l26yfQtmzJ32ra6PnfxEXT3gBp+XqwRcAAAD//wMA
+        DdcQCDICAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:36:46 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157488
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:17 GMT
+      Etag:
+      - W/"884308b9cf27c1ac6b8f41b2e7b4b849"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=cnZ5czZndmo0am9ibGQrZFBwME5ZQ0t3RVpLYm01bGVNYXlRQnZXU2xleWdCT3NDeVB2c0hyeVFqbmJzMGhXTTJiUE93Snlhc2NEK2JMc29VSHhRM093a2hrc1dDdWRGSW1wK202VG9UMncvTi8ycXQxZ2JqVE13WFl4cjMvSnc5NEtNQ1FPblRTcjg5VnlWa0h5amNjY1Y0dS96RWtBajZqZGMzU28xOXROVW94Unh0cG5TUTljN2ttTFVPYTRDQ2pUYUw5d3NqckZpbnBGcVJNN0VXUVh3U3krd0FVaitjazBwVGprc0lLTGNNd1REVENkQmtkZlZXcCt5cFpRSEMwZmhOUmQyMHpZSHlUTWpMMWF5YjdXRlRoNmlxMWgxRnRzRVllTyszcmVqbmRnbXAwQy8ycFBYNzczcFlWK2V5UUR2NmxOdmFscHV1ZjdvQjg4VE5ENitFZXk3UXgzaU1VYVhVYStqaEJrPS0tdGhmYzZaSThFUUczUFRMODFRcXN0Zz09--d86d3a50d2e20353f7116cab22a8f19730d5ab84;
+        path=/; expires=Wed, 25 Jul 2018 23:49:17 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 2a9e4ec3-1416-4701-92d9-b72513539b01
+      X-Runtime:
+      - '0.288953'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - ecb60248-6be2-40f8-5fee-ffe8c0bca53a
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSy27CMBC88xVW7sVxIBAiYw6V+gVwjlxnC27zqr0h5e9r
+        O6WEqj1U8mVnZ2ZnbfPdR12RMxir22YbsXkcEWhUW+rmuI0O+6eHLNqJGbfY
+        mouYEcJ1SfDSwTbSDcIRTCRYumHpepllnOoycDrTvoLC4hdunG6yxYrTGyUo
+        gn/hjcULSOwNcDrBPKU3lTghdjandBiGeafPLcoKjVRvYOaqrUcFtad2oJNQ
+        XugNwKKuJcLP/AtOr63AU70x0GBh0ZGFVAo6hJLTe9wzS7DK6A7d3QlOp5Xv
+        NrIGsXfWxE0IhUcNvPcOg7J4vozdgwXD6R0eYhh3EY4m8Stw6Uq3AUQiiVlG
+        4zVlGUkW+XKTs5Qc9o8u4rcmzOo7r/mfxU0TLK7r/x1jRZM1YUkex+6MMSYi
+        93fGZxGzTwAAAP//AwATLGpwbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:17 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157486
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:18 GMT
+      Etag:
+      - W/"3cc414df016f42bc341d5cad849db157"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=ZVJnSWJ1UFIvWEhqdmhIUlNJSDZGK0lNQ3VmTGw2bmhBQ0tEanVHbWtOVDc5VkxRMFVHNzViWFViMkNuT2xqMlY3RmZzMzJDUHArSWZZTmRJclZwTmhybmdyaWhuZGhsS3I3RUw3TUhKdTB6SEF4aEhuWmUrOEd1TWFmeFdEUUwwWGF1MGNHaVpHd3hzanhPVHBuZDZqUk82eldpVVAxSi9nVVdDWmJhOHBTWEpBUkJvalJUWjY4dXc5dEZrZXUzU3AzbE8veDhDeEFBSmtKd3MzNmtyeUxXOHFyRE5UTUV5eE8ycDZuNWRKTTBpUlVkaHo1UytBNnJ6Lzk4STd6cTcybTBibmJ2dkN6K01nU1NhcXpUV2FNUURGTEhzV0g4Qk44UEVNOGZTMTV3QzBjdGpGQ0IvQVY3aEZZVGl0MzhRaEhmdXVLeVhIQmV3S0RodzFkbXJHNllZUmp0L29DQ29JMEVCOFBnWUs0PS0tV0lyN1RQbnJzcnR1MVV1K2dIUWVTZz09--f3a0273acd672bb1bc8b15f4ffa7e4ea382d48ef;
+        path=/; expires=Wed, 25 Jul 2018 23:49:18 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 5ca57a58-d871-48cc-be3e-a2f3f0148c11
+      X-Runtime:
+      - '0.233831'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 430cde44-0387-4c26-5693-578a2e585318
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQU7DMBC89xVW7tRxmtI0ct0DEi9oz1Gwl9bQxMHeNPT3
+        2A6lASEkJF92dmZ21jbfvjcncgbrtGk3CZunCYFWGqXbwybZ7x7vimQrZtyh
+        sRcxI4RrRfDSwSbRLcIBbCLYcs2Wq7y451SryOmseQGJ1S/cdLkuFp55o0RF
+        9K+CsXiGGnsLnE6wQOntSRwRO1dSOgzDvNNng/UJbS1fwc6laUYFdUcz0Emo
+        IAwG4FA3NcLP/Bmn11bkyd5aaLFy6MmilhI6BMXpdzwwFThpdYf+7gSn0yp0
+        27oBsfPWxE+IRUAtvPUeA1U9Xcbu3oHl9BseY1h/EZ5W42dg5Uu/ASQiS1lB
+        0xVlBckWZb4uWU72uwcf8UsTZ/Vd0PzP4qaJFtf1/4qR5oRlZZr6M8aYiPzf
+        GZ9FzD4AAAD//wMAMDN0mGwCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:18 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157482
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:18 GMT
+      Etag:
+      - W/"a9d46df3be632b40c69ec8a0245ca629"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=QlBaZ0NXZVZuMFNDd1V4K25nVU5KendNSjIySEQ5V244MVFpZlZtTEVPankwdGRYTWsveWNiS1BTQXNqM0huY2dPS3M2RFZ1eE1sSnNST1FzVWh3aDhJRG5HeEZrTUJNN3Rma0FIbHNSenEydjkxd2tTOTFOdXRCbGRrNG1RZG5hdUFHeFJycmlxWG9kbHcrWXVPZWJ0K0Q1Y0UvbEUrRE9SU210Z2JzblR1TzkweFNzc2lkb3Q5M1djanJtVXJzalI5RXl2WGRlc0xlWUVyL1FLZmdpWXVrSmFKOWwrRk4xL1p4dU91R3dXUE55cWd6bzNWa2RBdlBDZmMwYnZVcFZQNk12V2dmZkVwS0VrWm5QbmFBQVdRYjBJemhtdmVKT0VTY3YyNVlsSG9HblBSdTR3VTJBYlpvVkRONnV0SkN6ZjF4elFhemN2bC9DU05aVE14ME9QRDYzOWVNR0hNSWV5blhRSWtVTXpBPS0tWCtoRGRielprQU1mM1F2a2FQSTcvQT09--607233d0bb45b208be210865050843812c6400f5;
+        path=/; expires=Wed, 25 Jul 2018 23:49:18 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 919bc7b3-5e06-47e8-870f-e418629aad92
+      X-Runtime:
+      - '0.279986'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - cadd0f3b-8d08-45c5-5f1c-7eeceaef1eb6
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQW7CMBC88wor9+I4QAmRMYdKfQGcI9fZglsSp/aGlN/X
+        dkoJaoVUyZednRnPrs03n/WRnMA6bZp1wqZpQqBRptLNfp3sts8PebIRE+7Q
+        2LOYEMJ1RfDcwjrRDcIebCLYYsUWy3mecaqryGmteQOF5R/cdLHKZ4+cXilR
+        Ef3LYCxeQWJngdMRFiidPYoDYusKSvu+n7b6ZFAe0Ur1DnaqTD0oqDuYno5C
+        BWEwAIe6lgi/8nN6aUWe6qyFBkuHniykUtAiVJze4oFZgVNWt+h3JzgdV6Hb
+        yBrE1lsTxmksAmrho/MYVOXLeejuHFhOb/AYw/pFeJrE78CVL/0EkIgsZTlN
+        l5TlJJsV81XBZmS3ffIRfzTxrq4Nmv9ZXDXR4jL+3RiMsKxIU3+GGCOR/zvD
+        s4jJFwAAAP//AwCgZVF5bAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:18 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157483
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:19 GMT
+      Etag:
+      - W/"a92164f373da1040f1cab0cbc2237189"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WktlTit0MmI2VEx3azFlLytqWWZCT3NNb2tRNU5EcGw3SkZxT1d1K1planV5N2x0cnI0RmdlM0J3RWwyN3hIcmRJUnNpU2VGZE1HUGlCNnJUaVM3ZWhhSG5ud3FDOWh2NTZPRDRFWmlHZE9BWGJpOEI2TDdZSDNqbXhSS1c3bVJNWnRRd1UvdUJYeUdOVStPaSs1SWdWOVJxdzk5aU9YWGJIOHEyOGZyNFFERkNyUThCeElubjFQazV1MnRRYWNrMTlFbEJ3VlI4eDF4NjIzVTdUdWxtOC8xYzB0aUFHbWRUV1Y3WWs1NCtteVJqMERCelo4RTZoUVZLbFV4bEY1SlBhYXVGV001anBhaUVBZUJsdm95Q3BrZitkMkFKczhacmlMMkFxQ3N2MHVtTzRybEtRUlJ3Rjd0SWVWOUhzTkxnTUdDMjNLN1VuNmg3empTanplRlUybjB2Ni9VN2JtUWZqUEZMby93dlRzPS0tNlptUCtZL0kySzFBUjh6WER0aU5Xdz09--c87d8e94ddc6638121c114f86114f5aa7efb7e27;
+        path=/; expires=Wed, 25 Jul 2018 23:49:19 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 1e35e395-7516-42b3-af84-ca5b8c6a9907
+      X-Runtime:
+      - '0.232641'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 24db16a7-0ffd-44d5-7072-96ee18ba6b32
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730Kyyc4kI37Q9PKdQ9IPEF7jkK8tIYkDvam
+        oW+PnUJ/EBeO3vlmPF5Zrj/rih3QeWObFRdJyhk2pdWm2a34dvP8kPG1GklP
+        1h3ViDFpNKNjiytuGsIdOq7EbCFm82k2kWD0wLTOvmFJ+R9sOltkk0cJF2Rw
+        DPl5DFavWFDnUMLVLCKdq9SeqPVLgL7vk9YcLBUVuaJ8R5eUtj45wO9tD1el
+        ojEGoCdTF4S/+6cSfqSBKzvnsKHcU4CVxsqE/aCWcCtEVKMvnWkpLE9JuD5F
+        tSlqVJuQze7OKfdMSBiESDj86IKOOn85nsitRyfhZj50cmErASvou70Ox/Ac
+        5GqcigzSOYiMjSfL6WIppmy7eQp1z57hrq6Nnv9FXDzhD5zWq0ZfAAAA//8D
+        ANqaXq00AgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:19 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157487
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:20 GMT
+      Etag:
+      - W/"765248c132c178bfeb699c96310c4d45"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=ajg5MGZRWFlpcHZLamNHY3FGZXdWMUhpdGxlSzBVUXF6ZHNDK0ZIWnl0RVY1R2VjNkQ1c2U5V0hTc1IvY1owUm01eFBTL0FRVWhBcHZZemtzbFQ0b1RtWFhnRFZaajJxWHlROC9ZZngrTGVzcUxsQmczYTd4TUNNQS9YWGNZS1U5WFlDalRETWZFT0JWTWJjVVBMWUZQSTd0Zm02UW8vb2NUMlFka05mL1Q1TnVjWjljRE1ocm9TZzAraHg3cUxWKzFqL0lhWjdHVzBQcDA2bnFqeWxFOUdTL1pYeXFpZ0J6ai9ZNjNMNTE4V1hsd1RhditGNElveXovYWR0L2ZPUVYrRE1iM1B3dmxZamdSK2laK2Q3VHNta1NBQ0FqRXFrYVIwbHB0QmNMaFNXS0VjL2Y3eU9BS0Ryb0NYei9FY0lpRXIxc3lsaVA4NzJ0OGtzTDRVbFRFKy9hYmFYTEhxaWhNY0ZuQUpWVmVRPS0tNGVsZnF3U0VDZXovbHl0UXR3TkFHUT09--cc58b04ebef9da5e58890fb091817810b01afe8e;
+        path=/; expires=Wed, 25 Jul 2018 23:49:20 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - dc3e59b9-3718-4662-9efd-6663a1048fcf
+      X-Runtime:
+      - '0.248067'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 433b94bb-d46a-499f-5c84-f29500395dec
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSFqgUpgQFs74BLDu1OYK0bapN7dU
+        3t4kKD+OG5e55zsnJ3ci159NzQ6Azth2xdNxwhm0ldWm3a34dvP8kPO1GklH
+        Fo9qxJg0mtGxgxU3LcEOkKs0W6TZfJbPpTA6Mh3aN6io+INNskU+fZTigkRH
+        zC9CsHqFknoEKa5mAemxVnuizi2FGIZh3JmDpbImLKt3wHFlm5NDuL0dxFWp
+        YAwB4Mg0JcHv/okUP1Lkqh4RWioceVhpqI3fD2gpboWAanAVmo788pQU16eg
+        tmUDauOz2d055Z5NpIhCIBA+eq+DLl6OJ3LrAKW4mcdO6LfisZK+22t/9M8B
+        riZJmotkLtKcTabL2WKZZmy7efJ1z554V98Fz/8iLh7/B07rVaMvAAAA//8D
+        ACUmjB80AgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:20 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157489
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:20 GMT
+      Etag:
+      - W/"bbafa8788f0bddffa85f0a8f5934c763"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=cVI2YkhESDFxU3JGYjcrZUZpTmg5T3JOYUJ5amtzSXY1K05sZm50RG0xZVR4UFo2STBhOWtaeEx0aXJlZXBCazY1MU1iTndNeU1nY1FwbUt0WTJRQkhxZnowOXRMTnozNi9HZ09WR3BNcTJqSFkvNlZzb0h5M0ZnM0xoOWxnNGpmbjErRFlJMGY0NytXS213WG5HZ0lYWVZ6Rk1FNFdBTGp2NGk2U2FRTGQzL2IvMWFzYmpzRGczSmNYVE1QcTZzZlcxb0VyQXdiMi9mYUlNL2g5dkIzVzhMalhheUV0MWRyN2pheFpFWE8yQ25OUGNKM0U5VzZQTHNWZEYydG5JLzNYaHFWdCtqU1JLRmdmbFRqc0pydzAvT3psN0Q0RXY4ZUxoblRhZEJFVG0rUFVtYTZYZTZJcFZVMnhDdHpZOTJaTUtBRGdNLzFtczFHbGxSYnBzZDhmMSs4UStseWUvbzVYL3o0akVFWmVzPS0tWi96Y2taMFdacU9ZbGhFc2JqT29Rdz09--f1c1c3cf0837829eafcabdc815bbd32e023e4cae;
+        path=/; expires=Wed, 25 Jul 2018 23:49:20 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 4e46bcbb-c1b4-4d8c-aa95-db53ed8c78bd
+      X-Runtime:
+      - '0.196556'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - d4a06beb-13d1-4b82-58da-1033741eb0ca
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730Kyyc40E36m1Sue0DiCdpzFOKlNSRxsDcN
+        fXtsF9qCuHD0zjfj8cpi89HU7IjWadOueTpOOMO2Mkq3+zXfbZ8eMr6RI+HI
+        2JMcMSa0YnTqcM11S7hHy2U6z9P5cpblArSKTGfNK1ZU/MEm8zybLgRckeiI
+        +UUIli9YUm9RwM0sIL2t5YGocyuAYRjGnT4aKmuyZfWGdlyZ5uwAdzAD3JQK
+        xhCAjnRTEv7unwj4liJX9dZiS4UjD0uFtfb7QSXgpxBQha6yuiO/PCng9hTU
+        tmxQbn02u7uk3LOpgCgEwuJ773VUxfPpTO4cWgE/5rGT9VvxWElf7ZU/+ucg
+        l5MkzSBZQpqxyXQ1y1fpgu22j77uxRPv6rvg+V/E1eP/wHm9cvQJAAD//wMA
+        6wAtRTQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:20 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157492
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:49:21 GMT
+      Etag:
+      - W/"a7e4f44660cb5148978757999ce4f7a0"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=aWxIdGtFZ1hDNWp4TEhnK29VWWVyQUQ3RUMvZGQ0RHVWYzBuZDlpLyt2Q25VMGpWc1NiN3NjaUJHY1RYYzFFamxWOG5NUldrZ3VHQ0xCdURuRzZHNzNaM0dKZU53cFpTaTc5V3hGZ0t0M0FNQzBGQktlSVF4NldDTERJVlhQVzFwbHdibEdEblFiR3FXZGFmZHRVR0VjNFNsRC9zYmFTK1VEQ1UzeTVxaDF0RWFxWnVJWWo5MExUUktRNEhsajJwSUVueFI2WXp5aG01elIyZjhmOFgyeThrcC9VVE5SNEN3eEdxQU55V2ZsVEM0cCt4eUUvL1FZM0o0NG42Q1QxTzhMeWs4Z0l0V0NIemRGd0NVNmlBOXRqc3RUUENsb0NzSEdJaFpTUDhPZmRaWUFJOUNGam9FYjhQbmhTVXNMb0h6bHloSlFXTk55Y0dIbkFOdzRERGhFZXlWMlRMSFZkc1pWVXJaYkpKL1lnPS0tZG0yYVpQV2lSekJHcWtMdmNRRUpXQT09--fca11cbdf27a232798a4d9b52d05bd3dbc116c56;
+        path=/; expires=Wed, 25 Jul 2018 23:49:21 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 6bff537f-1650-4d92-a5cc-e23ff57579d7
+      X-Runtime:
+      - '0.235127'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - e5ddd0fe-8186-4a34-5c50-9e2111660ce0
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730KKyc4UCf9TSrXPSDxBO05CvHSGho7rDcN
+        fXtsF/onLpws73wzmawsVl/Nnh0AnbZmmWTDNGFgaqu02S6TzfrlKU9WciAc
+        WTzKAWNCK0bHFpaJNgRbwERm0yKbzifFSHCtItOifYeayj/YdFrk45ngFyQ6
+        Yn4ZguUbVNQhCH41C0iHe7kjat2C877vh60+WKr2hFX9ATisbXNycLezPb8q
+        FYwhABzppiK4758K/itFru4QwVDpyMOyM/5EAiX4rRBQBa5G3ZJfnhT8+hZU
+        UzUg1z6bPZxTHgWP46AjfHZeBVW+Hk/cxgEKfjOPjdDvxGMV/XRX/up/BhI5
+        SrOcp3Oe5Ww0XkyKRTZjm/WzL3v2xG91bfD8L+Li8S/gtFw5+AYAAP//AwCl
+        rMrHMgIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:49:21 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:46 GMT
+      Etag:
+      - W/"bba817e862efd84bea3c5cad7e8b6926"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=V1dCRjhtWjhRbmJQeWl5bTQ1SHphK0dZUVU3UWc3b0tYNkJlSkExUTZHWi90U2Y3QnVPdGNwZXhXNU9wK1V2ampkUjRVUjRyelNjdFN5OVNtWUU5T3FBdzMxdlJVSmVYdEN0YmVmdGZ6YmgzVitPa2Q1b0Y1ZDVVbFgrQTE1eFl0emJ0WGkybzJrUno4L01VampQTEV5dkJReFQveHFOeXB0QkJ3aXpNSXhMTjBEeEc2UUxIK0hUTmttdGp0Y2tUQm1HaTNxNUVDN1RmVUVzK0huN0h1OVpUdVdGeTQ2aTNzcEVqVlN0NkdzRFg0RVJmVlFGSEttSitaNDFxQVkwVG1IdklBMTRyZ2ZYZ1RzU1R0QllxR1dUSEYyWlVwR01lOVpyQmdBRGgzbmRieW1Gb3d2RHRWTE9mRHhkdHJXQzdKTHEreVBCWGRUYlV1Y3RMWTBIQzQ2TEJZVzVWNmNGQk1pQUZ4eDJKWVQ4PS0tZGR0S1BqNlBocXJvb2NOSTNzbWsyQT09--95c03abc395bfbbabac3274a1285efe5409c1052;
+        path=/; expires=Wed, 25 Jul 2018 23:52:46 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 736f04ec-1766-47b3-a544-ec811220ca9d
+      X-Runtime:
+      - '0.080617'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 3e76544b-664d-48b8-7d9e-70e5bd7904c2
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4RUTW/iMBC991dEOXfrBGhLK+PuaqW9rfYCZ8skA3jr2Mie
+        lOXf79hJCIVWlSLFfvNmPN/85V9jsjfwQTu7yMu7Is/AVq7WdrvIV8tf3+b5
+        i7jhe+/+QoXiJsu4rkVZ3D/Npw+c0TlCVjUgEAJmPZGzBCU6gldI5qUBu8Vd
+        hsc9LHJtEbbgc1GSlQtK0jsAvMqAyqOs1VH8dpZ+nF3Akbl3ZEyGShkQxW15
+        O7mdcnYORpKqKtdaTF62AXyjtNFWofOcDbLI22gfUI4edR6gbqB3vFYI8ZqL
+        SVHOWfHIyoeseHwuCvqy1fInZ5/bSJFVrfdAHo+P2LZZg/8gM59Rkx2wam1A
+        ogqvodddO2dA2Vygb4Gzc0ZSeQPjKo1HytYOqEA/qPRqC5nbZNPs5E/g7JJ4
+        7vcgozbgbPDwBKaaW41aGfmOeQWmzkmRS7eRtbMwpiRIdDLs3EGUE2qmL1nR
+        llFrMEFw1h86jKqpKtRvMWqFnxdxnk2mz/eT59lDV8RLzZQ/ZYw7kBlU1a6h
+        GoY+0dd4asx2bXQlNsoEKkZ/i4J1uw1S2VpWO+eBjh4k9aVuFMaSDhpf0VJR
+        XNNolI2rT2rnUKQ0EHMcdno/tInyXh3zGNE7cQd0Iz4rZ0/3k9kw4gnekxVn
+        B1bswDhFp5H6Ps7UHflA7ZfEvdFhTSzjmljRBI47Yni165oglit6drgMPrH3
+        r3NPnS7+HGw0lM5dNGyMNlXs7B66fRQXT7eRrtMR3x3FtPjYafP9BwAA//8D
+        AOY6cKErBQAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:46 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test 1</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>1</estimate>
+          <current_state>accepted</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+          <accepted_at>2018-07-11T23:52:46+00:00</accepted_at>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '337'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:47 GMT
+      Etag:
+      - W/"bf3c6a1c911977fe5b7afcf74cb11e2a"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157565
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=VGFHeVdCUzdjME5vWHJRVmZBSENmbXFsMS9zcEhDUTcxb2IybTVGeTV5c29yMjNjSFc3cUxGTXFtM1pIbDZUNUxoeGJqWDRJUTB2aGVveUNleVo5TjRlRHV4dEw0UC9sYSt5WGdiV25yVUVrdDA5cDU3bnZtdzVxWlRPL2lJb2NJYXdFdkFJNzZoaTArWmU5T2psMVpiMnpsTXMzU254a1pvWWdlcmRsQ2ZyS1FWc281TGRVeWZVb2pVeUtaZjZmOEthSGYyYlFUbzVvQ3hzS1lKUEI5Q3lqblg4Kzl5YVBodlhTUWRiMzl6dkVpZXVOTGdRMDF6czZNVFo4eFdkSHRWdHBiK0d4QnpmdVFqUGdFT1k1RmkxajBxV2RobEt4U0dTSU5KUGkvV2Z3NzNzY0pSNlpMTG8vb0NubkhWclhCQTBoVFd5d2xpZUNEZS9uYlV0dk83UnFRdWtTdVNFRDlKREt4MjlLamNFPS0tSXJVNFpRdXlYamw3eEN5NmZHV0x5Zz09--771b0467e6a71cd130d5264457c4b8877468a870;
+        path=/; expires=Wed, 25 Jul 2018 23:52:47 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 0c4c22e1-0abb-4e51-b1f4-9ed336c774de
+      X-Runtime:
+      - '0.264462'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 8d78b785-394a-4022-5bb3-28a4eaf5661e
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQU7DMBC89xWW79RxSto0ct0DEi9oz1FwltbQxMHeNPT3
+        2A7QVCAkJF92dmY8u7bYvjcncgbrtGk3lM8TSqBVptbtYUP3u8e7nG7lTDg0
+        9iJnhAhdE7x0sKG6RTiApZJna56tsmUmmK4jp7PmBRSWv3CTbJ0vloJdKVER
+        /ctgLJ+hwt6CYBMsUHp7kkfEzhWMDcMw7/TZYHVCW6lXsHNlmlHB3NEMbBIq
+        CIMBONRNhfAjv2BfrchTvbXQYunQk2WlFHQItWC3eGDW4JTVHfrdScGmVei2
+        VQNy560JFywWAbXw1nsM6vLpMnb3DqxgN3iMYf0iPK3Cz8C1L/0EQGWa8Jwl
+        K8Zzki6KLC3ul2S/e/ARvzXxrr4Lmv9ZXDXR4mv8P2NwwtMiSfwZY0xE/u+M
+        zyJnHwAAAP//AwDCMXppbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:47 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test (delivered) 1</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>0</estimate>
+          <current_state>delivered</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '295'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:47 GMT
+      Etag:
+      - W/"9592d4e6a0d54a7bb399a94e4c04a40f"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157566
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=cUQ0RmNYK2NNNlZDUmtNUUN6clNUclp1YWtTU210MjIvK21iV0NoMXhNU0RTUmlld1hwK1dzSjN1NFlhTm55RGNMMmQxampGWDdUOWFHK1E2Yzk4U2FQV2dod1BrYUFkK1FSQlYvQUxXdTJCeDBtakV6N1U1WUJCZWNTVVZoYlQ5WGZsTCtJSWtVSWxhanNISmpOOEdYTWcwdGhYVXBDQXh1cDg4WnNaQXhVMUV2Nm8yVVM1OWNBTHpPQytKNDIvOTZWZFpoZGc2cjZrZlE5dFZoTktoQmxqK2MyaEVMRlJBSEcvRWpzQTRCc251bWsyTElWNGZSS0wvL25JZ1Vqa2RNYXNFeWJya2JReFN2STNsUEZWUVVVNzUyR2t0QmRKZUJpYi9xSDVUNFhPNDFlaTlSMnkvSDZkN2xxWVhVN2JsSTh2dG1MWnRWeVJtUmcxVDJJREp5MHRJQWpDdTR0Y0hKR252eTJ2Z3pjPS0tOEk4b0NCbmNtMlJjdGFkOVVqZjhxUT09--c2ee58120dc7ee29605ad3c3c83a0a37db41fafe;
+        path=/; expires=Wed, 25 Jul 2018 23:52:47 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 9ecc2f10-397d-43f6-a84e-eaf94418f5d9
+      X-Runtime:
+      - '0.272445'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 6ec6c7ef-0fd1-4125-7917-02c890112845
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSFqwUJgQFs74BLDu1OYK0bapN7dU
+        3t4kKD+OG5e55zsnJ3ci159NzQ6Azth2xdNxwhm0ldWm3a34dvP8kPO1GklH
+        Fo9qxJg0mtGxgxU3LcEOkKs0W6TZPJvNpDA6Mh3aN6io+INNskU+9eQFiY6Y
+        X4Rg9Qol9QhSXM0C0mOt9kSdWwoxDMO4MwdLZU1YVu+A48o2J4dwezuIq1LB
+        GALAkWlKgt/9Eyl+pMhVPSK0VDjysNJQG78f0FLcCgHV4Co0HfnlKSmuT0Ft
+        ywbUxmezu3PKPUuliEIgED56r4MuXo4ncusApbiZx07ot+Kxkr7ba3/0zwGu
+        Jkmai2Qu0pxNpstssnycs+3mydc9e+JdfRc8/4u4ePwfOK1Xjb4AAAD//wMA
+        i6v5LzQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:47 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test 2</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>2</estimate>
+          <current_state>accepted</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+          <accepted_at>2018-07-04T23:52:47+00:00</accepted_at>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '337'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:47 GMT
+      Etag:
+      - W/"f607353a2c1a35c52929e0293765db37"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157567
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=UUVBaEFyeC83UG9ETTV0blZWWk1lNnIvQlhrYUFZUnU4T1ZUOXU2bXBGa1NQVnM5RUlVRy8rbyttVC9WYU93NlRsSytVVXJRVG05eHJVNXlodGxIRkk5NldJZW8xdk50TFpEZVhzSU41MGVzSG1tS05pV1JHVXlKdzFySm5LQzZ2VytSYU5NWkxYUDczZW1NODVEU2xxc3F1RU92RDBSTjluUW12WHhkZE9VSkM2WGZhVGFOaUEzK3g2bGEzc0lYUzRhQXVvR1JuajV3S1VZbG1qeEZHTFJOTHVJejkwcU9wU0dhVTcyTy92SUUxNDFXajlnUTJHZU9kOTJ4ZWFpSG9HV0VtWWoxd2t4Zit2c0NOcklpenh2c2F6L0wyYnEwaDN3TkJZQUxoSE9GbXlkRFdsZXE3bEdzRVlyeDY3YlpOWmppUXJ4N3kzOHNUNFFFQ2hVYXpEMDE4clhIOTR4amNBU3cwOUJvMnQ0PS0tMGE1SEZMUFYwKzh4QjJlazJIM28xQT09--71fe93e64a0a0cfde978f6d78699b7c33898a447;
+        path=/; expires=Wed, 25 Jul 2018 23:52:47 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 4759d763-1a91-46e4-8828-70862fe7d302
+      X-Runtime:
+      - '0.322492'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - eaaaa6b4-1bd0-48da-5215-8e339f74d61c
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQW7CMBC88wrL9+IkEBIiYw6V+gI4R6mzBbckTu0NKb+v
+        7ZQSqqpSJV92dmZ21jbffjQncgZjlW43NJ5HlEArda3aw4bud08POd2KGbeo
+        zUXMCOGqJnjpYENVi3AAQ0WcruM0S1cZZ6oOnM7oV5BY/sKN0nW+WHF2owRF
+        8C+9sXiBCnsDnE0wT+nNSRwRO1swNgzDvFNnjdUJTSXfwMylbkYFs0c9sEko
+        L/QGYFE1FcLP/Aln11bgyd4YaLG06MiikhI6hJqze9wza7DSqA7d3QnOppXv
+        tlUDYuesiZsQCo8aeO8dBnX5fBm7ewuGszs8xDDuIhytwq/AtSvdBkBFEsU5
+        izIW5yRZFGlSLDOy3z26iN+aMKvvvOZ/FjdNsLiu/1eMaEnipIgid8YYE5H7
+        O+OziNknAAAA//8DAI/XbltsAgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:47 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test (delivered) 2</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>0</estimate>
+          <current_state>delivered</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '295'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:48 GMT
+      Etag:
+      - W/"51da7f3b28e3a213de381d09c9589e2c"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157568
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=cGRXVnMvMk1jbVVJR0Zma2N4d1RRMnRpOSt3UFJCM0h4aE5DaDZVQituTWR1c0V5Z3NreXJURGtJOS9wTG1LQTUzNDZmdkR4QTFiaEd5WTVzTXAzd3ZIanZOT1Q3MXNYVWEzejQ4NWhIbXZQbzBSbVo1Z2ZhS0UyYnpGWDFFVUlKTG51S1NRUFZ5VVpOaUp4bjhJalUvS2xtVGhMdnZOUDN6ZDI5Ui9hRVhJVG5JaDFkUVZjMjlpdW12NVlpbGN1cndlczd1WXdqMDJtUFo5SUJ4VmljWm5Xd0tSbjcwYnJKeVU5SEdFL0tJR2NBTFVhMGNJWjk4VGFTWkRYZXpwYWFSWXZhc1hzbUVjcVdONmdHRWlsY2g1MVh3dFhqNnJhT0R0ZS9MNmJFTzZ4L3gwUEJtOW5TalBhSk1Ld3ZjR255RmsxNUh4WEJldU1aNkxtdEJMRHBHZTY5TisvczRTQ25HcHdIRS8xTWtnPS0tMlFuT3FOejNHb1hQWUFrRlZEYksvUT09--6feb9bb0547254064e683dbb2877ac802e13fd84;
+        path=/; expires=Wed, 25 Jul 2018 23:52:48 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 800f3ee3-40b2-473b-83b1-2fd4c97b6fb9
+      X-Runtime:
+      - '0.250987'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 125b33a4-8e2f-4058-52ba-69b60dd18c27
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730KKyc4kE1S0qaV6x6QeIL2HIV4aQ1JHOxN
+        Q98e24X+IC4cvfPNeLwyX3+2DTugsUp3qyiNk4hhV2uput0q2m6eH4poLSbc
+        kjZHMWGMK8no2OMqUh3hDk0k0nyR5vN8VnBQMjC90W9YU/kHm+SLYjrjcEGC
+        I+SXPli8YkWDQQ5XM48MphF7ot4uAcZxjHt10FQ1ZKr6HU1c6/bkALvXI1yV
+        8kYfgJZUWxH+7p9w+JECVw/GYEelJQcLiY1y+0HJ4VbwqERbG9WTW57gcH3y
+        ale1KDYum92dU+5ZxiEInjD4MTgdZflyPJFbi4bDzTx0Mm4rDqvou710R/cc
+        jESWpAUkc0gLlk2XebZ8LNh28+Tqnj3hrqH3nv9FXDzuD5zWKyZfAAAA//8D
+        AP0ol1c0AgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:48 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test 3</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>3</estimate>
+          <current_state>accepted</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+          <accepted_at>2018-06-27T23:52:48+00:00</accepted_at>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '337'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:48 GMT
+      Etag:
+      - W/"e00e8d0a481fbfd249bf43d66b9c1ed7"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157569
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=STBsRm9kbC9xa0VJbGNLV0FzVkExVkdvL0w0U0ZyUFNLdTlKV2JrNU1NVkgrSEFtRmRwL2h3TGlaODBmeHRmWmZtWFJBSUJ2bG9YTFpNMzJ4WGtqdGplQ2c5ZzRrOHI3NiswUW9LcW5WdGlVYk5ZUlErVS9KYTFmRHJiWFIyb0NvdXgvZjQvcHhHRWZobjdPT1ZMU3NOcG5JeEIrUGt4VTU1VTJwSklvNTFkVUtiUGI4aUJ4S0cxRENHRUpvTnl5SW9iWGlRbjJZZ3FXclFRbzhhT0l6eGFqR3ZyNm5lM2E0RThJUXVZenR2bC84SmxaK2JNOVFnY1cyYnExQkVWSXlrMEtpZGRTb3pFKzJSWEhBOXhENFFGaEJDS0dBMmdvajJ6NU9BTTlWT2pmSFMxZVJuMnVJZnpyR0xWY1JsTy8xWHU4R05nOEtRTllGeTU0UFNHL3BZZXZtQ3FwN2JOMzRWRXdveVpYUHpBPS0tbnNMb0hUczdrZVdpOSt0TDZhNGI1dz09--6e23b2558f2e6cfaddc2f1c49d160423b4c6f446;
+        path=/; expires=Wed, 25 Jul 2018 23:52:48 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 1d37b068-550e-4f52-8723-114b455ad3b0
+      X-Runtime:
+      - '0.278612'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - f6b4b4fc-1e5d-498a-6cec-546915fe6990
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSwVLDIBC99ysY7pYkNW2aofTgjF/QnjMR1hZtQoRNY/9e
+        INZGRw/OcNm37719C/Dte3MiZ7BOm3ZD03lCCbTSKN0eNnS/e7wr6FbMuENj
+        L2JGCNeK4KWDDdUtwgEsFWm+TvNVvlxzplXkdNa8gMTqF26Sr4vFkrMbJSqi
+        fxWMxTPU2FvgbIIFSm9P4ojYuZKxYRjmnT4brE9oa/kKdi5NMyqYO5qBTUIF
+        YTAAh7qpEX7mX3B2bUWe7K2FFiuHnixqKaFDUJx9xwNTgZNWd+jvTnA2rUK3
+        rRsQO29N/IRYBNTCW+8xUNXTZezuHVjOvuExhvUX4Wk1fgZWvvQbABVZkhYs
+        WbG0INmizLPyviD73YOP+KWJs/ouaP5ncdNEi+v6f8dYsmxF0qxMEn/GGBOR
+        /zvjs4jZBwAAAP//AwCDcCfXbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:48 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test (delivered) 3</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>0</estimate>
+          <current_state>delivered</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '295'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:49 GMT
+      Etag:
+      - W/"c58f35fa775a9619939f1f4b84d590ab"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157570
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=c1lhNDAwZkdjY0RGenIyV0NKS0hmT3NJWEJNQWgvOEUvbDVzKzFjWGNMeU9kVlo2SW1nUk1BbEVWSk90OTBCdWNJWnhQTVUzTlBVb0trVWZCc3dNYW9aUkZUMzdBT2JzSTcyL0UvWThFeWR1VUdxU0VBNWdhL0I2SGp2NVN4N0JEMjlVT28vL2lCUzhWVVBJQmtDK2p4T04xSmd4bFozZnAzZGF0SUtIdDU5R25zbi9aTndwZzdIMzQ4TktuYStuU1A0LzY3eTJVcDQ4VWhxRW1xcVFGa2lRSEpJTzcxZFZlS3ZoVkkzYnhEWE80UE1FcmhZUzdDZ25ibmhIMFcrV2xYT1NGdDJiODg1emUxcDMzdmZFQ1d6aUFFRWg0SVpvbjVOVnlvYWIwbUNsSndlVTQ1RnBFWEpad2RoWXhoYi9WUlREKy8ycUNvS0NXdExLLy9OVFd0MjhXenZSNU1seFg4WXo4RkNWaW44PS0telZCMEMwM2piU3M0dFU1aXZtYWJ6QT09--b83ddf6bb82e2d417cdf13915e1e221d3a23a373;
+        path=/; expires=Wed, 25 Jul 2018 23:52:49 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 15ec9777-3089-4b02-938d-04ee2c14232d
+      X-Runtime:
+      - '0.280293'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 5d9af601-c66d-40a5-494b-51376e6ab676
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSFqwUpgQFs74BLDu1OYK0bapN7dU
+        3t4kKH/jxmXu+c7JyZ3I1VdTsz2gM7Zd8nSccAZtZbVpt0u+Wb885HylRtKR
+        xYMaMSaNZnToYMlNS7AF5CrN5mk2y2aJFEZHpkP7DhUVf7BJNs+nT1KckeiI
+        +UUIVm9QUo8gxcUsID3WakfUuYUQwzCMO7O3VNaEZfUBOK5sc3QIt7ODuCgV
+        jCEAHJmmJLjt73v/SpGrekRoqXDkYaWhNn4/oKW4FgKqwVVoOvLLU1JcnoLa
+        lg2otc9md6eUezaVIgqBQPjsvQ66eD0cyY0DlOJqHjuh34rHSvppr/3RPwe4
+        miRpLpKZSHM2mS6yyeJxzjbrZ1/35Il39V3w/C/i7PF/4LheNfoGAAD//wMA
+        5F4RjjQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:49 GMT
+- request:
+    method: post
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <story>
+          <name>Test (unstarted)</name>
+          <description/>
+          <story_type>feature</story_type>
+          <estimate>0</estimate>
+          <current_state>unstarted</current_state>
+          <requested_by>Test User</requested_by>
+          <owned_by/>
+          <labels/>
+          <project_id>1059836</project_id>
+        </story>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '293'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:49 GMT
+      Etag:
+      - W/"28f28ad3052b3cb439081c7e3885b75c"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Location:
+      - https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157572
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WlQ2V01OaWJJUysrVWg0VDlWY21RY2Jhb2F0ZzNqMTFpY3huYjRtbUFzM2x0VHRJY3p6MEMxbDFoTi9sc0dqQUUrdXBpL1hwczMvK3BucDIxSEpXTkRhYzgzMG9LajUxYzA0bkFLRjRJdDBHRW9iSThpZkZjbGw0anM1SGxLT3U2SGpEMFZWZEJVMUUrdEZlV3plb21TeEJBKzIvenNpWEgxUyszc1dya2tIZ3pReXU1K29LdTk4NVNvalVpdDlLNUxZWEI4OHkyS3ZJVXdGdTN0aTc1amZmcmFhZlZsQW9CUmpFVWswYnByQVNobzZyV05BeTl3TmhPWmFmTmQ3NzJzc1E5L2hBS1hGaGNBQktzMk5DZmtSUllXWTdQL0FxMis3UXJpSlI5KzZCUnBLUWtadE8vL3hXaGNPMUlsM25wRG9zY3dtSzU0by9vcTBOcTVtbnY2UjIwWHVaa2FkcFdrTmErMHlidk5rPS0tQk1JNVNWN0hHME15QzJkQ3FrWVZNZz09--e04f4b783a6a42768995e8ec616700c7f048291e;
+        path=/; expires=Wed, 25 Jul 2018 23:52:49 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - c265c084-3288-4257-aa36-90148125de03
+      X-Runtime:
+      - '0.296868'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 1ced7536-6dd1-49b1-66ff-7a0cc0e8de8e
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730Kyyc4UCcpoWnlugcknqA9RyFZWkNjh/Wm
+        oW+P7UL/xIWT5Z1vJpOV5fKr3bE9oNPWLHg6TjgDU9tGm82Cr1cvDwVfqpF0
+        ZPGgRoxJ3TA6dLDg2hBsALlK81maT/NpJoVuItOhfYeayj/YJJ8Vkycpzkh0
+        xPwyBKs3qKhHkOJiFpAed2pL1Lm5EMMwjDu9t1TtCKv6A3Bc2/boEG5rB3FR
+        KhhDADjSbUVw2z+R4leKXN0jgqHSkYdVb/yJBI0U10JAG3A16o788pQUl7eg
+        mqoFtfLZ7O6Uci9FHAcd4bP3KjTl6+HIrR2gFFfz2Aj9TjxW0U/3xl/9zwBX
+        WZIWIpmKtGDZZJ5n88cZW6+efdmTJ36r74LnfxFnj38Bx+Wq0TcAAAD//wMA
+        Nk/emjICAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:49 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:49 GMT
+      Etag:
+      - W/"a146281bde9590b07a4a9388f264d1d4"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=ZkxMam5kS1RDbk4rN0RsNWlhUzllbDVNMUFyTWpoYmZod21rMzUzcEd3eFZ4bE5DMjY5TENqemUrYnpvVEFMVXhnd1JuU2F3NEx3TnI5bTZKZEdINkdzMy8zdHN1Ym9VVWdNZjdlN1dja0lVMkFpS01nbnZOd3E1eVpSaUxMWVN0YjNibmZTcTJJZUUwZGZZeHJReFRpbUVIM2wxUThFNGEvbnZSK2l3TTFPZUtZdjRBRFRzRHRlYWVxNm9qS2h1eXpIQmVzWVoxQmpvbEVCbEhQdTgxRE5ldjNrcHEzOUlrUUdaMUpJaVY3YWQ4M2hnaDRod2NLdlhhdEF4TWR4OHFkUm9YTVRzd3k0KzIzdVhkZmM4Z2p6MnJRcFZVd0I5eHRZMlFpNEZZS2ZlT1VGaGRCYU9nbnhTT0U1VWhOOWtVY0o0ZW5hWGc4OFZwSGV6ckJJSGV1N01uZmFtK2h3a3VYMHVTRjh4azFJPS0tV3RuaDNLK2VmWEpYNTFPYm5uMWNLdz09--4c85e807e9345e09304fd4cfc104d200c3e63ab1;
+        path=/; expires=Wed, 25 Jul 2018 23:52:49 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 90e13a2e-5166-415d-ab2e-750e843a6cf4
+      X-Runtime:
+      - '0.066988'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - af4c1e4f-62e3-4396-4928-a5785bba3755
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4RUS4/aMBC+76+IcqbrJMAuIONtVam3qhc4WyYZwF3HRrYD
+        5d937LxYVmilSLHH3zy/maFv/2qVnME6afQ6zZ+zNAFdmkrqwzrdbn59W6Rv
+        7ImerPkLpWdPSUJlxfJsvlxMXyjBcxBpUQPz4HzSASmJogj3YIVH81yBPvhj
+        4q8nWKdSeziATVmOVu4gUe8C8M6dF9bzSlzZb6PxR8mdOCBPBo1xVwoFLJvk
+        k2IypeRWGECiLE2jfYyycWBrIZXUwhtLSf8WcHtpnedjRG0EXtbQBV4JD+Ga
+        siLLFyR7IcU8yV5XWYZfst38pOSxjZhZ2VgLGPHoRDf1Dux9ZWaUPIJGO6DF
+        TgH3wr27TndnjAKhU+ZtA5TcIqLKGZQppb9itY6ABP1A6sUBErNPpskQj6Pk
+        Hngbd//GijHAQRYp19JLofggzDMk+V4YGycmzs2eV0bDWBHHveHuaC4sRydf
+        o4ItJXagHKOkO7QyJFOUXp5D0sI/4PCV5IukmK7mxWq2bDm814zlE0qZC5rx
+        ojzWSKHr6vxZHvuy2SlZsr1QDrnobuFh1xwcF7ri5dFYwKMFjm0pa+EDo73G
+        V7DIialr6XltqkHtVhQgNYQau6M89V0irBXXNGT04bkVtBM+y2fLeYEd2E54
+        FJ/QitH9NTRgGKJhor6PI/WMMWD3xedOu98Sm7AltjiA44rovbYN4thmO3SL
+        G5yTj96pxUZnfy46GIrnNhsyZhsZu7lHW9ibuHfahfS5HMHv+Ix7jwyL7z8A
+        AAD//wMAW1ueDSoFAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:49 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/iterations/done
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:50 GMT
+      Etag:
+      - W/"a7d875c0035dd41b9afb4a1994e79cc8"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=b1dKb1hJWFNMVnJVZUVWc0lXVDVZaW04R0txOHdyekZiUWlMVTAzYTE3NlJPSUVZWlgrMzdBMGhGcEsyblBkYlNSWTg1aWovcUcrcEJyVDJMNW1ndjRQSmpUdGJTY2xMTDVzclU3bDlPSkN4OVEza2hXRGdLZEthalVSZmF4MTk5b3pZY2NmenVCM0FWZ0dSVnhYWU00TVE3aWlLVzF0a01kUTl2bWhPRG96c2FMbjBjaGVZRit4MTZyZWtyMFFISE1wd3FwMHBWaUYraHpzSEwwUzhCMFgzQ0RzbytyM3FoaUJ5Y0Y4bnNGOVZNMVRPai9XcnpJVlVQdUc3UDBIdzFCRWhjNHlwTnJKVDQ1WENGWWZSVml4RVR3U29Wb0RjdklsSC84bXg0cXJiN2E4OHM2MVNGNy9KKzJpREw3cXRDdFBkOHY3RjMzZzhqbld5ZjhFbFVMMVZkUHZzVThOTWNYQ2JlRGJNUWNNPS0tTVlsQUZCQXJDclgvcEU1WWVCL21Mdz09--c2c2c456d3e8420ae20842329d8b668a30dfc30c;
+        path=/; expires=Wed, 25 Jul 2018 23:52:50 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 06c7e13d-26c8-4abc-96dd-7a839f8cdd44
+      X-Runtime:
+      - '0.129080'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 82bdce4a-1e8f-4945-6c86-1cec24cdb463
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA9SWTW/iMBCG7/0VVu7FSWgIoJAedrXnPcAZuckA3iUftSdl
+        +fc7CQYHCipUKGolLs6888HMPHGi53/Zmr2B0rLIJ47Xcx0GeVKkMl9OnNn0
+        1+PQeY4fIomgBJJGM9yWMHGEUmLrxA+MWVt9qs+p0cgcYQnKib2Iy9RY8yp7
+        AXVGsTMYlUah0IhSgYAyAyf2XW/I3QH3A+a64+bHfv+cRryRG9eFzKVeXfAN
+        ueuf+O70xhlBZHONCvIl7mMs1oXA5k8cWQ+VFkrC+7Y0rdBYqO1OeKk1wcgL
+        wmAwsi1qlKUq/kCC8zPNdIPRsD+IuJW0MjQZ5/WM4gUIrBTU3Tk8s6VUah2v
+        EEs95nyz2fRK+VagWKMSyV9QvaTIdn5cr4oN92yZtaMNA5pGQwM6HWg/4ntT
+        S51UilqL1GFyiUWSQImQRvz4uY2egk6ULOvFiyPePllNLjKIp5SMUc7mYG0K
+        XiuyQDp/2e40Mw0q4kfPrTxR1DISi0urF3JvyPz+OPDHT0M2m/6g0g8+rbxV
+        WS/tbYGsTyvQvkWXSyIaQub5hoampJbTPpRZArOzzWRpaRt8+YHtK2n2P6SZ
+        FFfTfIbIW2gefUmaw+9BM5V5Hc000M5prpeoO5rDe9FsAn2SZqLhqVua6aX5
+        wd1cv1avvZup/lMib6DZG3xJmoPvQTOVeR3N9CXTOc2Us0OaB/ei2QT6NM2e
+        dzeaWxc1Xdz/AQAA//8DAPfMdDa5CwAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:50 GMT
+- request:
+    method: get
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:50 GMT
+      Etag:
+      - W/"1457c98c256d35b9a86fd0e3358b6613"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=aDhDTnlSNjZ5MCsxN2p1USs1Y055dGlxMEFGaVhsL1hQYStEcU9ERlljRXNQVU13blo3eUhVT1JnUi8yZW1tTzRzdTdOUStWeE9EMmZJN0FoVmhCa3Q2L2ZUU0FZV0ltdmhaamhTWkNLV2YrczFKNHRLcFNLeDhKRExPZUFvVGR4eTNwdTJERnN6d3BJaHVWeG9jRURWeHZRSjNpNThQQnVQSGxyK3dWZDZZT3FsZ1hvWXU3ZDVqbUkzQ1lOSEhIWUo5bGl1OU5KOVIzZmUrSFV2cUJuMk1OMEV2VkQxeDY3eENXYTMyNU9wNnJqb0RCcXJaNXZKSE5NNEEwYjYwV0N6Slk3Ukh1RnFOUVozelhOd2pSM01vZFhNRFIxaWh4Q3ZPWGlhRjc3NjVoa0RuSHhpWWt2T2hoNEVaU1FXWjRSaGFtZjBMdldrZVVjd1d0N1cyaldqT2N0RGE0TVgrUUxNZUdDMVJubGlBPS0tRXFYQzVoYzZRendUTVRCb3NHekU5UT09--0e4403b72a68242104096096e160a816bf7d6d68;
+        path=/; expires=Wed, 25 Jul 2018 23:52:50 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - f7d063f9-6f35-4ded-bbcc-8b2e3973957b
+      X-Runtime:
+      - '0.065087'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 84fbf4ec-24d5-46b7-704b-653adf91ebc0
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA8yXzW7iMBDH7zyF5VN7KI5DQwIK7mGlfQI4o9SZbb2FJLWd
+        srz9TrBLoWqF0qZRJA72eD7+Mb9k7PTu33ZDXkAbVRYLyscBJVDIMlfFw4Ku
+        lr9vEnonRqmxpVZgiN1XsKCZ1tmeElnWhV3QmBJb2mzTjMSIkIPzvhnhWOU+
+        RhUWHkBTwaMZj+JoOkuZyr1Xpcu/IO36A+8gmiWTacreXHzMocq6EST+QGZr
+        DSk7sbnytd6IR2srM2dst9uNK/XSSLU6k0+gx7LcuhhmHssdO5HWBLoUYKza
+        ZhbeP8ckZa9L3lPWWkNh18aiu8ikhMpCnrJzu8uag5FaVRa3XaTsdObWi2wL
+        YokFCNY5TJxdw3ONVsjX93u3vjKgU3Zmd65S47agY2a99Byn+CxARRjwhAUx
+        4wkJJ/MonN8mZLX8hVKPMb5eXTVR7ZK8xfgkr1vxuZQpC2PCw3kQ4M9JOQk6
+        UOX+qBaAxcMFDKVdBizsCTCs0wNgcReA+SRfACxmwW3XgEXDBQylXQaM9wQY
+        1ukBsGkXgPkkXwKM864Bw7Y31BaJ0i4DFlwALIeNwrPH93vk1THTNemHtp/7
+        nLVvdMlwMUFpA8Wkn673c8eq1pjE+DYO9GvSSBsoJv2cvmdd9C6f5Lx3tccE
+        X4yhYoLSvo9JXeD9THdwMbs6Zrru5YDTAySOFrzoi9F/AAAA//8DAIFj18oa
+        EAAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:50 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157569
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:50 GMT
+      Etag:
+      - W/"e00e8d0a481fbfd249bf43d66b9c1ed7"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=di9hYi81cUg1Ty91cytra1RuRE1NVWZJRUQ1RUx3Ynp2U2xaYXYwU1lJNklYN2pQSFkweWJwY1ZHdTV1bWJBZHlYWnVaT3dxaWJVaytJZXRDMTJlUFBmZzFubnRWdUQvNXRZclh0VUswSDRJSU12c1cvTStBZ0NqVXlCRkhSOXovSTBnS3F0UGlkQkJLTmRwNGl0U0pTUFBPRW5QaFF1VW9DU3VYTytDdG52MmIwNG02aStlYVdKczJCMWxHQUpOdXh5cm1YZ2VyUE8zbncrTjZraDM1Q2U3dC9LWEU4TGdlQnI5UFpSMHF1cHBKcElieEtiUXRqTzE1Wk9xcFhqSGtnY2tWTFVIYURJa0I1Q0N5eUxoNlV5OTFldXN3U0NvSWRJRU5rMDhFa0MwQ0tyTEZsZEhpbVpTMCtyU0lUODE3UTJZVUlPckZLZm9CZEt6L01PSWhZakI3dU5hS2tRQmZPVmFYeERmYnJBPS0tZ0ZIN1kyK3pGUEtEdStGaFNXYVkxUT09--8cd4a7e6dd3ace73897955b06a8c88c98e592537;
+        path=/; expires=Wed, 25 Jul 2018 23:52:50 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 3d52926d-6687-4c55-9a9e-7d4d31f11220
+      X-Runtime:
+      - '0.256144'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 68b9a64f-28dc-462c-6416-fd30dbefc5e3
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSwVLDIBC99ysY7pYkNW2aofTgjF/QnjMR1hZtQoRNY/9e
+        INZGRw/OcNm37719C/Dte3MiZ7BOm3ZD03lCCbTSKN0eNnS/e7wr6FbMuENj
+        L2JGCNeK4KWDDdUtwgEsFWm+TvNVvlxzplXkdNa8gMTqF26Sr4vFkrMbJSqi
+        fxWMxTPU2FvgbIIFSm9P4ojYuZKxYRjmnT4brE9oa/kKdi5NMyqYO5qBTUIF
+        YTAAh7qpEX7mX3B2bUWe7K2FFiuHnixqKaFDUJx9xwNTgZNWd+jvTnA2rUK3
+        rRsQO29N/IRYBNTCW+8xUNXTZezuHVjOvuExhvUX4Wk1fgZWvvQbABVZkhYs
+        WbG0INmizLPyviD73YOP+KWJs/ouaP5ncdNEi+v6f8dYsmxF0qxMEn/GGBOR
+        /zvjs4jZBwAAAP//AwCDcCfXbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:50 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157567
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:51 GMT
+      Etag:
+      - W/"f607353a2c1a35c52929e0293765db37"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=RHdCVWpOcWZ3SGluVHdnUkg4T3RlZnZPZUJYSEZ1WVRuVTFxV1lDMHgyYWhlRzZnUjFwbnZlU3hQV25pUFhCK2RNVUNvNENrdE1id0lkd1VlaDJhZTVuY0w5TTZnV1hISTB2TEdNY1daWmczZlRlVFkyaWdja2dOTnRnY2tSdjBZcEMwdXp1bmFkRTNaejBNdE9mdERZSlByNGFKeDVXOEl2czl1ZStyUE10YXpPdEtQbFJrczNQRU1qRmgzd3VvQWxDeGR2MkxlYXF6eWliUDRCSXpiWHRtS29iYzJDc2oraEhINStjbFVRbUEyUkttUmp3dHdTN0xKVEh3dVB4YWRVL3N6bGNQRGVZVkpobXVRVkQwSVd0eU9HMXZmZGxObDJhUEZGb0lEZlZkc3hmK2E1T1JkWUR0OGRCMzQ2WG91Q0hCeVduMFlkTk9pcGlLWWdYa0dsS1ErUzZvdG5aS1NmNHlGOTlIUEtnPS0tSGQ0aVpudUlDVkhLbHk1TU5XakE4dz09--cd157250428ab917239a1fd3be912dca02693fd4;
+        path=/; expires=Wed, 25 Jul 2018 23:52:51 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - c0a75e5a-e58f-411b-a2a7-0996af2c11e3
+      X-Runtime:
+      - '0.204240'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - f6d91d5c-cc99-4f2b-7222-2f5489350d40
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQW7CMBC88wrL9+IkEBIiYw6V+gI4R6mzBbckTu0NKb+v
+        7ZQSqqpSJV92dmZ21jbffjQncgZjlW43NJ5HlEArda3aw4bud08POd2KGbeo
+        zUXMCOGqJnjpYENVi3AAQ0WcruM0S1cZZ6oOnM7oV5BY/sKN0nW+WHF2owRF
+        8C+9sXiBCnsDnE0wT+nNSRwRO1swNgzDvFNnjdUJTSXfwMylbkYFs0c9sEko
+        L/QGYFE1FcLP/Aln11bgyd4YaLG06MiikhI6hJqze9wza7DSqA7d3QnOppXv
+        tlUDYuesiZsQCo8aeO8dBnX5fBm7ewuGszs8xDDuIhytwq/AtSvdBkBFEsU5
+        izIW5yRZFGlSLDOy3z26iN+aMKvvvOZ/FjdNsLiu/1eMaEnipIgid8YYE5H7
+        O+OziNknAAAA//8DAI/XbltsAgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:51 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157565
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:51 GMT
+      Etag:
+      - W/"bf3c6a1c911977fe5b7afcf74cb11e2a"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=MDVmZjlBNWw2UTZaaUZjbDhPVUJMdVQ0K1hobVRxc2RxWUZEL25mZ1BBRDIwcFAzWm1vR0c1RGFTcVVLWk9Wdk40Ri9adkplRHIrYm9Vd2ZwUmYydmNUT0NzUG1EM0VWRk9HTUZYb3RYQXZDOFBLTjRWbVBBV3p1NTdudHppS3lQM3FORzVhS3IxY24xWFRzb2Q4d0pvd3Q4VldMbml4QklFZ3RiRm5mUXhyUng1SkkxT3Y2S0NMZmt4eGFVMDR0WVJTQWhnVk5zRDFDSURRUjg1dWxiVGNyZnNxTUp0UUFDZ3ZlOUFSR3BFR042M2VtSW1mTDA2bkt2VXF5Q2g0N1d2NnRxVVNGRWEvV0dDVG81MnZFbUZ4Z1EwcjRkNWIvbVBEeE9Kd0ZzSHZTNklwWStVSXVaN1IrQmVpSTdQbHViaHNSQ3N2Yk82L1RsRC9ndXhlL2ZWaHYxNzBxc0NEeG9OR2NyVDhDQXQ4PS0tMVcyajdSQVJ0dFQ1RmRxNjFLYW1GUT09--41994844cad33f81658d7800584a260c5267815d;
+        path=/; expires=Wed, 25 Jul 2018 23:52:51 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 4062c6dd-808f-41d1-b409-01ed46e744bd
+      X-Runtime:
+      - '0.278721'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 0e16a0d8-1e31-4849-5095-b4cd6e1188d6
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5RSQU7DMBC89xWW79RxSto0ct0DEi9oz1FwltbQxMHeNPT3
+        2A7QVCAkJF92dmY8u7bYvjcncgbrtGk3lM8TSqBVptbtYUP3u8e7nG7lTDg0
+        9iJnhAhdE7x0sKG6RTiApZJna56tsmUmmK4jp7PmBRSWv3CTbJ0vloJdKVER
+        /ctgLJ+hwt6CYBMsUHp7kkfEzhWMDcMw7/TZYHVCW6lXsHNlmlHB3NEMbBIq
+        CIMBONRNhfAjv2BfrchTvbXQYunQk2WlFHQItWC3eGDW4JTVHfrdScGmVei2
+        VQNy560JFywWAbXw1nsM6vLpMnb3DqxgN3iMYf0iPK3Cz8C1L/0EQGWa8Jwl
+        K8Zzki6KLC3ul2S/e/ARvzXxrr4Lmv9ZXDXR4mv8P2NwwtMiSfwZY0xE/u+M
+        zyJnHwAAAP//AwDCMXppbAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:51 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157566
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:51 GMT
+      Etag:
+      - W/"9592d4e6a0d54a7bb399a94e4c04a40f"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WnFQTTF2ajdzb0pUNDJMcEsrTVYzTm5qcG1NdE1aLy8wNnNXRHVCUkNSU2YzU2VMQk4xT0FHTTh2Ty9SZWhQRk9CV2MyTmllaFp0N21JSzE5U0FNZkFQaXBNUHJqRzdsQllrdFdGMFY3TEt3aGZIWFNUQXpEbzZvemNIeUdBWXBxRVVQZmZicHYzUWtYcHlobVRvcWdqRk1QbXgvYmFQbFE2WElHOHkvaythN0JpbmJ5MmlwOWJlZzV2cVlEcjk4TTVYWmt1cWY0cnFnTFIwNjUxWDNKYm8rbGRJTTZwWDA1VTJxOGE5ZEQ4SGI0MWpWd0Z1UzhYRklMY0ZDYm5qNmtZdjg2aUNBdzlMM3NaTEwvZVR1VVVVZWFQTENPZituZEU5WkZSWTdEREpnYVljYlVtV0VERkEwUTlkR0Vxd1VtWnl3VnNHUjhhZUhHSzFlRmg1NTErZVBZNGR0SEVHTDJGeVRPWkVyd2ZJPS0tUGlaYnBSYzdzVTZZcUNYcHRlRTBVZz09--3847e41598f7f1ca64cfa33d257d47dcc57fd303;
+        path=/; expires=Wed, 25 Jul 2018 23:52:51 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - 8e3bd7b3-8358-4f8c-b134-26fe6fec561a
+      X-Runtime:
+      - '0.221790'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 8bd6b8ed-2f26-4b05-5ccb-d68303000a72
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAwAAAP//lJLNUsIwFIX3PEUmK11IWrBQmBAWzvgEsO7U5grR
+        tqk3t1Te3iQoP44bl7nnOycndyLXn03NDoDO2HbF03HCGbSV1abdrfh28/yQ
+        87UaSUcWj2rEmDSa0bGDFTctwQ6QqzRbpNk8m82kMDoyHdo3qKj4g02yRT71
+        5AWJjphfhGD1CiX1CFJczQLSY632RJ1bCjEMw7gzB0tlTVhW74DjyjYnh3B7
+        O4irUsEYAsCRaUqC3/0TKX6kyFU9IrRUOPKw0lAbvx/QUtwKAdXgKjQd+eUp
+        Ka5PQW3LBtTGZ7O7c8o9S6WIQiAQPnqvgy5ejidy6wCluJnHTui34rGSvttr
+        f/TPAa4mSZqLZC7SnE2my2yyfJyz7ebJ1z174l19Fzz/i7h4/B84rVeNvgAA
+        AP//AwCLq/kvNAIAAA==
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:51 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157568
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:52 GMT
+      Etag:
+      - W/"51da7f3b28e3a213de381d09c9589e2c"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=emZGYzBBdVNGZlJUOW1OcnFQOUFqNGVyUlVzL0RMQTNWT2tFVTc3U1R4N2tPSTh3Vy82NElNQTNqcVBJS2gvdnI5aFB3azhGVHh4Tk5xbkQyKzlwRFZtZGJaRTkvWlI5TmlzWFZGNndFcEF4WVVXcVlmRTkyd0ZkUVVYcjNGYXhWekwwNkUvN1hGYkU1YWVJWHdPOHBaeGdnVGhvMEFHb2x1UngwSmwyWFFqdG9kOWVnaitWR21FQmNhcEE5aktidWNYMVhQNE42TzFEYmpQNXN3anlYR3FLT1lhcVJnb1QvMkdjQlJmdGwyL1plZi9FOHhFZ2xFcnQ2MkhnQUp3blRTUlJHY2pPUUhrU0l5d29ZcnVBeVpsTFl2UWdPUnl5ZzlMVG5kaStRekYvZzdra1lJcmt5L05HMEN6LzZVRHlVQXdOWW5ETGxobENRMllocWhlOFhCeGRDd1V4eXZWR0FubmQyREQ5VVpBPS0tSWRZWlNPazYrcXQzRUNOa3ZuUjJqUT09--a24e86857263cff8a7c4aa27c3385034cc8d7825;
+        path=/; expires=Wed, 25 Jul 2018 23:52:52 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - dcb97677-46eb-4413-a985-29360b560d35
+      X-Runtime:
+      - '0.233160'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 8dd800f5-1014-4c80-5f93-7a2d09c9ea8f
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730KKyc4kE1S0qaV6x6QeIL2HIV4aQ1JHOxN
+        Q98e24X+IC4cvfPNeLwyX3+2DTugsUp3qyiNk4hhV2uput0q2m6eH4poLSbc
+        kjZHMWGMK8no2OMqUh3hDk0k0nyR5vN8VnBQMjC90W9YU/kHm+SLYjrjcEGC
+        I+SXPli8YkWDQQ5XM48MphF7ot4uAcZxjHt10FQ1ZKr6HU1c6/bkALvXI1yV
+        8kYfgJZUWxH+7p9w+JECVw/GYEelJQcLiY1y+0HJ4VbwqERbG9WTW57gcH3y
+        ale1KDYum92dU+5ZxiEInjD4MTgdZflyPJFbi4bDzTx0Mm4rDqvou710R/cc
+        jESWpAUkc0gLlk2XebZ8LNh28+Tqnj3hrqH3nv9FXDzuD5zWKyZfAAAA//8D
+        AP0ol1c0AgAA
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:52 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157570
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:52 GMT
+      Etag:
+      - W/"c58f35fa775a9619939f1f4b84d590ab"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=MlhzaWVzOUZDLytyMDNmZmJiMy9TbWpuUDFqQks0blJvWDdtK1ptMy9WNDFScVZLczYyRXZWSTMrd3lMOGhFY2tvOWx3bmJqblhidEQrNVhhdGthQmt3cFg2WS9lREdBWDJ4dmdBTTlNNWU2dUMrZkw0Y0dNN0k0U1pWWUNDTEo0MlFBTXR4ZjZkbHVwRUUzWExMWlZBV05LcWhGN0pobHpGRzA3MmRQc0ZOemV5ZjMwZnRLclZicHV5TVhFWEc2L1JVL2cydzZlR3QzKzZoNHVQNmNOVWg3cGt1M2hwYjBRalFUblgvRkVFclNibkRidXY4VnFmZml2OEovOVErbi9UMDdsMjN6cmF4SmlZTFVVS0hxQnc5STdjSDJxaEJUVzJXTVVsZ1dMQXc2SC85VGdjL1lPalN6WnJYSjRXWFNUbjV4SHVlRFVsOTNlL04vL2M3d0x4b240N3liYWVSSG1PenRWckc4eWZJPS0tU0ZXWnM2Z0Q1SnhJQWpqMFFEdjAxdz09--67aba80d653757852cd28263307dfa01e6159e4b;
+        path=/; expires=Wed, 25 Jul 2018 23:52:52 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - ecd1f7e4-3537-4df8-a628-94f295d387fa
+      X-Runtime:
+      - '0.241226'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 720b11cd-b937-450b-5346-50464672f770
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzVLCMBSF9zxFJitdSFqwUpgQFs74BLDu1OYK0bapN7dU
+        3t4kKH/jxmXu+c7JyZ3I1VdTsz2gM7Zd8nSccAZtZbVpt0u+Wb885HylRtKR
+        xYMaMSaNZnToYMlNS7AF5CrN5mk2y2aJFEZHpkP7DhUVf7BJNs+nT1KckeiI
+        +UUIVm9QUo8gxcUsID3WakfUuYUQwzCMO7O3VNaEZfUBOK5sc3QIt7ODuCgV
+        jCEAHJmmJLjt73v/SpGrekRoqXDkYaWhNn4/oKW4FgKqwVVoOvLLU1JcnoLa
+        lg2otc9md6eUezaVIgqBQPjsvQ66eD0cyY0DlOJqHjuh34rHSvppr/3RPwe4
+        miRpLpKZSHM2mS6yyeJxzjbrZ1/35Il39V3w/C/i7PF/4LheNfoGAAD//wMA
+        5F4RjjQCAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:52 GMT
+- request:
+    method: delete
+    uri: https://www.pivotaltracker.com/services/v3/projects/1059836/stories/159157572
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (darwin16.5.0 x86_64) ruby/2.3.1p112
+      X-Trackertoken:
+      - e955bd05b35741ce257eaeca935180c0
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      - no-store, private
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: blob: ws: *;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' data: ws: blob: *.pivotaltracker.com
+        *.swiftypecdn.com *.typekit.net *.google.com *.googleapis.com *.googleadservices.com
+        *.addthis.com *.addthisedge.com *.mxpnl.com *.mixpanel.com *.google-analytics.com
+        *.cloudflare.com *.trustarc.com *.newrelic.com *.nr-data.net *.googletagmanager.com
+        googleads.g.doubleclick.net *.disqus.com *.disquscdn.com; report-uri /services/area_51/security_content_violations'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Wed, 18 Jul 2018 23:52:53 GMT
+      Etag:
+      - W/"28f28ad3052b3cb439081c7e3885b75c"
+      Expires:
+      - Thu, 01 Jan 1970 00:00:01 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - nginx + Phusion Passenger
+      Set-Cookie:
+      - t_session=WHpoeWpRTUlvR1dsU3VwdnMycTJZZjROMVNzZUVNN3hEYjVCM1dpcW1jeEVHVHhiZ1dGcE9qTEhZVW50eWtPU0FGS0dueGRuWk85VTJ5dnc0RC95eDZYalRRMS9LbFBFbTZrK2tmS1lvMmtlbmVtT2ZBdUIxMnM3KzRqdVBRUDNvcG9wY2gwRXp6Y1NqejZFNGE4ekpNSUhVbXNOWlovd0JoVy9XTDJ5UzJMZGgvL3VVemJDOEpGOUtRdnBRWmV2UUFUclllbHdTRlY5RG5sekVBR08xQW1DbjhXYVpGb25QaFdUR2xuNXkxUjJDbkU5WVFRelVERXBYckpLbDdWZXM2dTZKQmEyYmdkamlCd1c4alFRUDkrdURDQTkrSndqME5RWmlWVXg2MldJanpEUzhEeGxXT1cxOURiMFBNMUJNQ0xna1FyODc0OXlCRytYYWUrTjNXdmN3OUN6c3VpVDhFZUhSdXByVG1VPS0tR2NvdS9tS3pHRzBna2g4bjJvZGdxUT09--618ece22584518ade4353f0d559a9a85b5b40f65;
+        path=/; expires=Wed, 25 Jul 2018 23:52:53 -0000; secure; HttpOnly
+      Status:
+      - 200 OK
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      - SAMEORIGIN
+      X-Powered-By:
+      - Phusion Passenger Enterprise
+      X-Request-Id:
+      - efd876b7-0927-435d-b802-38250a7cc842
+      X-Runtime:
+      - '0.282236'
+      X-Tracker-Client-Pinger-Interval:
+      - '20'
+      X-Vcap-Request-Id:
+      - 38cb52cf-ac96-4397-76e2-ac8d5737de56
+      X-Xss-Protection:
+      - 1; mode=block
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5SSzU7DMBCE730Kyyc4UCcpoWnlugcknqA9RyFZWkNjh/Wm
+        oW+P7UL/xIWT5Z1vJpOV5fKr3bE9oNPWLHg6TjgDU9tGm82Cr1cvDwVfqpF0
+        ZPGgRoxJ3TA6dLDg2hBsALlK81maT/NpJoVuItOhfYeayj/YJJ8Vkycpzkh0
+        xPwyBKs3qKhHkOJiFpAed2pL1Lm5EMMwjDu9t1TtCKv6A3Bc2/boEG5rB3FR
+        KhhDADjSbUVw2z+R4leKXN0jgqHSkYdVb/yJBI0U10JAG3A16o788pQUl7eg
+        mqoFtfLZ7O6Uci9FHAcd4bP3KjTl6+HIrR2gFFfz2Aj9TjxW0U/3xl/9zwBX
+        WZIWIpmKtGDZZJ5n88cZW6+efdmTJ36r74LnfxFnj38Bx+Wq0TcAAAD//wMA
+        Nk/emjICAAA=
+    http_version: 
+  recorded_at: Wed, 18 Jul 2018 23:52:53 GMT
+recorded_with: VCR 3.0.3
