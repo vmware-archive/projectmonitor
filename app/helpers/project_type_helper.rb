@@ -1,31 +1,26 @@
 module ProjectTypeHelper
   def self.find_type(type)
-    if type == 'JenkinsProject'
+    raise 'Invalid Project Type' unless valid_project_type?(type)
+
+    type.constantize
+  end
+
+  private
+
+  def self.valid_project_type?(type)
+    %w[
       JenkinsProject
-    elsif type == 'CruiseControlProject'
       CruiseControlProject
-    elsif type == 'SemaphoreProject'
       SemaphoreProject
-    elsif type == 'TeamCityProject'
       TeamCityProject
-    elsif type == 'TeamCityRestProject'
       TeamCityRestProject
-    elsif type == 'TravisProject'
       TravisProject
-    elsif type == 'TravisProProject'
       TravisProProject
-    elsif type == 'TddiumProject'
       TddiumProject
-    elsif type == 'CircleCiProject'
       CircleCiProject
-    elsif type == 'ConcourseV1Project'
       ConcourseV1Project
-    elsif type == 'ConcourseProject'
       ConcourseProject
-    elsif type == 'CodeshipProject'
       CodeshipProject
-    else
-      raise 'Invalid Project Type'
-    end
+   ].include?(type)
   end
 end
