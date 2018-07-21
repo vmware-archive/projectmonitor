@@ -1,219 +1,0 @@
-Loading scanner...
-Processing application in /Users/stevensolomon/workspace/projectmonitor
-Processing gems...
-[Notice] Detected Rails 4 application
-Processing configuration...
-[Notice] Escaping HTML by default
-Parsing files...
-Processing initializers...
- 0/12 files processed 1/12 files processed 2/12 files processed 3/12 files processed 4/12 files processed 5/12 files processed 6/12 files processed 7/12 files processed 8/12 files processed 9/12 files processed 10/12 files processed 11/12 files processedProcessing libs...
- 0/50 files processed 1/50 files processed 2/50 files processed 3/50 files processed 4/50 files processed 5/50 files processed 6/50 files processed 7/50 files processed 8/50 files processed 9/50 files processed 10/50 files processed 11/50 files processed 12/50 files processed 13/50 files processed 14/50 files processed 15/50 files processed 16/50 files processed 17/50 files processed 18/50 files processed 19/50 files processed 20/50 files processed 21/50 files processed 22/50 files processed 23/50 files processed 24/50 files processed 25/50 files processed 26/50 files processed 27/50 files processed 28/50 files processed 29/50 files processed 30/50 files processed 31/50 files processed 32/50 files processed 33/50 files processed 34/50 files processed 35/50 files processed 36/50 files processed 37/50 files processed 38/50 files processed 39/50 files processed 40/50 files processed 41/50 files processed 42/50 files processed 43/50 files processed 44/50 files processed 45/50 files processed 46/50 files processed 47/50 files processed 48/50 files processed 49/50 files processedProcessing routes...          
-Processing templates...       
- 0/20 templates processed 1/20 templates processed 2/20 templates processed 3/20 templates processed 4/20 templates processed 5/20 templates processed 6/20 templates processed 7/20 templates processed 8/20 templates processed 9/20 templates processed 10/20 templates processed 11/20 templates processed 12/20 templates processed 13/20 templates processed 14/20 templates processed 15/20 templates processed 16/20 templates processed 17/20 templates processed 18/20 templates processed 19/20 templates processedProcessing data flow in templates...
- 0/20 templates processed 1/20 templates processed 2/20 templates processed 3/20 templates processed 4/20 templates processed 5/20 templates processed 6/20 templates processed 7/20 templates processed 8/20 templates processed 9/20 templates processed 10/20 templates processed 11/20 templates processed 12/20 templates processed 13/20 templates processed 14/20 templates processed 15/20 templates processed 16/20 templates processed 17/20 templates processed 18/20 templates processed 19/20 templates processedProcessing models...          
- 0/22 files processed 1/22 files processed 2/22 files processed 3/22 files processed 4/22 files processed 5/22 files processed 6/22 files processed 7/22 files processed 8/22 files processed 9/22 files processed 10/22 files processed 11/22 files processed 12/22 files processed 13/22 files processed 14/22 files processed 15/22 files processed 16/22 files processed 17/22 files processed 18/22 files processed 19/22 files processed 20/22 files processed 21/22 files processedProcessing controllers...     
- 0/11 files processed 1/11 files processed 2/11 files processed 3/11 files processed 4/11 files processed 5/11 files processed 6/11 files processed 7/11 files processed 8/11 files processed 9/11 files processed 10/11 files processedProcessing data flow in controllers...
- 0/11 controllers processed 1/11 controllers processed 2/11 controllers processed 3/11 controllers processed 4/11 controllers processed 5/11 controllers processed 6/11 controllers processed 7/11 controllers processed 8/11 controllers processed 9/11 controllers processed 10/11 controllers processedIndexing call sites...        
-Running checks in parallel...
- - CheckBasicAuth
- - CheckBasicAuthTimingAttack
- - CheckCrossSiteScripting
- - CheckContentTag
- - CheckCreateWith
- - CheckDefaultRoutes
- - CheckDeserialize
- - CheckDetailedExceptions
- - CheckDigestDoS
- - CheckDynamicFinders
- - CheckEscapeFunction
- - CheckEvaluation
- - CheckExecute
- - CheckFileAccess
- - CheckFileDisclosure
- - CheckFilterSkipping
- - CheckForgerySetting
- - CheckHeaderDoS
- - CheckI18nXSS
- - CheckJRubyXML
- - CheckJSONEncoding
- - CheckJSONParsing
- - CheckLinkTo
- - CheckLinkToHref
- - CheckMailTo
- - CheckMassAssignment
- - CheckMimeTypeDoS
- - CheckModelAttrAccessible
- - CheckModelAttributes
- - CheckModelSerialize
- - CheckNestedAttributes
- - CheckNestedAttributesBypass
- - CheckNumberToCurrency
- - CheckPermitAttributes
- - CheckQuoteTableName
- - CheckRedirect
- - CheckRegexDoS
- - CheckRender
- - CheckRenderDoS
- - CheckRenderInline
- - CheckResponseSplitting
- - CheckRouteDoS
- - CheckSafeBufferManipulation
- - CheckSanitizeMethods
- - CheckSelectTag
- - CheckSelectVulnerability
- - CheckSend
- - CheckSendFile
- - CheckSessionManipulation
- - CheckSessionSettings
- - CheckSimpleFormat
- - CheckSingleQuotes
- - CheckSkipBeforeFilter
- - CheckSQL
- - CheckSQLCVEs
- - CheckSSLVerify
- - CheckStripTags
- - CheckSymbolDoSCVE
- - CheckTranslateBug
- - CheckUnsafeReflection
- - CheckValidationRegex
- - CheckWithoutProtection
- - CheckXMLDoS
- - CheckYAMLParsing
-Checks finished, collecting results...
-Generating report...
-
-== Brakeman Report ==
-
-Application Path: /Users/stevensolomon/workspace/projectmonitor
-Rails Version: 4.2.7
-Brakeman Version: 4.3.1
-Scan Date: 2018-07-18 19:30:16 -0400
-Duration: 2.786469 seconds
-Checks Run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PermitAttributes, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
-
-== Overview ==
-
-Controllers: 11
-Models: 22
-Templates: 20
-Errors: 0
-Security Warnings: 14
-
-== Warning Types ==
-
-Command Injection: 5
-Cross-Site Request Forgery: 1
-Cross-Site Scripting: 1
-Remote Code Execution: 3
-SQL Injection: 3
-Session Setting: 1
-
-== Warnings ==
-
-Confidence: High
-Category: Cross-Site Scripting
-Check: ContentTag
-Message: Rails 4.2.7 content_tag does not escape double quotes in attribute values (CVE-2016-6316). Upgrade to 4.2.7.1
-File: Gemfile.lock
-Line: 290
-
-Confidence: High
-Category: Remote Code Execution
-Check: UnsafeReflection
-Message: Unsafe reflection method constantize called with parameter value
-Code: params[:project][:type].constantize
-File: app/controllers/projects_controller.rb
-Line: 81
-
-Confidence: High
-Category: Remote Code Execution
-Check: UnsafeReflection
-Message: Unsafe reflection method constantize called with parameter value
-Code: params[:project][:type].constantize
-File: app/controllers/projects_controller.rb
-Line: 52
-
-Confidence: High
-Category: Remote Code Execution
-Check: UnsafeReflection
-Message: Unsafe reflection method constantize called with parameter value
-Code: params[:project][:type].constantize
-File: app/controllers/projects_controller.rb
-Line: 28
-
-Confidence: High
-Category: SQL Injection
-Check: SQLCVEs
-Message: Rails 4.2.7 contains a SQL injection vulnerability (CVE-2016-6317). Upgrade to 4.2.7.1
-File: Gemfile.lock
-Line: 290
-
-Confidence: High
-Category: Session Setting
-Check: SessionSettings
-Message: Session secret should not be included in version control
-File: config/initializers/secret_token.rb
-Line: 7
-
-Confidence: Medium
-Category: Command Injection
-Check: Execute
-Message: Possible command injection
-Code: `cf auth #{username} #{password}`
-File: lib/cf_authenticator.rb
-Line: 7
-
-Confidence: Medium
-Category: Command Injection
-Check: Execute
-Message: Possible command injection
-Code: `cf push #{env}`
-File: lib/cf_deploy.rb
-Line: 70
-
-Confidence: Medium
-Category: Command Injection
-Check: Execute
-Message: Possible command injection
-Code: `git tag #{tag} #{commit_sha} -m "#{message}"`
-File: lib/cf_git_tagger.rb
-Line: 5
-
-Confidence: Medium
-Category: Command Injection
-Check: Execute
-Message: Possible command injection
-Code: `cf t -o #{org} -s #{space}`
-File: lib/cf_authenticator.rb
-Line: 16
-
-Confidence: Medium
-Category: Command Injection
-Check: Execute
-Message: Possible command injection
-Code: `git push origin #{tag}`
-File: lib/cf_git_tagger.rb
-Line: 6
-
-Confidence: Medium
-Category: Cross-Site Request Forgery
-Check: ForgerySetting
-Message: protect_from_forgery should be configured with 'with: :exception'
-File: app/controllers/application_controller.rb
-
-Confidence: Medium
-Category: SQL Injection
-Check: SQL
-Message: Possible SQL injection
-Code: joins("INNER JOIN (#{"      SELECT   id,\n      (CASE project_statuses.project_id\n                  WHEN @curType\n                  THEN @curRow := @curRow + 1\n                  ELSE @curRow := 1 AND @curType := project_statuses.project_id END\n               ) AS rank\n      FROM     project_statuses,\n               (SELECT @curRow := 0, @curType := '') r\n      ORDER BY project_statuses.published_at desc, project_statuses.build_id desc\n".strip_heredoc}) rankings ON rankings.id = project_statuses.id")
-File: app/models/project_status.rb
-Line: 20
-
-Confidence: Medium
-Category: SQL Injection
-Check: SQL
-Message: Possible SQL injection
-Code: joins("INNER JOIN (#{"      SELECT   id,\n      (CASE payload_log_entries.project_id\n                  WHEN @curType\n                  THEN @curRow := @curRow + 1\n                  ELSE @curRow := 1 AND @curType := payload_log_entries.project_id END\n               ) AS rank\n      FROM     payload_log_entries,\n               (SELECT @curRow := 0, @curType := '') r\n      ORDER BY payload_log_entries.created_at desc\n".strip_heredoc}) rankings ON rankings.id = payload_log_entries.id")
-File: app/models/payload_log_entry.rb
-Line: 20
-
