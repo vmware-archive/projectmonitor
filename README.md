@@ -227,6 +227,21 @@ like so:
 
 ## Deployment
 
+### Adding a secret token
+Before you can deploy this application you must provide a secret token in 
+`config/initializers/secret_token.rb`
+
+First execute `rake secret` and use it's result to replace the placeholder string in `secret_token.rb`.
+
+**Don't commit your secret to source control!**
+
+```ruby
+# config/initializers/secret_token.rb
+ 
+ProjectMonitor::Application.config.secret_token = "fill this in with the result of 'rake secret'"
+```
+
+
 ### Cloud Foundry
 ProjectMonitor requires a database that can handle more than 4 concurrent connections, otherwise occasional errors might pop up.
 
